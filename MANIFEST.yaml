@@ -54,12 +54,12 @@ root_wrapper_repo:
   scope: allowlist_governance_metadata
   absorbs_nested_repos: false
   remote_url: https://github.com/universo-rey/cabina-universal-d.git
-  pull_request: https://github.com/universo-rey/cabina-universal-d/pull/1
+  pull_request: https://github.com/universo-rey/cabina-universal-d/pull/2
   pull_request_status: MERGED
-  last_merged_branch: codex/d-root-ui-visibility-20260601
-  last_merge_commit: f7bfdf5a2b1044fd358438d8078942303b68c02b
+  last_merged_branch: codex/d-root-ui-master-prompt-20260601
+  last_merge_commit: 98b7ddb6969abda83c36b3101307a99075856c7f
   visibility: private
-  status: PRIVATE_REMOTE_MAIN_ACTIVE_PR1_MERGED_CAPABILITY_IMPORT_LOCAL
+  status: PRIVATE_REMOTE_MAIN_ACTIVE_PR2_MERGED_CAPABILITY_IMPORT_LOCAL
 capability_import_state:
   as_of: 2026-06-01
   mode: local_declarative_copy_adapt
@@ -83,10 +83,10 @@ github_base_work_state:
   as_of: 2026-06-01
   status: GITHUB_BASE_WORK_DECLARED_ACTIVE
   root_remote_base: https://github.com/universo-rey/cabina-universal-d.git
-  root_pull_request: https://github.com/universo-rey/cabina-universal-d/pull/1
+  root_pull_request: https://github.com/universo-rey/cabina-universal-d/pull/2
   root_pull_request_status: MERGED
   root_base_branch: main
-  root_last_merge_commit: f7bfdf5a2b1044fd358438d8078942303b68c02b
+  root_last_merge_commit: 98b7ddb6969abda83c36b3101307a99075856c7f
   policy: D:/02_AUTHORITY_CANON/GITHUB_BASE_WORK_POLICY.md
   repo_matrix: D:/01_GOVERNANCE_REGISTRY/GITHUB_BASE_WORK_MATRIX.csv
   rule: all_durable_repo_work_must_route_through_github_branch_commit_push_pr
@@ -106,6 +106,10 @@ runtime_alignment_state:
   as_of: 2026-06-01
   status: LOCAL_SYNTHETIC_ALIGNMENT_ACTIVE
   runtime_mode: LOCAL_SYNTHETIC_ALIGNMENT_ONLY
+  cabina_base_repository: universo-rey/cabina-universal-d
+  cabina_repo_alignment_matrix: D:/.agents/codex/matrices/CABINA_UNIVERSAL_REPO_ALIGNMENT_MATRIX.csv
+  productive_runtime_gate_state: REQUIRES_GOVERNED_ORDER
+  external_agent_gate_state: REQUIRES_GOVERNED_ORDER
   default_skill_matrix: D:/.agents/codex/matrices/AGENT_DEFAULT_SKILL_ASSIGNMENT_MATRIX.csv
   repo_runtime_matrix: D:/.agents/codex/matrices/REPO_RUNTIME_ALIGNMENT_MATRIX.csv
   runtime_status_matrix: D:/.agents/codex/matrices/RUNTIME_ALIGNMENT_STATUS_MATRIX.csv
@@ -113,6 +117,7 @@ runtime_alignment_state:
   latest_result: D:/.agents/codex/evals/results/repo_alignment_runtime_latest.json
   agents_aligned: 14
   repos_aligned: 12
+  cabina_repo_alignment_rows: 12
   blocked:
     - openai_api_live
     - microsoft_live
@@ -125,6 +130,7 @@ runtime_alignment_state:
 migration_state:
   as_of: 2026-06-01
   active_repos:
+    - D_CABINA_UNIVERSAL_ROOT
     - ORGANIZACION
     - TCU_AGENTIC_RUNTIME
     - TGE_AGENTIC_RUNTIME

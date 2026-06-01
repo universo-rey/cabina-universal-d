@@ -14,6 +14,10 @@ Base rectora/remota visible para Codex/Git: `main`. La rama activa debe
 verificarse en cada sesion. El PR raiz #1 esta mergeado; nuevos cambios
 versionables deben usar rama `codex/*` desde `main` y PR gobernado.
 
+Alineacion universal local: los repos registrados se alinean a
+`universo-rey/cabina-universal-d` como base transversal e indice, sin perder
+su remoto nativo y sin habilitar runtime productivo ni agentes externos reales.
+
 Regla de lectura:
 
 1. `00_CONTROL_PLANE_INGRESS` recibe.

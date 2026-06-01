@@ -7,11 +7,14 @@
   "default_skill_rows": 14,
   "execution_contract_rows": 14,
   "repo_alignment_rows": 12,
+  "cabina_repo_alignment_rows": 12,
   "github_repo_rows": 12,
   "skill_usage_rows": 20,
   "recipe_rows": 17,
   "tool_rows": 24,
   "plugin_rows": 7,
+  "root_base_repo_id": "D_CABINA_UNIVERSAL_ROOT",
+  "root_base_remote": "universo-rey/cabina-universal-d",
   "blocked_surfaces": [
     "openai_api_live",
     "microsoft_live",
@@ -24,5 +27,5 @@
   ],
   "errors": [],
   "warnings": [],
-  "generated_at": "2026-06-01T15:34:36.1317261Z"
+  "generated_at": "2026-06-01T15:50:42.0263047Z"
 }

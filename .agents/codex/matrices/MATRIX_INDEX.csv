@@ -7,6 +7,7 @@ canonical_index_lineage_audit,D:\.agents\codex\matrices\CANONICAL_INDEX_LINEAGE_
 capability_import_decision_matrix,D:\.agents\codex\matrices\CAPABILITY_IMPORT_DECISION_MATRIX.csv,capability_adoption,02_REGISTRO_Y_CARTOGRAFIA,update when a source capability is copied adapted adopted or deferred
 capability_matrix,D:\.agents\codex\matrices\CAPABILITY_MATRIX.csv,capabilities,00_ROUTER,update when a capability is added or reassigned
 capability_source_inventory,D:\.agents\codex\matrices\CAPABILITY_SOURCE_INVENTORY.csv,capability_sources,02_REGISTRO_Y_CARTOGRAFIA,update when a source repo capability artifact is inventoried or copied
+cabina_universal_repo_alignment_matrix,D:\.agents\codex\matrices\CABINA_UNIVERSAL_REPO_ALIGNMENT_MATRIX.csv,cabina_repo_alignment,02_REGISTRO_Y_CARTOGRAFIA,update when a repo is aligned to cabina-universal-d as transversal base
 coverage_exception_registry,D:\.agents\codex\matrices\COVERAGE_EXCEPTION_REGISTRY.csv,coverage_exceptions,03_CORTE_EJECUTORA,update when any asset is intentionally uncovered or deferred
 d_drive_enrichment_matrix,D:\.agents\codex\matrices\D_DRIVE_ENRICHMENT_MATRIX.csv,enrichment_lanes,02_REGISTRO_Y_CARTOGRAFIA,update when D-drive enrichment lanes change
 evidence_validation_matrix,D:\.agents\codex\matrices\EVIDENCE_AND_VALIDATION_MATRIX.csv,closeout,03_CORTE_EJECUTORA,update when validators or readbacks change

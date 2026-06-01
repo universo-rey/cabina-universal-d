@@ -18,8 +18,10 @@ absorber los repos anidados.
 - Base raiz rectora/remota: `main`.
 - PR raiz historico: `https://github.com/universo-rey/cabina-universal-d/pull/1`
   estado `MERGED`.
+- PR raiz prompt UI: `https://github.com/universo-rey/cabina-universal-d/pull/2`
+  estado `MERGED`.
 - Ultimo merge commit raiz:
-  `f7bfdf5a2b1044fd358438d8078942303b68c02b`.
+  `98b7ddb6969abda83c36b3101307a99075856c7f`.
 - GitHub es la base de trabajo para todo cambio durable del universo de
   repositorios: cada cambio debe ir por rama, validacion, commit, push y PR.
 
@@ -60,3 +62,9 @@ El repo remoto `universo-rey/cabina-universal-d` es base de trabajo transversal
 de la cabina y no reemplaza los repos anidados. Cada repo del universo conserva
 su propio remoto GitHub; la cabina raiz registra ruta, frontera y PR esperado
 en `01_GOVERNANCE_REGISTRY\GITHUB_BASE_WORK_MATRIX.csv`.
+
+La matriz
+`.agents\codex\matrices\CABINA_UNIVERSAL_REPO_ALIGNMENT_MATRIX.csv` declara la
+alineacion transversal de todos los repos registrados hacia
+`universo-rey/cabina-universal-d`. Esa alineacion es de gobierno e indice:
+runtime productivo y agentes externos reales requieren orden gobernada separada.
