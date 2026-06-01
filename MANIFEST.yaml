@@ -126,6 +126,8 @@ runtime_alignment_state:
   order_class_capability_matrix: D:/.agents/codex/matrices/ORDER_CLASS_CAPABILITY_MATRIX.csv
   subagent_capability_matrix: D:/.agents/codex/matrices/SUBAGENT_CAPABILITY_ASSIGNMENT_MATRIX.csv
   subskill_usage_matrix: D:/.agents/codex/skills/SUBSKILL_USAGE_MATRIX.csv
+  skill_metadata_quality_matrix: D:/.agents/codex/skills/SKILL_METADATA_QUALITY_MATRIX.csv
+  skill_metadata_validator: D:/.agents/codex/tools/local_validate_skill_metadata.ps1
   repo_local_skill_root: D:/.agents/skills
   skill_governance_catalog: D:/.agents/codex/skills
   subrecipe_index: D:/.agents/codex/recipes/SUBRECIPE_INDEX.csv

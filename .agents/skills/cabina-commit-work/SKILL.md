@@ -1,6 +1,6 @@
 ---
 name: cabina-commit-work
-description: Use when durable work in D:\ or registered repos must move through branch, explicit staging, commit, push, and draft PR under cabina governance.
+description: Use when durable repo work in D:\, cabina-universal-d, or registered repos must move through GitHub branch, explicit staging, commit, push, draft PR, checks, and readback under cabina governance.
 ---
 
 # Cabina Commit Work
@@ -9,6 +9,34 @@ description: Use when durable work in D:\ or registered repos must move through 
 
 Every durable change must be small, intentional and reviewable in GitHub. Do
 not use `git add .` in `D:\`.
+
+## Trigger Boundary
+
+Use this skill when a local change is meant to become durable through GitHub.
+It applies to the root wrapper repo and registered repos, while preserving each
+nested repo's own `.git`, remote, branch and PR.
+
+## Allowed Actions
+
+- inspect repo, branch, remote and worktree scope
+- create or use a scoped `codex/*` branch
+- stage explicit files only
+- commit, push, open or update a draft PR under an approved GitHub lifecycle
+- record validator and PR evidence
+
+## Blocked Actions
+
+- `git add .` in `D:\`
+- staging unrelated files
+- merge, force push, remote branch deletion or permission changes without
+  separate order
+- production, Microsoft live, OpenAI API live, secrets or regulated data
+  without separate governed order
+
+## Validator
+
+Primary: `D:\.agents\codex\tools\local_validate_operational_chain.ps1`.
+Companion: `D:\.agents\codex\tools\local_validate_agent_layer.ps1`.
 
 ## Workflow
 

@@ -12,6 +12,7 @@ on:
       - "00_CONTROL_PLANE_INGRESS/**"
       - "01_GOVERNANCE_REGISTRY/**"
       - "02_AUTHORITY_CANON/**"
+      - ".agents/skills/**"
       - ".agents/codex/**"
       - ".github/**"
   push:
@@ -26,6 +27,7 @@ on:
       - "00_CONTROL_PLANE_INGRESS/**"
       - "01_GOVERNANCE_REGISTRY/**"
       - "02_AUTHORITY_CANON/**"
+      - ".agents/skills/**"
       - ".agents/codex/**"
       - ".github/**"
   workflow_dispatch:
@@ -90,6 +92,19 @@ jobs:
         run: |
           $root = Join-Path $env:GITHUB_WORKSPACE ".agents\codex"
           $tool = Join-Path $root "tools\local_validate_agents_instruction_hierarchy.ps1"
+          $output = & $tool -Root $root -RepoRoot $env:GITHUB_WORKSPACE
+          $output | Write-Output
+          $payload = ($output -join "`n") | ConvertFrom-Json
+          if ($payload.status -ne "PASS") {
+            exit 1
+          }
+          exit 0
+
+      - name: Skill metadata governance
+        shell: pwsh
+        run: |
+          $root = Join-Path $env:GITHUB_WORKSPACE ".agents\codex"
+          $tool = Join-Path $root "tools\local_validate_skill_metadata.ps1"
           $output = & $tool -Root $root -RepoRoot $env:GITHUB_WORKSPACE
           $output | Write-Output
           $payload = ($output -join "`n") | ConvertFrom-Json

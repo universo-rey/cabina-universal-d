@@ -826,6 +826,7 @@
       "default_tools": [
         "tool.local_validate_agent_levels",
         "tool.local_validate_agent_layer",
+        "tool.local_validate_skill_metadata",
         "tool.repo_alignment_runtime",
         "tool.workpaper_index_check",
         "tool.local_validate_agent_workpapers",
@@ -1045,6 +1046,7 @@
       "default_tools": [
         "tool.codex_workspace_audit",
         "tool.plugin_registry_check",
+        "tool.local_validate_skill_metadata",
         "tool.repo_alignment_runtime",
         "tool.workpaper_index_check",
         "tool.local_validate_agent_workpapers",

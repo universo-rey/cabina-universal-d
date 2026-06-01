@@ -134,6 +134,13 @@ referencias fuente, matriz de uso y subskills. Las instalaciones globales de
 usuario pueden ejecutar skills localmente, pero no sustituyen la fuente durable
 versionada por GitHub.
 
+Actualizacion metadata de skills 2026-06-01: las skills repo-locales bajo
+`D:/.agents/skills` deben exponer description activable, trigger boundary,
+allowed actions, blocked actions, validator, evidencia y stop condition. La
+matriz rectora queda en
+`D:/.agents/codex/skills/SKILL_METADATA_QUALITY_MATRIX.csv` y el validador en
+`D:/.agents/codex/tools/local_validate_skill_metadata.ps1`.
+
 Actualizacion jerarquia AGENTS.md 2026-06-01: `D:/AGENTS.md` queda declarado
 como fuente rectora local de mayor precedencia. Las instrucciones anidadas de
 `.agents/codex`, perfiles de agentes, skills repo-locales, plugins y runtimes

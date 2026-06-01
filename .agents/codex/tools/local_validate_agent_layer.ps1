@@ -60,6 +60,7 @@ $levelValidator = Join-Path $Root "tools\local_validate_agent_levels.ps1"
 $matrixIndex = Join-Path $Root "matrices\MATRIX_INDEX.csv"
 $recipeIndex = Join-Path $Root "recipes\RECIPE_INDEX.csv"
 $skillUsage = Join-Path $Root "skills\SKILL_USAGE_MATRIX.csv"
+$skillMetadataQuality = Join-Path $Root "skills\SKILL_METADATA_QUALITY_MATRIX.csv"
 $toolIndex = Join-Path $Root "tools\TOOL_INDEX.csv"
 $localSkillCatalog = Join-Path $Root "matrices\LOCAL_SKILL_CATALOG.csv"
 $ratGovernance = Join-Path $Root "matrices\REPO_AGENT_TOOL_GOVERNANCE_MATRIX.csv"
@@ -103,6 +104,7 @@ $requiredColumnChecks = @(
   @{ Path = $matrixIndex; Columns = @("matrix_id","path","scope","primary_reader","update_rule") },
   @{ Path = $recipeIndex; Columns = @("recipe_id","level_id","primary_agent","path","output") },
   @{ Path = $skillUsage; Columns = @("skill_id","source","assigned_level","assigned_agents","use_when","live_boundary") },
+  @{ Path = $skillMetadataQuality; Columns = @("skill_id","path","category","source","owner_agent","reviewer_agent","description_status","trigger_keywords","trigger_boundary","allowed_actions","blocked_actions","validator","evidence","stop_condition","quality_status","next_action") },
   @{ Path = $toolIndex; Columns = @("tool_id","level_id","tool_type","path_or_command","allowed_surface","blocked_surface") },
   @{ Path = $localSkillCatalog; Columns = @("skill_id","path","source","owner_agent","primary_recipe","validator","use_when","live_boundary") },
   @{ Path = $ratGovernance; Columns = @("asset_class","governing_matrix","primary_owner_agent","authority_level","required_recipe","required_tool","evidence","validator","stop_condition") },
@@ -230,6 +232,7 @@ foreach ($path in @(
   $sourceCapabilityGap,
   $subagentAliasMap,
   $subagentCapabilityAssignment,
+  $skillMetadataQuality,
   $subskillUsage,
   $subrecipeIndex
 )) {
@@ -399,6 +402,7 @@ $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }
   order_preparation_count = (Read-CsvSafe -Path $orderPreparationAssignment).Count
   order_class_capability_count = (Read-CsvSafe -Path $orderClassCapability).Count
   operational_chain_count = (Read-CsvSafe -Path $operationalChainGovernance).Count
+  skill_metadata_quality_count = (Read-CsvSafe -Path $skillMetadataQuality).Count
   plugin_skill_boundary_count = (Read-CsvSafe -Path $pluginSkillBoundary).Count
   source_capability_gap_count = (Read-CsvSafe -Path $sourceCapabilityGap).Count
   subagent_alias_count = (Read-CsvSafe -Path $subagentAliasMap).Count
