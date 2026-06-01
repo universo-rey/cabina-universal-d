@@ -74,6 +74,14 @@ runtime, capa de agentes y politica de workflows. No habilita secretos,
 produccion, Microsoft live, OpenAI API live, permisos ni agentes externos fuera
 de GitHub.
 
+Actualizacion receta GitHub lifecycle 2026-06-01: la cabina adopta
+`recipe.github_pr_lifecycle_governed` para operar GitHub live repo-scoped como
+un ciclo unico cuando el operador aprueba repo y alcance: branch `codex/*`,
+stage explicito, commit, push, PR draft/update, comentarios/checks y fixes en
+alcance. Esta receta reduce aprobaciones repetitivas dentro del mismo ciclo,
+pero no habilita merge sin aprobacion explicita ni force push, permisos,
+secrets, produccion, Microsoft live, OpenAI API live o datos regulados.
+
 Actualizacion workpapers GitHub 2026-06-01: los workpapers saneados bajo
 `.agents/codex/workpapers` quedan incluidos en la allowlist del repo raiz para
 que GitHub Actions pueda validar la capa de agentes sin leer repos externos ni

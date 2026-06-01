@@ -26,6 +26,14 @@ GitHub Actions queda aprobado como superficie de validacion repo-scoped en
 `universo-rey/cabina-universal-d`, con permisos `contents: read` y sin
 secretos, produccion, Microsoft live, OpenAI API live ni permisos.
 
+Estado receta GitHub lifecycle actualizado 2026-06-01: por orden expresa del
+operador, GitHub live repo-scoped puede operar como un solo ciclo gobernado
+para branch `codex/*`, stage explicito, commit, push, PR draft/update,
+comentarios/checks y fixes en alcance. No pedir aprobacion nueva por cada
+subpaso dentro del mismo alcance. Merge, force push, permisos, secrets,
+produccion, Microsoft live, OpenAI API live o datos regulados siguen requiriendo
+orden separada.
+
 Estado operacion paralela actualizado 2026-06-01: los agentes y subagentes
 deben operar bajo matriz de carriles, owner, alcance disjunto, evidencia,
 validador y stop condition. Las ordenes gobernadas deben ser preparadas por
