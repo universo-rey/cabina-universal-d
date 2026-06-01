@@ -26,6 +26,13 @@ Actualizacion prompt UI raiz 2026-06-01: el PR raiz
 `98b7ddb6969abda83c36b3101307a99075856c7f`. El prompt maestro de UI ya
 distingue base rectora/remota `main` de rama activa de trabajo.
 
+Actualizacion merge runtime/cola 2026-06-01: el PR raiz
+`universo-rey/cabina-universal-d#22` fue mergeado a `main` con merge commit
+`38c3bd0439e512504d39b97b8cef41144f545f87`. `main` queda como canon vigente
+para runtime `-NoWrite`, preflight Agents SDK local sin API call y cola
+paralela por issue. Los issues #12 y #15 permanecen abiertos como entregables
+de carril; #22 no los cierra.
+
 Actualizacion capacidades 2026-06-01: el repo raiz de cabina adopta en local
 las capacidades declarativas necesarias desde repos fuente sin absorberlos:
 perfiles de subnivel, source registries, skills, recipes, tools, evals,
@@ -201,5 +208,7 @@ PR rector activo: `universo-rey/organizacion#40`.
 Rama rectora activa: `codex/d-drive-governance-versioning-20260601`.
 PR raiz historico inicial: `universo-rey/cabina-universal-d#1` estado `MERGED`.
 PR raiz historico prompt UI: `universo-rey/cabina-universal-d#2` estado `MERGED`.
+PR raiz runtime/cola paralela: `universo-rey/cabina-universal-d#22` estado `MERGED`.
 Rama raiz base: `main`.
-Ultima rama raiz mergeada: `codex/d-root-ui-master-prompt-20260601`.
+Ultima rama raiz mergeada: `codex/runtime-parallel-issue-queue-20260601`.
+Ultimo merge commit raiz: `38c3bd0439e512504d39b97b8cef41144f545f87`.
