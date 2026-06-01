@@ -77,6 +77,14 @@ body:
       description: What should the agent do?
     validations:
       required: true
+  - type: textarea
+    id: preflight
+    attributes:
+      label: Pre-repo automation preflight
+      description: Evidence that GitHub templates, order packets, Agents SDK local boundary and validators were checked before repo iteration.
+      placeholder: "local_validate_github_automation_preflight.ps1 PASS; Agents SDK local only; no API live; repo iteration starts after preflight"
+    validations:
+      required: true
   - type: checkboxes
     id: boundaries
     attributes:

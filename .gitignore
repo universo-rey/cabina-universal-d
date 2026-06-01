@@ -81,6 +81,7 @@
 /02_AUTHORITY_CANON/*
 !/02_AUTHORITY_CANON/CURRENT_STATE.md
 !/02_AUTHORITY_CANON/GITHUB_BASE_WORK_POLICY.md
+!/02_AUTHORITY_CANON/GOVERNED_ORDERS_INDEX.csv
 
 # Local Codex agent layer metadata. Orders/readbacks/workpapers stay out until
 # explicitly selected.
@@ -139,6 +140,7 @@
 /.agents/codex/orders/*
 !/.agents/codex/orders/GOVERNED_ORDER_PREPARATION_PACKET_TEMPLATE.md
 !/.agents/codex/orders/ORDER_CONNECT_D_CABINA_GITHUB_APPROVAL_DRAFT_20260601.md
+!/.agents/codex/orders/ORDER_GITHUB_AUTOMATION_AGENTS_SDK_PREFLIGHT_20260601.md
 
 !/.agents/codex/readbacks/
 /.agents/codex/readbacks/*

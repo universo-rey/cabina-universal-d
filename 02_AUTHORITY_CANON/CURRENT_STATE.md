@@ -79,6 +79,17 @@ Actualizacion workpapers GitHub 2026-06-01: los workpapers saneados bajo
 que GitHub Actions pueda validar la capa de agentes sin leer repos externos ni
 sistemas live.
 
+Actualizacion preflight automatizacion GitHub 2026-06-01: antes de iterar por
+repos registrados, la cabina ejecuta un preflight local de automatizacion
+GitHub mediante
+`D:/.agents/codex/matrices/GITHUB_AUTOMATION_PREFLIGHT_MATRIX.csv` y
+`D:/.agents/codex/tools/local_validate_github_automation_preflight.ps1`. Este
+preflight verifica templates GitHub, workflow read-only, ordenes gobernadas,
+frontera Agents SDK local y bloqueo de API live, secretos, produccion,
+Microsoft live, merge y force push. Agents SDK queda aprobado solo como import
+local, diseno, prompts y eval sintetico sin llamada API; Agents SDK live sigue
+requiriendo orden gobernada completa.
+
 Actualizacion operacion paralela 2026-06-01: la cabina adopta
 `PARALLEL_OPERATION_CRITERIA_MATRIX.csv`,
 `ORDER_PREPARATION_ASSIGNMENT_MATRIX.csv`, la skill
@@ -103,6 +114,7 @@ ordenes incompletas, tools sin governance y contradicciones con
 Reglas vigentes:
 
 - GitHub repo-visible reversible esta habilitado para lectura, validacion, branch, commit, push, PR draft/update, issues, labels, comentarios, GitHub Actions de validacion y readbacks bajo orden gobernada.
+- La automatizacion GitHub debe pasar primero por preflight local de cabina antes de seleccionar repos o abrir carriles por repo.
 - Todo cambio durable de repos debe pasar por GitHub: rama, validacion local, stage explicito, commit, push y PR draft/update.
 - El runtime de alineacion permitido es local y sintetico; runtime live, API, Microsoft o produccion requieren orden separada.
 - Los agentes preparan ordenes gobernadas cuando una solicitud cruza live, API,

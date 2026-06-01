@@ -40,6 +40,30 @@ body:
     validations:
       required: true
   - type: textarea
+    id: secret_boundary
+    attributes:
+      label: Secret boundary
+      description: Secret source, handling rule and confirmation that no secret is pasted into GitHub, files, logs or prompts.
+      placeholder: "OPENAI_API_KEY from local/approved secret store only; never pasted; no repo persistence"
+    validations:
+      required: true
+  - type: textarea
+    id: allowed_actions
+    attributes:
+      label: Allowed actions
+      description: Exact actions allowed for this runtime or external agent surface.
+      placeholder: "local smoke, selected synthetic eval, draft PR comment..."
+    validations:
+      required: true
+  - type: textarea
+    id: blocked_actions
+    attributes:
+      label: Blocked actions
+      description: Exact actions still blocked by this approval.
+      placeholder: "production, Microsoft live, broad regulated data, permissions, merge, force push..."
+    validations:
+      required: true
+  - type: textarea
     id: rollback
     attributes:
       label: Rollback
@@ -66,6 +90,14 @@ body:
     attributes:
       label: Cost and runtime boundary
       description: External costs, Actions minutes, API costs or production impacts.
+    validations:
+      required: true
+  - type: textarea
+    id: expiration_rule
+    attributes:
+      label: Expiration rule
+      description: When this approval expires or must be renewed.
+      placeholder: "expires when identity, repo, model, data boundary, cost boundary, secret boundary or branch changes"
     validations:
       required: true
   - type: textarea

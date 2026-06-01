@@ -48,13 +48,6 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Runtime alignment
-        shell: pwsh
-        run: |
-          $root = Join-Path $env:GITHUB_WORKSPACE ".agents\codex"
-          $tool = Join-Path $root "tools\local_run_repo_alignment_runtime.ps1"
-          & $tool -Root $root -RepoRoot $env:GITHUB_WORKSPACE
-
       - name: Prepare local-only folders
         shell: pwsh
         run: |
@@ -65,6 +58,26 @@ jobs:
           )) {
             New-Item -ItemType Directory -Force -Path (Join-Path $env:GITHUB_WORKSPACE $path) | Out-Null
           }
+
+      - name: GitHub automation preflight
+        shell: pwsh
+        run: |
+          $root = Join-Path $env:GITHUB_WORKSPACE ".agents\codex"
+          $tool = Join-Path $root "tools\local_validate_github_automation_preflight.ps1"
+          $output = & $tool -Root $root -RepoRoot $env:GITHUB_WORKSPACE
+          $output | Write-Output
+          $payload = ($output -join "`n") | ConvertFrom-Json
+          if ($payload.status -ne "PASS") {
+            exit 1
+          }
+          exit 0
+
+      - name: Runtime alignment
+        shell: pwsh
+        run: |
+          $root = Join-Path $env:GITHUB_WORKSPACE ".agents\codex"
+          $tool = Join-Path $root "tools\local_run_repo_alignment_runtime.ps1"
+          & $tool -Root $root -RepoRoot $env:GITHUB_WORKSPACE
 
       - name: Agent layer
         shell: pwsh

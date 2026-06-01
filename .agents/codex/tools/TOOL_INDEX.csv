@@ -22,6 +22,7 @@ tool.repo_alignment_runtime,03_CORTE_EJECUTORA,run,D:/.agents/codex/tools/local_
 tool.routing_readback,00_ROUTER,write,D:\.agents\codex\readbacks,local_filesystem,remote_write
 tool.secret_scan,01_AUTORIDAD_Y_GATES,read,Select-String secret patterns,local_filesystem,secret_printing
 tool.governed_order_packet_builder,01_AUTORIDAD_Y_GATES,write,D:\.agents\codex\orders,local_order_packet,live_execution|secret_materialization|production_change
+tool.local_validate_github_automation_preflight,03_CORTE_EJECUTORA,run,D:\.agents\codex\tools\local_validate_github_automation_preflight.ps1,local_filesystem,external_runtime|openai_api_live|github_write|secrets
 tool.sharepoint_complete_read_order_builder,01_AUTORIDAD_Y_GATES,write,D:\.agents\codex\orders,local_order_packet,microsoft_live_read_without_order
 tool.stop_condition_check,01_AUTORIDAD_Y_GATES,read,D:/.agents/codex/matrices/STOP_CONDITION_GLOSSARY.csv,local_filesystem,self_approval_or_live_execution
 tool.surface_order_builder,04_TORRES_DE_UNIVERSO,write,D:\.agents\codex\orders,local_filesystem,sharepoint_write
