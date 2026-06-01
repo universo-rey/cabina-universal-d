@@ -19,6 +19,7 @@
 "tool.stop_condition_check","rey.frontier_guardian","read","stop_condition|gate","local_filesystem","read|validate_stop_condition","self_approval_or_live_execution","stop_condition_readback","tool.local_validate_agent_layer"
 "tool.reference_classifier","tech.reference_librarian","read","reference|source","local_filesystem","read|classify","vendor_live_execution","reference_readback","tool.local_validate_agent_layer"
 "tool.codex_workspace_audit","codex.workspace_guardian","read","workspace|codex_config","local_filesystem","read|audit","global_config_write|secret_files","workspace_readback","tool.local_validate_agent_layer"
+"tool.local_validate_document_skill_lane","court.thot_schema","run","document|skill|matrix","local_filesystem","validate_document_skill_lane","external_runtime|microsoft_live|openai_api_live|secret_materialization|regulated_data_dump","document_skill_lane_result","tool.local_validate_document_skill_lane"
 "tool.local_validate_agent_workpapers","court.thot_schema","run","agent|workpaper|matrix","local_filesystem","validate_workpapers","external_runtime","validator_readback","tool.local_validate_agent_layer"
 "tool.local_generate_agent_workpapers","court.thot_schema","run","agent|workpaper|matrix","local_filesystem","generate_workpapers","external_runtime|live_connector_execution","workpaper_generation_readback","tool.local_validate_agent_layer"
 "tool.workpaper_index_check","court.seshat_evidence","read","workpaper","local_filesystem","read|parse","remote_write","workpaper_index_readback","tool.local_validate_agent_layer"

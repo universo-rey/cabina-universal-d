@@ -72,6 +72,7 @@ $canonicalInventory = Join-Path $Root "matrices\GOVERNED_ASSET_CANONICAL_INVENTO
 $stopGlossary = Join-Path $Root "matrices\STOP_CONDITION_GLOSSARY.csv"
 $coverageExceptions = Join-Path $Root "matrices\COVERAGE_EXCEPTION_REGISTRY.csv"
 $lineageAudit = Join-Path $Root "matrices\CANONICAL_INDEX_LINEAGE_AUDIT.csv"
+$documentSkillLane = Join-Path $Root "matrices\DOCUMENT_SKILL_LANE_MATRIX.csv"
 $agentWorkpapers = Join-Path $Root "matrices\AGENT_WORKPAPERS_MATRIX.csv"
 $pluginUsage = Join-Path $Root "matrices\PLUGIN_USAGE_MATRIX.csv"
 $purposeSurfaceCapability = Join-Path $Root "matrices\PURPOSE_SURFACE_CAPABILITY_MATRIX.csv"
@@ -116,6 +117,7 @@ $requiredColumnChecks = @(
   @{ Path = $stopGlossary; Columns = @("stop_condition","normalized_family","meaning","required_action","applies_to") },
   @{ Path = $coverageExceptions; Columns = @("exception_id","asset_class","asset_id","reason","coverage_status","owner_agent","validator","next_review") },
   @{ Path = $lineageAudit; Columns = @("lineage_id","source","derived","derivation","owner_agent","validator") },
+  @{ Path = $documentSkillLane; Columns = @("lane_id","document_type","extensions","skill_id","skill_source","intake_agent","owner_agent","reviewer_agent","allowed_scope","requires_order_for","blocked_scope","template_storage","evidence_storage","redline_storage","sanitized_output_storage","required_recipe","required_tool","validator","evidence","stop_condition","status") },
   @{ Path = $agentWorkpapers; Columns = @("agent_id","level_id","workpapers_path","repo_snapshot_path","status","primary_surface","purpose","required_matrices","required_recipes","required_tools","required_validators","evidence_policy","validator","stop_condition") },
   @{ Path = $pluginUsage; Columns = @("plugin_id","availability","assigned_agents","purpose","surface","live_boundary","tool_refs","validator","stop_condition") },
   @{ Path = $purposeSurfaceCapability; Columns = @("artifact_id","artifact_type","agent_id","level_id","purpose","surface","universe","tower","owner_agent","authority_level","lifecycle","status","local_allowed","governed_order_required","allowed_actions","blocked_actions","skill_refs","recipe_refs","tool_refs","plugin_refs","validator_refs","evidence_required","workpaper_path","source_policy","source_refs","last_validated","stop_condition","next_review") },
@@ -230,6 +232,7 @@ foreach ($path in @(
   $operationalChainGovernance,
   $pluginSkillBoundary,
   $sourceCapabilityGap,
+  $documentSkillLane,
   $subagentAliasMap,
   $subagentCapabilityAssignment,
   $skillMetadataQuality,
@@ -395,6 +398,7 @@ $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }
   stop_condition_count = $glossaryRows.Count
   coverage_exception_count = $exceptionRows.Count
   lineage_count = $lineageRows.Count
+  document_skill_lane_count = (Read-CsvSafe -Path $documentSkillLane).Count
   workpaper_count = $agentWorkpaperRows.Count
   plugin_usage_count = (Read-CsvSafe -Path $pluginUsage).Count
   purpose_surface_capability_count = (Read-CsvSafe -Path $purposeSurfaceCapability).Count

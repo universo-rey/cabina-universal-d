@@ -65,6 +65,13 @@ actions, validator, evidencia y stop condition. La matriz vive en
 `D:\.agents\codex\skills\SKILL_METADATA_QUALITY_MATRIX.csv` y el validador en
 `D:\.agents\codex\tools\local_validate_skill_metadata.ps1`.
 
+Estado carril documental actualizado 2026-06-01: los trabajos DOCX, PDF,
+spreadsheets y presentaciones se enrutan por
+`D:\.agents\codex\matrices\DOCUMENT_SKILL_LANE_MATRIX.csv` y se validan con
+`D:\.agents\codex\tools\local_validate_document_skill_lane.ps1`. El carril es
+local-only; documentos amplios, regulados, secretos o live requieren orden
+gobernada separada.
+
 Estado jerarquia AGENTS.md actualizado 2026-06-01: `D:\AGENTS.md` es la
 instruccion rectora local de mayor precedencia. Las instrucciones anidadas,
 perfiles de agentes, skills repo-locales, plugins y runtimes globales solo

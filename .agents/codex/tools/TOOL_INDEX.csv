@@ -3,6 +3,7 @@ tool.boundary_check,01_AUTORIDAD_Y_GATES,read,D:\.agents\codex\maps\SURFACE_BOUN
 tool.canon_index_check,01_AUTORIDAD_Y_GATES,read,D:/02_AUTHORITY_CANON,local_filesystem,canon_mutation_without_order
 tool.codex_workspace_audit,05_SOPORTE_TECNICO,read,D:\.agents\codex,local_filesystem,global_config_write
 tool.csv_registry_check,02_REGISTRO_Y_CARTOGRAFIA,read,D:\01_GOVERNANCE_REGISTRY,local_filesystem,file_move
+tool.local_validate_document_skill_lane,03_CORTE_EJECUTORA,run,D:\.agents\codex\tools\local_validate_document_skill_lane.ps1,local_filesystem,external_runtime|microsoft_live|openai_api_live|secret_materialization|regulated_data_dump
 tool.gh_remote_readonly,02_REGISTRO_Y_CARTOGRAFIA,read,gh repo view|gh api,github_remote_readonly,github_write
 tool.github_versioning_flow,02_REGISTRO_Y_CARTOGRAFIA,run,git switch|git add -- explicit paths|git commit|git push|gh pr create --draft|gh pr edit|gh pr comment|gh run list,github_repo_scoped_by_order,git_add_dot|merge|force_push|permission_change|production|secrets
 tool.git_status_readonly,02_REGISTRO_Y_CARTOGRAFIA,read,git status --short,local_git_readonly,git_write

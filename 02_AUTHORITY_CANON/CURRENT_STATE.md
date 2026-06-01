@@ -141,6 +141,14 @@ matriz rectora queda en
 `D:/.agents/codex/skills/SKILL_METADATA_QUALITY_MATRIX.csv` y el validador en
 `D:/.agents/codex/tools/local_validate_skill_metadata.ps1`.
 
+Actualizacion carril documental 2026-06-01: la cabina adopta
+`D:/.agents/codex/matrices/DOCUMENT_SKILL_LANE_MATRIX.csv` para enrutar DOCX,
+spreadsheets, presentaciones y PDF a skills locales/gobernadas con owner,
+reviewer, storage, evidencia, validador y stop conditions. El validador queda
+en `D:/.agents/codex/tools/local_validate_document_skill_lane.ps1`. No habilita
+Microsoft live, Google import live, produccion, secretos ni datos regulados
+amplios sin orden gobernada separada.
+
 Actualizacion jerarquia AGENTS.md 2026-06-01: `D:/AGENTS.md` queda declarado
 como fuente rectora local de mayor precedencia. Las instrucciones anidadas de
 `.agents/codex`, perfiles de agentes, skills repo-locales, plugins y runtimes
