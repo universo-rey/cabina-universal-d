@@ -268,11 +268,8 @@ foreach ($validatorSpec in @(
     $errors.Add("Missing $($validatorSpec.Name) validator: $($validatorSpec.Path)")
   } else {
     $validatorOutput = & $validatorSpec.Path -Root $Root
-    $exitCode = 0
-    if (Test-Path variable:LASTEXITCODE) {
-      $exitCode = $LASTEXITCODE
-    }
-    if ($exitCode -ne 0) {
+    $validatorPayload = ($validatorOutput -join "`n") | ConvertFrom-Json
+    if ($validatorPayload.status -ne "PASS") {
       $errors.Add("$($validatorSpec.Name) validator failed: $($validatorOutput -join ' ')")
     }
   }
