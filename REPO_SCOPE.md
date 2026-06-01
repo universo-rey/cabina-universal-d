@@ -29,3 +29,10 @@ absorber los repos anidados.
 
 Crear un branch gobernado y PR propio si se quiere revisar cambios futuros
 fuera de `main`.
+
+## Rama visible en Codex
+
+- rama: `codex/d-root-ui-visibility-20260601`
+- objetivo: hacer visible el repo raiz `D:\`, su rama y su PR en la UI nativa
+  de Codex.
+- alcance: documental minimo; no absorbe clones ni reemplaza `organizacion`.
