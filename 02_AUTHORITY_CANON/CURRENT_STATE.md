@@ -2,7 +2,8 @@
 
 Estado: `D_ROOT_WRAPPER_REPO_LOCAL_ACTIVE`
 
-La estructura en `D:/` fue creada para revision local y ya tiene versionado GitHub gobernado abierto en PR borrador.
+La estructura en `D:/` fue creada para revision local y ya tiene repo GitHub
+raiz envoltorio gobernado activo sobre `main`.
 
 Actualizacion 2026-06-01: por orden expresa del operador, `D:/` queda
 inicializado como repo local envoltorio nuevo y separado. Este repo raiz no
@@ -12,6 +13,13 @@ propios.
 Actualizacion remota 2026-06-01: el repo raiz de cabina tiene remoto privado
 separado en `universo-rey/cabina-universal-d`. El repo `universo-rey/organizacion`
 continua como repo rector documental separado y no fue reemplazado.
+
+Actualizacion merge raiz 2026-06-01: el PR raiz
+`universo-rey/cabina-universal-d#1` fue mergeado a `main` con merge commit
+`f7bfdf5a2b1044fd358438d8078942303b68c02b`. La rama
+`codex/d-root-ui-visibility-20260601` queda como rama historica conservada. La
+base visible para nuevo trabajo de la UI Codex es `main`, con nuevas ramas
+`codex/*` cuando corresponda cambiar archivos.
 
 Actualizacion capacidades 2026-06-01: el repo raiz de cabina adopta en local
 las capacidades declarativas necesarias desde repos fuente sin absorberlos:
@@ -55,5 +63,6 @@ Reglas vigentes:
 
 PR rector activo: `universo-rey/organizacion#40`.
 Rama rectora activa: `codex/d-drive-governance-versioning-20260601`.
-PR raiz activo: `universo-rey/cabina-universal-d#1`.
-Rama raiz activa: `codex/d-root-ui-visibility-20260601`.
+PR raiz historico: `universo-rey/cabina-universal-d#1` estado `MERGED`.
+Rama raiz base: `main`.
+Ultima rama raiz mergeada: `codex/d-root-ui-visibility-20260601`.
