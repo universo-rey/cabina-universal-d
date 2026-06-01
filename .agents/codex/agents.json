@@ -371,6 +371,7 @@
       ],
       "default_recipes": [
         "recipe.registry_enrichment",
+        "recipe.github_pr_lifecycle_governed",
         "recipe.repo_universe_alignment_runtime",
         "recipe.agent_workpaper_operation",
         "recipe.parallel_agent_operation",
