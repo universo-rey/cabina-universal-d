@@ -1,6 +1,6 @@
 ---
 name: cabina-agent-md-refactor
-description: Use when AGENTS.md, Codex UI prompts, project instructions, or local governance instructions in D:\ need pruning, normalization, or drift review without weakening canon.
+description: Use when AGENTS.md, Codex UI prompts, project instructions, or local governance instructions in D:\ need pruning, normalization, drift review, or instruction precedence checks without weakening D:\AGENTS.md canon.
 ---
 
 # Cabina Agent MD Refactor
@@ -9,6 +9,32 @@ description: Use when AGENTS.md, Codex UI prompts, project instructions, or loca
 
 Never simplify authority. Reduce repetition only after preserving the local
 canon, blocked surfaces, required reads and closeout fields.
+
+## Trigger Boundary
+
+Use this skill only for local instruction surfaces: `AGENTS.md`, UI prompts,
+project instructions, nested instruction notes, and drift reviews. Do not use
+it to approve live surfaces, change global Codex config, or weaken the root
+cabina canon.
+
+## Allowed Actions
+
+- prune repeated wording after preserving authority
+- normalize local prompt and instruction text
+- map instruction precedence and nested surfaces
+- prepare local-only draft corrections
+
+## Blocked Actions
+
+- removing `D:\AGENTS.md` as root authority
+- absorbing nested repos into the root wrapper repo
+- authorizing Microsoft live, OpenAI API live, production, permissions,
+  secrets, costs or broad regulated data
+
+## Validator
+
+Primary: `D:\.agents\codex\tools\local_validate_agents_instruction_hierarchy.ps1`.
+Companion: `D:\.agents\codex\tools\local_validate_operational_chain.ps1`.
 
 ## Required Reads
 

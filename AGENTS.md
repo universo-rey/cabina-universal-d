@@ -59,6 +59,12 @@ cabina viven en `D:\.agents\skills\<skill>\SKILL.md`. La carpeta
 subskills. Las instalaciones globales de usuario son runtime local, no fuente
 durable rectora.
 
+Estado metadata de skills actualizado 2026-06-01: toda skill repo-local debe
+declarar description activable, trigger boundary, allowed actions, blocked
+actions, validator, evidencia y stop condition. La matriz vive en
+`D:\.agents\codex\skills\SKILL_METADATA_QUALITY_MATRIX.csv` y el validador en
+`D:\.agents\codex\tools\local_validate_skill_metadata.ps1`.
+
 Estado jerarquia AGENTS.md actualizado 2026-06-01: `D:\AGENTS.md` es la
 instruccion rectora local de mayor precedencia. Las instrucciones anidadas,
 perfiles de agentes, skills repo-locales, plugins y runtimes globales solo

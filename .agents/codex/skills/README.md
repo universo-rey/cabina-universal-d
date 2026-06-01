@@ -13,4 +13,7 @@ Storage rule:
 - Portable cabina skills live in `D:\.agents\skills\<skill>\SKILL.md`.
 - Governance catalog rows live here in `SKILL_USAGE_MATRIX.csv` and
   `SUBSKILL_USAGE_MATRIX.csv`.
+- Repo-local skill metadata quality lives here in
+  `SKILL_METADATA_QUALITY_MATRIX.csv` and is explained in
+  `SKILL_METADATA_GOVERNANCE.md`.
 - Machine-global skill roots are runtime installs, not repo source of truth.

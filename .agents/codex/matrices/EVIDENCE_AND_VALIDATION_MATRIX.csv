@@ -14,6 +14,7 @@ recipe_change,court.openai_dispatcher,D:\.agents\codex\recipes\RECIPE_INDEX.csv,
 repo_agent_tool_governance,rey.authority_canonist,D:\.agents\codex\matrices\REPO_AGENT_TOOL_GOVERNANCE_MATRIX.csv,tools\local_validate_agent_layer.ps1,asset_without_governance_contract
 repo_governance_assignment,rey.repo_cartographer,D:\.agents\codex\matrices\REPO_GOVERNANCE_ASSIGNMENT_MATRIX.csv,tools\local_validate_agent_layer.ps1,repo_without_owner_or_universe
 repo_runtime_alignment,court.openai_dispatcher,D:/.agents/codex/matrices/REPO_RUNTIME_ALIGNMENT_MATRIX.csv,tools/local_run_repo_alignment_runtime.ps1|tools/local_validate_agent_layer.ps1,repo_without_runtime_alignment
+skill_metadata_quality,court.thot_schema,D:/.agents/codex/skills/SKILL_METADATA_QUALITY_MATRIX.csv,tools/local_validate_skill_metadata.ps1|tools/local_validate_agent_layer.ps1,skill_metadata_missing_or_ambiguous
 sublevel_change,court.seshat_evidence,D:\.agents\codex\readbacks,tools\local_validate_agent_levels.ps1,missing_profile_or_level
 tool_change,court.thot_schema,D:\.agents\codex\tools\TOOL_INDEX.csv,manual_index_check,tool_without_boundary
 tool_governance_assignment,codex.workspace_guardian,D:\.agents\codex\matrices\TOOL_GOVERNANCE_MATRIX.csv,tools\local_validate_agent_layer.ps1,tool_without_surface_boundary

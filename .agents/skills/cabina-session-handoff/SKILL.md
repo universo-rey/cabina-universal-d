@@ -1,6 +1,6 @@
 ---
 name: cabina-session-handoff
-description: Use when a Cabina Universal session, PR, agent lane, or interrupted task needs a compact handoff with evidence, risks, next lanes, and stop conditions.
+description: Use when a Cabina Universal session, PR, agent lane, or interrupted task needs a compact handoff or readback with verified branch, PR, commit, validator evidence, risks, next lanes, and stop conditions.
 ---
 
 # Cabina Session Handoff
@@ -9,6 +9,31 @@ description: Use when a Cabina Universal session, PR, agent lane, or interrupted
 
 A handoff is operational memory, not a story. It must let the next agent resume
 without guessing authority, state or risk.
+
+## Trigger Boundary
+
+Use this skill for compact local handoffs, PR readbacks, interrupted-session
+resumption notes and next-lane packets. Do not use it to invent evidence or
+convert assumptions into verified state.
+
+## Allowed Actions
+
+- summarize verified branch, PR, commit and validator state
+- record files changed or read
+- name open risks and blocked surfaces
+- prepare next lanes with owner, validator and stop condition
+
+## Blocked Actions
+
+- claiming unverified state as complete
+- implying live/API/production access is open without order
+- omitting branch, PR, commit or validator evidence for repo work
+- including secrets or regulated data in a handoff
+
+## Validator
+
+Primary: `D:\.agents\codex\tools\local_validate_agent_layer.ps1`.
+Companion: `D:\.agents\codex\tools\local_validate_operational_chain.ps1`.
 
 ## Handoff Shape
 

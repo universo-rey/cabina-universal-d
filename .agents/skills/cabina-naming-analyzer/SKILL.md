@@ -1,6 +1,6 @@
 ---
 name: cabina-naming-analyzer
-description: Use when agent ids, repo ids, matrix ids, skill ids, recipe ids, tool ids, aliases, folders, or stop conditions need canonical naming in D:\.
+description: Use when agent ids, repo ids, matrix ids, skill ids, recipe ids, tool ids, aliases, folders, or stop conditions need canonical naming, alias mapping, cross-matrix synchronization, or vocabulary checks in D:\.
 ---
 
 # Cabina Naming Analyzer
@@ -9,6 +9,31 @@ description: Use when agent ids, repo ids, matrix ids, skill ids, recipe ids, to
 
 Names are contracts. A rename is only valid when every index, matrix, recipe,
 tool, agent profile and validator reference continues to resolve.
+
+## Trigger Boundary
+
+Use this skill for local identifier and vocabulary work: agent ids, skill ids,
+recipe ids, tool ids, matrix ids, aliases, folders and stop conditions. Do not
+use it as authority to rename evidence history or remote repos.
+
+## Allowed Actions
+
+- compare candidate ids with existing indexes
+- register aliases instead of erasing historical names
+- synchronize names across matrices, recipes, tools and profiles
+- validate stop-condition vocabulary
+
+## Blocked Actions
+
+- orphaning evidence, PR history, workpapers or source lineage
+- replacing canonical ids without an alias map
+- introducing unregistered stop conditions
+- moving folders or clones as part of a naming cleanup
+
+## Validator
+
+Primary: `D:\.agents\codex\tools\local_validate_agent_layer.ps1`.
+Companion: `D:\.agents\codex\tools\local_validate_skill_metadata.ps1`.
 
 ## Workflow
 

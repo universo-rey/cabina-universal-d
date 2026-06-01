@@ -18,6 +18,7 @@ github_actions_workflow_matrix,D:\.agents\codex\matrices\GITHUB_ACTIONS_WORKFLOW
 github_automation_preflight_matrix,D:\.agents\codex\matrices\GITHUB_AUTOMATION_PREFLIGHT_MATRIX.csv,github_pre_repo_bootstrap,03_CORTE_EJECUTORA,update when GitHub automation Agents SDK or pre-repo readiness changes
 handoff_map,D:\.agents\codex\maps\HANDOFF_MAP.csv,handoffs,00_ROUTER,update when routing changes
 local_skill_catalog,D:\.agents\codex\matrices\LOCAL_SKILL_CATALOG.csv,local_skills,03_CORTE_EJECUTORA,update when local or installed skill assignments change
+skill_metadata_quality_matrix,D:\.agents\codex\skills\SKILL_METADATA_QUALITY_MATRIX.csv,skill_metadata_quality,03_CORTE_EJECUTORA,update when repo-local SKILL.md descriptions triggers or validator metadata change
 agents_instruction_surface_matrix,D:\.agents\codex\matrices\AGENTS_INSTRUCTION_SURFACE_MATRIX.csv,instruction_hierarchy,05_SOPORTE_TECNICO,update when AGENTS.md precedence nested instruction surfaces or validators change
 plugin_usage_matrix,D:\.agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv,plugins,05_SOPORTE_TECNICO,update when plugin availability or live boundary changes
 order_preparation_assignment_matrix,D:\.agents\codex\matrices\ORDER_PREPARATION_ASSIGNMENT_MATRIX.csv,order_preparation,01_AUTORIDAD_Y_GATES,update when order preparer reviewer or required fields change

@@ -26,3 +26,4 @@
 "instruction_precedence_missing","instruction_hierarchy","instruction source precedence is absent unclear or weaker than D:\\AGENTS.md","restore D:\\AGENTS.md as root source and stop contradictory action","agents_md|instruction|workspace"
 "nested_instruction_surface_unmapped","instruction_hierarchy","nested instruction surface lacks owner reviewer validator evidence or stop condition","map the surface or stop before using it","agents_md|profile|skill|plugin|matrix"
 "nested_repo_absorption_risk","repo_boundary","root wrapper instruction could absorb move or rewrite a nested repo boundary","preserve nested repo and prepare separate governed order","repo|workspace|instruction"
+"skill_metadata_missing_or_ambiguous","skill_governance","repo-local skill metadata lacks description trigger boundary allowed or blocked actions validator or catalog coverage","fix SKILL.md metadata or register a tracked quality row before use","skill|subskill|matrix"

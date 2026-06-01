@@ -1,6 +1,6 @@
 ---
 name: cabina-github-actions-templates
-description: Use when creating or reviewing GitHub Actions, Copilot instructions, issue forms, PR templates, or workflow templates for cabina-governed repos.
+description: Use when creating or reviewing GitHub Actions, Copilot instructions, issue forms, PR templates, workflow permissions, checks, or repo automation templates for cabina-governed repos.
 ---
 
 # Cabina GitHub Actions Templates
@@ -9,6 +9,32 @@ description: Use when creating or reviewing GitHub Actions, Copilot instructions
 
 GitHub automation is repo-scoped validation by default. Workflows must be
 read-only unless a separate governed order opens a write surface.
+
+## Trigger Boundary
+
+Use this skill for GitHub-native templates and automation surfaces inside a
+cabina-governed repo. It covers workflow validation, Copilot instructions,
+issue forms and PR templates, not deployments or external live runtimes.
+
+## Allowed Actions
+
+- add or review read-only validation workflows
+- align issue forms, PR templates and Copilot instructions
+- check workflow triggers, permissions and blocked surfaces
+- prepare repo-scoped GitHub automation evidence
+
+## Blocked Actions
+
+- workflow secrets, deployments or write permissions without separate order
+- production, Microsoft live, OpenAI API live, force push, merge or permission
+  changes without separate order
+- templates that omit agent, skill, recipe, tool, validator, evidence or
+  stop_condition fields
+
+## Validator
+
+Primary: `D:\.agents\codex\tools\local_validate_github_automation_preflight.ps1`.
+Companion: `D:\.agents\codex\tools\local_validate_operational_chain.ps1`.
 
 ## Workflow
 
