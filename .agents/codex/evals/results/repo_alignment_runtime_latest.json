@@ -9,10 +9,10 @@
   "repo_alignment_rows": 12,
   "cabina_repo_alignment_rows": 12,
   "github_repo_rows": 12,
-  "skill_usage_rows": 38,
+  "skill_usage_rows": 42,
   "recipe_rows": 21,
-  "tool_rows": 33,
-  "plugin_rows": 7,
+  "tool_rows": 34,
+  "plugin_rows": 10,
   "github_actions_rows": 1,
   "github_automation_preflight_rows": 6,
   "operational_chain_rows": 5,
@@ -32,5 +32,5 @@
   ],
   "errors": [],
   "warnings": [],
-  "generated_at": "2026-06-01T20:47:59.0625566Z"
+  "generated_at": "2026-06-01T21:13:46.1590753Z"
 }

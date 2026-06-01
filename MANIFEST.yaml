@@ -128,6 +128,8 @@ runtime_alignment_state:
   subskill_usage_matrix: D:/.agents/codex/skills/SUBSKILL_USAGE_MATRIX.csv
   skill_metadata_quality_matrix: D:/.agents/codex/skills/SKILL_METADATA_QUALITY_MATRIX.csv
   skill_metadata_validator: D:/.agents/codex/tools/local_validate_skill_metadata.ps1
+  document_skill_lane_matrix: D:/.agents/codex/matrices/DOCUMENT_SKILL_LANE_MATRIX.csv
+  document_skill_lane_validator: D:/.agents/codex/tools/local_validate_document_skill_lane.ps1
   repo_local_skill_root: D:/.agents/skills
   skill_governance_catalog: D:/.agents/codex/skills
   subrecipe_index: D:/.agents/codex/recipes/SUBRECIPE_INDEX.csv

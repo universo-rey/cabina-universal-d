@@ -5,6 +5,10 @@ cabina-github-actions-templates,d_drive_repo_local,02_REGISTRO_Y_CARTOGRAFIA|03_
 cabina-naming-analyzer,d_drive_repo_local,02_REGISTRO_Y_CARTOGRAFIA|03_CORTE_EJECUTORA,rey.governance_registrar|court.thot_schema,canonical ids aliases names and stop-condition normalization,local_only
 cabina-session-handoff,d_drive_repo_local,03_CORTE_EJECUTORA,court.seshat_evidence,session PR lane and interrupted-task handoff with evidence,local_only
 d-drive-agent-layer-enrichment,d_drive_local,02_REGISTRO_Y_CARTOGRAFIA|03_CORTE_EJECUTORA,rey.governance_registrar|court.thot_schema,D-drive local matrices recipes skills tools enrichment,local_only
+documents:documents,plugin,05_SOPORTE_TECNICO|03_CORTE_EJECUTORA,tech.reference_librarian|court.seshat_evidence,DOCX Word and Google Docs-targeted local artifact creation edit redline and render QA,local_artifact_only_regulated_docs_require_order
+spreadsheets:Spreadsheets,plugin,05_SOPORTE_TECNICO|03_CORTE_EJECUTORA,tech.reference_librarian|court.seshat_evidence,spreadsheet workbook CSV TSV analysis creation edit visualization formula and render QA,local_artifact_only_regulated_docs_require_order
+presentations:Presentations,plugin,05_SOPORTE_TECNICO|03_CORTE_EJECUTORA,tech.reference_librarian|court.seshat_evidence,PowerPoint PPTX deck build edit preview and fidelity QA,local_artifact_only_regulated_docs_require_order
+pdf,installed_local,05_SOPORTE_TECNICO|03_CORTE_EJECUTORA,tech.reference_librarian|court.seshat_evidence,PDF read create review render and layout QA,local_artifact_only_regulated_docs_require_order
 agentation,installed_local,05_SOPORTE_TECNICO,codex.workspace_guardian,local Next.js Agentation visual feedback when a frontend repo explicitly needs it,local_frontend_only
 github:github,plugin,02_REGISTRO_Y_CARTOGRAFIA,rey.repo_cartographer,GitHub repo and PR inspection,read_or_write_by_order
 github:yeet,plugin,02_REGISTRO_Y_CARTOGRAFIA|03_CORTE_EJECUTORA,rey.repo_cartographer|court.seshat_evidence,commit push and PR update under order,github_write_requires_order

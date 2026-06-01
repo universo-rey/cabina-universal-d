@@ -957,6 +957,10 @@
         "tcu-descubridor-capacidades",
         "mcp-builder",
         "openai-docs",
+        "documents:documents",
+        "spreadsheets:Spreadsheets",
+        "presentations:Presentations",
+        "pdf",
         "matrix-recipe-skill-sync",
         "superpowers:verification-before-completion",
         "parallel-order-governance"
@@ -972,6 +976,7 @@
       "default_tools": [
         "tool.reference_classifier",
         "tool.plugin_registry_check",
+        "tool.local_validate_document_skill_lane",
         "tool.repo_alignment_runtime",
         "tool.workpaper_index_check",
         "tool.local_validate_agent_workpapers",
@@ -980,7 +985,10 @@
       ],
       "default_plugins": [
         "Superpowers",
-        "OpenAI Developers"
+        "OpenAI Developers",
+        "Documents",
+        "Spreadsheets",
+        "Presentations"
       ],
       "runtime_alignment_mode": "local_only"
     },

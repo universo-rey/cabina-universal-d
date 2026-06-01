@@ -11,6 +11,7 @@ capability_source_inventory,D:\.agents\codex\matrices\CAPABILITY_SOURCE_INVENTOR
 cabina_universal_repo_alignment_matrix,D:\.agents\codex\matrices\CABINA_UNIVERSAL_REPO_ALIGNMENT_MATRIX.csv,cabina_repo_alignment,02_REGISTRO_Y_CARTOGRAFIA,update when a repo is aligned to cabina-universal-d as transversal base
 coverage_exception_registry,D:\.agents\codex\matrices\COVERAGE_EXCEPTION_REGISTRY.csv,coverage_exceptions,03_CORTE_EJECUTORA,update when any asset is intentionally uncovered or deferred
 d_drive_enrichment_matrix,D:\.agents\codex\matrices\D_DRIVE_ENRICHMENT_MATRIX.csv,enrichment_lanes,02_REGISTRO_Y_CARTOGRAFIA,update when D-drive enrichment lanes change
+document_skill_lane_matrix,D:\.agents\codex\matrices\DOCUMENT_SKILL_LANE_MATRIX.csv,document_skill_lanes,05_SOPORTE_TECNICO,update when document type routing skill owner reviewer storage or validator changes
 evidence_validation_matrix,D:\.agents\codex\matrices\EVIDENCE_AND_VALIDATION_MATRIX.csv,closeout,03_CORTE_EJECUTORA,update when validators or readbacks change
 governed_asset_canonical_inventory,D:\.agents\codex\matrices\GOVERNED_ASSET_CANONICAL_INVENTORY.csv,canonical_inventory,00_ROUTER,regenerate when repo agent or tool governance changes
 github_agent_operating_matrix,D:\.agents\codex\matrices\GITHUB_AGENT_OPERATING_MATRIX.csv,github_agent_surfaces,02_REGISTRO_Y_CARTOGRAFIA,update when GitHub issue PR or Copilot agent surfaces change
