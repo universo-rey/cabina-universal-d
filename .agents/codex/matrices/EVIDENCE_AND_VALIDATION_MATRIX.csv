@@ -6,6 +6,7 @@ capability_change,court.thot_schema,D:\.agents\codex\matrices\CAPABILITY_MATRIX.
 capability_import,rey.governance_registrar,D:\.agents\codex\matrices\CAPABILITY_IMPORT_DECISION_MATRIX.csv,tools\local_validate_agent_layer.ps1|matrix_index_path_check|git_diff_check,source_without_decision_or_gate
 capability_source_inventory,tech.reference_librarian,D:\.agents\codex\matrices\CAPABILITY_SOURCE_INVENTORY.csv,tools\local_validate_agent_layer.ps1|matrix_index_path_check,source_reference_treated_as_canon
 closeout,court.seshat_evidence,D:\.agents\codex\readbacks,secret_scan|local_validator,missing_evidence
+github_automation_preflight,court.thot_schema,D:\.agents\codex\matrices\GITHUB_AUTOMATION_PREFLIGHT_MATRIX.csv,tools\local_validate_github_automation_preflight.ps1|tools\local_validate_agent_layer.ps1,github_order_missing_checks
 live_surface_order,rey.frontier_guardian,D:\.agents\codex\orders,manual_gate_check,missing_surface_identity_rollback_postcheck
 plugin_boundary_change,codex.workspace_guardian,D:\.agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv,tools\local_validate_agent_layer.ps1,plugin_without_surface_boundary
 recipe_change,court.openai_dispatcher,D:\.agents\codex\recipes\RECIPE_INDEX.csv,manual_index_check,recipe_without_level

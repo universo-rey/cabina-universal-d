@@ -14,9 +14,14 @@ evidence_validation_matrix,D:\.agents\codex\matrices\EVIDENCE_AND_VALIDATION_MAT
 governed_asset_canonical_inventory,D:\.agents\codex\matrices\GOVERNED_ASSET_CANONICAL_INVENTORY.csv,canonical_inventory,00_ROUTER,regenerate when repo agent or tool governance changes
 github_agent_operating_matrix,D:\.agents\codex\matrices\GITHUB_AGENT_OPERATING_MATRIX.csv,github_agent_surfaces,02_REGISTRO_Y_CARTOGRAFIA,update when GitHub issue PR or Copilot agent surfaces change
 github_actions_workflow_matrix,D:\.agents\codex\matrices\GITHUB_ACTIONS_WORKFLOW_MATRIX.csv,github_actions_surfaces,05_SOPORTE_TECNICO,update when GitHub Actions workflow triggers permissions or validators change
+github_automation_preflight_matrix,D:\.agents\codex\matrices\GITHUB_AUTOMATION_PREFLIGHT_MATRIX.csv,github_pre_repo_bootstrap,03_CORTE_EJECUTORA,update when GitHub automation Agents SDK or pre-repo readiness changes
 handoff_map,D:\.agents\codex\maps\HANDOFF_MAP.csv,handoffs,00_ROUTER,update when routing changes
 local_skill_catalog,D:\.agents\codex\matrices\LOCAL_SKILL_CATALOG.csv,local_skills,03_CORTE_EJECUTORA,update when local or installed skill assignments change
 plugin_usage_matrix,D:\.agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv,plugins,05_SOPORTE_TECNICO,update when plugin availability or live boundary changes
+order_preparation_assignment_matrix,D:\.agents\codex\matrices\ORDER_PREPARATION_ASSIGNMENT_MATRIX.csv,order_preparation,01_AUTORIDAD_Y_GATES,update when order preparer reviewer or required fields change
+order_class_capability_matrix,D:\.agents\codex\matrices\ORDER_CLASS_CAPABILITY_MATRIX.csv,order_capability_contract,01_AUTORIDAD_Y_GATES,update when order classes require new agents skills recipes tools or fields
+parallel_operation_criteria_matrix,D:\.agents\codex\matrices\PARALLEL_OPERATION_CRITERIA_MATRIX.csv,parallel_agent_operation,00_ROUTER,update when parallel lane criteria owner validator or stop condition changes
+plugin_skill_boundary_matrix,D:\.agents\codex\matrices\PLUGIN_SKILL_BOUNDARY_MATRIX.csv,plugin_skill_boundaries,05_SOPORTE_TECNICO,update when plugin skills are assigned to agents or live boundaries change
 purpose_surface_capability_matrix,D:\.agents\codex\matrices\PURPOSE_SURFACE_CAPABILITY_MATRIX.csv,agent_surface_capabilities,00_ROUTER,update when purpose surface capability or repo reading route changes
 reading_map,D:\.agents\codex\maps\READING_MAP.csv,reading_policy,00_ROUTER,update when required reads change
 repo_agent_tool_governance_matrix,D:\.agents\codex\matrices\REPO_AGENT_TOOL_GOVERNANCE_MATRIX.csv,governance_contract,01_AUTORIDAD_Y_GATES,update when governed asset classes change
@@ -28,6 +33,7 @@ source_cdf_agent_skill_recipe_tool_plugin_matrix,D:\.agents\codex\matrices\SOURC
 source_cdf_agent_teams,D:\.agents\codex\agents\SOURCE_CDF_AGENT_TEAMS.md,source_agents,04_TORRES_DE_UNIVERSO,copied from CDF_SOLUCIONES; refresh by copy-adapt only
 source_cdf_agent_version_registry,D:\.agents\codex\agents\SOURCE_CDF_AGENT_VERSION_REGISTRY.csv,source_agents,04_TORRES_DE_UNIVERSO,copied from CDF_SOLUCIONES; refresh by copy-adapt only
 source_cdf_sharepoint_plugin_skill_adoption_matrix,D:\.agents\codex\matrices\SOURCE_CDF_SHAREPOINT_PLUGIN_SKILL_ADOPTION_MATRIX.csv,source_capabilities,05_SOPORTE_TECNICO,copied from CDF_SOLUCIONES; refresh by copy-adapt only
+source_capability_adoption_gap_matrix,D:\.agents\codex\matrices\SOURCE_CAPABILITY_ADOPTION_GAP_MATRIX.csv,source_adoption_gaps,03_CORTE_EJECUTORA,update when copied source capability needs local assignment boundary or validator
 source_modo_on_foundation_agent_registry,D:\.agents\codex\agents\SOURCE_MODO_ON_FOUNDATION_agent_registry.yaml,source_agents,04_TORRES_DE_UNIVERSO,copied from MODO_ON_FOUNDATION; refresh by copy-adapt only
 source_organizacion_registry_agents,D:\.agents\codex\agents\SOURCE_ORGANIZACION_registry.agents.yml,source_agents,00_ROUTER,copied from ORGANIZACION; refresh by copy-adapt only
 source_seshat_bootstrap_sdu_cn_agent_registry,D:\.agents\codex\agents\SOURCE_SESHAT_BOOTSTRAP_SDU_CN_AGENT_REGISTRY.csv,source_agents,03_CORTE_EJECUTORA,copied from SESHAT_BOOTSTRAP; refresh by copy-adapt only
@@ -43,6 +49,10 @@ source_tge_runtime_agent_contracts,D:\.agents\codex\agents\SOURCE_TGE_RUNTIME_AG
 source_tge_sdu_cn_agent_registry,D:\.agents\codex\agents\SOURCE_TGE_SDU_CN_AGENT_REGISTRY.csv,source_agents,04_TORRES_DE_UNIVERSO,copied from TORRE_GEMELA_ESCRIBANIA; refresh by copy-adapt only
 source_tge_sdu_cn_sharepoint_github_capability_matrix,D:\.agents\codex\matrices\SOURCE_TGE_SDU_CN_SHAREPOINT_GITHUB_CAPABILITY_MATRIX_20260527.csv,source_capabilities,04_TORRES_DE_UNIVERSO,copied from TORRE_GEMELA_ESCRIBANIA; refresh by copy-adapt only
 stop_condition_glossary,D:\.agents\codex\matrices\STOP_CONDITION_GLOSSARY.csv,stop_conditions,01_AUTORIDAD_Y_GATES,update when stop condition vocabulary changes
+subagent_alias_map,D:\.agents\codex\agents\SUBAGENT_ALIAS_MAP.csv,subagent_aliases,00_ROUTER,update when local delegated subagents receive aliases or lane assignments
+subagent_capability_assignment_matrix,D:\.agents\codex\matrices\SUBAGENT_CAPABILITY_ASSIGNMENT_MATRIX.csv,subagent_capabilities,00_ROUTER,update when subagent classes skills recipes or policies change
+subrecipe_index,D:\.agents\codex\recipes\SUBRECIPE_INDEX.csv,subrecipes,03_CORTE_EJECUTORA,update when recipe decompositions or validators change
+subskill_usage_matrix,D:\.agents\codex\skills\SUBSKILL_USAGE_MATRIX.csv,subskills,03_CORTE_EJECUTORA,update when parent skills get subskill assignments
 sublevel_capacity_matrix,D:\.agents\codex\matrices\SUBLEVEL_CAPACITY_MATRIX.csv,sublevels,00_ROUTER,update when level capacity changes
 surface_boundary_map,D:\.agents\codex\maps\SURFACE_BOUNDARY_MAP.csv,boundaries,01_AUTORIDAD_Y_GATES,update when a surface policy changes
 tool_governance_matrix,D:\.agents\codex\matrices\TOOL_GOVERNANCE_MATRIX.csv,tool_governance,05_SOPORTE_TECNICO,update when tools or surfaces change

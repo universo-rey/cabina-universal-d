@@ -5,11 +5,19 @@
 - agente:
 - orden:
 - superficie:
+- lane:
+- read_scope:
+- write_scope:
+- lock_key:
+- dependency:
 
 ## Change
 
 - What changed:
 - Why:
+- Risk:
+- Rollback:
+- Postcheck:
 
 ## Boundaries
 

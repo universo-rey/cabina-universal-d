@@ -33,6 +33,30 @@ body:
       placeholder: "D:/... or universo-rey/cabina-universal-d#..."
     validations:
       required: true
+  - type: input
+    id: lane
+    attributes:
+      label: Lane and lock key
+      description: Parallel lane id plus lock_key. Use SERIAL if scope overlaps.
+      placeholder: "parallel_disjoint_workers / lock.file_set.declared"
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Read and write scope
+      description: Declare read_scope, write_scope, dependency and max_parallel.
+      placeholder: "read_scope: ...\nwrite_scope: ...\ndependency: ...\nmax_parallel: ..."
+    validations:
+      required: true
+  - type: input
+    id: reviewer_agent
+    attributes:
+      label: Reviewer agent
+      description: Agent that reviews the owner output. Must differ from owner for live, API, production or permission work.
+      placeholder: "court.seshat_evidence"
+    validations:
+      required: true
   - type: dropdown
     id: universe
     attributes:
@@ -51,6 +75,14 @@ body:
     attributes:
       label: Governed order
       description: What should the agent do?
+    validations:
+      required: true
+  - type: textarea
+    id: preflight
+    attributes:
+      label: Pre-repo automation preflight
+      description: Evidence that GitHub templates, order packets, Agents SDK local boundary and validators were checked before repo iteration.
+      placeholder: "local_validate_github_automation_preflight.ps1 PASS; Agents SDK local only; no API live; repo iteration starts after preflight"
     validations:
       required: true
   - type: checkboxes
@@ -76,6 +108,14 @@ body:
       label: Validator and evidence
       description: Required checks and expected evidence.
       placeholder: "local_validate_agent_layer.ps1 PASS, readback, matrix row..."
+    validations:
+      required: true
+  - type: textarea
+    id: rollback_postcheck
+    attributes:
+      label: Rollback and postcheck
+      description: Required for writes, PR work, runtime, live/API, production or permissions.
+      placeholder: "rollback: ...\npostcheck: ..."
     validations:
       required: true
   - type: textarea

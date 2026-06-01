@@ -9,11 +9,12 @@
   "repo_alignment_rows": 12,
   "cabina_repo_alignment_rows": 12,
   "github_repo_rows": 12,
-  "skill_usage_rows": 20,
-  "recipe_rows": 17,
-  "tool_rows": 24,
+  "skill_usage_rows": 21,
+  "recipe_rows": 20,
+  "tool_rows": 29,
   "plugin_rows": 7,
   "github_actions_rows": 1,
+  "github_automation_preflight_rows": 5,
   "root_base_repo_id": "D_CABINA_UNIVERSAL_ROOT",
   "root_base_remote": "universo-rey/cabina-universal-d",
   "github_agent_status": "APPROVED_GITHUB_AGENT_SURFACE",
@@ -30,5 +31,5 @@
   ],
   "errors": [],
   "warnings": [],
-  "generated_at": "2026-06-01T16:27:36.6073170Z"
+  "generated_at": "2026-06-01T17:36:45.2514854Z"
 }

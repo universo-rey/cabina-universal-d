@@ -26,6 +26,20 @@ GitHub Actions queda aprobado como superficie de validacion repo-scoped en
 `universo-rey/cabina-universal-d`, con permisos `contents: read` y sin
 secretos, produccion, Microsoft live, OpenAI API live ni permisos.
 
+Estado operacion paralela actualizado 2026-06-01: los agentes y subagentes
+deben operar bajo matriz de carriles, owner, alcance disjunto, evidencia,
+validador y stop condition. Las ordenes gobernadas deben ser preparadas por
+agentes asignados antes de cualquier live, API, produccion, permisos, secretos,
+costo o datos regulados.
+
+Estado endurecimiento actualizado 2026-06-01: ningun carril paralelo es valido
+sin `lead_agent`, `owner_agent`, `reviewer_agent`, `read_scope`,
+`write_scope`, `lock_key`, `dependency`, `max_parallel`, evidencia, validador
+y stop condition. Ninguna orden preparada es valida sin canon vigente,
+autoridad fuente, superficie, owner, identidad, limite de datos, acciones
+permitidas/bloqueadas, rollback, postcheck, evidencia, validador, expiracion y
+stop condition.
+
 ## Prompt maestro para UI Codex
 
 Cuando Codex abra `D:\`, la UI debe tratar esta carpeta como la Cabina
@@ -84,6 +98,10 @@ Si falta un archivo rector, registrar hallazgo y detener la ejecucion destructiv
 - `Seshat`: evidencia, registro, trazabilidad y memoria declarativa.
 - `SDU`: criterio canonico, orden, gates, coherencia y escalamiento.
 - Agentes OpenAI: corte ejecutora operativa cuando exista orden gobernada, superficie, datos permitidos, rollback, postcheck y evidencia.
+- OpenAI local: prompts, docs, diseno de agentes y evals sinteticos pueden
+  prepararse localmente; OpenAI API live, Agents SDK live, Agent Builder,
+  vector stores externos, costos o agentes remotos persistentes requieren orden
+  gobernada completa.
 
 ## Conducta obligatoria
 

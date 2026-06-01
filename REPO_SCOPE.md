@@ -62,6 +62,10 @@ Los workpapers saneados bajo `.agents\codex\workpapers` tambien son
 versionables porque el workflow de GitHub Actions los necesita para validar la
 capa de agentes sin abrir repos externos ni superficies live.
 
+Las retrospectivas saneadas y plantillas de orden bajo
+`.agents\codex\readbacks` y `.agents\codex\orders` son versionables cuando el
+operador abre un carril de cierre, mejora de matriz o preparacion de orden.
+
 ## Base GitHub transversal
 
 El repo remoto `universo-rey/cabina-universal-d` es base de trabajo transversal
@@ -79,3 +83,10 @@ siguen fuera de esa aprobacion.
 La matriz `.agents\codex\matrices\GITHUB_ACTIONS_WORKFLOW_MATRIX.csv` declara
 el workflow `.github\workflows\cabina-validation.yml` como superficie GitHub
 Actions aprobada para validadores locales y policy check de workflows.
+
+Las matrices `.agents\codex\matrices\PARALLEL_OPERATION_CRITERIA_MATRIX.csv`
+y `.agents\codex\matrices\ORDER_PREPARATION_ASSIGNMENT_MATRIX.csv` gobiernan
+agentes, subagentes, carriles paralelos y preparacion de ordenes.
+
+Los validadores semanticos de paralelo y ordenes forman parte del alcance
+repo-scoped y no habilitan agentes remotos persistentes ni conectores live.

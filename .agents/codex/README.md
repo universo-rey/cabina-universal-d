@@ -28,6 +28,10 @@ La carpeta debe preferir `copiar/adaptar` antes que inventar. Los archivos `SOUR
 - `readbacks\\`: cierres locales de agentes.
 - `workpapers\\`: papeles de trabajo por agente, con evidencia, decisiones, pendientes, rutas de superficie y validaciones.
 - `plugins\\`: matriz de disponibilidad y frontera de plugins.
+- `agents\SUBAGENT_ALIAS_MAP.csv`: aliases de subagentes locales usados en
+  carriles delegados.
+- `skills\SUBSKILL_USAGE_MATRIX.csv`: subskills asignadas por skill padre.
+- `recipes\SUBRECIPE_INDEX.csv`: subrecetas y validadores por receta padre.
 
 ## Regla de uso
 
@@ -42,7 +46,10 @@ La carpeta debe preferir `copiar/adaptar` antes que inventar. Los archivos `SOUR
 9. Revisar primero si existe un `SOURCE_*` aplicable.
 10. Ejecutar solo trabajo local permitido o preparar orden gobernada.
 11. Validar con `tools\\local_validate_agent_levels.ps1`, `tools\\local_validate_agent_workpapers.ps1` y `tools\\local_validate_agent_layer.ps1`.
-12. Cerrar con evidencia y condicion de detencion.
+12. Para carriles paralelos u ordenes, validar tambien con
+    `tools\\local_validate_parallel_order_governance.ps1` y
+    `tools\\local_validate_order_packets.ps1`.
+13. Cerrar con evidencia y condicion de detencion.
 
 ## Estado
 

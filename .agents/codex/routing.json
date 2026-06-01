@@ -220,6 +220,25 @@
       ]
     },
     {
+      "order_class": "parallel_order_governance",
+      "signals": [
+        "paralelo",
+        "subagente",
+        "carril",
+        "lock key",
+        "orden preparacion",
+        "preparar orden",
+        "openai local",
+        "retrospectiva"
+      ],
+      "agents": [
+        "rey.control_plane_orchestrator",
+        "rey.frontier_guardian",
+        "court.openai_dispatcher",
+        "court.seshat_evidence"
+      ]
+    },
+    {
       "order_class": "agent_workpapers_versioning",
       "signals": [
         "papeles de trabajo",

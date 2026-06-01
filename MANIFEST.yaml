@@ -115,6 +115,16 @@ runtime_alignment_state:
   non_github_external_agent_gate_state: REQUIRES_GOVERNED_ORDER
   default_skill_matrix: D:/.agents/codex/matrices/AGENT_DEFAULT_SKILL_ASSIGNMENT_MATRIX.csv
   github_actions_matrix: D:/.agents/codex/matrices/GITHUB_ACTIONS_WORKFLOW_MATRIX.csv
+  github_automation_preflight_matrix: D:/.agents/codex/matrices/GITHUB_AUTOMATION_PREFLIGHT_MATRIX.csv
+  github_automation_preflight_tool: D:/.agents/codex/tools/local_validate_github_automation_preflight.ps1
+  parallel_operation_matrix: D:/.agents/codex/matrices/PARALLEL_OPERATION_CRITERIA_MATRIX.csv
+  order_preparation_matrix: D:/.agents/codex/matrices/ORDER_PREPARATION_ASSIGNMENT_MATRIX.csv
+  order_class_capability_matrix: D:/.agents/codex/matrices/ORDER_CLASS_CAPABILITY_MATRIX.csv
+  subagent_capability_matrix: D:/.agents/codex/matrices/SUBAGENT_CAPABILITY_ASSIGNMENT_MATRIX.csv
+  subskill_usage_matrix: D:/.agents/codex/skills/SUBSKILL_USAGE_MATRIX.csv
+  subrecipe_index: D:/.agents/codex/recipes/SUBRECIPE_INDEX.csv
+  openai_local_design_state: LOCAL_DESIGN_ONLY_API_LIVE_REQUIRES_ORDER
+  agents_sdk_local_preflight_state: LOCAL_IMPORT_APPROVED_NO_API_CALL
   repo_runtime_matrix: D:/.agents/codex/matrices/REPO_RUNTIME_ALIGNMENT_MATRIX.csv
   runtime_status_matrix: D:/.agents/codex/matrices/RUNTIME_ALIGNMENT_STATUS_MATRIX.csv
   runtime_tool: D:/.agents/codex/tools/local_run_repo_alignment_runtime.ps1

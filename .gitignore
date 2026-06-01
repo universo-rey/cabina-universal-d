@@ -81,6 +81,7 @@
 /02_AUTHORITY_CANON/*
 !/02_AUTHORITY_CANON/CURRENT_STATE.md
 !/02_AUTHORITY_CANON/GITHUB_BASE_WORK_POLICY.md
+!/02_AUTHORITY_CANON/GOVERNED_ORDERS_INDEX.csv
 
 # Local Codex agent layer metadata. Orders/readbacks/workpapers stay out until
 # explicitly selected.
@@ -98,6 +99,7 @@
 !/.agents/codex/agents/README.md
 !/.agents/codex/agents/LEVELS.csv
 !/.agents/codex/agents/LEVELS.yaml
+!/.agents/codex/agents/SUBAGENT_ALIAS_MAP.csv
 !/.agents/codex/agents/SOURCE_TCU_RUNTIME_AGENT_CONTRACTS.md
 !/.agents/codex/agents/SOURCE_TCU_SDU_REPO_AGENT_COMMAND_MATRIX_CURRENT.csv
 !/.agents/codex/agents/SOURCE_*.md
@@ -133,6 +135,16 @@
 !/.agents/codex/recipes/*.md
 !/.agents/codex/recipes/*.yaml
 !/.agents/codex/recipes/*.yml
+
+!/.agents/codex/orders/
+/.agents/codex/orders/*
+!/.agents/codex/orders/GOVERNED_ORDER_PREPARATION_PACKET_TEMPLATE.md
+!/.agents/codex/orders/ORDER_CONNECT_D_CABINA_GITHUB_APPROVAL_DRAFT_20260601.md
+!/.agents/codex/orders/ORDER_GITHUB_AUTOMATION_AGENTS_SDK_PREFLIGHT_20260601.md
+
+!/.agents/codex/readbacks/
+/.agents/codex/readbacks/*
+!/.agents/codex/readbacks/RETROSPECTIVE_PR3_AGENT_ALIGNMENT_20260601.md
 
 !/.agents/codex/tools/
 /.agents/codex/tools/*

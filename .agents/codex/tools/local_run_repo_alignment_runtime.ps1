@@ -34,6 +34,7 @@ $agentContracts = Read-CsvRequired (Join-Path $matrixRoot "AGENT_TOOL_RECIPE_SKI
 $repoRuntime = Read-CsvRequired (Join-Path $matrixRoot "REPO_RUNTIME_ALIGNMENT_MATRIX.csv")
 $cabinaRepoAlignment = Read-CsvRequired (Join-Path $matrixRoot "CABINA_UNIVERSAL_REPO_ALIGNMENT_MATRIX.csv")
 $githubBase = Read-CsvRequired (Join-Path $RepoRoot "01_GOVERNANCE_REGISTRY\GITHUB_BASE_WORK_MATRIX.csv")
+$githubAutomationPreflight = Read-CsvRequired (Join-Path $matrixRoot "GITHUB_AUTOMATION_PREFLIGHT_MATRIX.csv")
 $skillUsage = Read-CsvRequired (Join-Path $skillsRoot "SKILL_USAGE_MATRIX.csv")
 $recipeIndex = Read-CsvRequired (Join-Path $recipesRoot "RECIPE_INDEX.csv")
 $toolIndex = Read-CsvRequired (Join-Path $toolsRoot "TOOL_INDEX.csv")
@@ -158,6 +159,41 @@ foreach ($row in $githubActions) {
   }
 }
 
+$preflightIds = @($githubAutomationPreflight | ForEach-Object { $_.preflight_id })
+foreach ($expected in @(
+  "preflight.github_foundation",
+  "preflight.github_actions_readonly",
+  "preflight.order_packets",
+  "preflight.agents_sdk_local",
+  "preflight.repo_iteration_gate"
+)) {
+  if ($preflightIds -notcontains $expected) {
+    $errors.Add("GitHub automation preflight row missing: $expected")
+  }
+}
+
+foreach ($row in $githubAutomationPreflight) {
+  if ($row.phase -ne "pre_repo_bootstrap") {
+    $errors.Add("GitHub automation preflight phase is not pre_repo_bootstrap: $($row.preflight_id)")
+  }
+  if ([string]::IsNullOrWhiteSpace($row.required_before)) {
+    $errors.Add("GitHub automation preflight required_before missing: $($row.preflight_id)")
+  }
+  if ($row.status -notmatch "^READY_") {
+    $errors.Add("GitHub automation preflight not ready: $($row.preflight_id) -> $($row.status)")
+  }
+  if ($row.blocked_actions -notmatch "secrets" -or $row.blocked_actions -notmatch "production") {
+    $errors.Add("GitHub automation preflight blocked actions incomplete: $($row.preflight_id)")
+  }
+}
+
+$agentsSdkPreflight = @($githubAutomationPreflight | Where-Object { $_.preflight_id -eq "preflight.agents_sdk_local" }) | Select-Object -First 1
+if (-not $agentsSdkPreflight) {
+  $errors.Add("Agents SDK local preflight row missing")
+} elseif ($agentsSdkPreflight.agents_sdk_mode -ne "LOCAL_IMPORT_APPROVED_NO_API_CALL" -or $agentsSdkPreflight.blocked_actions -notmatch "openai_api_live" -or $agentsSdkPreflight.blocked_actions -notmatch "agents_sdk_live") {
+  $errors.Add("Agents SDK preflight must remain local import no-api-call with live API blocked")
+}
+
 $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }
 $payload = [ordered]@{
   status = $status
@@ -175,6 +211,7 @@ $payload = [ordered]@{
   tool_rows = $toolIndex.Count
   plugin_rows = $pluginUsage.Count
   github_actions_rows = $githubActions.Count
+  github_automation_preflight_rows = $githubAutomationPreflight.Count
   root_base_repo_id = "D_CABINA_UNIVERSAL_ROOT"
   root_base_remote = "universo-rey/cabina-universal-d"
   github_agent_status = "APPROVED_GITHUB_AGENT_SURFACE"
