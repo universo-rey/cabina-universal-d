@@ -143,6 +143,7 @@ foreach ($expected in @(
   "preflight.github_actions_readonly",
   "preflight.order_packets",
   "preflight.agents_sdk_local",
+  "preflight.operational_chain_global",
   "preflight.repo_iteration_gate"
 )) {
   if ($expected -notin @($rows | ForEach-Object { $_.preflight_id })) {

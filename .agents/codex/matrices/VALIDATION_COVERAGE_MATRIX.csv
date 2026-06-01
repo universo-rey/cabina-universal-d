@@ -8,6 +8,7 @@ lineage_audit,D:\.agents\codex\matrices\CANONICAL_INDEX_LINEAGE_AUDIT.csv,D:\.ag
 matrices,D:\.agents\codex\matrices\MATRIX_INDEX.csv,D:\.agents\codex\tools\local_validate_agent_layer.ps1,rey.governance_registrar,covered,matrix_index_missing_file
 order_preparation,D:\.agents\codex\matrices\ORDER_PREPARATION_ASSIGNMENT_MATRIX.csv,D:\.agents\codex\tools\local_validate_agent_layer.ps1,rey.frontier_guardian,covered,order_packet_missing_required_fields
 order_class_capabilities,D:\.agents\codex\matrices\ORDER_CLASS_CAPABILITY_MATRIX.csv,D:\.agents\codex\tools\local_validate_order_packets.ps1,rey.frontier_guardian,covered,order_packet_missing_required_fields
+operational_chain_governance,D:\.agents\codex\matrices\OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv,D:\.agents\codex\tools\local_validate_operational_chain.ps1,court.thot_schema,covered,operational_chain_missing
 parallel_operation,D:\.agents\codex\matrices\PARALLEL_OPERATION_CRITERIA_MATRIX.csv,D:\.agents\codex\tools\local_validate_agent_layer.ps1,rey.control_plane_orchestrator,covered,parallel_lane_without_validator
 parallel_order_semantics,D:\.agents\codex\matrices\PARALLEL_OPERATION_CRITERIA_MATRIX.csv,D:\.agents\codex\tools\local_validate_parallel_order_governance.ps1,rey.control_plane_orchestrator,covered,lane_scope_overlap
 plugin_skill_boundaries,D:\.agents\codex\matrices\PLUGIN_SKILL_BOUNDARY_MATRIX.csv,D:\.agents\codex\tools\local_validate_agent_layer.ps1,codex.workspace_guardian,covered,plugin_without_surface_boundary

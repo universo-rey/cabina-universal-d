@@ -8,6 +8,7 @@ capability_source_inventory,tech.reference_librarian,D:\.agents\codex\matrices\C
 closeout,court.seshat_evidence,D:\.agents\codex\readbacks,secret_scan|local_validator,missing_evidence
 github_automation_preflight,court.thot_schema,D:\.agents\codex\matrices\GITHUB_AUTOMATION_PREFLIGHT_MATRIX.csv,tools\local_validate_github_automation_preflight.ps1|tools\local_validate_agent_layer.ps1,github_order_missing_checks
 live_surface_order,rey.frontier_guardian,D:\.agents\codex\orders,manual_gate_check,missing_surface_identity_rollback_postcheck
+operational_chain_governance,court.thot_schema,D:\.agents\codex\matrices\OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv,tools\local_validate_operational_chain.ps1|tools\local_validate_agent_layer.ps1,operational_chain_missing
 plugin_boundary_change,codex.workspace_guardian,D:\.agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv,tools\local_validate_agent_layer.ps1,plugin_without_surface_boundary
 recipe_change,court.openai_dispatcher,D:\.agents\codex\recipes\RECIPE_INDEX.csv,manual_index_check,recipe_without_level
 repo_agent_tool_governance,rey.authority_canonist,D:\.agents\codex\matrices\REPO_AGENT_TOOL_GOVERNANCE_MATRIX.csv,tools\local_validate_agent_layer.ps1,asset_without_governance_contract

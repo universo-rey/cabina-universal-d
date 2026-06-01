@@ -35,6 +35,7 @@ $repoRuntime = Read-CsvRequired (Join-Path $matrixRoot "REPO_RUNTIME_ALIGNMENT_M
 $cabinaRepoAlignment = Read-CsvRequired (Join-Path $matrixRoot "CABINA_UNIVERSAL_REPO_ALIGNMENT_MATRIX.csv")
 $githubBase = Read-CsvRequired (Join-Path $RepoRoot "01_GOVERNANCE_REGISTRY\GITHUB_BASE_WORK_MATRIX.csv")
 $githubAutomationPreflight = Read-CsvRequired (Join-Path $matrixRoot "GITHUB_AUTOMATION_PREFLIGHT_MATRIX.csv")
+$operationalChain = Read-CsvRequired (Join-Path $matrixRoot "OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv")
 $skillUsage = Read-CsvRequired (Join-Path $skillsRoot "SKILL_USAGE_MATRIX.csv")
 $recipeIndex = Read-CsvRequired (Join-Path $recipesRoot "RECIPE_INDEX.csv")
 $toolIndex = Read-CsvRequired (Join-Path $toolsRoot "TOOL_INDEX.csv")
@@ -165,6 +166,7 @@ foreach ($expected in @(
   "preflight.github_actions_readonly",
   "preflight.order_packets",
   "preflight.agents_sdk_local",
+  "preflight.operational_chain_global",
   "preflight.repo_iteration_gate"
 )) {
   if ($preflightIds -notcontains $expected) {
@@ -194,6 +196,30 @@ if (-not $agentsSdkPreflight) {
   $errors.Add("Agents SDK preflight must remain local import no-api-call with live API blocked")
 }
 
+$operationalChainIds = @($operationalChain | ForEach-Object { $_.chain_id })
+foreach ($expected in @(
+  "chain.chat_closeout_global",
+  "chain.repo_change_global",
+  "chain.github_automation_global",
+  "chain.live_runtime_order_global",
+  "chain.parallel_subagent_global"
+)) {
+  if ($operationalChainIds -notcontains $expected) {
+    $errors.Add("Operational chain row missing: $expected")
+  }
+}
+
+foreach ($row in $operationalChain) {
+  if ($row.status -ne "ACTIVE_GLOBAL") {
+    $errors.Add("Operational chain row is not ACTIVE_GLOBAL: $($row.chain_id)")
+  }
+  foreach ($field in @("owner_agent","reviewer_agent","required_skill_source","required_recipe_source","required_tool_source","required_validator_source","required_evidence_source","stop_condition")) {
+    if ([string]::IsNullOrWhiteSpace($row.$field)) {
+      $errors.Add("Operational chain row '$($row.chain_id)' missing $field")
+    }
+  }
+}
+
 $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }
 $payload = [ordered]@{
   status = $status
@@ -212,6 +238,7 @@ $payload = [ordered]@{
   plugin_rows = $pluginUsage.Count
   github_actions_rows = $githubActions.Count
   github_automation_preflight_rows = $githubAutomationPreflight.Count
+  operational_chain_rows = $operationalChain.Count
   root_base_repo_id = "D_CABINA_UNIVERSAL_ROOT"
   root_base_remote = "universo-rey/cabina-universal-d"
   github_agent_status = "APPROVED_GITHUB_AGENT_SURFACE"

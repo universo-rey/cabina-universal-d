@@ -117,6 +117,9 @@ runtime_alignment_state:
   github_actions_matrix: D:/.agents/codex/matrices/GITHUB_ACTIONS_WORKFLOW_MATRIX.csv
   github_automation_preflight_matrix: D:/.agents/codex/matrices/GITHUB_AUTOMATION_PREFLIGHT_MATRIX.csv
   github_automation_preflight_tool: D:/.agents/codex/tools/local_validate_github_automation_preflight.ps1
+  operational_chain_state: ACTIVE_GLOBAL_REQUIRED
+  operational_chain_matrix: D:/.agents/codex/matrices/OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv
+  operational_chain_tool: D:/.agents/codex/tools/local_validate_operational_chain.ps1
   parallel_operation_matrix: D:/.agents/codex/matrices/PARALLEL_OPERATION_CRITERIA_MATRIX.csv
   order_preparation_matrix: D:/.agents/codex/matrices/ORDER_PREPARATION_ASSIGNMENT_MATRIX.csv
   order_class_capability_matrix: D:/.agents/codex/matrices/ORDER_CLASS_CAPABILITY_MATRIX.csv

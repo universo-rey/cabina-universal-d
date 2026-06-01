@@ -22,3 +22,4 @@
 "source_reference_treated_as_canon","source_governance","copied source material is being treated as rector canon without local adoption decision","record source boundary and adoption decision","source|canon|matrix"
 "merge_or_force_push_or_actions_write_permission_without_order","github_governance","merge force push workflow write permission or protected action requested without order","prepare GitHub order packet and stop before action","github|actions|repo"
 "source_without_decision_or_gate","source_governance","source capability lacks adoption decision boundary or gate","record adoption decision gate owner and validator","source|capability"
+"operational_chain_missing","operational_chain","agent skill recipe tool validator evidence or stop condition is missing from an operational action","declare complete operational chain or stop before closeout","agent|skill|recipe|tool|validator|readback|pr|workflow"
