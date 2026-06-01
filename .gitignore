@@ -182,3 +182,11 @@
 !/.agents/codex/workpapers/*/
 !/.agents/codex/workpapers/*/*.md
 !/.agents/codex/workpapers/*/*.csv
+
+# Repo-local portable Codex skills. These are the durable cabina source for
+# skills that should travel with this wrapper repo.
+!/.agents/skills/
+/.agents/skills/*
+!/.agents/skills/README.md
+!/.agents/skills/*/
+!/.agents/skills/*/SKILL.md

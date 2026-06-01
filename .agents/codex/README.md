@@ -18,6 +18,8 @@ La carpeta debe preferir `copiar/adaptar` antes que inventar. Los archivos `SOUR
 - `agents\LEVELS.csv`: vista tabular de subniveles.
 - `agents\<subnivel>\*.md`: perfil humano/operativo de cada agente.
 - `skills\`: matriz de skills aplicables por subnivel.
+- `D:\.agents\skills\`: raiz repo-local portable para `SKILL.md` propios de
+  la cabina. `skills\` dentro de `.agents\codex` gobierna catalogo y matrices.
 - `recipes\`: recetas operativas reutilizables.
 - `tools\`: tools locales y validador.
 - `matrices\`: matrices rectoras de capacidades, evidencia y contratos.
@@ -80,6 +82,11 @@ agente/skill/receta/tool/validador/evidencia/stop_condition para cierres,
 cambios repo, automatizacion GitHub, runtime y carriles paralelos. La matriz
 rectora es `matrices\OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv` y el validador
 local es `tools\local_validate_operational_chain.ps1`.
+
+Actualizacion skills repo-locales 2026-06-01: las skills cabina que deben
+viajar con el repo se guardan en `D:\.agents\skills\<skill>\SKILL.md`. La
+carpeta `D:\.agents\codex\skills` no instala por si misma: registra uso,
+subskills y source refs.
 
 ## Olas de agentes
 

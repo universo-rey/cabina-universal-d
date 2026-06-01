@@ -1,4 +1,5 @@
 matrix_id,path,scope,primary_reader,update_rule
+repo_local_skill_root,D:/.agents/skills,repo_local_portable_skills,03_CORTE_EJECUTORA,update when cabina-owned SKILL.md packages are added or removed
 agent_default_skill_assignment_matrix,D:/.agents/codex/matrices/AGENT_DEFAULT_SKILL_ASSIGNMENT_MATRIX.csv,agent_default_skills,00_ROUTER,update when default skills recipes tools or plugins are reassigned by agent purpose
 agent_governance_matrix,D:\.agents\codex\matrices\AGENT_GOVERNANCE_MATRIX.csv,agent_governance,01_AUTORIDAD_Y_GATES,update when agent authority changes
 agent_index,D:\.agents\codex\AGENTS_INDEX.csv,all_agents,00_ROUTER,update when an agent profile or level changes
