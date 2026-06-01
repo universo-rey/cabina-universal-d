@@ -1,0 +1,15 @@
+registry_id: sdu_recipes
+status: CANON_REGISTRY_V1
+items:
+  - recipe_id: recipe_agent_mesh_bootstrap
+    source: 06_SKILLS_RECETAS_PLUGINS/indexes/RECIPES_INDEX.csv
+    live_execution_allowed: false
+  - recipe_id: recipe_no_dump_live_reading_with_planner_control
+    source: 06_SKILLS_RECETAS_PLUGINS/indexes/RECIPES_INDEX.csv
+    live_execution_allowed: false
+  - recipe_id: recipe_human_selected_limited_live_operation
+    source: 06_SKILLS_RECETAS_PLUGINS/indexes/RECIPES_INDEX.csv
+    live_execution_allowed: false
+  - recipe_id: recipe_dummy_to_limited_real_cases
+    source: 06_SKILLS_RECETAS_PLUGINS/indexes/RECIPES_INDEX.csv
+    live_execution_allowed: false

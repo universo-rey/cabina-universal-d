@@ -1,0 +1,51 @@
+registry_id: sdu_tool_permissions
+status: CANON_REGISTRY_V1
+items:
+  - tool_id: local_python_validator
+    state: REQUESTABLE
+    input_allowed: repo files and generated artifacts
+    input_blocked: secrets ungated live systems
+    requires_secrets: false
+    live_execution_allowed: false
+  - tool_id: github_cli
+    state: REQUESTABLE
+    input_allowed: branch PR issue metadata
+    input_blocked: force push merge protected branch permission changes without human approval
+    requires_secrets: false
+    live_execution_allowed: false
+  - tool_id: openai_api_readonly_inventory
+    state: REQUIRES_GATE
+    input_allowed: existing credential and read-only metadata
+    input_blocked: uploads create update delete tool execution secrets
+    requires_secrets: true
+    live_execution_allowed: false
+  - tool_id: sharepoint_live_write
+    state: REQUIRES_GATE
+    input_allowed: declared site list library page item metadata and selected live inputs by gate
+    input_blocked: secrets dumps permission changes without approval destructive changes without rollback
+    requires_secrets: true
+    live_execution_allowed: false
+  - tool_id: power_automate_live_execution
+    state: REQUIRES_GATE
+    input_allowed: declared flow trigger action owner connection reference test payload and rollback by gate
+    input_blocked: secrets hidden connections unbounded production triggers destructive mutation without rollback
+    requires_secrets: true
+    live_execution_allowed: false
+  - tool_id: microsoft_graph_operation
+    state: REQUIRES_GATE
+    input_allowed: declared endpoint least privilege scope selected object metadata and sanitized ids
+    input_blocked: secrets dumps tenant-wide unmanaged changes permission expansion without approval
+    requires_secrets: true
+    live_execution_allowed: false
+  - tool_id: microsoft_tenant_live_data
+    state: REQUIRES_GATE
+    input_allowed: selected tenant data within declared gate scope and evidence minimization
+    input_blocked: secrets dumps corpus bruto unscoped personal data expedientes outside gate UIF KYC outside gate
+    requires_secrets: true
+    live_execution_allowed: false
+  - tool_id: production_deploy
+    state: BLOCKED
+    input_allowed: none in this gate
+    input_blocked: production mutation destructive deploy unmanaged live release
+    requires_secrets: true
+    live_execution_allowed: false

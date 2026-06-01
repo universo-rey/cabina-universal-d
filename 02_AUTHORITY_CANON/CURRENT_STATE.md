@@ -13,9 +13,26 @@ Actualizacion remota 2026-06-01: el repo raiz de cabina tiene remoto privado
 separado en `universo-rey/cabina-universal-d`. El repo `universo-rey/organizacion`
 continua como repo rector documental separado y no fue reemplazado.
 
+Actualizacion capacidades 2026-06-01: el repo raiz de cabina adopta en local
+las capacidades declarativas necesarias desde repos fuente sin absorberlos:
+perfiles de subnivel, source registries, skills, recipes, tools, evals,
+plugins y templates bajo `.agents/codex`. La matriz rectora local queda en
+`D:/.agents/codex/matrices/CAPABILITY_IMPORT_DECISION_MATRIX.csv` y el
+inventario fuente en
+`D:/.agents/codex/matrices/CAPABILITY_SOURCE_INVENTORY.csv`.
+
+Actualizacion GitHub base 2026-06-01: GitHub queda declarado como base
+obligatoria de trabajo, revision y trazabilidad para el universo de
+repositorios. El remoto raiz `universo-rey/cabina-universal-d` gobierna la
+cabina como base transversal e indice; cada repo anidado conserva su propio
+remoto y debe avanzar por rama, commit, push y PR draft en GitHub. La politica
+queda en `D:/02_AUTHORITY_CANON/GITHUB_BASE_WORK_POLICY.md` y la matriz de
+repos en `D:/01_GOVERNANCE_REGISTRY/GITHUB_BASE_WORK_MATRIX.csv`.
+
 Reglas vigentes:
 
 - GitHub repo-visible reversible esta habilitado para lectura, validacion, branch, commit, push, PR draft/update, issues, labels, comentarios y readbacks bajo orden gobernada.
+- Todo cambio durable de repos debe pasar por GitHub: rama, validacion local, stage explicito, commit, push y PR draft/update.
 - No mover clones aun.
 - Microsoft live queda gobernado a nivel global: SharePoint, Teams, Outlook, Entra, Microsoft Graph, Power Platform, Planner, Dataverse o tenant requieren orden gobernada con superficie, identidad, owner, rollback, postcheck y evidencia.
 - Produccion solo con autorizacion explicita separada.
@@ -27,3 +44,5 @@ Reglas vigentes:
 
 PR rector activo: `universo-rey/organizacion#40`.
 Rama rectora activa: `codex/d-drive-governance-versioning-20260601`.
+PR raiz activo: `universo-rey/cabina-universal-d#1`.
+Rama raiz activa: `codex/d-root-ui-visibility-20260601`.

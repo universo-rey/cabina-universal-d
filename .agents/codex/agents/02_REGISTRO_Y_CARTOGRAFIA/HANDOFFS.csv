@@ -1,0 +1,5 @@
+condition,target_level,target_agent,required_payload
+write_or_move_required,01_AUTORIDAD_Y_GATES,rey.frontier_guardian,source|target|rollback|postcheck
+evidence_closeout_required,03_CORTE_EJECUTORA,court.seshat_evidence,source|scope|validator
+cross_universe_detected,04_TORRES_DE_UNIVERSO,universe.escribania_tower,source_universe|target_universe|reason
+reference_classification_needed,05_SOPORTE_TECNICO,tech.reference_librarian,path|vendor|license_unknown

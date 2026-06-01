@@ -11,3 +11,5 @@
 "tool_governance_assignment","codex.workspace_guardian","D:\.agents\codex\matrices\TOOL_GOVERNANCE_MATRIX.csv","tools\local_validate_agent_layer.ps1","tool_without_surface_boundary"
 "agent_workpaper_change","court.seshat_evidence","D:\.agents\codex\workpapers","tools\local_validate_agent_workpapers.ps1|tools\local_validate_agent_layer.ps1","workpaper_missing_for_agent"
 "plugin_boundary_change","codex.workspace_guardian","D:\.agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv","tools\local_validate_agent_layer.ps1","plugin_without_surface_boundary"
+"capability_import","rey.governance_registrar","D:\.agents\codex\matrices\CAPABILITY_IMPORT_DECISION_MATRIX.csv","tools\local_validate_agent_layer.ps1|matrix_index_path_check|git_diff_check","source_without_decision_or_gate"
+"capability_source_inventory","tech.reference_librarian","D:\.agents\codex\matrices\CAPABILITY_SOURCE_INVENTORY.csv","tools\local_validate_agent_layer.ps1|matrix_index_path_check","source_reference_treated_as_canon"

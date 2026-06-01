@@ -51,6 +51,7 @@
 !/01_GOVERNANCE_REGISTRY/CONTROL_TOWERS.csv
 !/01_GOVERNANCE_REGISTRY/D_DRIVE_GIT_STATUS_MATRIX.csv
 !/01_GOVERNANCE_REGISTRY/FRONTIER_MATRIX.csv
+!/01_GOVERNANCE_REGISTRY/GITHUB_BASE_WORK_MATRIX.csv
 !/01_GOVERNANCE_REGISTRY/GUIA_DE_FRONTERAS.md
 !/01_GOVERNANCE_REGISTRY/GUIA_DE_JERARQUIA.md
 !/01_GOVERNANCE_REGISTRY/MAPA_DE_UNIVERSOS.md
@@ -64,6 +65,7 @@
 !/02_AUTHORITY_CANON/
 /02_AUTHORITY_CANON/*
 !/02_AUTHORITY_CANON/CURRENT_STATE.md
+!/02_AUTHORITY_CANON/GITHUB_BASE_WORK_POLICY.md
 
 # Local Codex agent layer metadata. Orders/readbacks/workpapers stay out until
 # explicitly selected.
@@ -83,6 +85,13 @@
 !/.agents/codex/agents/LEVELS.yaml
 !/.agents/codex/agents/SOURCE_TCU_RUNTIME_AGENT_CONTRACTS.md
 !/.agents/codex/agents/SOURCE_TCU_SDU_REPO_AGENT_COMMAND_MATRIX_CURRENT.csv
+!/.agents/codex/agents/SOURCE_*.md
+!/.agents/codex/agents/SOURCE_*.csv
+!/.agents/codex/agents/SOURCE_*.yaml
+!/.agents/codex/agents/SOURCE_*.yml
+!/.agents/codex/agents/*/
+!/.agents/codex/agents/*/*.md
+!/.agents/codex/agents/*/*.csv
 
 !/.agents/codex/maps/
 /.agents/codex/maps/*
@@ -93,3 +102,45 @@
 /.agents/codex/matrices/*
 !/.agents/codex/matrices/*.csv
 !/.agents/codex/matrices/*.md
+
+!/.agents/codex/skills/
+/.agents/codex/skills/*
+!/.agents/codex/skills/*.csv
+!/.agents/codex/skills/*.md
+!/.agents/codex/skills/*.yaml
+!/.agents/codex/skills/*.yml
+!/.agents/codex/skills/*/
+!/.agents/codex/skills/*/SKILL.md
+
+!/.agents/codex/recipes/
+/.agents/codex/recipes/*
+!/.agents/codex/recipes/*.csv
+!/.agents/codex/recipes/*.md
+!/.agents/codex/recipes/*.yaml
+!/.agents/codex/recipes/*.yml
+
+!/.agents/codex/tools/
+/.agents/codex/tools/*
+!/.agents/codex/tools/*.csv
+!/.agents/codex/tools/*.md
+!/.agents/codex/tools/*.ps1
+!/.agents/codex/tools/*.py
+!/.agents/codex/tools/*.yaml
+!/.agents/codex/tools/*.yml
+
+!/.agents/codex/evals/
+/.agents/codex/evals/*
+!/.agents/codex/evals/*.csv
+!/.agents/codex/evals/*.json
+!/.agents/codex/evals/*.jsonl
+!/.agents/codex/evals/*.md
+!/.agents/codex/evals/*.py
+
+!/.agents/codex/plugins/
+/.agents/codex/plugins/*
+!/.agents/codex/plugins/*.csv
+!/.agents/codex/plugins/*.md
+
+!/.agents/codex/templates/
+/.agents/codex/templates/*
+!/.agents/codex/templates/*.md

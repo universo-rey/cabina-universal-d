@@ -20,3 +20,5 @@
 "cap.sdu.sharepoint.complete_read.prepare","01_AUTORIDAD_Y_GATES","court.sdu_gate","microsoft_live_read_preparation","yes","sharepoint_complete_read_live","microsoft_live_requested_without_governed_order|broad_regulated_read","complete_read_order_packet"
 "cap.tge.tenant.surface.assignment","04_TORRES_DE_UNIVERSO","universe.escribania_tower","tenant_surface_assignment","yes","tenant_live_read_or_write","tenant_identity_missing|regulated_data_broad_read","tge_surface_assignment_matrix"
 "cap.cdf.agent.versioning","04_TORRES_DE_UNIVERSO","universe.modo_on_tower","provider_agent_versioning","yes","microsoft_live_or_production","provider_control_without_trace|tenant_write","cdf_agent_versioning_readback"
+"cap.capability.import","02_REGISTRO_Y_CARTOGRAFIA","rey.governance_registrar","capability_copy_adapt_governance","yes","github_write|live_runtime|external_api","repo_absorption|secret_handling|live_execution_without_order","capability_import_decision_matrix"
+"cap.capability.source_inventory","05_SOPORTE_TECNICO","tech.reference_librarian","source_capability_inventory","yes","no","treating_reference_as_canon|copying_runtime_secrets","capability_source_inventory"

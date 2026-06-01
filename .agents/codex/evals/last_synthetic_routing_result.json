@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "cases": 6,
+  "failures": 0,
+  "generated_at": "2026-06-01",
+  "api_used": false,
+  "results": [
+    {
+      "case_id": "eval.router.repo_migration",
+      "expected_level": "02_REGISTRO_Y_CARTOGRAFIA",
+      "expected_agent": "rey.migration_planner",
+      "status": "PASS",
+      "level_ok": true,
+      "agent_ok": true,
+      "agent_level_ok": true
+    },
+    {
+      "case_id": "eval.gate.sharepoint_write",
+      "expected_level": "01_AUTORIDAD_Y_GATES",
+      "expected_agent": "rey.frontier_guardian",
+      "status": "PASS",
+      "level_ok": true,
+      "agent_ok": true,
+      "agent_level_ok": true
+    },
+    {
+      "case_id": "eval.corte.prompt_pack",
+      "expected_level": "03_CORTE_EJECUTORA",
+      "expected_agent": "court.openai_dispatcher",
+      "status": "PASS",
+      "level_ok": true,
+      "agent_ok": true,
+      "agent_level_ok": true
+    },
+    {
+      "case_id": "eval.universe.escribania",
+      "expected_level": "04_TORRES_DE_UNIVERSO",
+      "expected_agent": "universe.escribania_tower",
+      "status": "PASS",
+      "level_ok": true,
+      "agent_ok": true,
+      "agent_level_ok": true
+    },
+    {
+      "case_id": "eval.support.codex",
+      "expected_level": "05_SOPORTE_TECNICO",
+      "expected_agent": "codex.workspace_guardian",
+      "status": "PASS",
+      "level_ok": true,
+      "agent_ok": true,
+      "agent_level_ok": true
+    },
+    {
+      "case_id": "eval.evidence.acta",
+      "expected_level": "03_CORTE_EJECUTORA",
+      "expected_agent": "court.seshat_evidence",
+      "status": "PASS",
+      "level_ok": true,
+      "agent_ok": true,
+      "agent_level_ok": true
+    }
+  ]
+}

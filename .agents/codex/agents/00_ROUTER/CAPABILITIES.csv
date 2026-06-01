@@ -1,0 +1,4 @@
+capability_id,agent_id,description,reads,writes,stop_condition
+cap.intake.route,rey.control_plane_orchestrator,clasificar orden y asignar subnivel,D:\.agents\codex\routing.json,D:\.agents\codex\readbacks,surface_not_identified
+cap.intake.agent_select,rey.control_plane_orchestrator,seleccionar agente primario,D:\.agents\codex\AGENTS_INDEX.csv,D:\.agents\codex\orders,missing_authority
+cap.intake.escalate,rey.control_plane_orchestrator,escalar a gates registro corte torre o soporte,D:\.agents\codex\maps\HANDOFF_MAP.csv,D:\.agents\codex\readbacks,live_write_requested_without_order

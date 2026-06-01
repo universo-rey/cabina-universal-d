@@ -52,6 +52,13 @@ Versionado GitHub repo-visible reversible habilitado bajo orden gobernada.
 Microsoft live requiere orden gobernada con rollback, postcheck y evidencia.
 Produccion requiere autorizacion explicita separada.
 
+Actualizacion 2026-06-01: la cabina raiz adopta como capacidades versionables
+los perfiles de subnivel, skills, recipes, tools, evals, plugins y templates
+locales bajo `.agents\codex`. La adopcion es declarativa y local: no despliega
+agentes remotos, no ejecuta OpenAI API, no escribe en Microsoft y no mueve
+repos anidados. Las fuentes copiadas desde otros repos se registran como
+`SOURCE_*` y se controlan en `matrices\CAPABILITY_IMPORT_DECISION_MATRIX.csv`.
+
 ## Olas de agentes
 
 Ola 1: orquestacion, fronteras, registro, canon, repos, corte OpenAI y torres Escribania/Modo ON.

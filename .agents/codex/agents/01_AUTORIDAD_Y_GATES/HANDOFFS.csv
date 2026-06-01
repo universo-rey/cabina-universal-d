@@ -1,0 +1,6 @@
+condition,target_level,target_agent,required_payload
+registry_delta_needed,02_REGISTRO_Y_CARTOGRAFIA,rey.governance_registrar,item|owner|surface|classification
+prompt_or_eval_needed,03_CORTE_EJECUTORA,court.openai_dispatcher,approved_boundary|prompt_goal|data_policy
+universe_surface_needed,04_TORRES_DE_UNIVERSO,universe.escribania_tower,universe|surface|approved_action
+workspace_config_needed,05_SOPORTE_TECNICO,codex.workspace_guardian,path|config|risk
+human_authority_needed,HUMAN_APPROVAL,HUMAN_APPROVAL,decision|risk|approval_text
