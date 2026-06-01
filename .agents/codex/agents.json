@@ -14,6 +14,9 @@
       "agente",
       "orden",
       "superficie",
+      "skill",
+      "receta",
+      "tool",
       "estado",
       "evidencia",
       "validador",
@@ -72,7 +75,13 @@
       "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.control_plane_orchestrator",
       "default_skills": [
         "rey-modo-gobernador-capacidades",
+        "tcu-descubridor-capacidades",
+        "tcu-redactor-planes-operativos",
+        "tcu-desarrollo-con-subagentes",
+        "tcu-planificador-con-archivos",
         "superpowers:dispatching-parallel-agents",
+        "superpowers:subagent-driven-development",
+        "superpowers:writing-plans",
         "superpowers:verification-before-completion",
         "parallel-order-governance"
       ],
@@ -140,6 +149,8 @@
       "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.frontier_guardian",
       "default_skills": [
         "rey-modo-gobernador-capacidades",
+        "tcu-redactor-planes-operativos",
+        "superpowers:writing-plans",
         "repo-agent-tool-governance",
         "governed-readback-closeout",
         "superpowers:verification-before-completion",
@@ -427,9 +438,11 @@
       "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.openai_dispatcher",
       "default_skills": [
         "openai-developers:agents-sdk",
+        "skill-creator",
+        "mcp-builder",
+        "superpowers:writing-skills",
         "tcu-harness-evals-agentes",
         "matrix-recipe-skill-sync",
-        "superpowers:writing-skills",
         "superpowers:verification-before-completion",
         "parallel-order-governance"
       ],
@@ -640,6 +653,7 @@
       "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.seshat_evidence",
       "default_skills": [
         "rey-modo-evidencia-riesgo-handoff",
+        "tcu-planificador-con-archivos",
         "governed-readback-closeout",
         "github:yeet",
         "cabina-session-handoff",
@@ -785,12 +799,17 @@
       "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.thot_schema",
       "default_skills": [
         "tcu-harness-evals-agentes",
+        "skill-judge",
+        "skill-creator",
+        "mcp-builder",
+        "tcu-desarrollo-con-subagentes",
+        "superpowers:subagent-driven-development",
+        "superpowers:writing-skills",
         "matrix-recipe-skill-sync",
         "d-drive-agent-layer-enrichment",
         "cabina-naming-analyzer",
         "cabina-github-actions-templates",
         "superpowers:systematic-debugging",
-        "superpowers:writing-skills",
         "superpowers:verification-before-completion",
         "parallel-order-governance"
       ],
@@ -863,6 +882,8 @@
       "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.migration_planner",
       "default_skills": [
         "tcu-planificador-con-archivos",
+        "tcu-redactor-planes-operativos",
+        "superpowers:writing-plans",
         "rey-modo-gobernador-capacidades",
         "superpowers:verification-before-completion",
         "parallel-order-governance"
@@ -931,6 +952,8 @@
       "workpapers_path": "D:\\.agents\\codex\\workpapers\\tech.reference_librarian",
       "default_skills": [
         "rey-modo-gobernador-capacidades",
+        "tcu-descubridor-capacidades",
+        "mcp-builder",
         "openai-docs",
         "matrix-recipe-skill-sync",
         "superpowers:verification-before-completion",
@@ -1002,6 +1025,7 @@
       "default_skills": [
         "rey-modo-auditor-vscode-insiders",
         "operativa-guardian:operativa-guardian-status",
+        "skill-judge",
         "matrix-recipe-skill-sync",
         "cabina-agent-md-refactor",
         "cabina-github-actions-templates",

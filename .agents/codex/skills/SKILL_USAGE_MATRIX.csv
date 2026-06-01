@@ -5,10 +5,12 @@ cabina-github-actions-templates,d_drive_repo_local,02_REGISTRO_Y_CARTOGRAFIA|03_
 cabina-naming-analyzer,d_drive_repo_local,02_REGISTRO_Y_CARTOGRAFIA|03_CORTE_EJECUTORA,rey.governance_registrar|court.thot_schema,canonical ids aliases names and stop-condition normalization,local_only
 cabina-session-handoff,d_drive_repo_local,03_CORTE_EJECUTORA,court.seshat_evidence,session PR lane and interrupted-task handoff with evidence,local_only
 d-drive-agent-layer-enrichment,d_drive_local,02_REGISTRO_Y_CARTOGRAFIA|03_CORTE_EJECUTORA,rey.governance_registrar|court.thot_schema,D-drive local matrices recipes skills tools enrichment,local_only
+agentation,installed_local,05_SOPORTE_TECNICO,codex.workspace_guardian,local Next.js Agentation visual feedback when a frontend repo explicitly needs it,local_frontend_only
 github:github,plugin,02_REGISTRO_Y_CARTOGRAFIA,rey.repo_cartographer,GitHub repo and PR inspection,read_or_write_by_order
 github:yeet,plugin,02_REGISTRO_Y_CARTOGRAFIA|03_CORTE_EJECUTORA,rey.repo_cartographer|court.seshat_evidence,commit push and PR update under order,github_write_requires_order
 governed-readback-closeout,d_drive_local,01_AUTORIDAD_Y_GATES|03_CORTE_EJECUTORA|04_TORRES_DE_UNIVERSO,rey.frontier_guardian|rey.authority_canonist|universe.escribania_tower|universe.modo_on_tower|court.seshat_evidence,close local work with evidence and validation,local_only
 matrix-recipe-skill-sync,d_drive_local,02_REGISTRO_Y_CARTOGRAFIA|03_CORTE_EJECUTORA|05_SOPORTE_TECNICO,rey.governance_registrar|court.openai_dispatcher|court.thot_schema|tech.reference_librarian|codex.workspace_guardian,keep D-drive artifact indexes aligned,local_only
+mcp-builder,installed_local,03_CORTE_EJECUTORA|05_SOPORTE_TECNICO,court.openai_dispatcher|court.thot_schema|tech.reference_librarian,local MCP design and scaffolding under governed boundaries,api_live_requires_order
 openai-developers:agents-sdk,plugin,03_CORTE_EJECUTORA,court.openai_dispatcher,Agents SDK local/staging design,api_live_requires_order
 openai-docs,system_local,05_SOPORTE_TECNICO,tech.reference_librarian,official OpenAI docs lookup when needed,docs_only
 parallel-order-governance,d_drive_local,00_ROUTER|01_AUTORIDAD_Y_GATES|02_REGISTRO_Y_CARTOGRAFIA|03_CORTE_EJECUTORA|04_TORRES_DE_UNIVERSO|05_SOPORTE_TECNICO,all_agents,parallel agents subagents order preparation and local OpenAI design,local_only
@@ -17,14 +19,21 @@ repo-agent-tool-governance,d_drive_local,01_AUTORIDAD_Y_GATES|02_REGISTRO_Y_CART
 rey-modo-auditor-vscode-insiders,installed_local,05_SOPORTE_TECNICO,codex.workspace_guardian,VS Code Insiders and local workspace audit,local_only
 rey-modo-evidencia-riesgo-handoff,installed_local,03_CORTE_EJECUTORA,court.seshat_evidence,evidence risk and handoff closeout,local_only
 rey-modo-gobernador-capacidades,installed_local,00_ROUTER|01_AUTORIDAD_Y_GATES|02_REGISTRO_Y_CARTOGRAFIA|04_TORRES_DE_UNIVERSO|05_SOPORTE_TECNICO,rey.control_plane_orchestrator|rey.frontier_guardian|rey.governance_registrar|rey.authority_canonist|universe.escribania_tower|universe.modo_on_tower|rey.migration_planner|tech.reference_librarian,capability discovery and normalization,local_only
+tcu-descubridor-capacidades,installed_local,00_ROUTER|05_SOPORTE_TECNICO,rey.control_plane_orchestrator|tech.reference_librarian,discover and select available skills before adoption,local_only
+tcu-desarrollo-con-subagentes,installed_local,00_ROUTER|03_CORTE_EJECUTORA,rey.control_plane_orchestrator|court.thot_schema,subagent-driven development with cabina scopes and locks,local_only
+tcu-redactor-planes-operativos,installed_local,00_ROUTER|01_AUTORIDAD_Y_GATES|02_REGISTRO_Y_CARTOGRAFIA,rey.control_plane_orchestrator|rey.frontier_guardian|rey.migration_planner,governed operational plans before multi-step execution,local_only
 sdu-ejecutor-gates,installed_local,01_AUTORIDAD_Y_GATES,court.sdu_gate,SDU gates execution and closure,local_only_until_order
 sharepoint:sharepoint,plugin,04_TORRES_DE_UNIVERSO,universe.escribania_tower|universe.modo_on_tower,SharePoint connector guarded use,microsoft_live_requires_order
 sharepoint:sharepoint-site-discovery,plugin,04_TORRES_DE_UNIVERSO,universe.escribania_tower,SharePoint site discovery preparation,microsoft_live_requires_order
 superpowers:dispatching-parallel-agents,plugin,00_ROUTER,rey.control_plane_orchestrator,parallel lane methodology,local_methodology_only
+superpowers:subagent-driven-development,plugin,00_ROUTER|03_CORTE_EJECUTORA,rey.control_plane_orchestrator|court.thot_schema,subagent-driven implementation with independent scoped tasks,local_methodology_only
 superpowers:systematic-debugging,plugin,03_CORTE_EJECUTORA|05_SOPORTE_TECNICO,court.thot_schema|codex.workspace_guardian,bug test failure or unexpected behavior triage,local_methodology_only
 superpowers:using-git-worktrees,plugin,02_REGISTRO_Y_CARTOGRAFIA,rey.repo_cartographer,isolated feature worktree planning when explicitly useful and scoped,local_methodology_only
 superpowers:verification-before-completion,plugin,00_ROUTER|01_AUTORIDAD_Y_GATES|02_REGISTRO_Y_CARTOGRAFIA|03_CORTE_EJECUTORA|04_TORRES_DE_UNIVERSO|05_SOPORTE_TECNICO,all_agents,final verification before closeout,local_verification
-superpowers:writing-skills,plugin,03_CORTE_EJECUTORA,court.openai_dispatcher|court.thot_schema,creating editing or verifying skills before adoption,local_methodology_only
+superpowers:writing-skills,plugin,03_CORTE_EJECUTORA,court.openai_dispatcher|court.thot_schema,skill authoring and verification methodology before deployment,local_methodology_only
+superpowers:writing-plans,plugin,00_ROUTER|01_AUTORIDAD_Y_GATES|02_REGISTRO_Y_CARTOGRAFIA,rey.control_plane_orchestrator|rey.frontier_guardian|rey.migration_planner,planning methodology for multi-step governed work,local_methodology_only
 tcu-harness-evals-agentes,installed_local,01_AUTORIDAD_Y_GATES|03_CORTE_EJECUTORA,court.openai_dispatcher|court.sdu_gate|court.thot_schema,synthetic evals and dry-runs,no_api_by_default
 tcu-normalizador-sistema-modo-on,installed_local,04_TORRES_DE_UNIVERSO,universe.modo_on_tower,Modo ON system normalization,local_only
-tcu-planificador-con-archivos,installed_local,02_REGISTRO_Y_CARTOGRAFIA,rey.migration_planner,file-based plans and progress,local_only
+tcu-planificador-con-archivos,installed_local,00_ROUTER|02_REGISTRO_Y_CARTOGRAFIA|03_CORTE_EJECUTORA,rey.control_plane_orchestrator|rey.migration_planner|court.seshat_evidence,file-based plans progress and persistent agent memory,local_only
+skill-creator,system_local,03_CORTE_EJECUTORA,court.openai_dispatcher|court.thot_schema,create or update Codex skills before adoption,local_only
+skill-judge,installed_local,03_CORTE_EJECUTORA|05_SOPORTE_TECNICO,court.thot_schema|codex.workspace_guardian,audit compare or improve SKILL.md packages before trust,local_only
