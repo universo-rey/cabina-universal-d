@@ -14,6 +14,20 @@ Base rectora/remota visible para Codex/Git: `main`. La rama activa debe
 verificarse en cada sesion. El PR raiz #1 esta mergeado; nuevos cambios
 versionables deben usar rama `codex/*` desde `main` y PR gobernado.
 
+Alineacion universal local: los repos registrados se alinean a
+`universo-rey/cabina-universal-d` como base transversal e indice, sin perder
+su remoto nativo. Los agentes GitHub/Copilot y GitHub Actions de validacion
+estan aprobados para issues, ramas, commits, push, PR y checks repo-scoped;
+runtime productivo y live externo no quedan incluidos.
+
+Agentes en GitHub: `.github/copilot-instructions.md`,
+`.github/ISSUE_TEMPLATE/agent-task.yml`,
+`.github/ISSUE_TEMPLATE/runtime-approval.yml` y `.github/PULL_REQUEST_TEMPLATE.md`
+publican la forma GitHub aprobada para operar agentes en issues, ramas, commits
+y PRs sin activar produccion. `.github/workflows/cabina-validation.yml` ejecuta
+validaciones locales en GitHub Actions con permisos `contents: read`; usa los
+workpapers saneados bajo `.agents/codex/workpapers` como evidencia declarativa.
+
 Regla de lectura:
 
 1. `00_CONTROL_PLANE_INGRESS` recibe.

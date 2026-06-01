@@ -1,0 +1,7 @@
+"surface_kind","path","mode","gate","validator","stop_condition"
+"read","D:\10_UNIVERSOS\ESCRIBANIA\MANIFEST.yaml","local_or_read_only","none_unless_live_or_regulated","tool.local_validate_agent_layer","missing_path_or_boundary_unclear"
+"read","D:\10_UNIVERSOS\ESCRIBANIA\ROUTING.md","local_or_read_only","none_unless_live_or_regulated","tool.local_validate_agent_layer","missing_path_or_boundary_unclear"
+"read","D:\01_GOVERNANCE_REGISTRY\REPOSITORIES.csv","local_or_read_only","none_unless_live_or_regulated","tool.local_validate_agent_layer","missing_path_or_boundary_unclear"
+"read","D:\02_AUTHORITY_CANON\CURRENT_STATE.md","local_or_read_only","none_unless_live_or_regulated","tool.local_validate_agent_layer","missing_path_or_boundary_unclear"
+"write","D:\10_UNIVERSOS\ESCRIBANIA\50_EVIDENCIA","local_versionable_only","governed_order_if_remote_live_or_production","tool.local_validate_agent_workpapers","write_without_order"
+"write","D:\.agents\codex\readbacks","local_versionable_only","governed_order_if_remote_live_or_production","tool.local_validate_agent_workpapers","write_without_order"

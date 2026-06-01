@@ -1,0 +1,7 @@
+"surface_kind","path","mode","gate","validator","stop_condition"
+"read","D:\AGENTS.md","local_or_read_only","none_unless_live_or_regulated","tool.local_validate_agent_layer","missing_path_or_boundary_unclear"
+"read","D:\.agents\codex","local_or_read_only","none_unless_live_or_regulated","tool.local_validate_agent_layer","missing_path_or_boundary_unclear"
+"read","D:\MANIFEST.yaml","local_or_read_only","none_unless_live_or_regulated","tool.local_validate_agent_layer","missing_path_or_boundary_unclear"
+"read","D:\MAPA_HUMANO.md","local_or_read_only","none_unless_live_or_regulated","tool.local_validate_agent_layer","missing_path_or_boundary_unclear"
+"write","D:\.agents\codex\readbacks","local_versionable_only","governed_order_if_remote_live_or_production","tool.local_validate_agent_workpapers","write_without_order"
+"write","D:\00_CONTROL_PLANE_INGRESS\PENDING_CLASSIFICATION.csv","local_versionable_only","governed_order_if_remote_live_or_production","tool.local_validate_agent_workpapers","write_without_order"

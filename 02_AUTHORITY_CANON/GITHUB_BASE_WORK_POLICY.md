@@ -1,6 +1,6 @@
 # GitHub Base Work Policy
 
-Estado: `GITHUB_BASE_WORK_DECLARED_LOCAL_DRAFT`
+Estado: `GITHUB_BASE_WORK_DECLARED_ACTIVE`
 Fecha: 2026-06-01
 
 ## Declaracion
@@ -11,6 +11,10 @@ trazabilidad para el universo de repositorios de la Cabina Universal del Rey.
 El remoto raiz `universo-rey/cabina-universal-d` es la base GitHub transversal
 de la cabina `D:\`: registra gobierno, mapas, matrices, agentes locales y
 politicas de trabajo sin absorber repos anidados.
+
+Estado actualizado 2026-06-01: `universo-rey/cabina-universal-d` ya esta
+activo como repo raiz envoltorio sobre `main`. Todos los repos registrados
+conservan remoto propio y quedan indexados/ruteados por esta cabina.
 
 Cada repo anidado conserva su propio remoto GitHub y su propio ciclo de branch,
 commit, push y PR. La cabina raiz no reemplaza esos repos: los indexa, gobierna

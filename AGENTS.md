@@ -17,6 +17,15 @@ merge commit `f7bfdf5a2b1044fd358438d8078942303b68c02b`. La rama historica
 `codex/d-root-ui-visibility-20260601` queda conservada; todo nuevo trabajo
 versionable debe abrir una rama `codex/*` desde `main` y avanzar por PR.
 
+Estado prompt UI actualizado 2026-06-01: el PR raiz #2 fue mergeado a `main`
+con merge commit `98b7ddb6969abda83c36b3101307a99075856c7f`. El prompt
+maestro distingue base rectora/remota `main` de rama activa de trabajo.
+
+Estado GitHub Actions actualizado 2026-06-01: por orden expresa del operador,
+GitHub Actions queda aprobado como superficie de validacion repo-scoped en
+`universo-rey/cabina-universal-d`, con permisos `contents: read` y sin
+secretos, produccion, Microsoft live, OpenAI API live ni permisos.
+
 ## Prompt maestro para UI Codex
 
 Cuando Codex abra `D:\`, la UI debe tratar esta carpeta como la Cabina
@@ -29,8 +38,11 @@ Universal del Rey y como repo raiz envoltorio activo:
   creada desde `main`;
 - PR raiz historico: `https://github.com/universo-rey/cabina-universal-d/pull/1`
   con estado `MERGED`;
+- PR raiz prompt UI: `https://github.com/universo-rey/cabina-universal-d/pull/2`
+  con estado `MERGED`;
 - allowlist: solo gobierno, canon, agentes locales, matrices, prompts,
-  recetas, tools, evals, plugins, templates y readbacks saneados;
+  recetas, tools, evals, plugins, templates, readbacks/workpapers saneados y
+  workflows GitHub Actions de validacion;
 - repos anidados: conservar su propio `.git`, remoto, rama y PR;
 - `organizacion`: permanece separado en
   `D:\01_GOVERNANCE_REGISTRY\10_REPOS\02_ACTIVE\organizacion`.

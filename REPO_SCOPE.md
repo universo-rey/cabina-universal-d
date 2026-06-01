@@ -18,10 +18,14 @@ absorber los repos anidados.
 - Base raiz rectora/remota: `main`.
 - PR raiz historico: `https://github.com/universo-rey/cabina-universal-d/pull/1`
   estado `MERGED`.
+- PR raiz prompt UI: `https://github.com/universo-rey/cabina-universal-d/pull/2`
+  estado `MERGED`.
 - Ultimo merge commit raiz:
-  `f7bfdf5a2b1044fd358438d8078942303b68c02b`.
+  `98b7ddb6969abda83c36b3101307a99075856c7f`.
 - GitHub es la base de trabajo para todo cambio durable del universo de
   repositorios: cada cambio debe ir por rama, validacion, commit, push y PR.
+- GitHub Actions queda aprobado para validacion repo-scoped con permisos
+  `contents: read`; no habilita secretos, produccion, permisos ni live externo.
 
 ## Bloqueos
 
@@ -54,9 +58,24 @@ saneados y necesarios para operar la cabina. Las fuentes de otros repos quedan
 como copias `SOURCE_*` trazadas en
 `.agents\codex\matrices\CAPABILITY_IMPORT_DECISION_MATRIX.csv`.
 
+Los workpapers saneados bajo `.agents\codex\workpapers` tambien son
+versionables porque el workflow de GitHub Actions los necesita para validar la
+capa de agentes sin abrir repos externos ni superficies live.
+
 ## Base GitHub transversal
 
 El repo remoto `universo-rey/cabina-universal-d` es base de trabajo transversal
 de la cabina y no reemplaza los repos anidados. Cada repo del universo conserva
 su propio remoto GitHub; la cabina raiz registra ruta, frontera y PR esperado
 en `01_GOVERNANCE_REGISTRY\GITHUB_BASE_WORK_MATRIX.csv`.
+
+La matriz
+`.agents\codex\matrices\CABINA_UNIVERSAL_REPO_ALIGNMENT_MATRIX.csv` declara la
+alineacion transversal de todos los repos registrados hacia
+`universo-rey/cabina-universal-d`. Esa alineacion aprueba agentes GitHub para
+issues, ramas, commits, push y PR repo-scoped. Runtime productivo y live externo
+siguen fuera de esa aprobacion.
+
+La matriz `.agents\codex\matrices\GITHUB_ACTIONS_WORKFLOW_MATRIX.csv` declara
+el workflow `.github\workflows\cabina-validation.yml` como superficie GitHub
+Actions aprobada para validadores locales y policy check de workflows.

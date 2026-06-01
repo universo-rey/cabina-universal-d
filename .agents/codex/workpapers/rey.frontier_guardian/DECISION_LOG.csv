@@ -1,0 +1,2 @@
+"date","decision_id","authority","decision","rollback","stop_condition"
+"2026-06-01","DEC-rey.frontier_guardian-WORKPAPERS-20260601","Cabina Universal order","agent has versioned workpapers and routing map","revert workpaper folder and matrix rows","workpaper_missing_for_agent"

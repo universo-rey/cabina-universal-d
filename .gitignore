@@ -43,6 +43,21 @@
 /00_CONTROL_PLANE_INGRESS/*
 !/00_CONTROL_PLANE_INGRESS/ROUTING.json
 
+# GitHub-native agent surfaces.
+!/.github/
+/.github/*
+!/.github/copilot-instructions.md
+!/.github/PULL_REQUEST_TEMPLATE.md
+!/.github/ISSUE_TEMPLATE/
+/.github/ISSUE_TEMPLATE/*
+!/.github/ISSUE_TEMPLATE/*.yml
+!/.github/instructions/
+/.github/instructions/*
+!/.github/instructions/*.instructions.md
+!/.github/workflows/
+/.github/workflows/*
+!/.github/workflows/*.yml
+
 # Governance registry metadata only. Repos under 10_REPOS remain ignored.
 !/01_GOVERNANCE_REGISTRY/
 /01_GOVERNANCE_REGISTRY/*
@@ -147,3 +162,11 @@
 !/.agents/codex/templates/
 /.agents/codex/templates/*
 !/.agents/codex/templates/*.md
+
+!/.agents/codex/workpapers/
+/.agents/codex/workpapers/*
+!/.agents/codex/workpapers/README.md
+!/.agents/codex/workpapers/WORKPAPER_INDEX.csv
+!/.agents/codex/workpapers/*/
+!/.agents/codex/workpapers/*/*.md
+!/.agents/codex/workpapers/*/*.csv

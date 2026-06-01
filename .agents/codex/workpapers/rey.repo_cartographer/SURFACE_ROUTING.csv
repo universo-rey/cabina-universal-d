@@ -1,0 +1,7 @@
+"surface_kind","path","mode","gate","validator","stop_condition"
+"read","D:\01_GOVERNANCE_REGISTRY\REPOSITORIES.csv","local_or_read_only","none_unless_live_or_regulated","tool.local_validate_agent_layer","missing_path_or_boundary_unclear"
+"read","D:\01_GOVERNANCE_REGISTRY\RELATIONSHIP_GRAPH.json","local_or_read_only","none_unless_live_or_regulated","tool.local_validate_agent_layer","missing_path_or_boundary_unclear"
+"read","D:\10_UNIVERSOS","local_or_read_only","none_unless_live_or_regulated","tool.local_validate_agent_layer","missing_path_or_boundary_unclear"
+"read","D:\80_REFERENCIAS_TECNICAS","local_or_read_only","none_unless_live_or_regulated","tool.local_validate_agent_layer","missing_path_or_boundary_unclear"
+"write","D:\01_GOVERNANCE_REGISTRY\MIGRATION_MAP_D.csv","local_versionable_only","governed_order_if_remote_live_or_production","tool.local_validate_agent_workpapers","write_without_order"
+"write","D:\.agents\codex\readbacks","local_versionable_only","governed_order_if_remote_live_or_production","tool.local_validate_agent_workpapers","write_without_order"

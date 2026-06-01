@@ -1,0 +1,2 @@
+"date","validator","result","evidence","stop_condition"
+"2026-06-01","tool.local_validate_agent_workpapers","pending_current_run","validator will be rerun after generation","validator_failure"

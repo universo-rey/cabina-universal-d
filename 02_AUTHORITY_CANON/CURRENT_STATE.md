@@ -21,6 +21,11 @@ Actualizacion merge raiz 2026-06-01: el PR raiz
 base visible para nuevo trabajo de la UI Codex es `main`, con nuevas ramas
 `codex/*` cuando corresponda cambiar archivos.
 
+Actualizacion prompt UI raiz 2026-06-01: el PR raiz
+`universo-rey/cabina-universal-d#2` fue mergeado a `main` con merge commit
+`98b7ddb6969abda83c36b3101307a99075856c7f`. El prompt maestro de UI ya
+distingue base rectora/remota `main` de rama activa de trabajo.
+
 Actualizacion capacidades 2026-06-01: el repo raiz de cabina adopta en local
 las capacidades declarativas necesarias desde repos fuente sin absorberlos:
 perfiles de subnivel, source registries, skills, recipes, tools, evals,
@@ -42,14 +47,41 @@ alineacion queda activo para la cabina. No ejecuta OpenAI API, Microsoft live,
 produccion, permisos, secretos ni agentes remotos persistentes. Alinea 14
 agentes y 12 repos mediante
 `D:/.agents/codex/matrices/AGENT_DEFAULT_SKILL_ASSIGNMENT_MATRIX.csv`,
-`D:/.agents/codex/matrices/REPO_RUNTIME_ALIGNMENT_MATRIX.csv` y
+`D:/.agents/codex/matrices/REPO_RUNTIME_ALIGNMENT_MATRIX.csv`,
+`D:/.agents/codex/matrices/CABINA_UNIVERSAL_REPO_ALIGNMENT_MATRIX.csv` y
 `D:/.agents/codex/tools/local_run_repo_alignment_runtime.ps1`. El ultimo
 resultado queda en
 `D:/.agents/codex/evals/results/repo_alignment_runtime_latest.json`.
 
+Actualizacion alineacion universal 2026-06-01: los 12 repos registrados quedan
+alineados a `universo-rey/cabina-universal-d` como base transversal de
+gobierno e indice. Esta alineacion no absorbe repos nativos. Los agentes
+GitHub/Copilot quedan aprobados para issues, ramas, commits, push y PR
+repo-scoped. Runtime productivo, Microsoft live, OpenAI API live, produccion,
+permisos, secretos, costos externos o datos regulados no quedan incluidos.
+
+Actualizacion agentes GitHub 2026-06-01: la cabina aprueba superficies nativas
+GitHub para agentes mediante `.github/copilot-instructions.md`, issue forms de
+tareas/aprobaciones y pull request template. Los agentes GitHub/Copilot pueden
+operar issues, ramas, commits, pushes y PRs repo-scoped. Produccion, Microsoft
+live, OpenAI API live, permisos, secretos, costos externos o datos regulados no
+quedan incluidos en esta aprobacion.
+
+Actualizacion GitHub Actions 2026-06-01: la cabina aprueba
+`.github/workflows/cabina-validation.yml` como workflow de validacion
+repo-scoped con permisos `contents: read`. Ejecuta los validadores locales de
+runtime, capa de agentes y politica de workflows. No habilita secretos,
+produccion, Microsoft live, OpenAI API live, permisos ni agentes externos fuera
+de GitHub.
+
+Actualizacion workpapers GitHub 2026-06-01: los workpapers saneados bajo
+`.agents/codex/workpapers` quedan incluidos en la allowlist del repo raiz para
+que GitHub Actions pueda validar la capa de agentes sin leer repos externos ni
+sistemas live.
+
 Reglas vigentes:
 
-- GitHub repo-visible reversible esta habilitado para lectura, validacion, branch, commit, push, PR draft/update, issues, labels, comentarios y readbacks bajo orden gobernada.
+- GitHub repo-visible reversible esta habilitado para lectura, validacion, branch, commit, push, PR draft/update, issues, labels, comentarios, GitHub Actions de validacion y readbacks bajo orden gobernada.
 - Todo cambio durable de repos debe pasar por GitHub: rama, validacion local, stage explicito, commit, push y PR draft/update.
 - El runtime de alineacion permitido es local y sintetico; runtime live, API, Microsoft o produccion requieren orden separada.
 - No mover clones aun.
@@ -63,6 +95,7 @@ Reglas vigentes:
 
 PR rector activo: `universo-rey/organizacion#40`.
 Rama rectora activa: `codex/d-drive-governance-versioning-20260601`.
-PR raiz historico: `universo-rey/cabina-universal-d#1` estado `MERGED`.
+PR raiz historico inicial: `universo-rey/cabina-universal-d#1` estado `MERGED`.
+PR raiz historico prompt UI: `universo-rey/cabina-universal-d#2` estado `MERGED`.
 Rama raiz base: `main`.
-Ultima rama raiz mergeada: `codex/d-root-ui-visibility-20260601`.
+Ultima rama raiz mergeada: `codex/d-root-ui-master-prompt-20260601`.

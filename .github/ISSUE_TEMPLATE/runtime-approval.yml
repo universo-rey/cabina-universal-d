@@ -1,0 +1,61 @@
+name: Runtime Or External Agent Approval
+description: Approve a productive runtime or non-GitHub external agent surface.
+title: "[approval] runtime/external agent: "
+labels: ["runtime-approval", "github-agent-approved"]
+body:
+  - type: input
+    id: surface
+    attributes:
+      label: Surface
+      description: Exact repo, tenant, API, app, connector or agent surface.
+    validations:
+      required: true
+  - type: input
+    id: owner
+    attributes:
+      label: Human owner
+      description: Person or role accountable for approval and rollback.
+    validations:
+      required: true
+  - type: textarea
+    id: identity
+    attributes:
+      label: Identity and permissions
+      description: Account, app, token class or connector identity. Do not paste secrets.
+    validations:
+      required: true
+  - type: textarea
+    id: data_boundary
+    attributes:
+      label: Data boundary
+      description: What data may be read or written? Mark NO_CONSTA if unclear.
+    validations:
+      required: true
+  - type: textarea
+    id: rollback
+    attributes:
+      label: Rollback
+      description: Exact rollback plan.
+    validations:
+      required: true
+  - type: textarea
+    id: postcheck
+    attributes:
+      label: Postcheck
+      description: How the result will be verified after execution.
+    validations:
+      required: true
+  - type: textarea
+    id: cost
+    attributes:
+      label: Cost and runtime boundary
+      description: External costs, Actions minutes, API costs or production impacts.
+    validations:
+      required: true
+  - type: textarea
+    id: stop_condition
+    attributes:
+      label: Stop condition
+      description: Exact blocker or halt rule.
+    validations:
+      required: true

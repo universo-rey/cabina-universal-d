@@ -32,11 +32,13 @@ $agentsJson = Read-JsonRequired (Join-Path $Root "agents.json")
 $defaultSkills = Read-CsvRequired (Join-Path $matrixRoot "AGENT_DEFAULT_SKILL_ASSIGNMENT_MATRIX.csv")
 $agentContracts = Read-CsvRequired (Join-Path $matrixRoot "AGENT_TOOL_RECIPE_SKILL_MATRIX.csv")
 $repoRuntime = Read-CsvRequired (Join-Path $matrixRoot "REPO_RUNTIME_ALIGNMENT_MATRIX.csv")
+$cabinaRepoAlignment = Read-CsvRequired (Join-Path $matrixRoot "CABINA_UNIVERSAL_REPO_ALIGNMENT_MATRIX.csv")
 $githubBase = Read-CsvRequired (Join-Path $RepoRoot "01_GOVERNANCE_REGISTRY\GITHUB_BASE_WORK_MATRIX.csv")
 $skillUsage = Read-CsvRequired (Join-Path $skillsRoot "SKILL_USAGE_MATRIX.csv")
 $recipeIndex = Read-CsvRequired (Join-Path $recipesRoot "RECIPE_INDEX.csv")
 $toolIndex = Read-CsvRequired (Join-Path $toolsRoot "TOOL_INDEX.csv")
 $pluginUsage = Read-CsvRequired (Join-Path $pluginsRoot "PLUGIN_USAGE_MATRIX.csv")
+$githubActions = Read-CsvRequired (Join-Path $matrixRoot "GITHUB_ACTIONS_WORKFLOW_MATRIX.csv")
 
 $errors = New-Object System.Collections.Generic.List[string]
 $warnings = New-Object System.Collections.Generic.List[string]
@@ -91,9 +93,13 @@ foreach ($row in $agentContracts) {
 
 $githubRepoIds = @($githubBase | ForEach-Object { $_.repo_id })
 $runtimeRepoIds = @($repoRuntime | ForEach-Object { $_.repo_id })
+$cabinaRepoIds = @($cabinaRepoAlignment | ForEach-Object { $_.repo_id })
 foreach ($repoId in $githubRepoIds) {
   if ($runtimeRepoIds -notcontains $repoId) {
     $errors.Add("Repo missing runtime alignment row: $repoId")
+  }
+  if ($cabinaRepoIds -notcontains $repoId) {
+    $errors.Add("Repo missing cabina-universal-d alignment row: $repoId")
   }
 }
 
@@ -104,8 +110,51 @@ foreach ($row in $repoRuntime) {
   if ($row.runtime_mode -ne "LOCAL_SYNTHETIC_ALIGNMENT_ONLY") {
     $errors.Add("Repo runtime mode is not local synthetic: $($row.repo_id)")
   }
+  if ($row.root_base_repo_id -ne "D_CABINA_UNIVERSAL_ROOT") {
+    $errors.Add("Repo runtime root base repo id mismatch: $($row.repo_id) -> $($row.root_base_repo_id)")
+  }
+  if ($row.root_base_remote -ne "universo-rey/cabina-universal-d") {
+    $errors.Add("Repo runtime root base remote mismatch: $($row.repo_id) -> $($row.root_base_remote)")
+  }
   if ($row.blocked_surfaces -notmatch "openai_api_live" -or $row.blocked_surfaces -notmatch "microsoft_live" -or $row.blocked_surfaces -notmatch "production") {
     $errors.Add("Repo runtime blocked surfaces incomplete: $($row.repo_id)")
+  }
+}
+
+foreach ($row in $cabinaRepoAlignment) {
+  if ($row.cabina_base_repository -ne "universo-rey/cabina-universal-d") {
+    $errors.Add("Repo cabina base mismatch: $($row.repo_id) -> $($row.cabina_base_repository)")
+  }
+  if ([string]::IsNullOrWhiteSpace($row.alignment_mode)) {
+    $errors.Add("Repo cabina alignment mode missing: $($row.repo_id)")
+  }
+  if ($row.repo_runtime_mode -ne "LOCAL_SYNTHETIC_ALIGNMENT_ONLY") {
+    $errors.Add("Repo cabina runtime mode is not local synthetic: $($row.repo_id)")
+  }
+  if ($row.productive_runtime_status -ne "REQUIRES_GOVERNED_ORDER") {
+    $errors.Add("Repo productive runtime not gated: $($row.repo_id)")
+  }
+  if ($row.github_agent_status -ne "APPROVED_GITHUB_AGENT_SURFACE") {
+    $errors.Add("Repo GitHub agent surface not approved: $($row.repo_id)")
+  }
+  if ($row.github_write_status -ne "APPROVED_BRANCH_COMMIT_PUSH_PR") {
+    $errors.Add("Repo GitHub write status is not approved branch/commit/push/PR: $($row.repo_id)")
+  }
+}
+
+foreach ($row in $githubActions) {
+  if ($row.status -ne "APPROVED_GITHUB_ACTIONS_SURFACE") {
+    $errors.Add("GitHub Actions workflow surface is not approved: $($row.workflow_id)")
+  }
+  if ($row.permissions -ne "contents:read") {
+    $errors.Add("GitHub Actions workflow permissions are not read-only: $($row.workflow_id) -> $($row.permissions)")
+  }
+  if ($row.blocked_actions -notmatch "secrets" -or $row.blocked_actions -notmatch "production" -or $row.blocked_actions -notmatch "microsoft_live" -or $row.blocked_actions -notmatch "openai_api_live" -or $row.blocked_actions -notmatch "permission_write") {
+    $errors.Add("GitHub Actions workflow blocked actions incomplete: $($row.workflow_id)")
+  }
+  $workflowPath = Join-Path $RepoRoot $row.path
+  if (-not (Test-Path -LiteralPath $workflowPath)) {
+    $errors.Add("GitHub Actions workflow path missing: $($row.workflow_id) -> $($row.path)")
   }
 }
 
@@ -119,11 +168,17 @@ $payload = [ordered]@{
   default_skill_rows = $defaultSkills.Count
   execution_contract_rows = $agentContracts.Count
   repo_alignment_rows = $repoRuntime.Count
+  cabina_repo_alignment_rows = $cabinaRepoAlignment.Count
   github_repo_rows = $githubBase.Count
   skill_usage_rows = $skillUsage.Count
   recipe_rows = $recipeIndex.Count
   tool_rows = $toolIndex.Count
   plugin_rows = $pluginUsage.Count
+  github_actions_rows = $githubActions.Count
+  root_base_repo_id = "D_CABINA_UNIVERSAL_ROOT"
+  root_base_remote = "universo-rey/cabina-universal-d"
+  github_agent_status = "APPROVED_GITHUB_AGENT_SURFACE"
+  github_actions_status = "APPROVED_GITHUB_ACTIONS_SURFACE"
   blocked_surfaces = @(
     "openai_api_live",
     "microsoft_live",
@@ -132,7 +187,7 @@ $payload = [ordered]@{
     "secrets",
     "force_push",
     "merge",
-    "remote_agent_persistence"
+    "non_github_remote_agent_persistence"
   )
   errors = @($errors)
   warnings = @($warnings)
