@@ -77,6 +77,7 @@ $agentWorkpapers = Join-Path $Root "matrices\AGENT_WORKPAPERS_MATRIX.csv"
 $pluginUsage = Join-Path $Root "matrices\PLUGIN_USAGE_MATRIX.csv"
 $purposeSurfaceCapability = Join-Path $Root "matrices\PURPOSE_SURFACE_CAPABILITY_MATRIX.csv"
 $parallelOperationCriteria = Join-Path $Root "matrices\PARALLEL_OPERATION_CRITERIA_MATRIX.csv"
+$parallelIssueQueue = Join-Path $Root "matrices\PARALLEL_ISSUE_LANE_QUEUE.csv"
 $orderPreparationAssignment = Join-Path $Root "matrices\ORDER_PREPARATION_ASSIGNMENT_MATRIX.csv"
 $orderClassCapability = Join-Path $Root "matrices\ORDER_CLASS_CAPABILITY_MATRIX.csv"
 $operationalChainGovernance = Join-Path $Root "matrices\OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv"
@@ -122,6 +123,7 @@ $requiredColumnChecks = @(
   @{ Path = $pluginUsage; Columns = @("plugin_id","availability","assigned_agents","purpose","surface","live_boundary","tool_refs","validator","stop_condition") },
   @{ Path = $purposeSurfaceCapability; Columns = @("artifact_id","artifact_type","agent_id","level_id","purpose","surface","universe","tower","owner_agent","authority_level","lifecycle","status","local_allowed","governed_order_required","allowed_actions","blocked_actions","skill_refs","recipe_refs","tool_refs","plugin_refs","validator_refs","evidence_required","workpaper_path","source_policy","source_refs","last_validated","stop_condition","next_review") },
   @{ Path = $parallelOperationCriteria; Columns = @("lane_id","lead_agent","owner_agent","reviewer_agent","delegate_agents","read_scope","write_scope","lock_key","dependency","max_parallel","allowed_parallelism","required_precheck","required_recipe","required_tool","evidence","validator","serialization_rule","stop_condition") },
+  @{ Path = $parallelIssueQueue; Columns = @("work_unit_id","issue_id","issue_url","title","base_sha","branch","lane_id","lead_agent","owner_agent","reviewer_agent","read_scope","write_scope","lock_key","dependency","max_parallel","allowed_actions","blocked_actions","rollback","postcheck","evidence","validator","status","stop_condition") },
   @{ Path = $orderPreparationAssignment; Columns = @("order_class","preparer_agent","reviewer_agent","approver_role","canon_as_of","source_authority","required_fields","allowed_actions","blocked_actions","recipe","tool","evidence","validator","expiration_rule","stop_condition") },
   @{ Path = $orderClassCapability; Columns = @("order_class","required_agents","required_skills","required_recipes","required_tools","required_fields","validator","stop_condition") },
   @{ Path = $operationalChainGovernance; Columns = @("chain_id","applies_to","owner_agent","reviewer_agent","required_agent_source","required_skill_source","required_recipe_source","required_tool_source","required_validator_source","required_evidence_source","required_stop_condition_source","blocked_without_chain","status","validator","stop_condition") },
@@ -227,6 +229,7 @@ foreach ($row in $glossaryRows) {
 $knownStopConditions = @($glossaryRows | ForEach-Object { $_.stop_condition })
 foreach ($path in @(
   $parallelOperationCriteria,
+  $parallelIssueQueue,
   $orderPreparationAssignment,
   $orderClassCapability,
   $operationalChainGovernance,
@@ -403,6 +406,7 @@ $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }
   plugin_usage_count = (Read-CsvSafe -Path $pluginUsage).Count
   purpose_surface_capability_count = (Read-CsvSafe -Path $purposeSurfaceCapability).Count
   parallel_operation_count = (Read-CsvSafe -Path $parallelOperationCriteria).Count
+  parallel_issue_queue_count = (Read-CsvSafe -Path $parallelIssueQueue).Count
   order_preparation_count = (Read-CsvSafe -Path $orderPreparationAssignment).Count
   order_class_capability_count = (Read-CsvSafe -Path $orderClassCapability).Count
   operational_chain_count = (Read-CsvSafe -Path $operationalChainGovernance).Count

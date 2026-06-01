@@ -122,6 +122,8 @@ runtime_alignment_state:
   operational_chain_matrix: D:/.agents/codex/matrices/OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv
   operational_chain_tool: D:/.agents/codex/tools/local_validate_operational_chain.ps1
   parallel_operation_matrix: D:/.agents/codex/matrices/PARALLEL_OPERATION_CRITERIA_MATRIX.csv
+  parallel_issue_lane_queue: D:/.agents/codex/matrices/PARALLEL_ISSUE_LANE_QUEUE.csv
+  parallel_issue_lane_queue_validator: D:/.agents/codex/tools/local_validate_parallel_issue_queue.ps1
   order_preparation_matrix: D:/.agents/codex/matrices/ORDER_PREPARATION_ASSIGNMENT_MATRIX.csv
   order_class_capability_matrix: D:/.agents/codex/matrices/ORDER_CLASS_CAPABILITY_MATRIX.csv
   subagent_capability_matrix: D:/.agents/codex/matrices/SUBAGENT_CAPABILITY_ASSIGNMENT_MATRIX.csv
@@ -138,6 +140,7 @@ runtime_alignment_state:
   repo_runtime_matrix: D:/.agents/codex/matrices/REPO_RUNTIME_ALIGNMENT_MATRIX.csv
   runtime_status_matrix: D:/.agents/codex/matrices/RUNTIME_ALIGNMENT_STATUS_MATRIX.csv
   runtime_tool: D:/.agents/codex/tools/local_run_repo_alignment_runtime.ps1
+  runtime_check_mode: local_run_repo_alignment_runtime.ps1 -NoWrite
   latest_result: D:/.agents/codex/evals/results/repo_alignment_runtime_latest.json
   agents_aligned: 14
   repos_aligned: 12

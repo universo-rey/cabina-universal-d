@@ -30,3 +30,4 @@
 "regulated_data_boundary_unclear","regulated_data","document or dataset boundary is broad regulated or not selected enough to process safely","prepare governed order with exact selected files data limit retention evidence and postcheck","document|spreadsheet|presentation|pdf|dataset"
 "secret_detected","secret_boundary","secret-like content is detected or likely in a selected artifact","stop redact avoid persistence and require separate governed order","document|repo|prompt|readback|matrix"
 "document_skill_lane_missing","document_skill_governance","document work lacks document type skill owner reviewer storage validator or stop condition","map the document lane or stop before processing","document|skill|matrix"
+"source_uncertain","source_governance","technical source freshness authority license or scope is uncertain","refresh source classify freshness risk and keep it outside authority canon","source|skill|reference|api_docs"

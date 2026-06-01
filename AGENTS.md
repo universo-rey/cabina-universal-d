@@ -48,6 +48,14 @@ autoridad fuente, superficie, owner, identidad, limite de datos, acciones
 permitidas/bloqueadas, rollback, postcheck, evidencia, validador, expiracion y
 stop condition.
 
+Estado cola paralela actualizado 2026-06-01: los carriles por issue deben
+declararse en
+`D:\.agents\codex\matrices\PARALLEL_ISSUE_LANE_QUEUE.csv` con `base_sha`,
+rama `codex/*`, file set exacto, `lock_key` unico, dependencias y
+`max_parallel`. La cola se valida con
+`D:\.agents\codex\tools\local_validate_parallel_issue_queue.ps1`. Los indices
+compartidos requieren carril serial de integracion.
+
 Estado cadena operativa global actualizado 2026-06-01: toda accion operativa
 debe declarar y validar agente, skill, receta, tool, evidencia, validador y
 stop condition. Si falta algun componente y no existe `NO_APLICA` justificado,
@@ -71,6 +79,14 @@ spreadsheets y presentaciones se enrutan por
 `D:\.agents\codex\tools\local_validate_document_skill_lane.ps1`. El carril es
 local-only; documentos amplios, regulados, secretos o live requieren orden
 gobernada separada.
+
+Estado runtime local actualizado 2026-06-01: el runtime de alineacion se puede
+verificar sin escribir evidencia mutable con
+`D:\.agents\codex\tools\local_run_repo_alignment_runtime.ps1 -NoWrite`. El
+preflight Agents SDK local se valida con
+`D:\.agents\codex\tools\local_validate_github_automation_preflight.ps1 -CheckLocalSdk`
+y debe cerrar en `smoke=OK_NO_API_CALL`. Esto no habilita OpenAI API live,
+Agents SDK live, costos ni agentes remotos persistentes.
 
 Estado jerarquia AGENTS.md actualizado 2026-06-01: `D:\AGENTS.md` es la
 instruccion rectora local de mayor precedencia. Las instrucciones anidadas,

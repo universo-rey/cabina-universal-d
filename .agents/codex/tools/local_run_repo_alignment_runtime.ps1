@@ -1,6 +1,8 @@
 param(
   [string]$Root = "D:\.agents\codex",
-  [string]$RepoRoot = "D:\"
+  [string]$RepoRoot = "D:\",
+  [switch]$NoWrite,
+  [switch]$CheckOnly
 )
 
 $ErrorActionPreference = "Stop"
@@ -26,7 +28,10 @@ $skillsRoot = Join-Path $Root "skills"
 $pluginsRoot = Join-Path $Root "plugins"
 $evalRoot = Join-Path $Root "evals"
 $resultRoot = Join-Path $evalRoot "results"
-New-Item -ItemType Directory -Force -Path $resultRoot | Out-Null
+$writeResult = -not ($NoWrite -or $CheckOnly)
+if ($writeResult) {
+  New-Item -ItemType Directory -Force -Path $resultRoot | Out-Null
+}
 
 $agentsJson = Read-JsonRequired (Join-Path $Root "agents.json")
 $defaultSkills = Read-CsvRequired (Join-Path $matrixRoot "AGENT_DEFAULT_SKILL_ASSIGNMENT_MATRIX.csv")
@@ -256,10 +261,13 @@ $payload = [ordered]@{
   errors = @($errors)
   warnings = @($warnings)
   generated_at = (Get-Date).ToUniversalTime().ToString("o")
+  result_written = $writeResult
 }
 
 $resultPath = Join-Path $resultRoot "repo_alignment_runtime_latest.json"
-$payload | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $resultPath -Encoding UTF8
+if ($writeResult) {
+  $payload | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $resultPath -Encoding UTF8
+}
 
 if ($errors.Count -gt 0) {
   $payload | ConvertTo-Json -Depth 8

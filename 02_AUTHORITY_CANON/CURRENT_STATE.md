@@ -119,6 +119,15 @@ subrecetas, fronteras de plugin y clases de orden. Los validadores
 ordenes incompletas, tools sin governance y contradicciones con
 `D:/AGENTS.md`.
 
+Actualizacion cola paralela por issue 2026-06-01: la cabina adopta
+`D:/.agents/codex/matrices/PARALLEL_ISSUE_LANE_QUEUE.csv` para materializar
+carriles por issue con `base_sha`, rama `codex/*`, agentes lead/owner/reviewer,
+file set exacto, `lock_key`, dependencia, `max_parallel`, rollback, postcheck,
+evidencia, validador y stop condition. El validador
+`D:/.agents/codex/tools/local_validate_parallel_issue_queue.ps1` bloquea locks
+duplicados y solapamiento de `write_scope`. Los indices compartidos se integran
+por carril serial.
+
 Actualizacion cadena operativa global 2026-06-01: la cabina adopta
 `OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv` y
 `local_validate_operational_chain.ps1` como control transversal. Todo cierre,
@@ -148,6 +157,13 @@ reviewer, storage, evidencia, validador y stop conditions. El validador queda
 en `D:/.agents/codex/tools/local_validate_document_skill_lane.ps1`. No habilita
 Microsoft live, Google import live, produccion, secretos ni datos regulados
 amplios sin orden gobernada separada.
+
+Actualizacion runtime y Agents SDK local 2026-06-01: el runtime local puede
+probar alineacion sin escribir resultados con
+`local_run_repo_alignment_runtime.ps1 -NoWrite`. El preflight local de Agents
+SDK se prueba con `local_validate_github_automation_preflight.ps1 -CheckLocalSdk`
+y debe producir `smoke=OK_NO_API_CALL`; no ejecuta OpenAI API live ni habilita
+Agents SDK live, Agent Builder, costos, secretos o agentes remotos persistentes.
 
 Actualizacion jerarquia AGENTS.md 2026-06-01: `D:/AGENTS.md` queda declarado
 como fuente rectora local de mayor precedencia. Las instrucciones anidadas de

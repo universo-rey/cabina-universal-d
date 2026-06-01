@@ -7,7 +7,7 @@ body:
     id: agent_id
     attributes:
       label: Agent
-      description: Declared local agent responsible for this task.
+      description: Declared owner agent responsible for this task.
       options:
         - rey.control_plane_orchestrator
         - rey.frontier_guardian
@@ -26,6 +26,30 @@ body:
     validations:
       required: true
   - type: input
+    id: lead_agent
+    attributes:
+      label: Lead agent
+      description: Agent coordinating the lane and integration.
+      placeholder: "rey.control_plane_orchestrator"
+    validations:
+      required: true
+  - type: input
+    id: base_sha
+    attributes:
+      label: Base SHA
+      description: Current base commit used to declare this lane.
+      placeholder: "40-char commit sha"
+    validations:
+      required: true
+  - type: input
+    id: branch
+    attributes:
+      label: Branch
+      description: Branch that will carry this work. Must use codex/*.
+      placeholder: "codex/issue-slug"
+    validations:
+      required: true
+  - type: input
     id: surface
     attributes:
       label: Surface
@@ -39,6 +63,22 @@ body:
       label: Lane and lock key
       description: Parallel lane id plus lock_key. Use SERIAL if scope overlaps.
       placeholder: "parallel_disjoint_workers / lock.file_set.declared"
+    validations:
+      required: true
+  - type: input
+    id: max_parallel
+    attributes:
+      label: Max parallel
+      description: Maximum parallel executions allowed for this declared lane.
+      placeholder: "1"
+    validations:
+      required: true
+  - type: textarea
+    id: declared_file_set
+    attributes:
+      label: Declared file set
+      description: Exact files the agent may write. Shared indexes require a separate serial integration lane.
+      placeholder: "D:/path/file1.md\nD:/path/file2.csv"
     validations:
       required: true
   - type: textarea
