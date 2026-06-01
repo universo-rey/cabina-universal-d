@@ -1,0 +1,150 @@
+param(
+  [string]$Root = "D:\.agents\codex",
+  [string]$RepoRoot = "D:\"
+)
+
+$ErrorActionPreference = "Stop"
+
+function Read-CsvRequired([string]$Path) {
+  if (-not (Test-Path -LiteralPath $Path)) {
+    throw "Missing required CSV: $Path"
+  }
+  return @(Import-Csv -LiteralPath $Path)
+}
+
+function Read-JsonRequired([string]$Path) {
+  if (-not (Test-Path -LiteralPath $Path)) {
+    throw "Missing required JSON: $Path"
+  }
+  return Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
+}
+
+$matrixRoot = Join-Path $Root "matrices"
+$toolsRoot = Join-Path $Root "tools"
+$recipesRoot = Join-Path $Root "recipes"
+$skillsRoot = Join-Path $Root "skills"
+$pluginsRoot = Join-Path $Root "plugins"
+$evalRoot = Join-Path $Root "evals"
+$resultRoot = Join-Path $evalRoot "results"
+New-Item -ItemType Directory -Force -Path $resultRoot | Out-Null
+
+$agentsJson = Read-JsonRequired (Join-Path $Root "agents.json")
+$defaultSkills = Read-CsvRequired (Join-Path $matrixRoot "AGENT_DEFAULT_SKILL_ASSIGNMENT_MATRIX.csv")
+$agentContracts = Read-CsvRequired (Join-Path $matrixRoot "AGENT_TOOL_RECIPE_SKILL_MATRIX.csv")
+$repoRuntime = Read-CsvRequired (Join-Path $matrixRoot "REPO_RUNTIME_ALIGNMENT_MATRIX.csv")
+$githubBase = Read-CsvRequired (Join-Path $RepoRoot "01_GOVERNANCE_REGISTRY\GITHUB_BASE_WORK_MATRIX.csv")
+$skillUsage = Read-CsvRequired (Join-Path $skillsRoot "SKILL_USAGE_MATRIX.csv")
+$recipeIndex = Read-CsvRequired (Join-Path $recipesRoot "RECIPE_INDEX.csv")
+$toolIndex = Read-CsvRequired (Join-Path $toolsRoot "TOOL_INDEX.csv")
+$pluginUsage = Read-CsvRequired (Join-Path $pluginsRoot "PLUGIN_USAGE_MATRIX.csv")
+
+$errors = New-Object System.Collections.Generic.List[string]
+$warnings = New-Object System.Collections.Generic.List[string]
+
+$agentIds = @($agentsJson.agents | ForEach-Object { $_.id })
+$defaultAgentIds = @($defaultSkills | ForEach-Object { $_.agent_id })
+$contractAgentIds = @($agentContracts | ForEach-Object { $_.agent_id })
+
+foreach ($agentId in $agentIds) {
+  if ($defaultAgentIds -notcontains $agentId) {
+    $errors.Add("Agent missing default skills: $agentId")
+  }
+  if ($contractAgentIds -notcontains $agentId) {
+    $errors.Add("Agent missing execution contract: $agentId")
+  }
+}
+
+$skillIds = @($skillUsage | ForEach-Object { $_.skill_id })
+foreach ($row in $defaultSkills) {
+  $skills = @($row.default_skill_refs -split "\|" | Where-Object { $_ })
+  if ($skills.Count -eq 0) {
+    $errors.Add("Agent has empty default skill set: $($row.agent_id)")
+  }
+  foreach ($skill in $skills) {
+    if ($skillIds -notcontains $skill) {
+      $errors.Add("Default skill not present in SKILL_USAGE_MATRIX: $($row.agent_id) -> $skill")
+    }
+  }
+}
+
+$recipeIds = @($recipeIndex | ForEach-Object { $_.recipe_id })
+$toolIds = @($toolIndex | ForEach-Object { $_.tool_id })
+$pluginIds = @($pluginUsage | ForEach-Object { $_.plugin_id })
+
+foreach ($row in $agentContracts) {
+  foreach ($recipe in @($row.recipe_refs -split "\|" | Where-Object { $_ })) {
+    if ($recipeIds -notcontains $recipe) {
+      $errors.Add("Recipe ref not indexed: $($row.agent_id) -> $recipe")
+    }
+  }
+  foreach ($tool in @($row.tool_refs -split "\|" | Where-Object { $_ })) {
+    if ($toolIds -notcontains $tool) {
+      $errors.Add("Tool ref not indexed: $($row.agent_id) -> $tool")
+    }
+  }
+  foreach ($plugin in @($row.plugin_refs -split "\|" | Where-Object { $_ })) {
+    if ($pluginIds -notcontains $plugin) {
+      $errors.Add("Plugin ref not indexed: $($row.agent_id) -> $plugin")
+    }
+  }
+}
+
+$githubRepoIds = @($githubBase | ForEach-Object { $_.repo_id })
+$runtimeRepoIds = @($repoRuntime | ForEach-Object { $_.repo_id })
+foreach ($repoId in $githubRepoIds) {
+  if ($runtimeRepoIds -notcontains $repoId) {
+    $errors.Add("Repo missing runtime alignment row: $repoId")
+  }
+}
+
+foreach ($row in $repoRuntime) {
+  if ($agentIds -notcontains $row.owner_agent) {
+    $errors.Add("Repo runtime owner is not an agent: $($row.repo_id) -> $($row.owner_agent)")
+  }
+  if ($row.runtime_mode -ne "LOCAL_SYNTHETIC_ALIGNMENT_ONLY") {
+    $errors.Add("Repo runtime mode is not local synthetic: $($row.repo_id)")
+  }
+  if ($row.blocked_surfaces -notmatch "openai_api_live" -or $row.blocked_surfaces -notmatch "microsoft_live" -or $row.blocked_surfaces -notmatch "production") {
+    $errors.Add("Repo runtime blocked surfaces incomplete: $($row.repo_id)")
+  }
+}
+
+$status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }
+$payload = [ordered]@{
+  status = $status
+  mode = "LOCAL_SYNTHETIC_ALIGNMENT_ONLY"
+  root = $Root
+  repo_root = $RepoRoot
+  agent_count = $agentIds.Count
+  default_skill_rows = $defaultSkills.Count
+  execution_contract_rows = $agentContracts.Count
+  repo_alignment_rows = $repoRuntime.Count
+  github_repo_rows = $githubBase.Count
+  skill_usage_rows = $skillUsage.Count
+  recipe_rows = $recipeIndex.Count
+  tool_rows = $toolIndex.Count
+  plugin_rows = $pluginUsage.Count
+  blocked_surfaces = @(
+    "openai_api_live",
+    "microsoft_live",
+    "production",
+    "permissions",
+    "secrets",
+    "force_push",
+    "merge",
+    "remote_agent_persistence"
+  )
+  errors = @($errors)
+  warnings = @($warnings)
+  generated_at = (Get-Date).ToUniversalTime().ToString("o")
+}
+
+$resultPath = Join-Path $resultRoot "repo_alignment_runtime_latest.json"
+$payload | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $resultPath -Encoding UTF8
+
+if ($errors.Count -gt 0) {
+  $payload | ConvertTo-Json -Depth 8
+  exit 1
+}
+
+$payload | ConvertTo-Json -Depth 8

@@ -59,6 +59,13 @@ agentes remotos, no ejecuta OpenAI API, no escribe en Microsoft y no mueve
 repos anidados. Las fuentes copiadas desde otros repos se registran como
 `SOURCE_*` y se controlan en `matrices\CAPABILITY_IMPORT_DECISION_MATRIX.csv`.
 
+Actualizacion runtime 2026-06-01: cada agente tiene skills, recipes, tools y
+plugins por defecto segun su proposito. La matriz rectora es
+`matrices\AGENT_DEFAULT_SKILL_ASSIGNMENT_MATRIX.csv`. El runtime local de
+alineacion total de repos se ejecuta con
+`tools\local_run_repo_alignment_runtime.ps1` y registra resultado en
+`evals\results\repo_alignment_runtime_latest.json`.
+
 ## Olas de agentes
 
 Ola 1: orquestacion, fronteras, registro, canon, repos, corte OpenAI y torres Escribania/Modo ON.

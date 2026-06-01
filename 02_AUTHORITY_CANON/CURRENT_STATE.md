@@ -29,10 +29,21 @@ remoto y debe avanzar por rama, commit, push y PR draft en GitHub. La politica
 queda en `D:/02_AUTHORITY_CANON/GITHUB_BASE_WORK_POLICY.md` y la matriz de
 repos en `D:/01_GOVERNANCE_REGISTRY/GITHUB_BASE_WORK_MATRIX.csv`.
 
+Actualizacion runtime alineacion 2026-06-01: el runtime local sintetico de
+alineacion queda activo para la cabina. No ejecuta OpenAI API, Microsoft live,
+produccion, permisos, secretos ni agentes remotos persistentes. Alinea 14
+agentes y 12 repos mediante
+`D:/.agents/codex/matrices/AGENT_DEFAULT_SKILL_ASSIGNMENT_MATRIX.csv`,
+`D:/.agents/codex/matrices/REPO_RUNTIME_ALIGNMENT_MATRIX.csv` y
+`D:/.agents/codex/tools/local_run_repo_alignment_runtime.ps1`. El ultimo
+resultado queda en
+`D:/.agents/codex/evals/results/repo_alignment_runtime_latest.json`.
+
 Reglas vigentes:
 
 - GitHub repo-visible reversible esta habilitado para lectura, validacion, branch, commit, push, PR draft/update, issues, labels, comentarios y readbacks bajo orden gobernada.
 - Todo cambio durable de repos debe pasar por GitHub: rama, validacion local, stage explicito, commit, push y PR draft/update.
+- El runtime de alineacion permitido es local y sintetico; runtime live, API, Microsoft o produccion requieren orden separada.
 - No mover clones aun.
 - Microsoft live queda gobernado a nivel global: SharePoint, Teams, Outlook, Entra, Microsoft Graph, Power Platform, Planner, Dataverse o tenant requieren orden gobernada con superficie, identidad, owner, rollback, postcheck y evidencia.
 - Produccion solo con autorizacion explicita separada.

@@ -135,6 +135,9 @@
 !/.agents/codex/evals/*.jsonl
 !/.agents/codex/evals/*.md
 !/.agents/codex/evals/*.py
+!/.agents/codex/evals/results/
+/.agents/codex/evals/results/*
+!/.agents/codex/evals/results/*.json
 
 !/.agents/codex/plugins/
 /.agents/codex/plugins/*
