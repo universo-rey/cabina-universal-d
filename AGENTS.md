@@ -30,9 +30,18 @@ Estado receta GitHub lifecycle actualizado 2026-06-01: por orden expresa del
 operador, GitHub live repo-scoped puede operar como un solo ciclo gobernado
 para branch `codex/*`, stage explicito, commit, push, PR draft/update,
 comentarios/checks y fixes en alcance. No pedir aprobacion nueva por cada
-subpaso dentro del mismo alcance. Merge, force push, permisos, secrets,
-produccion, Microsoft live, OpenAI API live o datos regulados siguen requiriendo
-orden separada.
+subpaso dentro del mismo alcance. Merge queda automatizable dentro del ciclo
+cuando el operador aprueba el ciclo o el merge y el PR pasa preflight, HEAD
+fijo, base `main`, rama `codex/*`, checks requeridos y evidencia. Force push,
+permisos, secrets, produccion, Microsoft live, OpenAI API live o datos
+regulados siguen requiriendo orden separada.
+
+Estado merge automatizado actualizado 2026-06-01: Codex puede ejecutar
+`gh pr merge --match-head-commit` cuando exista orden aprobada y verificable.
+Debe detenerse con `automated_merge_precheck_failed` si el PR no esta limpio,
+esta en draft, apunta fuera de `main`, no usa rama `codex/*`, cambio el HEAD,
+fallan checks, falta validador o cruza secretos, permisos, produccion,
+Microsoft live, OpenAI API live, force push o borrado de rama remota.
 
 Estado operacion paralela actualizado 2026-06-01: los agentes y subagentes
 deben operar bajo matriz de carriles, owner, alcance disjunto, evidencia,
@@ -120,6 +129,9 @@ Universal del Rey y como repo raiz envoltorio activo:
 - PR raiz cola paralela/runtime:
   `https://github.com/universo-rey/cabina-universal-d/pull/22` con estado
   `MERGED`;
+- PR raiz readback canon:
+  `https://github.com/universo-rey/cabina-universal-d/pull/23` con estado
+  `MERGED`;
 - allowlist: solo gobierno, canon, agentes locales, matrices, prompts,
   recetas, tools, evals, plugins, templates, readbacks/workpapers saneados y
   workflows GitHub Actions de validacion, mas skills repo-locales bajo
@@ -196,7 +208,8 @@ Si falta un archivo rector, registrar hallazgo y detener la ejecucion destructiv
   superficie, identidad, owner, rollback, postcheck y evidencia.
 - Produccion solo con autorizacion explicita separada.
 - No mover clones locales sin plan de migracion, inventario, origen, destino, rollback y readback.
-- No versionar, commitear, pushear, mergear ni crear PR sin orden expresa.
+- No versionar, commitear, pushear ni crear PR sin orden expresa. Merge solo
+  con orden o ciclo aprobado, HEAD fijo, checks verdes y evidencia.
 - No usar `git add .` en `D:\`; el repo raiz usa allowlist y excluye clones anidados.
 - No escribir en Microsoft, GitHub, OpenAI API, SharePoint, Power Platform ni tenants sin orden gobernada.
 - No persistir secretos en archivos, logs, prompts, matrices o readbacks.

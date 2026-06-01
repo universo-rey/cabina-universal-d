@@ -183,6 +183,18 @@ foreach ($row in $rows) {
   Check-TokenList -Value $row.blocked_actions -Required @("secrets","production") -Errors $errors -Context "Preflight row '$($row.preflight_id)' blocked_actions"
 }
 
+$githubFoundation = @($rows | Where-Object { $_.preflight_id -eq "preflight.github_foundation" }) | Select-Object -First 1
+if ($githubFoundation) {
+  Check-TokenList -Value $githubFoundation.allowed_actions -Required @("merge_precheck_plan") -Errors $errors -Context "GitHub foundation allowed_actions"
+  Check-TokenList -Value $githubFoundation.blocked_actions -Required @("merge_without_approved_precheck") -Errors $errors -Context "GitHub foundation blocked_actions"
+}
+
+$repoIterationGate = @($rows | Where-Object { $_.preflight_id -eq "preflight.repo_iteration_gate" }) | Select-Object -First 1
+if ($repoIterationGate) {
+  Check-TokenList -Value $repoIterationGate.allowed_actions -Required @("merge_when_approved_prechecked") -Errors $errors -Context "Repo iteration allowed_actions"
+  Check-TokenList -Value $repoIterationGate.blocked_actions -Required @("merge_without_approved_precheck") -Errors $errors -Context "Repo iteration blocked_actions"
+}
+
 $sdkRow = @($rows | Where-Object { $_.preflight_id -eq "preflight.agents_sdk_local" }) | Select-Object -First 1
 if ($sdkRow) {
   Check-TokenList -Value $sdkRow.blocked_actions -Required @("openai_api_live","agents_sdk_live","secret_materialization","production") -Errors $errors -Context "Agents SDK preflight blocked_actions"

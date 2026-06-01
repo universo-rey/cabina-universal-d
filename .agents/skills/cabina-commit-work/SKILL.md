@@ -22,14 +22,16 @@ nested repo's own `.git`, remote, branch and PR.
 - create or use a scoped `codex/*` branch
 - stage explicit files only
 - commit, push, open or update a draft PR under an approved GitHub lifecycle
+- merge with fixed HEAD only when the lifecycle or merge has approval and
+  checks are green
 - record validator and PR evidence
 
 ## Blocked Actions
 
 - `git add .` in `D:\`
 - staging unrelated files
-- merge, force push, remote branch deletion or permission changes without
-  separate order
+- merge without approval and precheck, force push, remote branch deletion or
+  permission changes without separate order
 - production, Microsoft live, OpenAI API live, secrets or regulated data
   without separate governed order
 
@@ -48,7 +50,9 @@ Companion: `D:\.agents\codex\tools\local_validate_agent_layer.ps1`.
    commit changes governance, agents, skills, recipes, tools or workflows.
 6. Commit with a narrow message.
 7. Push the branch and open a draft PR.
-8. Stop before merge unless the operator gives a separate explicit merge order.
+8. Merge only when the operator-approved lifecycle includes merge, the PR is
+   non-draft, targets `main`, uses `codex/*`, has green checks and the HEAD
+   matches the validated commit.
 
 ## Required Evidence
 
@@ -57,6 +61,7 @@ Companion: `D:\.agents\codex\tools\local_validate_agent_layer.ps1`.
 - commit id
 - push target
 - PR URL
+- merge commit when merge is performed
 - validator result
 
 ## Stop Conditions
@@ -64,5 +69,6 @@ Companion: `D:\.agents\codex\tools\local_validate_agent_layer.ps1`.
 - unclassified dirty worktree
 - unrelated file in stage
 - missing validator
-- merge, force push, permission, production, Microsoft live, OpenAI API live,
-  secret or regulated-data request without separate order
+- merge without approved precheck, force push, permission, production,
+  Microsoft live, OpenAI API live, secret or regulated-data request without
+  separate order

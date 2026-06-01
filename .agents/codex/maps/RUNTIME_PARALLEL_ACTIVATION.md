@@ -21,7 +21,8 @@ Expected result:
 - `mode: LOCAL_SYNTHETIC_ALIGNMENT_ONLY`
 - `result_written: false`
 - blocked surfaces include `openai_api_live`, `microsoft_live`,
-  `production`, `permissions`, `secrets`, `force_push` and `merge`
+  `production`, `permissions`, `secrets`, `force_push` and
+  `merge_without_approved_precheck`
 
 Use the command without `-NoWrite` only when the operator wants to refresh
 `D:\.agents\codex\evals\results\repo_alignment_runtime_latest.json`.
