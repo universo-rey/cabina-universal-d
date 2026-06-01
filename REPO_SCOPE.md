@@ -15,7 +15,11 @@ absorber los repos anidados.
   rectores seleccionados.
 - Remoto configurado: `https://github.com/universo-rey/cabina-universal-d.git`.
 - Visibilidad remota: privada.
-- PR raiz activo: `https://github.com/universo-rey/cabina-universal-d/pull/1`.
+- Base raiz rectora/remota: `main`.
+- PR raiz historico: `https://github.com/universo-rey/cabina-universal-d/pull/1`
+  estado `MERGED`.
+- Ultimo merge commit raiz:
+  `f7bfdf5a2b1044fd358438d8078942303b68c02b`.
 - GitHub es la base de trabajo para todo cambio durable del universo de
   repositorios: cada cambio debe ir por rama, validacion, commit, push y PR.
 
@@ -29,14 +33,16 @@ absorber los repos anidados.
 
 ## Proximo carril
 
-Revisar y, bajo orden gobernada separada, commitear/pushear las capacidades
-locales importadas al PR raiz activo.
+Para nuevos cambios versionables, crear rama `codex/*` desde `main`, validar,
+stagear archivos explicitos, commitear, pushear y abrir PR bajo orden
+gobernada.
 
 ## Rama visible en Codex
 
-- rama: `codex/d-root-ui-visibility-20260601`
-- objetivo: hacer visible el repo raiz `D:\`, su rama y su PR en la UI nativa
-  de Codex.
+- base rectora/remota: `main`
+- rama historica mergeada: `codex/d-root-ui-visibility-20260601`
+- objetivo: hacer visible el repo raiz `D:\`, su arbol, ramas y PRs en la UI
+  nativa de Codex.
 - alcance: documental y capacidades locales saneadas; no absorbe clones ni
   reemplaza `organizacion`.
 

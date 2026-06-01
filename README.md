@@ -1,6 +1,6 @@
 # Cabina Universal Del Rey
 
-Estado: `D_ROOT_WRAPPER_REPO_LOCAL`
+Estado: `D_ROOT_WRAPPER_REPO_MAIN_ACTIVE`
 
 Este disco contiene el mapa local objetivo para organizar repos, herramientas, sistemas, licencias, evidencia y archivos por jerarquia.
 
@@ -9,6 +9,10 @@ para visibilidad nativa de Codex/Git. Este repo no absorbe clones anidados:
 `organizacion` y los demas repos conservan sus propios `.git`.
 
 Remoto privado del repo raiz: `https://github.com/universo-rey/cabina-universal-d`.
+
+Base rectora/remota visible para Codex/Git: `main`. La rama activa debe
+verificarse en cada sesion. El PR raiz #1 esta mergeado; nuevos cambios
+versionables deben usar rama `codex/*` desde `main` y PR gobernado.
 
 Regla de lectura:
 

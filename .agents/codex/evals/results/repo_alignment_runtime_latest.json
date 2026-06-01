@@ -1,32 +1,28 @@
-﻿{
-    "status":  "PASS",
-    "mode":  "LOCAL_SYNTHETIC_ALIGNMENT_ONLY",
-    "root":  "D:\\.agents\\codex",
-    "repo_root":  "D:\\",
-    "agent_count":  14,
-    "default_skill_rows":  14,
-    "execution_contract_rows":  14,
-    "repo_alignment_rows":  12,
-    "github_repo_rows":  12,
-    "skill_usage_rows":  20,
-    "recipe_rows":  17,
-    "tool_rows":  24,
-    "plugin_rows":  7,
-    "blocked_surfaces":  [
-                             "openai_api_live",
-                             "microsoft_live",
-                             "production",
-                             "permissions",
-                             "secrets",
-                             "force_push",
-                             "merge",
-                             "remote_agent_persistence"
-                         ],
-    "errors":  [
-
-               ],
-    "warnings":  [
-
-                 ],
-    "generated_at":  "2026-06-01T15:09:20.3417820Z"
+{
+  "status": "PASS",
+  "mode": "LOCAL_SYNTHETIC_ALIGNMENT_ONLY",
+  "root": "D:\\.agents\\codex",
+  "repo_root": "D:\\",
+  "agent_count": 14,
+  "default_skill_rows": 14,
+  "execution_contract_rows": 14,
+  "repo_alignment_rows": 12,
+  "github_repo_rows": 12,
+  "skill_usage_rows": 20,
+  "recipe_rows": 17,
+  "tool_rows": 24,
+  "plugin_rows": 7,
+  "blocked_surfaces": [
+    "openai_api_live",
+    "microsoft_live",
+    "production",
+    "permissions",
+    "secrets",
+    "force_push",
+    "merge",
+    "remote_agent_persistence"
+  ],
+  "errors": [],
+  "warnings": [],
+  "generated_at": "2026-06-01T15:34:36.1317261Z"
 }
