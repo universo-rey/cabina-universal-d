@@ -13,6 +13,7 @@ tool.local_validate_agent_layer,03_CORTE_EJECUTORA,run,D:\.agents\codex\tools\lo
 tool.local_validate_agent_levels,03_CORTE_EJECUTORA,run,D:\.agents\codex\tools\local_validate_agent_levels.ps1,local_filesystem,external_runtime
 tool.local_validate_agent_workpapers,03_CORTE_EJECUTORA,run,D:\.agents\codex\tools\local_validate_agent_workpapers.ps1,local_filesystem,external_runtime
 tool.local_validate_parallel_order_governance,03_CORTE_EJECUTORA,run,D:\.agents\codex\tools\local_validate_parallel_order_governance.ps1,local_filesystem,external_runtime|live_execution
+tool.local_validate_parallel_issue_queue,03_CORTE_EJECUTORA,run,D:\.agents\codex\tools\local_validate_parallel_issue_queue.ps1,local_filesystem,external_runtime|live_execution|secret_materialization|lane_scope_overlap
 tool.local_validate_order_packets,03_CORTE_EJECUTORA,run,D:\.agents\codex\tools\local_validate_order_packets.ps1,local_filesystem,external_runtime|live_execution|secret_materialization
 tool.path_conflict_check,02_REGISTRO_Y_CARTOGRAFIA,read,D:/01_GOVERNANCE_REGISTRY/MIGRATION_MAP_D.csv,local_filesystem,moving_files
 tool.parallel_dispatch_policy_check,00_ROUTER,read,D:\.agents\codex\matrices\PARALLEL_OPERATION_CRITERIA_MATRIX.csv,local_filesystem,parallel_scope_overlap|live_execution

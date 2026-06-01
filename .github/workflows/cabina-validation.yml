@@ -131,7 +131,16 @@ jobs:
         run: |
           $root = Join-Path $env:GITHUB_WORKSPACE ".agents\codex"
           $tool = Join-Path $root "tools\local_run_repo_alignment_runtime.ps1"
-          & $tool -Root $root -RepoRoot $env:GITHUB_WORKSPACE
+          $output = & $tool -Root $root -RepoRoot $env:GITHUB_WORKSPACE -NoWrite
+          $output | Write-Output
+          $payload = ($output -join "`n") | ConvertFrom-Json
+          if ($payload.status -ne "PASS") {
+            exit 1
+          }
+          if ($payload.result_written -ne $false) {
+            throw "Runtime alignment must not write results in GitHub Actions"
+          }
+          exit 0
 
       - name: Agent layer
         shell: pwsh
@@ -152,6 +161,19 @@ jobs:
           $root = Join-Path $env:GITHUB_WORKSPACE ".agents\codex"
           $tool = Join-Path $root "tools\local_validate_parallel_order_governance.ps1"
           $output = & $tool -Root $root
+          $output | Write-Output
+          $payload = ($output -join "`n") | ConvertFrom-Json
+          if ($payload.status -ne "PASS") {
+            exit 1
+          }
+          exit 0
+
+      - name: Parallel issue queue
+        shell: pwsh
+        run: |
+          $root = Join-Path $env:GITHUB_WORKSPACE ".agents\codex"
+          $tool = Join-Path $root "tools\local_validate_parallel_issue_queue.ps1"
+          $output = & $tool -Root $root -RepoRoot $env:GITHUB_WORKSPACE
           $output | Write-Output
           $payload = ($output -join "`n") | ConvertFrom-Json
           if ($payload.status -ne "PASS") {

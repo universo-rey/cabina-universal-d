@@ -51,6 +51,9 @@ La carpeta debe preferir `copiar/adaptar` antes que inventar. Los archivos `SOUR
 12. Para carriles paralelos u ordenes, validar tambien con
     `tools\\local_validate_parallel_order_governance.ps1` y
     `tools\\local_validate_order_packets.ps1`.
+12.b. Para carriles paralelos por issue, declarar primero la fila en
+    `matrices\\PARALLEL_ISSUE_LANE_QUEUE.csv` y validar con
+    `tools\\local_validate_parallel_issue_queue.ps1`.
 13. Cerrar con agente, skill, receta, tool, evidencia, validador y condicion
     de detencion. Si falta algun componente y no existe `NO_APLICA`
     justificado, detener con `operational_chain_missing`.
@@ -77,11 +80,22 @@ alineacion total de repos se ejecuta con
 `tools\local_run_repo_alignment_runtime.ps1` y registra resultado en
 `evals\results\repo_alignment_runtime_latest.json`.
 
+Actualizacion runtime no mutante 2026-06-01: para comprobar alineacion sin
+actualizar evidencia, usar `tools\local_run_repo_alignment_runtime.ps1 -NoWrite`.
+La activacion local Agents SDK se prueba con
+`tools\local_validate_github_automation_preflight.ps1 -CheckLocalSdk` y debe
+cerrar sin API call.
+
 Actualizacion cadena operativa global 2026-06-01: la cabina exige cadena
 agente/skill/receta/tool/validador/evidencia/stop_condition para cierres,
 cambios repo, automatizacion GitHub, runtime y carriles paralelos. La matriz
 rectora es `matrices\OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv` y el validador
 local es `tools\local_validate_operational_chain.ps1`.
+
+Actualizacion cola paralela 2026-06-01: los work units por issue viven en
+`matrices\PARALLEL_ISSUE_LANE_QUEUE.csv`. La cola exige `base_sha`, rama
+`codex/*`, file set exacto, lock unico y dependencias antes de despachar
+workers. Los indices compartidos se integran en carril serial.
 
 Actualizacion skills repo-locales 2026-06-01: las skills cabina que deben
 viajar con el repo se guardan en `D:\.agents\skills\<skill>\SKILL.md`. La

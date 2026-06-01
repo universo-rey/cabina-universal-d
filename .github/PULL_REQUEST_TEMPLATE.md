@@ -3,16 +3,23 @@
 ## Agent
 
 - agente:
+- lead_agent:
+- owner_agent:
+- reviewer_agent:
 - orden:
 - superficie:
 - skill:
 - recipe:
 - tool:
+- base_sha:
+- branch:
 - lane:
 - read_scope:
 - write_scope:
+- declared_file_set:
 - lock_key:
 - dependency:
+- max_parallel:
 
 ## Change
 
