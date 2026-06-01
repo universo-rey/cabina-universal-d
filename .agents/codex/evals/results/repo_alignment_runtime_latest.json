@@ -13,9 +13,11 @@
   "recipe_rows": 17,
   "tool_rows": 24,
   "plugin_rows": 7,
+  "github_actions_rows": 1,
   "root_base_repo_id": "D_CABINA_UNIVERSAL_ROOT",
   "root_base_remote": "universo-rey/cabina-universal-d",
   "github_agent_status": "APPROVED_GITHUB_AGENT_SURFACE",
+  "github_actions_status": "APPROVED_GITHUB_ACTIONS_SURFACE",
   "blocked_surfaces": [
     "openai_api_live",
     "microsoft_live",
@@ -28,5 +30,5 @@
   ],
   "errors": [],
   "warnings": [],
-  "generated_at": "2026-06-01T16:06:23.6079657Z"
+  "generated_at": "2026-06-01T16:15:37.1384461Z"
 }

@@ -1,0 +1,85 @@
+name: Cabina Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "AGENTS.md"
+      - "MANIFEST.yaml"
+      - "README.md"
+      - "REPO_SCOPE.md"
+      - "00_CONTROL_PLANE_INGRESS/**"
+      - "01_GOVERNANCE_REGISTRY/**"
+      - "02_AUTHORITY_CANON/**"
+      - ".agents/codex/**"
+      - ".github/**"
+  push:
+    branches:
+      - main
+      - "codex/**"
+    paths:
+      - "AGENTS.md"
+      - "MANIFEST.yaml"
+      - "README.md"
+      - "REPO_SCOPE.md"
+      - "00_CONTROL_PLANE_INGRESS/**"
+      - "01_GOVERNANCE_REGISTRY/**"
+      - "02_AUTHORITY_CANON/**"
+      - ".agents/codex/**"
+      - ".github/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cabina-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Local governance validators
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Runtime alignment
+        shell: pwsh
+        run: |
+          $root = Join-Path $env:GITHUB_WORKSPACE ".agents\codex"
+          $tool = Join-Path $root "tools\local_run_repo_alignment_runtime.ps1"
+          & $tool -Root $root -RepoRoot $env:GITHUB_WORKSPACE
+
+      - name: Agent layer
+        shell: pwsh
+        run: |
+          $root = Join-Path $env:GITHUB_WORKSPACE ".agents\codex"
+          $tool = Join-Path $root "tools\local_validate_agent_layer.ps1"
+          & $tool -Root $root
+
+      - name: GitHub Actions policy
+        shell: pwsh
+        run: |
+          $matrixPath = Join-Path $env:GITHUB_WORKSPACE ".agents\codex\matrices\GITHUB_ACTIONS_WORKFLOW_MATRIX.csv"
+          $rows = @(Import-Csv -LiteralPath $matrixPath)
+          if ($rows.Count -lt 1) {
+            throw "No GitHub Actions workflow rows declared"
+          }
+          foreach ($row in $rows) {
+            if ($row.status -ne "APPROVED_GITHUB_ACTIONS_SURFACE") {
+              throw "Workflow is not approved: $($row.workflow_id)"
+            }
+            if ($row.permissions -ne "contents:read") {
+              throw "Workflow permissions must remain contents:read: $($row.workflow_id)"
+            }
+            foreach ($blocked in @("secrets", "production", "microsoft_live", "openai_api_live", "permission_write")) {
+              if ($row.blocked_actions -notmatch $blocked) {
+                throw "Workflow missing blocked action '$blocked': $($row.workflow_id)"
+              }
+            }
+          }

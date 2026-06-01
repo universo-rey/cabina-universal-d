@@ -24,6 +24,8 @@ absorber los repos anidados.
   `98b7ddb6969abda83c36b3101307a99075856c7f`.
 - GitHub es la base de trabajo para todo cambio durable del universo de
   repositorios: cada cambio debe ir por rama, validacion, commit, push y PR.
+- GitHub Actions queda aprobado para validacion repo-scoped con permisos
+  `contents: read`; no habilita secretos, produccion, permisos ni live externo.
 
 ## Bloqueos
 
@@ -69,3 +71,7 @@ alineacion transversal de todos los repos registrados hacia
 `universo-rey/cabina-universal-d`. Esa alineacion aprueba agentes GitHub para
 issues, ramas, commits, push y PR repo-scoped. Runtime productivo y live externo
 siguen fuera de esa aprobacion.
+
+La matriz `.agents\codex\matrices\GITHUB_ACTIONS_WORKFLOW_MATRIX.csv` declara
+el workflow `.github\workflows\cabina-validation.yml` como superficie GitHub
+Actions aprobada para validadores locales y policy check de workflows.

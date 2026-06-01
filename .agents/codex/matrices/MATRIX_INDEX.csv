@@ -13,6 +13,7 @@ d_drive_enrichment_matrix,D:\.agents\codex\matrices\D_DRIVE_ENRICHMENT_MATRIX.cs
 evidence_validation_matrix,D:\.agents\codex\matrices\EVIDENCE_AND_VALIDATION_MATRIX.csv,closeout,03_CORTE_EJECUTORA,update when validators or readbacks change
 governed_asset_canonical_inventory,D:\.agents\codex\matrices\GOVERNED_ASSET_CANONICAL_INVENTORY.csv,canonical_inventory,00_ROUTER,regenerate when repo agent or tool governance changes
 github_agent_operating_matrix,D:\.agents\codex\matrices\GITHUB_AGENT_OPERATING_MATRIX.csv,github_agent_surfaces,02_REGISTRO_Y_CARTOGRAFIA,update when GitHub issue PR or Copilot agent surfaces change
+github_actions_workflow_matrix,D:\.agents\codex\matrices\GITHUB_ACTIONS_WORKFLOW_MATRIX.csv,github_actions_surfaces,05_SOPORTE_TECNICO,update when GitHub Actions workflow triggers permissions or validators change
 handoff_map,D:\.agents\codex\maps\HANDOFF_MAP.csv,handoffs,00_ROUTER,update when routing changes
 local_skill_catalog,D:\.agents\codex\matrices\LOCAL_SKILL_CATALOG.csv,local_skills,03_CORTE_EJECUTORA,update when local or installed skill assignments change
 plugin_usage_matrix,D:\.agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv,plugins,05_SOPORTE_TECNICO,update when plugin availability or live boundary changes

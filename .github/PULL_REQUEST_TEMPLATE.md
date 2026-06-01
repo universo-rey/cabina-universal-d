@@ -21,6 +21,7 @@
 - [ ] No permissions or visibility changes
 - [ ] No secrets or regulated data
 - [ ] No merge without separate order
+- [ ] GitHub Actions remain validation-only with `contents: read`
 
 ## Validation
 

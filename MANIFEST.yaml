@@ -82,6 +82,7 @@ capability_import_state:
 github_base_work_state:
   as_of: 2026-06-01
   status: GITHUB_BASE_WORK_DECLARED_ACTIVE
+  github_actions_surface_state: APPROVED_GITHUB_ACTIONS_SURFACE
   root_remote_base: https://github.com/universo-rey/cabina-universal-d.git
   root_pull_request: https://github.com/universo-rey/cabina-universal-d/pull/2
   root_pull_request_status: MERGED
@@ -110,8 +111,10 @@ runtime_alignment_state:
   cabina_repo_alignment_matrix: D:/.agents/codex/matrices/CABINA_UNIVERSAL_REPO_ALIGNMENT_MATRIX.csv
   productive_runtime_gate_state: REQUIRES_GOVERNED_ORDER
   github_agent_surface_state: APPROVED_GITHUB_AGENT_SURFACE
+  github_actions_surface_state: APPROVED_GITHUB_ACTIONS_SURFACE
   non_github_external_agent_gate_state: REQUIRES_GOVERNED_ORDER
   default_skill_matrix: D:/.agents/codex/matrices/AGENT_DEFAULT_SKILL_ASSIGNMENT_MATRIX.csv
+  github_actions_matrix: D:/.agents/codex/matrices/GITHUB_ACTIONS_WORKFLOW_MATRIX.csv
   repo_runtime_matrix: D:/.agents/codex/matrices/REPO_RUNTIME_ALIGNMENT_MATRIX.csv
   runtime_status_matrix: D:/.agents/codex/matrices/RUNTIME_ALIGNMENT_STATUS_MATRIX.csv
   runtime_tool: D:/.agents/codex/tools/local_run_repo_alignment_runtime.ps1

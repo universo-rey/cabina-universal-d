@@ -38,6 +38,7 @@ $skillUsage = Read-CsvRequired (Join-Path $skillsRoot "SKILL_USAGE_MATRIX.csv")
 $recipeIndex = Read-CsvRequired (Join-Path $recipesRoot "RECIPE_INDEX.csv")
 $toolIndex = Read-CsvRequired (Join-Path $toolsRoot "TOOL_INDEX.csv")
 $pluginUsage = Read-CsvRequired (Join-Path $pluginsRoot "PLUGIN_USAGE_MATRIX.csv")
+$githubActions = Read-CsvRequired (Join-Path $matrixRoot "GITHUB_ACTIONS_WORKFLOW_MATRIX.csv")
 
 $errors = New-Object System.Collections.Generic.List[string]
 $warnings = New-Object System.Collections.Generic.List[string]
@@ -141,6 +142,22 @@ foreach ($row in $cabinaRepoAlignment) {
   }
 }
 
+foreach ($row in $githubActions) {
+  if ($row.status -ne "APPROVED_GITHUB_ACTIONS_SURFACE") {
+    $errors.Add("GitHub Actions workflow surface is not approved: $($row.workflow_id)")
+  }
+  if ($row.permissions -ne "contents:read") {
+    $errors.Add("GitHub Actions workflow permissions are not read-only: $($row.workflow_id) -> $($row.permissions)")
+  }
+  if ($row.blocked_actions -notmatch "secrets" -or $row.blocked_actions -notmatch "production" -or $row.blocked_actions -notmatch "microsoft_live" -or $row.blocked_actions -notmatch "openai_api_live" -or $row.blocked_actions -notmatch "permission_write") {
+    $errors.Add("GitHub Actions workflow blocked actions incomplete: $($row.workflow_id)")
+  }
+  $workflowPath = Join-Path $RepoRoot $row.path
+  if (-not (Test-Path -LiteralPath $workflowPath)) {
+    $errors.Add("GitHub Actions workflow path missing: $($row.workflow_id) -> $($row.path)")
+  }
+}
+
 $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }
 $payload = [ordered]@{
   status = $status
@@ -157,9 +174,11 @@ $payload = [ordered]@{
   recipe_rows = $recipeIndex.Count
   tool_rows = $toolIndex.Count
   plugin_rows = $pluginUsage.Count
+  github_actions_rows = $githubActions.Count
   root_base_repo_id = "D_CABINA_UNIVERSAL_ROOT"
   root_base_remote = "universo-rey/cabina-universal-d"
   github_agent_status = "APPROVED_GITHUB_AGENT_SURFACE"
+  github_actions_status = "APPROVED_GITHUB_ACTIONS_SURFACE"
   blocked_surfaces = @(
     "openai_api_live",
     "microsoft_live",

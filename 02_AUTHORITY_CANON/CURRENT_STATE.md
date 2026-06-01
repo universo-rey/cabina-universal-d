@@ -67,9 +67,16 @@ operar issues, ramas, commits, pushes y PRs repo-scoped. Produccion, Microsoft
 live, OpenAI API live, permisos, secretos, costos externos o datos regulados no
 quedan incluidos en esta aprobacion.
 
+Actualizacion GitHub Actions 2026-06-01: la cabina aprueba
+`.github/workflows/cabina-validation.yml` como workflow de validacion
+repo-scoped con permisos `contents: read`. Ejecuta los validadores locales de
+runtime, capa de agentes y politica de workflows. No habilita secretos,
+produccion, Microsoft live, OpenAI API live, permisos ni agentes externos fuera
+de GitHub.
+
 Reglas vigentes:
 
-- GitHub repo-visible reversible esta habilitado para lectura, validacion, branch, commit, push, PR draft/update, issues, labels, comentarios y readbacks bajo orden gobernada.
+- GitHub repo-visible reversible esta habilitado para lectura, validacion, branch, commit, push, PR draft/update, issues, labels, comentarios, GitHub Actions de validacion y readbacks bajo orden gobernada.
 - Todo cambio durable de repos debe pasar por GitHub: rama, validacion local, stage explicito, commit, push y PR draft/update.
 - El runtime de alineacion permitido es local y sintetico; runtime live, API, Microsoft o produccion requieren orden separada.
 - No mover clones aun.

@@ -20,9 +20,9 @@ Regla rectora:
 - No absorbas clones anidados dentro del repo raiz.
 - Trabaja en rama `codex/*` y PR; no hagas merge.
 - No uses `git add .`.
-- Los agentes GitHub/Copilot/issue/PR de este repo estan aprobados como
+- Los agentes GitHub/Copilot/issue/PR/Actions de este repo estan aprobados como
   superficie operativa. No requieren gate separado para tareas repo-scoped en
-  rama y PR.
+  rama, PR y validacion.
 
 Agentes locales:
 
@@ -55,9 +55,10 @@ Bloqueos:
 
 Runtime productivo y live externo:
 
-Los agentes GitHub aprobados pueden operar issues, instrucciones, ramas, commits
-y PRs dentro del repo. Produccion, Microsoft live, OpenAI API live, permisos,
-secretos, costos externos o datos regulados siguen fuera de esta aprobacion.
+Los agentes GitHub aprobados pueden operar issues, instrucciones, ramas, commits,
+PRs y GitHub Actions de validacion dentro del repo. Produccion, Microsoft live,
+OpenAI API live, permisos, secretos, costos externos o datos regulados siguen
+fuera de esta aprobacion.
 
 Cierre minimo:
 
