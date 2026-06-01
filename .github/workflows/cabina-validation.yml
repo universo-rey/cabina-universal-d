@@ -55,6 +55,17 @@ jobs:
           $tool = Join-Path $root "tools\local_run_repo_alignment_runtime.ps1"
           & $tool -Root $root -RepoRoot $env:GITHUB_WORKSPACE
 
+      - name: Prepare local-only folders
+        shell: pwsh
+        run: |
+          foreach ($path in @(
+            ".agents\codex\orders",
+            ".agents\codex\readbacks",
+            "80_REFERENCIAS_TECNICAS"
+          )) {
+            New-Item -ItemType Directory -Force -Path (Join-Path $env:GITHUB_WORKSPACE $path) | Out-Null
+          }
+
       - name: Agent layer
         shell: pwsh
         run: |
