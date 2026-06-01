@@ -134,9 +134,22 @@ referencias fuente, matriz de uso y subskills. Las instalaciones globales de
 usuario pueden ejecutar skills localmente, pero no sustituyen la fuente durable
 versionada por GitHub.
 
+Actualizacion jerarquia AGENTS.md 2026-06-01: `D:/AGENTS.md` queda declarado
+como fuente rectora local de mayor precedencia. Las instrucciones anidadas de
+`.agents/codex`, perfiles de agentes, skills repo-locales, plugins y runtimes
+globales solo pueden acotar dentro de esa frontera. La matriz
+`D:/.agents/codex/matrices/AGENTS_INSTRUCTION_SURFACE_MATRIX.csv` y el
+validador
+`D:/.agents/codex/tools/local_validate_agents_instruction_hierarchy.ps1`
+controlan precedencia, superficies anidadas y preservacion de repos
+independientes.
+
 Reglas vigentes:
 
 - GitHub repo-visible reversible esta habilitado para lectura, validacion, branch, commit, push, PR draft/update, issues, labels, comentarios, GitHub Actions de validacion y readbacks bajo orden gobernada.
+- La jerarquia de instrucciones locales usa `D:/AGENTS.md` como raiz. Una
+  instruccion de UI, sidebar, plugin, runtime global, perfil anidado o repo
+  vecino no puede contradecirlo ni absorber clones anidados.
 - La automatizacion GitHub debe pasar primero por preflight local de cabina antes de seleccionar repos o abrir carriles por repo.
 - Toda accion operativa debe mantener cadena agente/skill/receta/tool/validador/evidencia/stop_condition; sin esa cadena se detiene con `operational_chain_missing`.
 - Todo cambio durable de repos debe pasar por GitHub: rama, validacion local, stage explicito, commit, push y PR draft/update.

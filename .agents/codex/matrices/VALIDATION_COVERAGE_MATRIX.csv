@@ -1,6 +1,7 @@
 artifact_class,required_index,required_validator,owner_agent,coverage_status,stop_condition
 agent_default_skills,D:/.agents/codex/matrices/AGENT_DEFAULT_SKILL_ASSIGNMENT_MATRIX.csv,D:/.agents/codex/tools/local_run_repo_alignment_runtime.ps1,court.thot_schema,covered,default_skill_missing_for_agent
 agent_profiles,D:\.agents\codex\agents.json,D:\.agents\codex\tools\local_validate_agent_levels.ps1,court.thot_schema,covered,missing_agent_home_or_level
+agents_instruction_hierarchy,D:\.agents\codex\matrices\AGENTS_INSTRUCTION_SURFACE_MATRIX.csv,D:\.agents\codex\tools\local_validate_agents_instruction_hierarchy.ps1,codex.workspace_guardian,covered,instruction_precedence_missing
 canonical_inventory,D:\.agents\codex\matrices\GOVERNED_ASSET_CANONICAL_INVENTORY.csv,D:\.agents\codex\tools\local_validate_agent_layer.ps1,rey.control_plane_orchestrator,covered,inventory_without_asset_owner_validator
 github_automation_preflight,D:\.agents\codex\matrices\GITHUB_AUTOMATION_PREFLIGHT_MATRIX.csv,D:\.agents\codex\tools\local_validate_github_automation_preflight.ps1,court.thot_schema,covered,github_order_missing_checks
 coverage_exceptions,D:\.agents\codex\matrices\COVERAGE_EXCEPTION_REGISTRY.csv,D:\.agents\codex\tools\local_validate_agent_layer.ps1,court.seshat_evidence,covered,exception_without_owner_validator

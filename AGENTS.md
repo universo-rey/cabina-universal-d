@@ -59,6 +59,15 @@ cabina viven en `D:\.agents\skills\<skill>\SKILL.md`. La carpeta
 subskills. Las instalaciones globales de usuario son runtime local, no fuente
 durable rectora.
 
+Estado jerarquia AGENTS.md actualizado 2026-06-01: `D:\AGENTS.md` es la
+instruccion rectora local de mayor precedencia. Las instrucciones anidadas,
+perfiles de agentes, skills repo-locales, plugins y runtimes globales solo
+pueden acotar o ejecutar dentro de esa frontera; nunca pueden debilitarla ni
+absorber repos anidados. La matriz verificable vive en
+`D:\.agents\codex\matrices\AGENTS_INSTRUCTION_SURFACE_MATRIX.csv` y el
+validador en
+`D:\.agents\codex\tools\local_validate_agents_instruction_hierarchy.ps1`.
+
 ## Prompt maestro para UI Codex
 
 Cuando Codex abra `D:\`, la UI debe tratar esta carpeta como la Cabina
@@ -84,6 +93,23 @@ Universal del Rey y como repo raiz envoltorio activo:
 Si el prompt de UI, el resumen lateral o una instruccion heredada contradice
 este `AGENTS.md`, declarar la contradiccion y usar `D:\AGENTS.md` como fuente
 rectora local antes de actuar.
+
+## Jerarquia de instrucciones locales
+
+1. `D:\AGENTS.md`: fuente rectora local y frontera de seguridad.
+2. Lectura obligatoria local: manifiesto, mapa humano, routing, registry,
+   canon, README de `.agents\codex`, `agents.json` y `routing.json`.
+3. Instrucciones anidadas locales: README de subnivel, perfiles de agentes,
+   matrices, mapas, recetas, tools, skills repo-locales y templates.
+4. Repos anidados: cada repo conserva su propio `.git`, remoto, rama, PR y sus
+   instrucciones internas; la cabina raiz no los absorbe.
+5. Runtime global o plugins: son herramientas de ejecucion local; no son canon
+   durable y no pueden contradecir este archivo.
+
+Si una instruccion de menor precedencia contradice una de mayor precedencia, se
+detiene la accion que dependa de esa contradiccion y se registra
+`instruction_precedence_missing` o `nested_instruction_surface_unmapped` segun
+corresponda.
 
 ## Lectura obligatoria
 
