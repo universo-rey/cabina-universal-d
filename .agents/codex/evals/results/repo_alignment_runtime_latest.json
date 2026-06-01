@@ -9,9 +9,9 @@
   "repo_alignment_rows": 12,
   "cabina_repo_alignment_rows": 12,
   "github_repo_rows": 12,
-  "skill_usage_rows": 20,
-  "recipe_rows": 17,
-  "tool_rows": 24,
+  "skill_usage_rows": 21,
+  "recipe_rows": 20,
+  "tool_rows": 28,
   "plugin_rows": 7,
   "github_actions_rows": 1,
   "root_base_repo_id": "D_CABINA_UNIVERSAL_ROOT",
@@ -30,5 +30,5 @@
   ],
   "errors": [],
   "warnings": [],
-  "generated_at": "2026-06-01T16:27:36.6073170Z"
+  "generated_at": "2026-06-01T17:02:59.3841661Z"
 }

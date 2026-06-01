@@ -4,6 +4,14 @@ title: "[approval] runtime/external agent: "
 labels: ["runtime-approval", "github-agent-approved"]
 body:
   - type: input
+    id: agent_id
+    attributes:
+      label: Preparing agent
+      description: Agent preparing this order packet.
+      placeholder: "court.openai_dispatcher"
+    validations:
+      required: true
+  - type: input
     id: surface
     attributes:
       label: Surface
@@ -36,6 +44,14 @@ body:
     attributes:
       label: Rollback
       description: Exact rollback plan.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence_validator
+    attributes:
+      label: Evidence and validator
+      description: Evidence artifact plus local or GitHub validator expected before execution.
+      placeholder: "evidence: ...\nvalidator: ..."
     validations:
       required: true
   - type: textarea

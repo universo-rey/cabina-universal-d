@@ -8,6 +8,9 @@ recipe.governed_readback_closeout,03_CORTE_EJECUTORA,court.seshat_evidence,D:\.a
 recipe.matrix_recipe_skill_sync,03_CORTE_EJECUTORA,court.thot_schema,D:\.agents\codex\recipes\recipe.matrix_recipe_skill_sync.md,sync_delta
 recipe.migration_preflight,02_REGISTRO_Y_CARTOGRAFIA,rey.migration_planner,D:\.agents\codex\recipes\recipe.migration_preflight.md,migration_preflight
 recipe.openai_prompt_pack_json_short,03_CORTE_EJECUTORA,court.openai_dispatcher,D:\.agents\codex\recipes\recipe.openai_prompt_pack_json_short.md,prompt_pack
+recipe.openai_local_agent_design,03_CORTE_EJECUTORA,court.openai_dispatcher,D:\.agents\codex\recipes\recipe.openai_local_agent_design.md,openai_local_design_packet
+recipe.governed_order_preparation,01_AUTORIDAD_Y_GATES,rey.frontier_guardian,D:\.agents\codex\recipes\recipe.governed_order_preparation.md,governed_order_packet
+recipe.parallel_agent_operation,00_ROUTER,rey.control_plane_orchestrator,D:\.agents\codex\recipes\recipe.parallel_agent_operation.md,parallel_lane_packet
 recipe.registry_enrichment,02_REGISTRO_Y_CARTOGRAFIA,rey.governance_registrar,D:\.agents\codex\recipes\recipe.registry_enrichment.md,registry_delta
 recipe.repo_agent_tool_governance,01_AUTORIDAD_Y_GATES,rey.authority_canonist,D:\.agents\codex\recipes\recipe.repo_agent_tool_governance.md,governance_decision
 recipe.repo_universe_alignment_runtime,03_CORTE_EJECUTORA,court.thot_schema,D:/.agents/codex/recipes/recipe.repo_universe_alignment_runtime.md,repo_alignment_runtime_result

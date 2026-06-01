@@ -28,6 +28,16 @@ y PRs sin activar produccion. `.github/workflows/cabina-validation.yml` ejecuta
 validaciones locales en GitHub Actions con permisos `contents: read`; usa los
 workpapers saneados bajo `.agents/codex/workpapers` como evidencia declarativa.
 
+Operacion paralela: `.agents/codex/matrices/PARALLEL_OPERATION_CRITERIA_MATRIX.csv`
+define carriles, owners, alcance, evidencia, validador y stop condition.
+`.agents/codex/matrices/ORDER_PREPARATION_ASSIGNMENT_MATRIX.csv` asigna que
+agente prepara cada orden gobernada antes de cualquier live, API, produccion,
+permiso, secreto, costo o dato regulado.
+
+Los carriles paralelos requieren scopes y locks declarados. Las ordenes
+gobernadas se preparan como paquetes locales antes de ejecutar cualquier
+superficie live, costo, permiso o produccion.
+
 Regla de lectura:
 
 1. `00_CONTROL_PLANE_INGRESS` recibe.

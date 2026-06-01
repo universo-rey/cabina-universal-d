@@ -6,6 +6,7 @@ governed-readback-closeout,d_drive_local,01_AUTORIDAD_Y_GATES|03_CORTE_EJECUTORA
 matrix-recipe-skill-sync,d_drive_local,02_REGISTRO_Y_CARTOGRAFIA|03_CORTE_EJECUTORA|05_SOPORTE_TECNICO,rey.governance_registrar|court.openai_dispatcher|court.thot_schema|tech.reference_librarian|codex.workspace_guardian,keep D-drive artifact indexes aligned,local_only
 openai-developers:agents-sdk,plugin,03_CORTE_EJECUTORA,court.openai_dispatcher,Agents SDK local/staging design,api_live_requires_order
 openai-docs,system_local,05_SOPORTE_TECNICO,tech.reference_librarian,official OpenAI docs lookup when needed,docs_only
+parallel-order-governance,d_drive_local,00_ROUTER|01_AUTORIDAD_Y_GATES|02_REGISTRO_Y_CARTOGRAFIA|03_CORTE_EJECUTORA|04_TORRES_DE_UNIVERSO|05_SOPORTE_TECNICO,all_agents,parallel agents subagents order preparation and local OpenAI design,local_only
 operativa-guardian:operativa-guardian-status,plugin,05_SOPORTE_TECNICO,codex.workspace_guardian,workspace and branch guardrail status,local_only
 repo-agent-tool-governance,d_drive_local,01_AUTORIDAD_Y_GATES|02_REGISTRO_Y_CARTOGRAFIA,rey.frontier_guardian|rey.authority_canonist|rey.repo_cartographer|court.sdu_gate,govern repos agents tools and execution surfaces,local_only
 rey-modo-auditor-vscode-insiders,installed_local,05_SOPORTE_TECNICO,codex.workspace_guardian,VS Code Insiders and local workspace audit,local_only

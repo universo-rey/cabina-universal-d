@@ -74,8 +74,19 @@ $lineageAudit = Join-Path $Root "matrices\CANONICAL_INDEX_LINEAGE_AUDIT.csv"
 $agentWorkpapers = Join-Path $Root "matrices\AGENT_WORKPAPERS_MATRIX.csv"
 $pluginUsage = Join-Path $Root "matrices\PLUGIN_USAGE_MATRIX.csv"
 $purposeSurfaceCapability = Join-Path $Root "matrices\PURPOSE_SURFACE_CAPABILITY_MATRIX.csv"
+$parallelOperationCriteria = Join-Path $Root "matrices\PARALLEL_OPERATION_CRITERIA_MATRIX.csv"
+$orderPreparationAssignment = Join-Path $Root "matrices\ORDER_PREPARATION_ASSIGNMENT_MATRIX.csv"
+$orderClassCapability = Join-Path $Root "matrices\ORDER_CLASS_CAPABILITY_MATRIX.csv"
+$pluginSkillBoundary = Join-Path $Root "matrices\PLUGIN_SKILL_BOUNDARY_MATRIX.csv"
+$sourceCapabilityGap = Join-Path $Root "matrices\SOURCE_CAPABILITY_ADOPTION_GAP_MATRIX.csv"
+$subagentAliasMap = Join-Path $Root "agents\SUBAGENT_ALIAS_MAP.csv"
+$subagentCapabilityAssignment = Join-Path $Root "matrices\SUBAGENT_CAPABILITY_ASSIGNMENT_MATRIX.csv"
+$subskillUsage = Join-Path $Root "skills\SUBSKILL_USAGE_MATRIX.csv"
+$subrecipeIndex = Join-Path $Root "recipes\SUBRECIPE_INDEX.csv"
 $workpaperIndex = Join-Path $Root "workpapers\WORKPAPER_INDEX.csv"
 $workpaperValidator = Join-Path $Root "tools\local_validate_agent_workpapers.ps1"
+$parallelOrderValidator = Join-Path $Root "tools\local_validate_parallel_order_governance.ps1"
+$orderPacketValidator = Join-Path $Root "tools\local_validate_order_packets.ps1"
 
 $errors = New-Object System.Collections.Generic.List[string]
 $warnings = New-Object System.Collections.Generic.List[string]
@@ -104,6 +115,15 @@ $requiredColumnChecks = @(
   @{ Path = $agentWorkpapers; Columns = @("agent_id","level_id","workpapers_path","repo_snapshot_path","status","primary_surface","purpose","required_matrices","required_recipes","required_tools","required_validators","evidence_policy","validator","stop_condition") },
   @{ Path = $pluginUsage; Columns = @("plugin_id","availability","assigned_agents","purpose","surface","live_boundary","tool_refs","validator","stop_condition") },
   @{ Path = $purposeSurfaceCapability; Columns = @("artifact_id","artifact_type","agent_id","level_id","purpose","surface","universe","tower","owner_agent","authority_level","lifecycle","status","local_allowed","governed_order_required","allowed_actions","blocked_actions","skill_refs","recipe_refs","tool_refs","plugin_refs","validator_refs","evidence_required","workpaper_path","source_policy","source_refs","last_validated","stop_condition","next_review") },
+  @{ Path = $parallelOperationCriteria; Columns = @("lane_id","lead_agent","owner_agent","reviewer_agent","delegate_agents","read_scope","write_scope","lock_key","dependency","max_parallel","allowed_parallelism","required_precheck","required_recipe","required_tool","evidence","validator","serialization_rule","stop_condition") },
+  @{ Path = $orderPreparationAssignment; Columns = @("order_class","preparer_agent","reviewer_agent","approver_role","canon_as_of","source_authority","required_fields","allowed_actions","blocked_actions","recipe","tool","evidence","validator","expiration_rule","stop_condition") },
+  @{ Path = $orderClassCapability; Columns = @("order_class","required_agents","required_skills","required_recipes","required_tools","required_fields","validator","stop_condition") },
+  @{ Path = $pluginSkillBoundary; Columns = @("plugin_id","skill_refs","assigned_agents","allowed_surface","requires_order_for","blocked_surface","validator","stop_condition") },
+  @{ Path = $sourceCapabilityGap; Columns = @("source_id","source_path","capability_class","current_state","gap","decision","owner_agent","next_action","validator","stop_condition") },
+  @{ Path = $subagentAliasMap; Columns = @("subagent_id","alias","role","assigned_lane","lead_agent","status","read_scope","write_scope","validator","stop_condition") },
+  @{ Path = $subagentCapabilityAssignment; Columns = @("subagent_class","agent_template","default_skills","default_recipes","default_tools","allowed_surface","blocked_surface","parallel_policy","validator","stop_condition") },
+  @{ Path = $subskillUsage; Columns = @("subskill_id","parent_skill","assigned_agents","use_when","required_recipe","required_tool","validator","stop_condition") },
+  @{ Path = $subrecipeIndex; Columns = @("subrecipe_id","parent_recipe","primary_agent","input","output","validator","stop_condition") },
   @{ Path = $workpaperIndex; Columns = @("agent_id","level_id","workpaper_path","status","last_updated","primary_surface","purpose","owner_agent","required_matrices","required_recipes","required_tools","required_validators","evidence_policy","stop_condition") }
 )
 
@@ -138,6 +158,12 @@ foreach ($row in $toolRows) {
   }
   if ((Is-LocalPathLike $row.path_or_command) -and -not (Test-Path -LiteralPath (Resolve-CabinaPath $row.path_or_command))) {
     $errors.Add("Tool path missing: $($row.path_or_command)")
+  }
+}
+$toolGovernanceIds = @((Read-CsvSafe -Path $toolGovernance) | ForEach-Object { $_.tool_id })
+foreach ($row in $toolRows) {
+  if ($row.tool_id -notin $toolGovernanceIds) {
+    $errors.Add("Tool missing governance row: $($row.tool_id)")
   }
 }
 
@@ -191,6 +217,28 @@ foreach ($row in $glossaryRows) {
     $errors.Add("Stop condition glossary row missing stop_condition or normalized_family")
   }
 }
+$knownStopConditions = @($glossaryRows | ForEach-Object { $_.stop_condition })
+foreach ($path in @(
+  $parallelOperationCriteria,
+  $orderPreparationAssignment,
+  $orderClassCapability,
+  $pluginSkillBoundary,
+  $sourceCapabilityGap,
+  $subagentAliasMap,
+  $subagentCapabilityAssignment,
+  $subskillUsage,
+  $subrecipeIndex
+)) {
+  foreach ($row in Read-CsvSafe -Path $path) {
+    if ($row.PSObject.Properties.Name -contains "stop_condition") {
+      foreach ($token in @($row.stop_condition -split "\|" | ForEach-Object { $_.Trim() } | Where-Object { $_ })) {
+        if ($token -notin $knownStopConditions) {
+          $errors.Add("Unknown stop_condition '$token' in $path")
+        }
+      }
+    }
+  }
+}
 
 $exceptionRows = Read-CsvSafe -Path $coverageExceptions
 foreach ($row in $exceptionRows) {
@@ -212,8 +260,49 @@ if (-not (Test-Path -LiteralPath $workpaperValidator)) {
   & $workpaperValidator -Root $Root | Out-Null
 }
 
+foreach ($validatorSpec in @(
+  @{ Path = $parallelOrderValidator; Name = "parallel order governance" },
+  @{ Path = $orderPacketValidator; Name = "order packet" }
+)) {
+  if (-not (Test-Path -LiteralPath $validatorSpec.Path)) {
+    $errors.Add("Missing $($validatorSpec.Name) validator: $($validatorSpec.Path)")
+  } else {
+    $validatorOutput = & $validatorSpec.Path -Root $Root
+    $exitCode = 0
+    if (Test-Path variable:LASTEXITCODE) {
+      $exitCode = $LASTEXITCODE
+    }
+    if ($exitCode -ne 0) {
+      $errors.Add("$($validatorSpec.Name) validator failed: $($validatorOutput -join ' ')")
+    }
+  }
+}
+
 $agentData = Get-Content -LiteralPath (Join-Path $Root "agents.json") -Raw | ConvertFrom-Json
 $agentIds = @($agentData.agents | ForEach-Object { $_.id })
+$defaultSkillAssignment = Read-CsvSafe -Path (Join-Path $Root "matrices\AGENT_DEFAULT_SKILL_ASSIGNMENT_MATRIX.csv")
+foreach ($agent in $agentData.agents) {
+  $defaultRow = @($defaultSkillAssignment | Where-Object { $_.agent_id -eq $agent.id }) | Select-Object -First 1
+  if (-not $defaultRow) {
+    $errors.Add("Agent missing from default skill assignment matrix: $($agent.id)")
+    continue
+  }
+  foreach ($skill in @($defaultRow.default_skill_refs -split "\|" | ForEach-Object { $_.Trim() } | Where-Object { $_ })) {
+    if ($skill -notin @($agent.default_skills)) {
+      $errors.Add("agents.json drift for $($agent.id): missing default_skill $skill")
+    }
+  }
+  foreach ($recipe in @($defaultRow.default_recipe_refs -split "\|" | ForEach-Object { $_.Trim() } | Where-Object { $_ })) {
+    if ($recipe -notin @($agent.default_recipes)) {
+      $errors.Add("agents.json drift for $($agent.id): missing default_recipe $recipe")
+    }
+  }
+  foreach ($tool in @($defaultRow.default_tool_refs -split "\|" | ForEach-Object { $_.Trim() } | Where-Object { $_ })) {
+    if ($tool -notin @($agent.default_tools)) {
+      $errors.Add("agents.json drift for $($agent.id): missing default_tool $tool")
+    }
+  }
+}
 $agentWorkpaperRows = Read-CsvSafe -Path $agentWorkpapers
 $workpaperIndexRows = Read-CsvSafe -Path $workpaperIndex
 $workpaperMatrixIds = @($agentWorkpaperRows | ForEach-Object { $_.agent_id })
@@ -242,6 +331,16 @@ foreach ($row in Read-CsvSafe -Path $pluginUsage) {
 foreach ($row in Read-CsvSafe -Path $purposeSurfaceCapability) {
   if ([string]::IsNullOrWhiteSpace($row.artifact_id) -or [string]::IsNullOrWhiteSpace($row.agent_id) -or [string]::IsNullOrWhiteSpace($row.surface) -or [string]::IsNullOrWhiteSpace($row.workpaper_path)) {
     $errors.Add("Purpose surface capability row missing artifact_id, agent_id, surface or workpaper_path")
+  }
+}
+foreach ($row in Read-CsvSafe -Path $parallelOperationCriteria) {
+  if ([string]::IsNullOrWhiteSpace($row.lane_id) -or [string]::IsNullOrWhiteSpace($row.lead_agent) -or [string]::IsNullOrWhiteSpace($row.owner_agent) -or [string]::IsNullOrWhiteSpace($row.reviewer_agent) -or [string]::IsNullOrWhiteSpace($row.read_scope) -or [string]::IsNullOrWhiteSpace($row.write_scope) -or [string]::IsNullOrWhiteSpace($row.lock_key) -or [string]::IsNullOrWhiteSpace($row.validator) -or [string]::IsNullOrWhiteSpace($row.stop_condition)) {
+    $errors.Add("Parallel operation row missing lane_id, lead_agent, owner_agent, reviewer_agent, scope, lock_key, validator or stop_condition")
+  }
+}
+foreach ($row in Read-CsvSafe -Path $orderPreparationAssignment) {
+  if ([string]::IsNullOrWhiteSpace($row.order_class) -or [string]::IsNullOrWhiteSpace($row.preparer_agent) -or [string]::IsNullOrWhiteSpace($row.reviewer_agent) -or [string]::IsNullOrWhiteSpace($row.canon_as_of) -or [string]::IsNullOrWhiteSpace($row.source_authority) -or [string]::IsNullOrWhiteSpace($row.required_fields) -or [string]::IsNullOrWhiteSpace($row.validator) -or [string]::IsNullOrWhiteSpace($row.stop_condition)) {
+    $errors.Add("Order preparation row missing order_class, preparer_agent, reviewer_agent, canon_as_of, source_authority, required_fields, validator or stop_condition")
   }
 }
 
@@ -289,6 +388,15 @@ $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }
   workpaper_count = $agentWorkpaperRows.Count
   plugin_usage_count = (Read-CsvSafe -Path $pluginUsage).Count
   purpose_surface_capability_count = (Read-CsvSafe -Path $purposeSurfaceCapability).Count
+  parallel_operation_count = (Read-CsvSafe -Path $parallelOperationCriteria).Count
+  order_preparation_count = (Read-CsvSafe -Path $orderPreparationAssignment).Count
+  order_class_capability_count = (Read-CsvSafe -Path $orderClassCapability).Count
+  plugin_skill_boundary_count = (Read-CsvSafe -Path $pluginSkillBoundary).Count
+  source_capability_gap_count = (Read-CsvSafe -Path $sourceCapabilityGap).Count
+  subagent_alias_count = (Read-CsvSafe -Path $subagentAliasMap).Count
+  subagent_capability_count = (Read-CsvSafe -Path $subagentCapabilityAssignment).Count
+  subskill_count = (Read-CsvSafe -Path $subskillUsage).Count
+  subrecipe_count = (Read-CsvSafe -Path $subrecipeIndex).Count
   warning_count = $warnings.Count
   warnings = $warnings
   error_count = $errors.Count

@@ -79,11 +79,35 @@ Actualizacion workpapers GitHub 2026-06-01: los workpapers saneados bajo
 que GitHub Actions pueda validar la capa de agentes sin leer repos externos ni
 sistemas live.
 
+Actualizacion operacion paralela 2026-06-01: la cabina adopta
+`PARALLEL_OPERATION_CRITERIA_MATRIX.csv`,
+`ORDER_PREPARATION_ASSIGNMENT_MATRIX.csv`, la skill
+`parallel-order-governance` y recetas de operacion paralela, preparacion de
+ordenes y diseno OpenAI local. Todo agente puede preparar o revisar carriles,
+pero solo dentro de alcance disjunto, owner, evidencia, validador y stop
+condition. OpenAI queda habilitado como diseno local y eval sintetico; API live,
+costos, vector stores externos o agentes remotos persistentes requieren orden
+gobernada completa.
+
+Actualizacion endurecimiento paralelo/ordenes 2026-06-01: las matrices
+`SUBAGENT_CAPABILITY_ASSIGNMENT_MATRIX.csv`, `SUBSKILL_USAGE_MATRIX.csv`,
+`SUBRECIPE_INDEX.csv`, `PLUGIN_SKILL_BOUNDARY_MATRIX.csv`,
+`SOURCE_CAPABILITY_ADOPTION_GAP_MATRIX.csv` y
+`ORDER_CLASS_CAPABILITY_MATRIX.csv` declaran subagentes, subskills,
+subrecetas, fronteras de plugin y clases de orden. Los validadores
+`local_validate_parallel_order_governance.ps1` y
+`local_validate_order_packets.ps1` bloquean carriles sin scopes/locks,
+ordenes incompletas, tools sin governance y contradicciones con
+`D:/AGENTS.md`.
+
 Reglas vigentes:
 
 - GitHub repo-visible reversible esta habilitado para lectura, validacion, branch, commit, push, PR draft/update, issues, labels, comentarios, GitHub Actions de validacion y readbacks bajo orden gobernada.
 - Todo cambio durable de repos debe pasar por GitHub: rama, validacion local, stage explicito, commit, push y PR draft/update.
 - El runtime de alineacion permitido es local y sintetico; runtime live, API, Microsoft o produccion requieren orden separada.
+- Los agentes preparan ordenes gobernadas cuando una solicitud cruza live, API,
+  produccion, permisos, secretos, costos o datos regulados; preparar orden no
+  equivale a ejecutar.
 - No mover clones aun.
 - Microsoft live queda gobernado a nivel global: SharePoint, Teams, Outlook, Entra, Microsoft Graph, Power Platform, Planner, Dataverse o tenant requieren orden gobernada con superficie, identidad, owner, rollback, postcheck y evidencia.
 - Produccion solo con autorizacion explicita separada.

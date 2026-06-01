@@ -79,6 +79,32 @@ jobs:
           }
           exit 0
 
+      - name: Parallel order governance
+        shell: pwsh
+        run: |
+          $root = Join-Path $env:GITHUB_WORKSPACE ".agents\codex"
+          $tool = Join-Path $root "tools\local_validate_parallel_order_governance.ps1"
+          $output = & $tool -Root $root
+          $output | Write-Output
+          $payload = ($output -join "`n") | ConvertFrom-Json
+          if ($payload.status -ne "PASS") {
+            exit 1
+          }
+          exit 0
+
+      - name: Order packets
+        shell: pwsh
+        run: |
+          $root = Join-Path $env:GITHUB_WORKSPACE ".agents\codex"
+          $tool = Join-Path $root "tools\local_validate_order_packets.ps1"
+          $output = & $tool -Root $root
+          $output | Write-Output
+          $payload = ($output -join "`n") | ConvertFrom-Json
+          if ($payload.status -ne "PASS") {
+            exit 1
+          }
+          exit 0
+
       - name: GitHub Actions policy
         shell: pwsh
         run: |
