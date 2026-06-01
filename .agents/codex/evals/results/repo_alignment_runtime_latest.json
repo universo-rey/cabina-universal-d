@@ -15,6 +15,7 @@
   "plugin_rows": 7,
   "root_base_repo_id": "D_CABINA_UNIVERSAL_ROOT",
   "root_base_remote": "universo-rey/cabina-universal-d",
+  "github_agent_status": "APPROVED_GITHUB_AGENT_SURFACE",
   "blocked_surfaces": [
     "openai_api_live",
     "microsoft_live",
@@ -23,9 +24,9 @@
     "secrets",
     "force_push",
     "merge",
-    "remote_agent_persistence"
+    "non_github_remote_agent_persistence"
   ],
   "errors": [],
   "warnings": [],
-  "generated_at": "2026-06-01T15:50:42.0263047Z"
+  "generated_at": "2026-06-01T16:06:23.6079657Z"
 }

@@ -109,7 +109,8 @@ runtime_alignment_state:
   cabina_base_repository: universo-rey/cabina-universal-d
   cabina_repo_alignment_matrix: D:/.agents/codex/matrices/CABINA_UNIVERSAL_REPO_ALIGNMENT_MATRIX.csv
   productive_runtime_gate_state: REQUIRES_GOVERNED_ORDER
-  external_agent_gate_state: REQUIRES_GOVERNED_ORDER
+  github_agent_surface_state: APPROVED_GITHUB_AGENT_SURFACE
+  non_github_external_agent_gate_state: REQUIRES_GOVERNED_ORDER
   default_skill_matrix: D:/.agents/codex/matrices/AGENT_DEFAULT_SKILL_ASSIGNMENT_MATRIX.csv
   repo_runtime_matrix: D:/.agents/codex/matrices/REPO_RUNTIME_ALIGNMENT_MATRIX.csv
   runtime_status_matrix: D:/.agents/codex/matrices/RUNTIME_ALIGNMENT_STATUS_MATRIX.csv
@@ -126,7 +127,7 @@ runtime_alignment_state:
     - secrets
     - force_push
     - merge
-    - remote_agent_persistence
+    - non_github_remote_agent_persistence
 migration_state:
   as_of: 2026-06-01
   active_repos:

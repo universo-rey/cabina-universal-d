@@ -66,5 +66,6 @@ en `01_GOVERNANCE_REGISTRY\GITHUB_BASE_WORK_MATRIX.csv`.
 La matriz
 `.agents\codex\matrices\CABINA_UNIVERSAL_REPO_ALIGNMENT_MATRIX.csv` declara la
 alineacion transversal de todos los repos registrados hacia
-`universo-rey/cabina-universal-d`. Esa alineacion es de gobierno e indice:
-runtime productivo y agentes externos reales requieren orden gobernada separada.
+`universo-rey/cabina-universal-d`. Esa alineacion aprueba agentes GitHub para
+issues, ramas, commits, push y PR repo-scoped. Runtime productivo y live externo
+siguen fuera de esa aprobacion.

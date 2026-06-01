@@ -55,10 +55,17 @@ resultado queda en
 
 Actualizacion alineacion universal 2026-06-01: los 12 repos registrados quedan
 alineados a `universo-rey/cabina-universal-d` como base transversal de
-gobierno e indice. Esta alineacion no absorbe repos nativos ni habilita runtime
-productivo, agentes externos reales, Microsoft live, OpenAI API live,
-produccion, permisos o secretos. Esos carriles quedan en
-`REQUIRES_GOVERNED_ORDER`.
+gobierno e indice. Esta alineacion no absorbe repos nativos. Los agentes
+GitHub/Copilot quedan aprobados para issues, ramas, commits, push y PR
+repo-scoped. Runtime productivo, Microsoft live, OpenAI API live, produccion,
+permisos, secretos, costos externos o datos regulados no quedan incluidos.
+
+Actualizacion agentes GitHub 2026-06-01: la cabina aprueba superficies nativas
+GitHub para agentes mediante `.github/copilot-instructions.md`, issue forms de
+tareas/aprobaciones y pull request template. Los agentes GitHub/Copilot pueden
+operar issues, ramas, commits, pushes y PRs repo-scoped. Produccion, Microsoft
+live, OpenAI API live, permisos, secretos, costos externos o datos regulados no
+quedan incluidos en esta aprobacion.
 
 Reglas vigentes:
 

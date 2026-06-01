@@ -1,0 +1,87 @@
+name: Governed Agent Task
+description: Route a GitHub issue to a declared Cabina Universal agent.
+title: "[agent] "
+labels: ["agent-task", "governed"]
+body:
+  - type: dropdown
+    id: agent_id
+    attributes:
+      label: Agent
+      description: Declared local agent responsible for this task.
+      options:
+        - rey.control_plane_orchestrator
+        - rey.frontier_guardian
+        - rey.governance_registrar
+        - rey.authority_canonist
+        - rey.repo_cartographer
+        - rey.migration_planner
+        - court.openai_dispatcher
+        - court.seshat_evidence
+        - court.sdu_gate
+        - court.thot_schema
+        - tech.reference_librarian
+        - codex.workspace_guardian
+        - universe.escribania_tower
+        - universe.modo_on_tower
+    validations:
+      required: true
+  - type: input
+    id: surface
+    attributes:
+      label: Surface
+      description: Repo, folder, PR, issue, matrix or external system.
+      placeholder: "D:/... or universo-rey/cabina-universal-d#..."
+    validations:
+      required: true
+  - type: dropdown
+    id: universe
+    attributes:
+      label: Universe
+      options:
+        - ROOT_CONTROL_PLANE
+        - COURT
+        - ESCRIBANIA
+        - MODO_ON
+        - TECH_REFERENCE
+        - NO_CONSTA
+    validations:
+      required: true
+  - type: textarea
+    id: order
+    attributes:
+      label: Governed order
+      description: What should the agent do?
+    validations:
+      required: true
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Boundaries
+      options:
+        - label: No Microsoft live
+          required: true
+        - label: No OpenAI API live
+          required: true
+        - label: No production
+          required: true
+        - label: No secrets or regulated data
+          required: true
+        - label: No moving clones
+          required: true
+        - label: No merge without separate order
+          required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validator and evidence
+      description: Required checks and expected evidence.
+      placeholder: "local_validate_agent_layer.ps1 PASS, readback, matrix row..."
+    validations:
+      required: true
+  - type: textarea
+    id: stop_condition
+    attributes:
+      label: Stop condition
+      description: Exact condition that stops the task.
+    validations:
+      required: true

@@ -133,8 +133,11 @@ foreach ($row in $cabinaRepoAlignment) {
   if ($row.productive_runtime_status -ne "REQUIRES_GOVERNED_ORDER") {
     $errors.Add("Repo productive runtime not gated: $($row.repo_id)")
   }
-  if ($row.external_agent_status -ne "REQUIRES_GOVERNED_ORDER") {
-    $errors.Add("Repo external agent status not gated: $($row.repo_id)")
+  if ($row.github_agent_status -ne "APPROVED_GITHUB_AGENT_SURFACE") {
+    $errors.Add("Repo GitHub agent surface not approved: $($row.repo_id)")
+  }
+  if ($row.github_write_status -ne "APPROVED_BRANCH_COMMIT_PUSH_PR") {
+    $errors.Add("Repo GitHub write status is not approved branch/commit/push/PR: $($row.repo_id)")
   }
 }
 
@@ -156,6 +159,7 @@ $payload = [ordered]@{
   plugin_rows = $pluginUsage.Count
   root_base_repo_id = "D_CABINA_UNIVERSAL_ROOT"
   root_base_remote = "universo-rey/cabina-universal-d"
+  github_agent_status = "APPROVED_GITHUB_AGENT_SURFACE"
   blocked_surfaces = @(
     "openai_api_live",
     "microsoft_live",
@@ -164,7 +168,7 @@ $payload = [ordered]@{
     "secrets",
     "force_push",
     "merge",
-    "remote_agent_persistence"
+    "non_github_remote_agent_persistence"
   )
   errors = @($errors)
   warnings = @($warnings)
