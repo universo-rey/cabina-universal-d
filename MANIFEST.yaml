@@ -54,12 +54,12 @@ root_wrapper_repo:
   scope: allowlist_governance_metadata
   absorbs_nested_repos: false
   remote_url: https://github.com/universo-rey/cabina-universal-d.git
-  pull_request: https://github.com/universo-rey/cabina-universal-d/pull/22
+  pull_request: https://github.com/universo-rey/cabina-universal-d/pull/23
   pull_request_status: MERGED
-  last_merged_branch: codex/runtime-parallel-issue-queue-20260601
-  last_merge_commit: 38c3bd0439e512504d39b97b8cef41144f545f87
+  last_merged_branch: codex/canon-pr22-merge-readback-20260601
+  last_merge_commit: 0d0a2b782ddf288f795219c3481f125182535878
   visibility: private
-  status: PRIVATE_REMOTE_MAIN_ACTIVE_PR22_MERGED_RUNTIME_PARALLEL_QUEUE
+  status: PRIVATE_REMOTE_MAIN_ACTIVE_PR23_MERGED_AUTOMATED_MERGE_POLICY_PENDING
 capability_import_state:
   as_of: 2026-06-01
   mode: local_declarative_copy_adapt
@@ -85,10 +85,12 @@ github_base_work_state:
   status: GITHUB_BASE_WORK_DECLARED_ACTIVE
   github_actions_surface_state: APPROVED_GITHUB_ACTIONS_SURFACE
   root_remote_base: https://github.com/universo-rey/cabina-universal-d.git
-  root_pull_request: https://github.com/universo-rey/cabina-universal-d/pull/22
+  root_pull_request: https://github.com/universo-rey/cabina-universal-d/pull/23
   root_pull_request_status: MERGED
   root_base_branch: main
-  root_last_merge_commit: 38c3bd0439e512504d39b97b8cef41144f545f87
+  root_last_merge_commit: 0d0a2b782ddf288f795219c3481f125182535878
+  automated_merge_policy_state: APPROVED_WITH_PRECHECKS
+  automated_merge_required_prechecks: base_main|codex_branch|non_draft|clean_merge_state|green_checks|match_head_commit|no_blocked_surfaces|post_merge_sync
   policy: D:/02_AUTHORITY_CANON/GITHUB_BASE_WORK_POLICY.md
   repo_matrix: D:/01_GOVERNANCE_REGISTRY/GITHUB_BASE_WORK_MATRIX.csv
   rule: all_durable_repo_work_must_route_through_github_branch_commit_push_pr
@@ -96,7 +98,7 @@ github_base_work_state:
   nested_repos_keep_own_remotes: true
   blocked_without_separate_order:
     - force_push
-    - merge
+    - merge_without_approved_precheck
     - remote_branch_delete
     - permission_change
     - visibility_change
@@ -152,7 +154,7 @@ runtime_alignment_state:
     - permissions
     - secrets
     - force_push
-    - merge
+    - merge_without_approved_precheck
     - non_github_remote_agent_persistence
 migration_state:
   as_of: 2026-06-01

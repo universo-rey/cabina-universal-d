@@ -38,7 +38,7 @@
 - [ ] No production
 - [ ] No permissions or visibility changes
 - [ ] No secrets or regulated data
-- [ ] No merge without separate order
+- [ ] Merge only with approved lifecycle or explicit merge order, fixed HEAD and green checks
 - [ ] GitHub Actions remain validation-only with `contents: read`
 
 ## Validation

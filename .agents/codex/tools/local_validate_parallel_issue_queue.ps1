@@ -186,7 +186,7 @@ foreach ($row in $rows) {
       $errors.Add("Parallel issue queue row '$($row.work_unit_id)' write_scope is too broad: $token")
     }
   }
-  Check-TokenList -Value $row.blocked_actions -Required @("merge","force_push","permission_change","secrets","production","microsoft_live","openai_api_live") -Errors $errors -Context "Parallel issue queue row '$($row.work_unit_id)' blocked_actions"
+  Check-TokenList -Value $row.blocked_actions -Required @("merge_without_approved_precheck","force_push","permission_change","secrets","production","microsoft_live","openai_api_live") -Errors $errors -Context "Parallel issue queue row '$($row.work_unit_id)' blocked_actions"
   Check-TokenList -Value $row.allowed_actions -Required @("explicit_stage","local_validation") -Errors $errors -Context "Parallel issue queue row '$($row.work_unit_id)' allowed_actions"
   Check-ValidatorRef -Value $row.validator -ToolIds $toolIds -Errors $errors -Context "Parallel issue queue row '$($row.work_unit_id)'"
   Check-StopCondition -Value $row.stop_condition -KnownStops $knownStops -Errors $errors -Context "Parallel issue queue row '$($row.work_unit_id)'"

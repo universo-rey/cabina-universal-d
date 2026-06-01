@@ -18,7 +18,8 @@ Regla rectora:
 - `universo-rey/cabina-universal-d` es base transversal e indice de gobierno.
 - Cada repo anidado conserva su propio `.git`, remoto, rama y PR.
 - No absorbas clones anidados dentro del repo raiz.
-- Trabaja en rama `codex/*` y PR; no hagas merge.
+- Trabaja en rama `codex/*` y PR. Merge solo con orden/ciclo aprobado,
+  `main` como base, HEAD fijo, checks verdes y evidencia.
 - No uses `git add .`.
 - Los agentes GitHub/Copilot/issue/PR/Actions de este repo estan aprobados como
   superficie operativa. No requieren gate separado para tareas repo-scoped en

@@ -5,8 +5,8 @@
 Run GitHub repo-scoped work as one governed lifecycle instead of asking for a
 new approval at every substep. When the operator approves GitHub live for the
 repo and scope, the same order can cover branch creation, explicit staging,
-commit, push, draft PR creation or update, check monitoring, PR comments and
-review-response updates.
+commit, push, draft PR creation or update, check monitoring, PR comments,
+review-response updates and approved automated merge.
 
 ## Scope
 
@@ -21,8 +21,8 @@ Allowed inside the lifecycle:
 6. Commit, push and create or update a draft PR.
 7. Read checks, runs, PR comments, review threads and issue context.
 8. Apply in-scope review fixes, push updates and refresh PR evidence.
-9. Mark ready or merge only when the operator gives explicit approval for that
-   action.
+9. Mark ready or merge only when the operator approves the lifecycle or merge
+   and the merge precheck passes.
 
 Blocked inside the lifecycle unless a separate order says otherwise:
 
@@ -35,7 +35,7 @@ Blocked inside the lifecycle unless a separate order says otherwise:
 - Microsoft live
 - OpenAI API live or remote persistent agents
 - regulated data or secret materialization
-- merge without explicit merge approval
+- merge without approval, fixed HEAD, green checks and postcheck evidence
 
 ## Steps
 
@@ -55,8 +55,12 @@ Blocked inside the lifecycle unless a separate order says otherwise:
 12. Monitor GitHub checks and comments.
 13. If review feedback is in scope, address it on the same branch and repeat
     validation, stage, commit and push.
-14. Stop before merge unless the operator has approved merge explicitly.
-15. Close with branch, commit, PR URL, checks, validator result, evidence,
+14. Before merge, verify: PR is not draft, base is `main`, branch is `codex/*`,
+    merge state is clean, checks are green, HEAD equals the validated commit,
+    no blocked surfaces are crossed and rollback/postcheck evidence is present.
+15. Merge with `gh pr merge --match-head-commit <validated-head>` only after
+    the precheck passes.
+16. Close with branch, commit, PR URL, checks, validator result, evidence,
     rollback and stop condition.
 
 ## Output
@@ -69,6 +73,7 @@ checks, changed files, validators and remaining blocked surfaces.
 Stop with `github_order_missing_checks` if the lifecycle order lacks repo,
 branch, PR, checks, rollback, postcheck, evidence, validator or stop condition.
 Stop with `merge_or_force_push_or_actions_write_permission_without_order` when
-the requested action crosses merge, force push, remote branch delete,
-permission, workflow write permission, production, Microsoft live, OpenAI API
-live, secrets or regulated data.
+the requested action crosses merge without approval/precheck, force push,
+remote branch delete, permission, workflow write permission, production,
+Microsoft live, OpenAI API live, secrets or regulated data. Stop with
+`automated_merge_precheck_failed` when any merge precheck fails.

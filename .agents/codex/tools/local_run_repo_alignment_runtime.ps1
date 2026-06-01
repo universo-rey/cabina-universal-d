@@ -255,7 +255,7 @@ $payload = [ordered]@{
     "permissions",
     "secrets",
     "force_push",
-    "merge",
+    "merge_without_approved_precheck",
     "non_github_remote_agent_persistence"
   )
   errors = @($errors)

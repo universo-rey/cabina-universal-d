@@ -148,7 +148,7 @@ body:
           required: true
         - label: No moving clones
           required: true
-        - label: No merge without separate order
+        - label: No merge without approved lifecycle, fixed HEAD and green checks
           required: true
   - type: textarea
     id: validation

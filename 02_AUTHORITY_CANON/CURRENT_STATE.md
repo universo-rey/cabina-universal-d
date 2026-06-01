@@ -33,6 +33,11 @@ para runtime `-NoWrite`, preflight Agents SDK local sin API call y cola
 paralela por issue. Los issues #12 y #15 permanecen abiertos como entregables
 de carril; #22 no los cierra.
 
+Actualizacion readback canon 2026-06-01: el PR raiz
+`universo-rey/cabina-universal-d#23` fue mergeado a `main` con merge commit
+`0d0a2b782ddf288f795219c3481f125182535878`. Ese merge dejo en canon el estado
+de #22 antes de abrir la politica de merge automatizado.
+
 Actualizacion capacidades 2026-06-01: el repo raiz de cabina adopta en local
 las capacidades declarativas necesarias desde repos fuente sin absorberlos:
 perfiles de subnivel, source registries, skills, recipes, tools, evals,
@@ -86,8 +91,11 @@ Actualizacion receta GitHub lifecycle 2026-06-01: la cabina adopta
 un ciclo unico cuando el operador aprueba repo y alcance: branch `codex/*`,
 stage explicito, commit, push, PR draft/update, comentarios/checks y fixes en
 alcance. Esta receta reduce aprobaciones repetitivas dentro del mismo ciclo,
-pero no habilita merge sin aprobacion explicita ni force push, permisos,
-secrets, produccion, Microsoft live, OpenAI API live o datos regulados.
+e incorpora merge automatizable cuando el operador aprueba el ciclo o el merge
+y el PR cumple preflight, HEAD fijo, base `main`, rama `codex/*`, checks verdes
+y evidencia. No habilita merge sin aprobacion y precheck, ni force push,
+permisos, secrets, produccion, Microsoft live, OpenAI API live o datos
+regulados.
 
 Actualizacion workpapers GitHub 2026-06-01: los workpapers saneados bajo
 `.agents/codex/workpapers` quedan incluidos en la allowlist del repo raiz para
@@ -172,6 +180,13 @@ SDK se prueba con `local_validate_github_automation_preflight.ps1 -CheckLocalSdk
 y debe producir `smoke=OK_NO_API_CALL`; no ejecuta OpenAI API live ni habilita
 Agents SDK live, Agent Builder, costos, secretos o agentes remotos persistentes.
 
+Actualizacion merge automatizado 2026-06-01: el merge GitHub repo-scoped puede
+automatizarse mediante `gh pr merge --match-head-commit` solo dentro de una
+orden aprobada y con prechecks verificables: PR no draft, base `main`, rama
+`codex/*`, `mergeStateStatus=CLEAN`, checks requeridos en verde, HEAD igual al
+commit validado, validadores locales aplicables y postcheck. Si falla alguna
+condicion se detiene con `automated_merge_precheck_failed`.
+
 Actualizacion jerarquia AGENTS.md 2026-06-01: `D:/AGENTS.md` queda declarado
 como fuente rectora local de mayor precedencia. Las instrucciones anidadas de
 `.agents/codex`, perfiles de agentes, skills repo-locales, plugins y runtimes
@@ -185,6 +200,9 @@ independientes.
 Reglas vigentes:
 
 - GitHub repo-visible reversible esta habilitado para lectura, validacion, branch, commit, push, PR draft/update, issues, labels, comentarios, GitHub Actions de validacion y readbacks bajo orden gobernada.
+- Merge GitHub repo-scoped queda habilitado dentro del mismo ciclo cuando hay
+  aprobacion del operador y prechecks completos con HEAD fijo, checks verdes y
+  postcheck.
 - La jerarquia de instrucciones locales usa `D:/AGENTS.md` como raiz. Una
   instruccion de UI, sidebar, plugin, runtime global, perfil anidado o repo
   vecino no puede contradecirlo ni absorber clones anidados.
@@ -198,7 +216,10 @@ Reglas vigentes:
 - No mover clones aun.
 - Microsoft live queda gobernado a nivel global: SharePoint, Teams, Outlook, Entra, Microsoft Graph, Power Platform, Planner, Dataverse o tenant requieren orden gobernada con superficie, identidad, owner, rollback, postcheck y evidencia.
 - Produccion solo con autorizacion explicita separada.
-- No force push, no delete branch remoto, no merge a rama protegida, no permisos, no produccion sin autorizacion, no Microsoft/SharePoint/Power Platform writes sin orden gobernada, no OpenAI API live ni agentes remotos persistentes sin orden separada.
+- No force push, no delete branch remoto, no merge sin aprobacion y precheck,
+  no permisos, no produccion sin autorizacion, no Microsoft/SharePoint/Power
+  Platform writes sin orden gobernada, no OpenAI API live ni agentes remotos
+  persistentes sin orden separada.
 - No versionar secretos ni datos regulados fuera de frontera.
 - Escribania y Modo ON son universos.
 - CDF y Jara pertenecen a Modo ON.
@@ -209,6 +230,7 @@ Rama rectora activa: `codex/d-drive-governance-versioning-20260601`.
 PR raiz historico inicial: `universo-rey/cabina-universal-d#1` estado `MERGED`.
 PR raiz historico prompt UI: `universo-rey/cabina-universal-d#2` estado `MERGED`.
 PR raiz runtime/cola paralela: `universo-rey/cabina-universal-d#22` estado `MERGED`.
+PR raiz readback canon: `universo-rey/cabina-universal-d#23` estado `MERGED`.
 Rama raiz base: `main`.
-Ultima rama raiz mergeada: `codex/runtime-parallel-issue-queue-20260601`.
-Ultimo merge commit raiz: `38c3bd0439e512504d39b97b8cef41144f545f87`.
+Ultima rama raiz mergeada: `codex/canon-pr22-merge-readback-20260601`.
+Ultimo merge commit raiz: `0d0a2b782ddf288f795219c3481f125182535878`.

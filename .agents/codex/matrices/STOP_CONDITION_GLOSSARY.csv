@@ -21,6 +21,8 @@
 "recipe_without_index_or_owner","recipe_governance","recipe or subrecipe is referenced without index row owner or validator","add recipe index row or stop","recipe|subrecipe"
 "source_reference_treated_as_canon","source_governance","copied source material is being treated as rector canon without local adoption decision","record source boundary and adoption decision","source|canon|matrix"
 "merge_or_force_push_or_actions_write_permission_without_order","github_governance","merge force push workflow write permission or protected action requested without order","prepare GitHub order packet and stop before action","github|actions|repo"
+"automated_merge_precheck_failed","github_governance","automated merge requested but PR base branch head checks mergeability validator or boundary precheck failed","stop before merge and record failing precheck","github|repo|pr"
+"merge_without_approved_precheck","github_governance","merge requested without operator approval fixed HEAD green checks and postcheck evidence","obtain approved lifecycle or stop before merge","github|repo|pr"
 "source_without_decision_or_gate","source_governance","source capability lacks adoption decision boundary or gate","record adoption decision gate owner and validator","source|capability"
 "operational_chain_missing","operational_chain","agent skill recipe tool validator evidence or stop condition is missing from an operational action","declare complete operational chain or stop before closeout","agent|skill|recipe|tool|validator|readback|pr|workflow"
 "instruction_precedence_missing","instruction_hierarchy","instruction source precedence is absent unclear or weaker than D:\\AGENTS.md","restore D:\\AGENTS.md as root source and stop contradictory action","agents_md|instruction|workspace"

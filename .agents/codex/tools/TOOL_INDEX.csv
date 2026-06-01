@@ -5,7 +5,7 @@ tool.codex_workspace_audit,05_SOPORTE_TECNICO,read,D:\.agents\codex,local_filesy
 tool.csv_registry_check,02_REGISTRO_Y_CARTOGRAFIA,read,D:\01_GOVERNANCE_REGISTRY,local_filesystem,file_move
 tool.local_validate_document_skill_lane,03_CORTE_EJECUTORA,run,D:\.agents\codex\tools\local_validate_document_skill_lane.ps1,local_filesystem,external_runtime|microsoft_live|openai_api_live|secret_materialization|regulated_data_dump
 tool.gh_remote_readonly,02_REGISTRO_Y_CARTOGRAFIA,read,gh repo view|gh api,github_remote_readonly,github_write
-tool.github_versioning_flow,02_REGISTRO_Y_CARTOGRAFIA,run,git switch|git add -- explicit paths|git commit|git push|gh pr create --draft|gh pr edit|gh pr comment|gh run list,github_repo_scoped_by_order,git_add_dot|merge|force_push|permission_change|production|secrets
+tool.github_versioning_flow,02_REGISTRO_Y_CARTOGRAFIA,run,git switch|git add -- explicit paths|git commit|git push|gh pr create --draft|gh pr edit|gh pr comment|gh run list|gh pr merge --match-head-commit,github_repo_scoped_by_order,git_add_dot|merge_without_approved_precheck|force_push|permission_change|production|secrets
 tool.git_status_readonly,02_REGISTRO_Y_CARTOGRAFIA,read,git status --short,local_git_readonly,git_write
 tool.local_generate_agent_workpapers,03_CORTE_EJECUTORA,run,D:\.agents\codex\tools\local_generate_agent_workpapers.ps1,local_filesystem,external_runtime|live_connector_execution
 tool.local_inventory,00_ROUTER,read,D:\.agents\codex,local_filesystem,secrets
