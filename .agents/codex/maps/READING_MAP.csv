@@ -1,0 +1,7 @@
+level_id,first_read,then_read,optional_read,do_not_read_by_default
+00_ROUTER,D:\AGENTS.md|D:\.agents\codex\README.md,D:\.agents\codex\routing.json|D:\.agents\codex\agents\00_ROUTER\README.md,D:\.agents\codex\maps\HANDOFF_MAP.csv,all_agent_profiles
+01_AUTORIDAD_Y_GATES,D:\.agents\codex\agents\01_AUTORIDAD_Y_GATES\README.md,D:\.agents\codex\maps\SURFACE_BOUNDARY_MAP.csv|D:\.agents\codex\matrices\EVIDENCE_AND_VALIDATION_MATRIX.csv,D:\02_AUTHORITY_CANON,remote_or_tenant_surfaces
+02_REGISTRO_Y_CARTOGRAFIA,D:\.agents\codex\agents\02_REGISTRO_Y_CARTOGRAFIA\README.md,D:\01_GOVERNANCE_REGISTRY|D:\.agents\codex\matrices\CAPABILITY_MATRIX.csv,D:\10_UNIVERSOS|D:\80_REFERENCIAS_TECNICAS,secret_folders
+03_CORTE_EJECUTORA,D:\.agents\codex\agents\03_CORTE_EJECUTORA\README.md,D:\.agents\codex\recipes\RECIPE_INDEX.csv|D:\.agents\codex\tools\TOOL_INDEX.csv,D:\03_CORTE_EJECUTORA_DEL_REY,api_keys_or_live_connectors
+04_TORRES_DE_UNIVERSO,D:\.agents\codex\agents\04_TORRES_DE_UNIVERSO\README.md,D:\10_UNIVERSOS\selected_universe\MANIFEST.yaml,D:\01_GOVERNANCE_REGISTRY\REPOSITORIES.csv,other_universe_payloads
+05_SOPORTE_TECNICO,D:\.agents\codex\agents\05_SOPORTE_TECNICO\README.md,D:\80_REFERENCIAS_TECNICAS|D:\.agents\codex\tools\TOOL_INDEX.csv,D:\MANIFEST.yaml,secret_files

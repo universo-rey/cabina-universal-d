@@ -1,0 +1,7 @@
+authority_id,rank,scope,holder,applies_to,notes
+REY_ROOT,1,global,Cabina Universal del Rey,all,coordina mapa general
+CORTE_REY,2,cross_universe,Corte Ejecutora del Rey,all universes,agentes OpenAI Seshat SDU
+TCU_DOCTRINE,3,doctrine,TCU,patterns and guardrails,no opera como runtime Escribania
+ESCRIBANIA_UNIVERSE,4,universe,Universo Escribania,Escribania,TGE gobierna dentro del universo
+MODO_ON_UNIVERSE,4,universe,Universo Modo ON,Modo ON,CDF y Jara pertenecen aqui
+TECH_REFERENCES,10,reference,external repositories,references only,no canon institucional

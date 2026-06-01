@@ -1,0 +1,51 @@
+schema_version: 0.1
+status: LOCAL_DRAFT_REVIEW
+root: D:/
+model:
+  level_0:
+    name: universal_cabin_root
+    example: D:/
+  level_1:
+    name: governance_plane
+    examples:
+      - D:/00_CONTROL_PLANE_INGRESS
+      - D:/01_GOVERNANCE_REGISTRY
+      - D:/02_AUTHORITY_CANON
+      - D:/03_CORTE_EJECUTORA_DEL_REY
+      - D:/10_UNIVERSOS
+      - D:/80_REFERENCIAS_TECNICAS
+      - D:/90_ARCHIVO_DEL_REINO
+  level_2:
+    name: domain_or_room
+    examples:
+      - D:/01_GOVERNANCE_REGISTRY/10_REPOS
+      - D:/10_UNIVERSOS/ESCRIBANIA/02_SALA_DEL_TRONO_DEL_UNIVERSO
+  level_3:
+    name: lifecycle_or_operational_sublevel
+    standard:
+      inbox: 00_INBOX
+      planned: 01_PLANNED
+      active: 02_ACTIVE
+      worktrees: 03_WORKTREES
+      readbacks: 08_READBACKS
+      archive: 90_ARCHIVO
+  level_4:
+    name: concrete_asset
+    examples:
+      - organizacion
+      - torre-gemela-escribania
+      - sdu-canon
+  level_5:
+    name: asset_native_structure
+    rule: If asset is a repo, follow its own AGENTS.md and README.
+repo_destination_rule:
+  root_control_plane: D:/01_GOVERNANCE_REGISTRY/10_REPOS/02_ACTIVE
+  corte_rey: D:/03_CORTE_EJECUTORA_DEL_REY/10_REPOS/02_ACTIVE
+  escribania: D:/10_UNIVERSOS/ESCRIBANIA/10_REPOS/02_ACTIVE
+  modo_on: D:/10_UNIVERSOS/MODO_ON/10_REPOS/02_ACTIVE
+stop_conditions:
+  - moving_assets_without_order
+  - missing_rollback
+  - missing_postcheck
+  - unknown_owner
+  - dirty_worktree_without_decision

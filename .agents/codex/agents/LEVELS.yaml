@@ -1,0 +1,106 @@
+schema_version: 1.0.0
+status: LOCAL_DRAFT_REVIEW
+purpose: Lightweight sublevels for D:\ local Codex agents.
+read_order:
+  - D:\AGENTS.md
+  - D:\.agents\codex\README.md
+  - D:\.agents\codex\agents\LEVELS.yaml
+  - selected_sublevel_README
+  - selected_agent_profile
+stop_rule: Do not read all agent profiles by default.
+root_artifacts:
+  matrices: D:\.agents\codex\matrices
+  maps: D:\.agents\codex\maps
+  skills: D:\.agents\codex\skills
+  recipes: D:\.agents\codex\recipes
+  tools: D:\.agents\codex\tools
+  evals: D:\.agents\codex\evals
+levels:
+  - id: 00_ROUTER
+    name: Router liviano
+    folder: D:\.agents\codex\agents\00_ROUTER
+    role: Entrada, clasificacion y derivacion inicial.
+    agents:
+      - rey.control_plane_orchestrator
+    sublevel_artifacts:
+      capabilities: D:\.agents\codex\agents\00_ROUTER\CAPABILITIES.csv
+      reading_map: D:\.agents\codex\agents\00_ROUTER\READING_MAP.csv
+      handoffs: D:\.agents\codex\agents\00_ROUTER\HANDOFFS.csv
+    escalate_to:
+      - 01_AUTORIDAD_Y_GATES
+      - 02_REGISTRO_Y_CARTOGRAFIA
+      - 03_CORTE_EJECUTORA
+      - 04_TORRES_DE_UNIVERSO
+      - 05_SOPORTE_TECNICO
+  - id: 01_AUTORIDAD_Y_GATES
+    name: Autoridad y gates
+    folder: D:\.agents\codex\agents\01_AUTORIDAD_Y_GATES
+    role: Fronteras, canon, gates, stop conditions y escalamiento.
+    agents:
+      - rey.frontier_guardian
+      - rey.authority_canonist
+      - court.sdu_gate
+    sublevel_artifacts:
+      capabilities: D:\.agents\codex\agents\01_AUTORIDAD_Y_GATES\CAPABILITIES.csv
+      reading_map: D:\.agents\codex\agents\01_AUTORIDAD_Y_GATES\READING_MAP.csv
+      handoffs: D:\.agents\codex\agents\01_AUTORIDAD_Y_GATES\HANDOFFS.csv
+    escalate_to:
+      - HUMAN_APPROVAL
+      - GOVERNED_ORDER
+  - id: 02_REGISTRO_Y_CARTOGRAFIA
+    name: Registro y cartografia
+    folder: D:\.agents\codex\agents\02_REGISTRO_Y_CARTOGRAFIA
+    role: Universos, repos, owners, jerarquia y migracion.
+    agents:
+      - rey.governance_registrar
+      - rey.repo_cartographer
+      - rey.migration_planner
+    sublevel_artifacts:
+      capabilities: D:\.agents\codex\agents\02_REGISTRO_Y_CARTOGRAFIA\CAPABILITIES.csv
+      reading_map: D:\.agents\codex\agents\02_REGISTRO_Y_CARTOGRAFIA\READING_MAP.csv
+      handoffs: D:\.agents\codex\agents\02_REGISTRO_Y_CARTOGRAFIA\HANDOFFS.csv
+    escalate_to:
+      - 01_AUTORIDAD_Y_GATES
+  - id: 03_CORTE_EJECUTORA
+    name: Corte ejecutora
+    folder: D:\.agents\codex\agents\03_CORTE_EJECUTORA
+    role: OpenAI, Seshat, SDU, Thot, prompts, recetas, tools y evals.
+    agents:
+      - court.openai_dispatcher
+      - court.seshat_evidence
+      - court.thot_schema
+    sublevel_artifacts:
+      capabilities: D:\.agents\codex\agents\03_CORTE_EJECUTORA\CAPABILITIES.csv
+      reading_map: D:\.agents\codex\agents\03_CORTE_EJECUTORA\READING_MAP.csv
+      handoffs: D:\.agents\codex\agents\03_CORTE_EJECUTORA\HANDOFFS.csv
+    escalate_to:
+      - 01_AUTORIDAD_Y_GATES
+      - GOVERNED_ORDER
+  - id: 04_TORRES_DE_UNIVERSO
+    name: Torres de universo
+    folder: D:\.agents\codex\agents\04_TORRES_DE_UNIVERSO
+    role: Operacion gobernada por universo.
+    agents:
+      - universe.escribania_tower
+      - universe.modo_on_tower
+    sublevel_artifacts:
+      capabilities: D:\.agents\codex\agents\04_TORRES_DE_UNIVERSO\CAPABILITIES.csv
+      reading_map: D:\.agents\codex\agents\04_TORRES_DE_UNIVERSO\READING_MAP.csv
+      handoffs: D:\.agents\codex\agents\04_TORRES_DE_UNIVERSO\HANDOFFS.csv
+    escalate_to:
+      - 01_AUTORIDAD_Y_GATES
+      - 02_REGISTRO_Y_CARTOGRAFIA
+  - id: 05_SOPORTE_TECNICO
+    name: Soporte tecnico
+    folder: D:\.agents\codex\agents\05_SOPORTE_TECNICO
+    role: Referencias, herramientas, workspace Codex y configuracion local.
+    agents:
+      - tech.reference_librarian
+      - codex.workspace_guardian
+    sublevel_artifacts:
+      capabilities: D:\.agents\codex\agents\05_SOPORTE_TECNICO\CAPABILITIES.csv
+      reading_map: D:\.agents\codex\agents\05_SOPORTE_TECNICO\READING_MAP.csv
+      handoffs: D:\.agents\codex\agents\05_SOPORTE_TECNICO\HANDOFFS.csv
+    escalate_to:
+      - 01_AUTORIDAD_Y_GATES
+      - 02_REGISTRO_Y_CARTOGRAFIA

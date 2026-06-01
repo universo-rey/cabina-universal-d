@@ -1,0 +1,6 @@
+frontier_id,scope,allowed,requires_order,blocked,notes
+LOCAL_DRAFT,D:/,create folders and draft docs,migration or destructive change,secrets and ungoverned live writes,estado actual
+GIT_REPO,local repos,read validate branch commit push draft PR update issues labels comments readbacks,governed order repo-visible reversible validated,force push delete remote branch protected merge or secrets,versionado GitHub gobernado activo
+MICROSOFT_LIVE,tenant surfaces,prepare order matrix commands rollback postcheck and readback,governed order with surface identity owner selected data rollback postcheck evidence,unguarded write secrets permissions drift or raw regulated data,Microsoft live gobernado no directo
+PRODUCTION,production surfaces,none by default,explicit separate authorization with owner rollback postcheck evidence,production by inference or technical gate,produccion solo con autorizacion
+OPENAI_LIVE,OpenAI API,none by default,governed order with cost and data gate,secrets or raw regulated data,no llamar aun

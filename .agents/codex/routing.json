@@ -1,0 +1,308 @@
+{
+  "schema_version": "1.0.0",
+  "status": "LOCAL_GOVERNED_WORKPAPERS_ACTIVE",
+  "default_agent": "rey.control_plane_orchestrator",
+  "routes": [
+    {
+      "order_class": "entrada_general",
+      "signals": [
+        "orden nueva",
+        "clasificar",
+        "por donde empiezo",
+        "organizar"
+      ],
+      "agents": [
+        "rey.control_plane_orchestrator"
+      ]
+    },
+    {
+      "order_class": "frontera_riesgo_gate",
+      "signals": [
+        "live",
+        "write",
+        "tenant",
+        "permiso",
+        "produccion",
+        "secreto",
+        "costo",
+        "gate"
+      ],
+      "agents": [
+        "rey.frontier_guardian",
+        "rey.authority_canonist"
+      ]
+    },
+    {
+      "order_class": "registro_universo_activo",
+      "signals": [
+        "universo",
+        "torre",
+        "owner",
+        "jerarquia",
+        "carpeta",
+        "activo",
+        "licencia",
+        "sistema"
+      ],
+      "agents": [
+        "rey.governance_registrar"
+      ]
+    },
+    {
+      "order_class": "canon_decision_orden",
+      "signals": [
+        "canon",
+        "decision",
+        "orden gobernada",
+        "acta",
+        "dictamen",
+        "estado rector"
+      ],
+      "agents": [
+        "rey.authority_canonist"
+      ]
+    },
+    {
+      "order_class": "repos_clones_migracion",
+      "signals": [
+        "repo",
+        "repositorio",
+        "clone",
+        "rama",
+        "github",
+        "migracion",
+        "disco d"
+      ],
+      "agents": [
+        "rey.repo_cartographer",
+        "rey.frontier_guardian"
+      ]
+    },
+    {
+      "order_class": "corte_openai_seshat_sdu",
+      "signals": [
+        "openai",
+        "agente",
+        "seshat",
+        "sdu",
+        "prompt",
+        "receta",
+        "eval",
+        "agents sdk"
+      ],
+      "agents": [
+        "court.openai_dispatcher",
+        "rey.frontier_guardian"
+      ]
+    },
+    {
+      "order_class": "universo_escribania_tge",
+      "signals": [
+        "escribania",
+        "tge",
+        "sharepoint",
+        "cumplimiento",
+        "registro notarial",
+        "sistema declarativo"
+      ],
+      "agents": [
+        "universe.escribania_tower",
+        "rey.authority_canonist"
+      ]
+    },
+    {
+      "order_class": "universo_modo_on_cdf_jara",
+      "signals": [
+        "modo on",
+        "cdf",
+        "jara",
+        "proveedor",
+        "tcu",
+        "operativo proveedor"
+      ],
+      "agents": [
+        "universe.modo_on_tower",
+        "rey.governance_registrar"
+      ]
+    },
+    {
+      "order_class": "evidencia_readback_acta",
+      "signals": [
+        "evidencia",
+        "readback",
+        "acta",
+        "trazabilidad",
+        "hallazgo",
+        "cierre"
+      ],
+      "agents": [
+        "court.seshat_evidence",
+        "rey.authority_canonist"
+      ]
+    },
+    {
+      "order_class": "sdu_gate_escalamiento",
+      "signals": [
+        "sdu",
+        "gate",
+        "bloqueo",
+        "escalamiento",
+        "stop condition",
+        "autoridad canonica"
+      ],
+      "agents": [
+        "court.sdu_gate",
+        "rey.frontier_guardian"
+      ]
+    },
+    {
+      "order_class": "schema_tools_validadores",
+      "signals": [
+        "schema",
+        "campo",
+        "metadata",
+        "tool",
+        "validator",
+        "matriz",
+        "evento"
+      ],
+      "agents": [
+        "court.thot_schema"
+      ]
+    },
+    {
+      "order_class": "migracion_d_preparacion",
+      "signals": [
+        "mover",
+        "migrar",
+        "disco d",
+        "clones locales",
+        "rollback",
+        "preflight",
+        "postcheck"
+      ],
+      "agents": [
+        "rey.migration_planner",
+        "rey.repo_cartographer",
+        "rey.frontier_guardian"
+      ]
+    },
+    {
+      "order_class": "referencias_tecnicas",
+      "signals": [
+        "microsoft",
+        "openai",
+        "devcontainer",
+        "powertoys",
+        "semantic-kernel",
+        "agents",
+        "agent365"
+      ],
+      "agents": [
+        "tech.reference_librarian",
+        "court.thot_schema"
+      ]
+    },
+    {
+      "order_class": "codex_workspace_config",
+      "signals": [
+        "codex",
+        "workspace",
+        "worktree",
+        "agents.md",
+        "configuracion local",
+        "ruteando",
+        "carpeta proyecto"
+      ],
+      "agents": [
+        "codex.workspace_guardian",
+        "rey.control_plane_orchestrator"
+      ]
+    },
+    {
+      "order_class": "agent_workpapers_versioning",
+      "signals": [
+        "papeles de trabajo",
+        "workpapers",
+        "capacidades por agente",
+        "skills recetas tools plugins",
+        "superficie rol responsabilidad proceso"
+      ],
+      "agents": [
+        "court.thot_schema",
+        "court.seshat_evidence",
+        "rey.governance_registrar",
+        "rey.frontier_guardian"
+      ]
+    }
+  ],
+  "handoff_rules": [
+    {
+      "when": "live_write_detected",
+      "must_include": [
+        "surface",
+        "tenant_or_remote",
+        "identity",
+        "selected_data",
+        "rollback",
+        "postcheck",
+        "readback"
+      ],
+      "assigned_agent": "rey.frontier_guardian"
+    },
+    {
+      "when": "production_action_detected",
+      "must_include": [
+        "surface",
+        "owner",
+        "explicit_authorization",
+        "rollback",
+        "postcheck",
+        "evidence"
+      ],
+      "assigned_agent": "rey.frontier_guardian"
+    },
+    {
+      "when": "unknown_universe_or_owner",
+      "must_include": [
+        "candidate_path",
+        "evidence",
+        "classification_options",
+        "stop_condition"
+      ],
+      "assigned_agent": "rey.governance_registrar"
+    },
+    {
+      "when": "remote_agent_creation_requested",
+      "must_include": [
+        "agent_builder_or_api_surface",
+        "cost_boundary",
+        "secrets_boundary",
+        "data_boundary",
+        "approval_text"
+      ],
+      "assigned_agent": "court.openai_dispatcher"
+    },
+    {
+      "when": "evidence_closeout_requested",
+      "must_include": [
+        "source",
+        "scope",
+        "timestamp",
+        "validator",
+        "stop_condition"
+      ],
+      "assigned_agent": "court.seshat_evidence"
+    },
+    {
+      "when": "workspace_or_codex_routing_drift_detected",
+      "must_include": [
+        "observed_path",
+        "expected_path",
+        "read_only_evidence",
+        "proposed_fix"
+      ],
+      "assigned_agent": "codex.workspace_guardian"
+    }
+  ]
+}

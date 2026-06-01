@@ -1,0 +1,12 @@
+guardrail_id,title,rule
+"no_dump","No Dump","Read in origin. Persist only sanitized summaries, counts, traces, hashes, decisions and actions."
+"human_selection_required","Human Selection Required","Sensitive or regulated content requires an explicit human marker before operation."
+"no_touch_excluded","No Touch Excluded","Items marked restricted, secret detected, not authorized or human gate required are excluded from automatic operation."
+"limited_real_cases","Limited Real Cases","Before broad operation, run only a bounded lot selected by a human."
+"dummy_before_live","Dummy Before Live","New agents, flows, Planner circuits and API workflows must pass dummy or synthetic circuits before real live data."
+"idempotent_convergence","Idempotent Convergence","Scripts create missing objects, complete partial objects and avoid duplicates."
+"preserve_human_state","Preserve Human State","Do not overwrite human descriptions, checklists, owners, statuses, labels, comments or decisions."
+"planner_not_canon","Planner Not Canon","Planner is a human queue, not a legal archive, document repository or technical canon."
+"openai_api_saneado_only","OpenAI API Saneado Only","Use API only with synthetic, sanitized or explicitly authorized fragments. No secrets, raw sensitive data or full dumps."
+"tge_boundary_protection","TGE Boundary Protection","Do not operate the Escribania tenant from TCU. Transfer doctrine by adaptation, not runtime or data copying."
+"execution_first_no_generic_caution","Execution First No Generic Caution","If a safe repo-visible reversible documentary synthetic or gated path exists, advance to the highest safe boundary; stop only at a real hard stop."

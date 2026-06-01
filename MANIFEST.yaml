@@ -1,0 +1,92 @@
+manifest_version: 0.1
+map_id: CABINA_UNIVERSAL_REY_D_LOCAL
+status: D_ROOT_WRAPPER_REPO_LOCAL_ACTIVE
+root_path: D:/
+owner: operador
+authority_model:
+  root: CABINA_UNIVERSAL_DEL_REY
+  court: CORTE_EJECUTORA_DEL_REY
+  universes:
+    - ESCRIBANIA
+    - MODO_ON
+frontier:
+  filesystem: local_draft_only
+  git_versioning: local_root_wrapper_active
+  remote_write: false
+  microsoft_live: governed_requires_order
+  openai_api_live: false
+  production: requires_explicit_authorization
+stop_conditions:
+  - secret_detected
+  - unclassified_repo_move
+  - microsoft_live_requested_without_governed_order
+  - production_requested_without_explicit_authorization
+  - universe_or_authority_ambiguity
+hierarchy_model:
+  status: LOCAL_DRAFT_REVIEW
+  level_0: D:/ as universal cabin root
+  level_1: numbered governance planes
+  level_2: numbered domain folders inside each plane
+  level_3: lifecycle folders such as 00_INBOX 01_PLANNED 02_ACTIVE 03_WORKTREES 90_ARCHIVO
+  level_4: concrete asset folders such as repos tools systems licenses or evidence packages
+  level_5: asset-native internal structure when the asset is a repo or managed system
+repo_lifecycle:
+  inbox: 00_INBOX
+  planned: 01_PLANNED
+  active: 02_ACTIVE
+  worktrees: 03_WORKTREES
+  archive: 90_ARCHIVO
+active_project_repo:
+  repo_id: ORGANIZACION
+  repository_full_name: universo-rey/organizacion
+  remote_url: https://github.com/universo-rey/organizacion.git
+  local_path: D:/01_GOVERNANCE_REGISTRY/10_REPOS/02_ACTIVE/organizacion
+  branch: codex/d-drive-governance-versioning-20260601
+  head: tracked_by_branch
+  status: ACTIVE_PROJECT_FOLDER_REMOTE_ASSOCIATED_DRAFT_PR_OPEN
+root_wrapper_repo:
+  repo_id: D_CABINA_UNIVERSAL_ROOT
+  local_path: D:/
+  branch: main
+  scope: allowlist_governance_metadata
+  absorbs_nested_repos: false
+  remote_url: null
+  pull_request: null
+  status: LOCAL_ONLY_NO_REMOTE
+migration_state:
+  as_of: 2026-06-01
+  active_repos:
+    - ORGANIZACION
+    - TCU_AGENTIC_RUNTIME
+    - TGE_AGENTIC_RUNTIME
+    - SDU_CANON
+    - SESHAT_BOOTSTRAP
+    - SGIN
+    - CDF_SOLUCIONES
+    - JARA_CONSULTORES
+    - MODO_ON_FOUNDATION
+    - TORRE_GEMELA_ESCRIBANIA
+    - SGIN_CUMPLIMIENTO
+  pending_registered_repos: []
+  notes:
+    - SESHAT_BOOTSTRAP migrated by remote clone because no local source was detected.
+    - CDF_SOLUCIONES migrated with local dirty state preserved.
+    - TORRE_GEMELA_ESCRIBANIA migrated with local dirty state preserved.
+versioning_state:
+  as_of: 2026-06-01
+  root_repo: D_CABINA_UNIVERSAL_ROOT
+  root_repo_local_path: D:/
+  root_repo_scope: allowlist_governance_metadata
+  governing_repo: universo-rey/organizacion
+  governing_repo_local_path: D:/01_GOVERNANCE_REGISTRY/10_REPOS/02_ACTIVE/organizacion
+  registered_file_registry: D:/01_GOVERNANCE_REGISTRY/D_DRIVE_FILE_REGISTRY.csv
+  git_status_matrix: D:/01_GOVERNANCE_REGISTRY/D_DRIVE_GIT_STATUS_MATRIX.csv
+  agent_layer_snapshot: D:/01_GOVERNANCE_REGISTRY/10_REPOS/02_ACTIVE/organizacion/05_AGENTES/D_DRIVE_CODEX_AGENT_LAYER
+  pull_request: https://github.com/universo-rey/organizacion/pull/40
+  status: D_DRIVE_LOCAL_ASSETS_REGISTERED_VERSIONED_DRAFT_PR_OPEN
+  exclusions:
+    - D:/.secrets
+    - D:/$RECYCLE.BIN
+    - D:/System Volume Information
+    - .git internals
+    - cache folders

@@ -1,0 +1,22 @@
+{
+  "routing_version": "0.1",
+  "status": "LOCAL_DRAFT_REVIEW",
+  "default_next_node": "D:/01_GOVERNANCE_REGISTRY",
+  "routes": [
+    {
+      "match": "repo_or_folder_unclassified",
+      "target": "D:/00_CONTROL_PLANE_INGRESS/CLASIFICACION_PENDIENTE",
+      "requires": ["object_type", "source_path", "reason"]
+    },
+    {
+      "match": "governed_order",
+      "target": "D:/02_AUTHORITY_CANON/GOVERNED_ORDERS",
+      "requires": ["owner", "scope", "evidence", "stop_condition"]
+    },
+    {
+      "match": "universe_known",
+      "target": "D:/10_UNIVERSOS",
+      "requires": ["universe_id", "control_tower"]
+    }
+  ]
+}

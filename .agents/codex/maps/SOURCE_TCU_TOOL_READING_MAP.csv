@@ -1,0 +1,8 @@
+reader,entrypoint,then_read,proof_source,do_not_use_for
+codex,00_CONTEXT/START_HERE.md,"00_CONTEXT/CURRENT_STATE.md;00_CONTEXT/CHATGPT_RUNTIME_READING_POLICY.md;00_CONTEXT/ROUTING_POLICY.md;AGENTS.md","08_evidencia/readbacks/;local validators","storytelling as closure proof"
+chatgpt,CHAT_CONTEXT.md,"00_CONTEXT/CURRENT_STATE.md;00_CONTEXT/CHATGPT_RUNTIME_POINTER_MATRIX.csv;00_CONTEXT/DUAL_NARRATIVE_ALIGNMENT.md","GitHub PR state;08_evidencia/readbacks/","older chat memory over current repo"
+github_action,00_CONTEXT/GATE_STATUS_MATRIX.csv,"scripts/rector_state_guardrail.py;scripts/context_drift_detector.py;scripts/tcu_repo_alignment_validator.py","validator JSON output","tenant or secret work"
+human,README.md,"00_STORY/README_STORY.md;00_STORY/CDF_SOLUCIONES_DERIVATION.md;00_CONTEXT/DUAL_NARRATIVE_ALIGNMENT.md","plain readback index","runtime execution proof"
+cdf_soluciones,00_CONTEXT/ARCHITECTURE_DELEGATION_POLICY.md,"06_CAPABILITIES/openai/openai_cookbook_adoption/lote_1/;00_CONTEXT/REPO_ALIGNMENT_MAP.csv","SeshatSgin/cdf-soluciones PRs and validators","TCU doctrine edits without gate"
+slack_operator,00_CONTEXT/CHATGPT_RUNTIME_POINTER_MATRIX.csv,"08_evidencia/readbacks/2026-05-20_GATE_05W_SLACK_100_VIVO/;08_evidencia/readbacks/2026-05-20_GATE_05Z_SLACK_CHANNEL_CANVASES_OPERATIVOS/","sanitized Slack readbacks","raw token or raw message dumps"
+sharepoint_operator,00_CONTEXT/CHATGPT_RUNTIME_POINTER_MATRIX.csv,"00_STORY/sharepoint_package/;08_evidencia/readbacks/2026-05-20_GATE_05F_SHAREPOINT_CORPORATIVO_MODO_ON/","sanitized SharePoint readbacks","permission or navigation changes without gate"

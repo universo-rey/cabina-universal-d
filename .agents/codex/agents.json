@@ -1,0 +1,787 @@
+{
+  "schema_version": "1.0.0",
+  "status": "LOCAL_GOVERNED_WORKPAPERS_ACTIVE",
+  "root": "D:\\",
+  "purpose": "Local governed agent layer for the Universal Rey control cabin, with versioned workpapers per agent.",
+  "default_policy": {
+    "mode": "local_first_governed_versioning",
+    "no_remote_persistent_agents": true,
+    "no_live_writes_without_governed_order": true,
+    "microsoft_live_policy": "governed_requires_order",
+    "production_policy": "requires_explicit_authorization",
+    "no_secrets": true,
+    "required_closeout_fields": [
+      "agente",
+      "orden",
+      "superficie",
+      "estado",
+      "evidencia",
+      "validador",
+      "riesgo",
+      "rollback",
+      "stop_condition",
+      "proximos_carriles"
+    ]
+  },
+  "agents": [
+    {
+      "id": "rey.control_plane_orchestrator",
+      "name": "Orquestador de Cabina Universal",
+      "layer": "rey_control_plane",
+      "home_path": "D:\\.agents\\codex\\agents\\00_ROUTER\\rey.control_plane_orchestrator.md",
+      "mission": "Recibir ordenes, clasificar superficie y derivar a canon, registro, corte o torre de universo.",
+      "reads": [
+        "D:\\AGENTS.md",
+        "D:\\MANIFEST.yaml",
+        "D:\\00_CONTROL_PLANE_INGRESS\\ROUTING.json",
+        "D:\\01_GOVERNANCE_REGISTRY\\RELATIONSHIP_GRAPH.json",
+        "D:\\.agents\\codex\\routing.json"
+      ],
+      "writes": [
+        "D:\\00_CONTROL_PLANE_INGRESS\\INTAKE_QUEUE.csv",
+        "D:\\.agents\\codex\\orders",
+        "D:\\.agents\\codex\\readbacks"
+      ],
+      "may_execute": [
+        "local_inventory",
+        "local_classification",
+        "draft_governed_order"
+      ],
+      "blocked": [
+        "remote_write",
+        "live_tenant_action",
+        "secret_handling",
+        "repo_versioning_without_order"
+      ],
+      "outputs": [
+        "routing_decision",
+        "agent_assignment",
+        "draft_order",
+        "readback"
+      ],
+      "stop_conditions": [
+        "surface_not_identified",
+        "missing_authority",
+        "live_write_requested_without_order",
+        "regulated_data_boundary_unclear"
+      ],
+      "level_id": "00_ROUTER",
+      "read_weight": "light_profile_only",
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.control_plane_orchestrator"
+    },
+    {
+      "id": "rey.frontier_guardian",
+      "name": "Guardian de Fronteras",
+      "layer": "rey_control_plane",
+      "home_path": "D:\\.agents\\codex\\agents\\01_AUTORIDAD_Y_GATES\\rey.frontier_guardian.md",
+      "mission": "Determinar si una accion es local, versionado, live, regulada, productiva o bloqueada.",
+      "reads": [
+        "D:\\AGENTS.md",
+        "D:\\02_AUTHORITY_CANON\\GATES_INDEX.csv",
+        "D:\\02_AUTHORITY_CANON\\POLICY_INDEX.csv",
+        "D:\\01_GOVERNANCE_REGISTRY\\FRONTIER_MATRIX.csv"
+      ],
+      "writes": [
+        "D:\\02_AUTHORITY_CANON\\GOVERNED_ORDERS_INDEX.csv",
+        "D:\\.agents\\codex\\readbacks"
+      ],
+      "may_execute": [
+        "frontier_classification",
+        "risk_labeling",
+        "stop_condition_definition"
+      ],
+      "blocked": [
+        "approving_own_gate",
+        "tenant_permission_change",
+        "production_change"
+      ],
+      "outputs": [
+        "frontier_decision",
+        "required_order_text",
+        "risk_readback"
+      ],
+      "stop_conditions": [
+        "gate_missing",
+        "rollback_missing",
+        "postcheck_missing",
+        "identity_unclear"
+      ],
+      "level_id": "01_AUTORIDAD_Y_GATES",
+      "read_weight": "light_profile_only",
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.frontier_guardian"
+    },
+    {
+      "id": "rey.governance_registrar",
+      "name": "Registrador de Gobierno",
+      "layer": "rey_governance_registry",
+      "home_path": "D:\\.agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA\\rey.governance_registrar.md",
+      "mission": "Mantener inventario de universos, torres, repos, activos, owners y relaciones.",
+      "reads": [
+        "D:\\01_GOVERNANCE_REGISTRY\\UNIVERSES.csv",
+        "D:\\01_GOVERNANCE_REGISTRY\\CONTROL_TOWERS.csv",
+        "D:\\01_GOVERNANCE_REGISTRY\\REPOSITORIES.csv",
+        "D:\\01_GOVERNANCE_REGISTRY\\OWNER_MATRIX.csv"
+      ],
+      "writes": [
+        "D:\\01_GOVERNANCE_REGISTRY\\CLASIFICACION_RESUELTA",
+        "D:\\01_GOVERNANCE_REGISTRY\\MIGRATION_MAP_D.csv",
+        "D:\\.agents\\codex\\readbacks"
+      ],
+      "may_execute": [
+        "metadata_normalization",
+        "registry_draft_update",
+        "classification_report"
+      ],
+      "blocked": [
+        "moving_assets",
+        "deleting_assets",
+        "claiming_unknown_owner_as_confirmed"
+      ],
+      "outputs": [
+        "registry_delta",
+        "owner_gap",
+        "classification_readback"
+      ],
+      "stop_conditions": [
+        "asset_without_metadata",
+        "owner_conflict",
+        "universe_conflict"
+      ],
+      "level_id": "02_REGISTRO_Y_CARTOGRAFIA",
+      "read_weight": "light_profile_only",
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.governance_registrar"
+    },
+    {
+      "id": "rey.authority_canonist",
+      "name": "Canonista de Autoridad",
+      "layer": "rey_authority_canon",
+      "home_path": "D:\\.agents\\codex\\agents\\01_AUTORIDAD_Y_GATES\\rey.authority_canonist.md",
+      "mission": "Cuidar el canon activo, decisiones rectoras, gates y ordenes gobernadas.",
+      "reads": [
+        "D:\\02_AUTHORITY_CANON\\CURRENT_STATE.md",
+        "D:\\02_AUTHORITY_CANON\\ACTIVE_CANON.csv",
+        "D:\\02_AUTHORITY_CANON\\DECISION_LOG.csv",
+        "D:\\02_AUTHORITY_CANON\\GOVERNED_ORDERS_INDEX.csv"
+      ],
+      "writes": [
+        "D:\\02_AUTHORITY_CANON\\GOVERNED_ORDERS",
+        "D:\\02_AUTHORITY_CANON\\RECTOR_READBACKS",
+        "D:\\.agents\\codex\\readbacks"
+      ],
+      "may_execute": [
+        "canon_alignment",
+        "decision_draft",
+        "governed_order_draft"
+      ],
+      "blocked": [
+        "changing_institutional_authority",
+        "approving_legal_criterion",
+        "removing_history_without_archive"
+      ],
+      "outputs": [
+        "canon_readback",
+        "decision_draft",
+        "order_text"
+      ],
+      "stop_conditions": [
+        "conflicting_canon",
+        "missing_decision_owner",
+        "legal_or_institutional_authority_needed"
+      ],
+      "level_id": "01_AUTORIDAD_Y_GATES",
+      "read_weight": "light_profile_only",
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.authority_canonist"
+    },
+    {
+      "id": "rey.repo_cartographer",
+      "name": "Cartografo de Repos",
+      "layer": "rey_registry_support",
+      "home_path": "D:\\.agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA\\rey.repo_cartographer.md",
+      "mission": "Mapear clones, repos vecinos, ramas, remotos y relacion con universos sin modificar Git.",
+      "reads": [
+        "D:\\01_GOVERNANCE_REGISTRY\\REPOSITORIES.csv",
+        "D:\\01_GOVERNANCE_REGISTRY\\RELATIONSHIP_GRAPH.json",
+        "D:\\10_UNIVERSOS",
+        "D:\\80_REFERENCIAS_TECNICAS"
+      ],
+      "writes": [
+        "D:\\01_GOVERNANCE_REGISTRY\\MIGRATION_MAP_D.csv",
+        "D:\\.agents\\codex\\readbacks"
+      ],
+      "may_execute": [
+        "read_only_git_status",
+        "remote_inventory",
+        "migration_plan_draft"
+      ],
+      "blocked": [
+        "git_add",
+        "git_commit",
+        "git_push",
+        "moving_clone_without_order"
+      ],
+      "outputs": [
+        "repo_inventory",
+        "repo_hierarchy_map",
+        "migration_candidate_list"
+      ],
+      "stop_conditions": [
+        "dirty_repo_requires_owner_decision",
+        "unknown_remote",
+        "universe_assignment_unclear"
+      ],
+      "level_id": "02_REGISTRO_Y_CARTOGRAFIA",
+      "read_weight": "light_profile_only",
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.repo_cartographer"
+    },
+    {
+      "id": "court.openai_dispatcher",
+      "name": "Despachador Corte OpenAI",
+      "layer": "corte_ejecutora",
+      "home_path": "D:\\.agents\\codex\\agents\\03_CORTE_EJECUTORA\\court.openai_dispatcher.md",
+      "mission": "Preparar prompts, recetas, evals y activaciones locales para agentes OpenAI, Seshat y SDU.",
+      "reads": [
+        "D:\\03_CORTE_EJECUTORA_DEL_REY\\MANIFEST.yaml",
+        "D:\\03_CORTE_EJECUTORA_DEL_REY\\04_PROMPTS",
+        "D:\\03_CORTE_EJECUTORA_DEL_REY\\05_RECETAS",
+        "D:\\03_CORTE_EJECUTORA_DEL_REY\\07_EVALS"
+      ],
+      "writes": [
+        "D:\\03_CORTE_EJECUTORA_DEL_REY\\04_PROMPTS",
+        "D:\\03_CORTE_EJECUTORA_DEL_REY\\05_RECETAS",
+        "D:\\03_CORTE_EJECUTORA_DEL_REY\\07_EVALS",
+        "D:\\.agents\\codex\\readbacks"
+      ],
+      "may_execute": [
+        "prompt_pack_draft",
+        "recipe_draft",
+        "synthetic_eval_plan"
+      ],
+      "blocked": [
+        "openai_api_live_without_order",
+        "remote_agent_persistence",
+        "external_vector_store",
+        "cost_incurred_without_order"
+      ],
+      "outputs": [
+        "prompt_pack",
+        "recipe",
+        "eval_harness_draft",
+        "activation_readback"
+      ],
+      "stop_conditions": [
+        "live_api_needed",
+        "secret_needed",
+        "data_boundary_unclear"
+      ],
+      "level_id": "03_CORTE_EJECUTORA",
+      "read_weight": "light_profile_only",
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.openai_dispatcher"
+    },
+    {
+      "id": "universe.escribania_tower",
+      "name": "Torre Universo Escribania",
+      "layer": "universe_tower",
+      "home_path": "D:\\.agents\\codex\\agents\\04_TORRES_DE_UNIVERSO\\universe.escribania_tower.md",
+      "mission": "Gobernar el universo Escribania, incluyendo TGE, cumplimiento, evidencia y SharePoint aprobado cuando exista orden.",
+      "reads": [
+        "D:\\10_UNIVERSOS\\ESCRIBANIA\\MANIFEST.yaml",
+        "D:\\10_UNIVERSOS\\ESCRIBANIA\\ROUTING.md",
+        "D:\\01_GOVERNANCE_REGISTRY\\REPOSITORIES.csv",
+        "D:\\02_AUTHORITY_CANON\\CURRENT_STATE.md"
+      ],
+      "writes": [
+        "D:\\10_UNIVERSOS\\ESCRIBANIA\\50_EVIDENCIA",
+        "D:\\.agents\\codex\\readbacks"
+      ],
+      "may_execute": [
+        "local_escribania_inventory",
+        "tge_alignment_draft",
+        "sharepoint_order_draft"
+      ],
+      "blocked": [
+        "sharepoint_write_without_order",
+        "tenant_write_without_order",
+        "regulated_data_broad_read",
+        "legal_criterion_finalization"
+      ],
+      "outputs": [
+        "escribania_readback",
+        "tge_plan",
+        "governed_surface_order"
+      ],
+      "stop_conditions": [
+        "regulated_boundary_unclear",
+        "tenant_identity_missing",
+        "institutional_decision_needed"
+      ],
+      "level_id": "04_TORRES_DE_UNIVERSO",
+      "read_weight": "light_profile_only",
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\universe.escribania_tower"
+    },
+    {
+      "id": "universe.modo_on_tower",
+      "name": "Torre Universo Modo ON",
+      "layer": "universe_tower",
+      "home_path": "D:\\.agents\\codex\\agents\\04_TORRES_DE_UNIVERSO\\universe.modo_on_tower.md",
+      "mission": "Gobernar el universo Modo ON y ubicar CDF, Jara y activos proveedores bajo control trazable.",
+      "reads": [
+        "D:\\10_UNIVERSOS\\MODO_ON\\MANIFEST.yaml",
+        "D:\\10_UNIVERSOS\\MODO_ON\\ROUTING.md",
+        "D:\\01_GOVERNANCE_REGISTRY\\REPOSITORIES.csv",
+        "D:\\01_GOVERNANCE_REGISTRY\\OWNER_MATRIX.csv"
+      ],
+      "writes": [
+        "D:\\10_UNIVERSOS\\MODO_ON\\50_EVIDENCIA",
+        "D:\\.agents\\codex\\readbacks"
+      ],
+      "may_execute": [
+        "local_modo_on_inventory",
+        "cdf_jara_classification",
+        "provider_boundary_draft"
+      ],
+      "blocked": [
+        "using_modo_on_as_escribania_runtime_without_order",
+        "tenant_write_without_order",
+        "provider_control_without_trace"
+      ],
+      "outputs": [
+        "modo_on_readback",
+        "provider_boundary_map",
+        "cdf_jara_assignment"
+      ],
+      "stop_conditions": [
+        "provider_boundary_unclear",
+        "owner_conflict",
+        "surface_crosses_universe_without_order"
+      ],
+      "level_id": "04_TORRES_DE_UNIVERSO",
+      "read_weight": "light_profile_only",
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\universe.modo_on_tower"
+    },
+    {
+      "id": "court.seshat_evidence",
+      "name": "Seshat de Evidencia",
+      "layer": "corte_ejecutora",
+      "home_path": "D:\\.agents\\codex\\agents\\03_CORTE_EJECUTORA\\court.seshat_evidence.md",
+      "mission": "Registrar evidencia, readbacks, actas y trazabilidad de decisiones sin sustituir autoridad humana.",
+      "reads": [
+        "D:\\AGENTS.md",
+        "D:\\02_AUTHORITY_CANON\\CURRENT_STATE.md",
+        "D:\\02_AUTHORITY_CANON\\DECISION_LOG.csv",
+        "D:\\.agents\\codex\\readbacks"
+      ],
+      "writes": [
+        "D:\\.agents\\codex\\readbacks",
+        "D:\\02_AUTHORITY_CANON\\RECTOR_READBACKS",
+        "D:\\10_UNIVERSOS\\ESCRIBANIA\\50_EVIDENCIA",
+        "D:\\10_UNIVERSOS\\MODO_ON\\50_EVIDENCIA"
+      ],
+      "may_execute": [
+        "evidence_indexing",
+        "readback_draft",
+        "acta_draft"
+      ],
+      "blocked": [
+        "fabricating_evidence",
+        "writing_external_records_without_order",
+        "storing_secrets"
+      ],
+      "outputs": [
+        "evidence_readback",
+        "acta",
+        "trace_index"
+      ],
+      "stop_conditions": [
+        "evidence_source_missing",
+        "authority_conflict",
+        "regulated_data_exposure_risk"
+      ],
+      "level_id": "03_CORTE_EJECUTORA",
+      "read_weight": "light_profile_only",
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.seshat_evidence"
+    },
+    {
+      "id": "court.sdu_gate",
+      "name": "SDU Gate Canonico",
+      "layer": "corte_ejecutora",
+      "home_path": "D:\\.agents\\codex\\agents\\01_AUTORIDAD_Y_GATES\\court.sdu_gate.md",
+      "mission": "Aplicar criterio SDU sobre gates, stop conditions, escalamiento y coherencia de ordenes.",
+      "reads": [
+        "D:\\AGENTS.md",
+        "D:\\02_AUTHORITY_CANON\\GATES_INDEX.csv",
+        "D:\\02_AUTHORITY_CANON\\ACTIVE_CANON.csv",
+        "D:\\01_GOVERNANCE_REGISTRY\\FRONTIER_MATRIX.csv"
+      ],
+      "writes": [
+        "D:\\02_AUTHORITY_CANON\\GOVERNED_ORDERS",
+        "D:\\02_AUTHORITY_CANON\\RECTOR_READBACKS",
+        "D:\\.agents\\codex\\readbacks"
+      ],
+      "may_execute": [
+        "gate_review",
+        "stop_condition_review",
+        "escalation_draft"
+      ],
+      "blocked": [
+        "self_approving_gate",
+        "live_execution",
+        "legal_final_decision"
+      ],
+      "outputs": [
+        "gate_decision_draft",
+        "escalation_path",
+        "stop_condition"
+      ],
+      "stop_conditions": [
+        "missing_governed_order",
+        "rollback_missing",
+        "postcheck_missing",
+        "human_authority_needed"
+      ],
+      "level_id": "01_AUTORIDAD_Y_GATES",
+      "read_weight": "light_profile_only",
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.sdu_gate"
+    },
+    {
+      "id": "court.thot_schema",
+      "name": "Thot Tecnico de Schemas",
+      "layer": "corte_ejecutora",
+      "home_path": "D:\\.agents\\codex\\agents\\03_CORTE_EJECUTORA\\court.thot_schema.md",
+      "mission": "Traducir narrativa, canon y ordenes a campos, schemas, matrices, tools y eventos verificables.",
+      "reads": [
+        "D:\\AGENTS.md",
+        "D:\\01_GOVERNANCE_REGISTRY",
+        "D:\\02_AUTHORITY_CANON",
+        "D:\\03_CORTE_EJECUTORA_DEL_REY\\06_TOOLS"
+      ],
+      "writes": [
+        "D:\\03_CORTE_EJECUTORA_DEL_REY\\06_TOOLS",
+        "D:\\03_CORTE_EJECUTORA_DEL_REY\\07_EVALS",
+        "D:\\.agents\\codex\\readbacks"
+      ],
+      "may_execute": [
+        "schema_draft",
+        "matrix_contract_draft",
+        "validator_spec_draft"
+      ],
+      "blocked": [
+        "tool_live_execution_without_order",
+        "schema_overwriting_without_readback",
+        "secret_materialization"
+      ],
+      "outputs": [
+        "schema",
+        "field_map",
+        "validator_contract"
+      ],
+      "stop_conditions": [
+        "source_canon_conflict",
+        "field_semantics_unclear",
+        "live_tool_required"
+      ],
+      "level_id": "03_CORTE_EJECUTORA",
+      "read_weight": "light_profile_only",
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.thot_schema"
+    },
+    {
+      "id": "rey.migration_planner",
+      "name": "Planificador de Migracion D",
+      "layer": "rey_control_plane",
+      "home_path": "D:\\.agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA\\rey.migration_planner.md",
+      "mission": "Preparar migracion local de clones, herramientas y activos al disco D sin mover nada hasta orden gobernada.",
+      "reads": [
+        "D:\\01_GOVERNANCE_REGISTRY\\MIGRATION_MAP_D.csv",
+        "D:\\01_GOVERNANCE_REGISTRY\\REPOSITORIES.csv",
+        "D:\\10_UNIVERSOS",
+        "D:\\80_REFERENCIAS_TECNICAS"
+      ],
+      "writes": [
+        "D:\\01_GOVERNANCE_REGISTRY\\MIGRATION_MAP_D.csv",
+        "D:\\.agents\\codex\\orders",
+        "D:\\.agents\\codex\\readbacks"
+      ],
+      "may_execute": [
+        "migration_plan_draft",
+        "rollback_plan_draft",
+        "preflight_checklist"
+      ],
+      "blocked": [
+        "moving_files",
+        "deleting_files",
+        "changing_repo_remotes",
+        "updating_ide_paths_without_order"
+      ],
+      "outputs": [
+        "migration_plan",
+        "preflight",
+        "rollback",
+        "postcheck"
+      ],
+      "stop_conditions": [
+        "dirty_worktree",
+        "unknown_owner",
+        "target_path_conflict",
+        "rollback_missing"
+      ],
+      "level_id": "02_REGISTRO_Y_CARTOGRAFIA",
+      "read_weight": "light_profile_only",
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.migration_planner"
+    },
+    {
+      "id": "tech.reference_librarian",
+      "name": "Bibliotecario de Referencias Tecnicas",
+      "layer": "technical_reference",
+      "home_path": "D:\\.agents\\codex\\agents\\05_SOPORTE_TECNICO\\tech.reference_librarian.md",
+      "mission": "Separar referencias tecnicas Microsoft, OpenAI, devcontainers y tooling de canon rector vivo.",
+      "reads": [
+        "D:\\80_REFERENCIAS_TECNICAS",
+        "D:\\01_GOVERNANCE_REGISTRY\\REPOSITORIES.csv",
+        "D:\\02_AUTHORITY_CANON\\ACTIVE_CANON.csv"
+      ],
+      "writes": [
+        "D:\\80_REFERENCIAS_TECNICAS",
+        "D:\\01_GOVERNANCE_REGISTRY\\CLASIFICACION_RESUELTA",
+        "D:\\.agents\\codex\\readbacks"
+      ],
+      "may_execute": [
+        "reference_classification",
+        "source_summary",
+        "technical_gap_report"
+      ],
+      "blocked": [
+        "treating_reference_as_canon",
+        "vendor_live_execution_without_order",
+        "license_change"
+      ],
+      "outputs": [
+        "reference_index",
+        "technical_summary",
+        "canon_boundary_note"
+      ],
+      "stop_conditions": [
+        "source_uncertain",
+        "license_unclear",
+        "current_vendor_state_required"
+      ],
+      "level_id": "05_SOPORTE_TECNICO",
+      "read_weight": "light_profile_only",
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\tech.reference_librarian"
+    },
+    {
+      "id": "codex.workspace_guardian",
+      "name": "Guardian del Workspace Codex",
+      "layer": "codex_workspace",
+      "home_path": "D:\\.agents\\codex\\agents\\05_SOPORTE_TECNICO\\codex.workspace_guardian.md",
+      "mission": "Auditar configuracion local de Codex, AGENTS.md, rutas y workspaces sin tocar secretos ni ajustes live sin orden.",
+      "reads": [
+        "D:\\AGENTS.md",
+        "D:\\.agents\\codex",
+        "D:\\MANIFEST.yaml",
+        "D:\\MAPA_HUMANO.md"
+      ],
+      "writes": [
+        "D:\\.agents\\codex\\readbacks",
+        "D:\\00_CONTROL_PLANE_INGRESS\\PENDING_CLASSIFICATION.csv"
+      ],
+      "may_execute": [
+        "workspace_read_only_audit",
+        "routing_drift_report",
+        "codex_project_opening_checklist"
+      ],
+      "blocked": [
+        "editing_codex_global_config_without_order",
+        "reading_secret_files",
+        "changing_default_workspace",
+        "deleting_worktrees"
+      ],
+      "outputs": [
+        "workspace_readback",
+        "routing_drift_report",
+        "opening_checklist"
+      ],
+      "stop_conditions": [
+        "secret_boundary_risk",
+        "global_config_change_needed",
+        "worktree_owner_unclear"
+      ],
+      "level_id": "05_SOPORTE_TECNICO",
+      "read_weight": "light_profile_only",
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\codex.workspace_guardian"
+    }
+  ],
+  "agent_levels": [
+    {
+      "id": "00_ROUTER",
+      "name": "Router liviano",
+      "folder": "D:\\.agents\\codex\\agents\\00_ROUTER",
+      "purpose": "Entrada, clasificacion y derivacion inicial",
+      "read_policy": "leer solo README raiz, LEVELS y perfil del agente asignado",
+      "agents": [
+        "rey.control_plane_orchestrator"
+      ],
+      "sublevel_artifacts": {
+        "capabilities": "D:\\.agents\\codex\\agents\\00_ROUTER\\CAPABILITIES.csv",
+        "reading_map": "D:\\.agents\\codex\\agents\\00_ROUTER\\READING_MAP.csv",
+        "handoffs": "D:\\.agents\\codex\\agents\\00_ROUTER\\HANDOFFS.csv",
+        "readme": "D:\\.agents\\codex\\agents\\00_ROUTER\\README.md"
+      }
+    },
+    {
+      "id": "01_AUTORIDAD_Y_GATES",
+      "name": "Autoridad y gates",
+      "folder": "D:\\.agents\\codex\\agents\\01_AUTORIDAD_Y_GATES",
+      "purpose": "Fronteras, canon, gates y stop conditions",
+      "read_policy": "leer canon/gates solo cuando la orden toca autoridad, live, riesgo o cierre",
+      "agents": [
+        "rey.frontier_guardian",
+        "rey.authority_canonist",
+        "court.sdu_gate"
+      ],
+      "sublevel_artifacts": {
+        "capabilities": "D:\\.agents\\codex\\agents\\01_AUTORIDAD_Y_GATES\\CAPABILITIES.csv",
+        "reading_map": "D:\\.agents\\codex\\agents\\01_AUTORIDAD_Y_GATES\\READING_MAP.csv",
+        "handoffs": "D:\\.agents\\codex\\agents\\01_AUTORIDAD_Y_GATES\\HANDOFFS.csv",
+        "readme": "D:\\.agents\\codex\\agents\\01_AUTORIDAD_Y_GATES\\README.md"
+      }
+    },
+    {
+      "id": "02_REGISTRO_Y_CARTOGRAFIA",
+      "name": "Registro y cartografia",
+      "folder": "D:\\.agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA",
+      "purpose": "Universos, repos, owners, migracion y mapas",
+      "read_policy": "leer registries y mapas solo para inventario, migracion o jerarquia",
+      "agents": [
+        "rey.governance_registrar",
+        "rey.repo_cartographer",
+        "rey.migration_planner"
+      ],
+      "sublevel_artifacts": {
+        "capabilities": "D:\\.agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA\\CAPABILITIES.csv",
+        "reading_map": "D:\\.agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA\\READING_MAP.csv",
+        "handoffs": "D:\\.agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA\\HANDOFFS.csv",
+        "readme": "D:\\.agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA\\README.md"
+      }
+    },
+    {
+      "id": "03_CORTE_EJECUTORA",
+      "name": "Corte ejecutora",
+      "folder": "D:\\.agents\\codex\\agents\\03_CORTE_EJECUTORA",
+      "purpose": "OpenAI, SDU/Seshat/Thot, prompts, recetas, evals y evidencia",
+      "read_policy": "leer prompts/recetas/evals solo bajo orden de corte o agente",
+      "agents": [
+        "court.openai_dispatcher",
+        "court.seshat_evidence",
+        "court.thot_schema"
+      ],
+      "sublevel_artifacts": {
+        "capabilities": "D:\\.agents\\codex\\agents\\03_CORTE_EJECUTORA\\CAPABILITIES.csv",
+        "reading_map": "D:\\.agents\\codex\\agents\\03_CORTE_EJECUTORA\\READING_MAP.csv",
+        "handoffs": "D:\\.agents\\codex\\agents\\03_CORTE_EJECUTORA\\HANDOFFS.csv",
+        "readme": "D:\\.agents\\codex\\agents\\03_CORTE_EJECUTORA\\README.md"
+      }
+    },
+    {
+      "id": "04_TORRES_DE_UNIVERSO",
+      "name": "Torres de universo",
+      "folder": "D:\\.agents\\codex\\agents\\04_TORRES_DE_UNIVERSO",
+      "purpose": "Operativa por universo: Escribania y Modo ON",
+      "read_policy": "leer solo manifiesto/routing del universo seleccionado",
+      "agents": [
+        "universe.escribania_tower",
+        "universe.modo_on_tower"
+      ],
+      "sublevel_artifacts": {
+        "capabilities": "D:\\.agents\\codex\\agents\\04_TORRES_DE_UNIVERSO\\CAPABILITIES.csv",
+        "reading_map": "D:\\.agents\\codex\\agents\\04_TORRES_DE_UNIVERSO\\READING_MAP.csv",
+        "handoffs": "D:\\.agents\\codex\\agents\\04_TORRES_DE_UNIVERSO\\HANDOFFS.csv",
+        "readme": "D:\\.agents\\codex\\agents\\04_TORRES_DE_UNIVERSO\\README.md"
+      }
+    },
+    {
+      "id": "05_SOPORTE_TECNICO",
+      "name": "Soporte tecnico",
+      "folder": "D:\\.agents\\codex\\agents\\05_SOPORTE_TECNICO",
+      "purpose": "Referencias tecnicas, tooling, workspace Codex y configuracion local",
+      "read_policy": "leer solo cuando la orden sea herramienta, referencia o workspace",
+      "agents": [
+        "tech.reference_librarian",
+        "codex.workspace_guardian"
+      ],
+      "sublevel_artifacts": {
+        "capabilities": "D:\\.agents\\codex\\agents\\05_SOPORTE_TECNICO\\CAPABILITIES.csv",
+        "reading_map": "D:\\.agents\\codex\\agents\\05_SOPORTE_TECNICO\\READING_MAP.csv",
+        "handoffs": "D:\\.agents\\codex\\agents\\05_SOPORTE_TECNICO\\HANDOFFS.csv",
+        "readme": "D:\\.agents\\codex\\agents\\05_SOPORTE_TECNICO\\README.md"
+      }
+    }
+  ],
+  "artifact_roots": {
+    "matrices": "D:\\.agents\\codex\\matrices",
+    "maps": "D:\\.agents\\codex\\maps",
+    "skills": "D:\\.agents\\codex\\skills",
+    "recipes": "D:\\.agents\\codex\\recipes",
+    "tools": "D:\\.agents\\codex\\tools",
+    "evals": "D:\\.agents\\codex\\evals",
+    "orders": "D:\\.agents\\codex\\orders",
+    "readbacks": "D:\\.agents\\codex\\readbacks",
+    "workpapers": "D:\\.agents\\codex\\workpapers",
+    "plugins": "D:\\.agents\\codex\\plugins"
+  },
+  "operating_contract": {
+    "read_order": [
+      "D:\\AGENTS.md",
+      "D:\\.agents\\codex\\README.md",
+      "D:\\.agents\\codex\\agents\\LEVELS.yaml",
+      "D:\\.agents\\codex\\routing.json",
+      "selected_sublevel_README",
+      "selected_agent_profile"
+    ],
+    "required_indices": [
+      "D:\\.agents\\codex\\matrices\\MATRIX_INDEX.csv",
+      "D:\\.agents\\codex\\recipes\\RECIPE_INDEX.csv",
+      "D:\\.agents\\codex\\tools\\TOOL_INDEX.csv",
+      "D:\\.agents\\codex\\skills\\SKILL_USAGE_MATRIX.csv"
+    ],
+    "validator": "D:\\.agents\\codex\\tools\\local_validate_agent_levels.ps1",
+    "no_default_bulk_read": true,
+    "no_remote_persistent_agents": true,
+    "no_live_writes_without_governed_order": true
+  },
+  "source_policy": {
+    "status": "COPY_ADAPT_REQUIRED",
+    "default_rule": "prefer copied source files under SOURCE_* before creating new local content",
+    "source_priority": [
+      {
+        "source_repo": "TCU_CONTROL_PLANE",
+        "use_for": "canonical maps registries permissions reading policy",
+        "copied_prefix": "SOURCE_TCU_"
+      },
+      {
+        "source_repo": "TCU_RUNTIME",
+        "use_for": "agent contracts eval harness runtime smoke patterns",
+        "copied_prefix": "SOURCE_TCU_RUNTIME_"
+      },
+      {
+        "source_repo": "TGE_MAIN",
+        "use_for": "secondary divergence cross-check",
+        "copied_prefix": "not_copied_yet_secondary"
+      },
+      {
+        "source_repo": "TGE_RUNTIME",
+        "use_for": "SDU court adapter prompt and eval specialization",
+        "copied_prefix": "SOURCE_TGE_RUNTIME_"
+      },
+      {
+        "source_repo": "CDF_SOLUCIONES_JARA",
+        "use_for": "optional Agents SDK executable examples",
+        "copied_prefix": "SOURCE_CDF_|SOURCE_JARA_"
+      }
+    ],
+    "local_persona_status": "LOCAL_CODEX_OVERLAY",
+    "keep_as_bridge": [
+      ".planning",
+      "orders",
+      "readbacks"
+    ]
+  }
+}

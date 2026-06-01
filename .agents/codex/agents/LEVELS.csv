@@ -1,0 +1,7 @@
+level_id,name,folder,primary_role,agent_count,default_read
+00_ROUTER,Router liviano,D:\.agents\codex\agents\00_ROUTER,Entrada y derivacion inicial,1,README + selected profile
+01_AUTORIDAD_Y_GATES,Autoridad y gates,D:\.agents\codex\agents\01_AUTORIDAD_Y_GATES,Canon frontera gates y stop conditions,3,README + selected profile
+02_REGISTRO_Y_CARTOGRAFIA,Registro y cartografia,D:\.agents\codex\agents\02_REGISTRO_Y_CARTOGRAFIA,Inventario repos owners jerarquia y migracion,3,README + selected profile
+03_CORTE_EJECUTORA,Corte ejecutora,D:\.agents\codex\agents\03_CORTE_EJECUTORA,OpenAI Seshat SDU Thot prompts recetas tools y evals,3,README + selected profile
+04_TORRES_DE_UNIVERSO,Torres de universo,D:\.agents\codex\agents\04_TORRES_DE_UNIVERSO,Operacion gobernada por universo,2,README + selected profile
+05_SOPORTE_TECNICO,Soporte tecnico,D:\.agents\codex\agents\05_SOPORTE_TECNICO,Referencias herramientas workspace Codex y configuracion local,2,README + selected profile

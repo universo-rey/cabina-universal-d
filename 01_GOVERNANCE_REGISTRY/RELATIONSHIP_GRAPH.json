@@ -1,0 +1,24 @@
+{
+  "status": "LOCAL_DRAFT_REVIEW",
+  "nodes": [
+    {"id": "REY_ROOT", "type": "root"},
+    {"id": "CORTE_REY", "type": "court"},
+    {"id": "ESCRIBANIA", "type": "universe"},
+    {"id": "MODO_ON", "type": "universe"},
+    {"id": "TGE", "type": "control_tower"},
+    {"id": "CDF", "type": "modo_on_member"},
+    {"id": "JARA", "type": "modo_on_member"},
+    {"id": "SESHAT", "type": "court_member"},
+    {"id": "SDU", "type": "court_member"}
+  ],
+  "edges": [
+    {"from": "REY_ROOT", "to": "CORTE_REY", "relation": "governs"},
+    {"from": "REY_ROOT", "to": "ESCRIBANIA", "relation": "coordinates"},
+    {"from": "REY_ROOT", "to": "MODO_ON", "relation": "coordinates"},
+    {"from": "CORTE_REY", "to": "SESHAT", "relation": "contains"},
+    {"from": "CORTE_REY", "to": "SDU", "relation": "contains"},
+    {"from": "ESCRIBANIA", "to": "TGE", "relation": "contains"},
+    {"from": "MODO_ON", "to": "CDF", "relation": "contains"},
+    {"from": "MODO_ON", "to": "JARA", "relation": "contains"}
+  ]
+}

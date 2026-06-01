@@ -1,0 +1,7 @@
+skill_id,path,source,owner_agent,primary_recipe,validator,use_when,live_boundary
+d-drive-agent-layer-enrichment,D:\.agents\codex\skills\d-drive-agent-layer-enrichment\SKILL.md,d_drive_local,rey.governance_registrar,recipe.d_drive_agent_layer_enrichment,tool.local_validate_agent_layer,enriching local D-drive agent layer,local_only
+matrix-recipe-skill-sync,D:\.agents\codex\skills\matrix-recipe-skill-sync\SKILL.md,d_drive_local,court.thot_schema,recipe.matrix_recipe_skill_sync,tool.local_validate_agent_layer,keeping indexes aligned after artifact changes,local_only
+governed-readback-closeout,D:\.agents\codex\skills\governed-readback-closeout\SKILL.md,d_drive_local,court.seshat_evidence,recipe.governed_readback_closeout,tool.local_validate_agent_layer,closing local work with evidence and validator result,local_only
+rey-modo-gobernador-capacidades,C:\Users\enzo1\.agents\skills\rey-modo-gobierno-capacidades\SKILL.md,installed_local,rey.control_plane_orchestrator,recipe.registry_enrichment,manual_skill_presence_check,capability discovery and normalization,local_only
+tcu-planificador-con-archivos,C:\Users\enzo1\.agents\skills\planning-with-files\SKILL.md,installed_local,rey.migration_planner,recipe.migration_preflight,manual_skill_presence_check,file-based plans and progress,local_only
+tcu-harness-evals-agentes,C:\Users\enzo1\.agents\skills\tcu-agent-eval-harness\SKILL.md,installed_local,court.thot_schema,recipe.schema_tool_contract,manual_skill_presence_check,synthetic evals and dry-runs,no_api_by_default

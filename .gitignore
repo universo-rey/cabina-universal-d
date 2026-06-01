@@ -1,0 +1,95 @@
+# D:\ Cabina Universal root wrapper repo
+#
+# This repo is intentionally narrow. It gives Codex and Git a native root for
+# the cabin while preserving every nested repo as an independent clone.
+
+# Ignore everything by default.
+/*
+
+# Never track local/system/sensitive areas.
+/.secrets/
+/$RECYCLE.BIN/
+/System Volume Information/
+/CodexBackups/
+/**/.git/
+/**/.git/**
+**/.env
+**/.env.*
+**/*secret*
+**/*secreto*
+**/*token*
+**/*credential*
+**/*password*
+**/node_modules/
+**/.venv/
+**/__pycache__/
+**/.pytest_cache/
+**/.mypy_cache/
+
+# Root governance allowlist.
+!/.gitignore
+!/.gitattributes
+!/README.md
+!/REPO_SCOPE.md
+!/AGENTS.md
+!/MANIFEST.yaml
+!/MAPA_HUMANO.md
+!/LEVELS.md
+!/LEVELS.yaml
+!/FOLDER_LEVELS.csv
+
+# Control plane ingress.
+!/00_CONTROL_PLANE_INGRESS/
+/00_CONTROL_PLANE_INGRESS/*
+!/00_CONTROL_PLANE_INGRESS/ROUTING.json
+
+# Governance registry metadata only. Repos under 10_REPOS remain ignored.
+!/01_GOVERNANCE_REGISTRY/
+/01_GOVERNANCE_REGISTRY/*
+!/01_GOVERNANCE_REGISTRY/README.md
+!/01_GOVERNANCE_REGISTRY/AUTHORITY_MATRIX.csv
+!/01_GOVERNANCE_REGISTRY/CONTROL_TOWERS.csv
+!/01_GOVERNANCE_REGISTRY/D_DRIVE_GIT_STATUS_MATRIX.csv
+!/01_GOVERNANCE_REGISTRY/FRONTIER_MATRIX.csv
+!/01_GOVERNANCE_REGISTRY/GUIA_DE_FRONTERAS.md
+!/01_GOVERNANCE_REGISTRY/GUIA_DE_JERARQUIA.md
+!/01_GOVERNANCE_REGISTRY/MAPA_DE_UNIVERSOS.md
+!/01_GOVERNANCE_REGISTRY/MIGRATION_MAP_D.csv
+!/01_GOVERNANCE_REGISTRY/OWNER_MATRIX.csv
+!/01_GOVERNANCE_REGISTRY/RELATIONSHIP_GRAPH.json
+!/01_GOVERNANCE_REGISTRY/REPOSITORIES.csv
+!/01_GOVERNANCE_REGISTRY/UNIVERSES.csv
+
+# Authority canon current state only.
+!/02_AUTHORITY_CANON/
+/02_AUTHORITY_CANON/*
+!/02_AUTHORITY_CANON/CURRENT_STATE.md
+
+# Local Codex agent layer metadata. Orders/readbacks/workpapers stay out until
+# explicitly selected.
+!/.agents/
+/.agents/*
+!/.agents/codex/
+/.agents/codex/*
+!/.agents/codex/README.md
+!/.agents/codex/agents.json
+!/.agents/codex/routing.json
+!/.agents/codex/AGENTS_INDEX.csv
+
+!/.agents/codex/agents/
+/.agents/codex/agents/*
+!/.agents/codex/agents/README.md
+!/.agents/codex/agents/LEVELS.csv
+!/.agents/codex/agents/LEVELS.yaml
+!/.agents/codex/agents/SOURCE_TCU_RUNTIME_AGENT_CONTRACTS.md
+!/.agents/codex/agents/SOURCE_TCU_SDU_REPO_AGENT_COMMAND_MATRIX_CURRENT.csv
+
+!/.agents/codex/maps/
+/.agents/codex/maps/*
+!/.agents/codex/maps/*.csv
+!/.agents/codex/maps/*.md
+
+!/.agents/codex/matrices/
+/.agents/codex/matrices/*
+!/.agents/codex/matrices/*.csv
+!/.agents/codex/matrices/*.md

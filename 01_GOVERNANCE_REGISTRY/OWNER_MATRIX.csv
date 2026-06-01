@@ -1,0 +1,5 @@
+object_id,owner_type,owner,status,notes
+REY_ROOT,human_or_governed,operador,TO_CONFIRM,owner rector pendiente de formalizacion
+ESCRIBANIA,human_or_governed,operador,TO_CONFIRM,universo regulado
+MODO_ON,human_or_governed,operador,TO_CONFIRM,universo proveedor
+CORTE_REY,agents,OpenAI Seshat SDU,ACTIVE_DRAFT,corte ejecutora
