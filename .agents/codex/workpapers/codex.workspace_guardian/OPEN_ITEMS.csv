@@ -1,0 +1,2 @@
+"item_id","status","owner_agent","next_action","gate","stop_condition"
+"OPEN-codex.workspace_guardian-20260601","tracked","codex.workspace_guardian","keep repo native matrices synchronized","governed_order_for_live_or_remote_write","workpaper_missing_for_agent"

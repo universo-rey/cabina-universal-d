@@ -38,6 +38,24 @@ function Is-LocalPathLike {
   return ($Value -match '^[A-Za-z]:\\')
 }
 
+function Resolve-CabinaPath {
+  param([string]$Path)
+  if ([string]::IsNullOrWhiteSpace($Path)) {
+    return $Path
+  }
+  $repoRoot = Split-Path -Parent (Split-Path -Parent $Root)
+  $normalized = $Path -replace "/", "\"
+  if ($normalized.StartsWith("D:\.agents\codex", [System.StringComparison]::OrdinalIgnoreCase)) {
+    $suffix = $normalized.Substring("D:\.agents\codex".Length).TrimStart("\")
+    return Join-Path $Root $suffix
+  }
+  if ($normalized.StartsWith("D:\", [System.StringComparison]::OrdinalIgnoreCase)) {
+    $suffix = $normalized.Substring("D:\".Length).TrimStart("\")
+    return Join-Path $repoRoot $suffix
+  }
+  return $Path
+}
+
 $levelValidator = Join-Path $Root "tools\local_validate_agent_levels.ps1"
 $matrixIndex = Join-Path $Root "matrices\MATRIX_INDEX.csv"
 $recipeIndex = Join-Path $Root "recipes\RECIPE_INDEX.csv"
@@ -98,7 +116,7 @@ $matrixRows = Read-CsvSafe -Path $matrixIndex
 foreach ($row in $matrixRows) {
   if ([string]::IsNullOrWhiteSpace($row.matrix_id) -or [string]::IsNullOrWhiteSpace($row.path)) {
     $errors.Add("Matrix index row with blank matrix_id or path")
-  } elseif ((Is-LocalPathLike $row.path) -and -not (Test-Path -LiteralPath $row.path)) {
+  } elseif ((Is-LocalPathLike $row.path) -and -not (Test-Path -LiteralPath (Resolve-CabinaPath $row.path))) {
     $errors.Add("Matrix index path missing: $($row.path)")
   }
 }
@@ -108,7 +126,7 @@ foreach ($row in $recipeRows) {
   if ([string]::IsNullOrWhiteSpace($row.recipe_id) -or [string]::IsNullOrWhiteSpace($row.primary_agent)) {
     $errors.Add("Recipe row with blank recipe_id or primary_agent")
   }
-  if ((Is-LocalPathLike $row.path) -and -not (Test-Path -LiteralPath $row.path)) {
+  if ((Is-LocalPathLike $row.path) -and -not (Test-Path -LiteralPath (Resolve-CabinaPath $row.path))) {
     $errors.Add("Recipe path missing: $($row.path)")
   }
 }
@@ -118,7 +136,7 @@ foreach ($row in $toolRows) {
   if ([string]::IsNullOrWhiteSpace($row.tool_id) -or [string]::IsNullOrWhiteSpace($row.allowed_surface) -or [string]::IsNullOrWhiteSpace($row.blocked_surface)) {
     $errors.Add("Tool row missing id, allowed_surface or blocked_surface")
   }
-  if ((Is-LocalPathLike $row.path_or_command) -and -not (Test-Path -LiteralPath $row.path_or_command)) {
+  if ((Is-LocalPathLike $row.path_or_command) -and -not (Test-Path -LiteralPath (Resolve-CabinaPath $row.path_or_command))) {
     $errors.Add("Tool path missing: $($row.path_or_command)")
   }
 }
@@ -128,7 +146,7 @@ foreach ($row in $skillRows) {
   if ([string]::IsNullOrWhiteSpace($row.skill_id) -or [string]::IsNullOrWhiteSpace($row.owner_agent)) {
     $errors.Add("Skill catalog row missing skill_id or owner_agent")
   }
-  if ((Is-LocalPathLike $row.path) -and -not (Test-Path -LiteralPath $row.path)) {
+  if ((Is-LocalPathLike $row.path) -and -not (Test-Path -LiteralPath (Resolve-CabinaPath $row.path))) {
     $warnings.Add("Skill catalog path not present in this cabina: $($row.path)")
   }
 }
@@ -138,7 +156,7 @@ foreach ($row in $repoRows) {
   if ([string]::IsNullOrWhiteSpace($row.repo_id) -or [string]::IsNullOrWhiteSpace($row.universe) -or [string]::IsNullOrWhiteSpace($row.owner_agent)) {
     $errors.Add("Repo governance row missing repo_id, universe or owner_agent")
   }
-  if ((Is-LocalPathLike $row.path) -and -not (Test-Path -LiteralPath $row.path)) {
+  if ((Is-LocalPathLike $row.path) -and -not (Test-Path -LiteralPath (Resolve-CabinaPath $row.path))) {
     $warnings.Add("Repo path not present in this cabina: $($row.path)")
   }
 }
@@ -155,7 +173,7 @@ foreach ($row in $governanceRows) {
   if ([string]::IsNullOrWhiteSpace($row.asset_class) -or [string]::IsNullOrWhiteSpace($row.primary_owner_agent) -or [string]::IsNullOrWhiteSpace($row.required_recipe) -or [string]::IsNullOrWhiteSpace($row.required_tool)) {
     $errors.Add("Repo-agent-tool governance row missing asset_class, owner, recipe or tool")
   }
-  if ((Is-LocalPathLike $row.governing_matrix) -and -not (Test-Path -LiteralPath $row.governing_matrix)) {
+  if ((Is-LocalPathLike $row.governing_matrix) -and -not (Test-Path -LiteralPath (Resolve-CabinaPath $row.governing_matrix))) {
     $errors.Add("Governance matrix path missing: $($row.governing_matrix)")
   }
 }
@@ -209,7 +227,7 @@ foreach ($agentId in $agentIds) {
   }
 }
 foreach ($row in $agentWorkpaperRows) {
-  if ((Is-LocalPathLike $row.workpapers_path) -and -not (Test-Path -LiteralPath $row.workpapers_path -PathType Container)) {
+  if ((Is-LocalPathLike $row.workpapers_path) -and -not (Test-Path -LiteralPath (Resolve-CabinaPath $row.workpapers_path) -PathType Container)) {
     $errors.Add("Workpaper folder missing: $($row.workpapers_path)")
   }
   if ([string]::IsNullOrWhiteSpace($row.repo_snapshot_path) -or [string]::IsNullOrWhiteSpace($row.required_validators)) {

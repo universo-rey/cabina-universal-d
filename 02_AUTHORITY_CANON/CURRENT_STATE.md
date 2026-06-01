@@ -74,6 +74,11 @@ runtime, capa de agentes y politica de workflows. No habilita secretos,
 produccion, Microsoft live, OpenAI API live, permisos ni agentes externos fuera
 de GitHub.
 
+Actualizacion workpapers GitHub 2026-06-01: los workpapers saneados bajo
+`.agents/codex/workpapers` quedan incluidos en la allowlist del repo raiz para
+que GitHub Actions pueda validar la capa de agentes sin leer repos externos ni
+sistemas live.
+
 Reglas vigentes:
 
 - GitHub repo-visible reversible esta habilitado para lectura, validacion, branch, commit, push, PR draft/update, issues, labels, comentarios, GitHub Actions de validacion y readbacks bajo orden gobernada.

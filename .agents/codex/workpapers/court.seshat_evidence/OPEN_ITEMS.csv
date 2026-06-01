@@ -1,0 +1,2 @@
+"item_id","status","owner_agent","next_action","gate","stop_condition"
+"OPEN-court.seshat_evidence-20260601","tracked","court.seshat_evidence","keep repo native matrices synchronized","governed_order_for_live_or_remote_write","microsoft_live_requested_without_governed_order"

@@ -41,8 +41,8 @@ Universal del Rey y como repo raiz envoltorio activo:
 - PR raiz prompt UI: `https://github.com/universo-rey/cabina-universal-d/pull/2`
   con estado `MERGED`;
 - allowlist: solo gobierno, canon, agentes locales, matrices, prompts,
-  recetas, tools, evals, plugins, templates, readbacks saneados y workflows
-  GitHub Actions de validacion;
+  recetas, tools, evals, plugins, templates, readbacks/workpapers saneados y
+  workflows GitHub Actions de validacion;
 - repos anidados: conservar su propio `.git`, remoto, rama y PR;
 - `organizacion`: permanece separado en
   `D:\01_GOVERNANCE_REGISTRY\10_REPOS\02_ACTIVE\organizacion`.

@@ -1,0 +1,2 @@
+"item_id","status","owner_agent","next_action","gate","stop_condition"
+"OPEN-rey.authority_canonist-20260601","tracked","rey.authority_canonist","keep repo native matrices synchronized","governed_order_for_live_or_remote_write","workpaper_missing_for_agent"

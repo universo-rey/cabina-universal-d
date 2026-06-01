@@ -12,6 +12,24 @@ function Read-CsvSafe {
   @(Import-Csv -LiteralPath $Path)
 }
 
+function Resolve-CabinaPath {
+  param([string]$Path)
+  if ([string]::IsNullOrWhiteSpace($Path)) {
+    return $Path
+  }
+  $repoRoot = Split-Path -Parent (Split-Path -Parent $Root)
+  $normalized = $Path -replace "/", "\"
+  if ($normalized.StartsWith("D:\.agents\codex", [System.StringComparison]::OrdinalIgnoreCase)) {
+    $suffix = $normalized.Substring("D:\.agents\codex".Length).TrimStart("\")
+    return Join-Path $Root $suffix
+  }
+  if ($normalized.StartsWith("D:\", [System.StringComparison]::OrdinalIgnoreCase)) {
+    $suffix = $normalized.Substring("D:\".Length).TrimStart("\")
+    return Join-Path $repoRoot $suffix
+  }
+  return $Path
+}
+
 $agentsJson = Join-Path $Root "agents.json"
 $workpapersRoot = Join-Path $Root "workpapers"
 $workpaperIndex = Join-Path $workpapersRoot "WORKPAPER_INDEX.csv"
@@ -46,7 +64,7 @@ if ($errors.Count -eq 0) {
 
   foreach ($agent in $agents) {
     $workpapersPathProperty = $agent.PSObject.Properties["workpapers_path"]
-    $workpapersPath = if ($workpapersPathProperty) { [string]$workpapersPathProperty.Value } else { "" }
+    $workpapersPath = if ($workpapersPathProperty) { Resolve-CabinaPath ([string]$workpapersPathProperty.Value) } else { "" }
     if ([string]::IsNullOrWhiteSpace($workpapersPath)) {
       $errors.Add("Agent lacks workpapers_path: $($agent.id)")
       continue

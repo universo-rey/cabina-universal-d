@@ -25,7 +25,8 @@ Agentes en GitHub: `.github/copilot-instructions.md`,
 `.github/ISSUE_TEMPLATE/runtime-approval.yml` y `.github/PULL_REQUEST_TEMPLATE.md`
 publican la forma GitHub aprobada para operar agentes en issues, ramas, commits
 y PRs sin activar produccion. `.github/workflows/cabina-validation.yml` ejecuta
-validaciones locales en GitHub Actions con permisos `contents: read`.
+validaciones locales en GitHub Actions con permisos `contents: read`; usa los
+workpapers saneados bajo `.agents/codex/workpapers` como evidencia declarativa.
 
 Regla de lectura:
 

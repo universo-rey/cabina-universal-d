@@ -58,6 +58,10 @@ saneados y necesarios para operar la cabina. Las fuentes de otros repos quedan
 como copias `SOURCE_*` trazadas en
 `.agents\codex\matrices\CAPABILITY_IMPORT_DECISION_MATRIX.csv`.
 
+Los workpapers saneados bajo `.agents\codex\workpapers` tambien son
+versionables porque el workflow de GitHub Actions los necesita para validar la
+capa de agentes sin abrir repos externos ni superficies live.
+
 ## Base GitHub transversal
 
 El repo remoto `universo-rey/cabina-universal-d` es base de trabajo transversal

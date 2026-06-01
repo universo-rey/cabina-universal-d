@@ -162,3 +162,11 @@
 !/.agents/codex/templates/
 /.agents/codex/templates/*
 !/.agents/codex/templates/*.md
+
+!/.agents/codex/workpapers/
+/.agents/codex/workpapers/*
+!/.agents/codex/workpapers/README.md
+!/.agents/codex/workpapers/WORKPAPER_INDEX.csv
+!/.agents/codex/workpapers/*/
+!/.agents/codex/workpapers/*/*.md
+!/.agents/codex/workpapers/*/*.csv
