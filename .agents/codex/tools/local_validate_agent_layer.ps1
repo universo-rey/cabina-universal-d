@@ -272,7 +272,12 @@ foreach ($validatorSpec in @(
   if (-not (Test-Path -LiteralPath $validatorSpec.Path)) {
     $errors.Add("Missing $($validatorSpec.Name) validator: $($validatorSpec.Path)")
   } else {
-    $validatorOutput = & $validatorSpec.Path -Root $Root
+    if ($validatorSpec.Name -eq "operational chain") {
+      $repoRootForValidator = Split-Path -Parent (Split-Path -Parent $Root)
+      $validatorOutput = & $validatorSpec.Path -Root $Root -RepoRoot $repoRootForValidator
+    } else {
+      $validatorOutput = & $validatorSpec.Path -Root $Root
+    }
     $validatorPayload = ($validatorOutput -join "`n") | ConvertFrom-Json
     if ($validatorPayload.status -ne "PASS") {
       $errors.Add("$($validatorSpec.Name) validator failed: $($validatorOutput -join ' ')")
