@@ -45,11 +45,13 @@ La carpeta debe preferir `copiar/adaptar` antes que inventar. Los archivos `SOUR
 8. Elegir tool desde `tools\TOOL_INDEX.csv`.
 9. Revisar primero si existe un `SOURCE_*` aplicable.
 10. Ejecutar solo trabajo local permitido o preparar orden gobernada.
-11. Validar con `tools\\local_validate_agent_levels.ps1`, `tools\\local_validate_agent_workpapers.ps1` y `tools\\local_validate_agent_layer.ps1`.
+11. Validar con `tools\\local_validate_agent_levels.ps1`, `tools\\local_validate_agent_workpapers.ps1`, `tools\\local_validate_operational_chain.ps1` y `tools\\local_validate_agent_layer.ps1`.
 12. Para carriles paralelos u ordenes, validar tambien con
     `tools\\local_validate_parallel_order_governance.ps1` y
     `tools\\local_validate_order_packets.ps1`.
-13. Cerrar con evidencia y condicion de detencion.
+13. Cerrar con agente, skill, receta, tool, evidencia, validador y condicion
+    de detencion. Si falta algun componente y no existe `NO_APLICA`
+    justificado, detener con `operational_chain_missing`.
 
 ## Estado
 
@@ -72,6 +74,12 @@ plugins por defecto segun su proposito. La matriz rectora es
 alineacion total de repos se ejecuta con
 `tools\local_run_repo_alignment_runtime.ps1` y registra resultado en
 `evals\results\repo_alignment_runtime_latest.json`.
+
+Actualizacion cadena operativa global 2026-06-01: la cabina exige cadena
+agente/skill/receta/tool/validador/evidencia/stop_condition para cierres,
+cambios repo, automatizacion GitHub, runtime y carriles paralelos. La matriz
+rectora es `matrices\OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv` y el validador
+local es `tools\local_validate_operational_chain.ps1`.
 
 ## Olas de agentes
 

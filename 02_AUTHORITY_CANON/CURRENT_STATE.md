@@ -111,10 +111,19 @@ subrecetas, fronteras de plugin y clases de orden. Los validadores
 ordenes incompletas, tools sin governance y contradicciones con
 `D:/AGENTS.md`.
 
+Actualizacion cadena operativa global 2026-06-01: la cabina adopta
+`OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv` y
+`local_validate_operational_chain.ps1` como control transversal. Todo cierre,
+cambio repo, automatizacion GitHub, runtime o carril paralelo debe declarar
+agente, skill, receta, tool, evidencia, validador y stop condition. Si falta
+un componente y no hay `NO_APLICA` justificado, se detiene con
+`operational_chain_missing`.
+
 Reglas vigentes:
 
 - GitHub repo-visible reversible esta habilitado para lectura, validacion, branch, commit, push, PR draft/update, issues, labels, comentarios, GitHub Actions de validacion y readbacks bajo orden gobernada.
 - La automatizacion GitHub debe pasar primero por preflight local de cabina antes de seleccionar repos o abrir carriles por repo.
+- Toda accion operativa debe mantener cadena agente/skill/receta/tool/validador/evidencia/stop_condition; sin esa cadena se detiene con `operational_chain_missing`.
 - Todo cambio durable de repos debe pasar por GitHub: rama, validacion local, stage explicito, commit, push y PR draft/update.
 - El runtime de alineacion permitido es local y sintetico; runtime live, API, Microsoft o produccion requieren orden separada.
 - Los agentes preparan ordenes gobernadas cuando una solicitud cruza live, API,

@@ -40,6 +40,11 @@ autoridad fuente, superficie, owner, identidad, limite de datos, acciones
 permitidas/bloqueadas, rollback, postcheck, evidencia, validador, expiracion y
 stop condition.
 
+Estado cadena operativa global actualizado 2026-06-01: toda accion operativa
+debe declarar y validar agente, skill, receta, tool, evidencia, validador y
+stop condition. Si falta algun componente y no existe `NO_APLICA` justificado,
+la ejecucion se detiene con `operational_chain_missing`.
+
 ## Prompt maestro para UI Codex
 
 Cuando Codex abra `D:\`, la UI debe tratar esta carpeta como la Cabina
@@ -119,7 +124,8 @@ Si falta un archivo rector, registrar hallazgo y detener la ejecucion destructiv
 - No confundir referencia tecnica con canon rector.
 - No tratar carpetas de herramientas, sistemas o licencias como repos salvo que tengan metadata que lo declare.
 - Mantener separacion estricta entre `ESCRIBANIA`, `MODO_ON`, Corte Ejecutora y referencias tecnicas.
-- Toda salida operativa debe declarar agente, superficie, orden, evidencia, validador y condicion de detencion.
+- No cerrar ni ejecutar trabajo operativo sin cadena agente/skill/receta/tool/validador/evidencia/stop_condition.
+- Toda salida operativa debe declarar agente, skill, receta, tool, superficie, orden, evidencia, validador y condicion de detencion.
 
 ## Cadena de trabajo
 
@@ -163,6 +169,9 @@ Cada agente debe cerrar con:
 - `agente`
 - `orden`
 - `superficie`
+- `skill`
+- `receta`
+- `tool`
 - `estado`
 - `evidencia`
 - `validador`

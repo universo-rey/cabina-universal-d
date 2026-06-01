@@ -5,6 +5,9 @@
 - agente:
 - orden:
 - superficie:
+- skill:
+- recipe:
+- tool:
 - lane:
 - read_scope:
 - write_scope:

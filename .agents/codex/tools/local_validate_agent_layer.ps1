@@ -77,6 +77,7 @@ $purposeSurfaceCapability = Join-Path $Root "matrices\PURPOSE_SURFACE_CAPABILITY
 $parallelOperationCriteria = Join-Path $Root "matrices\PARALLEL_OPERATION_CRITERIA_MATRIX.csv"
 $orderPreparationAssignment = Join-Path $Root "matrices\ORDER_PREPARATION_ASSIGNMENT_MATRIX.csv"
 $orderClassCapability = Join-Path $Root "matrices\ORDER_CLASS_CAPABILITY_MATRIX.csv"
+$operationalChainGovernance = Join-Path $Root "matrices\OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv"
 $pluginSkillBoundary = Join-Path $Root "matrices\PLUGIN_SKILL_BOUNDARY_MATRIX.csv"
 $sourceCapabilityGap = Join-Path $Root "matrices\SOURCE_CAPABILITY_ADOPTION_GAP_MATRIX.csv"
 $subagentAliasMap = Join-Path $Root "agents\SUBAGENT_ALIAS_MAP.csv"
@@ -87,6 +88,7 @@ $workpaperIndex = Join-Path $Root "workpapers\WORKPAPER_INDEX.csv"
 $workpaperValidator = Join-Path $Root "tools\local_validate_agent_workpapers.ps1"
 $parallelOrderValidator = Join-Path $Root "tools\local_validate_parallel_order_governance.ps1"
 $orderPacketValidator = Join-Path $Root "tools\local_validate_order_packets.ps1"
+$operationalChainValidator = Join-Path $Root "tools\local_validate_operational_chain.ps1"
 
 $errors = New-Object System.Collections.Generic.List[string]
 $warnings = New-Object System.Collections.Generic.List[string]
@@ -118,6 +120,7 @@ $requiredColumnChecks = @(
   @{ Path = $parallelOperationCriteria; Columns = @("lane_id","lead_agent","owner_agent","reviewer_agent","delegate_agents","read_scope","write_scope","lock_key","dependency","max_parallel","allowed_parallelism","required_precheck","required_recipe","required_tool","evidence","validator","serialization_rule","stop_condition") },
   @{ Path = $orderPreparationAssignment; Columns = @("order_class","preparer_agent","reviewer_agent","approver_role","canon_as_of","source_authority","required_fields","allowed_actions","blocked_actions","recipe","tool","evidence","validator","expiration_rule","stop_condition") },
   @{ Path = $orderClassCapability; Columns = @("order_class","required_agents","required_skills","required_recipes","required_tools","required_fields","validator","stop_condition") },
+  @{ Path = $operationalChainGovernance; Columns = @("chain_id","applies_to","owner_agent","reviewer_agent","required_agent_source","required_skill_source","required_recipe_source","required_tool_source","required_validator_source","required_evidence_source","required_stop_condition_source","blocked_without_chain","status","validator","stop_condition") },
   @{ Path = $pluginSkillBoundary; Columns = @("plugin_id","skill_refs","assigned_agents","allowed_surface","requires_order_for","blocked_surface","validator","stop_condition") },
   @{ Path = $sourceCapabilityGap; Columns = @("source_id","source_path","capability_class","current_state","gap","decision","owner_agent","next_action","validator","stop_condition") },
   @{ Path = $subagentAliasMap; Columns = @("subagent_id","alias","role","assigned_lane","lead_agent","status","read_scope","write_scope","validator","stop_condition") },
@@ -222,6 +225,7 @@ foreach ($path in @(
   $parallelOperationCriteria,
   $orderPreparationAssignment,
   $orderClassCapability,
+  $operationalChainGovernance,
   $pluginSkillBoundary,
   $sourceCapabilityGap,
   $subagentAliasMap,
@@ -262,7 +266,8 @@ if (-not (Test-Path -LiteralPath $workpaperValidator)) {
 
 foreach ($validatorSpec in @(
   @{ Path = $parallelOrderValidator; Name = "parallel order governance" },
-  @{ Path = $orderPacketValidator; Name = "order packet" }
+  @{ Path = $orderPacketValidator; Name = "order packet" },
+  @{ Path = $operationalChainValidator; Name = "operational chain" }
 )) {
   if (-not (Test-Path -LiteralPath $validatorSpec.Path)) {
     $errors.Add("Missing $($validatorSpec.Name) validator: $($validatorSpec.Path)")
@@ -388,6 +393,7 @@ $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }
   parallel_operation_count = (Read-CsvSafe -Path $parallelOperationCriteria).Count
   order_preparation_count = (Read-CsvSafe -Path $orderPreparationAssignment).Count
   order_class_capability_count = (Read-CsvSafe -Path $orderClassCapability).Count
+  operational_chain_count = (Read-CsvSafe -Path $operationalChainGovernance).Count
   plugin_skill_boundary_count = (Read-CsvSafe -Path $pluginSkillBoundary).Count
   source_capability_gap_count = (Read-CsvSafe -Path $sourceCapabilityGap).Count
   subagent_alias_count = (Read-CsvSafe -Path $subagentAliasMap).Count

@@ -85,6 +85,14 @@ body:
       placeholder: "local_validate_github_automation_preflight.ps1 PASS; Agents SDK local only; no API live; repo iteration starts after preflight"
     validations:
       required: true
+  - type: textarea
+    id: operational_chain
+    attributes:
+      label: Operational chain
+      description: Declare agent, skill, recipe, tool, validator, evidence and stop_condition before execution.
+      placeholder: "agent: ...\nskill: ...\nrecipe: ...\ntool: ...\nvalidator: ...\nevidence: ...\nstop_condition: ..."
+    validations:
+      required: true
   - type: checkboxes
     id: boundaries
     attributes:

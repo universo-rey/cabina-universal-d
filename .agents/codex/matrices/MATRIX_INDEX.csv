@@ -20,6 +20,7 @@ local_skill_catalog,D:\.agents\codex\matrices\LOCAL_SKILL_CATALOG.csv,local_skil
 plugin_usage_matrix,D:\.agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv,plugins,05_SOPORTE_TECNICO,update when plugin availability or live boundary changes
 order_preparation_assignment_matrix,D:\.agents\codex\matrices\ORDER_PREPARATION_ASSIGNMENT_MATRIX.csv,order_preparation,01_AUTORIDAD_Y_GATES,update when order preparer reviewer or required fields change
 order_class_capability_matrix,D:\.agents\codex\matrices\ORDER_CLASS_CAPABILITY_MATRIX.csv,order_capability_contract,01_AUTORIDAD_Y_GATES,update when order classes require new agents skills recipes tools or fields
+operational_chain_governance_matrix,D:\.agents\codex\matrices\OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv,global_operational_chain,03_CORTE_EJECUTORA,update when global agent skill recipe tool validator evidence stop-condition chain changes
 parallel_operation_criteria_matrix,D:\.agents\codex\matrices\PARALLEL_OPERATION_CRITERIA_MATRIX.csv,parallel_agent_operation,00_ROUTER,update when parallel lane criteria owner validator or stop condition changes
 plugin_skill_boundary_matrix,D:\.agents\codex\matrices\PLUGIN_SKILL_BOUNDARY_MATRIX.csv,plugin_skill_boundaries,05_SOPORTE_TECNICO,update when plugin skills are assigned to agents or live boundaries change
 purpose_surface_capability_matrix,D:\.agents\codex\matrices\PURPOSE_SURFACE_CAPABILITY_MATRIX.csv,agent_surface_capabilities,00_ROUTER,update when purpose surface capability or repo reading route changes
