@@ -16,6 +16,7 @@ plugins,D:\.agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv,D:\.agents\codex\tools
 readbacks,D:\.agents\codex\readbacks,D:\.agents\codex\tools\local_validate_agent_layer.ps1,court.seshat_evidence,covered,closeout_without_readback
 recipes,D:\.agents\codex\recipes\RECIPE_INDEX.csv,D:\.agents\codex\tools\local_validate_agent_layer.ps1,court.openai_dispatcher,covered,recipe_index_missing_file
 repo_runtime_alignment,D:/.agents/codex/matrices/REPO_RUNTIME_ALIGNMENT_MATRIX.csv,D:/.agents/codex/tools/local_run_repo_alignment_runtime.ps1,court.openai_dispatcher,covered,repo_without_runtime_alignment
+repo_local_skills,D:/.agents/skills,D:/.agents/codex/tools/local_validate_agent_layer.ps1,court.thot_schema,covered,skill_without_catalog_or_assignment
 secrets,D:\.agents\codex,D:\.agents\codex\tools\local_validate_agent_layer.ps1,rey.frontier_guardian,covered,secret_like_hit
 skills,D:\.agents\codex\skills\SKILL_USAGE_MATRIX.csv,D:\.agents\codex\tools\local_validate_agent_layer.ps1,court.thot_schema,covered,skill_index_missing_file
 source_capability_gaps,D:\.agents\codex\matrices\SOURCE_CAPABILITY_ADOPTION_GAP_MATRIX.csv,D:\.agents\codex\tools\local_validate_agent_layer.ps1,court.thot_schema,covered,source_without_decision_or_gate

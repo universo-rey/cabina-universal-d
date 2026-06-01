@@ -66,6 +66,7 @@ capability_import_state:
   source_inventory: D:/.agents/codex/matrices/CAPABILITY_SOURCE_INVENTORY.csv
   adoption_matrix: D:/.agents/codex/matrices/CAPABILITY_IMPORT_DECISION_MATRIX.csv
   versioned_local_folders:
+    - D:/.agents/skills
     - D:/.agents/codex/agents
     - D:/.agents/codex/skills
     - D:/.agents/codex/recipes
@@ -125,6 +126,8 @@ runtime_alignment_state:
   order_class_capability_matrix: D:/.agents/codex/matrices/ORDER_CLASS_CAPABILITY_MATRIX.csv
   subagent_capability_matrix: D:/.agents/codex/matrices/SUBAGENT_CAPABILITY_ASSIGNMENT_MATRIX.csv
   subskill_usage_matrix: D:/.agents/codex/skills/SUBSKILL_USAGE_MATRIX.csv
+  repo_local_skill_root: D:/.agents/skills
+  skill_governance_catalog: D:/.agents/codex/skills
   subrecipe_index: D:/.agents/codex/recipes/SUBRECIPE_INDEX.csv
   openai_local_design_state: LOCAL_DESIGN_ONLY_API_LIVE_REQUIRES_ORDER
   agents_sdk_local_preflight_state: LOCAL_IMPORT_APPROVED_NO_API_CALL
