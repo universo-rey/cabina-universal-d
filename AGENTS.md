@@ -56,6 +56,12 @@ rama `codex/*`, file set exacto, `lock_key` unico, dependencias y
 `D:\.agents\codex\tools\local_validate_parallel_issue_queue.ps1`. Los indices
 compartidos requieren carril serial de integracion.
 
+Estado merge cola paralela 2026-06-01: el PR raiz #22 fue mergeado a `main`
+con merge commit `38c3bd0439e512504d39b97b8cef41144f545f87`. `main` es la
+base rectora vigente para runtime no mutante, preflight Agents SDK local y
+cola paralela por issue. Los issues #12 y #15 quedan abiertos como carriles de
+entrega, no cerrados por este merge.
+
 Estado cadena operativa global actualizado 2026-06-01: toda accion operativa
 debe declarar y validar agente, skill, receta, tool, evidencia, validador y
 stop condition. Si falta algun componente y no existe `NO_APLICA` justificado,
@@ -111,6 +117,9 @@ Universal del Rey y como repo raiz envoltorio activo:
   con estado `MERGED`;
 - PR raiz prompt UI: `https://github.com/universo-rey/cabina-universal-d/pull/2`
   con estado `MERGED`;
+- PR raiz cola paralela/runtime:
+  `https://github.com/universo-rey/cabina-universal-d/pull/22` con estado
+  `MERGED`;
 - allowlist: solo gobierno, canon, agentes locales, matrices, prompts,
   recetas, tools, evals, plugins, templates, readbacks/workpapers saneados y
   workflows GitHub Actions de validacion, mas skills repo-locales bajo
