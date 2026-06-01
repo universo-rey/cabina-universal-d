@@ -211,6 +211,7 @@
         "rey-modo-gobernador-capacidades",
         "d-drive-agent-layer-enrichment",
         "matrix-recipe-skill-sync",
+        "cabina-naming-analyzer",
         "superpowers:verification-before-completion",
         "parallel-order-governance"
       ],
@@ -281,6 +282,7 @@
         "rey-modo-gobernador-capacidades",
         "repo-agent-tool-governance",
         "governed-readback-closeout",
+        "cabina-agent-md-refactor",
         "superpowers:verification-before-completion",
         "parallel-order-governance"
       ],
@@ -350,6 +352,9 @@
         "github:github",
         "github:yeet",
         "repo-agent-tool-governance",
+        "cabina-commit-work",
+        "cabina-github-actions-templates",
+        "superpowers:using-git-worktrees",
         "superpowers:verification-before-completion",
         "parallel-order-governance"
       ],
@@ -364,6 +369,7 @@
       "default_tools": [
         "tool.git_status_readonly",
         "tool.gh_remote_readonly",
+        "tool.github_versioning_flow",
         "tool.repo_alignment_runtime",
         "tool.workpaper_index_check",
         "tool.local_validate_agent_workpapers",
@@ -423,6 +429,7 @@
         "openai-developers:agents-sdk",
         "tcu-harness-evals-agentes",
         "matrix-recipe-skill-sync",
+        "superpowers:writing-skills",
         "superpowers:verification-before-completion",
         "parallel-order-governance"
       ],
@@ -635,6 +642,8 @@
         "rey-modo-evidencia-riesgo-handoff",
         "governed-readback-closeout",
         "github:yeet",
+        "cabina-session-handoff",
+        "cabina-commit-work",
         "superpowers:verification-before-completion",
         "parallel-order-governance"
       ],
@@ -648,6 +657,7 @@
       ],
       "default_tools": [
         "tool.readback_builder",
+        "tool.github_versioning_flow",
         "tool.local_validate_agent_layer",
         "tool.repo_alignment_runtime",
         "tool.workpaper_index_check",
@@ -777,6 +787,10 @@
         "tcu-harness-evals-agentes",
         "matrix-recipe-skill-sync",
         "d-drive-agent-layer-enrichment",
+        "cabina-naming-analyzer",
+        "cabina-github-actions-templates",
+        "superpowers:systematic-debugging",
+        "superpowers:writing-skills",
         "superpowers:verification-before-completion",
         "parallel-order-governance"
       ],
@@ -989,6 +1003,9 @@
         "rey-modo-auditor-vscode-insiders",
         "operativa-guardian:operativa-guardian-status",
         "matrix-recipe-skill-sync",
+        "cabina-agent-md-refactor",
+        "cabina-github-actions-templates",
+        "superpowers:systematic-debugging",
         "superpowers:verification-before-completion",
         "parallel-order-governance"
       ],

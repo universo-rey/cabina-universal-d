@@ -119,6 +119,13 @@ agente, skill, receta, tool, evidencia, validador y stop condition. Si falta
 un componente y no hay `NO_APLICA` justificado, se detiene con
 `operational_chain_missing`.
 
+Actualizacion skills repo-locales 2026-06-01: la cabina declara
+`D:/.agents/skills` como raiz durable y portable para skills propias del repo
+envoltorio. `D:/.agents/codex/skills` queda como catalogo de gobierno,
+referencias fuente, matriz de uso y subskills. Las instalaciones globales de
+usuario pueden ejecutar skills localmente, pero no sustituyen la fuente durable
+versionada por GitHub.
+
 Reglas vigentes:
 
 - GitHub repo-visible reversible esta habilitado para lectura, validacion, branch, commit, push, PR draft/update, issues, labels, comentarios, GitHub Actions de validacion y readbacks bajo orden gobernada.

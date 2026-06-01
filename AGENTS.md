@@ -45,6 +45,12 @@ debe declarar y validar agente, skill, receta, tool, evidencia, validador y
 stop condition. Si falta algun componente y no existe `NO_APLICA` justificado,
 la ejecucion se detiene con `operational_chain_missing`.
 
+Estado skills repo-locales actualizado 2026-06-01: las skills portables de la
+cabina viven en `D:\.agents\skills\<skill>\SKILL.md`. La carpeta
+`D:\.agents\codex\skills` conserva el catalogo, source refs, matrices de uso y
+subskills. Las instalaciones globales de usuario son runtime local, no fuente
+durable rectora.
+
 ## Prompt maestro para UI Codex
 
 Cuando Codex abra `D:\`, la UI debe tratar esta carpeta como la Cabina
@@ -61,7 +67,8 @@ Universal del Rey y como repo raiz envoltorio activo:
   con estado `MERGED`;
 - allowlist: solo gobierno, canon, agentes locales, matrices, prompts,
   recetas, tools, evals, plugins, templates, readbacks/workpapers saneados y
-  workflows GitHub Actions de validacion;
+  workflows GitHub Actions de validacion, mas skills repo-locales bajo
+  `D:\.agents\skills`;
 - repos anidados: conservar su propio `.git`, remoto, rama y PR;
 - `organizacion`: permanece separado en
   `D:\01_GOVERNANCE_REGISTRY\10_REPOS\02_ACTIVE\organizacion`.

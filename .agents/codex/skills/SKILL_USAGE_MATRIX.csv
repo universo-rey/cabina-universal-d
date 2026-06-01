@@ -1,4 +1,9 @@
 skill_id,source,assigned_level,assigned_agents,use_when,live_boundary
+cabina-agent-md-refactor,d_drive_repo_local,01_AUTORIDAD_Y_GATES|05_SOPORTE_TECNICO,rey.authority_canonist|codex.workspace_guardian,AGENTS.md Codex UI prompt and project instruction refactor without canon drift,local_only
+cabina-commit-work,d_drive_repo_local,02_REGISTRO_Y_CARTOGRAFIA|03_CORTE_EJECUTORA,rey.repo_cartographer|court.seshat_evidence,branch explicit stage commit push and draft PR under cabina governance,github_write_requires_order
+cabina-github-actions-templates,d_drive_repo_local,02_REGISTRO_Y_CARTOGRAFIA|03_CORTE_EJECUTORA|05_SOPORTE_TECNICO,rey.repo_cartographer|court.thot_schema|codex.workspace_guardian,GitHub Actions Copilot issue and PR template governance,github_write_requires_order
+cabina-naming-analyzer,d_drive_repo_local,02_REGISTRO_Y_CARTOGRAFIA|03_CORTE_EJECUTORA,rey.governance_registrar|court.thot_schema,canonical ids aliases names and stop-condition normalization,local_only
+cabina-session-handoff,d_drive_repo_local,03_CORTE_EJECUTORA,court.seshat_evidence,session PR lane and interrupted-task handoff with evidence,local_only
 d-drive-agent-layer-enrichment,d_drive_local,02_REGISTRO_Y_CARTOGRAFIA|03_CORTE_EJECUTORA,rey.governance_registrar|court.thot_schema,D-drive local matrices recipes skills tools enrichment,local_only
 github:github,plugin,02_REGISTRO_Y_CARTOGRAFIA,rey.repo_cartographer,GitHub repo and PR inspection,read_or_write_by_order
 github:yeet,plugin,02_REGISTRO_Y_CARTOGRAFIA|03_CORTE_EJECUTORA,rey.repo_cartographer|court.seshat_evidence,commit push and PR update under order,github_write_requires_order
@@ -16,7 +21,10 @@ sdu-ejecutor-gates,installed_local,01_AUTORIDAD_Y_GATES,court.sdu_gate,SDU gates
 sharepoint:sharepoint,plugin,04_TORRES_DE_UNIVERSO,universe.escribania_tower|universe.modo_on_tower,SharePoint connector guarded use,microsoft_live_requires_order
 sharepoint:sharepoint-site-discovery,plugin,04_TORRES_DE_UNIVERSO,universe.escribania_tower,SharePoint site discovery preparation,microsoft_live_requires_order
 superpowers:dispatching-parallel-agents,plugin,00_ROUTER,rey.control_plane_orchestrator,parallel lane methodology,local_methodology_only
+superpowers:systematic-debugging,plugin,03_CORTE_EJECUTORA|05_SOPORTE_TECNICO,court.thot_schema|codex.workspace_guardian,bug test failure or unexpected behavior triage,local_methodology_only
+superpowers:using-git-worktrees,plugin,02_REGISTRO_Y_CARTOGRAFIA,rey.repo_cartographer,isolated feature worktree planning when explicitly useful and scoped,local_methodology_only
 superpowers:verification-before-completion,plugin,00_ROUTER|01_AUTORIDAD_Y_GATES|02_REGISTRO_Y_CARTOGRAFIA|03_CORTE_EJECUTORA|04_TORRES_DE_UNIVERSO|05_SOPORTE_TECNICO,all_agents,final verification before closeout,local_verification
+superpowers:writing-skills,plugin,03_CORTE_EJECUTORA,court.openai_dispatcher|court.thot_schema,creating editing or verifying skills before adoption,local_methodology_only
 tcu-harness-evals-agentes,installed_local,01_AUTORIDAD_Y_GATES|03_CORTE_EJECUTORA,court.openai_dispatcher|court.sdu_gate|court.thot_schema,synthetic evals and dry-runs,no_api_by_default
 tcu-normalizador-sistema-modo-on,installed_local,04_TORRES_DE_UNIVERSO,universe.modo_on_tower,Modo ON system normalization,local_only
 tcu-planificador-con-archivos,installed_local,02_REGISTRO_Y_CARTOGRAFIA,rey.migration_planner,file-based plans and progress,local_only
