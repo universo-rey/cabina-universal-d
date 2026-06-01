@@ -46,13 +46,15 @@ active_project_repo:
   status: ACTIVE_PROJECT_FOLDER_REMOTE_ASSOCIATED_DRAFT_PR_OPEN
 root_wrapper_repo:
   repo_id: D_CABINA_UNIVERSAL_ROOT
+  repository_full_name: universo-rey/cabina-universal-d
   local_path: D:/
   branch: main
   scope: allowlist_governance_metadata
   absorbs_nested_repos: false
-  remote_url: null
+  remote_url: https://github.com/universo-rey/cabina-universal-d.git
   pull_request: null
-  status: LOCAL_ONLY_NO_REMOTE
+  visibility: private
+  status: PRIVATE_REMOTE_CREATED
 migration_state:
   as_of: 2026-06-01
   active_repos:
@@ -77,6 +79,7 @@ versioning_state:
   root_repo: D_CABINA_UNIVERSAL_ROOT
   root_repo_local_path: D:/
   root_repo_scope: allowlist_governance_metadata
+  root_repo_remote_url: https://github.com/universo-rey/cabina-universal-d.git
   governing_repo: universo-rey/organizacion
   governing_repo_local_path: D:/01_GOVERNANCE_REGISTRY/10_REPOS/02_ACTIVE/organizacion
   registered_file_registry: D:/01_GOVERNANCE_REGISTRY/D_DRIVE_FILE_REGISTRY.csv

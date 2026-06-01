@@ -8,6 +8,8 @@ Por orden expresa del operador, `D:\` puede operar como repo local envoltorio
 para visibilidad nativa de Codex/Git. Este repo no absorbe clones anidados:
 `organizacion` y los demas repos conservan sus propios `.git`.
 
+Remoto privado del repo raiz: `https://github.com/universo-rey/cabina-universal-d`.
+
 Regla de lectura:
 
 1. `00_CONTROL_PLANE_INGRESS` recibe.

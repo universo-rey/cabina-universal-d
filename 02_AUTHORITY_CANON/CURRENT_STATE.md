@@ -9,6 +9,10 @@ inicializado como repo local envoltorio nuevo y separado. Este repo raiz no
 absorbe `organizacion` ni otros clones; `organizacion` conserva su repo y PR
 propios.
 
+Actualizacion remota 2026-06-01: el repo raiz de cabina tiene remoto privado
+separado en `universo-rey/cabina-universal-d`. El repo `universo-rey/organizacion`
+continua como repo rector documental separado y no fue reemplazado.
+
 Reglas vigentes:
 
 - GitHub repo-visible reversible esta habilitado para lectura, validacion, branch, commit, push, PR draft/update, issues, labels, comentarios y readbacks bajo orden gobernada.

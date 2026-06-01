@@ -13,7 +13,8 @@ absorber los repos anidados.
 - Los demas clones bajo `10_REPOS\02_ACTIVE` conservan sus propios repos.
 - El repo raiz usa allowlist: ignora todo por defecto y solo versiona archivos
   rectores seleccionados.
-- No hay remoto configurado todavia.
+- Remoto configurado: `https://github.com/universo-rey/cabina-universal-d.git`.
+- Visibilidad remota: privada.
 - No hay PR de este repo raiz todavia.
 
 ## Bloqueos
@@ -26,5 +27,5 @@ absorber los repos anidados.
 
 ## Proximo carril
 
-Definir owner/nombre del remoto nuevo si se quiere publicar este repo raiz en
-GitHub y abrir PR propio.
+Crear un branch gobernado y PR propio si se quiere revisar cambios futuros
+fuera de `main`.
