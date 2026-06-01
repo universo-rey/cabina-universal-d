@@ -1,0 +1,39 @@
+registry_id: sdu_tools
+status: CANON_REGISTRY_V1
+items:
+  - tool_id: local_python_validator
+    status: REQUESTABLE
+    gate_required: GATE_SDU_PROMPT_INVOCATION_POLICY_PR130
+    live_execution_allowed: false
+  - tool_id: github_cli
+    status: REQUESTABLE
+    gate_required: GITHUB_GOVERNED
+    live_execution_allowed: false
+  - tool_id: openai_api_readonly_inventory
+    status: REQUIRES_GATE
+    gate_required: OPENAI_API_AGENT_REMOTE_AUDIT_REQUIRED
+    live_execution_allowed: false
+  - tool_id: sharepoint_live_write
+    status: REQUIRES_GATE
+    gate_required: SHAREPOINT_LIVE_WRITE_GATE_REQUIRED
+    live_execution_allowed: false
+  - tool_id: power_automate_live_execution
+    status: REQUIRES_GATE
+    gate_required: POWER_AUTOMATE_LIVE_GATE_REQUIRED
+    live_execution_allowed: false
+  - tool_id: dataverse_mvp_dependency
+    status: REQUIRES_GATE
+    gate_required: DATAVERSE_REQUIRES_GATE_AFTER_SHAREPOINT_LISTS_FIRST
+    live_execution_allowed: false
+  - tool_id: microsoft_graph_operation
+    status: REQUIRES_GATE
+    gate_required: MICROSOFT_GRAPH_REQUIRES_GATE
+    live_execution_allowed: false
+  - tool_id: microsoft_tenant_live_data
+    status: REQUIRES_GATE
+    gate_required: TENANT_LIVE_DATA_ALLOWED_BY_GATE
+    live_execution_allowed: false
+  - tool_id: production_deploy
+    status: BLOCKED
+    gate_required: PRODUCTION_GATE_REQUIRED
+    live_execution_allowed: false

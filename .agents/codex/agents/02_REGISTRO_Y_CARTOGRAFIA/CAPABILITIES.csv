@@ -1,0 +1,5 @@
+capability_id,agent_id,description,reads,writes,stop_condition
+cap.registry.normalize,rey.governance_registrar,normalizar universos owners y activos,D:\01_GOVERNANCE_REGISTRY,D:\01_GOVERNANCE_REGISTRY,owner_conflict
+cap.repo.map,rey.repo_cartographer,mapear repos ramas remotos y clones,D:\01_GOVERNANCE_REGISTRY\REPOSITORIES.csv,D:\.agents\codex\readbacks,unknown_remote
+cap.migration.plan,rey.migration_planner,preparar migracion sin mover archivos,D:\01_GOVERNANCE_REGISTRY\MIGRATION_MAP_D.csv,D:\.agents\codex\orders,dirty_worktree
+cap.hierarchy.assign,rey.governance_registrar,asignar jerarquia universo torre repo,D:\.agents\codex\maps\READING_MAP.csv,D:\.agents\codex\readbacks,universe_assignment_unclear

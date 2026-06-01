@@ -1,0 +1,15 @@
+registry_id: sdu_skills
+status: CANON_REGISTRY_V1
+items:
+  - skill_id: skill_agent_registry_governance
+    source: 06_SKILLS_RECETAS_PLUGINS/indexes/SKILLS_INDEX.csv
+    live_execution_allowed: false
+  - skill_id: skill_no_dump_live_reading
+    source: 06_SKILLS_RECETAS_PLUGINS/indexes/SKILLS_INDEX.csv
+    live_execution_allowed: false
+  - skill_id: skill_human_selection_gate
+    source: 06_SKILLS_RECETAS_PLUGINS/indexes/SKILLS_INDEX.csv
+    live_execution_allowed: false
+  - skill_id: skill_dummy_circuit_before_live
+    source: 06_SKILLS_RECETAS_PLUGINS/indexes/SKILLS_INDEX.csv
+    live_execution_allowed: false

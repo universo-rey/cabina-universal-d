@@ -1,0 +1,6 @@
+step,required_path,reason
+1,D:\.agents\codex\agents\03_CORTE_EJECUTORA\README.md,alcance del subnivel
+2,D:\.agents\codex\recipes\RECIPE_INDEX.csv,receta seleccionada
+3,D:\.agents\codex\tools\TOOL_INDEX.csv,tool permitido
+4,D:\.agents\codex\evals\AGENT_SUBLEVEL_EVAL_MATRIX.csv,eval sintetico si aplica
+5,selected_agent_profile,perfil asignado

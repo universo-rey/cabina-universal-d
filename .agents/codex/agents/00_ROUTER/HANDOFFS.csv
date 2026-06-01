@@ -1,0 +1,6 @@
+condition,target_level,target_agent,required_payload
+live_cost_secret_or_tenant,01_AUTORIDAD_Y_GATES,rey.frontier_guardian,surface|identity|risk|requested_action
+repo_clone_or_migration,02_REGISTRO_Y_CARTOGRAFIA,rey.repo_cartographer,path|remote|dirty_status
+openai_prompt_eval_agent,03_CORTE_EJECUTORA,court.openai_dispatcher,prompt_goal|data_policy|expected_json
+universe_or_tower,04_TORRES_DE_UNIVERSO,universe.escribania_tower,universe|surface|owner
+workspace_or_reference,05_SOPORTE_TECNICO,codex.workspace_guardian,path|tool|observed_behavior

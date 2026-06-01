@@ -12,7 +12,8 @@ authority_model:
 frontier:
   filesystem: local_draft_only
   git_versioning: local_root_wrapper_active
-  remote_write: false
+  github_base_work: required_for_all_repos
+  remote_write: governed_github_only
   microsoft_live: governed_requires_order
   openai_api_live: false
   production: requires_explicit_authorization
@@ -48,13 +49,72 @@ root_wrapper_repo:
   repo_id: D_CABINA_UNIVERSAL_ROOT
   repository_full_name: universo-rey/cabina-universal-d
   local_path: D:/
-  branch: main
+  branch: codex/d-root-ui-visibility-20260601
   scope: allowlist_governance_metadata
   absorbs_nested_repos: false
   remote_url: https://github.com/universo-rey/cabina-universal-d.git
-  pull_request: null
+  pull_request: https://github.com/universo-rey/cabina-universal-d/pull/1
   visibility: private
-  status: PRIVATE_REMOTE_CREATED
+  status: PRIVATE_REMOTE_DRAFT_PR_OPEN_CAPABILITY_IMPORT_LOCAL
+capability_import_state:
+  as_of: 2026-06-01
+  mode: local_declarative_copy_adapt
+  source_inventory: D:/.agents/codex/matrices/CAPABILITY_SOURCE_INVENTORY.csv
+  adoption_matrix: D:/.agents/codex/matrices/CAPABILITY_IMPORT_DECISION_MATRIX.csv
+  versioned_local_folders:
+    - D:/.agents/codex/agents
+    - D:/.agents/codex/skills
+    - D:/.agents/codex/recipes
+    - D:/.agents/codex/tools
+    - D:/.agents/codex/evals
+    - D:/.agents/codex/plugins
+    - D:/.agents/codex/templates
+  blocked:
+    - moving_nested_repos
+    - live_microsoft_write
+    - openai_api_live
+    - production
+    - secrets
+github_base_work_state:
+  as_of: 2026-06-01
+  status: GITHUB_BASE_WORK_DECLARED_LOCAL_DRAFT
+  root_remote_base: https://github.com/universo-rey/cabina-universal-d.git
+  root_pull_request: https://github.com/universo-rey/cabina-universal-d/pull/1
+  policy: D:/02_AUTHORITY_CANON/GITHUB_BASE_WORK_POLICY.md
+  repo_matrix: D:/01_GOVERNANCE_REGISTRY/GITHUB_BASE_WORK_MATRIX.csv
+  rule: all_durable_repo_work_must_route_through_github_branch_commit_push_pr
+  root_repo_absorbs_nested_repos: false
+  nested_repos_keep_own_remotes: true
+  blocked_without_separate_order:
+    - force_push
+    - merge
+    - remote_branch_delete
+    - permission_change
+    - visibility_change
+    - production
+    - microsoft_live
+    - openai_api_live
+    - secrets
+runtime_alignment_state:
+  as_of: 2026-06-01
+  status: LOCAL_SYNTHETIC_ALIGNMENT_ACTIVE
+  runtime_mode: LOCAL_SYNTHETIC_ALIGNMENT_ONLY
+  default_skill_matrix: D:/.agents/codex/matrices/AGENT_DEFAULT_SKILL_ASSIGNMENT_MATRIX.csv
+  repo_runtime_matrix: D:/.agents/codex/matrices/REPO_RUNTIME_ALIGNMENT_MATRIX.csv
+  runtime_status_matrix: D:/.agents/codex/matrices/RUNTIME_ALIGNMENT_STATUS_MATRIX.csv
+  runtime_tool: D:/.agents/codex/tools/local_run_repo_alignment_runtime.ps1
+  latest_result: D:/.agents/codex/evals/results/repo_alignment_runtime_latest.json
+  agents_aligned: 14
+  repos_aligned: 12
+  blocked:
+    - openai_api_live
+    - microsoft_live
+    - production
+    - permissions
+    - secrets
+    - force_push
+    - merge
+    - remote_agent_persistence
 migration_state:
   as_of: 2026-06-01
   active_repos:

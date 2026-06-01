@@ -1,0 +1,5 @@
+condition,target_level,target_agent,required_payload
+api_live_or_persistent_agent_needed,01_AUTORIDAD_Y_GATES,rey.frontier_guardian,api_surface|cost|secret_boundary|approval_text
+registry_or_owner_gap,02_REGISTRO_Y_CARTOGRAFIA,rey.governance_registrar,asset|owner|surface
+universe_specific_execution,04_TORRES_DE_UNIVERSO,universe.escribania_tower,universe|surface|order
+workspace_tool_gap,05_SOPORTE_TECNICO,codex.workspace_guardian,tool|path|gap

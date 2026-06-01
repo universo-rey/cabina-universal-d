@@ -21,7 +21,9 @@
       "rollback",
       "stop_condition",
       "proximos_carriles"
-    ]
+    ],
+    "runtime_alignment_mode": "LOCAL_SYNTHETIC_ALIGNMENT_ONLY",
+    "default_skills_required": true
   },
   "agents": [
     {
@@ -67,7 +69,28 @@
       ],
       "level_id": "00_ROUTER",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.control_plane_orchestrator"
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.control_plane_orchestrator",
+      "default_skills": [
+        "rey-modo-gobernador-capacidades",
+        "superpowers:dispatching-parallel-agents",
+        "superpowers:verification-before-completion"
+      ],
+      "default_recipes": [
+        "recipe.router_intake_classification",
+        "recipe.repo_universe_alignment_runtime",
+        "recipe.agent_workpaper_operation"
+      ],
+      "default_tools": [
+        "tool.local_inventory",
+        "tool.repo_alignment_runtime",
+        "tool.routing_readback",
+        "tool.workpaper_index_check",
+        "tool.local_validate_agent_workpapers"
+      ],
+      "default_plugins": [
+        "Superpowers"
+      ],
+      "runtime_alignment_mode": "local_only"
     },
     {
       "id": "rey.frontier_guardian",
@@ -108,7 +131,29 @@
       ],
       "level_id": "01_AUTORIDAD_Y_GATES",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.frontier_guardian"
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.frontier_guardian",
+      "default_skills": [
+        "rey-modo-gobernador-capacidades",
+        "repo-agent-tool-governance",
+        "governed-readback-closeout",
+        "superpowers:verification-before-completion"
+      ],
+      "default_recipes": [
+        "recipe.gate_decision_packet",
+        "recipe.repo_agent_tool_governance",
+        "recipe.agent_workpaper_operation"
+      ],
+      "default_tools": [
+        "tool.boundary_check",
+        "tool.secret_scan",
+        "tool.stop_condition_check",
+        "tool.workpaper_index_check",
+        "tool.local_validate_agent_workpapers"
+      ],
+      "default_plugins": [
+        "Superpowers"
+      ],
+      "runtime_alignment_mode": "local_only"
     },
     {
       "id": "rey.governance_registrar",
@@ -149,7 +194,30 @@
       ],
       "level_id": "02_REGISTRO_Y_CARTOGRAFIA",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.governance_registrar"
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.governance_registrar",
+      "default_skills": [
+        "rey-modo-gobernador-capacidades",
+        "d-drive-agent-layer-enrichment",
+        "matrix-recipe-skill-sync",
+        "superpowers:verification-before-completion"
+      ],
+      "default_recipes": [
+        "recipe.registry_enrichment",
+        "recipe.d_drive_agent_layer_enrichment",
+        "recipe.repo_universe_alignment_runtime",
+        "recipe.agent_workpaper_operation"
+      ],
+      "default_tools": [
+        "tool.csv_registry_check",
+        "tool.repo_alignment_runtime",
+        "tool.local_validate_agent_layer",
+        "tool.workpaper_index_check",
+        "tool.local_validate_agent_workpapers"
+      ],
+      "default_plugins": [
+        "Superpowers"
+      ],
+      "runtime_alignment_mode": "local_only"
     },
     {
       "id": "rey.authority_canonist",
@@ -190,7 +258,29 @@
       ],
       "level_id": "01_AUTORIDAD_Y_GATES",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.authority_canonist"
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.authority_canonist",
+      "default_skills": [
+        "rey-modo-gobernador-capacidades",
+        "repo-agent-tool-governance",
+        "governed-readback-closeout",
+        "superpowers:verification-before-completion"
+      ],
+      "default_recipes": [
+        "recipe.gate_decision_packet",
+        "recipe.repo_agent_tool_governance",
+        "recipe.agent_workpaper_operation"
+      ],
+      "default_tools": [
+        "tool.canon_index_check",
+        "tool.stop_condition_check",
+        "tool.local_validate_agent_layer",
+        "tool.workpaper_index_check",
+        "tool.local_validate_agent_workpapers"
+      ],
+      "default_plugins": [
+        "Superpowers"
+      ],
+      "runtime_alignment_mode": "local_only"
     },
     {
       "id": "rey.repo_cartographer",
@@ -231,7 +321,30 @@
       ],
       "level_id": "02_REGISTRO_Y_CARTOGRAFIA",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.repo_cartographer"
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.repo_cartographer",
+      "default_skills": [
+        "github:github",
+        "github:yeet",
+        "repo-agent-tool-governance",
+        "superpowers:verification-before-completion"
+      ],
+      "default_recipes": [
+        "recipe.registry_enrichment",
+        "recipe.repo_universe_alignment_runtime",
+        "recipe.agent_workpaper_operation"
+      ],
+      "default_tools": [
+        "tool.git_status_readonly",
+        "tool.gh_remote_readonly",
+        "tool.repo_alignment_runtime",
+        "tool.workpaper_index_check",
+        "tool.local_validate_agent_workpapers"
+      ],
+      "default_plugins": [
+        "Superpowers",
+        "GitHub"
+      ],
+      "runtime_alignment_mode": "github_read_write_governed"
     },
     {
       "id": "court.openai_dispatcher",
@@ -275,7 +388,29 @@
       ],
       "level_id": "03_CORTE_EJECUTORA",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.openai_dispatcher"
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.openai_dispatcher",
+      "default_skills": [
+        "openai-developers:agents-sdk",
+        "tcu-harness-evals-agentes",
+        "matrix-recipe-skill-sync",
+        "superpowers:verification-before-completion"
+      ],
+      "default_recipes": [
+        "recipe.openai_prompt_pack_json_short",
+        "recipe.repo_universe_alignment_runtime",
+        "recipe.agent_workpaper_operation"
+      ],
+      "default_tools": [
+        "tool.synthetic_eval_manifest",
+        "tool.repo_alignment_runtime",
+        "tool.workpaper_index_check",
+        "tool.local_validate_agent_workpapers"
+      ],
+      "default_plugins": [
+        "Superpowers",
+        "OpenAI Developers"
+      ],
+      "runtime_alignment_mode": "local_only_until_order"
     },
     {
       "id": "universe.escribania_tower",
@@ -316,7 +451,31 @@
       ],
       "level_id": "04_TORRES_DE_UNIVERSO",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\universe.escribania_tower"
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\universe.escribania_tower",
+      "default_skills": [
+        "sharepoint:sharepoint-site-discovery",
+        "sharepoint:sharepoint",
+        "rey-modo-gobernador-capacidades",
+        "governed-readback-closeout",
+        "superpowers:verification-before-completion"
+      ],
+      "default_recipes": [
+        "recipe.universe_tower_handoff",
+        "recipe.agent_surface_capability_assignment",
+        "recipe.agent_workpaper_operation"
+      ],
+      "default_tools": [
+        "tool.surface_order_builder",
+        "tool.repo_alignment_runtime",
+        "tool.workpaper_index_check",
+        "tool.local_validate_agent_workpapers"
+      ],
+      "default_plugins": [
+        "Superpowers",
+        "SharePoint",
+        "GitHub"
+      ],
+      "runtime_alignment_mode": "local_only_until_order"
     },
     {
       "id": "universe.modo_on_tower",
@@ -356,7 +515,32 @@
       ],
       "level_id": "04_TORRES_DE_UNIVERSO",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\universe.modo_on_tower"
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\universe.modo_on_tower",
+      "default_skills": [
+        "tcu-normalizador-sistema-modo-on",
+        "sharepoint:sharepoint",
+        "rey-modo-gobernador-capacidades",
+        "governed-readback-closeout",
+        "superpowers:verification-before-completion"
+      ],
+      "default_recipes": [
+        "recipe.universe_tower_handoff",
+        "recipe.agent_surface_capability_assignment",
+        "recipe.agent_workpaper_operation"
+      ],
+      "default_tools": [
+        "tool.provider_boundary_check",
+        "tool.surface_order_builder",
+        "tool.repo_alignment_runtime",
+        "tool.workpaper_index_check",
+        "tool.local_validate_agent_workpapers"
+      ],
+      "default_plugins": [
+        "Superpowers",
+        "SharePoint",
+        "GitHub"
+      ],
+      "runtime_alignment_mode": "local_only_until_order"
     },
     {
       "id": "court.seshat_evidence",
@@ -398,7 +582,31 @@
       ],
       "level_id": "03_CORTE_EJECUTORA",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.seshat_evidence"
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.seshat_evidence",
+      "default_skills": [
+        "rey-modo-evidencia-riesgo-handoff",
+        "governed-readback-closeout",
+        "github:yeet",
+        "superpowers:verification-before-completion"
+      ],
+      "default_recipes": [
+        "recipe.evidence_acta_closeout",
+        "recipe.governed_readback_closeout",
+        "recipe.agent_workpaper_operation"
+      ],
+      "default_tools": [
+        "tool.readback_builder",
+        "tool.local_validate_agent_layer",
+        "tool.repo_alignment_runtime",
+        "tool.workpaper_index_check",
+        "tool.local_validate_agent_workpapers"
+      ],
+      "default_plugins": [
+        "Superpowers",
+        "GitHub",
+        "SharePoint"
+      ],
+      "runtime_alignment_mode": "local_only_until_order"
     },
     {
       "id": "court.sdu_gate",
@@ -440,7 +648,30 @@
       ],
       "level_id": "01_AUTORIDAD_Y_GATES",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.sdu_gate"
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.sdu_gate",
+      "default_skills": [
+        "tcu-harness-evals-agentes",
+        "sdu-ejecutor-gates",
+        "repo-agent-tool-governance",
+        "superpowers:verification-before-completion"
+      ],
+      "default_recipes": [
+        "recipe.gate_decision_packet",
+        "recipe.sharepoint_complete_read_order",
+        "recipe.agent_workpaper_operation"
+      ],
+      "default_tools": [
+        "tool.stop_condition_check",
+        "tool.boundary_check",
+        "tool.repo_alignment_runtime",
+        "tool.workpaper_index_check",
+        "tool.local_validate_agent_workpapers"
+      ],
+      "default_plugins": [
+        "Superpowers",
+        "SharePoint"
+      ],
+      "runtime_alignment_mode": "local_only_until_order"
     },
     {
       "id": "court.thot_schema",
@@ -481,7 +712,31 @@
       ],
       "level_id": "03_CORTE_EJECUTORA",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.thot_schema"
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.thot_schema",
+      "default_skills": [
+        "tcu-harness-evals-agentes",
+        "matrix-recipe-skill-sync",
+        "d-drive-agent-layer-enrichment",
+        "superpowers:verification-before-completion"
+      ],
+      "default_recipes": [
+        "recipe.schema_tool_contract",
+        "recipe.matrix_recipe_skill_sync",
+        "recipe.repo_universe_alignment_runtime",
+        "recipe.agent_workpaper_operation"
+      ],
+      "default_tools": [
+        "tool.local_validate_agent_levels",
+        "tool.local_validate_agent_layer",
+        "tool.repo_alignment_runtime",
+        "tool.workpaper_index_check",
+        "tool.local_validate_agent_workpapers"
+      ],
+      "default_plugins": [
+        "Superpowers",
+        "OpenAI Developers"
+      ],
+      "runtime_alignment_mode": "local_only"
     },
     {
       "id": "rey.migration_planner",
@@ -525,7 +780,29 @@
       ],
       "level_id": "02_REGISTRO_Y_CARTOGRAFIA",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.migration_planner"
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.migration_planner",
+      "default_skills": [
+        "tcu-planificador-con-archivos",
+        "rey-modo-gobernador-capacidades",
+        "superpowers:verification-before-completion"
+      ],
+      "default_recipes": [
+        "recipe.migration_preflight",
+        "recipe.registry_enrichment",
+        "recipe.agent_workpaper_operation"
+      ],
+      "default_tools": [
+        "tool.path_conflict_check",
+        "tool.git_status_readonly",
+        "tool.repo_alignment_runtime",
+        "tool.workpaper_index_check",
+        "tool.local_validate_agent_workpapers"
+      ],
+      "default_plugins": [
+        "Superpowers",
+        "GitHub"
+      ],
+      "runtime_alignment_mode": "local_only"
     },
     {
       "id": "tech.reference_librarian",
@@ -565,7 +842,30 @@
       ],
       "level_id": "05_SOPORTE_TECNICO",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\tech.reference_librarian"
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\tech.reference_librarian",
+      "default_skills": [
+        "rey-modo-gobernador-capacidades",
+        "openai-docs",
+        "matrix-recipe-skill-sync",
+        "superpowers:verification-before-completion"
+      ],
+      "default_recipes": [
+        "recipe.workspace_reference_audit",
+        "recipe.matrix_recipe_skill_sync",
+        "recipe.agent_workpaper_operation"
+      ],
+      "default_tools": [
+        "tool.reference_classifier",
+        "tool.plugin_registry_check",
+        "tool.repo_alignment_runtime",
+        "tool.workpaper_index_check",
+        "tool.local_validate_agent_workpapers"
+      ],
+      "default_plugins": [
+        "Superpowers",
+        "OpenAI Developers"
+      ],
+      "runtime_alignment_mode": "local_only"
     },
     {
       "id": "codex.workspace_guardian",
@@ -606,7 +906,31 @@
       ],
       "level_id": "05_SOPORTE_TECNICO",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\codex.workspace_guardian"
+      "workpapers_path": "D:\\.agents\\codex\\workpapers\\codex.workspace_guardian",
+      "default_skills": [
+        "rey-modo-auditor-vscode-insiders",
+        "operativa-guardian:operativa-guardian-status",
+        "matrix-recipe-skill-sync",
+        "superpowers:verification-before-completion"
+      ],
+      "default_recipes": [
+        "recipe.workspace_reference_audit",
+        "recipe.repo_universe_alignment_runtime",
+        "recipe.agent_workpaper_operation"
+      ],
+      "default_tools": [
+        "tool.codex_workspace_audit",
+        "tool.plugin_registry_check",
+        "tool.repo_alignment_runtime",
+        "tool.workpaper_index_check",
+        "tool.local_validate_agent_workpapers"
+      ],
+      "default_plugins": [
+        "Superpowers",
+        "Operativa Guardian",
+        "GitHub"
+      ],
+      "runtime_alignment_mode": "local_only"
     }
   ],
   "agent_levels": [

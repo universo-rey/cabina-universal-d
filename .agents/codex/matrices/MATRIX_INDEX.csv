@@ -1,31 +1,48 @@
-"matrix_id","path","scope","primary_reader","update_rule"
-"agent_index","D:\.agents\codex\AGENTS_INDEX.csv","all_agents","00_ROUTER","update when an agent profile or level changes"
-"capability_matrix","D:\.agents\codex\matrices\CAPABILITY_MATRIX.csv","capabilities","00_ROUTER","update when a capability is added or reassigned"
-"tool_recipe_skill_matrix","D:\.agents\codex\matrices\AGENT_TOOL_RECIPE_SKILL_MATRIX.csv","execution_contracts","00_ROUTER","update when tools recipes or skills change"
-"evidence_validation_matrix","D:\.agents\codex\matrices\EVIDENCE_AND_VALIDATION_MATRIX.csv","closeout","03_CORTE_EJECUTORA","update when validators or readbacks change"
-"sublevel_capacity_matrix","D:\.agents\codex\matrices\SUBLEVEL_CAPACITY_MATRIX.csv","sublevels","00_ROUTER","update when level capacity changes"
-"surface_boundary_map","D:\.agents\codex\maps\SURFACE_BOUNDARY_MAP.csv","boundaries","01_AUTORIDAD_Y_GATES","update when a surface policy changes"
-"handoff_map","D:\.agents\codex\maps\HANDOFF_MAP.csv","handoffs","00_ROUTER","update when routing changes"
-"reading_map","D:\.agents\codex\maps\READING_MAP.csv","reading_policy","00_ROUTER","update when required reads change"
-"source_tcu_skills_index","D:\.agents\codex\skills\SOURCE_TCU_SKILLS_INDEX.csv","source_registry","00_ROUTER","copied from TCU_CONTROL_PLANE; refresh by copy-adapt only"
-"source_tcu_recipes_index","D:\.agents\codex\recipes\SOURCE_TCU_RECIPES_INDEX.csv","source_registry","00_ROUTER","copied from TCU_CONTROL_PLANE; refresh by copy-adapt only"
-"source_tcu_tools_index","D:\.agents\codex\tools\SOURCE_TCU_TOOLS_INDEX.csv","source_registry","05_SOPORTE_TECNICO","copied from TCU_CONTROL_PLANE; refresh by copy-adapt only"
-"source_tcu_tool_permissions_index","D:\.agents\codex\tools\SOURCE_TCU_TOOL_PERMISSIONS_INDEX.csv","source_permissions","01_AUTORIDAD_Y_GATES","copied from TCU_CONTROL_PLANE; refresh by copy-adapt only"
-"source_tcu_tool_surface_matrix","D:\.agents\codex\maps\SOURCE_TCU_TOOL_SURFACE_MATRIX.csv","source_boundaries","01_AUTORIDAD_Y_GATES","copied from TCU_CONTROL_PLANE; refresh by copy-adapt only"
-"source_tcu_agent_command_matrix","D:\.agents\codex\agents\SOURCE_TCU_SDU_REPO_AGENT_COMMAND_MATRIX_CURRENT.csv","source_agents","03_CORTE_EJECUTORA","copied from TCU_CONTROL_PLANE; refresh by copy-adapt only"
-"source_tge_runtime_adapter_eval_matrix","D:\.agents\codex\evals\SOURCE_TGE_RUNTIME_tge_sdu_cn_court_order_adapter_alignment_matrix.csv","source_evals","03_CORTE_EJECUTORA","copied from TGE_RUNTIME; refresh by copy-adapt only"
-"d_drive_enrichment_matrix","D:\.agents\codex\matrices\D_DRIVE_ENRICHMENT_MATRIX.csv","enrichment_lanes","02_REGISTRO_Y_CARTOGRAFIA","update when D-drive enrichment lanes change"
-"local_skill_catalog","D:\.agents\codex\matrices\LOCAL_SKILL_CATALOG.csv","local_skills","03_CORTE_EJECUTORA","update when local or installed skill assignments change"
-"validation_coverage_matrix","D:\.agents\codex\matrices\VALIDATION_COVERAGE_MATRIX.csv","validators","03_CORTE_EJECUTORA","update when validation coverage changes"
-"repo_agent_tool_governance_matrix","D:\.agents\codex\matrices\REPO_AGENT_TOOL_GOVERNANCE_MATRIX.csv","governance_contract","01_AUTORIDAD_Y_GATES","update when governed asset classes change"
-"repo_governance_assignment_matrix","D:\.agents\codex\matrices\REPO_GOVERNANCE_ASSIGNMENT_MATRIX.csv","repo_governance","02_REGISTRO_Y_CARTOGRAFIA","update when repo ownership or surfaces change"
-"agent_governance_matrix","D:\.agents\codex\matrices\AGENT_GOVERNANCE_MATRIX.csv","agent_governance","01_AUTORIDAD_Y_GATES","update when agent authority changes"
-"tool_governance_matrix","D:\.agents\codex\matrices\TOOL_GOVERNANCE_MATRIX.csv","tool_governance","05_SOPORTE_TECNICO","update when tools or surfaces change"
-"governed_asset_canonical_inventory","D:\.agents\codex\matrices\GOVERNED_ASSET_CANONICAL_INVENTORY.csv","canonical_inventory","00_ROUTER","regenerate when repo agent or tool governance changes"
-"stop_condition_glossary","D:\.agents\codex\matrices\STOP_CONDITION_GLOSSARY.csv","stop_conditions","01_AUTORIDAD_Y_GATES","update when stop condition vocabulary changes"
-"coverage_exception_registry","D:\.agents\codex\matrices\COVERAGE_EXCEPTION_REGISTRY.csv","coverage_exceptions","03_CORTE_EJECUTORA","update when any asset is intentionally uncovered or deferred"
-"canonical_index_lineage_audit","D:\.agents\codex\matrices\CANONICAL_INDEX_LINEAGE_AUDIT.csv","lineage","02_REGISTRO_Y_CARTOGRAFIA","update when generated or derived governance artifacts change"
-"agent_workpapers_matrix","D:\.agents\codex\matrices\AGENT_WORKPAPERS_MATRIX.csv","agent_workpapers","03_CORTE_EJECUTORA","update when any agent workpaper path or validator changes"
-"plugin_usage_matrix","D:\.agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv","plugins","05_SOPORTE_TECNICO","update when plugin availability or live boundary changes"
-"purpose_surface_capability_matrix","D:\.agents\codex\matrices\PURPOSE_SURFACE_CAPABILITY_MATRIX.csv","agent_surface_capabilities","00_ROUTER","update when purpose surface capability or repo reading route changes"
-"workpaper_index","D:\.agents\codex\workpapers\WORKPAPER_INDEX.csv","agent_workpapers","03_CORTE_EJECUTORA","update when workpaper folder ownership changes"
+matrix_id,path,scope,primary_reader,update_rule
+agent_default_skill_assignment_matrix,D:/.agents/codex/matrices/AGENT_DEFAULT_SKILL_ASSIGNMENT_MATRIX.csv,agent_default_skills,00_ROUTER,update when default skills recipes tools or plugins are reassigned by agent purpose
+agent_governance_matrix,D:\.agents\codex\matrices\AGENT_GOVERNANCE_MATRIX.csv,agent_governance,01_AUTORIDAD_Y_GATES,update when agent authority changes
+agent_index,D:\.agents\codex\AGENTS_INDEX.csv,all_agents,00_ROUTER,update when an agent profile or level changes
+agent_workpapers_matrix,D:\.agents\codex\matrices\AGENT_WORKPAPERS_MATRIX.csv,agent_workpapers,03_CORTE_EJECUTORA,update when any agent workpaper path or validator changes
+canonical_index_lineage_audit,D:\.agents\codex\matrices\CANONICAL_INDEX_LINEAGE_AUDIT.csv,lineage,02_REGISTRO_Y_CARTOGRAFIA,update when generated or derived governance artifacts change
+capability_import_decision_matrix,D:\.agents\codex\matrices\CAPABILITY_IMPORT_DECISION_MATRIX.csv,capability_adoption,02_REGISTRO_Y_CARTOGRAFIA,update when a source capability is copied adapted adopted or deferred
+capability_matrix,D:\.agents\codex\matrices\CAPABILITY_MATRIX.csv,capabilities,00_ROUTER,update when a capability is added or reassigned
+capability_source_inventory,D:\.agents\codex\matrices\CAPABILITY_SOURCE_INVENTORY.csv,capability_sources,02_REGISTRO_Y_CARTOGRAFIA,update when a source repo capability artifact is inventoried or copied
+coverage_exception_registry,D:\.agents\codex\matrices\COVERAGE_EXCEPTION_REGISTRY.csv,coverage_exceptions,03_CORTE_EJECUTORA,update when any asset is intentionally uncovered or deferred
+d_drive_enrichment_matrix,D:\.agents\codex\matrices\D_DRIVE_ENRICHMENT_MATRIX.csv,enrichment_lanes,02_REGISTRO_Y_CARTOGRAFIA,update when D-drive enrichment lanes change
+evidence_validation_matrix,D:\.agents\codex\matrices\EVIDENCE_AND_VALIDATION_MATRIX.csv,closeout,03_CORTE_EJECUTORA,update when validators or readbacks change
+governed_asset_canonical_inventory,D:\.agents\codex\matrices\GOVERNED_ASSET_CANONICAL_INVENTORY.csv,canonical_inventory,00_ROUTER,regenerate when repo agent or tool governance changes
+handoff_map,D:\.agents\codex\maps\HANDOFF_MAP.csv,handoffs,00_ROUTER,update when routing changes
+local_skill_catalog,D:\.agents\codex\matrices\LOCAL_SKILL_CATALOG.csv,local_skills,03_CORTE_EJECUTORA,update when local or installed skill assignments change
+plugin_usage_matrix,D:\.agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv,plugins,05_SOPORTE_TECNICO,update when plugin availability or live boundary changes
+purpose_surface_capability_matrix,D:\.agents\codex\matrices\PURPOSE_SURFACE_CAPABILITY_MATRIX.csv,agent_surface_capabilities,00_ROUTER,update when purpose surface capability or repo reading route changes
+reading_map,D:\.agents\codex\maps\READING_MAP.csv,reading_policy,00_ROUTER,update when required reads change
+repo_agent_tool_governance_matrix,D:\.agents\codex\matrices\REPO_AGENT_TOOL_GOVERNANCE_MATRIX.csv,governance_contract,01_AUTORIDAD_Y_GATES,update when governed asset classes change
+repo_governance_assignment_matrix,D:\.agents\codex\matrices\REPO_GOVERNANCE_ASSIGNMENT_MATRIX.csv,repo_governance,02_REGISTRO_Y_CARTOGRAFIA,update when repo ownership or surfaces change
+repo_runtime_alignment_matrix,D:/.agents/codex/matrices/REPO_RUNTIME_ALIGNMENT_MATRIX.csv,repo_runtime_alignment,03_CORTE_EJECUTORA,update when repo runtime owner default skills or blocked surfaces change
+runtime_alignment_status_matrix,D:/.agents/codex/matrices/RUNTIME_ALIGNMENT_STATUS_MATRIX.csv,runtime_alignment_status,03_CORTE_EJECUTORA,update after local_run_repo_alignment_runtime.ps1 executes
+source_cdf_agent_runtime_recipes_skills_alignment_matrix,D:\.agents\codex\matrices\SOURCE_CDF_AGENT_RUNTIME_RECIPES_SKILLS_ALIGNMENT_MATRIX.csv,source_capabilities,04_TORRES_DE_UNIVERSO,copied from CDF_SOLUCIONES; refresh by copy-adapt only
+source_cdf_agent_skill_recipe_tool_plugin_matrix,D:\.agents\codex\matrices\SOURCE_CDF_AGENT_SKILL_RECIPE_TOOL_PLUGIN_MATRIX.csv,source_capabilities,04_TORRES_DE_UNIVERSO,copied from CDF_SOLUCIONES; refresh by copy-adapt only
+source_cdf_agent_teams,D:\.agents\codex\agents\SOURCE_CDF_AGENT_TEAMS.md,source_agents,04_TORRES_DE_UNIVERSO,copied from CDF_SOLUCIONES; refresh by copy-adapt only
+source_cdf_agent_version_registry,D:\.agents\codex\agents\SOURCE_CDF_AGENT_VERSION_REGISTRY.csv,source_agents,04_TORRES_DE_UNIVERSO,copied from CDF_SOLUCIONES; refresh by copy-adapt only
+source_cdf_sharepoint_plugin_skill_adoption_matrix,D:\.agents\codex\matrices\SOURCE_CDF_SHAREPOINT_PLUGIN_SKILL_ADOPTION_MATRIX.csv,source_capabilities,05_SOPORTE_TECNICO,copied from CDF_SOLUCIONES; refresh by copy-adapt only
+source_modo_on_foundation_agent_registry,D:\.agents\codex\agents\SOURCE_MODO_ON_FOUNDATION_agent_registry.yaml,source_agents,04_TORRES_DE_UNIVERSO,copied from MODO_ON_FOUNDATION; refresh by copy-adapt only
+source_organizacion_registry_agents,D:\.agents\codex\agents\SOURCE_ORGANIZACION_registry.agents.yml,source_agents,00_ROUTER,copied from ORGANIZACION; refresh by copy-adapt only
+source_seshat_bootstrap_sdu_cn_agent_registry,D:\.agents\codex\agents\SOURCE_SESHAT_BOOTSTRAP_SDU_CN_AGENT_REGISTRY.csv,source_agents,03_CORTE_EJECUTORA,copied from SESHAT_BOOTSTRAP; refresh by copy-adapt only
+source_seshat_bootstrap_sdu_cn_console_tooling_capability_matrix,D:\.agents\codex\matrices\SOURCE_SESHAT_BOOTSTRAP_SDU_CN_CONSOLE_TOOLING_CAPABILITY_MATRIX_20260527.csv,source_capabilities,03_CORTE_EJECUTORA,copied from SESHAT_BOOTSTRAP; refresh by copy-adapt only
+source_tcu_agent_command_matrix,D:\.agents\codex\agents\SOURCE_TCU_SDU_REPO_AGENT_COMMAND_MATRIX_CURRENT.csv,source_agents,03_CORTE_EJECUTORA,copied from TCU_CONTROL_PLANE; refresh by copy-adapt only
+source_tcu_recipes_index,D:\.agents\codex\recipes\SOURCE_TCU_RECIPES_INDEX.csv,source_registry,00_ROUTER,copied from TCU_CONTROL_PLANE; refresh by copy-adapt only
+source_tcu_skills_index,D:\.agents\codex\skills\SOURCE_TCU_SKILLS_INDEX.csv,source_registry,00_ROUTER,copied from TCU_CONTROL_PLANE; refresh by copy-adapt only
+source_tcu_tool_permissions_index,D:\.agents\codex\tools\SOURCE_TCU_TOOL_PERMISSIONS_INDEX.csv,source_permissions,01_AUTORIDAD_Y_GATES,copied from TCU_CONTROL_PLANE; refresh by copy-adapt only
+source_tcu_tool_surface_matrix,D:\.agents\codex\maps\SOURCE_TCU_TOOL_SURFACE_MATRIX.csv,source_boundaries,01_AUTORIDAD_Y_GATES,copied from TCU_CONTROL_PLANE; refresh by copy-adapt only
+source_tcu_tools_index,D:\.agents\codex\tools\SOURCE_TCU_TOOLS_INDEX.csv,source_registry,05_SOPORTE_TECNICO,copied from TCU_CONTROL_PLANE; refresh by copy-adapt only
+source_tge_runtime_adapter_eval_matrix,D:\.agents\codex\evals\SOURCE_TGE_RUNTIME_tge_sdu_cn_court_order_adapter_alignment_matrix.csv,source_evals,03_CORTE_EJECUTORA,copied from TGE_RUNTIME; refresh by copy-adapt only
+source_tge_runtime_agent_contracts,D:\.agents\codex\agents\SOURCE_TGE_RUNTIME_AGENT_CONTRACTS.md,source_agents,04_TORRES_DE_UNIVERSO,copied from TGE_RUNTIME; refresh by copy-adapt only
+source_tge_sdu_cn_agent_registry,D:\.agents\codex\agents\SOURCE_TGE_SDU_CN_AGENT_REGISTRY.csv,source_agents,04_TORRES_DE_UNIVERSO,copied from TORRE_GEMELA_ESCRIBANIA; refresh by copy-adapt only
+source_tge_sdu_cn_sharepoint_github_capability_matrix,D:\.agents\codex\matrices\SOURCE_TGE_SDU_CN_SHAREPOINT_GITHUB_CAPABILITY_MATRIX_20260527.csv,source_capabilities,04_TORRES_DE_UNIVERSO,copied from TORRE_GEMELA_ESCRIBANIA; refresh by copy-adapt only
+stop_condition_glossary,D:\.agents\codex\matrices\STOP_CONDITION_GLOSSARY.csv,stop_conditions,01_AUTORIDAD_Y_GATES,update when stop condition vocabulary changes
+sublevel_capacity_matrix,D:\.agents\codex\matrices\SUBLEVEL_CAPACITY_MATRIX.csv,sublevels,00_ROUTER,update when level capacity changes
+surface_boundary_map,D:\.agents\codex\maps\SURFACE_BOUNDARY_MAP.csv,boundaries,01_AUTORIDAD_Y_GATES,update when a surface policy changes
+tool_governance_matrix,D:\.agents\codex\matrices\TOOL_GOVERNANCE_MATRIX.csv,tool_governance,05_SOPORTE_TECNICO,update when tools or surfaces change
+tool_recipe_skill_matrix,D:\.agents\codex\matrices\AGENT_TOOL_RECIPE_SKILL_MATRIX.csv,execution_contracts,00_ROUTER,update when tools recipes or skills change
+validation_coverage_matrix,D:\.agents\codex\matrices\VALIDATION_COVERAGE_MATRIX.csv,validators,03_CORTE_EJECUTORA,update when validation coverage changes
+workpaper_index,D:\.agents\codex\workpapers\WORKPAPER_INDEX.csv,agent_workpapers,03_CORTE_EJECUTORA,update when workpaper folder ownership changes

@@ -1,0 +1,25 @@
+tool_id,level_id,tool_type,path_or_command,allowed_surface,blocked_surface
+tool.boundary_check,01_AUTORIDAD_Y_GATES,read,D:\.agents\codex\maps\SURFACE_BOUNDARY_MAP.csv,local_filesystem,tenant_write
+tool.canon_index_check,01_AUTORIDAD_Y_GATES,read,D:/02_AUTHORITY_CANON,local_filesystem,canon_mutation_without_order
+tool.codex_workspace_audit,05_SOPORTE_TECNICO,read,D:\.agents\codex,local_filesystem,global_config_write
+tool.csv_registry_check,02_REGISTRO_Y_CARTOGRAFIA,read,D:\01_GOVERNANCE_REGISTRY,local_filesystem,file_move
+tool.gh_remote_readonly,02_REGISTRO_Y_CARTOGRAFIA,read,gh repo view|gh api,github_remote_readonly,github_write
+tool.git_status_readonly,02_REGISTRO_Y_CARTOGRAFIA,read,git status --short,local_git_readonly,git_write
+tool.local_generate_agent_workpapers,03_CORTE_EJECUTORA,run,D:\.agents\codex\tools\local_generate_agent_workpapers.ps1,local_filesystem,external_runtime|live_connector_execution
+tool.local_inventory,00_ROUTER,read,D:\.agents\codex,local_filesystem,secrets
+tool.local_validate_agent_layer,03_CORTE_EJECUTORA,run,D:\.agents\codex\tools\local_validate_agent_layer.ps1,local_filesystem,external_runtime
+tool.local_validate_agent_levels,03_CORTE_EJECUTORA,run,D:\.agents\codex\tools\local_validate_agent_levels.ps1,local_filesystem,external_runtime
+tool.local_validate_agent_workpapers,03_CORTE_EJECUTORA,run,D:\.agents\codex\tools\local_validate_agent_workpapers.ps1,local_filesystem,external_runtime
+tool.path_conflict_check,02_REGISTRO_Y_CARTOGRAFIA,read,D:/01_GOVERNANCE_REGISTRY/MIGRATION_MAP_D.csv,local_filesystem,moving_files
+tool.plugin_registry_check,05_SOPORTE_TECNICO,read,D:\.agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv,local_filesystem,live_connector_execution
+tool.provider_boundary_check,04_TORRES_DE_UNIVERSO,read,D:/01_GOVERNANCE_REGISTRY/GITHUB_BASE_WORK_MATRIX.csv,local_filesystem,provider_control_without_trace
+tool.readback_builder,03_CORTE_EJECUTORA,write,D:\.agents\codex\readbacks,local_filesystem,external_record_write
+tool.reference_classifier,05_SOPORTE_TECNICO,read,D:\80_REFERENCIAS_TECNICAS,local_filesystem,vendor_live_execution
+tool.repo_alignment_runtime,03_CORTE_EJECUTORA,run,D:/.agents/codex/tools/local_run_repo_alignment_runtime.ps1,local_synthetic_runtime,openai_api_live|microsoft_live|production|secrets
+tool.routing_readback,00_ROUTER,write,D:\.agents\codex\readbacks,local_filesystem,remote_write
+tool.secret_scan,01_AUTORIDAD_Y_GATES,read,Select-String secret patterns,local_filesystem,secret_printing
+tool.sharepoint_complete_read_order_builder,01_AUTORIDAD_Y_GATES,write,D:\.agents\codex\orders,local_order_packet,microsoft_live_read_without_order
+tool.stop_condition_check,01_AUTORIDAD_Y_GATES,read,D:/.agents/codex/matrices/STOP_CONDITION_GLOSSARY.csv,local_filesystem,self_approval_or_live_execution
+tool.surface_order_builder,04_TORRES_DE_UNIVERSO,write,D:\.agents\codex\orders,local_filesystem,sharepoint_write
+tool.synthetic_eval_manifest,03_CORTE_EJECUTORA,read,D:\.agents\codex\evals,local_filesystem,api_live
+tool.workpaper_index_check,03_CORTE_EJECUTORA,read,D:\.agents\codex\workpapers\WORKPAPER_INDEX.csv,local_filesystem,remote_write

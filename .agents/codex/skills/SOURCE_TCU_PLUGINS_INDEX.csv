@@ -1,0 +1,4 @@
+plugin_id,status,input_allowed,input_blocked,requires_secrets,live_execution_allowed,evidence_required,notes
+openai-developers,REQUIRES_GATE,sanitized metadata and synthetic prompts,secrets personal data raw corpus live mutation,yes,false,api usage log and readback,read-only inventory allowed by gate
+superpowers,NOT_LIVE,planning methodology and local workflow,secrets live mutation,no,false,plan or invocation record,methodology only
+github,REQUESTABLE,repo metadata branch PR issue workflow,secrets protected branch mutation without approval,no,false,PR URL commit SHA validators,technical canon workflow

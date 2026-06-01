@@ -1,0 +1,5 @@
+condition,target_level,target_agent,required_payload
+global_config_write_needed,01_AUTORIDAD_Y_GATES,rey.frontier_guardian,path|change|rollback
+repo_or_registry_needed,02_REGISTRO_Y_CARTOGRAFIA,rey.repo_cartographer,path|repo|classification
+eval_or_schema_needed,03_CORTE_EJECUTORA,court.thot_schema,tool|schema|validator
+universe_tooling_needed,04_TORRES_DE_UNIVERSO,universe.escribania_tower,universe|tool|surface

@@ -1,0 +1,4 @@
+capability_id,agent_id,description,reads,writes,stop_condition
+cap.reference.library,tech.reference_librarian,clasificar referencias tecnicas,D:\80_REFERENCIAS_TECNICAS,D:\.agents\codex\readbacks,license_unclear
+cap.codex.workspace,codex.workspace_guardian,auditar workspace Codex local,D:\.agents\codex,D:\.agents\codex\readbacks,global_config_change_needed
+cap.tool.catalog,tech.reference_librarian,mantener indice de tools locales,D:\.agents\codex\tools\TOOL_INDEX.csv,D:\.agents\codex\tools,source_uncertain

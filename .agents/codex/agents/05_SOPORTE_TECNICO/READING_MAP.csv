@@ -1,0 +1,6 @@
+step,required_path,reason
+1,D:\.agents\codex\agents\05_SOPORTE_TECNICO\README.md,alcance del subnivel
+2,D:\.agents\codex\tools\TOOL_INDEX.csv,tools permitidas
+3,D:\.agents\codex\skills\SKILL_USAGE_MATRIX.csv,skills aplicables
+4,D:\80_REFERENCIAS_TECNICAS,referencias tecnicas si aplica
+5,selected_agent_profile,perfil asignado

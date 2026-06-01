@@ -1,0 +1,5 @@
+condition,target_level,target_agent,required_payload
+tenant_or_sharepoint_write_needed,01_AUTORIDAD_Y_GATES,rey.frontier_guardian,tenant|site|identity|rollback|postcheck
+repo_or_asset_owner_gap,02_REGISTRO_Y_CARTOGRAFIA,rey.governance_registrar,repo|asset|owner_gap
+evidence_closeout_required,03_CORTE_EJECUTORA,court.seshat_evidence,universe|surface|evidence
+tooling_reference_needed,05_SOPORTE_TECNICO,tech.reference_librarian,tool|reference|surface
