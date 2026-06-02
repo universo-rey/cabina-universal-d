@@ -145,6 +145,18 @@ matriz `matrices\CODEX_APP_LOCAL_ENVIRONMENT_MATRIX_20260602.csv`, la cola
 environments. La creacion Cloud directa queda `NO_DISPONIBLE_CLI_CREATE_ENV`
 si no aparece tool/API real de administracion.
 
+Actualizacion asignacion Cloud 2026-06-02: por verificacion posterior a la
+creacion informada por el operador, seis environments adicionales quedaron
+`CODEX_CLOUD_ENV_VISIBLE` con smoke read-only `READY_NO_DIFF`:
+`SeshatSgin/torre-gemela-escribania`,
+`SeshatSgin/tge-agentic-runtime-control-escribania`,
+`SeshatSgin/cdf-soluciones`, `SeshatSgin/jara-consultores`,
+`SeshatSgin/seshat-bootstrap-sdu-cn` y
+`SeshatSgin/tcu-agentic-runtime-control`. Permanecen en cola por label no
+resuelto en CLI: `universo-rey/organizacion`,
+`SeshatSgin/sgin-cumplimiento`, `SeshatSgin/modo-on-foundation`,
+`SeshatSgin/sdu-canon` y `universo-rey/microsoft-agents-governed-lab`.
+
 ## Olas de agentes
 
 Ola 1: orquestacion, fronteras, registro, canon, repos, corte OpenAI y torres Escribania/Modo ON.

@@ -326,6 +326,22 @@ Codex Cloud environment, por lo que los faltantes quedan
 No se habilitan secretos, OpenAI API live, Microsoft live, produccion,
 permisos, tenant writes ni `codex cloud apply` sin revision.
 
+Actualizacion asignacion environments Codex Cloud 2026-06-02: tras indicacion
+del operador de que los faltantes ya fueron realizados, la cabina verifico y
+asigno seis environments adicionales mediante smokes read-only que cerraron
+`READY`, `files_changed=0` y sin diff: `SeshatSgin/torre-gemela-escribania`,
+`SeshatSgin/tge-agentic-runtime-control-escribania`,
+`SeshatSgin/cdf-soluciones`, `SeshatSgin/jara-consultores`,
+`SeshatSgin/seshat-bootstrap-sdu-cn` y
+`SeshatSgin/tcu-agentic-runtime-control`. La cola queda con 8 environments
+visibles dentro de base, 3 referencias visibles fuera de base y 5 pendientes
+por resolucion de label/environment en CLI: `universo-rey/organizacion`,
+`SeshatSgin/sgin-cumplimiento`, `SeshatSgin/modo-on-foundation`,
+`SeshatSgin/sdu-canon` y `universo-rey/microsoft-agents-governed-lab`. Esto
+no ejecuto `codex cloud apply`, no escribio en repos Cloud y no habilita
+secretos, Microsoft live, OpenAI API live, produccion, permisos, costos ni
+agentes remotos persistentes.
+
 Reglas vigentes:
 
 - GitHub repo-visible reversible esta habilitado para lectura, validacion, branch, commit, push, PR draft/update, issues, labels, comentarios, GitHub Actions de validacion y readbacks bajo orden gobernada.
