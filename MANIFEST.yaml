@@ -162,6 +162,11 @@ runtime_alignment_state:
   codex_cloud_boundary: repo_scoped_no_secrets_no_microsoft_live_no_production_no_openai_api_live
   repo_local_skill_root: D:/.agents/skills
   skill_governance_catalog: D:/.agents/codex/skills
+  repo_local_skill_availability_state: ALL_DECLARED_REPO_LOCAL_SKILLS_AVAILABLE_20260602
+  repo_local_skill_count: 10
+  skill_usage_matrix_declared_count: 49
+  skill_usage_matrix_available_count: 49
+  skill_availability_readback: D:/.agents/codex/readbacks/2026-06-02_skill_availability_drift_readback.md
   subrecipe_index: D:/.agents/codex/recipes/SUBRECIPE_INDEX.csv
   openai_local_design_state: LOCAL_DESIGN_ONLY_API_LIVE_REQUIRES_ORDER
   agents_sdk_local_preflight_state: LOCAL_IMPORT_APPROVED_NO_API_CALL
