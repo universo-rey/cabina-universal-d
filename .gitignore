@@ -82,6 +82,10 @@
 !/02_AUTHORITY_CANON/CURRENT_STATE.md
 !/02_AUTHORITY_CANON/GITHUB_BASE_WORK_POLICY.md
 !/02_AUTHORITY_CANON/GOVERNED_ORDERS_INDEX.csv
+!/02_AUTHORITY_CANON/POLICIES/
+/02_AUTHORITY_CANON/POLICIES/*
+!/02_AUTHORITY_CANON/POLICIES/EFIGUEROA_USER_GOVERNANCE_POLICY_20260602.md
+!/02_AUTHORITY_CANON/POLICIES/TEAMS_GOVERNANCE_POLICY_20260602.md
 
 # Local Codex agent layer metadata. Orders/readbacks/workpapers stay out until
 # explicitly selected.
@@ -143,12 +147,18 @@
 !/.agents/codex/orders/ORDER_GITHUB_AUTOMATION_AGENTS_SDK_PREFLIGHT_20260601.md
 !/.agents/codex/orders/ORDER_MICROSOFT_TEAMS_LIVE_READ_INVENTORY_20260602.md
 !/.agents/codex/orders/ORDER_MICROSOFT_PRODUCTION_TENANT_WRITES_APPROVAL_20260602.md
+!/.agents/codex/orders/ORDER_EFIGUEROA_USER_GOVERNANCE_LIVE_READ_DRAFT_20260602.md
+!/.agents/codex/orders/ORDER_TEAMS_GOVERNANCE_LIVE_READ_DRAFT_20260602.md
+!/.agents/codex/orders/ORDER_MICROSOFT_AGENTS_GOVERNED_LAB_ALIGNMENT_20260602.md
 
 !/.agents/codex/readbacks/
 /.agents/codex/readbacks/*
 !/.agents/codex/readbacks/RETROSPECTIVE_PR3_AGENT_ALIGNMENT_20260601.md
 !/.agents/codex/readbacks/2026-06-02_teams_cross_repo_lane_audit_readback.md
 !/.agents/codex/readbacks/2026-06-02_microsoft_production_tenant_write_next_lanes_readback.md
+!/.agents/codex/readbacks/2026-06-02_efigueroa_user_governance_readback.md
+!/.agents/codex/readbacks/2026-06-02_teams_governance_readback.md
+!/.agents/codex/readbacks/2026-06-02_microsoft_agents_governed_lab_alignment_readback.md
 
 !/.agents/codex/tools/
 /.agents/codex/tools/*
