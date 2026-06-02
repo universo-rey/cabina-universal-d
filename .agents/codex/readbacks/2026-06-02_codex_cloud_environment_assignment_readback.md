@@ -4,16 +4,18 @@
 
 HECHO_VERIFICADO_PARCIAL:
 
-- Se verificaron seis environments Codex Cloud reportados como realizados por
-  el operador.
+- Se verificaron siete environments Codex Cloud reportados o resueltos como
+  visibles.
 - Cada verificacion uso smoke read-only gobernado, sin `codex cloud apply`,
   sin secretos, sin Microsoft live, sin OpenAI API live y sin produccion.
-- Los seis smokes cerraron `READY`, `files_changed=0` y sin diff.
-- Cinco repos siguen pendientes porque el CLI no resolvio environment por
+- Los siete smokes cerraron `READY`, `files_changed=0` y sin diff.
+- Cuatro repos siguen pendientes porque el CLI no resolvio environment por
   label completo ni por alias corto.
 
 ## Environments Verificados
 
+- `universo-rey/organizacion`:
+  `task_e_6a1f4b4d699c832ea45166ff611319da_ready_no_diff`.
 - `SeshatSgin/torre-gemela-escribania`:
   `task_e_6a1f44bae1d8832eb16cef684dcc5048_ready_no_diff`.
 - `SeshatSgin/tge-agentic-runtime-control-escribania`:
@@ -29,20 +31,29 @@ HECHO_VERIFICADO_PARCIAL:
 
 ## Pendientes
 
-- `universo-rey/organizacion`: environment no resuelto por CLI.
 - `SeshatSgin/sgin-cumplimiento`: environment no resuelto por CLI.
 - `SeshatSgin/modo-on-foundation`: environment no resuelto por CLI.
-- `SeshatSgin/sdu-canon`: environment no resuelto por CLI.
+- `SeshatSgin/sdu-canon`: environment no resuelto por CLI con
+  `SeshatSgin/sdu-canon`, `sdu-canon` ni `SDU_CANON`.
 - `universo-rey/microsoft-agents-governed-lab`: environment no resuelto por
   CLI.
+
+## Issues GitHub
+
+- `universo-rey/cabina-universal-d#44`: cerrado como `completed`; evidencia
+  `task_e_6a1f4b4d699c832ea45166ff611319da_ready_no_diff`.
+- `universo-rey/cabina-universal-d#47`: permanece abierto P0; comentario
+  agregado con labels probados y stop condition `codex_cloud_environment_missing`.
 
 ## Matrices
 
 - `D:\.agents\codex\matrices\CODEX_CLOUD_ENVIRONMENT_INVENTORY_20260602.csv`
-  registra los seis nuevos environments visibles.
+  registra los siete nuevos environments visibles.
 - `D:\.agents\codex\matrices\CODEX_ENVIRONMENT_CREATION_QUEUE_20260602.csv`
-  cambia esos seis repos a `CODEX_CLOUD_ENV_VISIBLE`.
-- Estado de cola: 8 visibles dentro de base, 3 visibles fuera de base y 5
+  cambia esos siete repos a `CODEX_CLOUD_ENV_VISIBLE`.
+- `D:\.agents\codex\matrices\AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv`
+  sincroniza los repos READY con `ACTIVE_CODEX_CLOUD_READY`.
+- Estado de cola: 9 visibles dentro de base, 3 visibles fuera de base y 4
   pendientes de resolucion por UI/settings o environment label real.
 
 ## Sistemas Tocados
@@ -64,20 +75,27 @@ HECHO_VERIFICADO_PARCIAL:
 
 ## Validacion
 
-- `D:\.agents\codex\tools\local_validate_codex_app_environments.ps1`: PASS,
-  1 entorno local, 16 filas de cola y 11 environments Cloud inventariados.
+- `D:\.agents\codex\tools\local_validate_codex_app_environments.ps1`: PASS.
 - `D:\.agents\codex\tools\local_validate_codex_cloud_governed_lane.ps1`: PASS,
-  11 lanes, 7 discovery rows y 11 environments.
+  12 environments Cloud inventariados.
+- `D:\.agents\codex\tools\local_validate_autonomous_agent_execution.ps1`: PASS,
+  30 filas autonomas.
 - `D:\.agents\codex\tools\local_validate_capability_use_hardening.ps1`: PASS,
   10 filas de capability use.
 - `D:\.agents\codex\tools\local_validate_operational_chain.ps1`: PASS,
   9 cadenas operativas.
+- `D:\.agents\codex\tools\local_validate_agents_instruction_hierarchy.ps1`:
+  PASS.
+- `D:\.agents\codex\tools\local_validate_agent_layer.ps1`: PASS,
+  `secret_hit_count=0`.
 - `git diff --check`: PASS.
-- `codex cloud status` sobre los seis task IDs: READY, no diff.
+- `codex cloud status` sobre los siete task IDs: READY, no diff.
+- `codex cloud exec --env SeshatSgin/sdu-canon|sdu-canon|SDU_CANON`: no
+  resolvio environment.
 
 ## Riesgos
 
-- Los cinco pendientes pueden existir en UI pero no ser visibles para el CLI
+- Los cuatro pendientes pueden existir en UI pero no ser visibles para el CLI
   por label diferente, environment no compartido o cuenta/organizacion distinta.
 - TGE y Seshat bootstrap conservan frontera de datos regulados; solo se
   permite smoke read-only no sensible hasta una orden de alcance exacto.
@@ -91,7 +109,6 @@ HECHO_VERIFICADO_PARCIAL:
 
 ## Proximos Carriles Paralelos
 
-- `codex_cloud_label_resolution_organizacion`.
 - `codex_cloud_label_resolution_sgin_cumplimiento`.
 - `codex_cloud_label_resolution_modo_on_foundation`.
 - `codex_cloud_label_resolution_sdu_canon`.
@@ -105,9 +122,9 @@ HECHO_VERIFICADO_PARCIAL:
 - skill: `tcu-descubridor-capacidades|openai-docs|rey-modo-carril-codex-cloud-api`
 - receta: `recipe.codex_cloud_governed_lane|recipe.repo_agent_tool_governance|recipe.governed_readback_closeout`
 - tool: `tool.codex_cloud_cli_readonly|tool.local_validate_codex_app_environments|tool.local_validate_codex_cloud_governed_lane`
-- estado: `PARTIAL_6_VISIBLE_5_PENDING_LABEL_RESOLUTION`
+- estado: `PARTIAL_7_VISIBLE_4_PENDING_LABEL_RESOLUTION`
 - evidencia: `CODEX_CLOUD_ENVIRONMENT_INVENTORY_20260602.csv|CODEX_ENVIRONMENT_CREATION_QUEUE_20260602.csv|codex_cloud_task_ids`
-- validador: `local_validate_codex_app_environments.ps1|local_validate_codex_cloud_governed_lane.ps1|git diff --check`
+- validador: `local_validate_codex_app_environments.ps1|local_validate_codex_cloud_governed_lane.ps1|local_validate_autonomous_agent_execution.ps1|local_validate_capability_use_hardening.ps1|local_validate_operational_chain.ps1|local_validate_agents_instruction_hierarchy.ps1|local_validate_agent_layer.ps1|git diff --check`
 - riesgo: `codex_cloud_environment_label_unresolved`
 - rollback: `root_pr_revert|delete_environment_from_codex_settings_if_created`
 - stop_condition: `codex_cloud_environment_missing|codex_environment_creation_tool_unavailable|secret_detected|regulated_data_boundary_unclear`

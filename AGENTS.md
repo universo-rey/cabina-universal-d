@@ -178,6 +178,13 @@ OpenAI API live, costos ni agentes remotos persistentes.
 La segunda ola aprobada por el operador ejecuto smokes read-only sobre
 `SeshatSgin/tcu-control-plane`, `SGIN_Canonico_Puro` y `Sgin`, todos con estado
 `READY`, `files_changed=0` y sin diff.
+Actualizacion P0 Codex Cloud 2026-06-02: `universo-rey/organizacion` quedo
+verificado con smoke read-only `task_e_6a1f4b4d699c832ea45166ff611319da`,
+estado `READY` y sin diff. La matriz autonoma queda sincronizada con siete
+environments repo-base nuevos/visibles mas la raiz y `Sgin`; permanecen
+pendientes por label/environment real `SeshatSgin/sgin-cumplimiento`,
+`SeshatSgin/modo-on-foundation`, `SeshatSgin/sdu-canon` y
+`universo-rey/microsoft-agents-governed-lab`.
 
 Estado entornos Codex actualizado 2026-06-02: la cabina crea entorno Codex app
 local/worktree repo-visible en `D:\.codex\environments\environment.toml` para
