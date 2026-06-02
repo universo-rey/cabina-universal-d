@@ -12,6 +12,9 @@ Antes de actuar:
    `.agents/codex/README.md`, `.agents/codex/agents.json` y
    `.agents/codex/routing.json` cuando existan en el checkout.
 3. Identificar universo, repo/superficie, agente local rector y frontera.
+4. Declarar cadena de capacidad antes de ejecutar: agente, skill, recipe,
+   plugin, tool, superficie, evidencia, validator y stop_condition. Si falta,
+   detener con `capability_use_preflight_missing`.
 
 Regla rectora:
 
@@ -66,8 +69,14 @@ Cierre minimo:
 - agente:
 - orden:
 - superficie:
+- skill:
+- recipe:
+- plugin:
+- tool:
 - estado:
 - evidencia:
 - validador:
+- riesgo:
+- rollback:
 - stop_condition:
 - proximos_carriles:

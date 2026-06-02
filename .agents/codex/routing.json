@@ -259,10 +259,18 @@
     {
       "when": "live_write_detected",
       "must_include": [
+        "capability_chain",
+        "skill",
+        "recipe",
+        "plugin",
+        "tool",
         "surface",
         "tenant_or_remote",
         "identity",
         "selected_data",
+        "evidence",
+        "validator",
+        "stop_condition",
         "rollback",
         "postcheck",
         "readback"
@@ -272,20 +280,34 @@
     {
       "when": "production_action_detected",
       "must_include": [
+        "capability_chain",
+        "skill",
+        "recipe",
+        "plugin",
+        "tool",
         "surface",
         "owner",
         "explicit_authorization",
+        "evidence",
+        "validator",
+        "stop_condition",
         "rollback",
-        "postcheck",
-        "evidence"
+        "postcheck"
       ],
       "assigned_agent": "rey.frontier_guardian"
     },
     {
       "when": "unknown_universe_or_owner",
       "must_include": [
+        "capability_chain",
+        "skill",
+        "recipe",
+        "plugin",
+        "tool",
+        "surface",
         "candidate_path",
         "evidence",
+        "validator",
         "classification_options",
         "stop_condition"
       ],
@@ -294,10 +316,19 @@
     {
       "when": "remote_agent_creation_requested",
       "must_include": [
+        "capability_chain",
+        "skill",
+        "recipe",
+        "plugin",
+        "tool",
+        "surface",
         "agent_builder_or_api_surface",
         "cost_boundary",
         "secrets_boundary",
         "data_boundary",
+        "evidence",
+        "validator",
+        "stop_condition",
         "approval_text"
       ],
       "assigned_agent": "court.openai_dispatcher"
@@ -305,9 +336,16 @@
     {
       "when": "evidence_closeout_requested",
       "must_include": [
+        "capability_chain",
+        "skill",
+        "recipe",
+        "plugin",
+        "tool",
+        "surface",
         "source",
         "scope",
         "timestamp",
+        "evidence",
         "validator",
         "stop_condition"
       ],
@@ -316,9 +354,18 @@
     {
       "when": "workspace_or_codex_routing_drift_detected",
       "must_include": [
+        "capability_chain",
+        "skill",
+        "recipe",
+        "plugin",
+        "tool",
+        "surface",
         "observed_path",
         "expected_path",
         "read_only_evidence",
+        "evidence",
+        "validator",
+        "stop_condition",
         "proposed_fix"
       ],
       "assigned_agent": "codex.workspace_guardian"

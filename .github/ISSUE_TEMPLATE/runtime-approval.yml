@@ -67,8 +67,16 @@ body:
     id: operational_chain
     attributes:
       label: Operational chain
-      description: Declare agent, skill, recipe, tool, validator, evidence and stop_condition before execution.
-      placeholder: "agent: ...\nskill: ...\nrecipe: ...\ntool: ...\nvalidator: ...\nevidence: ...\nstop_condition: ..."
+      description: Declare agent, skill, recipe, plugin, tool, surface, validator, evidence and stop_condition before execution.
+      placeholder: "agent: ...\nskill: ...\nrecipe: ...\nplugin: ...\ntool: ...\nsurface: ...\nvalidator: ...\nevidence: ...\nstop_condition: ..."
+    validations:
+      required: true
+  - type: textarea
+    id: capability_use_preflight
+    attributes:
+      label: Capability-use preflight
+      description: Evidence that plugin, tool, identity, surface and validator assignment resolved before runtime execution.
+      placeholder: "local_validate_capability_use_hardening.ps1 PASS; governed order capability chain declared"
     validations:
       required: true
   - type: textarea

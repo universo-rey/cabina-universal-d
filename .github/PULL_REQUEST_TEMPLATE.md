@@ -10,6 +10,7 @@
 - superficie:
 - skill:
 - recipe:
+- plugin:
 - tool:
 - base_sha:
 - branch:
@@ -33,6 +34,7 @@
 
 - [ ] No nested repo absorption
 - [ ] No `git add .`
+- [ ] Capability-use preflight declared from intake
 - [ ] No Microsoft live
 - [ ] No OpenAI API live
 - [ ] No production
@@ -45,6 +47,7 @@
 
 - validator:
 - specific_validator:
+- capability_use_hardening_validator:
 - GitHub Actions:
 - evidence:
 

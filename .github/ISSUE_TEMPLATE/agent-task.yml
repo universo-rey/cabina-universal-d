@@ -129,8 +129,16 @@ body:
     id: operational_chain
     attributes:
       label: Operational chain
-      description: Declare agent, skill, recipe, tool, validator, evidence and stop_condition before execution.
-      placeholder: "agent: ...\nskill: ...\nrecipe: ...\ntool: ...\nvalidator: ...\nevidence: ...\nstop_condition: ..."
+      description: Declare agent, skill, recipe, plugin, tool, surface, validator, evidence and stop_condition before execution.
+      placeholder: "agent: ...\nskill: ...\nrecipe: ...\nplugin: ...\ntool: ...\nsurface: ...\nvalidator: ...\nevidence: ...\nstop_condition: ..."
+    validations:
+      required: true
+  - type: textarea
+    id: capability_use_preflight
+    attributes:
+      label: Capability-use preflight
+      description: Evidence that assignment and derivation resolved against capability-use hardening before execution.
+      placeholder: "local_validate_capability_use_hardening.ps1 PASS; CAPABILITY_USE_HARDENING_MATRIX row: capability_use...."
     validations:
       required: true
   - type: checkboxes
@@ -147,6 +155,8 @@ body:
         - label: No secrets or regulated data
           required: true
         - label: No moving clones
+          required: true
+        - label: Capability-use preflight is declared before execution
           required: true
         - label: No merge without approved lifecycle, fixed HEAD and green checks
           required: true
