@@ -240,7 +240,7 @@ jobs:
         run: |
           $root = Join-Path $env:GITHUB_WORKSPACE ".agents\codex"
           $tool = Join-Path $root "tools\local_validate_agent_layer.ps1"
-          $output = & $tool -Root $root
+          $output = & $tool -Root $root -SkipWorkflowNestedValidators
           $output | Write-Output
           $payload = ($output -join "`n") | ConvertFrom-Json
           if ($payload.status -ne "PASS") {

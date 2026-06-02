@@ -210,10 +210,16 @@ el validador
 habilitan preparacion de agentes locales task-scoped y Codex Cloud repo-scoped
 solo con owner, reviewer, preflight, evidencia, rollback, postcheck y stop
 condition. Dentro de la base D:\ quedan `ACTIVE_CODEX_CLOUD_READY`
-`universo-rey/cabina-universal-d` y `universo-rey/Sgin`; los repos sin
-environment visible quedan `BLOCKED_NO_CODEX_CLOUD_ENVIRONMENT`. Los
-environments visibles fuera de la base (`SeshatSgin/sgin-cloud`,
-`SeshatSgin/tcu-control-plane` y `SeshatSgin/SGIN_Canonico_Puro`) quedan como
+`universo-rey/cabina-universal-d`, `universo-rey/organizacion`,
+`SeshatSgin/torre-gemela-escribania`,
+`SeshatSgin/tge-agentic-runtime-control-escribania`,
+`SeshatSgin/sgin-cumplimiento`, `SeshatSgin/cdf-soluciones`,
+`SeshatSgin/jara-consultores`, `SeshatSgin/seshat-bootstrap-sdu-cn`,
+`universo-rey/Sgin`, `SeshatSgin/tcu-agentic-runtime-control` y
+`universo-rey/microsoft-agents-governed-lab`; los repos sin environment
+visible quedan `BLOCKED_NO_CODEX_CLOUD_ENVIRONMENT`. Los environments visibles
+fuera de la base (`SeshatSgin/sgin-cloud`, `SeshatSgin/tcu-control-plane` y
+`SeshatSgin/SGIN_Canonico_Puro`) quedan como
 `ACTIVE_CODEX_CLOUD_READY_OUT_OF_BASE_MATRIX`, sin absorberlos ni habilitar
 Microsoft live, OpenAI API live, produccion, permisos, secretos, datos
 regulados ni agentes remotos persistentes.
@@ -325,6 +331,58 @@ Codex Cloud environment, por lo que los faltantes quedan
 `NEEDS_CODEX_CLOUD_UI_CREATE` y `codex_environment_creation_tool_unavailable`.
 No se habilitan secretos, OpenAI API live, Microsoft live, produccion,
 permisos, tenant writes ni `codex cloud apply` sin revision.
+
+Actualizacion asignacion environments Codex Cloud 2026-06-02: tras indicacion
+del operador de que los faltantes ya fueron realizados, la cabina verifico y
+asigno nueve environments adicionales mediante smokes read-only que cerraron
+`READY`, `files_changed=0` y sin diff: `universo-rey/organizacion`,
+`SeshatSgin/torre-gemela-escribania`,
+`SeshatSgin/tge-agentic-runtime-control-escribania`,
+`SeshatSgin/sgin-cumplimiento`, `SeshatSgin/cdf-soluciones`,
+`SeshatSgin/jara-consultores`, `SeshatSgin/seshat-bootstrap-sdu-cn`,
+`SeshatSgin/tcu-agentic-runtime-control` y
+`universo-rey/microsoft-agents-governed-lab`. La cola queda con 11
+environments visibles dentro de base, 3 referencias visibles fuera de base y
+2 pendientes por resolucion de label/environment en CLI:
+`SeshatSgin/modo-on-foundation` y `SeshatSgin/sdu-canon`. Esto
+no ejecuto `codex cloud apply`, no escribio en repos Cloud y no habilita
+secretos, Microsoft live, OpenAI API live, produccion, permisos, costos ni
+agentes remotos persistentes.
+
+Actualizacion carriles live Codex Cloud 2026-06-02: por orden expresa del
+operador, se finalizaron solo los carriles objetivo `cdf-soluciones`,
+`cabina-universal-d`, `torre-gemela-escribania`, `tcu-control-plane` como
+referencia fuera de base, `seshat-bootstrap-sdu-cn`,
+`tcu-agentic-runtime-control`, `tge-agentic-runtime-control-escribania` y
+`organizacion`. La clave `OPENAI_API_KEY` fue creada para `Modo On/SYS-SDU`
+y guardada unicamente en `D:/.env.local`, ignorado por Git; no se versiona ni
+se imprime el secreto. El smoke OpenAI API cerro `PASS_HTTP_200_NO_BODY_PRINTED`.
+La evidencia queda en
+`D:/.agents/codex/matrices/CODEX_CLOUD_LIVE_LANE_FINALIZATION_20260602.csv`
+y
+`D:/.agents/codex/readbacks/2026-06-02_codex_cloud_live_lane_finalization_readback.md`.
+El resto de repos queda `PENDING_BY_SCOPE`. Esta actualizacion no habilita
+`codex cloud apply`, Microsoft live, produccion, tenant writes, permisos,
+costos abiertos, datos regulados ni uso amplio de OpenAI API sin orden
+gobernada separada.
+
+Actualizacion performance validadores 2026-06-02: tras leer los analisis
+adjuntos del operador, la cabina implementa mejoras de bajo riesgo en los
+validadores locales y el workflow. `local_validate_agent_layer.ps1`,
+`local_run_repo_alignment_runtime.ps1`,
+`local_validate_operational_chain.ps1` y
+`local_validate_capability_use_hardening.ps1` cachean lecturas CSV/JSON por
+proceso donde aplica. `local_validate_agent_layer.ps1` agrega
+`-SkipWorkflowNestedValidators` para CI, usado solo por
+`.github/workflows/cabina-validation.yml` para no relanzar validadores que el
+workflow ya ejecuta como pasos propios; niveles y workpapers siguen cubiertos.
+El escaneo de secretos del validador paraguas lee cada archivo una vez y
+conserva evidencia `path`, `line` y `pattern`. La matriz queda en
+`D:/.agents/codex/matrices/VALIDATOR_PERFORMANCE_IMPROVEMENT_MATRIX_20260602.csv`
+y el readback en
+`D:/.agents/codex/readbacks/2026-06-02_validator_performance_improvements_readback.md`.
+Quedan pendientes por carril separado el runner change-aware, hash sets
+transversales y medicion comparativa de duracion CI.
 
 Reglas vigentes:
 

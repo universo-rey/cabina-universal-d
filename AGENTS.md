@@ -178,6 +178,17 @@ OpenAI API live, costos ni agentes remotos persistentes.
 La segunda ola aprobada por el operador ejecuto smokes read-only sobre
 `SeshatSgin/tcu-control-plane`, `SGIN_Canonico_Puro` y `Sgin`, todos con estado
 `READY`, `files_changed=0` y sin diff.
+Actualizacion P0 Codex Cloud 2026-06-02: `universo-rey/organizacion` quedo
+verificado con smoke read-only `task_e_6a1f4b4d699c832ea45166ff611319da`,
+estado `READY` y sin diff. Reconciliacion posterior verifico tambien
+`SeshatSgin/sgin-cumplimiento`
+`task_e_6a1f4ee18c3c832eb9f0a6dbc427e65b` y
+`universo-rey/microsoft-agents-governed-lab`
+`task_e_6a1f4efb4d4c832e87a3fbf0d0f62433`, ambos `READY_NO_DIFF`.
+La matriz autonoma queda sincronizada con nueve environments repo-base
+nuevos/visibles mas la raiz y `Sgin`; permanecen pendientes por
+label/environment real `SeshatSgin/modo-on-foundation` y
+`SeshatSgin/sdu-canon`.
 
 Estado entornos Codex actualizado 2026-06-02: la cabina crea entorno Codex app
 local/worktree repo-visible en `D:\.codex\environments\environment.toml` para
@@ -191,6 +202,41 @@ faltantes quedan `NEEDS_CODEX_CLOUD_UI_CREATE` con
 `codex_environment_creation_tool_unavailable` hasta UI/API real con rollback y
 postcheck. No habilita secretos, OpenAI API live, Microsoft live, produccion,
 tenant writes, permisos ni `codex cloud apply` sin revision.
+
+Estado carriles live Codex Cloud actualizado 2026-06-02: por orden expresa del
+operador, quedan finalizados solo los carriles objetivo de Codex Cloud para
+`SeshatSgin/cdf-soluciones`, `universo-rey/cabina-universal-d`,
+`SeshatSgin/torre-gemela-escribania`, `SeshatSgin/tcu-control-plane` como
+referencia fuera de base, `SeshatSgin/seshat-bootstrap-sdu-cn`,
+`SeshatSgin/tcu-agentic-runtime-control`,
+`SeshatSgin/tge-agentic-runtime-control-escribania` y
+`universo-rey/organizacion`. El resto de repos queda `PENDING_BY_SCOPE` o
+pendiente de environment real. La clave OpenAI aprobada para este entorno vive
+solo en `D:\.env.local`, ignorado por Git, bajo target `Modo On/SYS-SDU`; el
+smoke OpenAI API cerro `PASS_HTTP_200_NO_BODY_PRINTED` sin imprimir cuerpo ni
+secreto. La matriz
+`D:\.agents\codex\matrices\CODEX_CLOUD_LIVE_LANE_FINALIZATION_20260602.csv`
+y el readback
+`D:\.agents\codex\readbacks\2026-06-02_codex_cloud_live_lane_finalization_readback.md`
+registran evidencia, rollback y stop conditions. Esto no habilita `codex cloud
+apply`, Microsoft live, produccion, tenant writes, permisos, costos abiertos,
+datos regulados ni uso amplio de OpenAI API sin orden gobernada separada.
+
+Estado performance de validadores actualizado 2026-06-02: los analisis
+adjuntos del operador se implementan en una primera ola de bajo riesgo.
+`local_validate_agent_layer.ps1`, `local_run_repo_alignment_runtime.ps1`,
+`local_validate_operational_chain.ps1` y
+`local_validate_capability_use_hardening.ps1` cachean lecturas CSV/JSON por
+proceso donde aplica. El workflow `cabina-validation.yml` usa
+`-SkipWorkflowNestedValidators` solo en el paso `Agent layer` para evitar
+re-ejecutar operational chain, parallel order governance y order packets,
+porque esos validadores ya corren como pasos propios; agent levels y
+workpapers permanecen dentro del validador paraguas. El escaneo de secretos
+del validador paraguas lee cada archivo una vez y preserva evidencia de linea.
+La matriz rectora vive en
+`D:\.agents\codex\matrices\VALIDATOR_PERFORMANCE_IMPROVEMENT_MATRIX_20260602.csv`
+y el readback en
+`D:\.agents\codex\readbacks\2026-06-02_validator_performance_improvements_readback.md`.
 
 Estado jerarquia AGENTS.md actualizado 2026-06-01: `D:\AGENTS.md` es la
 instruccion rectora local de mayor precedencia. Las instrucciones anidadas,

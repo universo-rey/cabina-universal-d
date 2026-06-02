@@ -4,13 +4,18 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+$script:CsvCache = @{}
 
 function Read-CsvRequired {
   param([string]$Path)
   if (-not (Test-Path -LiteralPath $Path)) {
     throw "Missing required CSV: $Path"
   }
-  @(Import-Csv -LiteralPath $Path)
+  $resolvedPath = (Resolve-Path -LiteralPath $Path).Path
+  if (-not $script:CsvCache.ContainsKey($resolvedPath)) {
+    $script:CsvCache[$resolvedPath] = @(Import-Csv -LiteralPath $resolvedPath)
+  }
+  return $script:CsvCache[$resolvedPath]
 }
 
 function Resolve-CabinaPath {

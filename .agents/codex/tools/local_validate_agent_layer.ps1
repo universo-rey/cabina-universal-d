@@ -1,15 +1,21 @@
 param(
-  [string]$Root = "D:\.agents\codex"
+  [string]$Root = "D:\.agents\codex",
+  [switch]$SkipWorkflowNestedValidators
 )
 
 $ErrorActionPreference = "Stop"
+$script:CsvCache = @{}
 
 function Read-CsvSafe {
   param([string]$Path)
   if (-not (Test-Path -LiteralPath $Path)) {
     throw "Missing CSV: $Path"
   }
-  @(Import-Csv -LiteralPath $Path)
+  $resolvedPath = (Resolve-Path -LiteralPath $Path).Path
+  if (-not $script:CsvCache.ContainsKey($resolvedPath)) {
+    $script:CsvCache[$resolvedPath] = @(Import-Csv -LiteralPath $resolvedPath)
+  }
+  return $script:CsvCache[$resolvedPath]
 }
 
 function Test-RequiredColumns {
@@ -278,6 +284,10 @@ foreach ($validatorSpec in @(
   @{ Path = $orderPacketValidator; Name = "order packet" },
   @{ Path = $operationalChainValidator; Name = "operational chain" }
 )) {
+  if ($SkipWorkflowNestedValidators) {
+    $warnings.Add("Skipped workflow-level nested validator: $($validatorSpec.Name)")
+    continue
+  }
   if (-not (Test-Path -LiteralPath $validatorSpec.Path)) {
     $errors.Add("Missing $($validatorSpec.Name) validator: $($validatorSpec.Path)")
   } else {
@@ -374,10 +384,16 @@ $scanFiles = @(
 )
 $secretHits = New-Object System.Collections.Generic.List[object]
 foreach ($file in $scanFiles) {
-  foreach ($pattern in $secretPatterns) {
-    $hits = Select-String -LiteralPath $file.FullName -Pattern $pattern -CaseSensitive -ErrorAction SilentlyContinue
-    foreach ($hit in $hits) {
-      $secretHits.Add([pscustomobject]@{ path = $file.FullName; line = $hit.LineNumber; pattern = $pattern })
+  $content = Get-Content -LiteralPath $file.FullName -Raw -ErrorAction SilentlyContinue
+  if ([string]::IsNullOrEmpty($content)) {
+    continue
+  }
+  $lines = @($content -split '\r?\n')
+  for ($index = 0; $index -lt $lines.Count; $index++) {
+    foreach ($pattern in $secretPatterns) {
+      if ($lines[$index] -cmatch $pattern) {
+        $secretHits.Add([pscustomobject]@{ path = $file.FullName; line = ($index + 1); pattern = $pattern })
+      }
     }
   }
 }
@@ -390,6 +406,7 @@ $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }
 [pscustomobject]@{
   status = $status
   root = $Root
+  skip_workflow_nested_validators = [bool]$SkipWorkflowNestedValidators
   matrix_count = $matrixRows.Count
   recipe_count = $recipeRows.Count
   tool_count = $toolRows.Count
