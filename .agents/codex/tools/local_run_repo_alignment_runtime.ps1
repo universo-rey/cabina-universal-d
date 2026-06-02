@@ -6,19 +6,29 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+$script:CsvCache = @{}
+$script:JsonCache = @{}
 
 function Read-CsvRequired([string]$Path) {
   if (-not (Test-Path -LiteralPath $Path)) {
     throw "Missing required CSV: $Path"
   }
-  return @(Import-Csv -LiteralPath $Path)
+  $resolvedPath = (Resolve-Path -LiteralPath $Path).Path
+  if (-not $script:CsvCache.ContainsKey($resolvedPath)) {
+    $script:CsvCache[$resolvedPath] = @(Import-Csv -LiteralPath $resolvedPath)
+  }
+  return $script:CsvCache[$resolvedPath]
 }
 
 function Read-JsonRequired([string]$Path) {
   if (-not (Test-Path -LiteralPath $Path)) {
     throw "Missing required JSON: $Path"
   }
-  return Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
+  $resolvedPath = (Resolve-Path -LiteralPath $Path).Path
+  if (-not $script:JsonCache.ContainsKey($resolvedPath)) {
+    $script:JsonCache[$resolvedPath] = Get-Content -LiteralPath $resolvedPath -Raw | ConvertFrom-Json
+  }
+  return $script:JsonCache[$resolvedPath]
 }
 
 $matrixRoot = Join-Path $Root "matrices"

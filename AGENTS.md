@@ -203,6 +203,41 @@ faltantes quedan `NEEDS_CODEX_CLOUD_UI_CREATE` con
 postcheck. No habilita secretos, OpenAI API live, Microsoft live, produccion,
 tenant writes, permisos ni `codex cloud apply` sin revision.
 
+Estado carriles live Codex Cloud actualizado 2026-06-02: por orden expresa del
+operador, quedan finalizados solo los carriles objetivo de Codex Cloud para
+`SeshatSgin/cdf-soluciones`, `universo-rey/cabina-universal-d`,
+`SeshatSgin/torre-gemela-escribania`, `SeshatSgin/tcu-control-plane` como
+referencia fuera de base, `SeshatSgin/seshat-bootstrap-sdu-cn`,
+`SeshatSgin/tcu-agentic-runtime-control`,
+`SeshatSgin/tge-agentic-runtime-control-escribania` y
+`universo-rey/organizacion`. El resto de repos queda `PENDING_BY_SCOPE` o
+pendiente de environment real. La clave OpenAI aprobada para este entorno vive
+solo en `D:\.env.local`, ignorado por Git, bajo target `Modo On/SYS-SDU`; el
+smoke OpenAI API cerro `PASS_HTTP_200_NO_BODY_PRINTED` sin imprimir cuerpo ni
+secreto. La matriz
+`D:\.agents\codex\matrices\CODEX_CLOUD_LIVE_LANE_FINALIZATION_20260602.csv`
+y el readback
+`D:\.agents\codex\readbacks\2026-06-02_codex_cloud_live_lane_finalization_readback.md`
+registran evidencia, rollback y stop conditions. Esto no habilita `codex cloud
+apply`, Microsoft live, produccion, tenant writes, permisos, costos abiertos,
+datos regulados ni uso amplio de OpenAI API sin orden gobernada separada.
+
+Estado performance de validadores actualizado 2026-06-02: los analisis
+adjuntos del operador se implementan en una primera ola de bajo riesgo.
+`local_validate_agent_layer.ps1`, `local_run_repo_alignment_runtime.ps1`,
+`local_validate_operational_chain.ps1` y
+`local_validate_capability_use_hardening.ps1` cachean lecturas CSV/JSON por
+proceso donde aplica. El workflow `cabina-validation.yml` usa
+`-SkipWorkflowNestedValidators` solo en el paso `Agent layer` para evitar
+re-ejecutar operational chain, parallel order governance y order packets,
+porque esos validadores ya corren como pasos propios; agent levels y
+workpapers permanecen dentro del validador paraguas. El escaneo de secretos
+del validador paraguas lee cada archivo una vez y preserva evidencia de linea.
+La matriz rectora vive en
+`D:\.agents\codex\matrices\VALIDATOR_PERFORMANCE_IMPROVEMENT_MATRIX_20260602.csv`
+y el readback en
+`D:\.agents\codex\readbacks\2026-06-02_validator_performance_improvements_readback.md`.
+
 Estado jerarquia AGENTS.md actualizado 2026-06-01: `D:\AGENTS.md` es la
 instruccion rectora local de mayor precedencia. Las instrucciones anidadas,
 perfiles de agentes, skills repo-locales, plugins y runtimes globales solo

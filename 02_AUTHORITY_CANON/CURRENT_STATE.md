@@ -349,6 +349,41 @@ no ejecuto `codex cloud apply`, no escribio en repos Cloud y no habilita
 secretos, Microsoft live, OpenAI API live, produccion, permisos, costos ni
 agentes remotos persistentes.
 
+Actualizacion carriles live Codex Cloud 2026-06-02: por orden expresa del
+operador, se finalizaron solo los carriles objetivo `cdf-soluciones`,
+`cabina-universal-d`, `torre-gemela-escribania`, `tcu-control-plane` como
+referencia fuera de base, `seshat-bootstrap-sdu-cn`,
+`tcu-agentic-runtime-control`, `tge-agentic-runtime-control-escribania` y
+`organizacion`. La clave `OPENAI_API_KEY` fue creada para `Modo On/SYS-SDU`
+y guardada unicamente en `D:/.env.local`, ignorado por Git; no se versiona ni
+se imprime el secreto. El smoke OpenAI API cerro `PASS_HTTP_200_NO_BODY_PRINTED`.
+La evidencia queda en
+`D:/.agents/codex/matrices/CODEX_CLOUD_LIVE_LANE_FINALIZATION_20260602.csv`
+y
+`D:/.agents/codex/readbacks/2026-06-02_codex_cloud_live_lane_finalization_readback.md`.
+El resto de repos queda `PENDING_BY_SCOPE`. Esta actualizacion no habilita
+`codex cloud apply`, Microsoft live, produccion, tenant writes, permisos,
+costos abiertos, datos regulados ni uso amplio de OpenAI API sin orden
+gobernada separada.
+
+Actualizacion performance validadores 2026-06-02: tras leer los analisis
+adjuntos del operador, la cabina implementa mejoras de bajo riesgo en los
+validadores locales y el workflow. `local_validate_agent_layer.ps1`,
+`local_run_repo_alignment_runtime.ps1`,
+`local_validate_operational_chain.ps1` y
+`local_validate_capability_use_hardening.ps1` cachean lecturas CSV/JSON por
+proceso donde aplica. `local_validate_agent_layer.ps1` agrega
+`-SkipWorkflowNestedValidators` para CI, usado solo por
+`.github/workflows/cabina-validation.yml` para no relanzar validadores que el
+workflow ya ejecuta como pasos propios; niveles y workpapers siguen cubiertos.
+El escaneo de secretos del validador paraguas lee cada archivo una vez y
+conserva evidencia `path`, `line` y `pattern`. La matriz queda en
+`D:/.agents/codex/matrices/VALIDATOR_PERFORMANCE_IMPROVEMENT_MATRIX_20260602.csv`
+y el readback en
+`D:/.agents/codex/readbacks/2026-06-02_validator_performance_improvements_readback.md`.
+Quedan pendientes por carril separado el runner change-aware, hash sets
+transversales y medicion comparativa de duracion CI.
+
 Reglas vigentes:
 
 - GitHub repo-visible reversible esta habilitado para lectura, validacion, branch, commit, push, PR draft/update, issues, labels, comentarios, GitHub Actions de validacion y readbacks bajo orden gobernada.
