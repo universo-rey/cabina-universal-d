@@ -439,6 +439,7 @@
       "read_weight": "light_profile_only",
       "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.openai_dispatcher",
       "default_skills": [
+        "github:github",
         "openai-developers:agents-sdk",
         "skill-creator",
         "mcp-builder",
@@ -454,7 +455,8 @@
         "recipe.agent_workpaper_operation",
         "recipe.parallel_agent_operation",
         "recipe.governed_order_preparation",
-        "recipe.openai_local_agent_design"
+        "recipe.openai_local_agent_design",
+        "recipe.codex_cloud_governed_lane"
       ],
       "default_tools": [
         "tool.synthetic_eval_manifest",
@@ -462,11 +464,14 @@
         "tool.workpaper_index_check",
         "tool.local_validate_agent_workpapers",
         "tool.parallel_dispatch_policy_check",
-        "tool.governed_order_packet_builder"
+        "tool.governed_order_packet_builder",
+        "tool.codex_cloud_cli_readonly",
+        "tool.local_validate_codex_cloud_governed_lane"
       ],
       "default_plugins": [
         "Superpowers",
-        "OpenAI Developers"
+        "OpenAI Developers",
+        "GitHub"
       ],
       "runtime_alignment_mode": "local_only_until_order"
     },

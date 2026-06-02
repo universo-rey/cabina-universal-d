@@ -134,6 +134,30 @@ preflight Agents SDK local se valida con
 y debe cerrar en `smoke=OK_NO_API_CALL`. Esto no habilita OpenAI API live,
 Agents SDK live, costos ni agentes remotos persistentes.
 
+Estado Codex Cloud gobernado actualizado 2026-06-02: Codex Cloud queda como
+carril remoto repo-scoped activo bajo
+`D:\.agents\codex\maps\CODEX_CLOUD_GOVERNED_LANE.md`,
+`D:\.agents\codex\matrices\CODEX_CLOUD_GOVERNED_LANE_MATRIX.csv` y
+`D:\.agents\codex\tools\local_validate_codex_cloud_governed_lane.ps1`.
+`SeshatSgin/sgin-cloud` queda reconocido y verificado como environment Cloud
+remoto para smoke/CI read-only o no sensible con branch fija. Quedan
+registrados el smoke read-only
+`task_e_6a1f19895190832ebd427cf6b955bc31` y el smoke CI mock
+`task_e_6a1f1b60bc04832e855fe676e91c9ea7`, ambos `READY`, `files_changed=0`
+y sin diff. El clon canonico local para este carril es
+`C:\Users\enzo1\Documents\GitHub\sgin-cloud` en `67f04f9` coincidente con
+`origin/main`; el clon OneDrive en `194d4db` queda marcado como atrasado y no
+debe usarse para Cloud CI sin orden de refresh o higiene. Los environments
+visibles quedan registrados en
+`D:\.agents\codex\matrices\CODEX_CLOUD_ENVIRONMENT_INVENTORY_20260602.csv`.
+`universo-rey/cabina-universal-d` queda probado con smoke read-only
+`task_e_6a1f119843d4832e9ed821834222c003`, estado `READY`, sin diff. Esto no
+habilita secretos, Microsoft live, SharePoint real, produccion, permisos,
+OpenAI API live, costos ni agentes remotos persistentes.
+La segunda ola aprobada por el operador ejecuto smokes read-only sobre
+`SeshatSgin/tcu-control-plane`, `SGIN_Canonico_Puro` y `Sgin`, todos con estado
+`READY`, `files_changed=0` y sin diff.
+
 Estado jerarquia AGENTS.md actualizado 2026-06-01: `D:\AGENTS.md` es la
 instruccion rectora local de mayor precedencia. Las instrucciones anidadas,
 perfiles de agentes, skills repo-locales, plugins y runtimes globales solo
