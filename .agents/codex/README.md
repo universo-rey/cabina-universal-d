@@ -42,23 +42,29 @@ La carpeta debe preferir `copiar/adaptar` antes que inventar. Los archivos `SOUR
 3. Leer `agents\LEVELS.yaml`.
 4. Seleccionar subnivel y agente desde `routing.json`.
 5. Confirmar perfil en `agents.json`.
-6. Declarar cadena de capacidad desde
+6. Ejecutar primero la skill obligatoria
+   `D:\.agents\skills\tcu-descubridor-capacidades\SKILL.md` para descubrir,
+   asignar o marcar `NO_DISPONIBLE` en skills, recetas, plugins y tools.
+7. Declarar cadena de capacidad desde
    `matrices\CAPABILITY_USE_HARDENING_MATRIX.csv`: agente, skill, receta,
    plugin, tool, superficie, evidencia, validador y stop condition.
-7. Abrir solo el README del subnivel y el perfil asignado.
-8. Elegir receta desde `recipes\RECIPE_INDEX.csv`.
-9. Elegir plugin desde `matrices\PLUGIN_SKILL_BOUNDARY_MATRIX.csv`.
-10. Elegir tool desde `tools\TOOL_INDEX.csv`.
-11. Revisar primero si existe un `SOURCE_*` aplicable.
-12. Ejecutar solo trabajo local permitido o preparar orden gobernada.
-13. Validar con `tools\\local_validate_agent_levels.ps1`, `tools\\local_validate_agent_workpapers.ps1`, `tools\\local_validate_capability_use_hardening.ps1`, `tools\\local_validate_operational_chain.ps1` y `tools\\local_validate_agent_layer.ps1`.
-14. Para carriles paralelos u ordenes, validar tambien con
+8. Abrir solo el README del subnivel y el perfil asignado.
+9. Elegir receta desde `recipes\RECIPE_INDEX.csv`.
+10. Elegir plugin desde `matrices\PLUGIN_SKILL_BOUNDARY_MATRIX.csv`.
+11. Elegir tool desde `tools\TOOL_INDEX.csv`.
+12. Revisar primero si existe un `SOURCE_*` aplicable.
+13. Ejecutar solo trabajo local permitido o preparar orden gobernada.
+14. Si el carril usa agentes autonomos, Codex Cloud o task agents, declarar
+    fila en `matrices\AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv` y
+    validar con `tools\\local_validate_autonomous_agent_execution.ps1`.
+15. Validar con `tools\\local_validate_agent_levels.ps1`, `tools\\local_validate_agent_workpapers.ps1`, `tools\\local_validate_capability_use_hardening.ps1`, `tools\\local_validate_operational_chain.ps1` y `tools\\local_validate_agent_layer.ps1`.
+16. Para carriles paralelos u ordenes, validar tambien con
     `tools\\local_validate_parallel_order_governance.ps1` y
     `tools\\local_validate_order_packets.ps1`.
-14.b. Para carriles paralelos por issue, declarar primero la fila en
+16.b. Para carriles paralelos por issue, declarar primero la fila en
     `matrices\\PARALLEL_ISSUE_LANE_QUEUE.csv` y validar con
     `tools\\local_validate_parallel_issue_queue.ps1`.
-15. Cerrar con agente, skill, receta, plugin, tool, superficie, evidencia,
+17. Cerrar con agente, skill, receta, plugin, tool, superficie, evidencia,
     validador y condicion de detencion. Si falta algun componente y no existe
     `NO_APLICA` justificado, detener con `capability_use_preflight_missing` u
     `operational_chain_missing` segun corresponda.
@@ -113,6 +119,15 @@ Actualizacion skills repo-locales 2026-06-01: las skills cabina que deben
 viajar con el repo se guardan en `D:\.agents\skills\<skill>\SKILL.md`. La
 carpeta `D:\.agents\codex\skills` no instala por si misma: registra uso,
 subskills y source refs.
+
+Actualizacion autonomia gobernada 2026-06-02: `tcu-descubridor-capacidades`
+queda como skill obligatoria antes de toda asignacion o derivacion. La matriz
+`matrices\AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv` y el validador
+`tools\local_validate_autonomous_agent_execution.ps1` preparan agentes locales
+task-scoped y Codex Cloud repo-scoped con owner, reviewer, evidencia,
+rollback, postcheck y stop condition. Los repos sin environment visible quedan
+`BLOCKED_NO_CODEX_CLOUD_ENVIRONMENT`; los environments fuera de la base D:\ se
+marcan como candidatos, no como repos absorbidos.
 
 ## Olas de agentes
 

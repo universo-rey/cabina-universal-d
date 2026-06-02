@@ -26,7 +26,11 @@
       "proximos_carriles"
     ],
     "runtime_alignment_mode": "LOCAL_SYNTHETIC_ALIGNMENT_ONLY",
-    "default_skills_required": true
+    "default_skills_required": true,
+    "mandatory_capability_discovery_skill": "tcu-descubridor-capacidades",
+    "autonomous_task_agents_policy": "GOVERNED_TASK_SCOPED_ACTIVE",
+    "codex_cloud_policy": "GOVERNED_REPO_SCOPED_ACTIVE_NO_SECRETS_NO_LIVE_NO_PRODUCTION",
+    "no_remote_persistent_agents_without_governed_order": true
   },
   "agents": [
     {
@@ -148,6 +152,7 @@
       "read_weight": "light_profile_only",
       "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.frontier_guardian",
       "default_skills": [
+        "tcu-descubridor-capacidades",
         "rey-modo-gobernador-capacidades",
         "tcu-redactor-planes-operativos",
         "superpowers:writing-plans",
@@ -219,6 +224,7 @@
       "read_weight": "light_profile_only",
       "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.governance_registrar",
       "default_skills": [
+        "tcu-descubridor-capacidades",
         "rey-modo-gobernador-capacidades",
         "d-drive-agent-layer-enrichment",
         "matrix-recipe-skill-sync",
@@ -290,6 +296,7 @@
       "read_weight": "light_profile_only",
       "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.authority_canonist",
       "default_skills": [
+        "tcu-descubridor-capacidades",
         "rey-modo-gobernador-capacidades",
         "repo-agent-tool-governance",
         "governed-readback-closeout",
@@ -360,6 +367,7 @@
       "read_weight": "light_profile_only",
       "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.repo_cartographer",
       "default_skills": [
+        "tcu-descubridor-capacidades",
         "github:github",
         "github:yeet",
         "repo-agent-tool-governance",
@@ -439,6 +447,7 @@
       "read_weight": "light_profile_only",
       "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.openai_dispatcher",
       "default_skills": [
+        "tcu-descubridor-capacidades",
         "github:github",
         "openai-developers:agents-sdk",
         "skill-creator",
@@ -516,6 +525,7 @@
       "read_weight": "light_profile_only",
       "workpapers_path": "D:\\.agents\\codex\\workpapers\\universe.escribania_tower",
       "default_skills": [
+        "tcu-descubridor-capacidades",
         "sharepoint:sharepoint-site-discovery",
         "sharepoint:sharepoint",
         "rey-modo-gobernador-capacidades",
@@ -586,6 +596,7 @@
       "read_weight": "light_profile_only",
       "workpapers_path": "D:\\.agents\\codex\\workpapers\\universe.modo_on_tower",
       "default_skills": [
+        "tcu-descubridor-capacidades",
         "tcu-normalizador-sistema-modo-on",
         "sharepoint:sharepoint",
         "rey-modo-gobernador-capacidades",
@@ -659,6 +670,7 @@
       "read_weight": "light_profile_only",
       "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.seshat_evidence",
       "default_skills": [
+        "tcu-descubridor-capacidades",
         "rey-modo-evidencia-riesgo-handoff",
         "tcu-planificador-con-archivos",
         "governed-readback-closeout",
@@ -735,6 +747,7 @@
       "read_weight": "light_profile_only",
       "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.sdu_gate",
       "default_skills": [
+        "tcu-descubridor-capacidades",
         "tcu-harness-evals-agentes",
         "sdu-ejecutor-gates",
         "repo-agent-tool-governance",
@@ -805,6 +818,7 @@
       "read_weight": "light_profile_only",
       "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.thot_schema",
       "default_skills": [
+        "tcu-descubridor-capacidades",
         "tcu-harness-evals-agentes",
         "skill-judge",
         "skill-creator",
@@ -889,6 +903,7 @@
       "read_weight": "light_profile_only",
       "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.migration_planner",
       "default_skills": [
+        "tcu-descubridor-capacidades",
         "tcu-planificador-con-archivos",
         "tcu-redactor-planes-operativos",
         "superpowers:writing-plans",
@@ -1039,6 +1054,7 @@
       "read_weight": "light_profile_only",
       "workpapers_path": "D:\\.agents\\codex\\workpapers\\codex.workspace_guardian",
       "default_skills": [
+        "tcu-descubridor-capacidades",
         "rey-modo-auditor-vscode-insiders",
         "operativa-guardian:operativa-guardian-status",
         "skill-judge",
