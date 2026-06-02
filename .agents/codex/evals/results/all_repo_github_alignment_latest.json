@@ -8,7 +8,7 @@
   "github_access_count": 13,
   "dirty_repo_count": 1,
   "nested_dirty_repo_count": 1,
-  "open_pr_count": 9,
+  "open_pr_count": 5,
   "root_base_repo_id": "D_CABINA_UNIVERSAL_ROOT",
   "root_base_remote": "universo-rey/cabina-universal-d",
   "blocked_surfaces": [
@@ -28,49 +28,16 @@
       "local_path": "D:/",
       "exists": true,
       "git_worktree": true,
-      "branch": "codex/microsoft-agents-governed-lab-alignment-20260602",
-      "head": "2c60d37",
+      "branch": "codex/final-carriles-readback-20260602",
+      "head": "c2acf32",
       "origin": "https://github.com/universo-rey/cabina-universal-d.git",
       "worktree_state": "clean",
       "dirty_count": 0,
       "github_access": true,
       "default_branch": "main",
       "visibility": "PRIVATE",
-      "open_pr_count": 4,
-      "open_prs": [
-        {
-          "number": 34,
-          "head_ref": "codex/microsoft-agents-governed-lab-alignment-20260602",
-          "base_ref": "main",
-          "is_draft": true,
-          "merge_state": "CLEAN",
-          "updated_at": "2026-06-02T13:53:10Z"
-        },
-        {
-          "number": 31,
-          "head_ref": "codex/teams-lanes-cross-repo-audit-20260602",
-          "base_ref": "main",
-          "is_draft": true,
-          "merge_state": "CLEAN",
-          "updated_at": "2026-06-02T13:37:56Z"
-        },
-        {
-          "number": 30,
-          "head_ref": "codex/user-efigueroa-governance-20260602",
-          "base_ref": "main",
-          "is_draft": true,
-          "merge_state": "CLEAN",
-          "updated_at": "2026-06-02T12:53:52Z"
-        },
-        {
-          "number": 29,
-          "head_ref": "codex/teams-governance-20260602",
-          "base_ref": "main",
-          "is_draft": true,
-          "merge_state": "CLEAN",
-          "updated_at": "2026-06-02T12:43:02Z"
-        }
-      ],
+      "open_pr_count": 0,
+      "open_prs": [],
       "matrix_status": "ACTIVE_ROOT_GITHUB_BASE"
     },
     {
@@ -322,7 +289,7 @@
       "exists": true,
       "git_worktree": true,
       "branch": "main",
-      "head": "70b88a5",
+      "head": "382c406",
       "origin": "https://github.com/universo-rey/microsoft-agents-governed-lab.git",
       "worktree_state": "clean",
       "dirty_count": 0,
@@ -334,9 +301,8 @@
       "matrix_status": "REMOTE_REQUIRED_GITHUB_ROUTE"
     }
   ],
-  "warning_count": 6,
+  "warning_count": 5,
   "warnings": [
-    "Repo has open PRs: D_CABINA_UNIVERSAL_ROOT count=4",
     "Repo has open PRs: ORGANIZACION count=2",
     "Repo has open PRs: TORRE_GEMELA_ESCRIBANIA count=1",
     "Repo has open PRs: CDF_SOLUCIONES count=1",
@@ -345,6 +311,6 @@
   ],
   "error_count": 0,
   "errors": [],
-  "generated_at": "2026-06-02T14:30:14.0064837Z",
+  "generated_at": "2026-06-02T14:53:37.0913121Z",
   "result_written": true
 }
