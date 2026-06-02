@@ -68,8 +68,23 @@ compartidos requieren carril serial de integracion.
 Estado merge cola paralela 2026-06-01: el PR raiz #22 fue mergeado a `main`
 con merge commit `38c3bd0439e512504d39b97b8cef41144f545f87`. `main` es la
 base rectora vigente para runtime no mutante, preflight Agents SDK local y
-cola paralela por issue. Los issues #12 y #15 quedan abiertos como carriles de
-entrega, no cerrados por este merge.
+cola paralela por issue.
+
+Estado biblioteca de referencias actualizado 2026-06-02: el PR raiz #25 fue
+mergeado a `main` con merge commit
+`c3c44dff12cd4957cbf27bd4dbf09e971497127d`. El issue #12 queda cerrado. La
+cabina adopta `SKILL_REFERENCE_LIBRARY_POLICY.md`,
+`SKILL_REFERENCE_SOURCE_MATRIX.csv` y
+`local_validate_skill_reference_sources.ps1` para separar referencias tecnicas
+de canon rector, controlar frescura/licencia y bloquear OpenAI API live,
+Microsoft live, produccion, permisos, secretos y datos regulados.
+
+Estado frontend-design actualizado 2026-06-02: el PR raiz #26 fue mergeado a
+`main` con merge commit `d72fff9569ffbb5056276f5fb92fcc03e57b4bb8`. El issue
+#15 queda cerrado. La cabina adopta `FRONTEND_DESIGN_LANE.md`,
+`FRONTEND_DESIGN_LANE_MATRIX.csv` y
+`local_validate_frontend_design_lane.ps1` para enrutar UI/apps/sites a
+estandares de diseno, assets y verificacion local sin implicar produccion.
 
 Estado cadena operativa global actualizado 2026-06-01: toda accion operativa
 debe declarar y validar agente, skill, receta, tool, evidencia, validador y
@@ -131,6 +146,12 @@ Universal del Rey y como repo raiz envoltorio activo:
   `MERGED`;
 - PR raiz readback canon:
   `https://github.com/universo-rey/cabina-universal-d/pull/23` con estado
+  `MERGED`;
+- PR raiz biblioteca de referencias:
+  `https://github.com/universo-rey/cabina-universal-d/pull/25` con estado
+  `MERGED`;
+- PR raiz frontend-design:
+  `https://github.com/universo-rey/cabina-universal-d/pull/26` con estado
   `MERGED`;
 - allowlist: solo gobierno, canon, agentes locales, matrices, prompts,
   recetas, tools, evals, plugins, templates, readbacks/workpapers saneados y

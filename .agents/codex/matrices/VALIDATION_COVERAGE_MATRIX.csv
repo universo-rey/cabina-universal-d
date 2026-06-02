@@ -32,3 +32,5 @@ subskills,D:\.agents\codex\skills\SUBSKILL_USAGE_MATRIX.csv,D:\.agents\codex\too
 sublevel_artifacts,D:\.agents\codex\agents\LEVELS.yaml,D:\.agents\codex\tools\local_validate_agent_levels.ps1,court.thot_schema,covered,missing_sublevel_artifact
 tools,D:\.agents\codex\tools\TOOL_INDEX.csv,D:\.agents\codex\tools\local_validate_agent_layer.ps1,codex.workspace_guardian,covered,tool_index_missing_surface
 workpapers,D:\.agents\codex\workpapers\WORKPAPER_INDEX.csv,D:\.agents\codex\tools\local_validate_agent_workpapers.ps1,court.seshat_evidence,covered,workpaper_missing_for_agent
+skill_reference_sources,D:/.agents/codex/matrices/SKILL_REFERENCE_SOURCE_MATRIX.csv,D:/.agents/codex/tools/local_validate_skill_reference_sources.ps1,tech.reference_librarian,covered,source_uncertain
+frontend_design_lanes,D:/.agents/codex/matrices/FRONTEND_DESIGN_LANE_MATRIX.csv,D:/.agents/codex/tools/local_validate_frontend_design_lane.ps1,codex.workspace_guardian,covered,production_requested_without_explicit_authorization

@@ -54,12 +54,12 @@ root_wrapper_repo:
   scope: allowlist_governance_metadata
   absorbs_nested_repos: false
   remote_url: https://github.com/universo-rey/cabina-universal-d.git
-  pull_request: https://github.com/universo-rey/cabina-universal-d/pull/23
+  pull_request: https://github.com/universo-rey/cabina-universal-d/pull/26
   pull_request_status: MERGED
-  last_merged_branch: codex/canon-pr22-merge-readback-20260601
-  last_merge_commit: 0d0a2b782ddf288f795219c3481f125182535878
+  last_merged_branch: codex/frontend-design-lane-issue-15
+  last_merge_commit: d72fff9569ffbb5056276f5fb92fcc03e57b4bb8
   visibility: private
-  status: PRIVATE_REMOTE_MAIN_ACTIVE_PR23_MERGED_AUTOMATED_MERGE_POLICY_PENDING
+  status: PRIVATE_REMOTE_MAIN_ACTIVE_PR26_MERGED_SHARED_INDEX_PENDING
 capability_import_state:
   as_of: 2026-06-01
   mode: local_declarative_copy_adapt
@@ -85,10 +85,10 @@ github_base_work_state:
   status: GITHUB_BASE_WORK_DECLARED_ACTIVE
   github_actions_surface_state: APPROVED_GITHUB_ACTIONS_SURFACE
   root_remote_base: https://github.com/universo-rey/cabina-universal-d.git
-  root_pull_request: https://github.com/universo-rey/cabina-universal-d/pull/23
+  root_pull_request: https://github.com/universo-rey/cabina-universal-d/pull/26
   root_pull_request_status: MERGED
   root_base_branch: main
-  root_last_merge_commit: 0d0a2b782ddf288f795219c3481f125182535878
+  root_last_merge_commit: d72fff9569ffbb5056276f5fb92fcc03e57b4bb8
   automated_merge_policy_state: APPROVED_WITH_PRECHECKS
   automated_merge_required_prechecks: base_main|codex_branch|non_draft|clean_merge_state|green_checks|match_head_commit|no_blocked_surfaces|post_merge_sync
   policy: D:/02_AUTHORITY_CANON/GITHUB_BASE_WORK_POLICY.md
@@ -134,6 +134,10 @@ runtime_alignment_state:
   skill_metadata_validator: D:/.agents/codex/tools/local_validate_skill_metadata.ps1
   document_skill_lane_matrix: D:/.agents/codex/matrices/DOCUMENT_SKILL_LANE_MATRIX.csv
   document_skill_lane_validator: D:/.agents/codex/tools/local_validate_document_skill_lane.ps1
+  skill_reference_source_matrix: D:/.agents/codex/matrices/SKILL_REFERENCE_SOURCE_MATRIX.csv
+  skill_reference_source_validator: D:/.agents/codex/tools/local_validate_skill_reference_sources.ps1
+  frontend_design_lane_matrix: D:/.agents/codex/matrices/FRONTEND_DESIGN_LANE_MATRIX.csv
+  frontend_design_lane_validator: D:/.agents/codex/tools/local_validate_frontend_design_lane.ps1
   repo_local_skill_root: D:/.agents/skills
   skill_governance_catalog: D:/.agents/codex/skills
   subrecipe_index: D:/.agents/codex/recipes/SUBRECIPE_INDEX.csv

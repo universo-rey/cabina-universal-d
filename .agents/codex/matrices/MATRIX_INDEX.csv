@@ -65,3 +65,6 @@ tool_governance_matrix,D:\.agents\codex\matrices\TOOL_GOVERNANCE_MATRIX.csv,tool
 tool_recipe_skill_matrix,D:\.agents\codex\matrices\AGENT_TOOL_RECIPE_SKILL_MATRIX.csv,execution_contracts,00_ROUTER,update when tools recipes or skills change
 validation_coverage_matrix,D:\.agents\codex\matrices\VALIDATION_COVERAGE_MATRIX.csv,validators,03_CORTE_EJECUTORA,update when validation coverage changes
 workpaper_index,D:\.agents\codex\workpapers\WORKPAPER_INDEX.csv,agent_workpapers,03_CORTE_EJECUTORA,update when workpaper folder ownership changes
+skill_reference_source_matrix,D:/.agents/codex/matrices/SKILL_REFERENCE_SOURCE_MATRIX.csv,skill_reference_sources,05_SOPORTE_TECNICO,update when skill API reference sources freshness license canon boundary or validator changes
+frontend_design_lane_matrix,D:/.agents/codex/matrices/FRONTEND_DESIGN_LANE_MATRIX.csv,frontend_design_lanes,05_SOPORTE_TECNICO,update when UI design standards assets screenshot verification or production boundary changes
+frontend_design_lane_map,D:/.agents/codex/maps/FRONTEND_DESIGN_LANE.md,frontend_design_map,05_SOPORTE_TECNICO,update when frontend design policy map changes
