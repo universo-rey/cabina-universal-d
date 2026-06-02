@@ -140,6 +140,10 @@
 !/.agents/codex/recipes/*.yaml
 !/.agents/codex/recipes/*.yml
 
+!/.agents/codex/plans/
+/.agents/codex/plans/*
+!/.agents/codex/plans/*.md
+
 !/.agents/codex/orders/
 /.agents/codex/orders/*
 !/.agents/codex/orders/GOVERNED_ORDER_PREPARATION_PACKET_TEMPLATE.md
@@ -159,6 +163,7 @@
 !/.agents/codex/readbacks/2026-06-02_efigueroa_user_governance_readback.md
 !/.agents/codex/readbacks/2026-06-02_teams_governance_readback.md
 !/.agents/codex/readbacks/2026-06-02_microsoft_agents_governed_lab_alignment_readback.md
+!/.agents/codex/readbacks/2026-06-02_openai_two_wave_adoption_readback.md
 
 !/.agents/codex/tools/
 /.agents/codex/tools/*
