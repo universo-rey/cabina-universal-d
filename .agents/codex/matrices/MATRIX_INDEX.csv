@@ -68,5 +68,6 @@ workpaper_index,D:\.agents\codex\workpapers\WORKPAPER_INDEX.csv,agent_workpapers
 skill_reference_source_matrix,D:/.agents/codex/matrices/SKILL_REFERENCE_SOURCE_MATRIX.csv,skill_reference_sources,05_SOPORTE_TECNICO,update when skill API reference sources freshness license canon boundary or validator changes
 frontend_design_lane_matrix,D:/.agents/codex/matrices/FRONTEND_DESIGN_LANE_MATRIX.csv,frontend_design_lanes,05_SOPORTE_TECNICO,update when UI design standards assets screenshot verification or production boundary changes
 frontend_design_lane_map,D:/.agents/codex/maps/FRONTEND_DESIGN_LANE.md,frontend_design_map,05_SOPORTE_TECNICO,update when frontend design policy map changes
+user_identity_governance_matrix,D:/.agents/codex/matrices/USER_IDENTITY_GOVERNANCE_MATRIX.csv,user_identity_governance,01_AUTORIDAD_Y_GATES,update when governed user identity surfaces owner gate validator evidence or stop condition changes
 teams_governance_surface_matrix,D:/.agents/codex/matrices/TEAMS_GOVERNANCE_SURFACE_MATRIX.csv,teams_governance_surfaces,01_AUTORIDAD_Y_GATES,update when Teams surface read write gate owner validator or evidence policy changes
 teams_agent_capability_matrix,D:/.agents/codex/matrices/TEAMS_AGENT_CAPABILITY_MATRIX.csv,teams_agent_capabilities,03_CORTE_EJECUTORA,update when Teams skills recipes tools plugins agents or workpaper routes change
