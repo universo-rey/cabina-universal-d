@@ -213,11 +213,12 @@ condition. Dentro de la base D:\ quedan `ACTIVE_CODEX_CLOUD_READY`
 `universo-rey/cabina-universal-d`, `universo-rey/organizacion`,
 `SeshatSgin/torre-gemela-escribania`,
 `SeshatSgin/tge-agentic-runtime-control-escribania`,
-`SeshatSgin/cdf-soluciones`, `SeshatSgin/jara-consultores`,
-`SeshatSgin/seshat-bootstrap-sdu-cn`, `universo-rey/Sgin` y
-`SeshatSgin/tcu-agentic-runtime-control`; los repos sin environment visible
-quedan `BLOCKED_NO_CODEX_CLOUD_ENVIRONMENT`. Los environments visibles fuera
-de la base (`SeshatSgin/sgin-cloud`, `SeshatSgin/tcu-control-plane` y
+`SeshatSgin/sgin-cumplimiento`, `SeshatSgin/cdf-soluciones`,
+`SeshatSgin/jara-consultores`, `SeshatSgin/seshat-bootstrap-sdu-cn`,
+`universo-rey/Sgin`, `SeshatSgin/tcu-agentic-runtime-control` y
+`universo-rey/microsoft-agents-governed-lab`; los repos sin environment
+visible quedan `BLOCKED_NO_CODEX_CLOUD_ENVIRONMENT`. Los environments visibles
+fuera de la base (`SeshatSgin/sgin-cloud`, `SeshatSgin/tcu-control-plane` y
 `SeshatSgin/SGIN_Canonico_Puro`) quedan como
 `ACTIVE_CODEX_CLOUD_READY_OUT_OF_BASE_MATRIX`, sin absorberlos ni habilitar
 Microsoft live, OpenAI API live, produccion, permisos, secretos, datos
@@ -333,17 +334,17 @@ permisos, tenant writes ni `codex cloud apply` sin revision.
 
 Actualizacion asignacion environments Codex Cloud 2026-06-02: tras indicacion
 del operador de que los faltantes ya fueron realizados, la cabina verifico y
-asigno siete environments adicionales mediante smokes read-only que cerraron
+asigno nueve environments adicionales mediante smokes read-only que cerraron
 `READY`, `files_changed=0` y sin diff: `universo-rey/organizacion`,
 `SeshatSgin/torre-gemela-escribania`,
 `SeshatSgin/tge-agentic-runtime-control-escribania`,
-`SeshatSgin/cdf-soluciones`, `SeshatSgin/jara-consultores`,
-`SeshatSgin/seshat-bootstrap-sdu-cn` y
-`SeshatSgin/tcu-agentic-runtime-control`. La cola queda con 9 environments
-visibles dentro de base, 3 referencias visibles fuera de base y 4 pendientes
-por resolucion de label/environment en CLI: `SeshatSgin/sgin-cumplimiento`,
-`SeshatSgin/modo-on-foundation`, `SeshatSgin/sdu-canon` y
-`universo-rey/microsoft-agents-governed-lab`. Esto
+`SeshatSgin/sgin-cumplimiento`, `SeshatSgin/cdf-soluciones`,
+`SeshatSgin/jara-consultores`, `SeshatSgin/seshat-bootstrap-sdu-cn`,
+`SeshatSgin/tcu-agentic-runtime-control` y
+`universo-rey/microsoft-agents-governed-lab`. La cola queda con 11
+environments visibles dentro de base, 3 referencias visibles fuera de base y
+2 pendientes por resolucion de label/environment en CLI:
+`SeshatSgin/modo-on-foundation` y `SeshatSgin/sdu-canon`. Esto
 no ejecuto `codex cloud apply`, no escribio en repos Cloud y no habilita
 secretos, Microsoft live, OpenAI API live, produccion, permisos, costos ni
 agentes remotos persistentes.

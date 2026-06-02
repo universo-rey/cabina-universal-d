@@ -180,11 +180,15 @@ La segunda ola aprobada por el operador ejecuto smokes read-only sobre
 `READY`, `files_changed=0` y sin diff.
 Actualizacion P0 Codex Cloud 2026-06-02: `universo-rey/organizacion` quedo
 verificado con smoke read-only `task_e_6a1f4b4d699c832ea45166ff611319da`,
-estado `READY` y sin diff. La matriz autonoma queda sincronizada con siete
-environments repo-base nuevos/visibles mas la raiz y `Sgin`; permanecen
-pendientes por label/environment real `SeshatSgin/sgin-cumplimiento`,
-`SeshatSgin/modo-on-foundation`, `SeshatSgin/sdu-canon` y
-`universo-rey/microsoft-agents-governed-lab`.
+estado `READY` y sin diff. Reconciliacion posterior verifico tambien
+`SeshatSgin/sgin-cumplimiento`
+`task_e_6a1f4ee18c3c832eb9f0a6dbc427e65b` y
+`universo-rey/microsoft-agents-governed-lab`
+`task_e_6a1f4efb4d4c832e87a3fbf0d0f62433`, ambos `READY_NO_DIFF`.
+La matriz autonoma queda sincronizada con nueve environments repo-base
+nuevos/visibles mas la raiz y `Sgin`; permanecen pendientes por
+label/environment real `SeshatSgin/modo-on-foundation` y
+`SeshatSgin/sdu-canon`.
 
 Estado entornos Codex actualizado 2026-06-02: la cabina crea entorno Codex app
 local/worktree repo-visible en `D:\.codex\environments\environment.toml` para
