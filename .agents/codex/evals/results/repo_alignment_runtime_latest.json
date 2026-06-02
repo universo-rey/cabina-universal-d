@@ -6,9 +6,9 @@
   "agent_count": 14,
   "default_skill_rows": 14,
   "execution_contract_rows": 14,
-  "repo_alignment_rows": 12,
-  "cabina_repo_alignment_rows": 12,
-  "github_repo_rows": 12,
+  "repo_alignment_rows": 13,
+  "cabina_repo_alignment_rows": 13,
+  "github_repo_rows": 13,
   "skill_usage_rows": 42,
   "recipe_rows": 21,
   "tool_rows": 38,
@@ -32,6 +32,6 @@
   ],
   "errors": [],
   "warnings": [],
-  "generated_at": "2026-06-02T12:16:48.1393661Z",
+  "generated_at": "2026-06-02T13:49:17.8144963Z",
   "result_written": true
 }
