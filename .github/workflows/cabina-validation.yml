@@ -152,6 +152,19 @@ jobs:
           }
           exit 0
 
+      - name: Teams cross-repo lane audit
+        shell: pwsh
+        run: |
+          $root = Join-Path $env:GITHUB_WORKSPACE ".agents\codex"
+          $tool = Join-Path $root "tools\local_validate_teams_cross_repo_lane_audit.ps1"
+          $output = & $tool -Root $root
+          $output | Write-Output
+          $payload = ($output -join "`n") | ConvertFrom-Json
+          if ($payload.status -ne "PASS") {
+            exit 1
+          }
+          exit 0
+
       - name: Runtime alignment
         shell: pwsh
         run: |
