@@ -6,9 +6,9 @@
   "repo_count": 13,
   "local_git_repo_count": 13,
   "github_access_count": 13,
-  "dirty_repo_count": 2,
+  "dirty_repo_count": 1,
   "nested_dirty_repo_count": 1,
-  "open_pr_count": 10,
+  "open_pr_count": 9,
   "root_base_repo_id": "D_CABINA_UNIVERSAL_ROOT",
   "root_base_remote": "universo-rey/cabina-universal-d",
   "blocked_surfaces": [
@@ -29,15 +29,23 @@
       "exists": true,
       "git_worktree": true,
       "branch": "codex/microsoft-agents-governed-lab-alignment-20260602",
-      "head": "c397623",
+      "head": "2c60d37",
       "origin": "https://github.com/universo-rey/cabina-universal-d.git",
-      "worktree_state": "dirty",
-      "dirty_count": 12,
+      "worktree_state": "clean",
+      "dirty_count": 0,
       "github_access": true,
       "default_branch": "main",
       "visibility": "PRIVATE",
-      "open_pr_count": 3,
+      "open_pr_count": 4,
       "open_prs": [
+        {
+          "number": 34,
+          "head_ref": "codex/microsoft-agents-governed-lab-alignment-20260602",
+          "base_ref": "main",
+          "is_draft": true,
+          "merge_state": "CLEAN",
+          "updated_at": "2026-06-02T13:53:10Z"
+        },
         {
           "number": 31,
           "head_ref": "codex/teams-lanes-cross-repo-audit-20260602",
@@ -314,48 +322,29 @@
       "exists": true,
       "git_worktree": true,
       "branch": "main",
-      "head": "ba27bd0",
+      "head": "70b88a5",
       "origin": "https://github.com/universo-rey/microsoft-agents-governed-lab.git",
       "worktree_state": "clean",
       "dirty_count": 0,
       "github_access": true,
       "default_branch": "main",
       "visibility": "PRIVATE",
-      "open_pr_count": 2,
-      "open_prs": [
-        {
-          "number": 2,
-          "head_ref": "dependabot/npm_and_yarn/npm-all-3ddac0eb19",
-          "base_ref": "main",
-          "is_draft": false,
-          "merge_state": "UNSTABLE",
-          "updated_at": "2026-05-30T21:39:19Z"
-        },
-        {
-          "number": 1,
-          "head_ref": "dependabot/nuget/samples/dotnet/Agent-Framework/nuget-all-71191d6bc8",
-          "base_ref": "main",
-          "is_draft": false,
-          "merge_state": "CLEAN",
-          "updated_at": "2026-05-30T21:37:17Z"
-        }
-      ],
+      "open_pr_count": 0,
+      "open_prs": [],
       "matrix_status": "REMOTE_REQUIRED_GITHUB_ROUTE"
     }
   ],
-  "warning_count": 8,
+  "warning_count": 6,
   "warnings": [
-    "Repo has local worktree changes: D_CABINA_UNIVERSAL_ROOT dirty_count=12 branch=codex/microsoft-agents-governed-lab-alignment-20260602",
-    "Repo has open PRs: D_CABINA_UNIVERSAL_ROOT count=3",
+    "Repo has open PRs: D_CABINA_UNIVERSAL_ROOT count=4",
     "Repo has open PRs: ORGANIZACION count=2",
     "Repo has open PRs: TORRE_GEMELA_ESCRIBANIA count=1",
     "Repo has open PRs: CDF_SOLUCIONES count=1",
     "Repo has local worktree changes: SESHAT_BOOTSTRAP dirty_count=5 branch=codex/seshat-global-live-governance-20260601",
-    "Repo has open PRs: SESHAT_BOOTSTRAP count=1",
-    "Repo has open PRs: MICROSOFT_AGENTS_GOVERNED_LAB count=2"
+    "Repo has open PRs: SESHAT_BOOTSTRAP count=1"
   ],
   "error_count": 0,
   "errors": [],
-  "generated_at": "2026-06-02T13:49:53.2111054Z",
+  "generated_at": "2026-06-02T14:30:14.0064837Z",
   "result_written": true
 }

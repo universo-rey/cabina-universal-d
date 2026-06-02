@@ -13,7 +13,7 @@ bajo torre `TGE`, sin absorberlo en el repo raiz.
 
 - Ruta local: `D:\10_UNIVERSOS\ESCRIBANIA\10_REPOS\02_ACTIVE\microsoft-agents-governed-lab`
 - Rama local: `main`
-- HEAD local: `ba27bd0`
+- HEAD local: `70b88a5`
 - `origin`: `https://github.com/universo-rey/microsoft-agents-governed-lab.git`
 - `upstream`: `https://github.com/microsoft/Agents.git`
 - `upstream push`: `DISABLED`
@@ -24,8 +24,13 @@ bajo torre `TGE`, sin absorberlo en el repo raiz.
 - Repo privado: `universo-rey/microsoft-agents-governed-lab`
 - Base: `main`
 - Estado: `TGE_GOVERNED_REPO_ACTIVE`
-- PR abierto #1: Dependabot NuGet, `mergeStateStatus=CLEAN`
-- PR abierto #2: Dependabot npm, `mergeStateStatus=UNSTABLE`
+- PR #3: validador/readback upstream, `MERGED`, merge commit `c48b7c4`.
+- PR #4: NuGet sample dependency update en rama `codex/*`, `MERGED`, merge commit `2074079`.
+- PR #6: npm sample dependency update con fix peer ESLint/neostandard, `MERGED`, merge commit `70b88a5`.
+- PR #1: Dependabot NuGet, `CLOSED` como sustituido por #4.
+- PR #2: Dependabot npm, `CLOSED` como sustituido por #6.
+- PR #5: Dependabot npm duplicado, `CLOSED` como sustituido por #6.
+- PRs abiertos del lab: `0`.
 
 ## Matrices actualizadas
 
@@ -40,7 +45,7 @@ bajo torre `TGE`, sin absorberlo en el repo raiz.
 ## Validadores
 
 - `local_run_repo_alignment_runtime.ps1 -NoWrite`: `PASS`, 13 repos.
-- `local_validate_all_repo_github_alignment.ps1`: `PASS`, 13/13 GitHub accesibles.
+- `local_validate_all_repo_github_alignment.ps1 -WriteResult`: `PASS`, 13/13 GitHub accesibles, lab `open_pr_count=0`.
 - `local_validate_agent_layer.ps1`: `PASS`, 13 repos gobernados.
 - `local_validate_order_packets.ps1`: `PASS`.
 - `git diff --check`: `PASS`.
@@ -59,6 +64,7 @@ bajo torre `TGE`, sin absorberlo en el repo raiz.
 El repo contiene codigo y dependencias de laboratorio tomadas desde upstream
 `microsoft/Agents`. Su uso productivo requiere carril separado, revision de
 dependencias, validacion repo-nativa y orden de superficie Microsoft exacta.
+El carril npm quedo con `npm audit --json` en `total=0` al cierre repo-nativo.
 
 ## Rollback
 
@@ -72,7 +78,6 @@ dependencias, validacion repo-nativa y orden de superficie Microsoft exacta.
 
 ## Proximos carriles
 
-- Revisar PR #1 del lab en repo nativo.
-- Revisar PR #2 del lab en repo nativo y resolver `UNSTABLE`.
-- Definir validador repo-nativo del lab antes de cualquier branch `codex/*`.
+- Mantener `00_TGE_GOBIERNO/tools/Validate-GovernedLab.ps1` como validador repo-nativo.
 - Preparar carril de comparacion controlada con `upstream/main` si se decide sincronizar.
+- Abrir carril separado antes de cualquier ejecucion Microsoft live, tenant write o produccion.
