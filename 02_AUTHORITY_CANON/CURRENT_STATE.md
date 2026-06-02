@@ -200,6 +200,24 @@ superficie, evidencia, validador y stop condition. Si una capacidad, plugin,
 tool, ruta o stop condition no resuelve, la accion se detiene con
 `capability_use_preflight_missing` antes de ejecutar.
 
+Actualizacion autonomia gobernada 2026-06-02: la cabina propaga
+`D:/.agents/skills/tcu-descubridor-capacidades/SKILL.md` como skill
+obligatoria de descubrimiento/asignacion para todos los agentes y repos
+registrados. La matriz
+`D:/.agents/codex/matrices/AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv` y
+el validador
+`D:/.agents/codex/tools/local_validate_autonomous_agent_execution.ps1`
+habilitan preparacion de agentes locales task-scoped y Codex Cloud repo-scoped
+solo con owner, reviewer, preflight, evidencia, rollback, postcheck y stop
+condition. Dentro de la base D:\ quedan `ACTIVE_CODEX_CLOUD_READY`
+`universo-rey/cabina-universal-d` y `universo-rey/Sgin`; los repos sin
+environment visible quedan `BLOCKED_NO_CODEX_CLOUD_ENVIRONMENT`. Los
+environments visibles fuera de la base (`SeshatSgin/sgin-cloud`,
+`SeshatSgin/tcu-control-plane` y `SeshatSgin/SGIN_Canonico_Puro`) quedan como
+`ACTIVE_CODEX_CLOUD_READY_OUT_OF_BASE_MATRIX`, sin absorberlos ni habilitar
+Microsoft live, OpenAI API live, produccion, permisos, secretos, datos
+regulados ni agentes remotos persistentes.
+
 Actualizacion cola paralela por issue 2026-06-01: la cabina adopta
 `D:/.agents/codex/matrices/PARALLEL_ISSUE_LANE_QUEUE.csv` para materializar
 carriles por issue con `base_sha`, rama `codex/*`, agentes lead/owner/reviewer,

@@ -23,10 +23,13 @@ Repo remoto reconocido para el primer carril activo:
 
 - `SeshatSgin/sgin-cloud`: repo privado con `AGENTS.md`, `README.md`,
   `runtime-local`, `skills`, `tests` y workflow `validate-runtime-local.yml`.
-  Queda como candidato de smoke/CI remoto, pero no tiene environment Codex
-  Cloud visible todavia. Su carril `live-write` conserva SharePoint real
-  bloqueado salvo orden Microsoft live separada; en CI solo se acepta engine
-  `mock`.
+  Queda como environment Codex Cloud visible por CLI y candidato de smoke/CI
+  remoto fuera de la base D:\ hasta decidir registro raiz. Los tasks
+  `task_e_6a1f19895190832ebd427cf6b955bc31`,
+  `task_e_6a1f1b60bc04832e855fe676e91c9ea7` y
+  `task_e_6a1f2488d6d8832ea617a6616876e19c` cerraron `READY`, sin diff. Su
+  carril `live-write` conserva SharePoint real bloqueado salvo orden Microsoft
+  live separada; en CI solo se acepta engine `mock`.
 
 Environments Codex Cloud visibles al 2026-06-02 por snapshot de UI del
 operador:

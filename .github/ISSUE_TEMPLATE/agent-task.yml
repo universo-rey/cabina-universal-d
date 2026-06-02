@@ -141,6 +141,14 @@ body:
       placeholder: "local_validate_capability_use_hardening.ps1 PASS; CAPABILITY_USE_HARDENING_MATRIX row: capability_use...."
     validations:
       required: true
+  - type: textarea
+    id: autonomous_agent_execution
+    attributes:
+      label: Autonomous agent execution
+      description: Declare autonomous mode, Codex Cloud environment status, owner/reviewer, rollback, postcheck and validator.
+      placeholder: "mode: local_task_scoped|github_task_scoped|codex_cloud_task_scoped\nenvironment: ACTIVE_CODEX_CLOUD_READY|BLOCKED_NO_CODEX_CLOUD_ENVIRONMENT\nvalidator: local_validate_autonomous_agent_execution.ps1 PASS\nrollback: ...\npostcheck: ..."
+    validations:
+      required: true
   - type: checkboxes
     id: boundaries
     attributes:

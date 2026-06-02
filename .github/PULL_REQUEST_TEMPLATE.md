@@ -48,6 +48,8 @@
 - validator:
 - specific_validator:
 - capability_use_hardening_validator:
+- autonomous_agent_execution_validator:
+- codex_cloud_environment_status:
 - GitHub Actions:
 - evidence:
 

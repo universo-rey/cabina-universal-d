@@ -116,6 +116,18 @@ con `D:\.agents\codex\tools\local_validate_capability_use_hardening.ps1`. Si
 falta algun componente o la asignacion no resuelve, detener antes de ejecutar
 con `capability_use_preflight_missing`.
 
+Estado autonomia gobernada actualizado 2026-06-02: antes de toda asignacion,
+derivacion, ejecucion autonoma, Codex Cloud o cierre, debe usarse
+`D:\.agents\skills\tcu-descubridor-capacidades\SKILL.md` para descubrir y
+asignar skills, recetas, plugins y tools reales o marcar `NO_DISPONIBLE`. La
+matriz `D:\.agents\codex\matrices\AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv`
+y el validador
+`D:\.agents\codex\tools\local_validate_autonomous_agent_execution.ps1`
+gobiernan agentes locales task-scoped, task agents y Codex Cloud repo-scoped.
+Los repos sin environment visible quedan bloqueados con
+`codex_cloud_environment_missing`; los agentes remotos persistentes siguen
+requiriendo orden gobernada separada.
+
 Estado skills repo-locales actualizado 2026-06-01: las skills portables de la
 cabina viven en `D:\.agents\skills\<skill>\SKILL.md`. La carpeta
 `D:\.agents\codex\skills` conserva el catalogo, source refs, matrices de uso y
