@@ -138,6 +138,16 @@ runtime_alignment_state:
   skill_reference_source_validator: D:/.agents/codex/tools/local_validate_skill_reference_sources.ps1
   frontend_design_lane_matrix: D:/.agents/codex/matrices/FRONTEND_DESIGN_LANE_MATRIX.csv
   frontend_design_lane_validator: D:/.agents/codex/tools/local_validate_frontend_design_lane.ps1
+  codex_cloud_governed_lane_state: ACTIVE_REMOTE_REPO_SCOPED
+  codex_cloud_governed_lane_map: D:/.agents/codex/maps/CODEX_CLOUD_GOVERNED_LANE.md
+  codex_cloud_governed_lane_matrix: D:/.agents/codex/matrices/CODEX_CLOUD_GOVERNED_LANE_MATRIX.csv
+  codex_cloud_repo_discovery_matrix: D:/.agents/codex/matrices/CODEX_CLOUD_REPO_DISCOVERY_MATRIX_20260602.csv
+  codex_cloud_environment_inventory: D:/.agents/codex/matrices/CODEX_CLOUD_ENVIRONMENT_INVENTORY_20260602.csv
+  codex_cloud_governed_lane_validator: D:/.agents/codex/tools/local_validate_codex_cloud_governed_lane.ps1
+  codex_cloud_first_remote_candidate: SeshatSgin/sgin-cloud
+  codex_cloud_active_environment_smoke: task_e_6a1f119843d4832e9ed821834222c003
+  codex_cloud_active_environment_smoke_status: READY_NO_DIFF
+  codex_cloud_boundary: repo_scoped_no_secrets_no_microsoft_live_no_production_no_openai_api_live
   repo_local_skill_root: D:/.agents/skills
   skill_governance_catalog: D:/.agents/codex/skills
   subrecipe_index: D:/.agents/codex/recipes/SUBRECIPE_INDEX.csv

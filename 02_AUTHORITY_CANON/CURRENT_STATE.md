@@ -254,6 +254,24 @@ validador
 controlan precedencia, superficies anidadas y preservacion de repos
 independientes.
 
+Actualizacion Codex Cloud gobernado 2026-06-02: Codex Cloud queda declarado
+como carril remoto repo-scoped activo y gobernado mediante
+`D:/.agents/codex/maps/CODEX_CLOUD_GOVERNED_LANE.md`,
+`D:/.agents/codex/matrices/CODEX_CLOUD_GOVERNED_LANE_MATRIX.csv`,
+`D:/.agents/codex/matrices/CODEX_CLOUD_REPO_DISCOVERY_MATRIX_20260602.csv` y
+`D:/.agents/codex/tools/local_validate_codex_cloud_governed_lane.ps1`.
+`SeshatSgin/sgin-cloud` queda reconocido como candidato remoto para smoke/CI
+read-only o no sensible, pendiente de environment Codex Cloud visible. La
+matriz `D:/.agents/codex/matrices/CODEX_CLOUD_ENVIRONMENT_INVENTORY_20260602.csv`
+registra environments visibles: `SeshatSgin/tcu-control-plane`, `Sgin`
+(`universo-rey/Sgin`), `SGIN_Canonico_Puro` y
+`universo-rey/cabina-universal-d`. El smoke read-only
+`task_e_6a1f119843d4832e9ed821834222c003` fue iniciado sobre
+`universo-rey/cabina-universal-d` y cerro `READY` con `files_changed=0` y sin
+diff. El
+carril no habilita secretos, Microsoft live, SharePoint real, produccion,
+permisos, OpenAI API live, costos ni agentes remotos persistentes.
+
 Reglas vigentes:
 
 - GitHub repo-visible reversible esta habilitado para lectura, validacion, branch, commit, push, PR draft/update, issues, labels, comentarios, GitHub Actions de validacion y readbacks bajo orden gobernada.
