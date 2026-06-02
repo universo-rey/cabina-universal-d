@@ -151,8 +151,14 @@ runtime_alignment_state:
   codex_cloud_sgin_cloud_readonly_smoke: task_e_6a1f19895190832ebd427cf6b955bc31
   codex_cloud_sgin_cloud_ci_smoke: task_e_6a1f1b60bc04832e855fe676e91c9ea7
   codex_cloud_sgin_cloud_smoke_status: READY_NO_DIFF|CI_MOCK_READY_NO_DIFF
+  codex_cloud_sgin_cloud_postmerge_smoke: task_e_6a1f2488d6d8832ea617a6616876e19c
+  codex_cloud_sgin_cloud_postmerge_smoke_status: READY_NO_DIFF
   codex_cloud_sgin_cloud_canonical_clone: C:/Users/enzo1/Documents/GitHub/sgin-cloud@67f04f9_matches_origin_main
   codex_cloud_sgin_cloud_stale_clone_decision: C:/Users/enzo1/OneDrive - ESCRIBANIA BITSCH/Repos/sgin-cloud@194d4db_do_not_use_for_cloud_ci_without_refresh_order
+  governed_ci_tcu_control_plane_pr: SeshatSgin/tcu-control-plane#171
+  governed_ci_tcu_control_plane_merge: 0fbc9cf0ab13bbabdf3fa3a0912952c47f0b3d0b
+  governed_ci_sgin_canonico_puro_pr: SeshatSgin/SGIN_Canonico_Puro#6
+  governed_ci_sgin_canonico_puro_merge: 5a1756206230d2d123f297bf4c43c50acce0f47d
   codex_cloud_boundary: repo_scoped_no_secrets_no_microsoft_live_no_production_no_openai_api_live
   repo_local_skill_root: D:/.agents/skills
   skill_governance_catalog: D:/.agents/codex/skills
