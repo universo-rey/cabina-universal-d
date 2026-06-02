@@ -37,3 +37,4 @@ tool.stop_condition_check,01_AUTORIDAD_Y_GATES,read,D:/.agents/codex/matrices/ST
 tool.surface_order_builder,04_TORRES_DE_UNIVERSO,write,D:\.agents\codex\orders,local_filesystem,sharepoint_write
 tool.synthetic_eval_manifest,03_CORTE_EJECUTORA,read,D:\.agents\codex\evals,local_filesystem,api_live
 tool.workpaper_index_check,03_CORTE_EJECUTORA,read,D:\.agents\codex\workpapers\WORKPAPER_INDEX.csv,local_filesystem,remote_write
+tool.local_validate_user_identity_governance,03_CORTE_EJECUTORA,run,D:\.agents\codex\tools\local_validate_user_identity_governance.ps1,local_filesystem,external_runtime|microsoft_live|production|permission_change|secret_materialization|regulated_data_dump
