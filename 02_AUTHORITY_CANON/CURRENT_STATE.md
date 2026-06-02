@@ -83,6 +83,18 @@ Se detectan carriles repo-nativos pendientes: `ORGANIZACION` PRs #40/#39,
 `SESHAT_BOOTSTRAP` PR #4 draft y 5 cambios locales. La raiz no absorbe ni
 versiona esos cambios.
 
+Actualizacion Microsoft Agents governed lab 2026-06-02: por aprobacion expresa
+del operador, `universo-rey/microsoft-agents-governed-lab` queda clonado y
+registrado como repo gobernado TGE bajo
+`D:/10_UNIVERSOS/ESCRIBANIA/10_REPOS/02_ACTIVE/microsoft-agents-governed-lab`.
+El repo raiz pasa a indexar 13 repos en `GITHUB_BASE_WORK_MATRIX.csv`. `origin`
+apunta al repo privado `universo-rey/microsoft-agents-governed-lab` y
+`upstream` apunta a `https://github.com/microsoft/Agents.git` con push
+deshabilitado localmente. La alineacion no ejecuta Microsoft live, tenant
+writes, produccion, permisos, secretos ni push a upstream. La evidencia queda
+en
+`D:/.agents/codex/readbacks/2026-06-02_microsoft_agents_governed_lab_alignment_readback.md`.
+
 Actualizacion capacidades 2026-06-01: el repo raiz de cabina adopta en local
 las capacidades declarativas necesarias desde repos fuente sin absorberlos:
 perfiles de subnivel, source registries, skills, recipes, tools, evals,
