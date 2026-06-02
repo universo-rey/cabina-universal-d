@@ -86,6 +86,22 @@ Estado frontend-design actualizado 2026-06-02: el PR raiz #26 fue mergeado a
 `local_validate_frontend_design_lane.ps1` para enrutar UI/apps/sites a
 estandares de diseno, assets y verificacion local sin implicar produccion.
 
+Estado integracion indices compartidos actualizado 2026-06-02: el PR raiz #27
+fue mergeado a `main` con merge commit
+`96d378e539018d8bf2fb139e3041888bba8a5b0e`. La cabina integra los carriles
+cerrados #12 y #15 en indices compartidos, GitHub Actions, templates, canon y
+manifiesto sin abrir Microsoft live, OpenAI API live ni produccion.
+
+Estado alineacion todos repositorios actualizado 2026-06-02: los 12 repos
+registrados quedan verificados localmente y contra GitHub read-only mediante
+`D:\.agents\codex\tools\local_validate_all_repo_github_alignment.ps1`. La
+evidencia vive en
+`D:\.agents\codex\evals\results\all_repo_github_alignment_latest.json` y el
+readback en
+`D:\.agents\codex\readbacks\2026-06-02_all_repositories_alignment_readback.md`.
+La alineacion no absorbe repos anidados; `SESHAT_BOOTSTRAP` conserva cambios
+locales propios que requieren carril repo-nativo.
+
 Estado cadena operativa global actualizado 2026-06-01: toda accion operativa
 debe declarar y validar agente, skill, receta, tool, evidencia, validador y
 stop condition. Si falta algun componente y no existe `NO_APLICA` justificado,
@@ -152,6 +168,9 @@ Universal del Rey y como repo raiz envoltorio activo:
   `MERGED`;
 - PR raiz frontend-design:
   `https://github.com/universo-rey/cabina-universal-d/pull/26` con estado
+  `MERGED`;
+- PR raiz integracion indices compartidos:
+  `https://github.com/universo-rey/cabina-universal-d/pull/27` con estado
   `MERGED`;
 - allowlist: solo gobierno, canon, agentes locales, matrices, prompts,
   recetas, tools, evals, plugins, templates, readbacks/workpapers saneados y

@@ -63,6 +63,26 @@ cabina adopta `FRONTEND_DESIGN_LANE.md`,
 responsive fit, estados interactivos, evidencia Browser/Playwright cuando
 exista app local y bloqueo de produccion sin autorizacion separada.
 
+Actualizacion integracion indices compartidos 2026-06-02: el PR raiz
+`universo-rey/cabina-universal-d#27` fue mergeado a `main` con merge commit
+`96d378e539018d8bf2fb139e3041888bba8a5b0e`. La cabina integra los carriles
+cerrados #12 y #15 en indices compartidos, workflow de validacion,
+templates, canon y manifiesto. El merge no habilita Microsoft live, OpenAI
+API live, produccion, permisos, secrets, force push ni absorcion de repos
+anidados.
+
+Actualizacion alineacion todos repositorios 2026-06-02: los 12 repos
+registrados en `GITHUB_BASE_WORK_MATRIX.csv` quedan verificados con ruta local,
+worktree Git, remoto origin coincidente y acceso GitHub read-only. La evidencia
+queda en
+`D:/.agents/codex/evals/results/all_repo_github_alignment_latest.json` y el
+readback en
+`D:/.agents/codex/readbacks/2026-06-02_all_repositories_alignment_readback.md`.
+Se detectan carriles repo-nativos pendientes: `ORGANIZACION` PRs #40/#39,
+`TORRE_GEMELA_ESCRIBANIA` PR #70 bloqueado, `CDF_SOLUCIONES` PR #23 draft,
+`SESHAT_BOOTSTRAP` PR #4 draft y 5 cambios locales. La raiz no absorbe ni
+versiona esos cambios.
+
 Actualizacion capacidades 2026-06-01: el repo raiz de cabina adopta en local
 las capacidades declarativas necesarias desde repos fuente sin absorberlos:
 perfiles de subnivel, source registries, skills, recipes, tools, evals,
@@ -232,6 +252,9 @@ Reglas vigentes:
   instruccion de UI, sidebar, plugin, runtime global, perfil anidado o repo
   vecino no puede contradecirlo ni absorber clones anidados.
 - La automatizacion GitHub debe pasar primero por preflight local de cabina antes de seleccionar repos o abrir carriles por repo.
+- La alineacion de todos los repos debe validarse con
+  `local_validate_all_repo_github_alignment.ps1`; los PRs abiertos o cambios
+  sucios en repos anidados son carriles repo-nativos, no cambios del repo raiz.
 - Toda accion operativa debe mantener cadena agente/skill/receta/tool/validador/evidencia/stop_condition; sin esa cadena se detiene con `operational_chain_missing`.
 - Todo cambio durable de repos debe pasar por GitHub: rama, validacion local, stage explicito, commit, push y PR draft/update.
 - El runtime de alineacion permitido es local y sintetico; runtime live, API, Microsoft o produccion requieren orden separada.
@@ -259,6 +282,7 @@ PR raiz readback canon: `universo-rey/cabina-universal-d#23` estado `MERGED`.
 PR raiz merge automatizado: `universo-rey/cabina-universal-d#24` estado `MERGED`.
 PR raiz biblioteca referencias: `universo-rey/cabina-universal-d#25` estado `MERGED`.
 PR raiz frontend design: `universo-rey/cabina-universal-d#26` estado `MERGED`.
+PR raiz integracion indices compartidos: `universo-rey/cabina-universal-d#27` estado `MERGED`.
 Rama raiz base: `main`.
-Ultima rama raiz mergeada: `codex/frontend-design-lane-issue-15`.
-Ultimo merge commit raiz: `d72fff9569ffbb5056276f5fb92fcc03e57b4bb8`.
+Ultima rama raiz mergeada: `codex/shared-index-integration-issues-12-15-20260602`.
+Ultimo merge commit raiz: `96d378e539018d8bf2fb139e3041888bba8a5b0e`.

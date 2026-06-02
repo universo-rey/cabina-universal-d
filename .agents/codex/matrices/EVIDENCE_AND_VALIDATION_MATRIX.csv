@@ -22,3 +22,4 @@ tool_change,court.thot_schema,D:\.agents\codex\tools\TOOL_INDEX.csv,manual_index
 tool_governance_assignment,codex.workspace_guardian,D:\.agents\codex\matrices\TOOL_GOVERNANCE_MATRIX.csv,tools\local_validate_agent_layer.ps1,tool_without_surface_boundary
 skill_reference_sources,tech.reference_librarian,D:\.agents\codex\matrices\SKILL_REFERENCE_SOURCE_MATRIX.csv,tools\local_validate_skill_reference_sources.ps1|tools\local_validate_agent_layer.ps1,source_uncertain
 frontend_design_lane,codex.workspace_guardian,D:\.agents\codex\matrices\FRONTEND_DESIGN_LANE_MATRIX.csv,tools\local_validate_frontend_design_lane.ps1|tools\local_validate_agent_layer.ps1,production_requested_without_explicit_authorization
+all_repo_github_alignment,rey.repo_cartographer,D:/.agents/codex/evals/results/all_repo_github_alignment_latest.json,tools/local_validate_all_repo_github_alignment.ps1|tools/local_validate_agent_layer.ps1,repo_remote_or_git_alignment_missing

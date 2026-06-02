@@ -54,12 +54,12 @@ root_wrapper_repo:
   scope: allowlist_governance_metadata
   absorbs_nested_repos: false
   remote_url: https://github.com/universo-rey/cabina-universal-d.git
-  pull_request: https://github.com/universo-rey/cabina-universal-d/pull/26
+  pull_request: https://github.com/universo-rey/cabina-universal-d/pull/27
   pull_request_status: MERGED
-  last_merged_branch: codex/frontend-design-lane-issue-15
-  last_merge_commit: d72fff9569ffbb5056276f5fb92fcc03e57b4bb8
+  last_merged_branch: codex/shared-index-integration-issues-12-15-20260602
+  last_merge_commit: 96d378e539018d8bf2fb139e3041888bba8a5b0e
   visibility: private
-  status: PRIVATE_REMOTE_MAIN_ACTIVE_PR26_MERGED_SHARED_INDEX_PENDING
+  status: PRIVATE_REMOTE_MAIN_ACTIVE_PR27_MERGED_ALL_REPOS_ALIGNMENT_ACTIVE
 capability_import_state:
   as_of: 2026-06-01
   mode: local_declarative_copy_adapt
@@ -85,10 +85,10 @@ github_base_work_state:
   status: GITHUB_BASE_WORK_DECLARED_ACTIVE
   github_actions_surface_state: APPROVED_GITHUB_ACTIONS_SURFACE
   root_remote_base: https://github.com/universo-rey/cabina-universal-d.git
-  root_pull_request: https://github.com/universo-rey/cabina-universal-d/pull/26
+  root_pull_request: https://github.com/universo-rey/cabina-universal-d/pull/27
   root_pull_request_status: MERGED
   root_base_branch: main
-  root_last_merge_commit: d72fff9569ffbb5056276f5fb92fcc03e57b4bb8
+  root_last_merge_commit: 96d378e539018d8bf2fb139e3041888bba8a5b0e
   automated_merge_policy_state: APPROVED_WITH_PRECHECKS
   automated_merge_required_prechecks: base_main|codex_branch|non_draft|clean_merge_state|green_checks|match_head_commit|no_blocked_surfaces|post_merge_sync
   policy: D:/02_AUTHORITY_CANON/GITHUB_BASE_WORK_POLICY.md
@@ -107,7 +107,7 @@ github_base_work_state:
     - openai_api_live
     - secrets
 runtime_alignment_state:
-  as_of: 2026-06-01
+  as_of: 2026-06-02
   status: LOCAL_SYNTHETIC_ALIGNMENT_ACTIVE
   runtime_mode: LOCAL_SYNTHETIC_ALIGNMENT_ONLY
   cabina_base_repository: universo-rey/cabina-universal-d
@@ -146,11 +146,17 @@ runtime_alignment_state:
   repo_runtime_matrix: D:/.agents/codex/matrices/REPO_RUNTIME_ALIGNMENT_MATRIX.csv
   runtime_status_matrix: D:/.agents/codex/matrices/RUNTIME_ALIGNMENT_STATUS_MATRIX.csv
   runtime_tool: D:/.agents/codex/tools/local_run_repo_alignment_runtime.ps1
+  all_repo_github_alignment_tool: D:/.agents/codex/tools/local_validate_all_repo_github_alignment.ps1
   runtime_check_mode: local_run_repo_alignment_runtime.ps1 -NoWrite
   latest_result: D:/.agents/codex/evals/results/repo_alignment_runtime_latest.json
+  all_repo_github_alignment_result: D:/.agents/codex/evals/results/all_repo_github_alignment_latest.json
   agents_aligned: 14
   repos_aligned: 12
   cabina_repo_alignment_rows: 12
+  repos_local_git_verified: 12
+  repos_github_access_verified: 12
+  open_prs_detected: 5
+  nested_dirty_repos_detected: 1
   blocked:
     - openai_api_live
     - microsoft_live
