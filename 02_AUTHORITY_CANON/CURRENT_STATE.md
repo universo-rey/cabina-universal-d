@@ -311,6 +311,21 @@ Segunda ola aprobada por el operador: smokes read-only sobre
 `SeshatSgin/tcu-control-plane`, `SGIN_Canonico_Puro` y `Sgin` cerraron
 `READY`, `files_changed=0`, `no diff`.
 
+Actualizacion entornos Codex 2026-06-02: la cabina crea entorno Codex app
+local/worktree repo-visible en `D:/.codex/environments/environment.toml` para
+`universo-rey/cabina-universal-d`. La matriz
+`D:/.agents/codex/matrices/CODEX_APP_LOCAL_ENVIRONMENT_MATRIX_20260602.csv`,
+la cola `D:/.agents/codex/matrices/CODEX_ENVIRONMENT_CREATION_QUEUE_20260602.csv`,
+la orden `D:/.agents/codex/orders/ORDER_CODEX_ENVIRONMENT_CREATION_20260602.md`
+y el validador
+`D:/.agents/codex/tools/local_validate_codex_app_environments.ps1` separan
+entornos Codex app, environments Cloud visibles y repos que requieren creacion
+por UI/settings. En esta sesion el CLI real disponible no expone creacion de
+Codex Cloud environment, por lo que los faltantes quedan
+`NEEDS_CODEX_CLOUD_UI_CREATE` y `codex_environment_creation_tool_unavailable`.
+No se habilitan secretos, OpenAI API live, Microsoft live, produccion,
+permisos, tenant writes ni `codex cloud apply` sin revision.
+
 Reglas vigentes:
 
 - GitHub repo-visible reversible esta habilitado para lectura, validacion, branch, commit, push, PR draft/update, issues, labels, comentarios, GitHub Actions de validacion y readbacks bajo orden gobernada.

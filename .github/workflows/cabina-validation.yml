@@ -12,6 +12,7 @@ on:
       - "00_CONTROL_PLANE_INGRESS/**"
       - "01_GOVERNANCE_REGISTRY/**"
       - "02_AUTHORITY_CANON/**"
+      - ".codex/**"
       - ".agents/skills/**"
       - ".agents/codex/**"
       - ".github/**"
@@ -27,6 +28,7 @@ on:
       - "00_CONTROL_PLANE_INGRESS/**"
       - "01_GOVERNANCE_REGISTRY/**"
       - "02_AUTHORITY_CANON/**"
+      - ".codex/**"
       - ".agents/skills/**"
       - ".agents/codex/**"
       - ".github/**"
@@ -183,6 +185,19 @@ jobs:
         run: |
           $root = Join-Path $env:GITHUB_WORKSPACE ".agents\codex"
           $tool = Join-Path $root "tools\local_validate_codex_cloud_governed_lane.ps1"
+          $output = & $tool -Root $root -RepoRoot $env:GITHUB_WORKSPACE
+          $output | Write-Output
+          $payload = ($output -join "`n") | ConvertFrom-Json
+          if ($payload.status -ne "PASS") {
+            exit 1
+          }
+          exit 0
+
+      - name: Codex app environments
+        shell: pwsh
+        run: |
+          $root = Join-Path $env:GITHUB_WORKSPACE ".agents\codex"
+          $tool = Join-Path $root "tools\local_validate_codex_app_environments.ps1"
           $output = & $tool -Root $root -RepoRoot $env:GITHUB_WORKSPACE
           $output | Write-Output
           $payload = ($output -join "`n") | ConvertFrom-Json
