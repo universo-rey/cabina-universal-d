@@ -69,3 +69,4 @@ skill_reference_source_matrix,D:/.agents/codex/matrices/SKILL_REFERENCE_SOURCE_M
 frontend_design_lane_matrix,D:/.agents/codex/matrices/FRONTEND_DESIGN_LANE_MATRIX.csv,frontend_design_lanes,05_SOPORTE_TECNICO,update when UI design standards assets screenshot verification or production boundary changes
 frontend_design_lane_map,D:/.agents/codex/maps/FRONTEND_DESIGN_LANE.md,frontend_design_map,05_SOPORTE_TECNICO,update when frontend design policy map changes
 teams_cross_repo_lane_audit_matrix,D:/.agents/codex/matrices/TEAMS_CROSS_REPO_LANE_AUDIT_MATRIX_20260602.csv,teams_cross_repo_lane_audit,04_TORRES_DE_UNIVERSO,update when Teams signals live-read scope repo lane classification or validator changes
+microsoft_next_lane_execution_matrix,D:/.agents/codex/matrices/MICROSOFT_NEXT_LANE_EXECUTION_MATRIX_20260602.csv,microsoft_next_lane_execution,01_AUTORIDAD_Y_GATES,update when production tenant-write approval issues PRs status validators or stop conditions change

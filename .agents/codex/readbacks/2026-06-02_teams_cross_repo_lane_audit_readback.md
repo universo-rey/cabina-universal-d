@@ -5,8 +5,8 @@
 - branch: codex/teams-lanes-cross-repo-audit-20260602
 - order: D_MICROSOFT_TEAMS_LIVE_READ_INVENTORY_20260602
 - operator_live_microsoft_approval: received 2026-06-02
-- production: not authorized
-- Microsoft writes: not authorized
+- production: approved gated after initial preflight; not executed
+- Microsoft writes: approved gated after initial preflight; not executed
 
 ## Scope
 
@@ -14,6 +14,10 @@ This readback consolidates Teams-related lanes found in the registered repos
 and records the first governed live-read preflight through the Teams connector.
 No Teams post, reply, channel creation, Planner mutation, permission change,
 tenant admin action, production action, or raw transcript export was performed.
+The later operator approval for production and tenant writes is recorded in
+`ORDER_MICROSOFT_PRODUCTION_TENANT_WRITES_APPROVAL_20260602.md`; execution
+remains issue-scoped and requires exact surface, object, identity, rollback
+and postcheck.
 
 ## Live Teams Preflight
 

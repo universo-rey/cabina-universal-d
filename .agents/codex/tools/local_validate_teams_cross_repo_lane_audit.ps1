@@ -27,8 +27,11 @@ function Resolve-CabinaPath {
 }
 
 $matrixPath = Join-Path $Root "matrices\TEAMS_CROSS_REPO_LANE_AUDIT_MATRIX_20260602.csv"
+$nextLaneMatrixPath = Join-Path $Root "matrices\MICROSOFT_NEXT_LANE_EXECUTION_MATRIX_20260602.csv"
 $readbackPath = Join-Path $Root "readbacks\2026-06-02_teams_cross_repo_lane_audit_readback.md"
+$nextLaneReadbackPath = Join-Path $Root "readbacks\2026-06-02_microsoft_production_tenant_write_next_lanes_readback.md"
 $orderPath = Join-Path $Root "orders\ORDER_MICROSOFT_TEAMS_LIVE_READ_INVENTORY_20260602.md"
+$productionTenantOrderPath = Join-Path $Root "orders\ORDER_MICROSOFT_PRODUCTION_TENANT_WRITES_APPROVAL_20260602.md"
 $matrixIndexPath = Join-Path $Root "matrices\MATRIX_INDEX.csv"
 $toolIndexPath = Join-Path $Root "tools\TOOL_INDEX.csv"
 $toolGovernancePath = Join-Path $Root "matrices\TOOL_GOVERNANCE_MATRIX.csv"
@@ -43,7 +46,7 @@ $stopGlossaryPath = Join-Path $Root "matrices\STOP_CONDITION_GLOSSARY.csv"
 $errors = New-Object System.Collections.Generic.List[string]
 $warnings = New-Object System.Collections.Generic.List[string]
 
-foreach ($path in @($matrixPath,$readbackPath,$orderPath,$matrixIndexPath,$toolIndexPath,$toolGovernancePath,$validationCoveragePath,$skillUsagePath,$localSkillCatalogPath,$pluginUsagePath,$pluginBoundaryPath,$orderIndexPath,$stopGlossaryPath)) {
+foreach ($path in @($matrixPath,$nextLaneMatrixPath,$readbackPath,$nextLaneReadbackPath,$orderPath,$productionTenantOrderPath,$matrixIndexPath,$toolIndexPath,$toolGovernancePath,$validationCoveragePath,$skillUsagePath,$localSkillCatalogPath,$pluginUsagePath,$pluginBoundaryPath,$orderIndexPath,$stopGlossaryPath)) {
   if (-not (Test-Path -LiteralPath $path)) {
     $errors.Add("Missing required Teams lane artifact: $path")
   }
@@ -118,6 +121,48 @@ if ($errors.Count -eq 0) {
   if ("teams_cross_repo_lane_audit_matrix" -notin @($matrixIndexRows | ForEach-Object { $_.matrix_id })) {
     $errors.Add("MATRIX_INDEX missing teams_cross_repo_lane_audit_matrix")
   }
+  if ("microsoft_next_lane_execution_matrix" -notin @($matrixIndexRows | ForEach-Object { $_.matrix_id })) {
+    $errors.Add("MATRIX_INDEX missing microsoft_next_lane_execution_matrix")
+  }
+
+  $nextLaneRows = Read-CsvSafe -Path $nextLaneMatrixPath
+  $nextLaneColumns = @("lane_id","repository","issue_or_pr","surface","authorization_state","owner_agent","recipe","tool","status","allowed_actions","blocked_actions","evidence","validator","rollback","postcheck","stop_condition","next_action")
+  $nextLaneActualColumns = @($nextLaneRows[0].PSObject.Properties.Name)
+  foreach ($column in $nextLaneColumns) {
+    if ($column -notin $nextLaneActualColumns) {
+      $errors.Add("Microsoft next-lane matrix missing column: $column")
+    }
+  }
+  foreach ($requiredLane in @(
+    "microsoft.tenant.production.approval_gate",
+    "teams.consent.read.scope",
+    "teams.selected.triage",
+    "tge.selected.process.production",
+    "sdu_cn.teams.target.boundary",
+    "cdf.teams.ci.evidence",
+    "sgin.teams.read.write.split"
+  )) {
+    if ($requiredLane -notin @($nextLaneRows | ForEach-Object { $_.lane_id })) {
+      $errors.Add("Microsoft next-lane matrix missing lane_id: $requiredLane")
+    }
+  }
+  foreach ($row in $nextLaneRows) {
+    foreach ($field in $nextLaneColumns) {
+      if ([string]::IsNullOrWhiteSpace($row.$field)) {
+        $errors.Add("Microsoft next-lane '$($row.lane_id)' missing $field")
+      }
+    }
+    foreach ($stop in @($row.stop_condition -split "\|" | ForEach-Object { $_.Trim() } | Where-Object { $_ })) {
+      if ($stop -notin $knownStops) {
+        $errors.Add("Microsoft next-lane '$($row.lane_id)' references unknown stop_condition: $stop")
+      }
+    }
+    foreach ($blocked in @("secret", "raw", "production")) {
+      if ($row.blocked_actions -notmatch $blocked) {
+        $errors.Add("Microsoft next-lane '$($row.lane_id)' blocked_actions missing expected boundary token: $blocked")
+      }
+    }
+  }
 
   $toolRows = Read-CsvSafe -Path $toolIndexPath
   if ("tool.local_validate_teams_cross_repo_lane_audit" -notin @($toolRows | ForEach-Object { $_.tool_id })) {
@@ -132,6 +177,9 @@ if ($errors.Count -eq 0) {
   $coverageRows = Read-CsvSafe -Path $validationCoveragePath
   if ("teams_cross_repo_lane_audit" -notin @($coverageRows | ForEach-Object { $_.artifact_class })) {
     $errors.Add("VALIDATION_COVERAGE_MATRIX missing teams_cross_repo_lane_audit")
+  }
+  if ("microsoft_next_lane_execution" -notin @($coverageRows | ForEach-Object { $_.artifact_class })) {
+    $errors.Add("VALIDATION_COVERAGE_MATRIX missing microsoft_next_lane_execution")
   }
 
   $skillIds = @((Read-CsvSafe -Path $skillUsagePath) | ForEach-Object { $_.skill_id })
@@ -164,11 +212,20 @@ if ($errors.Count -eq 0) {
   if ("D_MICROSOFT_TEAMS_LIVE_READ_INVENTORY_20260602" -notin @($orderIndexRows | ForEach-Object { $_.order_id })) {
     $errors.Add("GOVERNED_ORDERS_INDEX missing Teams live-read order")
   }
+  if ("D_MICROSOFT_PRODUCTION_TENANT_WRITES_APPROVAL_20260602" -notin @($orderIndexRows | ForEach-Object { $_.order_id })) {
+    $errors.Add("GOVERNED_ORDERS_INDEX missing Microsoft production tenant write approval order")
+  }
 
   $readback = Get-Content -Raw -LiteralPath $readbackPath
-  foreach ($requiredText in @("write tools called: none","raw previews were discarded","Team.ReadBasic.All","production: not authorized")) {
+  foreach ($requiredText in @("write tools called: none","raw previews were discarded","Team.ReadBasic.All","production: approved gated after initial preflight; not executed")) {
     if ($readback -notmatch [regex]::Escape($requiredText)) {
       $errors.Add("Readback missing expected evidence text: $requiredText")
+    }
+  }
+  $nextLaneReadback = Get-Content -Raw -LiteralPath $nextLaneReadbackPath
+  foreach ($requiredText in @("APPROVED_GATED_NOT_EXECUTED","No tenant write","https://github.com/universo-rey/cabina-universal-d/issues/32","https://github.com/SeshatSgin/cdf-soluciones/pull/23")) {
+    if ($nextLaneReadback -notmatch [regex]::Escape($requiredText)) {
+      $errors.Add("Next-lane readback missing expected evidence text: $requiredText")
     }
   }
 
@@ -176,6 +233,12 @@ if ($errors.Count -eq 0) {
   foreach ($blockedText in @("send_chat_message","send_channel_message","create_channel","permission_change","production","raw_message_export")) {
     if ($orderText -notmatch [regex]::Escape($blockedText)) {
       $errors.Add("Teams order missing blocked action: $blockedText")
+    }
+  }
+  $productionTenantOrderText = Get-Content -Raw -LiteralPath $productionTenantOrderPath
+  foreach ($requiredText in @("issue-scoped governed execution","exact surface, object, identity, owner, rollback, postcheck","broad tenant write","secret materialization")) {
+    if ($productionTenantOrderText -notmatch [regex]::Escape($requiredText)) {
+      $errors.Add("Production tenant order missing required boundary text: $requiredText")
     }
   }
 
@@ -187,7 +250,7 @@ if ($errors.Count -eq 0) {
     "secret\s*=",
     "token\s*="
   )
-  $scanFiles = @($matrixPath,$readbackPath,$orderPath)
+  $scanFiles = @($matrixPath,$nextLaneMatrixPath,$readbackPath,$nextLaneReadbackPath,$orderPath,$productionTenantOrderPath)
   foreach ($file in $scanFiles) {
     foreach ($pattern in $secretPatterns) {
       $hits = Select-String -LiteralPath $file -Pattern $pattern -CaseSensitive -ErrorAction SilentlyContinue
@@ -203,8 +266,11 @@ $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }
   status = $status
   root = $Root
   matrix = $matrixPath
+  next_lane_matrix = $nextLaneMatrixPath
   readback = $readbackPath
+  next_lane_readback = $nextLaneReadbackPath
   order = $orderPath
+  production_tenant_order = $productionTenantOrderPath
   error_count = $errors.Count
   errors = $errors
   warning_count = $warnings.Count
