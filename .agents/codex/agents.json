@@ -383,6 +383,7 @@
         "tool.gh_remote_readonly",
         "tool.github_versioning_flow",
         "tool.repo_alignment_runtime",
+        "tool.local_validate_all_repo_github_alignment",
         "tool.workpaper_index_check",
         "tool.local_validate_agent_workpapers",
         "tool.parallel_dispatch_policy_check",

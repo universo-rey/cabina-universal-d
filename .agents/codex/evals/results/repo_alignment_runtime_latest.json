@@ -11,7 +11,7 @@
   "github_repo_rows": 12,
   "skill_usage_rows": 42,
   "recipe_rows": 21,
-  "tool_rows": 34,
+  "tool_rows": 38,
   "plugin_rows": 10,
   "github_actions_rows": 1,
   "github_automation_preflight_rows": 6,
@@ -27,10 +27,11 @@
     "permissions",
     "secrets",
     "force_push",
-    "merge",
+    "merge_without_approved_precheck",
     "non_github_remote_agent_persistence"
   ],
   "errors": [],
   "warnings": [],
-  "generated_at": "2026-06-01T21:13:46.1590753Z"
+  "generated_at": "2026-06-02T12:16:48.1393661Z",
+  "result_written": true
 }
