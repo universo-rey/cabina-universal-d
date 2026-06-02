@@ -155,7 +155,7 @@ body:
     attributes:
       label: Validator and evidence
       description: Required checks and expected evidence.
-      placeholder: "local_validate_agent_layer.ps1 PASS, readback, matrix row..."
+      placeholder: "local_validate_agent_layer.ps1 PASS; local_validate_skill_reference_sources.ps1 or local_validate_frontend_design_lane.ps1 when applicable; readback; matrix row..."
     validations:
       required: true
   - type: textarea

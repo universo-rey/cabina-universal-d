@@ -44,6 +44,8 @@
 ## Validation
 
 - validator:
+- specific_validator:
+- GitHub Actions:
 - evidence:
 
 ## Closeout

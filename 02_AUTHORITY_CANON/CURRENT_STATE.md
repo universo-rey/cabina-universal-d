@@ -38,6 +38,31 @@ Actualizacion readback canon 2026-06-01: el PR raiz
 `0d0a2b782ddf288f795219c3481f125182535878`. Ese merge dejo en canon el estado
 de #22 antes de abrir la politica de merge automatizado.
 
+Actualizacion merge automatizado 2026-06-01: el PR raiz
+`universo-rey/cabina-universal-d#24` fue mergeado a `main` con merge commit
+`a164a5d5743ebb1ddc55cbfc627feb23492efb37`. Ese merge dejo aprobada la
+politica de merge automatizado repo-scoped con HEAD fijo, checks verdes,
+postcheck y bloqueos para force push, permisos, secrets, produccion, Microsoft
+live, OpenAI API live y datos regulados.
+
+Actualizacion biblioteca de referencias 2026-06-02: el PR raiz
+`universo-rey/cabina-universal-d#25` fue mergeado a `main` con merge commit
+`c3c44dff12cd4957cbf27bd4dbf09e971497127d`. El issue #12 queda cerrado. La
+cabina adopta `SKILL_REFERENCE_LIBRARY_POLICY.md`,
+`SKILL_REFERENCE_SOURCE_MATRIX.csv` y
+`local_validate_skill_reference_sources.ps1` para registrar fuentes de
+skills/API docs como referencia tecnica, no canon rector, con frescura,
+licencia, owner/reviewer, evidencia y stop conditions.
+
+Actualizacion frontend-design 2026-06-02: el PR raiz
+`universo-rey/cabina-universal-d#26` fue mergeado a `main` con merge commit
+`d72fff9569ffbb5056276f5fb92fcc03e57b4bb8`. El issue #15 queda cerrado. La
+cabina adopta `FRONTEND_DESIGN_LANE.md`,
+`FRONTEND_DESIGN_LANE_MATRIX.csv` y
+`local_validate_frontend_design_lane.ps1` para trabajo UI local con assets,
+responsive fit, estados interactivos, evidencia Browser/Playwright cuando
+exista app local y bloqueo de produccion sin autorizacion separada.
+
 Actualizacion capacidades 2026-06-01: el repo raiz de cabina adopta en local
 las capacidades declarativas necesarias desde repos fuente sin absorberlos:
 perfiles de subnivel, source registries, skills, recipes, tools, evals,
@@ -231,6 +256,9 @@ PR raiz historico inicial: `universo-rey/cabina-universal-d#1` estado `MERGED`.
 PR raiz historico prompt UI: `universo-rey/cabina-universal-d#2` estado `MERGED`.
 PR raiz runtime/cola paralela: `universo-rey/cabina-universal-d#22` estado `MERGED`.
 PR raiz readback canon: `universo-rey/cabina-universal-d#23` estado `MERGED`.
+PR raiz merge automatizado: `universo-rey/cabina-universal-d#24` estado `MERGED`.
+PR raiz biblioteca referencias: `universo-rey/cabina-universal-d#25` estado `MERGED`.
+PR raiz frontend design: `universo-rey/cabina-universal-d#26` estado `MERGED`.
 Rama raiz base: `main`.
-Ultima rama raiz mergeada: `codex/canon-pr22-merge-readback-20260601`.
-Ultimo merge commit raiz: `0d0a2b782ddf288f795219c3481f125182535878`.
+Ultima rama raiz mergeada: `codex/frontend-design-lane-issue-15`.
+Ultimo merge commit raiz: `d72fff9569ffbb5056276f5fb92fcc03e57b4bb8`.
