@@ -3,12 +3,12 @@
   "mode": "LOCAL_AND_GITHUB_READONLY_ALIGNMENT",
   "repo_root": "D:\\",
   "matrix_path": "D:\\01_GOVERNANCE_REGISTRY\\GITHUB_BASE_WORK_MATRIX.csv",
-  "repo_count": 12,
-  "local_git_repo_count": 12,
-  "github_access_count": 12,
+  "repo_count": 13,
+  "local_git_repo_count": 13,
+  "github_access_count": 13,
   "dirty_repo_count": 2,
   "nested_dirty_repo_count": 1,
-  "open_pr_count": 5,
+  "open_pr_count": 10,
   "root_base_repo_id": "D_CABINA_UNIVERSAL_ROOT",
   "root_base_remote": "universo-rey/cabina-universal-d",
   "blocked_surfaces": [
@@ -28,16 +28,41 @@
       "local_path": "D:/",
       "exists": true,
       "git_worktree": true,
-      "branch": "codex/all-repositories-alignment-20260602",
-      "head": "96d378e",
+      "branch": "codex/microsoft-agents-governed-lab-alignment-20260602",
+      "head": "c397623",
       "origin": "https://github.com/universo-rey/cabina-universal-d.git",
       "worktree_state": "dirty",
-      "dirty_count": 15,
+      "dirty_count": 12,
       "github_access": true,
       "default_branch": "main",
       "visibility": "PRIVATE",
-      "open_pr_count": 0,
-      "open_prs": [],
+      "open_pr_count": 3,
+      "open_prs": [
+        {
+          "number": 31,
+          "head_ref": "codex/teams-lanes-cross-repo-audit-20260602",
+          "base_ref": "main",
+          "is_draft": true,
+          "merge_state": "CLEAN",
+          "updated_at": "2026-06-02T13:37:56Z"
+        },
+        {
+          "number": 30,
+          "head_ref": "codex/user-efigueroa-governance-20260602",
+          "base_ref": "main",
+          "is_draft": true,
+          "merge_state": "CLEAN",
+          "updated_at": "2026-06-02T12:53:52Z"
+        },
+        {
+          "number": 29,
+          "head_ref": "codex/teams-governance-20260602",
+          "base_ref": "main",
+          "is_draft": true,
+          "merge_state": "CLEAN",
+          "updated_at": "2026-06-02T12:43:02Z"
+        }
+      ],
       "matrix_status": "ACTIVE_ROOT_GITHUB_BASE"
     },
     {
@@ -145,7 +170,7 @@
       "exists": true,
       "git_worktree": true,
       "branch": "codex/cdf-dual-codespace-cabina-prep",
-      "head": "0ded0c8",
+      "head": "121ae07",
       "origin": "https://github.com/SeshatSgin/cdf-soluciones.git",
       "worktree_state": "clean",
       "dirty_count": 0,
@@ -160,7 +185,7 @@
           "base_ref": "main",
           "is_draft": true,
           "merge_state": "CLEAN",
-          "updated_at": "2026-06-01T13:23:40Z"
+          "updated_at": "2026-06-02T13:27:26Z"
         }
       ],
       "matrix_status": "REMOTE_REQUIRED_GITHUB_ROUTE"
@@ -281,19 +306,56 @@
       "open_pr_count": 0,
       "open_prs": [],
       "matrix_status": "REMOTE_REQUIRED_GITHUB_ROUTE"
+    },
+    {
+      "repo_id": "MICROSOFT_AGENTS_GOVERNED_LAB",
+      "repository_full_name": "universo-rey/microsoft-agents-governed-lab",
+      "local_path": "D:/10_UNIVERSOS/ESCRIBANIA/10_REPOS/02_ACTIVE/microsoft-agents-governed-lab",
+      "exists": true,
+      "git_worktree": true,
+      "branch": "main",
+      "head": "ba27bd0",
+      "origin": "https://github.com/universo-rey/microsoft-agents-governed-lab.git",
+      "worktree_state": "clean",
+      "dirty_count": 0,
+      "github_access": true,
+      "default_branch": "main",
+      "visibility": "PRIVATE",
+      "open_pr_count": 2,
+      "open_prs": [
+        {
+          "number": 2,
+          "head_ref": "dependabot/npm_and_yarn/npm-all-3ddac0eb19",
+          "base_ref": "main",
+          "is_draft": false,
+          "merge_state": "UNSTABLE",
+          "updated_at": "2026-05-30T21:39:19Z"
+        },
+        {
+          "number": 1,
+          "head_ref": "dependabot/nuget/samples/dotnet/Agent-Framework/nuget-all-71191d6bc8",
+          "base_ref": "main",
+          "is_draft": false,
+          "merge_state": "CLEAN",
+          "updated_at": "2026-05-30T21:37:17Z"
+        }
+      ],
+      "matrix_status": "REMOTE_REQUIRED_GITHUB_ROUTE"
     }
   ],
-  "warning_count": 6,
+  "warning_count": 8,
   "warnings": [
-    "Repo has local worktree changes: D_CABINA_UNIVERSAL_ROOT dirty_count=15 branch=codex/all-repositories-alignment-20260602",
+    "Repo has local worktree changes: D_CABINA_UNIVERSAL_ROOT dirty_count=12 branch=codex/microsoft-agents-governed-lab-alignment-20260602",
+    "Repo has open PRs: D_CABINA_UNIVERSAL_ROOT count=3",
     "Repo has open PRs: ORGANIZACION count=2",
     "Repo has open PRs: TORRE_GEMELA_ESCRIBANIA count=1",
     "Repo has open PRs: CDF_SOLUCIONES count=1",
     "Repo has local worktree changes: SESHAT_BOOTSTRAP dirty_count=5 branch=codex/seshat-global-live-governance-20260601",
-    "Repo has open PRs: SESHAT_BOOTSTRAP count=1"
+    "Repo has open PRs: SESHAT_BOOTSTRAP count=1",
+    "Repo has open PRs: MICROSOFT_AGENTS_GOVERNED_LAB count=2"
   ],
   "error_count": 0,
   "errors": [],
-  "generated_at": "2026-06-02T12:17:11.5983775Z",
+  "generated_at": "2026-06-02T13:49:53.2111054Z",
   "result_written": true
 }
