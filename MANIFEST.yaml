@@ -123,6 +123,9 @@ runtime_alignment_state:
   operational_chain_state: ACTIVE_GLOBAL_REQUIRED
   operational_chain_matrix: D:/.agents/codex/matrices/OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv
   operational_chain_tool: D:/.agents/codex/tools/local_validate_operational_chain.ps1
+  capability_use_hardening_state: ACTIVE_REQUIRED_FROM_INTAKE
+  capability_use_hardening_matrix: D:/.agents/codex/matrices/CAPABILITY_USE_HARDENING_MATRIX.csv
+  capability_use_hardening_tool: D:/.agents/codex/tools/local_validate_capability_use_hardening.ps1
   parallel_operation_matrix: D:/.agents/codex/matrices/PARALLEL_OPERATION_CRITERIA_MATRIX.csv
   parallel_issue_lane_queue: D:/.agents/codex/matrices/PARALLEL_ISSUE_LANE_QUEUE.csv
   parallel_issue_lane_queue_validator: D:/.agents/codex/tools/local_validate_parallel_issue_queue.ps1

@@ -87,6 +87,19 @@ jobs:
           }
           exit 0
 
+      - name: Capability use hardening
+        shell: pwsh
+        run: |
+          $root = Join-Path $env:GITHUB_WORKSPACE ".agents\codex"
+          $tool = Join-Path $root "tools\local_validate_capability_use_hardening.ps1"
+          $output = & $tool -Root $root -RepoRoot $env:GITHUB_WORKSPACE
+          $output | Write-Output
+          $payload = ($output -join "`n") | ConvertFrom-Json
+          if ($payload.status -ne "PASS") {
+            exit 1
+          }
+          exit 0
+
       - name: Agents instruction hierarchy
         shell: pwsh
         run: |

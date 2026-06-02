@@ -191,6 +191,15 @@ subrecetas, fronteras de plugin y clases de orden. Los validadores
 ordenes incompletas, tools sin governance y contradicciones con
 `D:/AGENTS.md`.
 
+Actualizacion uso endurecido de capacidades 2026-06-02: la cabina adopta
+`D:/.agents/codex/matrices/CAPABILITY_USE_HARDENING_MATRIX.csv` y
+`D:/.agents/codex/tools/local_validate_capability_use_hardening.ps1` para
+exigir desde la entrada, asignacion, derivacion, lectura, escritura, dispatch
+paralelo y cierre la declaracion de agente, skill, receta, plugin, tool,
+superficie, evidencia, validador y stop condition. Si una capacidad, plugin,
+tool, ruta o stop condition no resuelve, la accion se detiene con
+`capability_use_preflight_missing` antes de ejecutar.
+
 Actualizacion cola paralela por issue 2026-06-01: la cabina adopta
 `D:/.agents/codex/matrices/PARALLEL_ISSUE_LANE_QUEUE.csv` para materializar
 carriles por issue con `base_sha`, rama `codex/*`, agentes lead/owner/reviewer,

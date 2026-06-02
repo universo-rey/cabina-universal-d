@@ -42,21 +42,26 @@ La carpeta debe preferir `copiar/adaptar` antes que inventar. Los archivos `SOUR
 3. Leer `agents\LEVELS.yaml`.
 4. Seleccionar subnivel y agente desde `routing.json`.
 5. Confirmar perfil en `agents.json`.
-6. Abrir solo el README del subnivel y el perfil asignado.
-7. Elegir receta desde `recipes\RECIPE_INDEX.csv`.
-8. Elegir tool desde `tools\TOOL_INDEX.csv`.
-9. Revisar primero si existe un `SOURCE_*` aplicable.
-10. Ejecutar solo trabajo local permitido o preparar orden gobernada.
-11. Validar con `tools\\local_validate_agent_levels.ps1`, `tools\\local_validate_agent_workpapers.ps1`, `tools\\local_validate_operational_chain.ps1` y `tools\\local_validate_agent_layer.ps1`.
-12. Para carriles paralelos u ordenes, validar tambien con
+6. Declarar cadena de capacidad desde
+   `matrices\CAPABILITY_USE_HARDENING_MATRIX.csv`: agente, skill, receta,
+   plugin, tool, superficie, evidencia, validador y stop condition.
+7. Abrir solo el README del subnivel y el perfil asignado.
+8. Elegir receta desde `recipes\RECIPE_INDEX.csv`.
+9. Elegir plugin desde `matrices\PLUGIN_SKILL_BOUNDARY_MATRIX.csv`.
+10. Elegir tool desde `tools\TOOL_INDEX.csv`.
+11. Revisar primero si existe un `SOURCE_*` aplicable.
+12. Ejecutar solo trabajo local permitido o preparar orden gobernada.
+13. Validar con `tools\\local_validate_agent_levels.ps1`, `tools\\local_validate_agent_workpapers.ps1`, `tools\\local_validate_capability_use_hardening.ps1`, `tools\\local_validate_operational_chain.ps1` y `tools\\local_validate_agent_layer.ps1`.
+14. Para carriles paralelos u ordenes, validar tambien con
     `tools\\local_validate_parallel_order_governance.ps1` y
     `tools\\local_validate_order_packets.ps1`.
-12.b. Para carriles paralelos por issue, declarar primero la fila en
+14.b. Para carriles paralelos por issue, declarar primero la fila en
     `matrices\\PARALLEL_ISSUE_LANE_QUEUE.csv` y validar con
     `tools\\local_validate_parallel_issue_queue.ps1`.
-13. Cerrar con agente, skill, receta, tool, evidencia, validador y condicion
-    de detencion. Si falta algun componente y no existe `NO_APLICA`
-    justificado, detener con `operational_chain_missing`.
+15. Cerrar con agente, skill, receta, plugin, tool, superficie, evidencia,
+    validador y condicion de detencion. Si falta algun componente y no existe
+    `NO_APLICA` justificado, detener con `capability_use_preflight_missing` u
+    `operational_chain_missing` segun corresponda.
 
 ## Estado
 
@@ -91,6 +96,13 @@ agente/skill/receta/tool/validador/evidencia/stop_condition para cierres,
 cambios repo, automatizacion GitHub, runtime y carriles paralelos. La matriz
 rectora es `matrices\OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv` y el validador
 local es `tools\local_validate_operational_chain.ps1`.
+
+Actualizacion uso endurecido de capacidades 2026-06-02: antes de cada entrada,
+lectura, escritura, derivacion, dispatch paralelo, gate live/costo/produccion o
+cierre, la cabina exige agente, skill, receta, plugin, tool, superficie,
+evidencia, validador y stop condition. La matriz rectora es
+`matrices\CAPABILITY_USE_HARDENING_MATRIX.csv` y el validador local es
+`tools\local_validate_capability_use_hardening.ps1`.
 
 Actualizacion cola paralela 2026-06-01: los work units por issue viven en
 `matrices\PARALLEL_ISSUE_LANE_QUEUE.csv`. La cola exige `base_sha`, rama

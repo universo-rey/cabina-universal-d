@@ -107,6 +107,15 @@ debe declarar y validar agente, skill, receta, tool, evidencia, validador y
 stop condition. Si falta algun componente y no existe `NO_APLICA` justificado,
 la ejecucion se detiene con `operational_chain_missing`.
 
+Estado uso endurecido de capacidades actualizado 2026-06-02: toda entrada,
+lectura, escritura, derivacion, dispatch paralelo, gate live/costo/produccion
+y cierre debe declarar desde el inicio agente, skill, receta, plugin, tool,
+superficie, evidencia, validador y stop condition. La matriz vive en
+`D:\.agents\codex\matrices\CAPABILITY_USE_HARDENING_MATRIX.csv` y se valida
+con `D:\.agents\codex\tools\local_validate_capability_use_hardening.ps1`. Si
+falta algun componente o la asignacion no resuelve, detener antes de ejecutar
+con `capability_use_preflight_missing`.
+
 Estado skills repo-locales actualizado 2026-06-01: las skills portables de la
 cabina viven en `D:\.agents\skills\<skill>\SKILL.md`. La carpeta
 `D:\.agents\codex\skills` conserva el catalogo, source refs, matrices de uso y
@@ -267,6 +276,10 @@ Si falta un archivo rector, registrar hallazgo y detener la ejecucion destructiv
 
 - Leer antes de escribir.
 - Ejecutar primero lo local, reversible y seguro.
+- Antes de cualquier ejecucion, asignacion o derivacion, declarar cadena de
+  capacidad: agente, skill, receta, plugin, tool, superficie, evidencia,
+  validador y stop condition; si falta, detener con
+  `capability_use_preflight_missing`.
 - Microsoft live es gobernado: SharePoint, Teams, Outlook, Entra, Graph,
   Power Platform, Planner, Dataverse o tenant requieren orden gobernada con
   superficie, identidad, owner, rollback, postcheck y evidencia.
@@ -280,8 +293,8 @@ Si falta un archivo rector, registrar hallazgo y detener la ejecucion destructiv
 - No confundir referencia tecnica con canon rector.
 - No tratar carpetas de herramientas, sistemas o licencias como repos salvo que tengan metadata que lo declare.
 - Mantener separacion estricta entre `ESCRIBANIA`, `MODO_ON`, Corte Ejecutora y referencias tecnicas.
-- No cerrar ni ejecutar trabajo operativo sin cadena agente/skill/receta/tool/validador/evidencia/stop_condition.
-- Toda salida operativa debe declarar agente, skill, receta, tool, superficie, orden, evidencia, validador y condicion de detencion.
+- No cerrar ni ejecutar trabajo operativo sin cadena agente/skill/receta/plugin/tool/superficie/validador/evidencia/stop_condition.
+- Toda salida operativa debe declarar agente, skill, receta, plugin, tool, superficie, orden, evidencia, validador y condicion de detencion.
 
 ## Cadena de trabajo
 
