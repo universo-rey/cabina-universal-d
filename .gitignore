@@ -58,6 +58,14 @@
 /.github/workflows/*
 !/.github/workflows/*.yml
 
+# Codex app local/worktree environments for the root wrapper project.
+!/.codex/
+/.codex/*
+!/.codex/README.md
+!/.codex/environments/
+/.codex/environments/*
+!/.codex/environments/*.toml
+
 # Governance registry metadata only. Repos under 10_REPOS remain ignored.
 !/01_GOVERNANCE_REGISTRY/
 /01_GOVERNANCE_REGISTRY/*
@@ -155,6 +163,7 @@
 !/.agents/codex/orders/ORDER_TEAMS_GOVERNANCE_LIVE_READ_DRAFT_20260602.md
 !/.agents/codex/orders/ORDER_MICROSOFT_AGENTS_GOVERNED_LAB_ALIGNMENT_20260602.md
 !/.agents/codex/orders/ORDER_CODEX_CLOUD_GOVERNED_SMOKE_20260602.md
+!/.agents/codex/orders/ORDER_CODEX_ENVIRONMENT_CREATION_20260602.md
 
 !/.agents/codex/readbacks/
 /.agents/codex/readbacks/*
@@ -171,6 +180,7 @@
 !/.agents/codex/readbacks/2026-06-02_cdf_jara_sdu_teams_skill_closeout_readback.md
 !/.agents/codex/readbacks/2026-06-02_capability_use_hardening_readback.md
 !/.agents/codex/readbacks/2026-06-02_global_agent_autonomy_codex_cloud_readback.md
+!/.agents/codex/readbacks/2026-06-02_codex_environments_readback.md
 
 !/.agents/codex/tools/
 /.agents/codex/tools/*

@@ -179,6 +179,19 @@ La segunda ola aprobada por el operador ejecuto smokes read-only sobre
 `SeshatSgin/tcu-control-plane`, `SGIN_Canonico_Puro` y `Sgin`, todos con estado
 `READY`, `files_changed=0` y sin diff.
 
+Estado entornos Codex actualizado 2026-06-02: la cabina crea entorno Codex app
+local/worktree repo-visible en `D:\.codex\environments\environment.toml` para
+`universo-rey/cabina-universal-d`. La matriz
+`D:\.agents\codex\matrices\CODEX_APP_LOCAL_ENVIRONMENT_MATRIX_20260602.csv`,
+la cola `D:\.agents\codex\matrices\CODEX_ENVIRONMENT_CREATION_QUEUE_20260602.csv`
+y el validador
+`D:\.agents\codex\tools\local_validate_codex_app_environments.ps1` gobiernan
+entornos Codex app y Cloud. El CLI disponible no crea Cloud environments; los
+faltantes quedan `NEEDS_CODEX_CLOUD_UI_CREATE` con
+`codex_environment_creation_tool_unavailable` hasta UI/API real con rollback y
+postcheck. No habilita secretos, OpenAI API live, Microsoft live, produccion,
+tenant writes, permisos ni `codex cloud apply` sin revision.
+
 Estado jerarquia AGENTS.md actualizado 2026-06-01: `D:\AGENTS.md` es la
 instruccion rectora local de mayor precedencia. Las instrucciones anidadas,
 perfiles de agentes, skills repo-locales, plugins y runtimes globales solo
@@ -220,7 +233,7 @@ Universal del Rey y como repo raiz envoltorio activo:
 - allowlist: solo gobierno, canon, agentes locales, matrices, prompts,
   recetas, tools, evals, plugins, templates, readbacks/workpapers saneados y
   workflows GitHub Actions de validacion, mas skills repo-locales bajo
-  `D:\.agents\skills`;
+  `D:\.agents\skills` y entorno Codex app local/worktree bajo `D:\.codex`;
 - repos anidados: conservar su propio `.git`, remoto, rama y PR;
 - `organizacion`: permanece separado en
   `D:\01_GOVERNANCE_REGISTRY\10_REPOS\02_ACTIVE\organizacion`.

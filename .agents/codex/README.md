@@ -34,6 +34,9 @@ La carpeta debe preferir `copiar/adaptar` antes que inventar. Los archivos `SOUR
   carriles delegados.
 - `skills\SUBSKILL_USAGE_MATRIX.csv`: subskills asignadas por skill padre.
 - `recipes\SUBRECIPE_INDEX.csv`: subrecetas y validadores por receta padre.
+- `D:\.codex\`: entorno Codex app local/worktree versionable para la cabina
+  raiz. Cloud environments se gobiernan por matriz/orden y no se inventan si
+  no existe tool real de creacion.
 
 ## Regla de uso
 
@@ -57,6 +60,10 @@ La carpeta debe preferir `copiar/adaptar` antes que inventar. Los archivos `SOUR
 14. Si el carril usa agentes autonomos, Codex Cloud o task agents, declarar
     fila en `matrices\AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv` y
     validar con `tools\\local_validate_autonomous_agent_execution.ps1`.
+14.b. Si el carril usa entornos Codex app/worktree o Cloud environments,
+    validar `matrices\CODEX_APP_LOCAL_ENVIRONMENT_MATRIX_20260602.csv` y
+    `matrices\CODEX_ENVIRONMENT_CREATION_QUEUE_20260602.csv` con
+    `tools\\local_validate_codex_app_environments.ps1`.
 15. Validar con `tools\\local_validate_agent_levels.ps1`, `tools\\local_validate_agent_workpapers.ps1`, `tools\\local_validate_capability_use_hardening.ps1`, `tools\\local_validate_operational_chain.ps1` y `tools\\local_validate_agent_layer.ps1`.
 16. Para carriles paralelos u ordenes, validar tambien con
     `tools\\local_validate_parallel_order_governance.ps1` y
@@ -128,6 +135,15 @@ task-scoped y Codex Cloud repo-scoped con owner, reviewer, evidencia,
 rollback, postcheck y stop condition. Los repos sin environment visible quedan
 `BLOCKED_NO_CODEX_CLOUD_ENVIRONMENT`; los environments fuera de la base D:\ se
 marcan como candidatos, no como repos absorbidos.
+
+Actualizacion entornos Codex 2026-06-02: `D:\.codex\environments\environment.toml`
+queda creado para setup local/worktree de `D:\` con validadores de cabina. La
+matriz `matrices\CODEX_APP_LOCAL_ENVIRONMENT_MATRIX_20260602.csv`, la cola
+`matrices\CODEX_ENVIRONMENT_CREATION_QUEUE_20260602.csv`, la orden
+`orders\ORDER_CODEX_ENVIRONMENT_CREATION_20260602.md` y el validador
+`tools\local_validate_codex_app_environments.ps1` gobiernan Codex app y Cloud
+environments. La creacion Cloud directa queda `NO_DISPONIBLE_CLI_CREATE_ENV`
+si no aparece tool/API real de administracion.
 
 ## Olas de agentes
 

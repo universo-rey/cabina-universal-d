@@ -168,6 +168,14 @@ runtime_alignment_state:
   governed_ci_sgin_canonico_puro_pr: SeshatSgin/SGIN_Canonico_Puro#6
   governed_ci_sgin_canonico_puro_merge: 5a1756206230d2d123f297bf4c43c50acce0f47d
   codex_cloud_boundary: repo_scoped_no_secrets_no_microsoft_live_no_production_no_openai_api_live
+  codex_app_environment_state: ACTIVE_ROOT_LOCAL_WORKTREE_ENV_CREATED
+  codex_app_environment_path: D:/.codex/environments/environment.toml
+  codex_app_environment_matrix: D:/.agents/codex/matrices/CODEX_APP_LOCAL_ENVIRONMENT_MATRIX_20260602.csv
+  codex_environment_creation_queue: D:/.agents/codex/matrices/CODEX_ENVIRONMENT_CREATION_QUEUE_20260602.csv
+  codex_app_environment_validator: D:/.agents/codex/tools/local_validate_codex_app_environments.ps1
+  codex_environment_order: D:/.agents/codex/orders/ORDER_CODEX_ENVIRONMENT_CREATION_20260602.md
+  codex_environment_readback: D:/.agents/codex/readbacks/2026-06-02_codex_environments_readback.md
+  codex_cloud_environment_creation_tool_status: NO_DISPONIBLE_CLI_CREATE_ENV
   repo_local_skill_root: D:/.agents/skills
   skill_governance_catalog: D:/.agents/codex/skills
   repo_local_skill_availability_state: ALL_DECLARED_REPO_LOCAL_SKILLS_AVAILABLE_20260602
