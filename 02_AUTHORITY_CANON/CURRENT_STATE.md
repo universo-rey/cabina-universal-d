@@ -271,6 +271,9 @@ registra environments visibles: `SeshatSgin/tcu-control-plane`, `Sgin`
 diff. El
 carril no habilita secretos, Microsoft live, SharePoint real, produccion,
 permisos, OpenAI API live, costos ni agentes remotos persistentes.
+Segunda ola aprobada por el operador: smokes read-only sobre
+`SeshatSgin/tcu-control-plane`, `SGIN_Canonico_Puro` y `Sgin` cerraron
+`READY`, `files_changed=0`, `no diff`.
 
 Reglas vigentes:
 

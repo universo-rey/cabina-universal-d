@@ -46,6 +46,13 @@ Codex Cloud CLI y repos GitHub.
 - Smoke iniciado: `task_e_6a1f119843d4832e9ed821834222c003`, environment
   `universo-rey/cabina-universal-d`, branch `main`, estado verificado
   `READY`, `files_changed=0`, `no diff`.
+- Segunda ola aprobada por operador y ejecutada read-only:
+  `task_e_6a1f144c06cc832e9ae317ce8ca0f1e0` sobre
+  `SeshatSgin/tcu-control-plane`, `READY`, `files_changed=0`, `no diff`;
+  `task_e_6a1f144c189c832ead0762cd5016078e` sobre
+  `SGIN_Canonico_Puro`, `READY`, `files_changed=0`, `no diff`;
+  `task_e_6a1f144bfee4832ebe5523def080f921` sobre `Sgin`, `READY`,
+  `files_changed=0`, `no diff`.
 
 ## Decision
 

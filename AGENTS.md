@@ -147,6 +147,9 @@ Cloud visible. Los environments visibles quedan registrados en
 `task_e_6a1f119843d4832e9ed821834222c003`, estado `READY`, sin diff. Esto no
 habilita secretos, Microsoft live, SharePoint real, produccion, permisos,
 OpenAI API live, costos ni agentes remotos persistentes.
+La segunda ola aprobada por el operador ejecuto smokes read-only sobre
+`SeshatSgin/tcu-control-plane`, `SGIN_Canonico_Puro` y `Sgin`, todos con estado
+`READY`, `files_changed=0` y sin diff.
 
 Estado jerarquia AGENTS.md actualizado 2026-06-01: `D:\AGENTS.md` es la
 instruccion rectora local de mayor precedencia. Las instrucciones anidadas,

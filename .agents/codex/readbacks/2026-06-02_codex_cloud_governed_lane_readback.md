@@ -46,6 +46,13 @@ El snapshot UI del operador confirma environments visibles para
 - Smoke `task_e_6a1f119843d4832e9ed821834222c003` iniciado sobre
   `universo-rey/cabina-universal-d` branch `main`; estado verificado `READY`,
   `files_changed=0`, `no diff`.
+- Segunda ola read-only:
+  `task_e_6a1f144c06cc832e9ae317ce8ca0f1e0` sobre
+  `SeshatSgin/tcu-control-plane`, `READY`, `files_changed=0`, `no diff`;
+  `task_e_6a1f144c189c832ead0762cd5016078e` sobre
+  `SGIN_Canonico_Puro`, `READY`, `files_changed=0`, `no diff`;
+  `task_e_6a1f144bfee4832ebe5523def080f921` sobre `Sgin`, `READY`,
+  `files_changed=0`, `no diff`.
 - `D:\` estaba limpio antes de preparar este carril.
 
 ## Artefactos
@@ -87,10 +94,10 @@ git -C D:\ diff --check
 - skill: `github:github|openai-docs|rey-modo-carril-codex-cloud-api|superpowers:verification-before-completion`
 - receta: `recipe.codex_cloud_governed_lane`
 - tool: `tool.codex_cloud_cli_readonly|tool.local_validate_codex_cloud_governed_lane`
-- estado: `ACTIVE_READONLY_SMOKE_READY|SGIN_CLOUD_BLOCKED_PENDING_ENVIRONMENT`
+- estado: `ACTIVE_READONLY_SMOKE_READY_ALL_VISIBLE_ENVIRONMENTS|SGIN_CLOUD_BLOCKED_PENDING_ENVIRONMENT`
 - evidencia: este readback, matriz, mapa, receta, orden y validador
 - validador: `D:\.agents\codex\tools\local_validate_codex_cloud_governed_lane.ps1`
 - riesgo: environment no registrado en `sgin-cloud`, environment equivocado, aplicar diff sin revision, secretos, datos live o SharePoint real por error
 - rollback: revertir la rama `codex/codex-cloud-governed-lane-20260602`
 - stop_condition: `source_uncertain|api_or_remote_agent_requested|secret_detected|regulated_data_boundary_unclear|github_order_missing_checks|microsoft_live_requested_without_governed_order|production_requested_without_explicit_authorization`
-- proximos_carriles: leer cierre del task `cabina-universal-d`; registrar/activar environment Codex Cloud de `sgin-cloud`; preparar carril clone/register repo-nativo; revisar diff; aplicar solo si branch limpia y validators pasan
+- proximos_carriles: registrar/activar environment Codex Cloud de `sgin-cloud`; preparar carril clone/register repo-nativo; revisar diff solo de tasks existentes; aplicar solo si branch limpia y validators pasan

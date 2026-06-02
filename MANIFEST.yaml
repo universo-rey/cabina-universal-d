@@ -147,6 +147,7 @@ runtime_alignment_state:
   codex_cloud_first_remote_candidate: SeshatSgin/sgin-cloud
   codex_cloud_active_environment_smoke: task_e_6a1f119843d4832e9ed821834222c003
   codex_cloud_active_environment_smoke_status: READY_NO_DIFF
+  codex_cloud_followup_smokes_status: TCU_READY_NO_DIFF|SGIN_CANONICO_READY_NO_DIFF|SGIN_READY_NO_DIFF
   codex_cloud_boundary: repo_scoped_no_secrets_no_microsoft_live_no_production_no_openai_api_live
   repo_local_skill_root: D:/.agents/skills
   skill_governance_catalog: D:/.agents/codex/skills
