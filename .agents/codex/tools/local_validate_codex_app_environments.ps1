@@ -92,6 +92,7 @@ $rootEnvironmentPath = Join-Path $RepoRoot ".codex\environments\environment.toml
 
 $errors = New-Object System.Collections.Generic.List[string]
 $warnings = New-Object System.Collections.Generic.List[string]
+$isGitHubActions = $env:GITHUB_ACTIONS -eq "true"
 
 Require-Columns -Path $localMatrixPath -Columns @(
   "environment_id",
@@ -244,7 +245,12 @@ foreach ($row in $queueRows) {
     $warnings.Add("Codex environment queue row '$($row.environment_queue_id)' visible label is not present in inventory by exact name: $($row.codex_cloud_environment_label)")
   }
   if ($row.local_path -notmatch "NO_APLICA" -and -not (Test-Path -LiteralPath (Resolve-CabinaPath $row.local_path))) {
-    $errors.Add("Codex environment queue row '$($row.environment_queue_id)' local_path missing: $($row.local_path)")
+    $message = "Codex environment queue row '$($row.environment_queue_id)' local_path missing: $($row.local_path)"
+    if ($isGitHubActions -and $row.codex_app_scope -eq "repo_native") {
+      $warnings.Add("$message (expected in wrapper-repo CI without nested clones)")
+    } else {
+      $errors.Add($message)
+    }
   }
   Check-PathTokens -Value $row.validator -Errors $errors -Context "Codex environment queue '$($row.environment_queue_id)' validator"
   Check-StopCondition -Value $row.stop_condition -KnownStops $knownStops -Errors $errors -Context "Codex environment queue '$($row.environment_queue_id)'"
