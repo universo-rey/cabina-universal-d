@@ -250,12 +250,20 @@ print("agent_name=" + agent.name)
 print("runner_available=" + str(Runner is not None))
 print("smoke=OK_NO_API_CALL")
 '@
-  $output = & python -c $python 2>&1
-  if ($LASTEXITCODE -ne 0) {
-    $errors.Add("Agents SDK local import smoke failed: $($output -join ' ')")
-  } else {
-    foreach ($line in $output) {
-      $sdkEvidence.Add([string]$line)
+  $tempSdkSmoke = Join-Path ([System.IO.Path]::GetTempPath()) ("cabina_agents_sdk_smoke_" + [System.Guid]::NewGuid().ToString("N") + ".py")
+  try {
+    Set-Content -LiteralPath $tempSdkSmoke -Value $python -Encoding UTF8
+    $output = & python $tempSdkSmoke 2>&1
+    if ($LASTEXITCODE -ne 0) {
+      $errors.Add("Agents SDK local import smoke failed: $($output -join ' ')")
+    } else {
+      foreach ($line in $output) {
+        $sdkEvidence.Add([string]$line)
+      }
+    }
+  } finally {
+    if (Test-Path -LiteralPath $tempSdkSmoke) {
+      Remove-Item -LiteralPath $tempSdkSmoke -Force -ErrorAction SilentlyContinue
     }
   }
 }

@@ -20,3 +20,4 @@ recipe.schema_tool_contract,03_CORTE_EJECUTORA,court.thot_schema,D:\.agents\code
 recipe.sharepoint_complete_read_order,01_AUTORIDAD_Y_GATES,court.sdu_gate,D:\.agents\codex\recipes\recipe.sharepoint_complete_read_order.md,sharepoint_complete_read_order_packet
 recipe.universe_tower_handoff,04_TORRES_DE_UNIVERSO,universe.escribania_tower,D:\.agents\codex\recipes\recipe.universe_tower_handoff.md,tower_handoff
 recipe.workspace_reference_audit,05_SOPORTE_TECNICO,codex.workspace_guardian,D:\.agents\codex\recipes\recipe.workspace_reference_audit.md,workspace_reference_readback
+recipe.openai_review_repair_validate_loop,03_CORTE_EJECUTORA,court.openai_dispatcher,D:\.agents\codex\recipes\recipe.openai_review_repair_validate_loop.md,openai_repair_loop_readback
