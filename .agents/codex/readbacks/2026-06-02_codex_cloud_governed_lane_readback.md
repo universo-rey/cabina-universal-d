@@ -6,8 +6,8 @@ Fecha: 2026-06-02
 
 Codex Cloud queda activo como carril gobernado de la Cabina Universal. El uso
 inicial permite inventario, status, diff y smoke read-only repo-scoped cuando
-repo y rama estan fijados. `SeshatSgin/sgin-cloud` queda reconocido como primer
-candidato Cloud real: repo privado, default `main`, con AGENTS, README,
+repo y rama estan fijados. `SeshatSgin/sgin-cloud` queda reconocido como
+environment Cloud operativo: repo privado, default `main`, con AGENTS, README,
 runtime-local, skill pack, tests y workflow `validate-runtime-local.yml`.
 
 El snapshot UI del operador confirma environments visibles para
@@ -32,8 +32,18 @@ El snapshot UI del operador confirma environments visibles para
 - `sgin-cloud/.github/workflows/validate-runtime-local.yml` usa engine `mock`
   para el carril live-write de CI.
 - `codex cloud exec --env SeshatSgin/sgin-cloud --branch main` con prompt
-  read-only devolvio `environment 'SeshatSgin/sgin-cloud' not found`; no hubo
-  apply ni diff.
+  read-only devolvio `task_e_6a1f19895190832ebd427cf6b955bc31`, `READY`,
+  `files_changed=0`, `no diff`.
+- `codex cloud exec --env SeshatSgin/sgin-cloud --branch main` con prompt
+  CI/mock devolvio `task_e_6a1f1b60bc04832e855fe676e91c9ea7`, `READY`,
+  `files_changed=0`, `no diff`.
+- `codex cloud exec --env sgin-cloud --branch main` no resolvio environment;
+  usar etiqueta completa `SeshatSgin/sgin-cloud`.
+- Clone local canonico `C:\Users\enzo1\Documents\GitHub\sgin-cloud` esta limpio
+  en `main` y coincide con `origin/main` en `67f04f9`.
+- Clone local OneDrive `C:\Users\enzo1\OneDrive - ESCRIBANIA BITSCH\Repos\sgin-cloud`
+  esta limpio pero obsoleto en `194d4db`; no usar para CI Cloud ni mover sin
+  orden gobernada separada.
 - Environment UI `SeshatSgin/tcu-control-plane`: repo
   `SeshatSgin/tcu-control-plane`, 125 tareas, creado el 2026-05-13.
 - Environment UI `Sgin`: repo `universo-rey/Sgin`, 45 tareas, creado el
@@ -94,10 +104,10 @@ git -C D:\ diff --check
 - skill: `github:github|openai-docs|rey-modo-carril-codex-cloud-api|superpowers:verification-before-completion`
 - receta: `recipe.codex_cloud_governed_lane`
 - tool: `tool.codex_cloud_cli_readonly|tool.local_validate_codex_cloud_governed_lane`
-- estado: `ACTIVE_READONLY_SMOKE_READY_ALL_VISIBLE_ENVIRONMENTS|SGIN_CLOUD_BLOCKED_PENDING_ENVIRONMENT`
-- evidencia: este readback, matriz, mapa, receta, orden y validador
+- estado: `ACTIVE_READONLY_SMOKE_READY_ALL_VISIBLE_ENVIRONMENTS|SGIN_CLOUD_ENVIRONMENT_VERIFIED|STALE_ONEDRIVE_CLONE_DECISION_PENDING`
+- evidencia: este readback, matriz, mapa, receta, orden, validador, `task_e_6a1f19895190832ebd427cf6b955bc31`, `task_e_6a1f1b60bc04832e855fe676e91c9ea7`
 - validador: `D:\.agents\codex\tools\local_validate_codex_cloud_governed_lane.ps1`
-- riesgo: environment no registrado en `sgin-cloud`, environment equivocado, aplicar diff sin revision, secretos, datos live o SharePoint real por error
+- riesgo: etiqueta Cloud equivocada, clon local obsoleto, aplicar diff sin revision, secretos, datos live o SharePoint real por error
 - rollback: revertir la rama `codex/codex-cloud-governed-lane-20260602`
 - stop_condition: `source_uncertain|api_or_remote_agent_requested|secret_detected|regulated_data_boundary_unclear|github_order_missing_checks|microsoft_live_requested_without_governed_order|production_requested_without_explicit_authorization`
-- proximos_carriles: registrar/activar environment Codex Cloud de `sgin-cloud`; preparar carril clone/register repo-nativo; revisar diff solo de tasks existentes; aplicar solo si branch limpia y validators pasan
+- proximos_carriles: elevar checks remotos de `sgin-cloud` a CI gobernado; preparar carril de saneamiento del clon OneDrive obsoleto; revisar diff solo de tasks existentes; aplicar solo si branch limpia y validators pasan

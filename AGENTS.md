@@ -139,9 +139,16 @@ carril remoto repo-scoped activo bajo
 `D:\.agents\codex\maps\CODEX_CLOUD_GOVERNED_LANE.md`,
 `D:\.agents\codex\matrices\CODEX_CLOUD_GOVERNED_LANE_MATRIX.csv` y
 `D:\.agents\codex\tools\local_validate_codex_cloud_governed_lane.ps1`.
-`SeshatSgin/sgin-cloud` queda reconocido como candidato Cloud remoto para
-smoke/CI read-only o no sensible con branch fija, pendiente de environment
-Cloud visible. Los environments visibles quedan registrados en
+`SeshatSgin/sgin-cloud` queda reconocido y verificado como environment Cloud
+remoto para smoke/CI read-only o no sensible con branch fija. Quedan
+registrados el smoke read-only
+`task_e_6a1f19895190832ebd427cf6b955bc31` y el smoke CI mock
+`task_e_6a1f1b60bc04832e855fe676e91c9ea7`, ambos `READY`, `files_changed=0`
+y sin diff. El clon canonico local para este carril es
+`C:\Users\enzo1\Documents\GitHub\sgin-cloud` en `67f04f9` coincidente con
+`origin/main`; el clon OneDrive en `194d4db` queda marcado como atrasado y no
+debe usarse para Cloud CI sin orden de refresh o higiene. Los environments
+visibles quedan registrados en
 `D:\.agents\codex\matrices\CODEX_CLOUD_ENVIRONMENT_INVENTORY_20260602.csv`.
 `universo-rey/cabina-universal-d` queda probado con smoke read-only
 `task_e_6a1f119843d4832e9ed821834222c003`, estado `READY`, sin diff. Esto no

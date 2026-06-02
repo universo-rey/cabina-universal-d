@@ -277,6 +277,7 @@ $requiredEnvironments = @{
   "Sgin" = "universo-rey/Sgin"
   "SGIN_Canonico_Puro" = "SeshatSgin/SGIN_Canonico_Puro"
   "universo-rey/cabina-universal-d" = "universo-rey/cabina-universal-d"
+  "SeshatSgin/sgin-cloud" = "SeshatSgin/sgin-cloud"
 }
 foreach ($environmentName in $requiredEnvironments.Keys) {
   $environmentRow = @($environmentRows | Where-Object { $_.environment_name -eq $environmentName }) | Select-Object -First 1

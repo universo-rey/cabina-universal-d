@@ -29,8 +29,18 @@ Codex Cloud CLI y repos GitHub.
   runtime-local, readonly evidence, handoff, promotion-gate y live-write con
   engine `mock`.
 - `codex cloud exec --env SeshatSgin/sgin-cloud --branch main` fue probado con
-  prompt read-only y devolvio `environment 'SeshatSgin/sgin-cloud' not found`.
-  No hubo diff ni apply.
+  prompt read-only y devolvio `task_e_6a1f19895190832ebd427cf6b955bc31`,
+  `READY`, `files_changed=0`, `no diff`.
+- `codex cloud exec --env SeshatSgin/sgin-cloud --branch main` fue probado con
+  prompt CI/mock y devolvio `task_e_6a1f1b60bc04832e855fe676e91c9ea7`,
+  `READY`, `files_changed=0`, `no diff`.
+- `codex cloud exec --env sgin-cloud --branch main` no resolvio environment;
+  la etiqueta operativa valida es `SeshatSgin/sgin-cloud`.
+- Clone canonico para `sgin-cloud`: `C:\Users\enzo1\Documents\GitHub\sgin-cloud`,
+  branch `main`, `HEAD=67f04f9`, limpio y alineado con `origin/main`.
+- Clone OneDrive obsoleto: `C:\Users\enzo1\OneDrive - ESCRIBANIA BITSCH\Repos\sgin-cloud`,
+  branch `main`, `HEAD=194d4db`, limpio pero no alineado con `origin/main`;
+  queda fuera de CI Cloud hasta orden gobernada de refresh/migracion.
 
 ## Evidencia Codex Cloud
 
@@ -53,20 +63,29 @@ Codex Cloud CLI y repos GitHub.
   `SGIN_Canonico_Puro`, `READY`, `files_changed=0`, `no diff`;
   `task_e_6a1f144bfee4832ebe5523def080f921` sobre `Sgin`, `READY`,
   `files_changed=0`, `no diff`.
+- Tercera ola aprobada por operador y ejecutada sobre `SeshatSgin/sgin-cloud`:
+  `task_e_6a1f19895190832ebd427cf6b955bc31` smoke read-only, `READY`,
+  `files_changed=0`, `no diff`; `task_e_6a1f1b60bc04832e855fe676e91c9ea7`
+  smoke CI/mock, `READY`, `files_changed=0`, `no diff`.
 
 ## Decision
 
 Codex Cloud queda como carril remoto gobernado activo para tareas repo-scoped
-no sensibles. `SeshatSgin/sgin-cloud` queda registrado como candidato activo de
-smoke/CI remoto, pero requiere environment Cloud. `universo-rey/cabina-universal-d`
-queda validado como environment aceptado por CLI mediante smoke read-only. No
-sustituye Codex local ni GitHub PR lifecycle. El uso seguro es:
+no sensibles. `SeshatSgin/sgin-cloud` queda validado como environment aceptado
+por CLI mediante smoke read-only y smoke CI/mock sin diff. El clon canonico de
+trabajo queda en `C:\Users\enzo1\Documents\GitHub\sgin-cloud`; el clon
+OneDrive obsoleto requiere orden gobernada separada antes de refrescarse o
+moverse. `universo-rey/cabina-universal-d` queda validado como environment
+aceptado por CLI mediante smoke read-only. Codex Cloud no sustituye Codex local
+ni GitHub PR lifecycle. El uso seguro es:
 
 `list -> status -> diff -> review -> apply local gated -> validators -> PR`.
 
 ## Stop
 
 No se ejecuta SharePoint real, produccion, permisos, secretos ni OpenAI API
-live desde este carril. Como el environment remoto de `sgin-cloud` no existe
-para la CLI, se detiene con `source_uncertain` y se prepara carril de
-registro de environment o clone/register repo-nativo.
+live desde este carril. La etiqueta corta `sgin-cloud` queda descartada por
+`source_uncertain`; la etiqueta completa `SeshatSgin/sgin-cloud` queda
+habilitada solo para tareas repo-scoped no sensibles. Cualquier refresh del
+clon OneDrive, apply de diff Cloud, Microsoft live o produccion requiere orden
+gobernada separada y postcheck.

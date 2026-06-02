@@ -260,17 +260,26 @@ como carril remoto repo-scoped activo y gobernado mediante
 `D:/.agents/codex/matrices/CODEX_CLOUD_GOVERNED_LANE_MATRIX.csv`,
 `D:/.agents/codex/matrices/CODEX_CLOUD_REPO_DISCOVERY_MATRIX_20260602.csv` y
 `D:/.agents/codex/tools/local_validate_codex_cloud_governed_lane.ps1`.
-`SeshatSgin/sgin-cloud` queda reconocido como candidato remoto para smoke/CI
-read-only o no sensible, pendiente de environment Codex Cloud visible. La
-matriz `D:/.agents/codex/matrices/CODEX_CLOUD_ENVIRONMENT_INVENTORY_20260602.csv`
-registra environments visibles: `SeshatSgin/tcu-control-plane`, `Sgin`
-(`universo-rey/Sgin`), `SGIN_Canonico_Puro` y
-`universo-rey/cabina-universal-d`. El smoke read-only
+`SeshatSgin/sgin-cloud` queda reconocido y verificado como environment Codex
+Cloud remoto para smoke/CI read-only o no sensible. El smoke read-only
+`task_e_6a1f19895190832ebd427cf6b955bc31` y el smoke CI mock
+`task_e_6a1f1b60bc04832e855fe676e91c9ea7` cerraron `READY`, `files_changed=0`
+y sin diff. La matriz
+`D:/.agents/codex/matrices/CODEX_CLOUD_ENVIRONMENT_INVENTORY_20260602.csv`
+registra environments visibles: `SeshatSgin/tcu-control-plane`,
+`SeshatSgin/sgin-cloud`, `Sgin` (`universo-rey/Sgin`),
+`SGIN_Canonico_Puro` y `universo-rey/cabina-universal-d`. El smoke read-only
 `task_e_6a1f119843d4832e9ed821834222c003` fue iniciado sobre
 `universo-rey/cabina-universal-d` y cerro `READY` con `files_changed=0` y sin
 diff. El
 carril no habilita secretos, Microsoft live, SharePoint real, produccion,
 permisos, OpenAI API live, costos ni agentes remotos persistentes.
+El clon canonico local para `sgin-cloud` es
+`C:/Users/enzo1/Documents/GitHub/sgin-cloud` en `67f04f9` coincidente con
+`origin/main`; el clon OneDrive
+`C:/Users/enzo1/OneDrive - ESCRIBANIA BITSCH/Repos/sgin-cloud` queda limpio
+pero atrasado en `194d4db` y no se mueve ni se borra sin orden gobernada
+separada.
 Segunda ola aprobada por el operador: smokes read-only sobre
 `SeshatSgin/tcu-control-plane`, `SGIN_Canonico_Puro` y `Sgin` cerraron
 `READY`, `files_changed=0`, `no diff`.

@@ -148,6 +148,11 @@ runtime_alignment_state:
   codex_cloud_active_environment_smoke: task_e_6a1f119843d4832e9ed821834222c003
   codex_cloud_active_environment_smoke_status: READY_NO_DIFF
   codex_cloud_followup_smokes_status: TCU_READY_NO_DIFF|SGIN_CANONICO_READY_NO_DIFF|SGIN_READY_NO_DIFF
+  codex_cloud_sgin_cloud_readonly_smoke: task_e_6a1f19895190832ebd427cf6b955bc31
+  codex_cloud_sgin_cloud_ci_smoke: task_e_6a1f1b60bc04832e855fe676e91c9ea7
+  codex_cloud_sgin_cloud_smoke_status: READY_NO_DIFF|CI_MOCK_READY_NO_DIFF
+  codex_cloud_sgin_cloud_canonical_clone: C:/Users/enzo1/Documents/GitHub/sgin-cloud@67f04f9_matches_origin_main
+  codex_cloud_sgin_cloud_stale_clone_decision: C:/Users/enzo1/OneDrive - ESCRIBANIA BITSCH/Repos/sgin-cloud@194d4db_do_not_use_for_cloud_ci_without_refresh_order
   codex_cloud_boundary: repo_scoped_no_secrets_no_microsoft_live_no_production_no_openai_api_live
   repo_local_skill_root: D:/.agents/skills
   skill_governance_catalog: D:/.agents/codex/skills
