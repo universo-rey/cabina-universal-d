@@ -145,11 +145,13 @@
 !/.agents/codex/orders/ORDER_CONNECT_D_CABINA_GITHUB_APPROVAL_DRAFT_20260601.md
 !/.agents/codex/orders/ORDER_GITHUB_AUTOMATION_AGENTS_SDK_PREFLIGHT_20260601.md
 !/.agents/codex/orders/ORDER_TEAMS_GOVERNANCE_LIVE_READ_DRAFT_20260602.md
+!/.agents/codex/orders/ORDER_MICROSOFT_AGENTS_GOVERNED_LAB_ALIGNMENT_20260602.md
 
 !/.agents/codex/readbacks/
 /.agents/codex/readbacks/*
 !/.agents/codex/readbacks/RETROSPECTIVE_PR3_AGENT_ALIGNMENT_20260601.md
 !/.agents/codex/readbacks/2026-06-02_teams_governance_readback.md
+!/.agents/codex/readbacks/2026-06-02_microsoft_agents_governed_lab_alignment_readback.md
 
 !/.agents/codex/tools/
 /.agents/codex/tools/*
