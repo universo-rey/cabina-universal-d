@@ -13,7 +13,7 @@ bajo torre `TGE`, sin absorberlo en el repo raiz.
 
 - Ruta local: `D:\10_UNIVERSOS\ESCRIBANIA\10_REPOS\02_ACTIVE\microsoft-agents-governed-lab`
 - Rama local: `main`
-- HEAD local: `70b88a5`
+- HEAD local: `382c406`
 - `origin`: `https://github.com/universo-rey/microsoft-agents-governed-lab.git`
 - `upstream`: `https://github.com/microsoft/Agents.git`
 - `upstream push`: `DISABLED`
@@ -27,9 +27,11 @@ bajo torre `TGE`, sin absorberlo en el repo raiz.
 - PR #3: validador/readback upstream, `MERGED`, merge commit `c48b7c4`.
 - PR #4: NuGet sample dependency update en rama `codex/*`, `MERGED`, merge commit `2074079`.
 - PR #6: npm sample dependency update con fix peer ESLint/neostandard, `MERGED`, merge commit `70b88a5`.
+- PR #8: npm refresh con fix peer ESLint/neostandard, `MERGED`, merge commit `382c406`.
 - PR #1: Dependabot NuGet, `CLOSED` como sustituido por #4.
 - PR #2: Dependabot npm, `CLOSED` como sustituido por #6.
 - PR #5: Dependabot npm duplicado, `CLOSED` como sustituido por #6.
+- PR #7: Dependabot npm refresh, `CLOSED` como sustituido por #8.
 - PRs abiertos del lab: `0`.
 
 ## Matrices actualizadas
