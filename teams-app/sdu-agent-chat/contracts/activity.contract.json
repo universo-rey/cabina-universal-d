@@ -1,0 +1,17 @@
+{
+  "contractId": "sdu.teams.activity.dev",
+  "version": "2026-06-03",
+  "requiredFields": [
+    "channel",
+    "synthetic",
+    "conversationId",
+    "fromDisplayName",
+    "requestedBy",
+    "text"
+  ],
+  "bounds": {
+    "textMaxChars": 1200,
+    "rawAttachmentExport": false,
+    "liveMessageSend": false
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "sdu-agent-chat-bot-dev",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node src/devMock.js"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

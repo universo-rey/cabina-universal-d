@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SDU Runtime Event",
+  "type": "object",
+  "required": [
+    "event_id",
+    "timestamp_utc",
+    "assigned_agent",
+    "surface",
+    "live_executed"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string"
+    },
+    "timestamp_utc": {
+      "type": "string"
+    },
+    "assigned_agent": {
+      "type": "string"
+    },
+    "surface": {
+      "type": "string"
+    },
+    "live_executed": {
+      "const": false
+    }
+  },
+  "additionalProperties": true
+}

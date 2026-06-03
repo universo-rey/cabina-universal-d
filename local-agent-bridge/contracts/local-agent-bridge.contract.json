@@ -1,0 +1,29 @@
+{
+  "contractId": "sdu.local.agent.bridge.dev",
+  "version": "2026-06-03",
+  "transport": "http-loopback",
+  "allowedRoutes": [
+    "GET /health",
+    "POST /v1/sdu/route"
+  ],
+  "request": {
+    "required": [
+      "channel",
+      "synthetic",
+      "text",
+      "requestedBy"
+    ],
+    "syntheticRequired": true,
+    "textMaxChars": 1200
+  },
+  "response": {
+    "required": [
+      "status",
+      "route_id",
+      "assigned_agent",
+      "live_executed",
+      "evidence"
+    ],
+    "liveExecutedValue": false
+  }
+}

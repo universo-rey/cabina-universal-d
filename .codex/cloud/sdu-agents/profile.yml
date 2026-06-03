@@ -1,0 +1,27 @@
+profile_id: sdu-agents-runtime-connections-dev
+repo: universo-rey/cabina-universal-d
+base_ref: main
+mode: repo_scoped_review_first
+live_writes: false
+production: false
+remote_persistent_agent: false
+allowed_actions:
+  - read_repo
+  - run_local_validators
+  - propose_patch
+  - prepare_readback
+blocked_actions:
+  - codex_cloud_apply
+  - microsoft_live
+  - openai_api_live
+  - production
+  - permission_change
+  - material_sensitive_storage
+required_evidence:
+  - validator_output
+  - git_diff_check
+  - readback
+stop_conditions:
+  - CODEX_CLOUD_LIVE_WRITE_ATTEMPTED
+  - SECRET_DETECTED
+  - PRODUCTION_MUTATION_ATTEMPTED

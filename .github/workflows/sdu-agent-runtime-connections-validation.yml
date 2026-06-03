@@ -1,0 +1,106 @@
+name: SDU Agent Runtime Connections Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "governance/agents/**"
+      - "governance/connections/**"
+      - "governance/teams/**"
+      - "governance/codex-cloud/**"
+      - "governance/observability/**"
+      - ".mcp/sdu-agents/**"
+      - "teams-app/sdu-agent-chat/**"
+      - "local-agent-bridge/**"
+      - ".codex/cloud/sdu-agents/**"
+      - "scripts/validators/**"
+      - "tests/sdu-agent-runtime/**"
+      - "readbacks/20260603_SDU_*"
+      - ".github/workflows/sdu-agent-runtime-connections-validation.yml"
+  push:
+    branches:
+      - main
+      - "codex/**"
+    paths:
+      - "governance/agents/**"
+      - "governance/connections/**"
+      - "governance/teams/**"
+      - "governance/codex-cloud/**"
+      - "governance/observability/**"
+      - ".mcp/sdu-agents/**"
+      - "teams-app/sdu-agent-chat/**"
+      - "local-agent-bridge/**"
+      - ".codex/cloud/sdu-agents/**"
+      - "scripts/validators/**"
+      - "tests/sdu-agent-runtime/**"
+      - "readbacks/20260603_SDU_*"
+      - ".github/workflows/sdu-agent-runtime-connections-validation.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sdu-agent-runtime-connections-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate SDU agent runtime DEV plane
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Run SDU validators
+        run: |
+          python scripts/validators/sdu_agent_capability_assignment_validator.py
+          python scripts/validators/mcp_connection_registry_validator.py
+          python scripts/validators/sdu_teams_chat_identity_validator.py
+          python scripts/validators/local_agent_bridge_validator.py
+          python scripts/validators/sdu_codex_cloud_assignment_validator.py
+          python scripts/validators/sdu_agent_connection_secrets_contract_validator.py
+          python scripts/validators/sdu_agent_runtime_evidence_validator.py
+
+      - name: Run mock runtime checks
+        run: |
+          npm test --prefix local-agent-bridge
+          npm test --prefix teams-app/sdu-agent-chat/bot
+          python tests/sdu-agent-runtime/simulate_sdu_agent_chat_to_tool_to_readback.py
+
+      - name: Parse structured artifacts
+        run: |
+          python - <<'PY'
+          import csv, json
+          from pathlib import Path
+          for path in Path(".").glob("**/*.json"):
+              if "node_modules" not in path.parts:
+                  json.loads(path.read_text(encoding="utf-8"))
+          for path in [
+              "governance/agents/SDU_AGENT_CAPABILITY_ASSIGNMENT_MATRIX_20260603.csv",
+              "governance/connections/MCP_CONNECTION_REGISTRY_20260603.csv",
+              "governance/teams/SDU_AGENT_TEAMS_CHAT_ROUTING_MATRIX_20260603.csv",
+              "governance/codex-cloud/SDU_AGENT_CODEX_CLOUD_ASSIGNMENT_MATRIX_20260603.csv",
+          ]:
+              with open(path, newline="", encoding="utf-8-sig") as handle:
+                  list(csv.DictReader(handle))
+          print("SDU_STRUCTURED_ARTIFACT_PARSE_PASS")
+          PY
+
+      - name: Check whitespace
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git diff --check "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}"
+          else
+            git diff --check
+          fi

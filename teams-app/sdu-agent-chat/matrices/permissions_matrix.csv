@@ -1,0 +1,4 @@
+permission_id,scope,permission_type,purpose,status,requires_human_approval,blocked_without,rollback,postcheck,stop_condition
+teams.permission.bot.personal,personal,bot_scope,Receive DEV personal chat activity template,TEMPLATE_ONLY,yes,app_registration_and_install_order,remove manifest scope,manifest validator,TEAMS_APP_INSTALL_ATTEMPTED
+teams.permission.bot.team,team,bot_scope,Receive DEV team channel activity template,TEMPLATE_ONLY,yes,team_install_order,remove manifest scope,manifest validator,TEAMS_APP_INSTALL_ATTEMPTED
+teams.permission.graph.none,none,graph_write,No Graph write permission requested,BLOCKED,yes,graph_permission_order,remove permission request,permission matrix validator,GRAPH_PERMISSION_ESCALATION

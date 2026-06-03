@@ -93,6 +93,8 @@ $rootEnvironmentPath = Join-Path $RepoRoot ".codex\environments\environment.toml
 $errors = New-Object System.Collections.Generic.List[string]
 $warnings = New-Object System.Collections.Generic.List[string]
 $isGitHubActions = $env:GITHUB_ACTIONS -eq "true"
+$resolvedRepoRoot = (Resolve-Path -LiteralPath $RepoRoot).Path.TrimEnd("\")
+$isAuxiliaryWrapperCheckout = -not $resolvedRepoRoot.Equals("D:", [System.StringComparison]::OrdinalIgnoreCase)
 
 Require-Columns -Path $localMatrixPath -Columns @(
   "environment_id",
@@ -246,8 +248,8 @@ foreach ($row in $queueRows) {
   }
   if ($row.local_path -notmatch "NO_APLICA" -and -not (Test-Path -LiteralPath (Resolve-CabinaPath $row.local_path))) {
     $message = "Codex environment queue row '$($row.environment_queue_id)' local_path missing: $($row.local_path)"
-    if ($isGitHubActions -and $row.codex_app_scope -eq "repo_native") {
-      $warnings.Add("$message (expected in wrapper-repo CI without nested clones)")
+    if (($isGitHubActions -or $isAuxiliaryWrapperCheckout) -and $row.codex_app_scope -eq "repo_native") {
+      $warnings.Add("$message (expected in wrapper-repo CI or auxiliary worktree without nested clones)")
     } else {
       $errors.Add($message)
     }

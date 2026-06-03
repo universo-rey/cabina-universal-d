@@ -1,0 +1,12 @@
+{
+  "name": "sdu-local-agent-bridge-dev",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.mjs",
+    "test": "node tests/mock_bridge_flow.mjs"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
