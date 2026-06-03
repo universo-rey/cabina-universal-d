@@ -1,0 +1,190 @@
+flows:
+  - name: SDU_Dispatch_Matrix_Items_To_Work_Queues
+    workflowid: 0cbefa7c-515f-f111-a826-00224805f8f9
+    environment: DEV_SANDBOX_ONLY
+    state: disabled_off_draft
+    statecode: 0
+    statuscode: 1
+    created_live: true
+    activated_live: false
+    api_surface: dataverse_web_api_workflows
+    category: 5
+    type: 1
+    primaryentity: none
+    source_queue: SDU.Matrix.Intake.Queue
+    target: workqueueitems
+    purpose: Dispatch matrix intake metadata to DEV queues
+    owner: SDUCapabilityControlPlane
+    in_solution: true
+    rollback: delete_created_workflow_only_if_explicit_future_rollback_order
+    postcheck: workflow_exists_statecode_0_and_solution_membership_checked
+    stop_condition: wrong_environment_or_secret_or_active_trigger_or_duplicate_name
+  - name: SDU_Process_Connection_Seed_Work_Items
+    workflowid: ee762781-515f-f111-a826-00224805f2e4
+    environment: DEV_SANDBOX_ONLY
+    state: disabled_off_draft
+    statecode: 0
+    statuscode: 1
+    created_live: true
+    activated_live: false
+    api_surface: dataverse_web_api_workflows
+    category: 5
+    type: 1
+    primaryentity: none
+    source_queue: SDU.Connection.Seed.Queue
+    target: mon_sdu_connection_instance
+    purpose: Process connection seed metadata work
+    owner: SDUCapabilityControlPlane
+    in_solution: true
+    rollback: delete_created_workflow_only_if_explicit_future_rollback_order
+    postcheck: workflow_exists_statecode_0_and_solution_membership_checked
+    stop_condition: wrong_environment_or_secret_or_active_trigger_or_duplicate_name
+  - name: SDU_Process_Dataverse_Apply_Work_Items
+    workflowid: 65468687-515f-f111-a826-00224805fc91
+    environment: DEV_SANDBOX_ONLY
+    state: disabled_off_draft
+    statecode: 0
+    statuscode: 1
+    created_live: true
+    activated_live: false
+    api_surface: dataverse_web_api_workflows
+    category: 5
+    type: 1
+    primaryentity: none
+    source_queue: SDU.Dataverse.Apply.Queue
+    target: mon_sdu_apply_log
+    purpose: Process Dataverse apply governance work
+    owner: SDUCapabilityControlPlane
+    in_solution: true
+    rollback: delete_created_workflow_only_if_explicit_future_rollback_order
+    postcheck: workflow_exists_statecode_0_and_solution_membership_checked
+    stop_condition: wrong_environment_or_secret_or_active_trigger_or_duplicate_name
+  - name: SDU_Process_Drift_Detection_Work_Items
+    workflowid: 2739dd89-515f-f111-a826-00224805fcc4
+    environment: DEV_SANDBOX_ONLY
+    state: disabled_off_draft
+    statecode: 0
+    statuscode: 1
+    created_live: true
+    activated_live: false
+    api_surface: dataverse_web_api_workflows
+    category: 5
+    type: 1
+    primaryentity: none
+    source_queue: SDU.Drift.Detection.Queue
+    target: mon_sdu_evidence
+    purpose: Process drift detection metadata work
+    owner: SDUCapabilityControlPlane
+    in_solution: true
+    rollback: delete_created_workflow_only_if_explicit_future_rollback_order
+    postcheck: workflow_exists_statecode_0_and_solution_membership_checked
+    stop_condition: wrong_environment_or_secret_or_active_trigger_or_duplicate_name
+  - name: SDU_Work_Queue_Gate_Review_Handler
+    workflowid: 282f8191-515f-f111-a826-00224805f9dd
+    environment: DEV_SANDBOX_ONLY
+    state: disabled_off_draft
+    statecode: 0
+    statuscode: 1
+    created_live: true
+    activated_live: false
+    api_surface: dataverse_web_api_workflows
+    category: 5
+    type: 1
+    primaryentity: none
+    source_queue: SDU.Gate.Review.Queue
+    target: mon_sdu_connection_gate
+    purpose: Process gate review metadata work
+    owner: SDUCapabilityControlPlane
+    in_solution: true
+    rollback: delete_created_workflow_only_if_explicit_future_rollback_order
+    postcheck: workflow_exists_statecode_0_and_solution_membership_checked
+    stop_condition: wrong_environment_or_secret_or_active_trigger_or_duplicate_name
+  - name: SDU_Work_Queue_Exception_Handler
+    workflowid: 372f8191-515f-f111-a826-00224805f9dd
+    environment: DEV_SANDBOX_ONLY
+    state: disabled_off_draft
+    statecode: 0
+    statuscode: 1
+    created_live: true
+    activated_live: false
+    api_surface: dataverse_web_api_workflows
+    category: 5
+    type: 1
+    primaryentity: none
+    source_queue: SDU.Exception.Remediation.Queue
+    target: mon_sdu_stop_condition
+    purpose: Process exception remediation metadata work
+    owner: SDUCapabilityControlPlane
+    in_solution: true
+    rollback: delete_created_workflow_only_if_explicit_future_rollback_order
+    postcheck: workflow_exists_statecode_0_and_solution_membership_checked
+    stop_condition: wrong_environment_or_secret_or_active_trigger_or_duplicate_name
+  - name: SDU_Work_Queue_Evidence_Closeout
+    workflowid: 378ceb98-515f-f111-a826-00224805f9dd
+    environment: DEV_SANDBOX_ONLY
+    state: disabled_off_draft
+    statecode: 0
+    statuscode: 1
+    created_live: true
+    activated_live: false
+    api_surface: dataverse_web_api_workflows
+    category: 5
+    type: 1
+    primaryentity: none
+    source_queue: SDU.Evidence.Publish.Queue
+    target: mon_sdu_evidence
+    purpose: Process evidence closeout metadata work
+    owner: SDUCapabilityControlPlane
+    in_solution: true
+    rollback: delete_created_workflow_only_if_explicit_future_rollback_order
+    postcheck: workflow_exists_statecode_0_and_solution_membership_checked
+    stop_condition: wrong_environment_or_secret_or_active_trigger_or_duplicate_name
+  - name: SDU_Work_Queue_Agent_Dispatcher
+    workflowid: 7c838398-515f-f111-a826-00224805f8f9
+    environment: DEV_SANDBOX_ONLY
+    state: disabled_off_draft
+    statecode: 0
+    statuscode: 1
+    created_live: true
+    activated_live: false
+    api_surface: dataverse_web_api_workflows
+    category: 5
+    type: 1
+    primaryentity: none
+    source_queue: SDU.Agent.Dispatch.Queue
+    target: mon_sdu_agent_connection_mapping
+    purpose: Dispatch agent mapping metadata work
+    owner: SDUCapabilityControlPlane
+    in_solution: true
+    rollback: delete_created_workflow_only_if_explicit_future_rollback_order
+    postcheck: workflow_exists_statecode_0_and_solution_membership_checked
+    stop_condition: wrong_environment_or_secret_or_active_trigger_or_duplicate_name
+  - name: SDU_OpenAI_Assisted_Metadata_Classifier
+    workflowid: 1b5d09a0-515f-f111-a826-00224805f9dd
+    environment: DEV_SANDBOX_ONLY
+    state: disabled_off_draft
+    statecode: 0
+    statuscode: 1
+    created_live: true
+    activated_live: false
+    api_surface: dataverse_web_api_workflows
+    category: 5
+    type: 1
+    primaryentity: none
+    source_queue: manual_or_scheduled_dev_only
+    target: openai_batch_metadata_only
+    purpose: Classify metadata-only work items after OpenAI key and cost gate
+    owner: SDUCapabilityControlPlane
+    in_solution: true
+    rollback: delete_created_workflow_only_if_explicit_future_rollback_order
+    postcheck: workflow_exists_statecode_0_and_solution_membership_checked
+    stop_condition: wrong_environment_or_secret_or_active_trigger_or_duplicate_name
+policy:
+  no_prod: true
+  no_test: true
+  no_default: true
+  no_active_triggers: true
+  no_secret_material: true
+  api_used: dataverse_web_api_workflows
+  official_reference: https://learn.microsoft.com/en-us/power-automate/manage-flows-with-code
+  final_status: DEV_DISABLED_FLOWS_CREATED_OFF_PASS
