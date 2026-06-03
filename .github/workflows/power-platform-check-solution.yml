@@ -1,0 +1,88 @@
+name: Power Platform Check Solution
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment_url:
+        description: "Dataverse DEV/STAGING environment URL"
+        required: true
+        type: string
+      solution_name:
+        description: "Solution unique name for traceability"
+        required: true
+        type: string
+      solution_file:
+        description: "Path to solution zip"
+        required: true
+        type: string
+      checker_geo:
+        description: "Checker geo"
+        required: true
+        default: "UnitedStates"
+        type: string
+      allow_high_critical_override:
+        description: "Documented override for High/Critical findings"
+        required: true
+        default: false
+        type: boolean
+      override_reason:
+        description: "Required when override is true"
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  check-solution:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate inputs
+        shell: pwsh
+        run: |
+          $url = '${{ inputs.environment_url }}'
+          $solutionFile = '${{ inputs.solution_file }}'
+          $override = [System.Convert]::ToBoolean('${{ inputs.allow_high_critical_override }}')
+          $reason = '${{ inputs.override_reason }}'
+          if ([string]::IsNullOrWhiteSpace($url)) { throw "environment_url is required" }
+          if ([string]::IsNullOrWhiteSpace('${{ inputs.solution_name }}')) { throw "solution_name is required" }
+          if ([string]::IsNullOrWhiteSpace($solutionFile)) { throw "solution_file is required" }
+          if ($url -match "(?i)(prod|production|live)") { throw "Target looks like production/live. Provide DEV/STAGING only." }
+          if (-not (Test-Path -LiteralPath $solutionFile)) { throw "solution_file not found: $solutionFile" }
+          if ($override -and [string]::IsNullOrWhiteSpace($reason)) { throw "override_reason is required when override is true" }
+
+      - name: Install Power Platform Tools
+        uses: microsoft/powerplatform-actions/actions-install@v1
+
+      - name: Who am I
+        uses: microsoft/powerplatform-actions/who-am-i@v1
+        with:
+          environment-url: ${{ inputs.environment_url }}
+          app-id: ${{ secrets['POWERPLATFORM_APP_ID'] }}
+          client-secret: ${{ secrets['POWERPLATFORM_CLIENT_SECRET'] }}
+          tenant-id: ${{ secrets['POWERPLATFORM_TENANT_ID'] }}
+
+      - name: Check solution
+        uses: microsoft/powerplatform-actions/check-solution@v1
+        with:
+          environment-url: ${{ inputs.environment_url }}
+          app-id: ${{ secrets['POWERPLATFORM_APP_ID'] }}
+          client-secret: ${{ secrets['POWERPLATFORM_CLIENT_SECRET'] }}
+          tenant-id: ${{ secrets['POWERPLATFORM_TENANT_ID'] }}
+          path: ${{ inputs.solution_file }}
+          geo: ${{ inputs.checker_geo }}
+          checker-logs-artifact-name: PowerPlatformCheckerLogs
+          fail-on-analysis-error: true
+
+      - name: Document checker gate
+        shell: pwsh
+        run: |
+          "Solution: ${{ inputs.solution_name }}" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "Checker geo: ${{ inputs.checker_geo }}" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "High/Critical override: ${{ inputs.allow_high_critical_override }}" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          if ('${{ inputs.allow_high_critical_override }}' -eq 'true') {
+            "Override reason: ${{ inputs.override_reason }}" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          }

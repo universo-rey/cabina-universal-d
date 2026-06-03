@@ -1,0 +1,210 @@
+name: Power Platform ALM Full DEV
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment_url:
+        description: "Dataverse DEV/STAGING environment URL"
+        required: true
+        type: string
+      environment_stage:
+        description: "Approved non-production stage for mutable steps"
+        required: true
+        default: "DEV"
+        type: choice
+        options:
+          - DEV
+          - STAGING
+      solution_name:
+        description: "Solution unique name"
+        required: true
+        type: string
+      solution_type:
+        description: "Solution type"
+        required: true
+        default: "Unmanaged"
+        type: choice
+        options:
+          - Unmanaged
+          - Managed
+      target_folder:
+        description: "Folder for unpacked solution source"
+        required: true
+        default: "powerplatform/solution/exported"
+        type: string
+      checker_geo:
+        description: "Checker geo"
+        required: true
+        default: "UnitedStates"
+        type: string
+      import_to_dev:
+        description: "Import packed solution into DEV/STAGING"
+        required: true
+        default: false
+        type: boolean
+      publish_after_import:
+        description: "Publish after DEV/STAGING import"
+        required: true
+        default: false
+        type: boolean
+      confirm_non_production:
+        description: "Confirm target is not production"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  alm-full-dev:
+    runs-on: windows-latest
+    env:
+      EXPORT_ZIP: out/${{ inputs.solution_name }}.zip
+      PACKED_ZIP: out/${{ inputs.solution_name }}-packed.zip
+      POWERPLATFORM_DEV_STAGING_ENVIRONMENT_URLS: ${{ vars.POWERPLATFORM_DEV_STAGING_ENVIRONMENT_URLS }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate inputs and gates
+        shell: pwsh
+        run: |
+          function Normalize-EnvironmentUrl {
+            param([Parameter(Mandatory=$true)][string]$Value)
+            $trimmed = $Value.Trim().TrimEnd('/')
+            if ([string]::IsNullOrWhiteSpace($trimmed)) { throw "Environment URL cannot be blank" }
+            try {
+              $uri = [System.Uri]::new($trimmed)
+            } catch {
+              throw "Invalid Dataverse environment URL: $trimmed"
+            }
+            if ($uri.Scheme -ne 'https') { throw "Environment URL must use https: $trimmed" }
+            return $uri.GetLeftPart([System.UriPartial]::Authority).TrimEnd('/').ToLowerInvariant()
+          }
+
+          $url = '${{ inputs.environment_url }}'
+          $stage = '${{ inputs.environment_stage }}'
+          $name = '${{ inputs.solution_name }}'
+          $target = '${{ inputs.target_folder }}'
+          $import = [System.Convert]::ToBoolean('${{ inputs.import_to_dev }}')
+          $publish = [System.Convert]::ToBoolean('${{ inputs.publish_after_import }}')
+          $confirm = [System.Convert]::ToBoolean('${{ inputs.confirm_non_production }}')
+          $allowedRaw = $env:POWERPLATFORM_DEV_STAGING_ENVIRONMENT_URLS
+          if ([string]::IsNullOrWhiteSpace($url)) { throw "environment_url is required" }
+          if ([string]::IsNullOrWhiteSpace($name)) { throw "solution_name is required" }
+          if ([string]::IsNullOrWhiteSpace($target)) { throw "target_folder is required" }
+          if ($stage -notin @('DEV', 'STAGING')) { throw "environment_stage must be DEV or STAGING" }
+          if ($publish -and -not $import) { throw "publish_after_import requires import_to_dev" }
+          $normalizedTarget = Normalize-EnvironmentUrl -Value $url
+          if ($url -match "(?i)(prod|production|live)") {
+            Write-Warning "Target URL contains a production-like word; explicit DEV/STAGING allowlist still controls mutable steps."
+          }
+          if ($import -or $publish) {
+            if (-not $confirm) { throw "confirm_non_production must be true before mutable Power Platform ALM steps" }
+            if ([string]::IsNullOrWhiteSpace($allowedRaw)) {
+              throw "POWERPLATFORM_DEV_STAGING_ENVIRONMENT_URLS must list approved DEV/STAGING URLs before import or publish"
+            }
+            $allowedUrls = $allowedRaw -split '[,;\r\n\t ]+' |
+              Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
+              ForEach-Object { Normalize-EnvironmentUrl -Value $_ } |
+              Select-Object -Unique
+            if ($allowedUrls.Count -eq 0) {
+              throw "POWERPLATFORM_DEV_STAGING_ENVIRONMENT_URLS did not contain any valid approved DEV/STAGING URL"
+            }
+            if ($normalizedTarget -notin $allowedUrls) {
+              throw "environment_url is not in POWERPLATFORM_DEV_STAGING_ENVIRONMENT_URLS for DEV/STAGING mutable ALM steps"
+            }
+          }
+          New-Item -ItemType Directory -Force -Path "out" | Out-Null
+
+      - name: Install Power Platform Tools
+        uses: microsoft/powerplatform-actions/actions-install@v1
+
+      - name: Who am I
+        uses: microsoft/powerplatform-actions/who-am-i@v1
+        with:
+          environment-url: ${{ inputs.environment_url }}
+          app-id: ${{ secrets['POWERPLATFORM_APP_ID'] }}
+          client-secret: ${{ secrets['POWERPLATFORM_CLIENT_SECRET'] }}
+          tenant-id: ${{ secrets['POWERPLATFORM_TENANT_ID'] }}
+
+      - name: Export solution
+        uses: microsoft/powerplatform-actions/export-solution@v1
+        with:
+          environment-url: ${{ inputs.environment_url }}
+          app-id: ${{ secrets['POWERPLATFORM_APP_ID'] }}
+          client-secret: ${{ secrets['POWERPLATFORM_CLIENT_SECRET'] }}
+          tenant-id: ${{ secrets['POWERPLATFORM_TENANT_ID'] }}
+          solution-name: ${{ inputs.solution_name }}
+          solution-output-file: ${{ env.EXPORT_ZIP }}
+          managed: ${{ inputs.solution_type == 'Managed' }}
+          overwrite: true
+
+      - name: Unpack solution
+        uses: microsoft/powerplatform-actions/unpack-solution@v1
+        with:
+          solution-file: ${{ env.EXPORT_ZIP }}
+          solution-folder: ${{ inputs.target_folder }}
+          solution-type: ${{ inputs.solution_type }}
+          overwrite-files: true
+
+      - name: Pack solution
+        uses: microsoft/powerplatform-actions/pack-solution@v1
+        with:
+          solution-file: ${{ env.PACKED_ZIP }}
+          solution-folder: ${{ inputs.target_folder }}
+          solution-type: ${{ inputs.solution_type }}
+
+      - name: Check solution
+        uses: microsoft/powerplatform-actions/check-solution@v1
+        with:
+          environment-url: ${{ inputs.environment_url }}
+          app-id: ${{ secrets['POWERPLATFORM_APP_ID'] }}
+          client-secret: ${{ secrets['POWERPLATFORM_CLIENT_SECRET'] }}
+          tenant-id: ${{ secrets['POWERPLATFORM_TENANT_ID'] }}
+          path: ${{ env.PACKED_ZIP }}
+          geo: ${{ inputs.checker_geo }}
+          checker-logs-artifact-name: PowerPlatformCheckerLogs
+          fail-on-analysis-error: true
+
+      - name: Import solution to DEV/STAGING
+        if: ${{ inputs.import_to_dev == true && inputs.confirm_non_production == true && (inputs.environment_stage == 'DEV' || inputs.environment_stage == 'STAGING') }}
+        uses: microsoft/powerplatform-actions/import-solution@v1
+        with:
+          environment-url: ${{ inputs.environment_url }}
+          app-id: ${{ secrets['POWERPLATFORM_APP_ID'] }}
+          client-secret: ${{ secrets['POWERPLATFORM_CLIENT_SECRET'] }}
+          tenant-id: ${{ secrets['POWERPLATFORM_TENANT_ID'] }}
+          solution-file: ${{ env.PACKED_ZIP }}
+          publish-changes: false
+
+      - name: Publish DEV/STAGING customizations
+        if: ${{ inputs.import_to_dev == true && inputs.publish_after_import == true && inputs.confirm_non_production == true && (inputs.environment_stage == 'DEV' || inputs.environment_stage == 'STAGING') }}
+        uses: microsoft/powerplatform-actions/publish-solution@v1
+        with:
+          environment-url: ${{ inputs.environment_url }}
+          app-id: ${{ secrets['POWERPLATFORM_APP_ID'] }}
+          client-secret: ${{ secrets['POWERPLATFORM_CLIENT_SECRET'] }}
+          tenant-id: ${{ secrets['POWERPLATFORM_TENANT_ID'] }}
+
+      - name: Upload ALM artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: power-platform-alm-full-dev-${{ inputs.solution_name }}
+          path: |
+            ${{ env.EXPORT_ZIP }}
+            ${{ env.PACKED_ZIP }}
+            ${{ inputs.target_folder }}/**
+          if-no-files-found: error
+
+      - name: Generate summary
+        shell: pwsh
+        run: |
+          "ALM full DEV/STAGING completed for ${{ inputs.solution_name }}" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "Export zip: $env:EXPORT_ZIP" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "Packed zip: $env:PACKED_ZIP" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "Environment stage: ${{ inputs.environment_stage }}" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "Import to DEV/STAGING: ${{ inputs.import_to_dev }}" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "Publish after import: ${{ inputs.publish_after_import }}" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "Production requires a separate protected workflow and human approval." | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append

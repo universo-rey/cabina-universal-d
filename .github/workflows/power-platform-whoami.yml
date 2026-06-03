@@ -1,0 +1,39 @@
+name: Power Platform WhoAmI
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment_url:
+        description: "Dataverse DEV/STAGING environment URL"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  whoami:
+    runs-on: windows-latest
+    steps:
+      - name: Validate target
+        shell: pwsh
+        run: |
+          $url = '${{ inputs.environment_url }}'
+          if ([string]::IsNullOrWhiteSpace($url)) { throw "environment_url is required" }
+          if ($url -match "(?i)(prod|production|live)") { throw "Target looks like production/live. Provide DEV/STAGING only." }
+
+      - name: Install Power Platform Tools
+        uses: microsoft/powerplatform-actions/actions-install@v1
+
+      - name: Who am I
+        uses: microsoft/powerplatform-actions/who-am-i@v1
+        with:
+          environment-url: ${{ inputs.environment_url }}
+          app-id: ${{ secrets['POWERPLATFORM_APP_ID'] }}
+          client-secret: ${{ secrets['POWERPLATFORM_CLIENT_SECRET'] }}
+          tenant-id: ${{ secrets['POWERPLATFORM_TENANT_ID'] }}
+
+      - name: Summary
+        shell: pwsh
+        run: |
+          "POWER_PLATFORM_WHOAMI_READY target=${{ inputs.environment_url }}" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
