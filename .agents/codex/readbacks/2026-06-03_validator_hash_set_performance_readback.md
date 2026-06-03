@@ -36,7 +36,10 @@ HECHO_VERIFICADO: carril hash-set implementado y validado localmente en rama
 - `local_run_governance_validation_suite.ps1 -SkipWorkflowNestedValidators`: PASS 18/18, `duration_ms=13845`, `result_written=false`.
 - `local_validate_github_automation_preflight.ps1`: PASS.
 - `git diff --check`: PASS.
-- Pendiente antes de cierre: PR check remoto y postmerge.
+- GitHub Actions PR run `26857627371`: SUCCESS, `Local governance validators` verde, artifact `governance-validation-suite-26857627371` id `7373584733`, size `817`, expira `2026-06-17T01:12:06Z`.
+- GitHub Actions push run `26857617838`: SUCCESS, `Local governance validators` verde, artifact `governance-validation-suite-26857617838` id `7373581132`, size `813`, expira `2026-06-17T01:11:48Z`.
+- PR #52 precheck: base `main`, branch `codex/validator-hash-set-performance-20260603`, HEAD `d65fe722e4b805fed9d0331b9d2f1592e9e3a21b`, merge state `CLEAN`, checks verdes.
+- Pendiente antes de cierre: marcar PR ready, merge con HEAD fijo y postmerge.
 
 ## Riesgos
 - Riesgo principal: divergencia de sensibilidad a mayusculas/minusculas si se usara un comparer distinto.
