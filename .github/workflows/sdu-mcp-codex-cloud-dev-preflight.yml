@@ -1,0 +1,89 @@
+name: SDU MCP Codex Cloud DEV Preflight
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "governance/connections/**"
+      - "governance/codex-cloud/**"
+      - ".codex/cloud/sdu-agents/task_templates/**"
+      - "local-agent-bridge/dev.activation.contract.yml"
+      - "scripts/validators/sdu_mcp_dev_activation_validator.py"
+      - "scripts/validators/sdu_codex_cloud_dev_activation_validator.py"
+      - "scripts/validators/sdu_local_bridge_dev_activation_validator.py"
+      - "scripts/validators/sdu_dev_activation_secret_contract_validator.py"
+      - "readbacks/20260603_SDU_TEAMS_MCP_CODEX_CLOUD_DEV_ACTIVATION_READY_READBACK.md"
+      - ".github/workflows/sdu-mcp-codex-cloud-dev-preflight.yml"
+  push:
+    branches:
+      - main
+      - "codex/**"
+    paths:
+      - "governance/connections/**"
+      - "governance/codex-cloud/**"
+      - ".codex/cloud/sdu-agents/task_templates/**"
+      - "local-agent-bridge/dev.activation.contract.yml"
+      - "scripts/validators/sdu_mcp_dev_activation_validator.py"
+      - "scripts/validators/sdu_codex_cloud_dev_activation_validator.py"
+      - "scripts/validators/sdu_local_bridge_dev_activation_validator.py"
+      - "scripts/validators/sdu_dev_activation_secret_contract_validator.py"
+      - "readbacks/20260603_SDU_TEAMS_MCP_CODEX_CLOUD_DEV_ACTIVATION_READY_READBACK.md"
+      - ".github/workflows/sdu-mcp-codex-cloud-dev-preflight.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sdu-mcp-codex-cloud-dev-preflight-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate MCP and Codex Cloud DEV gates
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Validate MCP, Codex Cloud and bridge DEV package
+        run: |
+          python scripts/validators/sdu_mcp_dev_activation_validator.py
+          python scripts/validators/sdu_codex_cloud_dev_activation_validator.py
+          python scripts/validators/sdu_local_bridge_dev_activation_validator.py
+          python scripts/validators/sdu_dev_activation_secret_contract_validator.py
+
+      - name: Parse structured DEV artifacts
+        run: |
+          python - <<'PY'
+          import csv
+          from pathlib import Path
+          for path in [
+              "governance/connections/MCP_DEV_ACTIVATION_MATRIX_20260603.csv",
+              "governance/teams/SDU_TEAMS_IDENTITY_DEV_TARGET_MATRIX_20260603.csv",
+          ]:
+              with open(path, newline="", encoding="utf-8-sig") as handle:
+                  list(csv.DictReader(handle))
+          text = Path("local-agent-bridge/dev.activation.contract.yml").read_text(encoding="utf-8")
+          if "public_bind_allowed: false" not in text:
+              raise SystemExit("bridge contract parse guard failed")
+          print("SDU_MCP_CODEX_CLOUD_DEV_STRUCTURED_PARSE_PASS")
+          PY
+
+      - name: Check whitespace
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git diff --check "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}"
+          else
+            git diff --check
+          fi
