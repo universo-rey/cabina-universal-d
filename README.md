@@ -2,6 +2,17 @@
 
 Estado: `D_ROOT_WRAPPER_REPO_MAIN_ACTIVE`
 
+## Estado canonico actual
+
+La Cabina Universal del Rey opera como
+`CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`.
+
+Ya no queda limitada a repo-only. GitHub sigue siendo canon tecnico, pero la
+cabina queda habilitada para gobernar runtime live, OpenAI, Codex Cloud,
+Agents SDK, Microsoft 365, produccion y propagacion bajo gates explicitos.
+Todo write live requiere target exacto, owner, identidad, rollback, postcheck,
+evidencia, stop condition y readback.
+
 Este disco contiene el mapa local objetivo para organizar repos, herramientas, sistemas, licencias, evidencia y archivos por jerarquia.
 
 Por orden expresa del operador, `D:\` puede operar como repo local envoltorio
@@ -18,7 +29,9 @@ Alineacion universal local: los repos registrados se alinean a
 `universo-rey/cabina-universal-d` como base transversal e indice, sin perder
 su remoto nativo. Los agentes GitHub/Copilot y GitHub Actions de validacion
 estan aprobados para issues, ramas, commits, push, PR y checks repo-scoped;
-runtime productivo y live externo no quedan incluidos.
+runtime productivo y live externo quedan habilitados solo bajo el canon
+`CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`, con gates explicitos y sin writes
+ciegos.
 
 Agentes en GitHub: `.github/copilot-instructions.md`,
 `.github/ISSUE_TEMPLATE/agent-task.yml`,
@@ -47,4 +60,4 @@ Regla de lectura:
 5. `10_UNIVERSOS` contiene universos operativos como Escribania y Modo ON.
 
 No copiar repos, mover carpetas, ejecutar cambios live ni publicar remoto desde
-este mapa sin orden gobernada.
+este mapa sin orden gobernada, target exacto, rollback, postcheck y evidencia.

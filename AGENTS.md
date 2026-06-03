@@ -285,6 +285,21 @@ Un PR solo puede pasar si `all_required_passed`, `coverage_equivalence`,
 remota de `main` `26859024863` cerro `success` y subio el artifact saneado
 `change-aware-full-coverage-26859024863`.
 
+Estado canon full-live global actualizado 2026-06-03: el PR raiz
+`universo-rey/cabina-universal-d#56` fue mergeado a `main` con merge commit
+`df8a0beac2c610e58f97b753ee10969d47174b2a`. La cabina queda en estado rector
+`CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`. Ya no opera solo como repo-scoped:
+opera como control plane global full-live governed para OpenAI API, Responses
+API, Agents SDK runtime, Codex Cloud, GitHub, Microsoft 365, SharePoint,
+Teams, Planner, Microsoft Graph, Power Platform, produccion y propagacion
+multi-repo. OpenAI API, Responses API, Agents SDK runtime, Codex Cloud y
+GitHub quedan `ENABLED_GOVERNED`. Microsoft 365, SharePoint, Teams, Planner,
+Graph, Power Platform, produccion y propagacion quedan
+`ENABLED_GOVERNED_GATED`. Ninguna accion live queda autorizada como write
+ciego: toda ejecucion requiere target exacto, owner, identidad, alcance,
+rollback, postcheck, evidencia, stop condition y readback. Si falta target,
+rollback o postcheck, la accion queda preparada y no ejecutada.
+
 Estado jerarquia AGENTS.md actualizado 2026-06-01: `D:\AGENTS.md` es la
 instruccion rectora local de mayor precedencia. Las instrucciones anidadas,
 perfiles de agentes, skills repo-locales, plugins y runtimes globales solo
@@ -326,6 +341,10 @@ Universal del Rey y como repo raiz envoltorio activo:
 - PR raiz Change-Aware Full-Coverage Orchestrator:
   `https://github.com/universo-rey/cabina-universal-d/pull/53` con estado
   `MERGED`;
+- PR raiz Agents SDK baseline / full-live governed:
+  `https://github.com/universo-rey/cabina-universal-d/pull/56` con estado
+  `MERGED`;
+- estado canonico actual: `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`;
 - allowlist: solo gobierno, canon, agentes locales, matrices, prompts,
   recetas, tools, evals, plugins, templates, readbacks/workpapers saneados y
   workflows GitHub Actions de validacion, mas skills repo-locales bajo
@@ -388,10 +407,12 @@ Si falta un archivo rector, registrar hallazgo y detener la ejecucion destructiv
 - `Seshat`: evidencia, registro, trazabilidad y memoria declarativa.
 - `SDU`: criterio canonico, orden, gates, coherencia y escalamiento.
 - Agentes OpenAI: corte ejecutora operativa cuando exista orden gobernada, superficie, datos permitidos, rollback, postcheck y evidencia.
-- OpenAI local: prompts, docs, diseno de agentes y evals sinteticos pueden
-  prepararse localmente; OpenAI API live, Agents SDK live, Agent Builder,
-  vector stores externos, costos o agentes remotos persistentes requieren orden
-  gobernada completa.
+- OpenAI y Agents SDK: prompts, docs, diseno de agentes, evals sinteticos,
+  OpenAI API live gobernado, Responses API live gobernado y Agents SDK runtime
+  live gobernado pueden operar cuando exista gate con target, identidad,
+  alcance, rollback, postcheck, evidencia y stop condition. Agent Builder,
+  vector stores externos, costos abiertos o agentes remotos persistentes
+  requieren orden gobernada completa.
 
 ## Conducta obligatoria
 
@@ -404,12 +425,15 @@ Si falta un archivo rector, registrar hallazgo y detener la ejecucion destructiv
 - Microsoft live es gobernado: SharePoint, Teams, Outlook, Entra, Graph,
   Power Platform, Planner, Dataverse o tenant requieren orden gobernada con
   superficie, identidad, owner, rollback, postcheck y evidencia.
-- Produccion solo con autorizacion explicita separada.
+- Produccion es `ENABLED_GOVERNED_GATED`: solo se ejecuta con target exacto,
+  owner, identidad, rollback, postcheck, evidencia, stop condition y readback.
 - No mover clones locales sin plan de migracion, inventario, origen, destino, rollback y readback.
 - No versionar, commitear, pushear ni crear PR sin orden expresa. Merge solo
   con orden o ciclo aprobado, HEAD fijo, checks verdes y evidencia.
 - No usar `git add .` en `D:\`; el repo raiz usa allowlist y excluye clones anidados.
-- No escribir en Microsoft, GitHub, OpenAI API, SharePoint, Power Platform ni tenants sin orden gobernada.
+- No escribir en Microsoft, GitHub, OpenAI API, Responses API, Agents SDK,
+  SharePoint, Power Platform, tenant, produccion ni repos de propagacion sin
+  orden gobernada, target exacto, owner, rollback, postcheck y evidencia.
 - No persistir secretos en archivos, logs, prompts, matrices o readbacks.
 - No confundir referencia tecnica con canon rector.
 - No tratar carpetas de herramientas, sistemas o licencias como repos salvo que tengan metadata que lo declare.
@@ -439,9 +463,11 @@ Si falta un archivo rector, registrar hallazgo y detener la ejecucion destructiv
 
 - Mover clones locales.
 - Crear repos remotos, branches, commits, pushes, PRs o issues.
-- Ejecutar OpenAI API live, Agents SDK live, Agent Builder o costos externos.
+- Ejecutar OpenAI API live, Responses API live, Agents SDK live, Agent Builder
+  o costos externos sin gate exacto y evidencia.
 - Escribir en SharePoint, Teams, Outlook, Power Platform, Microsoft Graph o tenant.
-- Ejecutar produccion, incluso cuando exista gate Microsoft live, salvo autorizacion explicita separada.
+- Ejecutar produccion sin target exacto, owner, rollback, postcheck,
+  evidencia y stop condition.
 - Modificar permisos, identidades, conectores, licencias o configuraciones productivas.
 - Leer datos regulados amplios o no seleccionados.
 

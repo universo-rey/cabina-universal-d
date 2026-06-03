@@ -3,6 +3,25 @@ map_id: CABINA_UNIVERSAL_REY_D_LOCAL
 status: D_ROOT_WRAPPER_REPO_LOCAL_ACTIVE
 root_path: D:/
 owner: operador
+cabina_canon_state:
+  status: CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON
+  repo_only: false
+  openai_api_live: enabled_governed
+  responses_api_live: enabled_governed
+  agents_sdk_runtime_live: enabled_governed
+  codex_cloud_live: enabled_governed
+  github_live: enabled_governed
+  microsoft_live: enabled_governed_gated
+  sharepoint_live: enabled_governed_gated
+  teams_live: enabled_governed_gated
+  planner_live: enabled_governed_gated
+  graph_live: enabled_governed_gated
+  power_platform_live: enabled_governed_gated
+  production: enabled_governed_gated
+  propagation: enabled_governed_gated
+  secrets_policy: never_print_never_persist
+  write_policy: exact_target_owner_rollback_postcheck_evidence_required
+  stop_condition: stop_if_target_or_rollback_or_postcheck_missing
 authority_model:
   root: CABINA_UNIVERSAL_DEL_REY
   court: CORTE_EJECUTORA_DEL_REY
@@ -14,9 +33,13 @@ frontier:
   git_versioning: local_root_wrapper_active
   github_base_work: required_for_all_repos
   remote_write: governed_github_only
-  microsoft_live: governed_requires_order
-  openai_api_live: false
-  production: requires_explicit_authorization
+  microsoft_live: enabled_governed_gated
+  openai_api_live: enabled_governed
+  responses_api_live: enabled_governed
+  agents_sdk_runtime_live: enabled_governed
+  codex_cloud_live: enabled_governed
+  production: enabled_governed_gated
+  propagation: enabled_governed_gated
 stop_conditions:
   - secret_detected
   - unclassified_repo_move
@@ -54,12 +77,12 @@ root_wrapper_repo:
   scope: allowlist_governance_metadata
   absorbs_nested_repos: false
   remote_url: https://github.com/universo-rey/cabina-universal-d.git
-  pull_request: https://github.com/universo-rey/cabina-universal-d/pull/53
+  pull_request: https://github.com/universo-rey/cabina-universal-d/pull/56
   pull_request_status: MERGED
-  last_merged_branch: codex/change-aware-full-coverage-orchestrator-20260603
-  last_merge_commit: d21aad4280180328c41e4ca91c61e033a63551b6
+  last_merged_branch: codex/cabina-cloud-agents-sdk-baseline-20260603
+  last_merge_commit: df8a0beac2c610e58f97b753ee10969d47174b2a
   visibility: private
-  status: PRIVATE_REMOTE_MAIN_ACTIVE_PR53_MERGED_CHANGE_AWARE_FULL_COVERAGE_GATE_ACTIVE
+  status: PRIVATE_REMOTE_MAIN_ACTIVE_PR56_MERGED_CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON
 capability_import_state:
   as_of: 2026-06-01
   mode: local_declarative_copy_adapt
@@ -76,19 +99,19 @@ capability_import_state:
     - D:/.agents/codex/templates
   blocked:
     - moving_nested_repos
-    - live_microsoft_write
-    - openai_api_live
-    - production
+    - ungoverned_live_microsoft_write
+    - ungoverned_openai_api_live
+    - ungoverned_production
     - secrets
 github_base_work_state:
   as_of: 2026-06-03
   status: GITHUB_BASE_WORK_DECLARED_ACTIVE
   github_actions_surface_state: APPROVED_GITHUB_ACTIONS_SURFACE
   root_remote_base: https://github.com/universo-rey/cabina-universal-d.git
-  root_pull_request: https://github.com/universo-rey/cabina-universal-d/pull/53
+  root_pull_request: https://github.com/universo-rey/cabina-universal-d/pull/56
   root_pull_request_status: MERGED
   root_base_branch: main
-  root_last_merge_commit: d21aad4280180328c41e4ca91c61e033a63551b6
+  root_last_merge_commit: df8a0beac2c610e58f97b753ee10969d47174b2a
   automated_merge_policy_state: APPROVED_WITH_PRECHECKS
   automated_merge_required_prechecks: base_main|codex_branch|non_draft|clean_merge_state|green_checks|match_head_commit|no_blocked_surfaces|post_merge_sync
   policy: D:/02_AUTHORITY_CANON/GITHUB_BASE_WORK_POLICY.md
@@ -102,9 +125,9 @@ github_base_work_state:
     - remote_branch_delete
     - permission_change
     - visibility_change
-    - production
-    - microsoft_live
-    - openai_api_live
+    - production_without_exact_target
+    - microsoft_live_without_exact_target
+    - openai_api_live_without_governed_gate
     - secrets
 runtime_alignment_state:
   as_of: 2026-06-02
@@ -167,7 +190,9 @@ runtime_alignment_state:
   governed_ci_tcu_control_plane_merge: 0fbc9cf0ab13bbabdf3fa3a0912952c47f0b3d0b
   governed_ci_sgin_canonico_puro_pr: SeshatSgin/SGIN_Canonico_Puro#6
   governed_ci_sgin_canonico_puro_merge: 5a1756206230d2d123f297bf4c43c50acce0f47d
-  codex_cloud_boundary: repo_scoped_no_secrets_no_microsoft_live_no_production_no_openai_api_live
+  codex_cloud_boundary: global_full_live_governed_no_secrets_no_blind_write_no_ungated_microsoft_no_ungated_production_no_auto_propagation
+  cabina_full_live_global_canon_matrix: D:/.agents/codex/matrices/CABINA_FULL_LIVE_GLOBAL_CANON_MATRIX_20260603.csv
+  cabina_full_live_global_canon_readback: D:/.agents/codex/readbacks/2026-06-03_cabina_full_live_global_canon_update_readback.md
   codex_app_environment_state: ACTIVE_ROOT_LOCAL_WORKTREE_ENV_CREATED
   codex_app_environment_path: D:/.codex/environments/environment.toml
   codex_app_environment_matrix: D:/.agents/codex/matrices/CODEX_APP_LOCAL_ENVIRONMENT_MATRIX_20260602.csv
@@ -235,9 +260,9 @@ runtime_alignment_state:
   open_prs_detected: 5
   nested_dirty_repos_detected: 1
   blocked:
-    - openai_api_live
-    - microsoft_live
-    - production
+    - ungoverned_openai_api_live
+    - microsoft_live_without_exact_target
+    - production_without_exact_target
     - permissions
     - secrets
     - force_push
