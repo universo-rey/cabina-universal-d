@@ -1,0 +1,22 @@
+name: Dataverse Promote TEST Manual
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  promote-test:
+    runs-on: windows-latest
+    environment: dataverse-test
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate package only
+        shell: pwsh
+        run: ./dataverse/scripts/validate_dataverse_manifest.ps1
+      - name: Block until governed TEST order exists
+        shell: pwsh
+        run: |
+          Write-Host 'DATAVERSE_TEST_PROMOTION_GATED_NOT_EXECUTED'
+          exit 20

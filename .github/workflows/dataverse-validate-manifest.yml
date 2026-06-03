@@ -1,0 +1,36 @@
+name: Dataverse Validate Manifest
+
+on:
+  pull_request:
+    paths:
+      - "dataverse/**"
+      - "powerplatform/**"
+      - "matrices/dataverse/**"
+      - "docs/dataverse/**"
+      - "validation/dataverse/**"
+      - ".github/workflows/dataverse-*.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Dataverse manifest
+        shell: pwsh
+        run: ./dataverse/scripts/validate_dataverse_manifest.ps1
+      - name: Detect local Dataverse drift
+        shell: pwsh
+        run: python ./dataverse/scripts/detect_dataverse_drift.py
+      - name: Diff whitespace check
+        shell: pwsh
+        run: git diff --check
+      - name: Upload validation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: dataverse-validation-evidence
+          path: |
+            dataverse/validation/*.json

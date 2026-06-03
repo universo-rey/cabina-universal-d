@@ -1,0 +1,41 @@
+name: Dataverse Export DEV
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: "Export from explicit DEV target after protected precheck"
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  export-dev:
+    runs-on: windows-latest
+    environment: dataverse-dev
+    env:
+      DATAVERSE_DEV_ENVIRONMENT_URL: ${{ vars.DATAVERSE_DEV_ENVIRONMENT_URL }}
+      DATAVERSE_DEV_ENVIRONMENT_ID: ${{ vars.DATAVERSE_DEV_ENVIRONMENT_ID }}
+      DATAVERSE_TENANT_ID: ${{ vars.DATAVERSE_TENANT_ID }}
+      PAC_CLI_AUTH_PROFILE: ${{ vars.PAC_CLI_AUTH_PROFILE }}
+      POWERPLATFORM_PUBLISHER_UNIQUE_NAME: ${{ vars.POWERPLATFORM_PUBLISHER_UNIQUE_NAME }}
+      DATAVERSE_SOLUTION_UNIQUE_NAME: ${{ vars.DATAVERSE_SOLUTION_UNIQUE_NAME }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Precheck DEV target
+        shell: pwsh
+        run: ./dataverse/scripts/precheck_dataverse_environment.ps1 -RequireDevReady:${{ inputs.apply }}
+      - name: Export DEV snapshot
+        shell: pwsh
+        run: ./dataverse/scripts/export_dataverse_snapshot.ps1 -Apply:${{ inputs.apply }}
+      - name: Export DEV solution
+        shell: pwsh
+        run: ./dataverse/scripts/export_solution_dev.ps1 -Apply:${{ inputs.apply }}
+      - name: Upload export evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: dataverse-dev-export-evidence
+          path: dataverse/validation/**
