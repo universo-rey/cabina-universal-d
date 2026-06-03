@@ -193,13 +193,23 @@ runtime_alignment_state:
   validator_performance_improvement_readback: D:/.agents/codex/readbacks/2026-06-02_validator_performance_improvements_readback.md
   validator_performance_hash_set_readback: D:/.agents/codex/readbacks/2026-06-03_validator_hash_set_performance_readback.md
   validator_performance_improvement_scope: csv_json_cache|agent_layer_skip_workflow_nested|single_read_secret_scan|aggregate_runner_main_gate|hash_set_membership
-  governance_validation_suite_state: MAIN_GOVERNANCE_GATE_AFTER_MANUAL_RUNS
+  governance_validation_suite_state: AVAILABLE_FULL_VALIDATOR_SET_COMPOSED_BY_CHANGE_AWARE_GATE
   governance_validation_suite_tool: D:/.agents/codex/tools/local_run_governance_validation_suite.ps1
   governance_validation_suite_readback: D:/.agents/codex/readbacks/2026-06-02_governance_validation_suite_phase3_readback.md
   governance_validation_suite_promotion_readback: D:/.agents/codex/readbacks/2026-06-02_governance_validation_suite_gate_promotion_readback.md
-  governance_validation_suite_workflow_mode: pull_request_push_workflow_dispatch_main_gate
-  governance_validation_suite_artifact_mode: sanitized_summary_artifact_no_runner_write
+  governance_validation_suite_workflow_mode: retained_as_full_validator_set_and_local_aggregate
+  governance_validation_suite_artifact_mode: superseded_in_ci_by_change_aware_full_coverage_audit
   governance_validation_suite_artifact_readback: D:/.agents/codex/readbacks/2026-06-03_governance_validation_suite_artifact_readback.md
+  change_aware_full_coverage_state: PRODUCTIVE_MAIN_GATE_20260603
+  change_aware_full_coverage_tool: D:/.agents/codex/tools/local_run_change_aware_full_coverage_orchestrator.ps1
+  change_aware_full_coverage_static_validator: D:/.agents/codex/tools/local_validate_change_aware_full_coverage_orchestrator.ps1
+  change_aware_test_manifest: D:/.agents/codex/matrices/CHANGE_AWARE_TEST_MANIFEST.csv
+  change_aware_risk_policy: D:/.agents/codex/matrices/CHANGE_AWARE_RISK_POLICY.csv
+  change_aware_impact_graph: D:/.agents/codex/matrices/CHANGE_AWARE_IMPACT_GRAPH.csv
+  change_aware_audit_latest: D:/.agents/codex/evals/results/change_aware_full_coverage_audit_latest.json
+  change_aware_readback: D:/.agents/codex/readbacks/2026-06-03_change_aware_full_coverage_orchestrator_readback.md
+  change_aware_acceptance_flags: all_required_passed|coverage_equivalence|manifest_valid|graph_valid|no_hidden_flaky|blocked_surfaces_clear
+  change_aware_required_test_count: 19
   repo_local_skill_root: D:/.agents/skills
   skill_governance_catalog: D:/.agents/codex/skills
   repo_local_skill_availability_state: ALL_DECLARED_REPO_LOCAL_SKILLS_AVAILABLE_20260602
