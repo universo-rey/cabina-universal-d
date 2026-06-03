@@ -1,0 +1,69 @@
+flows:
+  - name: SDU_Dispatch_Matrix_Items_To_Work_Queues
+    state: disabled_dev_only
+    source_queue: SDU.Matrix.Intake.Queue
+    trigger: manual_or_scheduled_dev_only
+    created_live: false
+    production_active: false
+    stop_condition: secret_or_prod_or_default_or_missing_gate
+  - name: SDU_Process_Connection_Seed_Work_Items
+    state: disabled_dev_only
+    source_queue: SDU.Connection.Seed.Queue
+    trigger: manual_or_scheduled_dev_only
+    created_live: false
+    production_active: false
+    stop_condition: secret_or_prod_or_default_or_missing_gate
+  - name: SDU_Process_Dataverse_Apply_Work_Items
+    state: disabled_dev_only
+    source_queue: SDU.Dataverse.Apply.Queue
+    trigger: manual_or_scheduled_dev_only
+    created_live: false
+    production_active: false
+    stop_condition: secret_or_prod_or_default_or_missing_gate
+  - name: SDU_Process_Drift_Detection_Work_Items
+    state: disabled_dev_only
+    source_queue: SDU.Drift.Detection.Queue
+    trigger: manual_or_scheduled_dev_only
+    created_live: false
+    production_active: false
+    stop_condition: secret_or_prod_or_default_or_missing_gate
+  - name: SDU_Work_Queue_Gate_Review_Handler
+    state: disabled_dev_only
+    source_queue: SDU.Gate.Review.Queue
+    trigger: manual_or_scheduled_dev_only
+    created_live: false
+    production_active: false
+    stop_condition: secret_or_prod_or_default_or_missing_gate
+  - name: SDU_Work_Queue_Exception_Handler
+    state: disabled_dev_only
+    source_queue: SDU.Exception.Remediation.Queue
+    trigger: manual_or_scheduled_dev_only
+    created_live: false
+    production_active: false
+    stop_condition: secret_or_prod_or_default_or_missing_gate
+  - name: SDU_Work_Queue_Evidence_Closeout
+    state: disabled_dev_only
+    source_queue: SDU.Evidence.Publish.Queue
+    trigger: manual_or_scheduled_dev_only
+    created_live: false
+    production_active: false
+    stop_condition: secret_or_prod_or_default_or_missing_gate
+  - name: SDU_Work_Queue_Agent_Dispatcher
+    state: disabled_dev_only
+    source_queue: SDU.Agent.Dispatch.Queue
+    trigger: manual_or_scheduled_dev_only
+    created_live: false
+    production_active: false
+    stop_condition: secret_or_prod_or_default_or_missing_gate
+  - name: SDU_OpenAI_Assisted_Metadata_Classifier
+    state: disabled_dev_only
+    source_queue: manual_or_scheduled_dev_only
+    trigger: manual_or_scheduled_dev_only
+    created_live: false
+    production_active: false
+    stop_condition: secret_or_prod_or_default_or_missing_gate
+policy:
+  no_production: true
+  no_test: true
+  no_default: true
+  no_active_flows_created: true

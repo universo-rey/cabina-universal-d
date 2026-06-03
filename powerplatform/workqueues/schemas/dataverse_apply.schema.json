@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SDU Work Queue Payload",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "queue_item_type",
+    "canonical_id",
+    "correlation_id",
+    "idempotency_key",
+    "batch_id",
+    "source_table",
+    "source_matrix",
+    "source_path",
+    "source_hash",
+    "operation",
+    "target_environment_id",
+    "target_environment_url",
+    "gate_required",
+    "gate_id",
+    "risk_level",
+    "priority",
+    "stop_condition",
+    "rollback_strategy",
+    "evidence_required",
+    "created_by_system",
+    "ai_assisted",
+    "ai_validation_status"
+  ],
+  "properties": {
+    "queue_item_type": {
+      "type": "string"
+    },
+    "canonical_id": {
+      "type": "string"
+    },
+    "correlation_id": {
+      "type": "string"
+    },
+    "idempotency_key": {
+      "type": "string"
+    },
+    "batch_id": {
+      "type": "string"
+    },
+    "source_table": {
+      "type": "string"
+    },
+    "source_matrix": {
+      "type": "string"
+    },
+    "source_path": {
+      "type": "string"
+    },
+    "source_hash": {
+      "type": "string"
+    },
+    "operation": {
+      "type": "string"
+    },
+    "target_environment_id": {
+      "type": "string"
+    },
+    "target_environment_url": {
+      "type": "string"
+    },
+    "gate_required": {
+      "type": "boolean"
+    },
+    "gate_id": {
+      "type": "string"
+    },
+    "risk_level": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string"
+    },
+    "stop_condition": {
+      "type": "string"
+    },
+    "rollback_strategy": {
+      "type": "string"
+    },
+    "evidence_required": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "created_by_system": {
+      "type": "string"
+    },
+    "ai_assisted": {
+      "type": "boolean"
+    },
+    "ai_validation_status": {
+      "type": "string"
+    }
+  }
+}

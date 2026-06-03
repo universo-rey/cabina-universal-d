@@ -1,0 +1,66 @@
+solution:
+  unique_name: SDUCapabilityControlPlane
+  display_name: SDU Capability Control Plane
+  version: 0.1.0.0
+  publisher:
+    unique_name: ModoON
+    display_name: ModoON
+    prefix: mon
+  type: unmanaged_dev_first_metadata_only
+  canon:
+    github_technical_canon: true
+    sharepoint_documentary_evidence: true
+    dataverse_live_registry: true
+    live_apply_scope: DEV_SANDBOX_METADATA_ONLY
+  environments:
+    dev:
+      status: applied_metadata_only_dev_sandbox
+      allowed: true
+      url: https://org084965d9.crm.dynamics.com
+      environment_id: 7f65fc04-c27a-ea0d-bd2d-266aa9203c1e
+      organization_id: f982db28-49e3-f011-aa23-000d3a5ca83f
+      pac_profile: SDU-DATAVERSE-DEV
+      blocked_if: [prod_like_name, default_environment, missing_tenant, missing_rollback, missing_postcheck]
+    test:
+      status: manual_template_only
+      allowed: false
+    prod:
+      status: manual_template_only
+      allowed: false
+  applied_model:
+    tables: matrices/dataverse/DATAVERSE_APPLIED_TABLE_MODEL_DEV.csv
+    fields: matrices/dataverse/DATAVERSE_APPLIED_FIELD_MODEL_DEV.csv
+    keys: matrices/dataverse/DATAVERSE_APPLIED_KEY_MODEL_DEV.csv
+    relationships: matrices/dataverse/DATAVERSE_APPLIED_RELATIONSHIP_MODEL_DEV.csv
+  seed_data:
+    batch_id: 20260603_connection_seed_dev_v1
+    files:
+      - dataverse/data/seed_connection_surfaces.csv
+      - dataverse/data/seed_connection_instances.csv
+      - dataverse/data/seed_connection_gates.csv
+      - dataverse/data/seed_connection_secret_boundaries.csv
+      - dataverse/data/seed_agent_connection_mapping.csv
+      - dataverse/data/seed_connection_risks.csv
+      - dataverse/data/seed_connection_evidence.csv
+  validation:
+    - validation/dataverse/DATAVERSE_DEV_METADATA_ONLY_BINDING_PRECHECKS.md
+    - validation/dataverse/DATAVERSE_CONNECTION_SEED_VALIDATION_REPORT.md
+    - validation/dataverse/DATAVERSE_DEV_METADATA_ONLY_POSTCHECK.md
+    - matrices/dataverse/DATAVERSE_DEV_CONNECTION_SEED_DRIFT_REPORT.csv
+  snapshots:
+    - dataverse/exports/dev/schema_snapshot.json
+    - dataverse/exports/dev/connection_surfaces_snapshot.json
+    - dataverse/exports/dev/connection_instances_snapshot.json
+    - dataverse/exports/dev/connection_gates_snapshot.json
+    - dataverse/exports/dev/connection_secret_boundaries_snapshot.json
+    - dataverse/exports/dev/connection_risks_snapshot.json
+  rollback:
+    - docs/dataverse/DATAVERSE_DEV_CONNECTION_SEED_ROLLBACK_PLAN.md
+policy:
+  no_secrets: true
+  no_prod_apply: true
+  no_test_apply: true
+  no_default_environment_apply: true
+  no_blind_write: true
+  no_sensitive_seed_payload: true
+  metadata_only: true

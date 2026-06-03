@@ -1,0 +1,17 @@
+{
+  "EnvironmentVariables": [
+    {
+      "SchemaName": "sdu_TargetEnvironmentType",
+      "Value": "[POR DEFINIR PROD]"
+    },
+    {
+      "SchemaName": "sdu_GitHubTechnicalCanon",
+      "Value": "universo-rey/cabina-universal-d"
+    },
+    {
+      "SchemaName": "sdu_DataPolicy",
+      "Value": "metadata_only_no_sensitive_payload"
+    }
+  ],
+  "ConnectionReferences": []
+}
