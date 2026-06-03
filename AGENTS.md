@@ -245,7 +245,9 @@ GitHub Actions (`26855967863`, `26856014739`, `26856054210`), el runner queda
 promovido a gate principal de `cabina-validation.yml` para `pull_request`,
 `push` y `workflow_dispatch`. Ejecuta la suite existente, emite JSON con
 duracion por validador y puede escribir resultado solo con `-WriteResult`;
-en GitHub Actions debe cerrar con `result_written=false`. La evidencia vive en
+en GitHub Actions debe cerrar con `result_written=false`. El workflow puede
+subir un artifact JSON saneado con resumen, conteos y duraciones, sin warnings
+textuales, errores textuales, secretos ni datos live. La evidencia vive en
 `D:\.agents\codex\readbacks\2026-06-02_governance_validation_suite_phase3_readback.md`
 y
 `D:\.agents\codex\readbacks\2026-06-02_governance_validation_suite_gate_promotion_readback.md`.

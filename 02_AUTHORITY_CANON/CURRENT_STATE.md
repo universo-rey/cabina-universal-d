@@ -388,7 +388,9 @@ escribe resultados si se invoca con `-WriteResult`. Tras tres corridas
 manuales adicionales exitosas en GitHub Actions (`26855967863`,
 `26856014739`, `26856054210`), el workflow promueve el runner a gate principal
 para `pull_request`, `push` y `workflow_dispatch`; en CI debe cerrar con
-`result_written=false`. La evidencia queda en
+`result_written=false`. El workflow puede subir un artifact JSON saneado con
+resumen, conteos y duraciones, sin warnings textuales, errores textuales,
+secretos ni datos live. La evidencia queda en
 `D:/.agents/codex/readbacks/2026-06-02_governance_validation_suite_phase3_readback.md`
 y
 `D:/.agents/codex/readbacks/2026-06-02_governance_validation_suite_gate_promotion_readback.md`.

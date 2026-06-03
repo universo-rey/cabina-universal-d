@@ -197,6 +197,8 @@ runtime_alignment_state:
   governance_validation_suite_readback: D:/.agents/codex/readbacks/2026-06-02_governance_validation_suite_phase3_readback.md
   governance_validation_suite_promotion_readback: D:/.agents/codex/readbacks/2026-06-02_governance_validation_suite_gate_promotion_readback.md
   governance_validation_suite_workflow_mode: pull_request_push_workflow_dispatch_main_gate
+  governance_validation_suite_artifact_mode: sanitized_summary_artifact_no_runner_write
+  governance_validation_suite_artifact_readback: D:/.agents/codex/readbacks/2026-06-03_governance_validation_suite_artifact_readback.md
   repo_local_skill_root: D:/.agents/skills
   skill_governance_catalog: D:/.agents/codex/skills
   repo_local_skill_availability_state: ALL_DECLARED_REPO_LOCAL_SKILLS_AVAILABLE_20260602
