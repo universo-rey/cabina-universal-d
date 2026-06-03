@@ -39,6 +39,10 @@ HECHO_VERIFICADO: DEV_RUNTIME_CONTROLLED_ACTIVATION_READY_FOR_REVIEW
 - validation/runtime/DEV_RUNTIME_SAFE_STATE_POSTCHECK.md
 - validation/runtime/DEV_RUNTIME_CONTROLLED_ACTIVATION_POSTCHECK.md
 - docs/runtime/DEV_RUNTIME_CONTROLLED_ACTIVATION_ROLLBACK_PLAN.md
+- PR: https://github.com/universo-rey/cabina-universal-d/pull/67
+- Commit inicial: 041ecbc3ed09201e729a2d25af97c192dd313c21
+- GitHub Actions manual: https://github.com/universo-rey/cabina-universal-d/actions/runs/26893309253
+- Remote artifact: change-aware-full-coverage-26893309253
 
 ## Validacion
 - DEV environment confirmed: PASS.
@@ -52,6 +56,8 @@ HECHO_VERIFICADO: DEV_RUNTIME_CONTROLLED_ACTIVATION_READY_FOR_REVIEW
 - Power Automate manifest validator: NO_DISPONIBLE repo-local executable not found.
 - Governance validation suite: PASS 19/19.
 - Change-Aware Full-Coverage Orchestrator: PASS 19/19, coverage_equivalence=true.
+- GitHub Actions Cabina Validation: PASS, run 26893309253.
+- Remote artifact flags: manifest_valid=true, graph_valid=true, all_required_passed=true, coverage_equivalence=true, no_hidden_flaky=true, blocked_surfaces_clear=true.
 - Runtime evidence paths are ignored by default allowlist and require explicit git add -f for the 10 scoped artifacts only.
 
 ## Riesgos
