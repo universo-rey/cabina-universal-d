@@ -51,6 +51,9 @@ jobs:
       - name: Validate Teams DEV identity package
         run: |
           python scripts/validators/sdu_teams_identity_dev_activation_validator.py
+          python scripts/validators/sdu_teams_app_bot_dev_activation_validator.py
+          python scripts/validators/sdu_first_internal_message_gate_validator.py
+          python scripts/validators/sdu_dev_live_smoke_readback_validator.py
           python tests/sdu-agent-runtime/test_dev_activation_contract.py
 
       - name: Parse Teams DEV manifest

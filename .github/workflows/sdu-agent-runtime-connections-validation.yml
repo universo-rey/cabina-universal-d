@@ -76,6 +76,12 @@ jobs:
           python scripts/validators/sdu_codex_cloud_dev_activation_validator.py
           python scripts/validators/sdu_local_bridge_dev_activation_validator.py
           python scripts/validators/sdu_dev_activation_secret_contract_validator.py
+          python scripts/validators/sdu_teams_app_bot_dev_activation_validator.py
+          python scripts/validators/sdu_first_internal_message_gate_validator.py
+          python scripts/validators/mcp_dev_readonly_probes_validator.py
+          python scripts/validators/codex_cloud_sdu_dev_smoke_validator.py
+          python scripts/validators/local_agent_bridge_dev_smoke_validator.py
+          python scripts/validators/sdu_dev_live_smoke_readback_validator.py
 
       - name: Run mock runtime checks
         run: |
@@ -99,6 +105,7 @@ jobs:
               "governance/teams/SDU_TEAMS_IDENTITY_DEV_TARGET_MATRIX_20260603.csv",
               "governance/codex-cloud/SDU_AGENT_CODEX_CLOUD_ASSIGNMENT_MATRIX_20260603.csv",
               "governance/connections/MCP_DEV_ACTIVATION_MATRIX_20260603.csv",
+              "governance/teams/SDU_TEAMS_DEV_LIVE_OPTION_RESOLUTION_MATRIX_20260603.csv",
           ]:
               with open(path, newline="", encoding="utf-8-sig") as handle:
                   list(csv.DictReader(handle))
