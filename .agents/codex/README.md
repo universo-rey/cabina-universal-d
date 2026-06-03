@@ -159,12 +159,13 @@ resuelto en CLI: `SeshatSgin/modo-on-foundation` y `SeshatSgin/sdu-canon`.
 
 Actualizacion runner agregado 2026-06-02: la Fase 3 de performance agrega
 `tools\local_run_governance_validation_suite.ps1` como runner agregado. Tras
-tres corridas manuales adicionales exitosas en GitHub Actions, el runner queda
-promovido a gate principal de PR/push/manual en `cabina-validation.yml`. El
-runner compone los validadores actuales, informa duracion por subvalidador y
-no escribe evidencia salvo que se use `-WriteResult`; en CI debe quedar
-`result_written=false`. El workflow sube un artifact JSON saneado con resumen,
-conteos y duraciones para diagnostico rapido.
+tres corridas manuales adicionales exitosas en GitHub Actions, el runner fue
+promovido a gate principal inicial de PR/push/manual en
+`cabina-validation.yml`. Desde el PR #53, el gate productivo vigente es el
+Change-Aware Full-Coverage Orchestrator; el runner agregado queda retenido como
+conjunto completo de validadores y evidencia diagnostica. El runner compone los
+validadores actuales, informa duracion por subvalidador y no escribe evidencia
+salvo que se use `-WriteResult`.
 
 Actualizacion hash sets validadores 2026-06-03: los validadores principales de
 la capa de agentes reemplazan chequeos repetidos de membresia contra arrays por
@@ -180,7 +181,10 @@ productivo de CI. Usa `matrices\CHANGE_AWARE_TEST_MANIFEST.csv`,
 pero ejecuta todos los tests obligatorios y bloquea si falta manifiesto, grafo,
 test obligatorio, equivalencia de cobertura o evidencia de fallos visibles. El
 artefacto local vive en
-`evals\results\change_aware_full_coverage_audit_latest.json`.
+`evals\results\change_aware_full_coverage_audit_latest.json`. En `main`, el
+PR #53 cerro con merge commit `d21aad4280180328c41e4ca91c61e033a63551b6` y la
+corrida GitHub Actions `26859024863` cerro `success` con el artifact saneado
+`change-aware-full-coverage-26859024863`.
 
 ## Olas de agentes
 
