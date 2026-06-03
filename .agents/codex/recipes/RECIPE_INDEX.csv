@@ -22,3 +22,7 @@ recipe.universe_tower_handoff,04_TORRES_DE_UNIVERSO,universe.escribania_tower,D:
 recipe.workspace_reference_audit,05_SOPORTE_TECNICO,codex.workspace_guardian,D:\.agents\codex\recipes\recipe.workspace_reference_audit.md,workspace_reference_readback
 recipe.openai_review_repair_validate_loop,03_CORTE_EJECUTORA,court.openai_dispatcher,D:\.agents\codex\recipes\recipe.openai_review_repair_validate_loop.md,openai_repair_loop_readback
 recipe.codex_cloud_governed_lane,03_CORTE_EJECUTORA,court.openai_dispatcher,D:\.agents\codex\recipes\recipe.codex_cloud_governed_lane.md,codex_cloud_governed_lane_readback
+recipe.one-flow-one-item-runtime-test,01_AUTORIDAD_Y_GATES,court.sdu_gate,D:\.agents\codex\recipes\recipe.one-flow-one-item-runtime-test.md,runtime_safe_state_evidence
+recipe.retrospective-to-skill-propagation,03_CORTE_EJECUTORA,court.seshat_evidence,D:\.agents\codex\recipes\recipe.retrospective-to-skill-propagation.md,retrospective_learning_package
+recipe.backreference-target-mapping-before-write,01_AUTORIDAD_Y_GATES,rey.frontier_guardian,D:\.agents\codex\recipes\recipe.backreference-target-mapping-before-write.md,backreference_target_decision
+recipe.mapping-record-before-target-write,03_CORTE_EJECUTORA,court.seshat_evidence,D:\.agents\codex\recipes\recipe.mapping-record-before-target-write.md,mapping_record_evidence
