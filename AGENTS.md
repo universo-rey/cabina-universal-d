@@ -240,12 +240,15 @@ y el readback en
 
 Estado runner agregado de validacion actualizado 2026-06-02: la Fase 3
 introduce `D:\.agents\codex\tools\local_run_governance_validation_suite.ps1`
-como runner agregado opcional y experimental. Ejecuta la suite existente,
-emite JSON con duracion por validador y puede escribir resultado solo con
-`-WriteResult`. El workflow `cabina-validation.yml` lo expone solo en
-`workflow_dispatch` mediante `run_aggregate_suite`; no reemplaza todavia los
-pasos individuales ni cambia el gate de PR/push. La evidencia vive en
-`D:\.agents\codex\readbacks\2026-06-02_governance_validation_suite_phase3_readback.md`.
+como runner agregado. Tras tres corridas manuales adicionales exitosas en
+GitHub Actions (`26855967863`, `26856014739`, `26856054210`), el runner queda
+promovido a gate principal de `cabina-validation.yml` para `pull_request`,
+`push` y `workflow_dispatch`. Ejecuta la suite existente, emite JSON con
+duracion por validador y puede escribir resultado solo con `-WriteResult`;
+en GitHub Actions debe cerrar con `result_written=false`. La evidencia vive en
+`D:\.agents\codex\readbacks\2026-06-02_governance_validation_suite_phase3_readback.md`
+y
+`D:\.agents\codex\readbacks\2026-06-02_governance_validation_suite_gate_promotion_readback.md`.
 
 Estado jerarquia AGENTS.md actualizado 2026-06-01: `D:\AGENTS.md` es la
 instruccion rectora local de mayor precedencia. Las instrucciones anidadas,

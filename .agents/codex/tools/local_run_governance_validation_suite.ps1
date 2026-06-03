@@ -236,7 +236,7 @@ if ([string]::IsNullOrWhiteSpace($ResultPath)) {
 $payload = [pscustomobject]@{
   status = $status
   suite_id = "governance_validation_suite"
-  mode = "OPTIONAL_AGGREGATE_RUNNER"
+  mode = "MAIN_GOVERNANCE_GATE"
   root = $Root
   repo_root = $RepoRoot
   skip_workflow_nested_validators = [bool]$SkipWorkflowNestedValidators

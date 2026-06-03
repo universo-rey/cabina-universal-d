@@ -381,15 +381,20 @@ conserva evidencia `path`, `line` y `pattern`. La matriz queda en
 `D:/.agents/codex/matrices/VALIDATOR_PERFORMANCE_IMPROVEMENT_MATRIX_20260602.csv`
 y el readback en
 `D:/.agents/codex/readbacks/2026-06-02_validator_performance_improvements_readback.md`.
-La Fase 3 agrega el runner opcional
+La Fase 3 agrega el runner
 `D:/.agents/codex/tools/local_run_governance_validation_suite.ps1`, que ejecuta
 la suite existente, emite JSON agregado con duracion por validador y solo
-escribe resultados si se invoca con `-WriteResult`. El workflow conserva los
-pasos individuales como gate principal y expone el runner solo para
-`workflow_dispatch` con `run_aggregate_suite`. La evidencia queda en
-`D:/.agents/codex/readbacks/2026-06-02_governance_validation_suite_phase3_readback.md`.
+escribe resultados si se invoca con `-WriteResult`. Tras tres corridas
+manuales adicionales exitosas en GitHub Actions (`26855967863`,
+`26856014739`, `26856054210`), el workflow promueve el runner a gate principal
+para `pull_request`, `push` y `workflow_dispatch`; en CI debe cerrar con
+`result_written=false`. La evidencia queda en
+`D:/.agents/codex/readbacks/2026-06-02_governance_validation_suite_phase3_readback.md`
+y
+`D:/.agents/codex/readbacks/2026-06-02_governance_validation_suite_gate_promotion_readback.md`.
 Quedan pendientes por carril separado el reemplazo change-aware del workflow,
-hash sets transversales y medicion comparativa sostenida de duracion CI.
+hash sets transversales y observacion de las proximas corridas CI con el gate
+principal.
 
 Reglas vigentes:
 

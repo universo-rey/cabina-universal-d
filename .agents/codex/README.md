@@ -158,12 +158,12 @@ creacion informada por el operador, nueve environments adicionales quedaron
 resuelto en CLI: `SeshatSgin/modo-on-foundation` y `SeshatSgin/sdu-canon`.
 
 Actualizacion runner agregado 2026-06-02: la Fase 3 de performance agrega
-`tools\local_run_governance_validation_suite.ps1` como runner experimental y
-opcional. El runner compone los validadores actuales, informa duracion por
-subvalidador y no escribe evidencia salvo que se use `-WriteResult`. En
-GitHub Actions solo corre por `workflow_dispatch` cuando
-`run_aggregate_suite=true`; los pasos individuales siguen siendo el gate
-principal de PR/push.
+`tools\local_run_governance_validation_suite.ps1` como runner agregado. Tras
+tres corridas manuales adicionales exitosas en GitHub Actions, el runner queda
+promovido a gate principal de PR/push/manual en `cabina-validation.yml`. El
+runner compone los validadores actuales, informa duracion por subvalidador y
+no escribe evidencia salvo que se use `-WriteResult`; en CI debe quedar
+`result_written=false`.
 
 ## Olas de agentes
 
