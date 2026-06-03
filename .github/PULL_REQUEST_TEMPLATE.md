@@ -35,11 +35,14 @@
 - [ ] No nested repo absorption
 - [ ] No `git add .`
 - [ ] Capability-use preflight declared from intake
-- [ ] No Microsoft live
-- [ ] No OpenAI API live
-- [ ] No production
+- [ ] No Microsoft live write sin target, owner, rollback, postcheck y evidencia
+- [ ] No OpenAI API live sin gate
+- [ ] No Agents SDK live sin gate
+- [ ] No production sin target exacto, rollback, postcheck y evidencia
+- [ ] No propagation sin repo target, matriz de compatibilidad, rollback, postcheck y evidencia
 - [ ] No permissions or visibility changes
-- [ ] No secrets or regulated data
+- [ ] Secretos nunca se imprimen ni persisten
+- [ ] No regulated data dumps
 - [ ] Merge only with approved lifecycle or explicit merge order, fixed HEAD and green checks
 - [ ] GitHub Actions remain validation-only with `contents: read`
 

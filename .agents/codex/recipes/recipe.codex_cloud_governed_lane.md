@@ -1,8 +1,9 @@
 # Recipe: Codex Cloud Governed Lane
 
 Use when Codex Cloud should inspect, validate, propose, or produce a
-repo-scoped diff without secrets, Microsoft live, production, permission
-changes or broad regulated data.
+repo-scoped diff without secrets, without ungated Microsoft live write,
+without ungated production, without permission changes and without broad
+regulated data.
 
 ## Flow
 
@@ -39,14 +40,20 @@ changes or broad regulated data.
 - `codex cloud exec` with ambiguous environment or repo identity
 - `codex cloud apply` on `main` or dirty worktree
 - secrets or secret environment variables
-- Microsoft live, tenant, SharePoint, Teams, Outlook, Graph, Planner,
-  Dataverse or Power Platform
-- production
+- Microsoft live write, tenant write, SharePoint write, Teams write, Outlook
+  write, Graph mutation, Planner write, Dataverse write or Power Platform
+  mutation without target, owner, rollback, postcheck and evidence
+- production without exact target, rollback, postcheck and evidence
+- propagation without repo target, compatibility matrix, rollback, postcheck
+  and evidence
 - permission changes
-- OpenAI API live, Agents SDK live, Agent Builder, vector stores or costs
+- OpenAI API live sin gate
+- Agents SDK live sin gate
+- Agent Builder, vector stores or costs without separate governed order
 - remote persistent agents
 - broad regulated data
 - `sgin-cloud` SharePoint connector real mode without Microsoft live order
+- secrets must never be printed or persisted
 
 ## Evidence
 

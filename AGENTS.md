@@ -300,6 +300,21 @@ ciego: toda ejecucion requiere target exacto, owner, identidad, alcance,
 rollback, postcheck, evidencia, stop condition y readback. Si falta target,
 rollback o postcheck, la accion queda preparada y no ejecutada.
 
+Estado reconciliacion extendida canonizado 2026-06-03: despues del fan-in
+extendido de 45 PRs mergeados reales, sin PRs inventados, la cabina queda en
+`CABINA_EXTENDED_RECONCILIATION_CANONIZED` sobre `main`
+`d070e87f77a510edd724dc220ade9228040ee8b7`, con PR final #62. El canon
+operativo subyacente sigue siendo `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON` y
+la cadena activa sigue siendo `STANDARD_AGENT_CHAIN_ACTIVE`. Los hitos #53 y
+#56 quedan como `HISTORICAL/SUPERSEDED` para ultimo-estado-raiz, no como
+estado vigente. La regla semantica vigente es no decir "no live" como bloqueo
+absoluto: usar "no live sin gate", `ENABLED_GOVERNED` o
+`ENABLED_GOVERNED_GATED_NOT_EXECUTED` segun corresponda. Microsoft live write,
+SharePoint write, Teams write, Planner write, Graph mutation, Power Platform
+mutation, produccion y propagacion quedan habilitados solo como
+`ENABLED_GOVERNED_GATED_NOT_EXECUTED` hasta target exacto, owner, rollback,
+postcheck, evidencia y orden concreta.
+
 ## Cadena operativa estándar activa
 
 Estado:
@@ -373,7 +388,24 @@ Universal del Rey y como repo raiz envoltorio activo:
 - PR raiz Agents SDK baseline / full-live governed:
   `https://github.com/universo-rey/cabina-universal-d/pull/56` con estado
   `MERGED`;
-- estado canonico actual: `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`;
+- PR raiz full-live global canon:
+  `https://github.com/universo-rey/cabina-universal-d/pull/57` con estado
+  `MERGED`;
+- PR raiz setup Codex Cloud cross-platform:
+  `https://github.com/universo-rey/cabina-universal-d/pull/58` con estado
+  `MERGED`;
+- PR raiz GitHub lifecycle repo-scoped:
+  `https://github.com/universo-rey/cabina-universal-d/pull/60` con estado
+  `MERGED`;
+- PR raiz SDK + Codex Cloud lifecycle:
+  `https://github.com/universo-rey/cabina-universal-d/pull/61` con estado
+  `MERGED`;
+- PR raiz standard agent chain:
+  `https://github.com/universo-rey/cabina-universal-d/pull/62` con estado
+  `MERGED`;
+- estado canonico actual: `CABINA_EXTENDED_RECONCILIATION_CANONIZED`;
+- canon operativo: `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`;
+- cadena activa: `STANDARD_AGENT_CHAIN_ACTIVE`;
 - allowlist: solo gobierno, canon, agentes locales, matrices, prompts,
   recetas, tools, evals, plugins, templates, readbacks/workpapers saneados y
   workflows GitHub Actions de validacion, mas skills repo-locales bajo
