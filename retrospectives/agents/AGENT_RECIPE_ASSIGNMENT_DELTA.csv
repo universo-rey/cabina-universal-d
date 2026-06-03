@@ -1,0 +1,6 @@
+"agent_id","recipe_id","delta","reason","apply_now"
+"rey.control_plane_orchestrator","recipe.retrospective-to-skill-propagation","add_candidate","Retrospective lane orchestration","yes"
+"rey.frontier_guardian","recipe.backreference-target-mapping-before-write","add_candidate","Block inferred target writes","yes"
+"court.sdu_gate","recipe.one-flow-one-item-runtime-test","add_candidate","Bound runtime smoke design","yes"
+"court.seshat_evidence","recipe.retrospective-to-skill-propagation","add_candidate","Evidence-to-learning closeout","yes"
+"backreference.mapping.operator","recipe.mapping-record-before-target-write","future_agent_candidate","No agent profile exists in repo yet","no"
