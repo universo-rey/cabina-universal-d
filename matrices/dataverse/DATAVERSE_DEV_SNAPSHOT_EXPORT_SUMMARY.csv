@@ -1,0 +1,8 @@
+"table","file","rows"
+"mon_sdu_connection_surface","connection_surfaces_snapshot.json","15"
+"mon_sdu_connection_instance","connection_instances_snapshot.json","5222"
+"mon_sdu_connection_gate","connection_gates_snapshot.json","6"
+"mon_sdu_connection_secret_boundary","connection_secret_boundaries_snapshot.json","5222"
+"mon_sdu_connection_risk","connection_risks_snapshot.json","5222"
+"mon_sdu_agent_connection_mapping","agent_connection_mapping_snapshot.json","11"
+"mon_sdu_evidence","connection_evidence_snapshot.json","5222"

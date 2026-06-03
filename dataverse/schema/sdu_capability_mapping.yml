@@ -1,0 +1,34 @@
+table:
+  logical_name: sdu_capability_mapping
+  display_name: SDU Capability Mapping
+  ownership: user_or_team
+  change_tracking: true
+  auditing: true
+  primary_name: sdu_name
+columns:
+  - name: sdu_name
+    type: text
+    required: true
+  - name: sdu_capability_id
+    type: lookup
+    target: sdu_capability
+  - name: sdu_matrix_id
+    type: lookup
+    target: sdu_matrix
+  - name: sdu_agent_id
+    type: lookup
+    target: sdu_agent
+  - name: sdu_skill_id
+    type: lookup
+    target: sdu_skill
+  - name: sdu_recipe_id
+    type: lookup
+    target: sdu_recipe
+  - name: sdu_tool_id
+    type: lookup
+    target: sdu_tool
+  - name: sdu_status
+    type: choice
+    values: [active, candidate, conflict, blocked]
+policy:
+  mapping_is_registry_not_authority: true

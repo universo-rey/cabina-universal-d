@@ -1,0 +1,36 @@
+table:
+  logical_name: sdu_matrix
+  display_name: SDU Matrix
+  ownership: user_or_team
+  change_tracking: true
+  auditing: true
+  primary_name: sdu_name
+columns:
+  - name: sdu_name
+    type: text
+    required: true
+  - name: sdu_canonical_id
+    type: text
+    required: true
+    alternate_key: true
+  - name: sdu_source_system
+    type: choice
+    values: [github_repo, sharepoint, dataverse, manual_readback]
+  - name: sdu_source_path
+    type: text
+  - name: sdu_domain
+    type: choice
+    values: [capability_control_plane, validation_and_evidence, repo_runtime_surface, canon_authority_chain, governance_matrix]
+  - name: sdu_status
+    type: choice
+    values: [candidate, active, superseded, blocked, archived]
+  - name: sdu_sha256
+    type: text
+  - name: sdu_row_count
+    type: whole_number
+  - name: sdu_last_detected_on
+    type: date_time
+policy:
+  data_classification: metadata_only
+  github_remains_technical_canon: true
+  no_sensitive_payloads: true

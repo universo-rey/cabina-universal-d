@@ -1,0 +1,29 @@
+table:
+  logical_name: sdu_matrix_version
+  display_name: SDU Matrix Version
+  ownership: user_or_team
+  change_tracking: true
+  auditing: true
+  primary_name: sdu_name
+columns:
+  - name: sdu_name
+    type: text
+    required: true
+  - name: sdu_matrix_canonical_id
+    type: lookup
+    target: sdu_matrix
+    required: true
+  - name: sdu_version_label
+    type: text
+  - name: sdu_source_sha256
+    type: text
+  - name: sdu_detected_on
+    type: date_time
+  - name: sdu_supersedes_version
+    type: text
+  - name: sdu_status
+    type: choice
+    values: [current, historical, superseded, blocked]
+policy:
+  preserve_lineage: true
+  no_row_payload_replication: true

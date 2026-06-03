@@ -1,0 +1,23 @@
+table:
+  logical_name: sdu_evidence
+  display_name: SDU Evidence
+  ownership: user_or_team
+  change_tracking: true
+  auditing: true
+  primary_name: sdu_name
+columns:
+  - name: sdu_name
+    type: text
+    required: true
+  - name: sdu_evidence_type
+    type: choice
+    values: [readback, workflow_artifact, local_validator, snapshot, apply_log]
+  - name: sdu_source_path
+    type: text
+  - name: sdu_sha256
+    type: text
+  - name: sdu_status
+    type: choice
+    values: [current, historical, blocked, superseded]
+policy:
+  evidence_payload_is_pointer_only: true

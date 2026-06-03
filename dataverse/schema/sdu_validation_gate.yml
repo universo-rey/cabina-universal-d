@@ -1,0 +1,26 @@
+table:
+  logical_name: sdu_validation_gate
+  display_name: SDU Validation Gate
+  ownership: user_or_team
+  change_tracking: true
+  auditing: true
+  primary_name: sdu_name
+columns:
+  - name: sdu_name
+    type: text
+    required: true
+  - name: sdu_gate_id
+    type: text
+    required: true
+    alternate_key: true
+  - name: sdu_required_for
+    type: text
+  - name: sdu_status
+    type: choice
+    values: [pass, fail, blocked, por_definir]
+  - name: sdu_evidence_path
+    type: text
+  - name: sdu_blocker
+    type: multiline_text
+policy:
+  failing_required_gate_blocks_apply: true

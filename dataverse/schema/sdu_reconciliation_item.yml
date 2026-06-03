@@ -1,0 +1,23 @@
+table:
+  logical_name: sdu_reconciliation_item
+  display_name: SDU Reconciliation Item
+  ownership: user_or_team
+  change_tracking: true
+  auditing: true
+  primary_name: sdu_name
+columns:
+  - name: sdu_name
+    type: text
+    required: true
+  - name: sdu_source_path
+    type: text
+  - name: sdu_gap_type
+    type: choice
+    values: [duplicate, drift, conflict, omission, stale_reference]
+  - name: sdu_resolution
+    type: multiline_text
+  - name: sdu_status
+    type: choice
+    values: [open, resolved, accepted_risk, blocked]
+policy:
+  preserve_historical_markers_until_superseded: true

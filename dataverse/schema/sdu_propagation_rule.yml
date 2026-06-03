@@ -1,0 +1,24 @@
+table:
+  logical_name: sdu_propagation_rule
+  display_name: SDU Propagation Rule
+  ownership: user_or_team
+  change_tracking: true
+  auditing: true
+  primary_name: sdu_name
+columns:
+  - name: sdu_name
+    type: text
+    required: true
+  - name: sdu_source_repo
+    type: text
+  - name: sdu_target_repo
+    type: text
+  - name: sdu_gate
+    type: text
+  - name: sdu_rollback
+    type: multiline_text
+  - name: sdu_status
+    type: choice
+    values: [prepared_not_executed, active, blocked, completed]
+policy:
+  no_auto_propagation: true
