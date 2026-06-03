@@ -7,6 +7,21 @@ live OpenAI smoke gate second. The cabina state is
 `FULL_LIVE_GOVERNED_READY` for PR #56, with no propagation and no automatic
 production or Microsoft write execution.
 
+## Standard Route
+
+The standard route for new governed tasks is
+`STANDARD_AGENT_CHAIN_ACTIVE`:
+
+1. Entrada por `rey.control_plane_orchestrator`.
+2. Dispatch OpenAI por `court.openai_dispatcher`.
+3. Clasificacion/ejecucion funcional por `sdu-triage-agent`.
+4. Gate por `court.sdu_gate`.
+5. Evidencia/readback por `court.seshat_evidence`.
+
+Microsoft writes, production and propagation remain
+`ENABLED_GOVERNED_GATED_NOT_EXECUTED` until exact target, owner, rollback and
+postcheck are declared.
+
 ## Flow
 
 1. Receive sanitized local request metadata.

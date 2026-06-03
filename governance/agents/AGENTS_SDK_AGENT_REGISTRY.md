@@ -10,7 +10,13 @@
 - `default_path`: `local_no_live`
 - `implementation`: `local_no_live`
 - `live_runtime_validation`: `external_governed_smoke`
-- `runtime_status`: `FULL_LIVE_GOVERNED_READY`
+- `chain_status`: `STANDARD_AGENT_CHAIN_ACTIVE`
+- `lead_agent`: `rey.control_plane_orchestrator`
+- `delegated_agent`: `court.openai_dispatcher`
+- `gate_agent`: `court.sdu_gate`
+- `evidence_agent`: `court.seshat_evidence`
+- `runtime_status`: `AGENTS_SDK_FUNCTIONAL_AGENT_ACTIVE_GOVERNED`
+- `cloud_chain_status`: `CODEX_CLOUD_TASK_EXECUTION_CHAIN_ACTIVE`
 - `openai_api_live_status`: `OPENAI_API_LIVE_GOVERNED_READY`
 - `responses_api_live_status`: `RESPONSES_API_LIVE_GOVERNED_READY`
 - `agents_sdk_runtime_live_status`: `AGENTS_SDK_RUNTIME_LIVE_GOVERNED_READY`
