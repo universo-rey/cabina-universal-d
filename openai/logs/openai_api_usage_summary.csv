@@ -1,0 +1,2 @@
+"timestamp_utc","lane_id","request_id","model","status","input_items","output_items","prompt_tokens","completion_tokens","total_tokens","response_body_saved","secret_printed","estimated_cost"
+"2026-06-03T11:31:35.2784293Z","LANE_E","wq-classification-20260603-dev-v1","gpt-4.1-mini","PASS","12","12","2086","1083","3169","false","false","not_calculated"

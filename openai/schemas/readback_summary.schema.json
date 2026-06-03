@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Readback Summary",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "status",
+    "evidence",
+    "risks",
+    "stop_condition"
+  ],
+  "properties": {
+    "status": {
+      "type": "string"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "stop_condition": {
+      "type": "string"
+    }
+  }
+}

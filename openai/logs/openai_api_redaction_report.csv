@@ -1,0 +1,2 @@
+"artifact","raw_paths_sent","source_path_hash_sent","secrets_sent","personal_data_sent","documents_sent","planner_tasks_sent","sharepoint_items_sent","graph_dump_sent","status"
+"openai_request","false","true","false","false","false","false","false","false","PASS"

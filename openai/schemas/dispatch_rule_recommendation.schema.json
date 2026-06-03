@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Dispatch Rule Recommendation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "rules"
+  ],
+  "properties": {
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "rule_id",
+          "source_condition",
+          "destination_queue",
+          "priority",
+          "gate_id",
+          "stop_condition",
+          "rationale"
+        ],
+        "properties": {
+          "rule_id": {
+            "type": "string"
+          },
+          "source_condition": {
+            "type": "string"
+          },
+          "destination_queue": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "string"
+          },
+          "gate_id": {
+            "type": "string"
+          },
+          "stop_condition": {
+            "type": "string"
+          },
+          "rationale": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
