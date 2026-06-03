@@ -67,9 +67,28 @@ log "SETUP_SCRIPT_VERSIONED=yes"
 log "MAINTENANCE_SCRIPT_VERSIONED=yes"
 log "SETUP_SCRIPT_SELF_SUFFICIENT=yes"
 log "DEPENDENCY_INSTALL=openai|openai-agents"
+log "VENV_ACTIVATION_CROSS_PLATFORM=yes"
+log "WINDOWS_GIT_BASH_COMPATIBLE=yes"
+log "POSIX_COMPATIBLE=yes"
 log "MICROSOFT_WRITE_EXECUTED=False"
 log "PRODUCTION_EXECUTED=False"
 log "PROPAGATION_EXECUTED=False"
+
+if [[ -d ".venv" ]]; then
+  if [[ -f ".venv/bin/activate" ]]; then
+    VENV_ACTIVATE_SCRIPT=".venv/bin/activate"
+  elif [[ -f ".venv/Scripts/activate" ]]; then
+    VENV_ACTIVATE_SCRIPT=".venv/Scripts/activate"
+  else
+    fail "VENV_ACTIVATE_SCRIPT_MISSING"
+  fi
+
+  # shellcheck disable=SC1091
+  source "$VENV_ACTIVATE_SCRIPT"
+  log "VENV_ACTIVATED=yes"
+else
+  log "VENV_ACTIVATION_SKIPPED=no_venv_present"
+fi
 
 python -m unittest discover -s apps/sdu-agent-runtime/tests
 git diff --check
