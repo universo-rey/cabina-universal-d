@@ -157,6 +157,14 @@ creacion informada por el operador, nueve environments adicionales quedaron
 `universo-rey/microsoft-agents-governed-lab`. Permanecen en cola por label no
 resuelto en CLI: `SeshatSgin/modo-on-foundation` y `SeshatSgin/sdu-canon`.
 
+Actualizacion runner agregado 2026-06-02: la Fase 3 de performance agrega
+`tools\local_run_governance_validation_suite.ps1` como runner experimental y
+opcional. El runner compone los validadores actuales, informa duracion por
+subvalidador y no escribe evidencia salvo que se use `-WriteResult`. En
+GitHub Actions solo corre por `workflow_dispatch` cuando
+`run_aggregate_suite=true`; los pasos individuales siguen siendo el gate
+principal de PR/push.
+
 ## Olas de agentes
 
 Ola 1: orquestacion, fronteras, registro, canon, repos, corte OpenAI y torres Escribania/Modo ON.

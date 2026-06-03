@@ -33,6 +33,15 @@ on:
       - ".agents/codex/**"
       - ".github/**"
   workflow_dispatch:
+    inputs:
+      run_aggregate_suite:
+        description: "Run optional aggregate governance validation suite"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
 
 permissions:
   contents: read
@@ -307,4 +316,20 @@ jobs:
                 throw "Workflow missing blocked action '$blocked': $($row.workflow_id)"
               }
             }
+          }
+
+      - name: Aggregate governance suite experimental
+        if: github.event_name == 'workflow_dispatch' && inputs.run_aggregate_suite == 'true'
+        shell: pwsh
+        run: |
+          $root = Join-Path $env:GITHUB_WORKSPACE ".agents\codex"
+          $tool = Join-Path $root "tools\local_run_governance_validation_suite.ps1"
+          $output = & $tool -Root $root -RepoRoot $env:GITHUB_WORKSPACE -SkipWorkflowNestedValidators
+          $output | Write-Output
+          $payload = ($output -join "`n") | ConvertFrom-Json
+          if ($payload.status -ne "PASS") {
+            exit 1
+          }
+          if ($payload.result_written -ne $false) {
+            throw "Aggregate governance suite must not write results in GitHub Actions"
           }

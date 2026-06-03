@@ -191,7 +191,11 @@ runtime_alignment_state:
   validator_performance_improvement_state: LOW_RISK_IMPROVEMENTS_IMPLEMENTED_20260602
   validator_performance_improvement_matrix: D:/.agents/codex/matrices/VALIDATOR_PERFORMANCE_IMPROVEMENT_MATRIX_20260602.csv
   validator_performance_improvement_readback: D:/.agents/codex/readbacks/2026-06-02_validator_performance_improvements_readback.md
-  validator_performance_improvement_scope: csv_json_cache|agent_layer_skip_workflow_nested|single_read_secret_scan
+  validator_performance_improvement_scope: csv_json_cache|agent_layer_skip_workflow_nested|single_read_secret_scan|optional_aggregate_runner
+  governance_validation_suite_state: OPTIONAL_EXPERIMENTAL_NO_PR_GATE_REPLACEMENT
+  governance_validation_suite_tool: D:/.agents/codex/tools/local_run_governance_validation_suite.ps1
+  governance_validation_suite_readback: D:/.agents/codex/readbacks/2026-06-02_governance_validation_suite_phase3_readback.md
+  governance_validation_suite_workflow_mode: workflow_dispatch_only
   repo_local_skill_root: D:/.agents/skills
   skill_governance_catalog: D:/.agents/codex/skills
   repo_local_skill_availability_state: ALL_DECLARED_REPO_LOCAL_SKILLS_AVAILABLE_20260602
