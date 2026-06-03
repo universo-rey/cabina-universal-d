@@ -1,0 +1,2 @@
+patch_id,status,http_status,created_table,created_columns,solution_unique_name,evidence,stop_condition
+schema_patch_20260603,NO_APLICA,not_sent,false,0,SDUCapabilityControlPlane,No schema patch executed because existing table supported metadata-only mapping,schema_patch_not_required
