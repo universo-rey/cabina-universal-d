@@ -46,6 +46,22 @@
 !/governance/agents/
 /governance/agents/*
 !/governance/agents/*.md
+!/governance/power-platform/
+/governance/power-platform/*
+!/governance/power-platform/*.md
+
+# Power Platform / Teams governed ALM recipes and local scripts.
+!/recipes/
+/recipes/*
+!/recipes/power-platform/
+/recipes/power-platform/*
+!/recipes/power-platform/*.md
+
+!/scripts/
+/scripts/*
+!/scripts/power-platform/
+/scripts/power-platform/*
+!/scripts/power-platform/*.ps1
 
 # Ordered SDU agent runtime skeleton for the full-live governed gate. Runtime
 # implementation remains local by default; live validation is external and
@@ -198,6 +214,7 @@
 
 !/validation/
 /validation/*
+!/validation/POWER_PLATFORM_TEAMS_VALIDATION.md
 !/validation/dataverse/
 /validation/dataverse/*
 !/validation/dataverse/*.md
@@ -219,6 +236,7 @@
 
 !/readbacks/
 /readbacks/*
+!/readbacks/20260603_POWER_PLATFORM_TEAMS_ALM_PROVISIONING_READBACK.md
 !/readbacks/dataverse/
 /readbacks/dataverse/*
 !/readbacks/dataverse/*.md

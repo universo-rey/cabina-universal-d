@@ -1,0 +1,121 @@
+name: Power Platform Pack Import DEV
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment_url:
+        description: "Dataverse DEV/STAGING environment URL"
+        required: true
+        type: string
+      solution_folder:
+        description: "Folder containing solution source"
+        required: true
+        type: string
+      solution_name:
+        description: "Solution unique name"
+        required: true
+        type: string
+      solution_type:
+        description: "Solution type"
+        required: true
+        default: "Unmanaged"
+        type: choice
+        options:
+          - Unmanaged
+          - Managed
+      import_to_dev:
+        description: "Import into DEV/STAGING"
+        required: true
+        default: false
+        type: boolean
+      publish_after_import:
+        description: "Publish after DEV/STAGING import"
+        required: true
+        default: false
+        type: boolean
+      confirm_non_production:
+        description: "Confirm target is not production"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  pack-import-dev:
+    runs-on: windows-latest
+    env:
+      SOLUTION_ZIP: out/${{ inputs.solution_name }}-packed.zip
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate inputs and gates
+        shell: pwsh
+        run: |
+          $url = '${{ inputs.environment_url }}'
+          $folder = '${{ inputs.solution_folder }}'
+          $import = [System.Convert]::ToBoolean('${{ inputs.import_to_dev }}')
+          $confirm = [System.Convert]::ToBoolean('${{ inputs.confirm_non_production }}')
+          if ([string]::IsNullOrWhiteSpace($url)) { throw "environment_url is required" }
+          if ([string]::IsNullOrWhiteSpace('${{ inputs.solution_name }}')) { throw "solution_name is required" }
+          if ([string]::IsNullOrWhiteSpace($folder)) { throw "solution_folder is required" }
+          if ($url -match "(?i)(prod|production|live)") { throw "Target looks like production/live. Provide DEV/STAGING only." }
+          if (-not (Test-Path -LiteralPath $folder)) { throw "solution_folder not found: $folder" }
+          if ($import -and -not $confirm) { throw "confirm_non_production must be true before import_to_dev" }
+          New-Item -ItemType Directory -Force -Path "out" | Out-Null
+
+      - name: Install Power Platform Tools
+        uses: microsoft/powerplatform-actions/actions-install@v1
+
+      - name: Pack solution
+        uses: microsoft/powerplatform-actions/pack-solution@v1
+        with:
+          solution-file: ${{ env.SOLUTION_ZIP }}
+          solution-folder: ${{ inputs.solution_folder }}
+          solution-type: ${{ inputs.solution_type }}
+
+      - name: Who am I
+        if: ${{ inputs.import_to_dev == true }}
+        uses: microsoft/powerplatform-actions/who-am-i@v1
+        with:
+          environment-url: ${{ inputs.environment_url }}
+          app-id: ${{ secrets['POWERPLATFORM_APP_ID'] }}
+          client-secret: ${{ secrets['POWERPLATFORM_CLIENT_SECRET'] }}
+          tenant-id: ${{ secrets['POWERPLATFORM_TENANT_ID'] }}
+
+      - name: Import solution to DEV/STAGING
+        if: ${{ inputs.import_to_dev == true && inputs.confirm_non_production == true }}
+        uses: microsoft/powerplatform-actions/import-solution@v1
+        with:
+          environment-url: ${{ inputs.environment_url }}
+          app-id: ${{ secrets['POWERPLATFORM_APP_ID'] }}
+          client-secret: ${{ secrets['POWERPLATFORM_CLIENT_SECRET'] }}
+          tenant-id: ${{ secrets['POWERPLATFORM_TENANT_ID'] }}
+          solution-file: ${{ env.SOLUTION_ZIP }}
+          publish-changes: false
+
+      - name: Publish DEV/STAGING customizations
+        if: ${{ inputs.import_to_dev == true && inputs.publish_after_import == true && inputs.confirm_non_production == true }}
+        uses: microsoft/powerplatform-actions/publish-solution@v1
+        with:
+          environment-url: ${{ inputs.environment_url }}
+          app-id: ${{ secrets['POWERPLATFORM_APP_ID'] }}
+          client-secret: ${{ secrets['POWERPLATFORM_CLIENT_SECRET'] }}
+          tenant-id: ${{ secrets['POWERPLATFORM_TENANT_ID'] }}
+
+      - name: Upload packed solution
+        uses: actions/upload-artifact@v4
+        with:
+          name: power-platform-packed-${{ inputs.solution_name }}
+          path: ${{ env.SOLUTION_ZIP }}
+          if-no-files-found: error
+
+      - name: Summary
+        shell: pwsh
+        run: |
+          "Packed: $env:SOLUTION_ZIP" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "Import to DEV/STAGING: ${{ inputs.import_to_dev }}" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "Publish after import: ${{ inputs.publish_after_import }}" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "Production requires a separate protected workflow and human approval." | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append

@@ -1,0 +1,97 @@
+name: Power Platform Export Unpack
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment_url:
+        description: "Dataverse DEV/STAGING environment URL"
+        required: true
+        type: string
+      solution_name:
+        description: "Solution unique name"
+        required: true
+        type: string
+      solution_type:
+        description: "Solution type"
+        required: true
+        default: "Unmanaged"
+        type: choice
+        options:
+          - Unmanaged
+          - Managed
+      target_folder:
+        description: "Folder for unpacked solution source"
+        required: true
+        default: "powerplatform/solution/exported"
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  export-unpack:
+    runs-on: windows-latest
+    env:
+      SOLUTION_ZIP: out/${{ inputs.solution_name }}.zip
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate inputs
+        shell: pwsh
+        run: |
+          $url = '${{ inputs.environment_url }}'
+          $name = '${{ inputs.solution_name }}'
+          $target = '${{ inputs.target_folder }}'
+          if ([string]::IsNullOrWhiteSpace($url)) { throw "environment_url is required" }
+          if ([string]::IsNullOrWhiteSpace($name)) { throw "solution_name is required" }
+          if ([string]::IsNullOrWhiteSpace($target)) { throw "target_folder is required" }
+          if ($url -match "(?i)(prod|production|live)") { throw "Target looks like production/live. Provide DEV/STAGING only." }
+          New-Item -ItemType Directory -Force -Path "out" | Out-Null
+
+      - name: Install Power Platform Tools
+        uses: microsoft/powerplatform-actions/actions-install@v1
+
+      - name: Who am I
+        uses: microsoft/powerplatform-actions/who-am-i@v1
+        with:
+          environment-url: ${{ inputs.environment_url }}
+          app-id: ${{ secrets['POWERPLATFORM_APP_ID'] }}
+          client-secret: ${{ secrets['POWERPLATFORM_CLIENT_SECRET'] }}
+          tenant-id: ${{ secrets['POWERPLATFORM_TENANT_ID'] }}
+
+      - name: Export solution
+        uses: microsoft/powerplatform-actions/export-solution@v1
+        with:
+          environment-url: ${{ inputs.environment_url }}
+          app-id: ${{ secrets['POWERPLATFORM_APP_ID'] }}
+          client-secret: ${{ secrets['POWERPLATFORM_CLIENT_SECRET'] }}
+          tenant-id: ${{ secrets['POWERPLATFORM_TENANT_ID'] }}
+          solution-name: ${{ inputs.solution_name }}
+          solution-output-file: ${{ env.SOLUTION_ZIP }}
+          managed: ${{ inputs.solution_type == 'Managed' }}
+          overwrite: true
+
+      - name: Unpack solution
+        uses: microsoft/powerplatform-actions/unpack-solution@v1
+        with:
+          solution-file: ${{ env.SOLUTION_ZIP }}
+          solution-folder: ${{ inputs.target_folder }}
+          solution-type: ${{ inputs.solution_type }}
+          overwrite-files: true
+
+      - name: Prepare branch evidence summary
+        shell: pwsh
+        run: |
+          "Exported zip: $env:SOLUTION_ZIP" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "Unpacked folder: ${{ inputs.target_folder }}" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "Repo write is intentionally not performed by this workflow; commit/PR is prepared by Codex or a separate governed GitHub lifecycle." | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+
+      - name: Upload solution artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: power-platform-export-${{ inputs.solution_name }}
+          path: |
+            ${{ env.SOLUTION_ZIP }}
+            ${{ inputs.target_folder }}/**
+          if-no-files-found: error
