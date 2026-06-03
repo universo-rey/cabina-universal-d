@@ -1,0 +1,2 @@
+patch_id,status,target,action,reason,rollback,stop_condition
+schema_patch_20260603,NO_APLICA,mon_sdu_workqueue_backreference_map,not_created,existing mon_sdu_agent_connection_mapping had required metadata-only fields for safe mapping,not_needed_no_schema_change,schema_patch_not_required
