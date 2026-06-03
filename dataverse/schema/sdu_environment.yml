@@ -1,0 +1,25 @@
+table:
+  logical_name: sdu_environment
+  display_name: SDU Environment
+  ownership: user_or_team
+  change_tracking: true
+  auditing: true
+  primary_name: sdu_name
+columns:
+  - name: sdu_name
+    type: text
+    required: true
+  - name: sdu_environment_type
+    type: choice
+    values: [dev, test, prod, default, unknown]
+  - name: sdu_environment_id_redacted
+    type: text
+  - name: sdu_tenant_id_redacted
+    type: text
+  - name: sdu_allow_apply
+    type: two_options
+  - name: sdu_status
+    type: choice
+    values: [ready, gated, blocked, por_definir]
+policy:
+  prod_apply_requires_separate_explicit_authorization: true

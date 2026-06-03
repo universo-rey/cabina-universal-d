@@ -1,0 +1,26 @@
+table:
+  logical_name: sdu_apply_log
+  display_name: SDU Apply Log
+  ownership: user_or_team
+  change_tracking: true
+  auditing: true
+  primary_name: sdu_name
+columns:
+  - name: sdu_name
+    type: text
+    required: true
+  - name: sdu_environment_id
+    type: lookup
+    target: sdu_environment
+  - name: sdu_action
+    type: choice
+    values: [precheck, create_solution, import_solution, export_solution, import_seed, export_snapshot]
+  - name: sdu_status
+    type: choice
+    values: [pass, fail, blocked, dry_run]
+  - name: sdu_rollback_path
+    type: text
+  - name: sdu_postcheck_path
+    type: text
+policy:
+  every_apply_requires_rollback_and_postcheck: true

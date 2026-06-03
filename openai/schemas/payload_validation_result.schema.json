@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Payload Validation Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "valid",
+    "errors",
+    "warnings"
+  ],
+  "properties": {
+    "valid": {
+      "type": "boolean"
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

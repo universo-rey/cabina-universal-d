@@ -1,0 +1,22 @@
+name: Dataverse Promote PROD Manual
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  promote-prod:
+    runs-on: windows-latest
+    environment: dataverse-prod
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate package only
+        shell: pwsh
+        run: ./dataverse/scripts/validate_dataverse_manifest.ps1
+      - name: Block until explicit PROD authorization exists
+        shell: pwsh
+        run: |
+          Write-Host 'DATAVERSE_PROD_PROMOTION_GATED_NOT_EXECUTED'
+          exit 20

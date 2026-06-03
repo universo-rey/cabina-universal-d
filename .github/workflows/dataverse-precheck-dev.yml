@@ -1,0 +1,32 @@
+name: Dataverse DEV Precheck
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  precheck-dev:
+    runs-on: windows-latest
+    environment: dataverse-dev
+    env:
+      DATAVERSE_DEV_ENVIRONMENT_URL: ${{ vars.DATAVERSE_DEV_ENVIRONMENT_URL }}
+      DATAVERSE_DEV_ENVIRONMENT_ID: ${{ vars.DATAVERSE_DEV_ENVIRONMENT_ID }}
+      DATAVERSE_TENANT_ID: ${{ vars.DATAVERSE_TENANT_ID }}
+      PAC_CLI_AUTH_PROFILE: ${{ vars.PAC_CLI_AUTH_PROFILE }}
+      POWERPLATFORM_PUBLISHER_UNIQUE_NAME: ${{ vars.POWERPLATFORM_PUBLISHER_UNIQUE_NAME }}
+      DATAVERSE_SOLUTION_UNIQUE_NAME: ${{ vars.DATAVERSE_SOLUTION_UNIQUE_NAME }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate manifest
+        shell: pwsh
+        run: ./dataverse/scripts/validate_dataverse_manifest.ps1
+      - name: Precheck DEV target
+        shell: pwsh
+        run: ./dataverse/scripts/precheck_dataverse_environment.ps1 -RequireDevReady
+      - name: Upload precheck evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: dataverse-dev-precheck
+          path: dataverse/validation/*.json

@@ -1,0 +1,3 @@
+"rule_id","source_condition","destination_queue","priority","gate_id","stop_condition","ai_assisted_status","local_validation_status"
+"AI_ASSISTED_CONNECTION_SEED","sanitized_metadata_sample","SDU.CONNECTION.SEED.Queue","high","GATE_OPENAI_LIVE_GOVERNED_ORDER","openai_api_live_requested_without_order","AI_ASSISTED_NOT_CANON_UNTIL_VALIDATED","PASS_SCHEMA_PARSED"
+"AI_ASSISTED_GATE_REVIEW","sanitized_metadata_sample","SDU.GATE.REVIEW.Queue","medium","GATE_CONNECTION_SURFACE_CLASSIFICATION_REQUIRED","microsoft_live_requested_without_governed_order","AI_ASSISTED_NOT_CANON_UNTIL_VALIDATED","PASS_SCHEMA_PARSED"

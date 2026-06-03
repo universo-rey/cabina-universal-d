@@ -1,0 +1,36 @@
+{
+  "Target": {
+    "EnvironmentType": "DEV_SANDBOX",
+    "EnvironmentUrl": "https://org084965d9.crm.dynamics.com",
+    "EnvironmentId": "7f65fc04-c27a-ea0d-bd2d-266aa9203c1e",
+    "OrganizationId": "f982db28-49e3-f011-aa23-000d3a5ca83f",
+    "PacProfile": "SDU-DATAVERSE-DEV",
+    "ApplyMode": "METADATA_ONLY"
+  },
+  "Solution": {
+    "UniqueName": "SDUCapabilityControlPlane",
+    "DisplayName": "SDU Capability Control Plane",
+    "Version": "0.1.0.0",
+    "PublisherUniqueName": "ModoON",
+    "PublisherPrefix": "mon"
+  },
+  "Seed": {
+    "BatchId": "20260603_connection_seed_dev_v1",
+    "SensitivePayloadPolicy": "metadata_only_no_sensitive_payload"
+  },
+  "EnvironmentVariables": [
+    {
+      "SchemaName": "mon_TargetEnvironmentType",
+      "Value": "DEV_SANDBOX"
+    },
+    {
+      "SchemaName": "mon_GitHubTechnicalCanon",
+      "Value": "universo-rey/cabina-universal-d"
+    },
+    {
+      "SchemaName": "mon_DataPolicy",
+      "Value": "metadata_only_no_sensitive_payload"
+    }
+  ],
+  "ConnectionReferences": []
+}

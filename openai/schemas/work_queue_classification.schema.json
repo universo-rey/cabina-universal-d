@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Work Queue Classification",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "classifications"
+  ],
+  "properties": {
+    "classifications": {
+      "type": "array",
+      "maxItems": 25,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "canonical_id",
+          "queue_item_type",
+          "priority",
+          "risk_level",
+          "gate_id",
+          "stop_condition",
+          "remediation_class",
+          "evidence_required",
+          "consistency_flags",
+          "ai_assisted_status"
+        ],
+        "properties": {
+          "canonical_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "queue_item_type": {
+            "type": "string",
+            "enum": [
+              "MATRIX_INTAKE",
+              "CONNECTION_SEED",
+              "DATAVERSE_APPLY",
+              "DRIFT_DETECTION",
+              "GATE_REVIEW",
+              "EXCEPTION_REMEDIATION",
+              "EVIDENCE_PUBLISH",
+              "AGENT_DISPATCH"
+            ]
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "risk_level": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "gate_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "stop_condition": {
+            "type": "string",
+            "minLength": 1
+          },
+          "remediation_class": {
+            "type": "string",
+            "enum": [
+              "none",
+              "gate_review",
+              "metadata_gap",
+              "secret_boundary",
+              "owner_review",
+              "manual_dispatch",
+              "drift_review"
+            ]
+          },
+          "evidence_required": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 8
+          },
+          "consistency_flags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 8
+          },
+          "ai_assisted_status": {
+            "type": "string",
+            "enum": [
+              "AI_ASSISTED_NOT_CANON_UNTIL_VALIDATED"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

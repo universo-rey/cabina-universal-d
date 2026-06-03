@@ -1,0 +1,28 @@
+table:
+  logical_name: sdu_capability
+  display_name: SDU Capability
+  ownership: user_or_team
+  change_tracking: true
+  auditing: true
+  primary_name: sdu_name
+columns:
+  - name: sdu_name
+    type: text
+    required: true
+  - name: sdu_canonical_id
+    type: text
+    required: true
+    alternate_key: true
+  - name: sdu_capability_family
+    type: choice
+    values: [agent, skill, recipe, tool, plugin, validator, runtime, live_surface]
+  - name: sdu_owner
+    type: text
+  - name: sdu_status
+    type: choice
+    values: [active, gated, blocked, deprecated]
+  - name: sdu_sensitivity
+    type: choice
+    values: [metadata_only, governed_live, restricted]
+policy:
+  no_secret_materialization: true

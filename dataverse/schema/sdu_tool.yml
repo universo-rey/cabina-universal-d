@@ -1,0 +1,26 @@
+table:
+  logical_name: sdu_tool
+  display_name: SDU Tool
+  ownership: user_or_team
+  change_tracking: true
+  auditing: true
+  primary_name: sdu_name
+columns:
+  - name: sdu_name
+    type: text
+    required: true
+  - name: sdu_canonical_id
+    type: text
+    required: true
+    alternate_key: true
+  - name: sdu_surface
+    type: text
+  - name: sdu_allowed_actions
+    type: multiline_text
+  - name: sdu_blocked_actions
+    type: multiline_text
+  - name: sdu_status
+    type: choice
+    values: [active, gated, blocked, unavailable]
+policy:
+  unavailable_tools_must_not_be_simulated: true

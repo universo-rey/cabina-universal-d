@@ -1,0 +1,10 @@
+{
+  "status": "BATCH_PREPARED_NOT_SUBMITTED",
+  "created_at_utc": "2026-06-03T11:37:55.1079334Z",
+  "input_file": "openai/batch/work_queue_classification_batch_input.jsonl",
+  "items": 5222,
+  "model": "gpt-4.1-mini",
+  "data_boundary": "metadata_only_sanitized_source_path_hash_no_raw_paths_no_secrets",
+  "submission": "not_submitted_cost_gate_required",
+  "batch_id": "20260603_workqueue_openai_batch_v1"
+}

@@ -1,0 +1,3 @@
+"canonical_id","environment_name","environment_type","status","tenant","allow_apply"
+"dataverse_dev_target","[POR DEFINIR]","DEV","BLOCKED_UNTIL_EXPLICIT_PROFILE_URL_OR_ID","[POR DEFINIR]","false"
+"dataverse_active_pac_profile","ESCRIBANIA BITSCH default","Default","NOT_ALLOWED_FOR_DEV_APPLY","redacted","false"

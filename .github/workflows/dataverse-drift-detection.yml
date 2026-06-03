@@ -1,0 +1,26 @@
+name: Dataverse Drift Detection
+
+on:
+  pull_request:
+    paths:
+      - "dataverse/**"
+      - "matrices/dataverse/**"
+      - "powerplatform/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  drift:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Detect local drift
+        shell: pwsh
+        run: python ./dataverse/scripts/detect_dataverse_drift.py
+      - name: Upload drift evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: dataverse-drift-evidence
+          path: dataverse/validation/dataverse_drift_latest.json

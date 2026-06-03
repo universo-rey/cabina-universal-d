@@ -1,0 +1,80 @@
+workqueues:
+  - name: SDU.Matrix.Intake.Queue
+    workqueuekey: sdu_matrix_intake_queue
+    queue_id: b776b5e7-3f5f-f111-a826-00224805f8f9
+    action: created
+    purpose: Matrix intake and routing
+    default_priority: medium
+    ttl_minutes: 10080
+    schema_status: LOCAL_SCHEMA_ONLY_NOT_BOUND_LIVE
+    processing_active: false
+  - name: SDU.Connection.Seed.Queue
+    workqueuekey: sdu_connection_seed_queue
+    queue_id: 2277b5e7-3f5f-f111-a826-00224805f8f9
+    action: created
+    purpose: Connection seed metadata work
+    default_priority: high
+    ttl_minutes: 10080
+    schema_status: LOCAL_SCHEMA_ONLY_NOT_BOUND_LIVE
+    processing_active: false
+  - name: SDU.Dataverse.Apply.Queue
+    workqueuekey: sdu_dataverse_apply_queue
+    queue_id: 513da9e9-3f5f-f111-a826-00224805fc91
+    action: created
+    purpose: Dataverse apply governance work
+    default_priority: high
+    ttl_minutes: 10080
+    schema_status: LOCAL_SCHEMA_ONLY_NOT_BOUND_LIVE
+    processing_active: false
+  - name: SDU.Drift.Detection.Queue
+    workqueuekey: sdu_drift_detection_queue
+    queue_id: 2fd30de8-3f5f-f111-a826-00224805fcc4
+    action: created
+    purpose: Drift detection work
+    default_priority: medium
+    ttl_minutes: 10080
+    schema_status: LOCAL_SCHEMA_ONLY_NOT_BOUND_LIVE
+    processing_active: false
+  - name: SDU.Gate.Review.Queue
+    workqueuekey: sdu_gate_review_queue
+    queue_id: 59ea83ea-3f5f-f111-a826-00224805f9dd
+    action: created
+    purpose: Gate review work
+    default_priority: high
+    ttl_minutes: 10080
+    schema_status: LOCAL_SCHEMA_ONLY_NOT_BOUND_LIVE
+    processing_active: false
+  - name: SDU.Exception.Remediation.Queue
+    workqueuekey: sdu_exception_remediation_queue
+    queue_id: ac89d1ef-3f5f-f111-a826-00224805fc91
+    action: created
+    purpose: Exception remediation work
+    default_priority: critical
+    ttl_minutes: 10080
+    schema_status: LOCAL_SCHEMA_ONLY_NOT_BOUND_LIVE
+    processing_active: false
+  - name: SDU.Evidence.Publish.Queue
+    workqueuekey: sdu_evidence_publish_queue
+    queue_id: d8489bf0-3f5f-f111-a826-00224805f9dd
+    action: created
+    purpose: Evidence closeout publish work
+    default_priority: medium
+    ttl_minutes: 10080
+    schema_status: LOCAL_SCHEMA_ONLY_NOT_BOUND_LIVE
+    processing_active: false
+  - name: SDU.Agent.Dispatch.Queue
+    workqueuekey: sdu_agent_dispatch_queue
+    queue_id: 310d36ee-3f5f-f111-a826-00224805f8f9
+    action: created
+    purpose: Agent dispatch metadata work
+    default_priority: high
+    ttl_minutes: 10080
+    schema_status: LOCAL_SCHEMA_ONLY_NOT_BOUND_LIVE
+    processing_active: false
+policy:
+  environment: DEV_SANDBOX
+  no_default: true
+  no_test: true
+  no_prod: true
+  no_automatic_processing: true
+  no_secrets: true

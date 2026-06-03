@@ -1,0 +1,23 @@
+table:
+  logical_name: sdu_readback
+  display_name: SDU Readback
+  ownership: user_or_team
+  change_tracking: true
+  auditing: true
+  primary_name: sdu_name
+columns:
+  - name: sdu_name
+    type: text
+    required: true
+  - name: sdu_readback_path
+    type: text
+    required: true
+  - name: sdu_state
+    type: choice
+    values: [ready, provisioned_and_validated, partial_with_blockers, blocked_security_risk]
+  - name: sdu_summary
+    type: multiline_text
+  - name: sdu_next_step
+    type: multiline_text
+policy:
+  closeout_state_must_match_evidence: true

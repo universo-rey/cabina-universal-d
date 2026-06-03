@@ -1,0 +1,2 @@
+"relationship_id","source_table","target_table","relationship_type","status","rationale"
+"DATAVERSE_DEV_V1_NO_LOOKUP_RELATIONSHIPS","[NO_APLICA]","[NO_APLICA]","none","NO_RELATIONSHIPS_CREATED_IN_METADATA_ONLY_V1","V1 seed uses canonical_id fields and no lookup coupling to keep rollback and batch deactivation simple"

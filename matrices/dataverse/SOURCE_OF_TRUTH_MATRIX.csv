@@ -1,0 +1,6 @@
+"domain","primary_source","dataverse_role","sharepoint_role","rule"
+"technical_canon","GitHub repository files","indexed_live_registry","documentary_evidence_repository","Dataverse does not replace GitHub canon"
+"documentary_evidence","SharePoint/readbacks where governed","evidence locator and status registry","document repository","No bulk regulated data in Dataverse seed"
+"capability_mapping",".agents/codex/matrices","queryable normalized capability map","optional published evidence","Matrix hashes preserve lineage"
+"runtime_gates","GitHub workflows and local validators","gate state and apply log registry","operator readback","No live action without target rollback postcheck"
+"production","human governed order","blocked until explicit target","approval evidence","PROD never inferred from DEV"

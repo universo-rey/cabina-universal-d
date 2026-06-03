@@ -1,0 +1,6 @@
+"rule_id","surface","check","severity","validator"
+"DRIFT_001","schema","schema_yaml_changed_without_solution_manifest_update","block","dataverse/scripts/detect_dataverse_drift.py"
+"DRIFT_002","seed","seed_matrix_hash_mismatch","warn","dataverse/scripts/detect_dataverse_drift.py"
+"DRIFT_003","environment","dev_workflow_target_contains_prod_or_default","block","dataverse/scripts/precheck_dataverse_environment.ps1"
+"DRIFT_004","solution","publisher_or_solution_name_changed_without_readback","block","dataverse/scripts/validate_dataverse_manifest.ps1"
+"DRIFT_005","evidence","apply_log_missing_after_import","block","dataverse/scripts/generate_readback.py"
