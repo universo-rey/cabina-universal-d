@@ -26,6 +26,13 @@ SDK tools, SDK handoffs, SDK tracing, persistent remote agents, Microsoft live
 writes, production writes and repo propagation require separate governed orders
 with exact scope, owner, rollback, postcheck and evidence.
 
+Precision markers:
+
+- `SDU_TRIAGE_AGENT_IMPLEMENTATION=local_no_live`
+- `LIVE_RUNTIME_VALIDATION=external_governed_smoke`
+- `SETUP_SCRIPT_VERSIONED=yes`
+- `MAINTENANCE_SCRIPT_VERSIONED=yes`
+
 ## Smoke
 
 ```powershell
@@ -37,6 +44,8 @@ python -m unittest discover -s apps/sdu-agent-runtime/tests
 - `agent_id`: `sdu-triage-agent`
 - `mode`: `full_live_governed`
 - `default_path`: `local_no_live`
+- `implementation`: `local_no_live`
+- `live_runtime_validation`: external governed smoke gate
 - `output`: structured JSON
 - `external_writes`: forbidden
 

@@ -13,26 +13,18 @@
   "graph_valid": true,
   "required_test_count": 19,
   "changed_files": [
-    ".agents/codex/matrices/AGENTS_SDK_BASELINE_GATE_20260603.csv",
-    ".agents/codex/matrices/CODEX_CLOUD_CABINA_ACTIVATION_GATE_20260603.csv",
-    ".agents/codex/matrices/REPO_PROPAGATION_SEQUENCE_AFTER_CABINA_20260603.csv",
-    ".agents/codex/readbacks/2026-06-03_agents_sdk_baseline_gate.md",
-    ".agents/codex/readbacks/2026-06-03_codex_cloud_cabina_activation_gate.md",
     ".agents/codex/readbacks/2026-06-03_full_live_governed_activation_readback.md",
-    ".agents/codex/readbacks/2026-06-03_pr56_precision_corrections_readback.md",
-    ".agents/codex/readbacks/2026-06-03_repo_propagation_after_cabina_gate.md",
+    ".agents/codex/scripts/",
     ".gitignore",
     "apps/sdu-agent-runtime/README.md",
     "governance/agents/AGENTS_SDK_AGENT_REGISTRY.md",
-    "governance/agents/AGENTS_SDK_BASELINE_POLICY.md",
-    "governance/agents/AGENTS_SDK_ORCHESTRATION_MODEL.md",
-    "governance/agents/AGENTS_SDK_SECURITY_POLICY.md"
+    "governance/agents/AGENTS_SDK_BASELINE_POLICY.md"
   ],
   "impact_unknown": false,
   "expansion_applied": true,
   "blocked_surfaces_clear": true,
   "blocked_surfaces": null,
-  "max_parallel": 2,
+  "max_parallel": 3,
   "coverage_equivalence_planned": true,
   "missing_required_test_count": 0,
   "missing_required_tests": null,
@@ -65,129 +57,6 @@
       ]
     },
     {
-      "test_id": "agent_layer",
-      "required": true,
-      "priority": 3,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.default",
-        "impact:graph.matrices",
-        "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
-        "risk:risk.default",
-        "risk:risk.readbacks"
-      ]
-    },
-    {
-      "test_id": "agents_instruction_hierarchy",
-      "required": true,
-      "priority": 3,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.default",
-        "impact:graph.matrices",
-        "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
-        "risk:risk.default",
-        "risk:risk.readbacks"
-      ]
-    },
-    {
-      "test_id": "autonomous_agent_execution",
-      "required": true,
-      "priority": 3,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.default",
-        "impact:graph.matrices",
-        "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
-        "risk:risk.default",
-        "risk:risk.readbacks"
-      ]
-    },
-    {
-      "test_id": "capability_use_hardening",
-      "required": true,
-      "priority": 3,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.default",
-        "impact:graph.matrices",
-        "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
-        "risk:risk.default"
-      ]
-    },
-    {
-      "test_id": "codex_app_environments",
-      "required": true,
-      "priority": 3,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.default",
-        "impact:graph.matrices",
-        "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
-        "risk:risk.default"
-      ]
-    },
-    {
-      "test_id": "codex_cloud_governed_lane",
-      "required": true,
-      "priority": 3,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.default",
-        "impact:graph.matrices",
-        "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
-        "risk:risk.default"
-      ]
-    },
-    {
-      "test_id": "document_skill_lane",
-      "required": true,
-      "priority": 3,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.default",
-        "impact:graph.matrices",
-        "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
-        "risk:risk.default"
-      ]
-    },
-    {
-      "test_id": "frontend_design_lane",
-      "required": true,
-      "priority": 3,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.default",
-        "impact:graph.matrices",
-        "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
-        "risk:risk.default"
-      ]
-    },
-    {
       "test_id": "github_automation_preflight",
       "required": true,
       "priority": 3,
@@ -203,196 +72,217 @@
     {
       "test_id": "operational_chain",
       "required": true,
-      "priority": 3,
+      "priority": 4,
       "blocks_merge": true,
       "blocks_release": true,
       "runner_group": "governance",
       "reasons": [
         "impact:graph.default",
-        "impact:graph.matrices",
         "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
         "risk:risk.default"
       ]
     },
     {
-      "test_id": "order_packets",
+      "test_id": "capability_use_hardening",
       "required": true,
-      "priority": 3,
+      "priority": 5,
       "blocks_merge": true,
       "blocks_release": true,
       "runner_group": "governance",
       "reasons": [
         "impact:graph.default",
-        "impact:graph.matrices",
         "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
         "risk:risk.default"
       ]
     },
     {
-      "test_id": "parallel_issue_queue",
+      "test_id": "autonomous_agent_execution",
       "required": true,
-      "priority": 3,
+      "priority": 6,
       "blocks_merge": true,
       "blocks_release": true,
       "runner_group": "governance",
       "reasons": [
         "impact:graph.default",
-        "impact:graph.matrices",
         "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
-        "risk:risk.default"
+        "risk:risk.default",
+        "risk:risk.readbacks"
       ]
     },
     {
-      "test_id": "parallel_order_governance",
+      "test_id": "agent_layer",
       "required": true,
-      "priority": 3,
+      "priority": 7,
       "blocks_merge": true,
       "blocks_release": true,
       "runner_group": "governance",
       "reasons": [
         "impact:graph.default",
-        "impact:graph.matrices",
         "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
-        "risk:risk.default"
+        "risk:risk.default",
+        "risk:risk.readbacks"
+      ]
+    },
+    {
+      "test_id": "agents_instruction_hierarchy",
+      "required": true,
+      "priority": 7,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "mandatory_full_coverage",
+        "risk:risk.default",
+        "risk:risk.readbacks"
       ]
     },
     {
       "test_id": "skill_metadata",
       "required": true,
-      "priority": 3,
+      "priority": 8,
       "blocks_merge": true,
       "blocks_release": true,
       "runner_group": "governance",
       "reasons": [
         "impact:graph.default",
-        "impact:graph.matrices",
         "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
+        "risk:risk.default"
+      ]
+    },
+    {
+      "test_id": "document_skill_lane",
+      "required": true,
+      "priority": 9,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "mandatory_full_coverage",
         "risk:risk.default"
       ]
     },
     {
       "test_id": "skill_reference_sources",
       "required": true,
-      "priority": 3,
+      "priority": 10,
       "blocks_merge": true,
       "blocks_release": true,
       "runner_group": "governance",
       "reasons": [
         "impact:graph.default",
-        "impact:graph.matrices",
         "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
+        "risk:risk.default"
+      ]
+    },
+    {
+      "test_id": "frontend_design_lane",
+      "required": true,
+      "priority": 11,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "mandatory_full_coverage",
+        "risk:risk.default"
+      ]
+    },
+    {
+      "test_id": "codex_cloud_governed_lane",
+      "required": true,
+      "priority": 12,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "mandatory_full_coverage",
+        "risk:risk.default"
+      ]
+    },
+    {
+      "test_id": "codex_app_environments",
+      "required": true,
+      "priority": 13,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "mandatory_full_coverage",
         "risk:risk.default"
       ]
     },
     {
       "test_id": "teams_cross_repo_lane_audit",
       "required": true,
-      "priority": 3,
+      "priority": 14,
       "blocks_merge": true,
       "blocks_release": true,
       "runner_group": "governance",
       "reasons": [
         "impact:graph.default",
-        "impact:graph.matrices",
         "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
         "risk:risk.default"
       ]
     },
     {
       "test_id": "runtime_alignment",
       "required": true,
-      "priority": 3,
+      "priority": 15,
       "blocks_merge": true,
       "blocks_release": true,
       "runner_group": "runtime",
       "reasons": [
         "impact:graph.default",
-        "impact:graph.matrices",
         "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
+        "risk:risk.default"
+      ]
+    },
+    {
+      "test_id": "parallel_order_governance",
+      "required": true,
+      "priority": 16,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "mandatory_full_coverage",
+        "risk:risk.default"
+      ]
+    },
+    {
+      "test_id": "parallel_issue_queue",
+      "required": true,
+      "priority": 17,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "mandatory_full_coverage",
+        "risk:risk.default"
+      ]
+    },
+    {
+      "test_id": "order_packets",
+      "required": true,
+      "priority": 18,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "mandatory_full_coverage",
         "risk:risk.default"
       ]
     }
   ],
   "risk_matches": [
     {
-      "path": ".agents/codex/matrices/AGENTS_SDK_BASELINE_GATE_20260603.csv",
-      "risk_id": "risk.agent_matrices",
-      "risk_level": "high",
-      "expansion": "full",
-      "reason": "shared_matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/AGENTS_SDK_BASELINE_GATE_20260603.csv",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/matrices/CODEX_CLOUD_CABINA_ACTIVATION_GATE_20260603.csv",
-      "risk_id": "risk.agent_matrices",
-      "risk_level": "high",
-      "expansion": "full",
-      "reason": "shared_matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/CODEX_CLOUD_CABINA_ACTIVATION_GATE_20260603.csv",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/matrices/REPO_PROPAGATION_SEQUENCE_AFTER_CABINA_20260603.csv",
-      "risk_id": "risk.agent_matrices",
-      "risk_level": "high",
-      "expansion": "full",
-      "reason": "shared_matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/REPO_PROPAGATION_SEQUENCE_AFTER_CABINA_20260603.csv",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/readbacks/2026-06-03_agents_sdk_baseline_gate.md",
-      "risk_id": "risk.readbacks",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "evidence_changed"
-    },
-    {
-      "path": ".agents/codex/readbacks/2026-06-03_agents_sdk_baseline_gate.md",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/readbacks/2026-06-03_codex_cloud_cabina_activation_gate.md",
-      "risk_id": "risk.readbacks",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "evidence_changed"
-    },
-    {
-      "path": ".agents/codex/readbacks/2026-06-03_codex_cloud_cabina_activation_gate.md",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
       "path": ".agents/codex/readbacks/2026-06-03_full_live_governed_activation_readback.md",
       "risk_id": "risk.readbacks",
       "risk_level": "medium",
@@ -407,28 +297,7 @@
       "reason": "default_full_coverage"
     },
     {
-      "path": ".agents/codex/readbacks/2026-06-03_pr56_precision_corrections_readback.md",
-      "risk_id": "risk.readbacks",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "evidence_changed"
-    },
-    {
-      "path": ".agents/codex/readbacks/2026-06-03_pr56_precision_corrections_readback.md",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/readbacks/2026-06-03_repo_propagation_after_cabina_gate.md",
-      "risk_id": "risk.readbacks",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "evidence_changed"
-    },
-    {
-      "path": ".agents/codex/readbacks/2026-06-03_repo_propagation_after_cabina_gate.md",
+      "path": ".agents/codex/scripts/",
       "risk_id": "risk.default",
       "risk_level": "medium",
       "expansion": "full",
@@ -457,20 +326,6 @@
     },
     {
       "path": "governance/agents/AGENTS_SDK_BASELINE_POLICY.md",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": "governance/agents/AGENTS_SDK_ORCHESTRATION_MODEL.md",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": "governance/agents/AGENTS_SDK_SECURITY_POLICY.md",
       "risk_id": "risk.default",
       "risk_level": "medium",
       "expansion": "full",
@@ -479,67 +334,13 @@
   ],
   "graph_matches": [
     {
-      "path": ".agents/codex/matrices/AGENTS_SDK_BASELINE_GATE_20260603.csv",
-      "graph_id": "graph.matrices",
-      "expansion": "full",
-      "reason": "matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/AGENTS_SDK_BASELINE_GATE_20260603.csv",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".agents/codex/matrices/CODEX_CLOUD_CABINA_ACTIVATION_GATE_20260603.csv",
-      "graph_id": "graph.matrices",
-      "expansion": "full",
-      "reason": "matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/CODEX_CLOUD_CABINA_ACTIVATION_GATE_20260603.csv",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".agents/codex/matrices/REPO_PROPAGATION_SEQUENCE_AFTER_CABINA_20260603.csv",
-      "graph_id": "graph.matrices",
-      "expansion": "full",
-      "reason": "matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/REPO_PROPAGATION_SEQUENCE_AFTER_CABINA_20260603.csv",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".agents/codex/readbacks/2026-06-03_agents_sdk_baseline_gate.md",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".agents/codex/readbacks/2026-06-03_codex_cloud_cabina_activation_gate.md",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
       "path": ".agents/codex/readbacks/2026-06-03_full_live_governed_activation_readback.md",
       "graph_id": "graph.default",
       "expansion": "full",
       "reason": "unknown_or_unmapped_change"
     },
     {
-      "path": ".agents/codex/readbacks/2026-06-03_pr56_precision_corrections_readback.md",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".agents/codex/readbacks/2026-06-03_repo_propagation_after_cabina_gate.md",
+      "path": ".agents/codex/scripts/",
       "graph_id": "graph.default",
       "expansion": "full",
       "reason": "unknown_or_unmapped_change"
@@ -564,18 +365,6 @@
     },
     {
       "path": "governance/agents/AGENTS_SDK_BASELINE_POLICY.md",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": "governance/agents/AGENTS_SDK_ORCHESTRATION_MODEL.md",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": "governance/agents/AGENTS_SDK_SECURITY_POLICY.md",
       "graph_id": "graph.default",
       "expansion": "full",
       "reason": "unknown_or_unmapped_change"
@@ -589,9 +378,9 @@
   "hidden_flaky_tests": null,
   "result_written": true,
   "audit_path": "D:\\.agents\\codex\\evals\\results\\change_aware_full_coverage_audit_latest.json",
-  "started_at": "2026-06-03T01:50:56.7196018-03:00",
-  "finished_at": "2026-06-03T01:51:16.6648913-03:00",
-  "duration_ms": 19945,
+  "started_at": "2026-06-03T02:00:03.1964547-03:00",
+  "finished_at": "2026-06-03T02:00:23.7026873-03:00",
+  "duration_ms": 20506,
   "errors": [],
   "warnings": [],
   "results": [
@@ -600,9 +389,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T01:50:57.3398833-03:00",
-      "finished_at": "2026-06-03T01:50:59.9750382-03:00",
-      "duration_ms": 2635,
+      "started_at": "2026-06-03T02:00:03.5928054-03:00",
+      "finished_at": "2026-06-03T02:00:05.9544393-03:00",
+      "duration_ms": 2362,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -613,9 +402,61 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T01:50:59.9870154-03:00",
-      "finished_at": "2026-06-03T01:51:00.0065114-03:00",
-      "duration_ms": 19,
+      "started_at": "2026-06-03T02:00:05.9618837-03:00",
+      "finished_at": "2026-06-03T02:00:05.9941781-03:00",
+      "duration_ms": 32,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "github_automation_preflight",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-03T02:00:05.9945435-03:00",
+      "finished_at": "2026-06-03T02:00:07.0385174-03:00",
+      "duration_ms": 1044,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "operational_chain",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-03T02:00:07.0390358-03:00",
+      "finished_at": "2026-06-03T02:00:07.9731061-03:00",
+      "duration_ms": 934,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "capability_use_hardening",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-03T02:00:07.9735284-03:00",
+      "finished_at": "2026-06-03T02:00:09.3528460-03:00",
+      "duration_ms": 1379,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "autonomous_agent_execution",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-03T02:00:09.3532988-03:00",
+      "finished_at": "2026-06-03T02:00:10.3841230-03:00",
+      "duration_ms": 1031,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -626,9 +467,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T01:51:00.0071954-03:00",
-      "finished_at": "2026-06-03T01:51:02.9822151-03:00",
-      "duration_ms": 2975,
+      "started_at": "2026-06-03T02:00:10.3846258-03:00",
+      "finished_at": "2026-06-03T02:00:13.3645794-03:00",
+      "duration_ms": 2980,
       "warning_count": 3,
       "error_count": 0,
       "warnings": [
@@ -643,152 +484,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T01:51:02.9824755-03:00",
-      "finished_at": "2026-06-03T01:51:03.7208723-03:00",
-      "duration_ms": 738,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "autonomous_agent_execution",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-03T01:51:03.7211142-03:00",
-      "finished_at": "2026-06-03T01:51:04.6067628-03:00",
-      "duration_ms": 886,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "capability_use_hardening",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-03T01:51:04.6071897-03:00",
-      "finished_at": "2026-06-03T01:51:05.6872227-03:00",
-      "duration_ms": 1080,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "codex_app_environments",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-03T01:51:05.6874741-03:00",
-      "finished_at": "2026-06-03T01:51:06.4624996-03:00",
-      "duration_ms": 775,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "codex_cloud_governed_lane",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-03T01:51:06.4628451-03:00",
-      "finished_at": "2026-06-03T01:51:07.9157741-03:00",
-      "duration_ms": 1453,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "document_skill_lane",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-03T01:51:07.9162772-03:00",
-      "finished_at": "2026-06-03T01:51:08.9190547-03:00",
-      "duration_ms": 1003,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "frontend_design_lane",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-03T01:51:08.9194170-03:00",
-      "finished_at": "2026-06-03T01:51:09.7584758-03:00",
-      "duration_ms": 839,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "github_automation_preflight",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-03T01:51:09.7587553-03:00",
-      "finished_at": "2026-06-03T01:51:10.4898704-03:00",
-      "duration_ms": 731,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "operational_chain",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-03T01:51:10.4901605-03:00",
-      "finished_at": "2026-06-03T01:51:11.3030151-03:00",
-      "duration_ms": 813,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "order_packets",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-03T01:51:11.3033358-03:00",
-      "finished_at": "2026-06-03T01:51:12.0883502-03:00",
-      "duration_ms": 785,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "parallel_issue_queue",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-03T01:51:12.0886034-03:00",
-      "finished_at": "2026-06-03T01:51:12.8016801-03:00",
-      "duration_ms": 713,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "parallel_order_governance",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-03T01:51:12.8019661-03:00",
-      "finished_at": "2026-06-03T01:51:13.5426955-03:00",
-      "duration_ms": 741,
+      "started_at": "2026-06-03T02:00:13.3648115-03:00",
+      "finished_at": "2026-06-03T02:00:14.1913582-03:00",
+      "duration_ms": 827,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -799,9 +497,22 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T01:51:13.5429942-03:00",
-      "finished_at": "2026-06-03T01:51:14.3633950-03:00",
-      "duration_ms": 820,
+      "started_at": "2026-06-03T02:00:14.1916419-03:00",
+      "finished_at": "2026-06-03T02:00:14.9818693-03:00",
+      "duration_ms": 790,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "document_skill_lane",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-03T02:00:14.9821754-03:00",
+      "finished_at": "2026-06-03T02:00:16.2347788-03:00",
+      "duration_ms": 1253,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -812,9 +523,48 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T01:51:14.3637180-03:00",
-      "finished_at": "2026-06-03T01:51:15.0373729-03:00",
-      "duration_ms": 674,
+      "started_at": "2026-06-03T02:00:16.2351203-03:00",
+      "finished_at": "2026-06-03T02:00:16.9984260-03:00",
+      "duration_ms": 763,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "frontend_design_lane",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-03T02:00:16.9986830-03:00",
+      "finished_at": "2026-06-03T02:00:17.7886244-03:00",
+      "duration_ms": 790,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "codex_cloud_governed_lane",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-03T02:00:17.7889311-03:00",
+      "finished_at": "2026-06-03T02:00:18.5284081-03:00",
+      "duration_ms": 739,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "codex_app_environments",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-03T02:00:18.5286240-03:00",
+      "finished_at": "2026-06-03T02:00:19.2574782-03:00",
+      "duration_ms": 729,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -825,9 +575,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T01:51:15.0376448-03:00",
-      "finished_at": "2026-06-03T01:51:15.8485249-03:00",
-      "duration_ms": 811,
+      "started_at": "2026-06-03T02:00:19.2577134-03:00",
+      "finished_at": "2026-06-03T02:00:19.9991111-03:00",
+      "duration_ms": 741,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -838,9 +588,48 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T01:51:15.8488034-03:00",
-      "finished_at": "2026-06-03T01:51:16.6522366-03:00",
-      "duration_ms": 803,
+      "started_at": "2026-06-03T02:00:19.9994906-03:00",
+      "finished_at": "2026-06-03T02:00:20.8310458-03:00",
+      "duration_ms": 832,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "parallel_order_governance",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-03T02:00:20.8312759-03:00",
+      "finished_at": "2026-06-03T02:00:21.5947951-03:00",
+      "duration_ms": 764,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "parallel_issue_queue",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-03T02:00:21.5951409-03:00",
+      "finished_at": "2026-06-03T02:00:22.7268156-03:00",
+      "duration_ms": 1132,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "order_packets",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-03T02:00:22.7272144-03:00",
+      "finished_at": "2026-06-03T02:00:23.6856225-03:00",
+      "duration_ms": 958,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],

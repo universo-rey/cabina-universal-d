@@ -38,15 +38,19 @@
 !/LEVELS.yaml
 !/FOLDER_LEVELS.csv
 
-# Ordered local/no-live OpenAI agent governance baseline.
+# Ordered full-live governed OpenAI agent governance gate. The default
+# implementation remains local; secrets stay ignored, and Microsoft/production
+# writes require exact object or target, rollback and postcheck.
 !/governance/
 /governance/*
 !/governance/agents/
 /governance/agents/*
 !/governance/agents/*.md
 
-# Ordered local/no-live SDU agent runtime skeleton. This is not production and
-# does not include secrets, dependencies, live API calls or nested repos.
+# Ordered SDU agent runtime skeleton for the full-live governed gate. Runtime
+# implementation remains local by default; live validation is external and
+# governed. No secrets, no nested repos and no Microsoft/production writes
+# without exact object or target, rollback and postcheck.
 !/apps/
 /apps/*
 !/apps/sdu-agent-runtime/
@@ -189,6 +193,11 @@
 !/.agents/codex/plans/
 /.agents/codex/plans/*
 !/.agents/codex/plans/*.md
+
+!/.agents/codex/scripts/
+/.agents/codex/scripts/*
+!/.agents/codex/scripts/codex_cloud_full_live_governed_setup.sh
+!/.agents/codex/scripts/codex_cloud_full_live_governed_maintenance.sh
 
 !/.agents/codex/orders/
 /.agents/codex/orders/*
