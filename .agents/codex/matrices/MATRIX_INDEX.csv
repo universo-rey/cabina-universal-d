@@ -87,3 +87,4 @@ validator_performance_improvements,D:/.agents/codex/matrices/VALIDATOR_PERFORMAN
 change_aware_test_manifest,D:/.agents/codex/matrices/CHANGE_AWARE_TEST_MANIFEST.csv,change_aware_full_coverage,03_CORTE_EJECUTORA,update when required validation gates or coverage equivalence checks change
 change_aware_risk_policy,D:/.agents/codex/matrices/CHANGE_AWARE_RISK_POLICY.csv,change_aware_full_coverage,03_CORTE_EJECUTORA,update when change risk patterns priority expansion or parallelism rules change
 change_aware_impact_graph,D:/.agents/codex/matrices/CHANGE_AWARE_IMPACT_GRAPH.csv,change_aware_full_coverage,03_CORTE_EJECUTORA,update when path impact tags or required diagnostic ordering changes
+live_delta_reconciliation_matrix,D:/.agents/codex/matrices/LIVE_DELTA_RECONCILIATION_MATRIX_20260603.csv,live_delta_reconciliation,00_ROUTER,update when controlled parallel live-delta reconciliation lanes evidence buckets validators or stop conditions change

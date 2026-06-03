@@ -13,20 +13,16 @@
   "graph_valid": true,
   "required_test_count": 19,
   "changed_files": [
-    ".agents/codex/evals/results/change_aware_full_coverage_audit_latest.json",
-    ".agents/codex/readbacks/2026-06-03_reconcile_change_aware_gate_state_readback.md",
-    ".agents/codex/README.md",
-    ".gitignore",
-    "02_AUTHORITY_CANON/CURRENT_STATE.md",
-    "AGENTS.md",
-    "MANIFEST.yaml",
-    "REPO_SCOPE.md"
+    ".agents/codex/matrices/LIVE_DELTA_RECONCILIATION_MATRIX_20260603.csv",
+    ".agents/codex/matrices/MATRIX_INDEX.csv",
+    ".agents/codex/readbacks/2026-06-03_live_delta_reconciliation_readback.md",
+    ".gitignore"
   ],
   "impact_unknown": false,
   "expansion_applied": true,
   "blocked_surfaces_clear": true,
   "blocked_surfaces": null,
-  "max_parallel": 1,
+  "max_parallel": 2,
   "coverage_equivalence_planned": true,
   "missing_required_test_count": 0,
   "missing_required_tests": null,
@@ -41,76 +37,6 @@
       "runner_group": "control",
       "reasons": [
         "impact:graph.default",
-        "impact:graph.root_manifest",
-        "mandatory_full_coverage",
-        "risk:risk.default",
-        "risk:risk.manifest_root"
-      ]
-    },
-    {
-      "test_id": "agents_instruction_hierarchy",
-      "required": true,
-      "priority": 1,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.default",
-        "impact:graph.instructions",
-        "mandatory_full_coverage",
-        "risk:risk.default",
-        "risk:risk.global_config",
-        "risk:risk.readbacks"
-      ]
-    },
-    {
-      "test_id": "capability_use_hardening",
-      "required": true,
-      "priority": 1,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.authority",
-        "impact:graph.default",
-        "impact:graph.instructions",
-        "impact:graph.root_manifest",
-        "mandatory_full_coverage",
-        "risk:risk.authority",
-        "risk:risk.default",
-        "risk:risk.global_config",
-        "risk:risk.manifest_root"
-      ]
-    },
-    {
-      "test_id": "operational_chain",
-      "required": true,
-      "priority": 1,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.authority",
-        "impact:graph.default",
-        "impact:graph.instructions",
-        "impact:graph.root_manifest",
-        "mandatory_full_coverage",
-        "risk:risk.authority",
-        "risk:risk.default",
-        "risk:risk.global_config",
-        "risk:risk.manifest_root"
-      ]
-    },
-    {
-      "test_id": "runtime_alignment",
-      "required": true,
-      "priority": 1,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "runtime",
-      "reasons": [
-        "impact:graph.default",
-        "impact:graph.root_manifest",
         "mandatory_full_coverage",
         "risk:risk.default"
       ]
@@ -129,131 +55,132 @@
       ]
     },
     {
-      "test_id": "github_automation_preflight",
+      "test_id": "agent_layer",
       "required": true,
-      "priority": 2,
+      "priority": 3,
       "blocks_merge": true,
       "blocks_release": true,
       "runner_group": "governance",
       "reasons": [
-        "impact:graph.authority",
         "impact:graph.default",
+        "impact:graph.matrices",
         "mandatory_full_coverage",
-        "risk:risk.default"
+        "risk:risk.agent_matrices",
+        "risk:risk.default",
+        "risk:risk.readbacks"
       ]
     },
     {
-      "test_id": "order_packets",
+      "test_id": "agents_instruction_hierarchy",
       "required": true,
-      "priority": 2,
+      "priority": 3,
       "blocks_merge": true,
       "blocks_release": true,
       "runner_group": "governance",
       "reasons": [
-        "impact:graph.authority",
         "impact:graph.default",
+        "impact:graph.matrices",
         "mandatory_full_coverage",
-        "risk:risk.authority",
-        "risk:risk.default"
+        "risk:risk.agent_matrices",
+        "risk:risk.default",
+        "risk:risk.readbacks"
       ]
     },
     {
       "test_id": "autonomous_agent_execution",
       "required": true,
-      "priority": 6,
+      "priority": 3,
       "blocks_merge": true,
       "blocks_release": true,
       "runner_group": "governance",
       "reasons": [
         "impact:graph.default",
+        "impact:graph.matrices",
         "mandatory_full_coverage",
+        "risk:risk.agent_matrices",
         "risk:risk.default",
         "risk:risk.readbacks"
       ]
     },
     {
-      "test_id": "agent_layer",
+      "test_id": "capability_use_hardening",
       "required": true,
-      "priority": 7,
+      "priority": 3,
       "blocks_merge": true,
       "blocks_release": true,
       "runner_group": "governance",
       "reasons": [
         "impact:graph.default",
+        "impact:graph.matrices",
         "mandatory_full_coverage",
-        "risk:risk.default",
-        "risk:risk.readbacks"
-      ]
-    },
-    {
-      "test_id": "skill_metadata",
-      "required": true,
-      "priority": 8,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.default",
-        "mandatory_full_coverage",
-        "risk:risk.default"
-      ]
-    },
-    {
-      "test_id": "document_skill_lane",
-      "required": true,
-      "priority": 9,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.default",
-        "mandatory_full_coverage",
-        "risk:risk.default"
-      ]
-    },
-    {
-      "test_id": "skill_reference_sources",
-      "required": true,
-      "priority": 10,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.default",
-        "mandatory_full_coverage",
-        "risk:risk.default"
-      ]
-    },
-    {
-      "test_id": "frontend_design_lane",
-      "required": true,
-      "priority": 11,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.default",
-        "mandatory_full_coverage",
-        "risk:risk.default"
-      ]
-    },
-    {
-      "test_id": "codex_cloud_governed_lane",
-      "required": true,
-      "priority": 12,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.default",
-        "mandatory_full_coverage",
+        "risk:risk.agent_matrices",
         "risk:risk.default"
       ]
     },
     {
       "test_id": "codex_app_environments",
       "required": true,
-      "priority": 13,
+      "priority": 3,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "impact:graph.matrices",
+        "mandatory_full_coverage",
+        "risk:risk.agent_matrices",
+        "risk:risk.default"
+      ]
+    },
+    {
+      "test_id": "codex_cloud_governed_lane",
+      "required": true,
+      "priority": 3,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "impact:graph.matrices",
+        "mandatory_full_coverage",
+        "risk:risk.agent_matrices",
+        "risk:risk.default"
+      ]
+    },
+    {
+      "test_id": "document_skill_lane",
+      "required": true,
+      "priority": 3,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "impact:graph.matrices",
+        "mandatory_full_coverage",
+        "risk:risk.agent_matrices",
+        "risk:risk.default"
+      ]
+    },
+    {
+      "test_id": "frontend_design_lane",
+      "required": true,
+      "priority": 3,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "impact:graph.matrices",
+        "mandatory_full_coverage",
+        "risk:risk.agent_matrices",
+        "risk:risk.default"
+      ]
+    },
+    {
+      "test_id": "github_automation_preflight",
+      "required": true,
+      "priority": 3,
       "blocks_merge": true,
       "blocks_release": true,
       "runner_group": "governance",
@@ -264,69 +191,164 @@
       ]
     },
     {
-      "test_id": "teams_cross_repo_lane_audit",
+      "test_id": "operational_chain",
       "required": true,
-      "priority": 14,
+      "priority": 3,
       "blocks_merge": true,
       "blocks_release": true,
       "runner_group": "governance",
       "reasons": [
         "impact:graph.default",
+        "impact:graph.matrices",
         "mandatory_full_coverage",
+        "risk:risk.agent_matrices",
         "risk:risk.default"
       ]
     },
     {
-      "test_id": "parallel_order_governance",
+      "test_id": "order_packets",
       "required": true,
-      "priority": 16,
+      "priority": 3,
       "blocks_merge": true,
       "blocks_release": true,
       "runner_group": "governance",
       "reasons": [
         "impact:graph.default",
+        "impact:graph.matrices",
         "mandatory_full_coverage",
+        "risk:risk.agent_matrices",
         "risk:risk.default"
       ]
     },
     {
       "test_id": "parallel_issue_queue",
       "required": true,
-      "priority": 17,
+      "priority": 3,
       "blocks_merge": true,
       "blocks_release": true,
       "runner_group": "governance",
       "reasons": [
         "impact:graph.default",
+        "impact:graph.matrices",
         "mandatory_full_coverage",
+        "risk:risk.agent_matrices",
+        "risk:risk.default"
+      ]
+    },
+    {
+      "test_id": "parallel_order_governance",
+      "required": true,
+      "priority": 3,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "impact:graph.matrices",
+        "mandatory_full_coverage",
+        "risk:risk.agent_matrices",
+        "risk:risk.default"
+      ]
+    },
+    {
+      "test_id": "skill_metadata",
+      "required": true,
+      "priority": 3,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "impact:graph.matrices",
+        "mandatory_full_coverage",
+        "risk:risk.agent_matrices",
+        "risk:risk.default"
+      ]
+    },
+    {
+      "test_id": "skill_reference_sources",
+      "required": true,
+      "priority": 3,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "impact:graph.matrices",
+        "mandatory_full_coverage",
+        "risk:risk.agent_matrices",
+        "risk:risk.default"
+      ]
+    },
+    {
+      "test_id": "teams_cross_repo_lane_audit",
+      "required": true,
+      "priority": 3,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "impact:graph.matrices",
+        "mandatory_full_coverage",
+        "risk:risk.agent_matrices",
+        "risk:risk.default"
+      ]
+    },
+    {
+      "test_id": "runtime_alignment",
+      "required": true,
+      "priority": 3,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "runtime",
+      "reasons": [
+        "impact:graph.default",
+        "impact:graph.matrices",
+        "mandatory_full_coverage",
+        "risk:risk.agent_matrices",
         "risk:risk.default"
       ]
     }
   ],
   "risk_matches": [
     {
-      "path": ".agents/codex/evals/results/change_aware_full_coverage_audit_latest.json",
+      "path": ".agents/codex/matrices/LIVE_DELTA_RECONCILIATION_MATRIX_20260603.csv",
+      "risk_id": "risk.agent_matrices",
+      "risk_level": "high",
+      "expansion": "full",
+      "reason": "shared_matrix_changed"
+    },
+    {
+      "path": ".agents/codex/matrices/LIVE_DELTA_RECONCILIATION_MATRIX_20260603.csv",
       "risk_id": "risk.default",
       "risk_level": "medium",
       "expansion": "full",
       "reason": "default_full_coverage"
     },
     {
-      "path": ".agents/codex/readbacks/2026-06-03_reconcile_change_aware_gate_state_readback.md",
+      "path": ".agents/codex/matrices/MATRIX_INDEX.csv",
+      "risk_id": "risk.agent_matrices",
+      "risk_level": "high",
+      "expansion": "full",
+      "reason": "shared_matrix_changed"
+    },
+    {
+      "path": ".agents/codex/matrices/MATRIX_INDEX.csv",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": ".agents/codex/readbacks/2026-06-03_live_delta_reconciliation_readback.md",
       "risk_id": "risk.readbacks",
       "risk_level": "medium",
       "expansion": "full",
       "reason": "evidence_changed"
     },
     {
-      "path": ".agents/codex/readbacks/2026-06-03_reconcile_change_aware_gate_state_readback.md",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/README.md",
+      "path": ".agents/codex/readbacks/2026-06-03_live_delta_reconciliation_readback.md",
       "risk_id": "risk.default",
       "risk_level": "medium",
       "expansion": "full",
@@ -334,55 +356,6 @@
     },
     {
       "path": ".gitignore",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": "02_AUTHORITY_CANON/CURRENT_STATE.md",
-      "risk_id": "risk.authority",
-      "risk_level": "critical",
-      "expansion": "full",
-      "reason": "authority_canon_changed"
-    },
-    {
-      "path": "02_AUTHORITY_CANON/CURRENT_STATE.md",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": "AGENTS.md",
-      "risk_id": "risk.global_config",
-      "risk_level": "critical",
-      "expansion": "full",
-      "reason": "global_config_changed"
-    },
-    {
-      "path": "AGENTS.md",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": "MANIFEST.yaml",
-      "risk_id": "risk.manifest_root",
-      "risk_level": "critical",
-      "expansion": "full",
-      "reason": "root_manifest_changed"
-    },
-    {
-      "path": "MANIFEST.yaml",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": "REPO_SCOPE.md",
       "risk_id": "risk.default",
       "risk_level": "medium",
       "expansion": "full",
@@ -391,67 +364,37 @@
   ],
   "graph_matches": [
     {
-      "path": ".agents/codex/evals/results/change_aware_full_coverage_audit_latest.json",
+      "path": ".agents/codex/matrices/LIVE_DELTA_RECONCILIATION_MATRIX_20260603.csv",
+      "graph_id": "graph.matrices",
+      "expansion": "full",
+      "reason": "matrix_changed"
+    },
+    {
+      "path": ".agents/codex/matrices/LIVE_DELTA_RECONCILIATION_MATRIX_20260603.csv",
       "graph_id": "graph.default",
       "expansion": "full",
       "reason": "unknown_or_unmapped_change"
     },
     {
-      "path": ".agents/codex/readbacks/2026-06-03_reconcile_change_aware_gate_state_readback.md",
+      "path": ".agents/codex/matrices/MATRIX_INDEX.csv",
+      "graph_id": "graph.matrices",
+      "expansion": "full",
+      "reason": "matrix_changed"
+    },
+    {
+      "path": ".agents/codex/matrices/MATRIX_INDEX.csv",
       "graph_id": "graph.default",
       "expansion": "full",
       "reason": "unknown_or_unmapped_change"
     },
     {
-      "path": ".agents/codex/README.md",
+      "path": ".agents/codex/readbacks/2026-06-03_live_delta_reconciliation_readback.md",
       "graph_id": "graph.default",
       "expansion": "full",
       "reason": "unknown_or_unmapped_change"
     },
     {
       "path": ".gitignore",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": "02_AUTHORITY_CANON/CURRENT_STATE.md",
-      "graph_id": "graph.authority",
-      "expansion": "full",
-      "reason": "authority_changed"
-    },
-    {
-      "path": "02_AUTHORITY_CANON/CURRENT_STATE.md",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": "AGENTS.md",
-      "graph_id": "graph.instructions",
-      "expansion": "full",
-      "reason": "root_instructions_changed"
-    },
-    {
-      "path": "AGENTS.md",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": "MANIFEST.yaml",
-      "graph_id": "graph.root_manifest",
-      "expansion": "full",
-      "reason": "root_manifest_changed"
-    },
-    {
-      "path": "MANIFEST.yaml",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": "REPO_SCOPE.md",
       "graph_id": "graph.default",
       "expansion": "full",
       "reason": "unknown_or_unmapped_change"
@@ -465,9 +408,9 @@
   "hidden_flaky_tests": null,
   "result_written": true,
   "audit_path": "D:\\.agents\\codex\\evals\\results\\change_aware_full_coverage_audit_latest.json",
-  "started_at": "2026-06-02T23:21:20.4555444-03:00",
-  "finished_at": "2026-06-02T23:21:37.1869231-03:00",
-  "duration_ms": 16731,
+  "started_at": "2026-06-02T23:53:03.1637240-03:00",
+  "finished_at": "2026-06-02T23:53:21.9833340-03:00",
+  "duration_ms": 18820,
   "errors": [],
   "warnings": [],
   "results": [
@@ -476,61 +419,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-02T23:21:20.8807617-03:00",
-      "finished_at": "2026-06-02T23:21:23.1976422-03:00",
-      "duration_ms": 2317,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "agents_instruction_hierarchy",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-02T23:21:23.2049805-03:00",
-      "finished_at": "2026-06-02T23:21:23.9812960-03:00",
-      "duration_ms": 776,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "capability_use_hardening",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-02T23:21:23.9818511-03:00",
-      "finished_at": "2026-06-02T23:21:24.9382962-03:00",
-      "duration_ms": 956,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "operational_chain",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-02T23:21:24.9386025-03:00",
-      "finished_at": "2026-06-02T23:21:25.7961955-03:00",
-      "duration_ms": 858,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "runtime_alignment",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-02T23:21:25.7965000-03:00",
-      "finished_at": "2026-06-02T23:21:26.4900319-03:00",
-      "duration_ms": 694,
+      "started_at": "2026-06-02T23:53:03.6571093-03:00",
+      "finished_at": "2026-06-02T23:53:05.9648889-03:00",
+      "duration_ms": 2308,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -541,48 +432,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-02T23:21:26.4903172-03:00",
-      "finished_at": "2026-06-02T23:21:26.5113378-03:00",
-      "duration_ms": 21,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "github_automation_preflight",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-02T23:21:26.5115313-03:00",
-      "finished_at": "2026-06-02T23:21:27.2095815-03:00",
-      "duration_ms": 698,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "order_packets",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-02T23:21:27.2098367-03:00",
-      "finished_at": "2026-06-02T23:21:27.8750573-03:00",
-      "duration_ms": 665,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "autonomous_agent_execution",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-02T23:21:27.8753020-03:00",
-      "finished_at": "2026-06-02T23:21:28.6353440-03:00",
-      "duration_ms": 760,
+      "started_at": "2026-06-02T23:53:05.9716782-03:00",
+      "finished_at": "2026-06-02T23:53:05.9915148-03:00",
+      "duration_ms": 20,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -593,9 +445,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-02T23:21:28.6355707-03:00",
-      "finished_at": "2026-06-02T23:21:31.1175115-03:00",
-      "duration_ms": 2482,
+      "started_at": "2026-06-02T23:53:05.9918525-03:00",
+      "finished_at": "2026-06-02T23:53:08.8246208-03:00",
+      "duration_ms": 2833,
       "warning_count": 3,
       "error_count": 0,
       "warnings": [
@@ -606,65 +458,39 @@
       "errors": []
     },
     {
-      "test_id": "skill_metadata",
+      "test_id": "agents_instruction_hierarchy",
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-02T23:21:31.1177573-03:00",
-      "finished_at": "2026-06-02T23:21:31.8380147-03:00",
-      "duration_ms": 720,
+      "started_at": "2026-06-02T23:53:08.8250768-03:00",
+      "finished_at": "2026-06-02T23:53:09.5808662-03:00",
+      "duration_ms": 756,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
       "errors": []
     },
     {
-      "test_id": "document_skill_lane",
+      "test_id": "autonomous_agent_execution",
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-02T23:21:31.8382866-03:00",
-      "finished_at": "2026-06-02T23:21:32.4564454-03:00",
-      "duration_ms": 618,
+      "started_at": "2026-06-02T23:53:09.5811675-03:00",
+      "finished_at": "2026-06-02T23:53:10.4413396-03:00",
+      "duration_ms": 860,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
       "errors": []
     },
     {
-      "test_id": "skill_reference_sources",
+      "test_id": "capability_use_hardening",
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-02T23:21:32.4567563-03:00",
-      "finished_at": "2026-06-02T23:21:33.1096153-03:00",
-      "duration_ms": 653,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "frontend_design_lane",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-02T23:21:33.1098860-03:00",
-      "finished_at": "2026-06-02T23:21:33.7556490-03:00",
-      "duration_ms": 646,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "codex_cloud_governed_lane",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-02T23:21:33.7558625-03:00",
-      "finished_at": "2026-06-02T23:21:34.4008468-03:00",
-      "duration_ms": 645,
+      "started_at": "2026-06-02T23:53:10.4416062-03:00",
+      "finished_at": "2026-06-02T23:53:11.5222863-03:00",
+      "duration_ms": 1081,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -675,35 +501,87 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-02T23:21:34.4011460-03:00",
-      "finished_at": "2026-06-02T23:21:35.1115029-03:00",
-      "duration_ms": 710,
+      "started_at": "2026-06-02T23:53:11.5225267-03:00",
+      "finished_at": "2026-06-02T23:53:12.2771070-03:00",
+      "duration_ms": 755,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
       "errors": []
     },
     {
-      "test_id": "teams_cross_repo_lane_audit",
+      "test_id": "codex_cloud_governed_lane",
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-02T23:21:35.1117997-03:00",
-      "finished_at": "2026-06-02T23:21:35.7640888-03:00",
-      "duration_ms": 652,
+      "started_at": "2026-06-02T23:53:12.2773726-03:00",
+      "finished_at": "2026-06-02T23:53:13.0517564-03:00",
+      "duration_ms": 774,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
       "errors": []
     },
     {
-      "test_id": "parallel_order_governance",
+      "test_id": "document_skill_lane",
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-02T23:21:35.7643080-03:00",
-      "finished_at": "2026-06-02T23:21:36.4141635-03:00",
-      "duration_ms": 650,
+      "started_at": "2026-06-02T23:53:13.0520313-03:00",
+      "finished_at": "2026-06-02T23:53:13.8019580-03:00",
+      "duration_ms": 750,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "frontend_design_lane",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-02T23:53:13.8022386-03:00",
+      "finished_at": "2026-06-02T23:53:14.5217330-03:00",
+      "duration_ms": 719,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "github_automation_preflight",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-02T23:53:14.5219622-03:00",
+      "finished_at": "2026-06-02T23:53:15.3287417-03:00",
+      "duration_ms": 807,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "operational_chain",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-02T23:53:15.3289624-03:00",
+      "finished_at": "2026-06-02T23:53:16.2193539-03:00",
+      "duration_ms": 890,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "order_packets",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-02T23:53:16.2195872-03:00",
+      "finished_at": "2026-06-02T23:53:16.9367712-03:00",
+      "duration_ms": 717,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -714,9 +592,74 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-02T23:21:36.4144177-03:00",
-      "finished_at": "2026-06-02T23:21:37.1710545-03:00",
-      "duration_ms": 757,
+      "started_at": "2026-06-02T23:53:16.9370097-03:00",
+      "finished_at": "2026-06-02T23:53:17.7448810-03:00",
+      "duration_ms": 808,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "parallel_order_governance",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-02T23:53:17.7451607-03:00",
+      "finished_at": "2026-06-02T23:53:18.5038580-03:00",
+      "duration_ms": 759,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "skill_metadata",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-02T23:53:18.5041076-03:00",
+      "finished_at": "2026-06-02T23:53:19.3079327-03:00",
+      "duration_ms": 804,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "skill_reference_sources",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-02T23:53:19.3082349-03:00",
+      "finished_at": "2026-06-02T23:53:20.1569662-03:00",
+      "duration_ms": 849,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "teams_cross_repo_lane_audit",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-02T23:53:20.1572505-03:00",
+      "finished_at": "2026-06-02T23:53:21.1031790-03:00",
+      "duration_ms": 946,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "runtime_alignment",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-02T23:53:21.1034693-03:00",
+      "finished_at": "2026-06-02T23:53:21.9149862-03:00",
+      "duration_ms": 812,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
