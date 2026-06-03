@@ -118,6 +118,9 @@
 !/matrices/openai/
 /matrices/openai/*
 !/matrices/openai/*.csv
+!/matrices/postmerge/
+/matrices/postmerge/*
+!/matrices/postmerge/*.csv
 !/matrices/versioning/
 /matrices/versioning/*
 !/matrices/versioning/*.csv
@@ -207,6 +210,9 @@
 !/validation/openai/
 /validation/openai/*
 !/validation/openai/*.md
+!/validation/postmerge/
+/validation/postmerge/*
+!/validation/postmerge/*.md
 !/validation/versioning/
 /validation/versioning/*
 !/validation/versioning/*.md
@@ -225,6 +231,9 @@
 !/readbacks/openai/
 /readbacks/openai/*
 !/readbacks/openai/*.md
+!/readbacks/postmerge/
+/readbacks/postmerge/*
+!/readbacks/postmerge/*.md
 !/readbacks/versioning/
 /readbacks/versioning/*
 !/readbacks/versioning/*.md
