@@ -64,6 +64,7 @@ jobs:
           }
 
       - name: Governance validation suite
+        id: governance-suite
         shell: pwsh
         run: |
           $root = Join-Path $env:GITHUB_WORKSPACE ".agents\codex"
@@ -71,9 +72,47 @@ jobs:
           $output = & $tool -Root $root -RepoRoot $env:GITHUB_WORKSPACE -SkipWorkflowNestedValidators
           $output | Write-Output
           $payload = ($output -join "`n") | ConvertFrom-Json
+
+          $artifactPath = Join-Path $env:RUNNER_TEMP "governance-validation-suite-summary.json"
+          $summary = [ordered]@{
+            status = $payload.status
+            suite_id = $payload.suite_id
+            mode = $payload.mode
+            validator_count = $payload.validator_count
+            passed_count = $payload.passed_count
+            failed_count = $payload.failed_count
+            warning_count = $payload.warning_count
+            error_count = $payload.error_count
+            started_at = $payload.started_at
+            finished_at = $payload.finished_at
+            duration_ms = $payload.duration_ms
+            result_written = $payload.result_written
+            results = @($payload.results | ForEach-Object {
+              [ordered]@{
+                id = $_.id
+                status = $_.status
+                exit_code = $_.exit_code
+                duration_ms = $_.duration_ms
+                warning_count = $_.warning_count
+                error_count = $_.error_count
+              }
+            })
+          }
+          $summary | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $artifactPath -Encoding UTF8
+          "artifact_path=$artifactPath" >> $env:GITHUB_OUTPUT
+
           if ($payload.status -ne "PASS") {
             exit 1
           }
           if ($payload.result_written -ne $false) {
             throw "Governance validation suite must not write results in GitHub Actions"
           }
+
+      - name: Upload governance suite summary
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: governance-validation-suite-${{ github.run_id }}
+          path: ${{ steps.governance-suite.outputs.artifact_path }}
+          if-no-files-found: error
+          retention-days: 14

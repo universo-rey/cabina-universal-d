@@ -163,7 +163,8 @@ tres corridas manuales adicionales exitosas en GitHub Actions, el runner queda
 promovido a gate principal de PR/push/manual en `cabina-validation.yml`. El
 runner compone los validadores actuales, informa duracion por subvalidador y
 no escribe evidencia salvo que se use `-WriteResult`; en CI debe quedar
-`result_written=false`.
+`result_written=false`. El workflow sube un artifact JSON saneado con resumen,
+conteos y duraciones para diagnostico rapido.
 
 ## Olas de agentes
 
