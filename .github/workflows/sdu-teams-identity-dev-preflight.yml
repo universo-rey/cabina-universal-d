@@ -1,0 +1,70 @@
+name: SDU Teams Identity DEV Preflight
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "governance/teams/**"
+      - "teams-app/sdu-agent-chat/dev-package/**"
+      - "scripts/validators/sdu_teams_identity_dev_activation_validator.py"
+      - "tests/sdu-agent-runtime/test_dev_activation_contract.py"
+      - "readbacks/20260603_SDU_TEAMS_MCP_CODEX_CLOUD_DEV_ACTIVATION_READY_READBACK.md"
+      - ".github/workflows/sdu-teams-identity-dev-preflight.yml"
+  push:
+    branches:
+      - main
+      - "codex/**"
+    paths:
+      - "governance/teams/**"
+      - "teams-app/sdu-agent-chat/dev-package/**"
+      - "scripts/validators/sdu_teams_identity_dev_activation_validator.py"
+      - "tests/sdu-agent-runtime/test_dev_activation_contract.py"
+      - "readbacks/20260603_SDU_TEAMS_MCP_CODEX_CLOUD_DEV_ACTIVATION_READY_READBACK.md"
+      - ".github/workflows/sdu-teams-identity-dev-preflight.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sdu-teams-identity-dev-preflight-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate Teams identity DEV gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Validate Teams DEV identity package
+        run: |
+          python scripts/validators/sdu_teams_identity_dev_activation_validator.py
+          python tests/sdu-agent-runtime/test_dev_activation_contract.py
+
+      - name: Parse Teams DEV manifest
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          json.loads(Path("teams-app/sdu-agent-chat/dev-package/manifest.dev.template.json").read_text(encoding="utf-8"))
+          print("SDU_TEAMS_IDENTITY_DEV_MANIFEST_PARSE_PASS")
+          PY
+
+      - name: Check whitespace
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git diff --check "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}"
+          else
+            git diff --check
+          fi

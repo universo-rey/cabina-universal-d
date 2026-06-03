@@ -1,0 +1,46 @@
+contract_id: sdu.local.bridge.dev.activation.20260603
+status: DEV_CONTRACT_READY
+owner_agent: operador_runtime
+surface: local_loopback_bridge
+host:
+  bind: "127.0.0.1"
+  port_placeholder: "[LOCAL_BRIDGE_PORT]"
+  public_bind_allowed: false
+auth:
+  required: true
+  token_reference: "[LOCAL_BRIDGE_TOKEN_REFERENCE]"
+  token_value_in_repo: false
+filesystem:
+  repo_relative_allowlist:
+    - governance/
+    - teams-app/sdu-agent-chat/dev-package/
+    - local-agent-bridge/
+    - tests/sdu-agent-runtime/
+    - readbacks/
+  full_filesystem_access: false
+routes:
+  - route_id: teams.activity.mock
+    method: POST
+    path: /dev/mock/teams/activity
+    mode: mock
+    live_enabled: false
+    writes_allowed: false
+    evidence: local-agent-bridge/schemas/evidence.schema.json
+  - route_id: mcp.tool.mock
+    method: POST
+    path: /dev/mock/mcp/tool
+    mode: mock
+    live_enabled: false
+    writes_allowed: false
+    evidence: local-agent-bridge/schemas/evidence.schema.json
+blocked_actions:
+  - public_bind
+  - external_write
+  - teams_message
+  - graph_write
+  - openai_live
+  - codex_cloud_apply
+  - production
+rollback: revert_contract_change
+postcheck: loopback_only_no_live_no_public_bind
+stop_condition: PUBLIC_LOCAL_BRIDGE_WITHOUT_AUTH|MCP_REMOTE_WRITE_ATTEMPTED|SECRET_DETECTED

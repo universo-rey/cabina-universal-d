@@ -262,7 +262,9 @@ function Test-BlockedSurfaces {
     "dataverse/data/seed_connection_secret_boundaries.csv",
     "matrices/connections/connection_secret_boundary_matrix.csv",
     "governance/connections/sdu_agent_connection_secrets_variables_contract_20260603.md",
+    "governance/connections/sdu_dev_activation_secrets_checklist_20260603.md",
     "scripts/validators/sdu_agent_connection_secrets_contract_validator.py",
+    "scripts/validators/sdu_dev_activation_secret_contract_validator.py",
     "validation/versioning/local_package_secret_scan_report.md"
   )
   $patterns = @(

@@ -71,12 +71,18 @@ jobs:
           python scripts/validators/sdu_codex_cloud_assignment_validator.py
           python scripts/validators/sdu_agent_connection_secrets_contract_validator.py
           python scripts/validators/sdu_agent_runtime_evidence_validator.py
+          python scripts/validators/sdu_teams_identity_dev_activation_validator.py
+          python scripts/validators/sdu_mcp_dev_activation_validator.py
+          python scripts/validators/sdu_codex_cloud_dev_activation_validator.py
+          python scripts/validators/sdu_local_bridge_dev_activation_validator.py
+          python scripts/validators/sdu_dev_activation_secret_contract_validator.py
 
       - name: Run mock runtime checks
         run: |
           npm test --prefix local-agent-bridge
           npm test --prefix teams-app/sdu-agent-chat/bot
           python tests/sdu-agent-runtime/simulate_sdu_agent_chat_to_tool_to_readback.py
+          python tests/sdu-agent-runtime/test_dev_activation_contract.py
 
       - name: Parse structured artifacts
         run: |
@@ -90,7 +96,9 @@ jobs:
               "governance/agents/SDU_AGENT_CAPABILITY_ASSIGNMENT_MATRIX_20260603.csv",
               "governance/connections/MCP_CONNECTION_REGISTRY_20260603.csv",
               "governance/teams/SDU_AGENT_TEAMS_CHAT_ROUTING_MATRIX_20260603.csv",
+              "governance/teams/SDU_TEAMS_IDENTITY_DEV_TARGET_MATRIX_20260603.csv",
               "governance/codex-cloud/SDU_AGENT_CODEX_CLOUD_ASSIGNMENT_MATRIX_20260603.csv",
+              "governance/connections/MCP_DEV_ACTIVATION_MATRIX_20260603.csv",
           ]:
               with open(path, newline="", encoding="utf-8-sig") as handle:
                   list(csv.DictReader(handle))

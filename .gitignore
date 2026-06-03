@@ -52,6 +52,7 @@
 !/governance/connections/*.md
 !/governance/connections/*.csv
 !/governance/connections/SDU_AGENT_CONNECTION_SECRETS_VARIABLES_CONTRACT_20260603.md
+!/governance/connections/SDU_DEV_ACTIVATION_SECRETS_CHECKLIST_20260603.md
 !/governance/teams/
 /governance/teams/*
 !/governance/teams/*.md
@@ -152,6 +153,10 @@
 /teams-app/sdu-agent-chat/*
 !/teams-app/sdu-agent-chat/README.md
 !/teams-app/sdu-agent-chat/*.json
+!/teams-app/sdu-agent-chat/dev-package/
+/teams-app/sdu-agent-chat/dev-package/*
+!/teams-app/sdu-agent-chat/dev-package/README.md
+!/teams-app/sdu-agent-chat/dev-package/*.json
 !/teams-app/sdu-agent-chat/bot/
 /teams-app/sdu-agent-chat/bot/*
 !/teams-app/sdu-agent-chat/bot/*.json
@@ -175,6 +180,7 @@
 !/local-agent-bridge/README.md
 !/local-agent-bridge/*.json
 !/local-agent-bridge/*.md
+!/local-agent-bridge/*.yml
 !/local-agent-bridge/src/
 /local-agent-bridge/src/*
 !/local-agent-bridge/src/*.mjs
@@ -328,6 +334,7 @@
 !/readbacks/20260603_SDU_AGENTS_RUNTIME_CONNECTIONS_PREFLIGHT.md
 !/readbacks/20260603_SDU_AGENT_RUNTIME_CONNECTIONS_TEAMS_CODEX_CLOUD_READBACK.md
 !/readbacks/20260603_SDU_AGENT_RUNTIME_CONNECTIONS_TEAMS_CODEX_CLOUD_POSTMERGE_READBACK.md
+!/readbacks/20260603_SDU_TEAMS_MCP_CODEX_CLOUD_DEV_ACTIVATION_READY_READBACK.md
 !/readbacks/20260603_POWER_PLATFORM_TEAMS_ALM_PROVISIONING_READBACK.md
 !/readbacks/dataverse/
 /readbacks/dataverse/*
@@ -363,6 +370,9 @@
 !/.codex/cloud/sdu-agents/tasks/
 /.codex/cloud/sdu-agents/tasks/*
 !/.codex/cloud/sdu-agents/tasks/*.md
+!/.codex/cloud/sdu-agents/task_templates/
+/.codex/cloud/sdu-agents/task_templates/*
+!/.codex/cloud/sdu-agents/task_templates/*.md
 !/.codex/environments/
 /.codex/environments/*
 !/.codex/environments/*.toml
