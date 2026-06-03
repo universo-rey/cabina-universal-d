@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.16/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.16",
+  "version": "0.1.0",
+  "id": "{{TEAMS_APP_ID_GUID}}",
+  "packageName": "ar.com.sdu.agents.chat.dev",
+  "developer": {
+    "name": "SDU-CN Governed DEV",
+    "websiteUrl": "https://example.invalid/sdu-dev",
+    "privacyUrl": "https://example.invalid/sdu-dev/privacy",
+    "termsOfUseUrl": "https://example.invalid/sdu-dev/terms"
+  },
+  "name": {
+    "short": "SDU Agent Chat",
+    "full": "SDU Agent Chat DEV"
+  },
+  "description": {
+    "short": "Governed DEV chat entrypoint for the SDU agent chain.",
+    "full": "Governed DEV chat entrypoint for the SDU agent chain. Template only; no tenant install or live message execution."
+  },
+  "accentColor": "#2F6FED",
+  "bots": [
+    {
+      "botId": "{{BOT_APP_ID_GUID}}",
+      "scopes": [
+        "personal",
+        "team"
+      ],
+      "supportsFiles": false,
+      "isNotificationOnly": false
+    }
+  ],
+  "validDomains": [
+    "localhost",
+    "{{DEV_TUNNEL_HOST}}"
+  ]
+}

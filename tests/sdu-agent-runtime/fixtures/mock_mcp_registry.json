@@ -1,0 +1,10 @@
+{
+  "expectedConnections": [
+    "mcp.github.repo_scoped",
+    "mcp.teams.chat.template",
+    "mcp.local.bridge.mock",
+    "mcp.codex.cloud.repo_scoped",
+    "mcp.openai.responses.gate"
+  ],
+  "liveExecuted": false
+}

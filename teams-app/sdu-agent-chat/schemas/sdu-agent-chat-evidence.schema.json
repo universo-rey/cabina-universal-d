@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SDU Agent Chat Evidence DEV",
+  "type": "object",
+  "required": [
+    "evidence_id",
+    "route_id",
+    "assigned_agent",
+    "live_executed",
+    "blocked_surfaces"
+  ],
+  "properties": {
+    "evidence_id": {
+      "type": "string"
+    },
+    "route_id": {
+      "type": "string"
+    },
+    "assigned_agent": {
+      "type": "string"
+    },
+    "live_executed": {
+      "const": false
+    },
+    "blocked_surfaces": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

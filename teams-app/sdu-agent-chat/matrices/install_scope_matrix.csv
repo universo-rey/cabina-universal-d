@@ -1,0 +1,3 @@
+install_scope_id,target_surface,dev_status,allowed_actions,blocked_actions,requires_human_approval,evidence,validator,stop_condition
+install.personal.dev,Teams personal chat,TEMPLATE_ONLY,simulate_activity,install_app|send_message,yes,teams-app/sdu-agent-chat/manifest.template.json,scripts/validators/sdu_teams_chat_identity_validator.py,TEAMS_APP_INSTALL_ATTEMPTED
+install.team.dev,Teams team,TEMPLATE_ONLY,simulate_activity,install_app|send_message|graph_write,yes,teams-app/sdu-agent-chat/manifest.template.json,scripts/validators/sdu_teams_chat_identity_validator.py,TEAMS_MESSAGE_SENT_WITHOUT_GATE

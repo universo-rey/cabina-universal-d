@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SDU Teams Command DEV",
+  "type": "object",
+  "required": [
+    "channel",
+    "synthetic",
+    "conversationId",
+    "fromDisplayName",
+    "requestedBy",
+    "text"
+  ],
+  "properties": {
+    "channel": {
+      "const": "msteams"
+    },
+    "synthetic": {
+      "const": true
+    },
+    "conversationId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fromDisplayName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "requestedBy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1200
+    }
+  },
+  "additionalProperties": false
+}

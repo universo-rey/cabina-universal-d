@@ -1,0 +1,3 @@
+route_id,http_method,path,assigned_agent,allowed_actions,blocked_actions,evidence_schema,validator,stop_condition,status
+bridge.health,GET,/health,sdu-triage-agent,report_local_health,external_write|live_call,local-agent-bridge/schemas/evidence.schema.json,scripts/validators/local_agent_bridge_validator.py,LOCAL_BRIDGE_PUBLIC_WITHOUT_AUTH,ACTIVE_DEV
+bridge.route,POST,/v1/sdu/route,sdu-triage-agent,route_synthetic_activity|emit_evidence,public_listener|raw_data_dump|teams_send|graph_write,local-agent-bridge/schemas/evidence.schema.json,scripts/validators/local_agent_bridge_validator.py,TEAMS_MESSAGE_SENT_WITHOUT_GATE,ACTIVE_DEV

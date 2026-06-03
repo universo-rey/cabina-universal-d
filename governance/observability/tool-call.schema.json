@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SDU Tool Call Evidence",
+  "type": "object",
+  "required": [
+    "tool_call_id",
+    "connection_id",
+    "mode",
+    "live_executed",
+    "validator"
+  ],
+  "properties": {
+    "tool_call_id": {
+      "type": "string"
+    },
+    "connection_id": {
+      "type": "string"
+    },
+    "mode": {
+      "type": "string"
+    },
+    "live_executed": {
+      "const": false
+    },
+    "validator": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

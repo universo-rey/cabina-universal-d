@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "2026-06-03.dev",
+  "profile": "sdu-agents-dev",
+  "purpose": "Governed MCP connection template for SDU agent runtime DEV plane.",
+  "defaults": {
+    "liveWrites": false,
+    "production": false,
+    "materialInRepo": false,
+    "loopbackOnly": true
+  },
+  "servers": {
+    "localAgentBridge": {
+      "enabledByDefault": true,
+      "transport": "http",
+      "baseUrl": "http://127.0.0.1:8787",
+      "allowedActions": [
+        "health",
+        "routeSyntheticActivity",
+        "emitSanitizedEvidence"
+      ],
+      "blockedActions": [
+        "externalWrite",
+        "publicListen",
+        "rawDataExport"
+      ]
+    },
+    "githubRepoScoped": {
+      "enabledByDefault": false,
+      "mode": "governed_repo_scoped",
+      "repo": "universo-rey/cabina-universal-d",
+      "allowedActions": [
+        "branch",
+        "commit",
+        "push",
+        "pullRequest"
+      ],
+      "blockedActions": [
+        "forcePush",
+        "permissionChange",
+        "deleteRemoteBranch"
+      ]
+    },
+    "teamsChatTemplate": {
+      "enabledByDefault": false,
+      "mode": "template_no_install",
+      "allowedActions": [
+        "validateManifest",
+        "simulateActivity"
+      ],
+      "blockedActions": [
+        "installApp",
+        "sendMessage",
+        "graphWrite"
+      ]
+    },
+    "codexCloudTemplate": {
+      "enabledByDefault": false,
+      "mode": "task_template_no_apply",
+      "allowedActions": [
+        "prepareTask",
+        "validateProfile"
+      ],
+      "blockedActions": [
+        "applyRemoteChange",
+        "persistentRemoteAgent"
+      ]
+    }
+  }
+}

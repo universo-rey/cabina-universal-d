@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SDU Gate Decision Evidence",
+  "type": "object",
+  "required": [
+    "gate_id",
+    "gate_agent",
+    "decision",
+    "blocked_surfaces",
+    "stop_condition"
+  ],
+  "properties": {
+    "gate_id": {
+      "type": "string"
+    },
+    "gate_agent": {
+      "type": "string"
+    },
+    "decision": {
+      "enum": [
+        "ALLOW_DEV_MOCK",
+        "BLOCK_LIVE_PENDING_APPROVAL"
+      ]
+    },
+    "blocked_surfaces": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "stop_condition": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

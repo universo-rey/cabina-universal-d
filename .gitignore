@@ -46,6 +46,24 @@
 !/governance/agents/
 /governance/agents/*
 !/governance/agents/*.md
+!/governance/agents/*.csv
+!/governance/connections/
+/governance/connections/*
+!/governance/connections/*.md
+!/governance/connections/*.csv
+!/governance/connections/SDU_AGENT_CONNECTION_SECRETS_VARIABLES_CONTRACT_20260603.md
+!/governance/teams/
+/governance/teams/*
+!/governance/teams/*.md
+!/governance/teams/*.csv
+!/governance/codex-cloud/
+/governance/codex-cloud/*
+!/governance/codex-cloud/*.md
+!/governance/codex-cloud/*.csv
+!/governance/observability/
+/governance/observability/*
+!/governance/observability/*.md
+!/governance/observability/*.json
 !/governance/power-platform/
 /governance/power-platform/*
 !/governance/power-platform/*.md
@@ -59,6 +77,9 @@
 
 !/scripts/
 /scripts/*
+!/scripts/validators/
+/scripts/validators/*
+!/scripts/validators/*.py
 !/scripts/power-platform/
 /scripts/power-platform/*
 !/scripts/power-platform/*.ps1
@@ -115,6 +136,74 @@
 !/.github/workflows/
 /.github/workflows/*
 !/.github/workflows/*.yml
+
+# SDU agent runtime DEV connection scaffolds. These are local templates and
+# mock/dev surfaces only; no tenant install, no live messages and no remote
+# runtime apply are versioned here.
+!/.mcp/
+/.mcp/*
+!/.mcp/sdu-agents/
+/.mcp/sdu-agents/*
+!/.mcp/sdu-agents/*.json
+
+!/teams-app/
+/teams-app/*
+!/teams-app/sdu-agent-chat/
+/teams-app/sdu-agent-chat/*
+!/teams-app/sdu-agent-chat/README.md
+!/teams-app/sdu-agent-chat/*.json
+!/teams-app/sdu-agent-chat/bot/
+/teams-app/sdu-agent-chat/bot/*
+!/teams-app/sdu-agent-chat/bot/*.json
+!/teams-app/sdu-agent-chat/bot/src/
+/teams-app/sdu-agent-chat/bot/src/*
+!/teams-app/sdu-agent-chat/bot/src/*.ts
+!/teams-app/sdu-agent-chat/bot/src/*.js
+!/teams-app/sdu-agent-chat/contracts/
+/teams-app/sdu-agent-chat/contracts/*
+!/teams-app/sdu-agent-chat/contracts/*.json
+!/teams-app/sdu-agent-chat/contracts/*.md
+!/teams-app/sdu-agent-chat/schemas/
+/teams-app/sdu-agent-chat/schemas/*
+!/teams-app/sdu-agent-chat/schemas/*.json
+!/teams-app/sdu-agent-chat/matrices/
+/teams-app/sdu-agent-chat/matrices/*
+!/teams-app/sdu-agent-chat/matrices/*.csv
+
+!/local-agent-bridge/
+/local-agent-bridge/*
+!/local-agent-bridge/README.md
+!/local-agent-bridge/*.json
+!/local-agent-bridge/*.md
+!/local-agent-bridge/src/
+/local-agent-bridge/src/*
+!/local-agent-bridge/src/*.mjs
+!/local-agent-bridge/contracts/
+/local-agent-bridge/contracts/*
+!/local-agent-bridge/contracts/*.json
+!/local-agent-bridge/contracts/*.md
+!/local-agent-bridge/matrices/
+/local-agent-bridge/matrices/*
+!/local-agent-bridge/matrices/*.csv
+!/local-agent-bridge/policies/
+/local-agent-bridge/policies/*
+!/local-agent-bridge/policies/*.md
+!/local-agent-bridge/schemas/
+/local-agent-bridge/schemas/*
+!/local-agent-bridge/schemas/*.json
+!/local-agent-bridge/tests/
+/local-agent-bridge/tests/*
+!/local-agent-bridge/tests/*.mjs
+
+!/tests/
+/tests/*
+!/tests/sdu-agent-runtime/
+/tests/sdu-agent-runtime/*
+!/tests/sdu-agent-runtime/*.py
+!/tests/sdu-agent-runtime/*.md
+!/tests/sdu-agent-runtime/fixtures/
+/tests/sdu-agent-runtime/fixtures/*
+!/tests/sdu-agent-runtime/fixtures/*.json
 
 # Dataverse / Power Platform governed DEV provisioning package.
 # Metadata-only by default: no secrets, no connection strings, no regulated
@@ -236,6 +325,8 @@
 
 !/readbacks/
 /readbacks/*
+!/readbacks/20260603_SDU_AGENTS_RUNTIME_CONNECTIONS_PREFLIGHT.md
+!/readbacks/20260603_SDU_AGENT_RUNTIME_CONNECTIONS_TEAMS_CODEX_CLOUD_READBACK.md
 !/readbacks/20260603_POWER_PLATFORM_TEAMS_ALM_PROVISIONING_READBACK.md
 !/readbacks/dataverse/
 /readbacks/dataverse/*
@@ -260,6 +351,17 @@
 !/.codex/
 /.codex/*
 !/.codex/README.md
+!/.codex/cloud/
+/.codex/cloud/*
+!/.codex/cloud/sdu-agents/
+/.codex/cloud/sdu-agents/*
+!/.codex/cloud/sdu-agents/*.md
+!/.codex/cloud/sdu-agents/*.yml
+!/.codex/cloud/sdu-agents/*.yaml
+!/.codex/cloud/sdu-agents/*.sh
+!/.codex/cloud/sdu-agents/tasks/
+/.codex/cloud/sdu-agents/tasks/*
+!/.codex/cloud/sdu-agents/tasks/*.md
 !/.codex/environments/
 /.codex/environments/*
 !/.codex/environments/*.toml
