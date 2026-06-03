@@ -1,0 +1,8 @@
+rule_id,field,mode,purpose,status
+DEDUP_001,repo,exact_normalized,prevent cross repo merge,ACTIVE
+DEDUP_002,file_path,exact_normalized,keep evidence locality,ACTIVE
+DEDUP_003,surface|provider|connection_type,exact_normalized,collapse repeated mentions of same surface,ACTIVE
+DEDUP_004,tenant_scope|environment_url|environment_id|organization_id|identity,placeholder_safe_exact,avoid tenant mixing,ACTIVE
+DEDUP_005,mode|gate_required|secret_status,exact_normalized,preserve safety boundary,ACTIVE
+DEDUP_006,normalized_reference_key|evidence_hash,hash_key,assign canonical_id,ACTIVE
+DEDUP_007,raw_inventory,preserve,do not delete source inventory,ACTIVE
