@@ -4,7 +4,8 @@
 HECHO_VERIFICADO: el repo ya tenia preflight Agents SDK local y referencias
 OpenAI SDK gobernadas. No tenia skeleton root `apps/sdu-agent-runtime` ni
 `governance/agents` antes de este carril. Se crea baseline local/no-live sin
-llamadas API ni writes externos.
+llamadas API ni writes externos. Esta baseline es contractual y pre-runtime:
+no declara runtime real de Agents SDK listo.
 
 ## Sistemas Tocados
 - `governance/agents/AGENTS_SDK_BASELINE_POLICY.md`
@@ -17,6 +18,9 @@ llamadas API ni writes externos.
 ## Sistemas No Tocados
 - OpenAI API live.
 - Agents SDK live.
+- Import `openai-agents`.
+- `Agent`, `Runner`, `OpenAIResponsesModel`, SDK tools, SDK handoffs y SDK
+  tracing.
 - Agent Builder.
 - Vector stores externos.
 - Microsoft live.
@@ -27,9 +31,11 @@ llamadas API ni writes externos.
 ## Baseline Creado
 - Agente permitido: `sdu-triage-agent`.
 - Modo: `local_no_live`.
+- Estado: `AGENTS_SDK_LOCAL_NO_LIVE_BASELINE_READY`.
 - Salida: `structured_json`.
 - Tools permitidas: biblioteca estandar local y validacion de schema.
 - Writes externos: prohibidos.
+- SDK real: no importado, no ejecutado.
 - OpenAI API live: prohibido sin orden separada.
 - Microsoft live: prohibido.
 - Produccion: prohibida.
@@ -49,7 +55,7 @@ nueva cubre solo el hueco root: skeleton local/no-live y registry de baseline.
 ## Pruebas
 El smoke local usa `python -m unittest discover -s apps/sdu-agent-runtime/tests` y valida salida estructurada, bloqueo de superficies prohibidas y ausencia de writes externos.
 
-Resultado ejecutado: PASS, 3 tests.
+Resultado ejecutado: PASS, 5 tests.
 
 Preflight SDK existente ejecutado:
 
@@ -58,13 +64,16 @@ Preflight SDK existente ejecutado:
 - `smoke=OK_NO_API_CALL`
 
 ## Dictamen
-`AGENTS_SDK_BASELINE_READY`.
+`AGENTS_SDK_LOCAL_NO_LIVE_BASELINE_READY`.
 
 ## Bloqueos
-No hay bloqueo para baseline local/no-live. Si se solicita API live, costo, Agent Builder, agentes persistentes, tenant write o produccion, detener con orden gobernada separada.
+No hay bloqueo para baseline local/no-live. Si se solicita API live, costo,
+runtime real con `openai-agents`, `Agent`, `Runner`, `OpenAIResponsesModel`,
+SDK tools, SDK handoffs, SDK tracing, Agent Builder, agentes persistentes,
+tenant write o produccion, detener con orden gobernada separada.
 
 ## Riesgos
-- El skeleton no demuestra ejecucion real de OpenAI Agents SDK live.
+- El skeleton no demuestra ejecucion real de OpenAI Agents SDK live ni local.
 - El baseline es intencionalmente determinista y local para no abrir costos ni secretos.
 
 ## Rollback

@@ -3,7 +3,12 @@
 ## Estado
 
 This policy defines the root cabina baseline for OpenAI Agents SDK design work.
-It is local/no-live only.
+It is local/no-live only and pre-runtime governed. It is a contractual baseline,
+not a declaration that a real Agents SDK runtime is ready.
+
+The baseline does not import `openai-agents`, instantiate `Agent`, use `Runner`,
+bind `OpenAIResponsesModel`, call SDK tools, run SDK handoffs or enable SDK
+tracing.
 
 ## Allowed
 
@@ -18,6 +23,8 @@ It is local/no-live only.
 - OpenAI API live.
 - Agents SDK live.
 - Agent Builder live.
+- `openai-agents`, `Agent`, `Runner`, `OpenAIResponsesModel`, SDK tools, SDK
+  handoffs or SDK tracing without a separate governed order.
 - External vector stores.
 - Costs.
 - Secrets or secret materialization.

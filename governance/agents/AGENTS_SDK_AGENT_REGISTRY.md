@@ -7,11 +7,15 @@
 - `owner_agent`: `court.openai_dispatcher`
 - `reviewer_agent`: `rey.frontier_guardian`
 - `mode`: `local_no_live`
+- `runtime_status`: `baseline_contractual_local_no_live_pre_runtime`
+- `sdk_imports`: none.
 - `purpose`: classify cabina governance requests into local next gates.
 - `output_schema`: `structured_json_triage_v1`
 - `tools_allowed`: standard library local helpers only.
 - `tools_forbidden`: OpenAI API live, Agents SDK live, Microsoft live,
-  production, permission changes, external writes and secrets.
+  `openai-agents`, `Agent`, `Runner`, `OpenAIResponsesModel`, SDK tools, SDK
+  handoffs, SDK tracing, production, permission changes, external writes and
+  secrets.
 - `validator`: `python -m unittest discover -s apps/sdu-agent-runtime/tests`
 - `stop_condition`: `openai_api_live_requested_without_order|microsoft_live_requested_without_governed_order|production_requested_without_explicit_authorization|secret_detected`
 
@@ -19,4 +23,4 @@
 
 This registry does not create a deployed remote agent. It records the local
 baseline contract that future repo-native work may adopt after this cabina gate
-is merged.
+is merged. It does not claim that the real Agents SDK runtime is ready.

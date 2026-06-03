@@ -15,6 +15,10 @@ or infer credentials from the environment.
 The baseline must not call OpenAI, Microsoft Graph, SharePoint, Teams, Planner,
 Power Platform, external HTTP services or production systems.
 
+It must not import `openai-agents`, instantiate `Agent`, use `Runner`, bind
+`OpenAIResponsesModel`, run SDK tools, run SDK handoffs or enable SDK tracing
+without a separate governed order.
+
 ## Output Boundary
 
 Outputs must be structured JSON with:

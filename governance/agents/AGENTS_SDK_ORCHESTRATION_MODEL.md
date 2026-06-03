@@ -3,7 +3,8 @@
 ## Model
 
 The root cabina baseline uses a single local triage agent first. It does not
-handoff to remote agents and does not execute live tools.
+handoff to remote agents and does not execute live tools. It is a local/no-live
+pre-runtime contract, not a real Agents SDK runtime.
 
 ## Flow
 
@@ -19,14 +20,17 @@ handoff to remote agents and does not execute live tools.
 Propagation to other repos may start only after:
 
 - Cabina current state is closed.
-- Codex Cloud cabina is ready.
-- Agents SDK baseline is ready or blocked with exact reason.
+- Codex Cloud cabina is ready by prior smoke evidence, with stable environment
+  ID recorded when exposed.
+- Agents SDK local/no-live baseline is ready or blocked with exact reason.
 - The target repo has its own branch, validator and readback.
 
 ## Non Goals
 
 - No production runtime.
 - No live OpenAI API call.
+- No `openai-agents`, `Agent`, `Runner`, `OpenAIResponsesModel`, SDK tools, SDK
+  handoffs or SDK tracing.
 - No Microsoft live action.
 - No persistent remote agent.
 - No replacement of human or institutional authority.

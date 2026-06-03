@@ -29,6 +29,16 @@ class SduTriageAgentTests(unittest.TestCase):
         self.assertIn("openai_api_live", result["blocked_surfaces"])
         self.assertIn("microsoft_live", result["blocked_surfaces"])
 
+    def test_produccion_with_tilde_blocks_production(self) -> None:
+        result = triage_request({"text": "Ejecutar cambio en producción"})
+        self.assertEqual(result["decision"], "blocked_governed_order_required")
+        self.assertIn("production", result["blocked_surfaces"])
+
+    def test_producto_does_not_block_production(self) -> None:
+        result = triage_request({"text": "Revisar etiqueta de producto local"})
+        self.assertEqual(result["decision"], "local_governance_review")
+        self.assertNotIn("production", result["blocked_surfaces"])
+
     def test_synthetic_cases_match_expected_decisions(self) -> None:
         cases_path = ROOT / "src" / "evals" / "synthetic_cases.json"
         cases = json.loads(cases_path.read_text(encoding="utf-8"))

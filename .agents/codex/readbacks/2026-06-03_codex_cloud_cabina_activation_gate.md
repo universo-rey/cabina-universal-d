@@ -1,7 +1,7 @@
 # Codex Cloud Cabina Activation Gate 20260603
 
 ## Estado
-HECHO_VERIFICADO: Codex Cloud para `universo-rey/cabina-universal-d` ya estaba registrado como environment visible con smoke read-only no-diff. No se creo environment nuevo.
+HECHO_VERIFICADO: Codex Cloud para `universo-rey/cabina-universal-d` ya estaba registrado como environment visible con smoke read-only no-diff. No se creo environment nuevo. El CLI no devolvio un `environment_id` estable; el ID real queda pendiente de registro cuando la superficie lo exponga.
 
 ## Sistemas Tocados
 - Repo local `D:/` en branch `codex/cabina-cloud-agents-sdk-baseline-20260603`.
@@ -24,7 +24,7 @@ HECHO_VERIFICADO: Codex Cloud para `universo-rey/cabina-universal-d` ya estaba r
 - CI main: `26863074058 success`.
 
 ## Dictamen
-`CODEX_CLOUD_CABINA_READY`.
+`CODEX_CLOUD_CABINA_READY_BY_PRIOR_SMOKE_WITH_ENV_ID_GAP`.
 
 ## Validacion Ejecutada
 - `local_validate_codex_cloud_governed_lane.ps1`: PASS.
@@ -33,6 +33,7 @@ HECHO_VERIFICADO: Codex Cloud para `universo-rey/cabina-universal-d` ya estaba r
 
 ## Condiciones
 - Environment visible o evidencia vigente: si.
+- `environment_id` estable: pendiente (`PENDING_REAL_ENVIRONMENT_ID`).
 - Smoke read-only READY_NO_DIFF: si.
 - Branch policy `codex/*` desde `main`: si.
 - AGENTS.md vigente: si.
@@ -41,10 +42,12 @@ HECHO_VERIFICADO: Codex Cloud para `universo-rey/cabina-universal-d` ya estaba r
 - Microsoft live: no tocado.
 - Produccion: no tocada.
 - OpenAI API live amplio: no tocado.
-- Blocker critico pendiente: ninguno para cabina.
+- Blocker critico pendiente: ninguno para cabina local/no-live; queda gap no
+  bloqueante de registro de ID estable.
 
 ## Riesgos
 - Codex Cloud sigue limitado a status, diff no-apply y tareas repo-scoped gobernadas.
+- No se debe crear un environment duplicado para suplir el ID pendiente.
 - `codex cloud apply`, costos, secretos, live API o agentes remotos persistentes siguen fuera de este gate.
 
 ## Rollback

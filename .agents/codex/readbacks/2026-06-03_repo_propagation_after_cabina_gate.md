@@ -17,8 +17,8 @@ HECHO_VERIFICADO: la propagacion al resto de repos queda preparada pero no ejecu
 ## Criterio
 `PROPAGATION_READY_ONLY_AFTER_CABINA` aplica solo si:
 - Cabina current state esta cerrado.
-- Codex Cloud cabina esta `CODEX_CLOUD_CABINA_READY`.
-- Agents SDK baseline esta `AGENTS_SDK_BASELINE_READY` o bloqueado con razon exacta.
+- Codex Cloud cabina esta `CODEX_CLOUD_CABINA_READY_BY_PRIOR_SMOKE_WITH_ENV_ID_GAP`.
+- Agents SDK baseline esta `AGENTS_SDK_LOCAL_NO_LIVE_BASELINE_READY` o bloqueado con razon exacta.
 - La matriz de repos tiene prioridad y blockers.
 - Ningun repo externo fue tocado.
 - Los gates humanos quedan claros.

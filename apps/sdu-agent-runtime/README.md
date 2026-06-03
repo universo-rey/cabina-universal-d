@@ -5,6 +5,16 @@ Local/no-live baseline for the cabina Agents SDK gate.
 This package is intentionally deterministic. It does not call OpenAI, Microsoft,
 SharePoint, Teams, Planner, Graph, Power Platform or production systems.
 
+## SDK Boundary
+
+This skeleton does not import `openai-agents` and does not execute a real
+Agents SDK runtime. It is a local/no-live contract before any future Agents SDK
+implementation.
+
+Any step to `openai-agents`, `Agent`, `Runner`, `OpenAIResponsesModel`, SDK
+tools, SDK handoffs, SDK tracing, live API calls or costs requires a separate
+governed order.
+
 ## Smoke
 
 ```powershell
