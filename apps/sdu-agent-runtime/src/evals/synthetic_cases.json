@@ -1,0 +1,12 @@
+[
+  {
+    "case_id": "local_governance",
+    "text": "Review cabina local matrices and run validators",
+    "expected_decision": "local_governance_review"
+  },
+  {
+    "case_id": "live_blocked",
+    "text": "Run OpenAI API live and write to SharePoint",
+    "expected_decision": "blocked_governed_order_required"
+  }
+]

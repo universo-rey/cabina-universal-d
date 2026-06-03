@@ -38,6 +38,44 @@
 !/LEVELS.yaml
 !/FOLDER_LEVELS.csv
 
+# Ordered local/no-live OpenAI agent governance baseline.
+!/governance/
+/governance/*
+!/governance/agents/
+/governance/agents/*
+!/governance/agents/*.md
+
+# Ordered local/no-live SDU agent runtime skeleton. This is not production and
+# does not include secrets, dependencies, live API calls or nested repos.
+!/apps/
+/apps/*
+!/apps/sdu-agent-runtime/
+/apps/sdu-agent-runtime/*
+!/apps/sdu-agent-runtime/README.md
+!/apps/sdu-agent-runtime/src/
+/apps/sdu-agent-runtime/src/*
+!/apps/sdu-agent-runtime/src/agents/
+/apps/sdu-agent-runtime/src/agents/*
+!/apps/sdu-agent-runtime/src/agents/*.py
+!/apps/sdu-agent-runtime/src/tools/
+/apps/sdu-agent-runtime/src/tools/*
+!/apps/sdu-agent-runtime/src/tools/*.py
+!/apps/sdu-agent-runtime/src/guardrails/
+/apps/sdu-agent-runtime/src/guardrails/*
+!/apps/sdu-agent-runtime/src/guardrails/*.py
+!/apps/sdu-agent-runtime/src/schemas/
+/apps/sdu-agent-runtime/src/schemas/*
+!/apps/sdu-agent-runtime/src/schemas/*.py
+!/apps/sdu-agent-runtime/src/evals/
+/apps/sdu-agent-runtime/src/evals/*
+!/apps/sdu-agent-runtime/src/evals/*.json
+!/apps/sdu-agent-runtime/src/tracing/
+/apps/sdu-agent-runtime/src/tracing/*
+!/apps/sdu-agent-runtime/src/tracing/*.py
+!/apps/sdu-agent-runtime/tests/
+/apps/sdu-agent-runtime/tests/*
+!/apps/sdu-agent-runtime/tests/*.py
+
 # Control plane ingress.
 !/00_CONTROL_PLANE_INGRESS/
 /00_CONTROL_PLANE_INGRESS/*
@@ -195,6 +233,10 @@
 !/.agents/codex/readbacks/2026-06-03_live_delta_reconciliation_readback.md
 !/.agents/codex/readbacks/2026-06-03_sublevel_universe_repo_lane_chain_reconciliation_readback.md
 !/.agents/codex/readbacks/2026-06-03_model_reconciliation_upgrade_integrated_readback.md
+!/.agents/codex/readbacks/2026-06-03_cabina_current_state_review.md
+!/.agents/codex/readbacks/2026-06-03_codex_cloud_cabina_activation_gate.md
+!/.agents/codex/readbacks/2026-06-03_agents_sdk_baseline_gate.md
+!/.agents/codex/readbacks/2026-06-03_repo_propagation_after_cabina_gate.md
 
 !/.agents/codex/tools/
 /.agents/codex/tools/*

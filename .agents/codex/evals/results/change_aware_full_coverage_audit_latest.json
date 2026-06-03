@@ -14,17 +14,18 @@
   "required_test_count": 19,
   "changed_files": [
     ".agents/codex/evals/results/change_aware_full_coverage_audit_latest.json",
-    ".agents/codex/matrices/AGENT_CAPABILITY_GRAPH_20260603.csv",
-    ".agents/codex/matrices/CAPABILITY_GRAPH_CANON_20260603.csv",
-    ".agents/codex/matrices/EVIDENCE_READBACK_REGISTRY_20260603.csv",
-    ".agents/codex/matrices/GITHUB_CI_RUNNER_CACHE_GRAPH_20260603.csv",
-    ".agents/codex/matrices/LIVE_DELTA_RECONCILIATION_MATRIX_20260603.csv",
-    ".agents/codex/matrices/LIVE_SURFACE_GATE_MATRIX_20260603.csv",
+    ".agents/codex/matrices/AGENTS_SDK_BASELINE_GATE_20260603.csv",
+    ".agents/codex/matrices/CABINA_CURRENT_STATE_REVIEW_20260603.csv",
+    ".agents/codex/matrices/CODEX_CLOUD_CABINA_ACTIVATION_GATE_20260603.csv",
     ".agents/codex/matrices/MATRIX_INDEX.csv",
-    ".agents/codex/matrices/MATRIX_TO_AGENT_CAPABILITY_RECONCILIATION_20260603.csv",
-    ".agents/codex/matrices/REPO_AUTHORITY_GRAPH_20260603.csv",
-    ".agents/codex/readbacks/2026-06-03_model_reconciliation_upgrade_integrated_readback.md",
-    ".gitignore"
+    ".agents/codex/matrices/REPO_PROPAGATION_SEQUENCE_AFTER_CABINA_20260603.csv",
+    ".agents/codex/readbacks/2026-06-03_agents_sdk_baseline_gate.md",
+    ".agents/codex/readbacks/2026-06-03_cabina_current_state_review.md",
+    ".agents/codex/readbacks/2026-06-03_codex_cloud_cabina_activation_gate.md",
+    ".agents/codex/readbacks/2026-06-03_repo_propagation_after_cabina_gate.md",
+    ".gitignore",
+    "apps/",
+    "governance/"
   ],
   "impact_unknown": false,
   "expansion_applied": true,
@@ -328,84 +329,42 @@
       "reason": "default_full_coverage"
     },
     {
-      "path": ".agents/codex/matrices/AGENT_CAPABILITY_GRAPH_20260603.csv",
+      "path": ".agents/codex/matrices/AGENTS_SDK_BASELINE_GATE_20260603.csv",
       "risk_id": "risk.agent_matrices",
       "risk_level": "high",
       "expansion": "full",
       "reason": "shared_matrix_changed"
     },
     {
-      "path": ".agents/codex/matrices/AGENT_CAPABILITY_GRAPH_20260603.csv",
+      "path": ".agents/codex/matrices/AGENTS_SDK_BASELINE_GATE_20260603.csv",
       "risk_id": "risk.default",
       "risk_level": "medium",
       "expansion": "full",
       "reason": "default_full_coverage"
     },
     {
-      "path": ".agents/codex/matrices/CAPABILITY_GRAPH_CANON_20260603.csv",
+      "path": ".agents/codex/matrices/CABINA_CURRENT_STATE_REVIEW_20260603.csv",
       "risk_id": "risk.agent_matrices",
       "risk_level": "high",
       "expansion": "full",
       "reason": "shared_matrix_changed"
     },
     {
-      "path": ".agents/codex/matrices/CAPABILITY_GRAPH_CANON_20260603.csv",
+      "path": ".agents/codex/matrices/CABINA_CURRENT_STATE_REVIEW_20260603.csv",
       "risk_id": "risk.default",
       "risk_level": "medium",
       "expansion": "full",
       "reason": "default_full_coverage"
     },
     {
-      "path": ".agents/codex/matrices/EVIDENCE_READBACK_REGISTRY_20260603.csv",
+      "path": ".agents/codex/matrices/CODEX_CLOUD_CABINA_ACTIVATION_GATE_20260603.csv",
       "risk_id": "risk.agent_matrices",
       "risk_level": "high",
       "expansion": "full",
       "reason": "shared_matrix_changed"
     },
     {
-      "path": ".agents/codex/matrices/EVIDENCE_READBACK_REGISTRY_20260603.csv",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/matrices/GITHUB_CI_RUNNER_CACHE_GRAPH_20260603.csv",
-      "risk_id": "risk.agent_matrices",
-      "risk_level": "high",
-      "expansion": "full",
-      "reason": "shared_matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/GITHUB_CI_RUNNER_CACHE_GRAPH_20260603.csv",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/matrices/LIVE_DELTA_RECONCILIATION_MATRIX_20260603.csv",
-      "risk_id": "risk.agent_matrices",
-      "risk_level": "high",
-      "expansion": "full",
-      "reason": "shared_matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/LIVE_DELTA_RECONCILIATION_MATRIX_20260603.csv",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/matrices/LIVE_SURFACE_GATE_MATRIX_20260603.csv",
-      "risk_id": "risk.agent_matrices",
-      "risk_level": "high",
-      "expansion": "full",
-      "reason": "shared_matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/LIVE_SURFACE_GATE_MATRIX_20260603.csv",
+      "path": ".agents/codex/matrices/CODEX_CLOUD_CABINA_ACTIVATION_GATE_20260603.csv",
       "risk_id": "risk.default",
       "risk_level": "medium",
       "expansion": "full",
@@ -426,42 +385,70 @@
       "reason": "default_full_coverage"
     },
     {
-      "path": ".agents/codex/matrices/MATRIX_TO_AGENT_CAPABILITY_RECONCILIATION_20260603.csv",
+      "path": ".agents/codex/matrices/REPO_PROPAGATION_SEQUENCE_AFTER_CABINA_20260603.csv",
       "risk_id": "risk.agent_matrices",
       "risk_level": "high",
       "expansion": "full",
       "reason": "shared_matrix_changed"
     },
     {
-      "path": ".agents/codex/matrices/MATRIX_TO_AGENT_CAPABILITY_RECONCILIATION_20260603.csv",
+      "path": ".agents/codex/matrices/REPO_PROPAGATION_SEQUENCE_AFTER_CABINA_20260603.csv",
       "risk_id": "risk.default",
       "risk_level": "medium",
       "expansion": "full",
       "reason": "default_full_coverage"
     },
     {
-      "path": ".agents/codex/matrices/REPO_AUTHORITY_GRAPH_20260603.csv",
-      "risk_id": "risk.agent_matrices",
-      "risk_level": "high",
-      "expansion": "full",
-      "reason": "shared_matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/REPO_AUTHORITY_GRAPH_20260603.csv",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/readbacks/2026-06-03_model_reconciliation_upgrade_integrated_readback.md",
+      "path": ".agents/codex/readbacks/2026-06-03_agents_sdk_baseline_gate.md",
       "risk_id": "risk.readbacks",
       "risk_level": "medium",
       "expansion": "full",
       "reason": "evidence_changed"
     },
     {
-      "path": ".agents/codex/readbacks/2026-06-03_model_reconciliation_upgrade_integrated_readback.md",
+      "path": ".agents/codex/readbacks/2026-06-03_agents_sdk_baseline_gate.md",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": ".agents/codex/readbacks/2026-06-03_cabina_current_state_review.md",
+      "risk_id": "risk.readbacks",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "evidence_changed"
+    },
+    {
+      "path": ".agents/codex/readbacks/2026-06-03_cabina_current_state_review.md",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": ".agents/codex/readbacks/2026-06-03_codex_cloud_cabina_activation_gate.md",
+      "risk_id": "risk.readbacks",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "evidence_changed"
+    },
+    {
+      "path": ".agents/codex/readbacks/2026-06-03_codex_cloud_cabina_activation_gate.md",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": ".agents/codex/readbacks/2026-06-03_repo_propagation_after_cabina_gate.md",
+      "risk_id": "risk.readbacks",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "evidence_changed"
+    },
+    {
+      "path": ".agents/codex/readbacks/2026-06-03_repo_propagation_after_cabina_gate.md",
       "risk_id": "risk.default",
       "risk_level": "medium",
       "expansion": "full",
@@ -469,6 +456,20 @@
     },
     {
       "path": ".gitignore",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "apps/",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "governance/",
       "risk_id": "risk.default",
       "risk_level": "medium",
       "expansion": "full",
@@ -483,73 +484,37 @@
       "reason": "unknown_or_unmapped_change"
     },
     {
-      "path": ".agents/codex/matrices/AGENT_CAPABILITY_GRAPH_20260603.csv",
+      "path": ".agents/codex/matrices/AGENTS_SDK_BASELINE_GATE_20260603.csv",
       "graph_id": "graph.matrices",
       "expansion": "full",
       "reason": "matrix_changed"
     },
     {
-      "path": ".agents/codex/matrices/AGENT_CAPABILITY_GRAPH_20260603.csv",
+      "path": ".agents/codex/matrices/AGENTS_SDK_BASELINE_GATE_20260603.csv",
       "graph_id": "graph.default",
       "expansion": "full",
       "reason": "unknown_or_unmapped_change"
     },
     {
-      "path": ".agents/codex/matrices/CAPABILITY_GRAPH_CANON_20260603.csv",
+      "path": ".agents/codex/matrices/CABINA_CURRENT_STATE_REVIEW_20260603.csv",
       "graph_id": "graph.matrices",
       "expansion": "full",
       "reason": "matrix_changed"
     },
     {
-      "path": ".agents/codex/matrices/CAPABILITY_GRAPH_CANON_20260603.csv",
+      "path": ".agents/codex/matrices/CABINA_CURRENT_STATE_REVIEW_20260603.csv",
       "graph_id": "graph.default",
       "expansion": "full",
       "reason": "unknown_or_unmapped_change"
     },
     {
-      "path": ".agents/codex/matrices/EVIDENCE_READBACK_REGISTRY_20260603.csv",
+      "path": ".agents/codex/matrices/CODEX_CLOUD_CABINA_ACTIVATION_GATE_20260603.csv",
       "graph_id": "graph.matrices",
       "expansion": "full",
       "reason": "matrix_changed"
     },
     {
-      "path": ".agents/codex/matrices/EVIDENCE_READBACK_REGISTRY_20260603.csv",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".agents/codex/matrices/GITHUB_CI_RUNNER_CACHE_GRAPH_20260603.csv",
-      "graph_id": "graph.matrices",
-      "expansion": "full",
-      "reason": "matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/GITHUB_CI_RUNNER_CACHE_GRAPH_20260603.csv",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".agents/codex/matrices/LIVE_DELTA_RECONCILIATION_MATRIX_20260603.csv",
-      "graph_id": "graph.matrices",
-      "expansion": "full",
-      "reason": "matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/LIVE_DELTA_RECONCILIATION_MATRIX_20260603.csv",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".agents/codex/matrices/LIVE_SURFACE_GATE_MATRIX_20260603.csv",
-      "graph_id": "graph.matrices",
-      "expansion": "full",
-      "reason": "matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/LIVE_SURFACE_GATE_MATRIX_20260603.csv",
+      "path": ".agents/codex/matrices/CODEX_CLOUD_CABINA_ACTIVATION_GATE_20260603.csv",
       "graph_id": "graph.default",
       "expansion": "full",
       "reason": "unknown_or_unmapped_change"
@@ -567,37 +532,55 @@
       "reason": "unknown_or_unmapped_change"
     },
     {
-      "path": ".agents/codex/matrices/MATRIX_TO_AGENT_CAPABILITY_RECONCILIATION_20260603.csv",
+      "path": ".agents/codex/matrices/REPO_PROPAGATION_SEQUENCE_AFTER_CABINA_20260603.csv",
       "graph_id": "graph.matrices",
       "expansion": "full",
       "reason": "matrix_changed"
     },
     {
-      "path": ".agents/codex/matrices/MATRIX_TO_AGENT_CAPABILITY_RECONCILIATION_20260603.csv",
+      "path": ".agents/codex/matrices/REPO_PROPAGATION_SEQUENCE_AFTER_CABINA_20260603.csv",
       "graph_id": "graph.default",
       "expansion": "full",
       "reason": "unknown_or_unmapped_change"
     },
     {
-      "path": ".agents/codex/matrices/REPO_AUTHORITY_GRAPH_20260603.csv",
-      "graph_id": "graph.matrices",
-      "expansion": "full",
-      "reason": "matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/REPO_AUTHORITY_GRAPH_20260603.csv",
+      "path": ".agents/codex/readbacks/2026-06-03_agents_sdk_baseline_gate.md",
       "graph_id": "graph.default",
       "expansion": "full",
       "reason": "unknown_or_unmapped_change"
     },
     {
-      "path": ".agents/codex/readbacks/2026-06-03_model_reconciliation_upgrade_integrated_readback.md",
+      "path": ".agents/codex/readbacks/2026-06-03_cabina_current_state_review.md",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": ".agents/codex/readbacks/2026-06-03_codex_cloud_cabina_activation_gate.md",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": ".agents/codex/readbacks/2026-06-03_repo_propagation_after_cabina_gate.md",
       "graph_id": "graph.default",
       "expansion": "full",
       "reason": "unknown_or_unmapped_change"
     },
     {
       "path": ".gitignore",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "apps/",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "governance/",
       "graph_id": "graph.default",
       "expansion": "full",
       "reason": "unknown_or_unmapped_change"
@@ -611,9 +594,9 @@
   "hidden_flaky_tests": null,
   "result_written": true,
   "audit_path": "D:\\.agents\\codex\\evals\\results\\change_aware_full_coverage_audit_latest.json",
-  "started_at": "2026-06-03T00:55:45.2335427-03:00",
-  "finished_at": "2026-06-03T00:56:05.8982523-03:00",
-  "duration_ms": 20665,
+  "started_at": "2026-06-03T01:24:18.8637569-03:00",
+  "finished_at": "2026-06-03T01:24:37.6281451-03:00",
+  "duration_ms": 18764,
   "errors": [],
   "warnings": [],
   "results": [
@@ -622,9 +605,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T00:55:46.0564018-03:00",
-      "finished_at": "2026-06-03T00:55:49.0880659-03:00",
-      "duration_ms": 3032,
+      "started_at": "2026-06-03T01:24:19.5178120-03:00",
+      "finished_at": "2026-06-03T01:24:22.0685967-03:00",
+      "duration_ms": 2551,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -635,9 +618,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T00:55:49.1108644-03:00",
-      "finished_at": "2026-06-03T00:55:49.1430996-03:00",
-      "duration_ms": 32,
+      "started_at": "2026-06-03T01:24:22.0768637-03:00",
+      "finished_at": "2026-06-03T01:24:22.0924845-03:00",
+      "duration_ms": 16,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -648,9 +631,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T00:55:49.1437877-03:00",
-      "finished_at": "2026-06-03T00:55:52.5664734-03:00",
-      "duration_ms": 3423,
+      "started_at": "2026-06-03T01:24:22.0927765-03:00",
+      "finished_at": "2026-06-03T01:24:24.7089551-03:00",
+      "duration_ms": 2616,
       "warning_count": 3,
       "error_count": 0,
       "warnings": [
@@ -665,9 +648,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T00:55:52.5668187-03:00",
-      "finished_at": "2026-06-03T00:55:53.4489872-03:00",
-      "duration_ms": 882,
+      "started_at": "2026-06-03T01:24:24.7092246-03:00",
+      "finished_at": "2026-06-03T01:24:25.4399660-03:00",
+      "duration_ms": 731,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -678,9 +661,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T00:55:53.4492725-03:00",
-      "finished_at": "2026-06-03T00:55:54.4445844-03:00",
-      "duration_ms": 995,
+      "started_at": "2026-06-03T01:24:25.4402424-03:00",
+      "finished_at": "2026-06-03T01:24:26.2710479-03:00",
+      "duration_ms": 831,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -691,9 +674,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T00:55:54.4449239-03:00",
-      "finished_at": "2026-06-03T00:55:55.7129698-03:00",
-      "duration_ms": 1268,
+      "started_at": "2026-06-03T01:24:26.2713330-03:00",
+      "finished_at": "2026-06-03T01:24:27.2075332-03:00",
+      "duration_ms": 936,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -704,9 +687,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T00:55:55.7132739-03:00",
-      "finished_at": "2026-06-03T00:55:56.5581623-03:00",
-      "duration_ms": 845,
+      "started_at": "2026-06-03T01:24:27.2077758-03:00",
+      "finished_at": "2026-06-03T01:24:27.9134345-03:00",
+      "duration_ms": 706,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -717,9 +700,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T00:55:56.5584941-03:00",
-      "finished_at": "2026-06-03T00:55:57.4660953-03:00",
-      "duration_ms": 908,
+      "started_at": "2026-06-03T01:24:27.9136599-03:00",
+      "finished_at": "2026-06-03T01:24:28.5727660-03:00",
+      "duration_ms": 659,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -730,9 +713,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T00:55:57.4664780-03:00",
-      "finished_at": "2026-06-03T00:55:58.4053945-03:00",
-      "duration_ms": 939,
+      "started_at": "2026-06-03T01:24:28.5729569-03:00",
+      "finished_at": "2026-06-03T01:24:29.2540721-03:00",
+      "duration_ms": 681,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -743,9 +726,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T00:55:58.4056513-03:00",
-      "finished_at": "2026-06-03T00:55:59.1518275-03:00",
-      "duration_ms": 746,
+      "started_at": "2026-06-03T01:24:29.2542994-03:00",
+      "finished_at": "2026-06-03T01:24:29.8713949-03:00",
+      "duration_ms": 617,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -756,9 +739,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T00:55:59.1521555-03:00",
-      "finished_at": "2026-06-03T00:55:59.9845195-03:00",
-      "duration_ms": 832,
+      "started_at": "2026-06-03T01:24:29.8716832-03:00",
+      "finished_at": "2026-06-03T01:24:30.5251081-03:00",
+      "duration_ms": 653,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -769,9 +752,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T00:55:59.9847609-03:00",
-      "finished_at": "2026-06-03T00:56:00.7850724-03:00",
-      "duration_ms": 800,
+      "started_at": "2026-06-03T01:24:30.5253528-03:00",
+      "finished_at": "2026-06-03T01:24:31.3170382-03:00",
+      "duration_ms": 792,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -782,9 +765,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T00:56:00.7853500-03:00",
-      "finished_at": "2026-06-03T00:56:01.5502325-03:00",
-      "duration_ms": 765,
+      "started_at": "2026-06-03T01:24:31.3172965-03:00",
+      "finished_at": "2026-06-03T01:24:31.9213502-03:00",
+      "duration_ms": 604,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -795,9 +778,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T00:56:01.5504817-03:00",
-      "finished_at": "2026-06-03T00:56:02.3309156-03:00",
-      "duration_ms": 780,
+      "started_at": "2026-06-03T01:24:31.9215499-03:00",
+      "finished_at": "2026-06-03T01:24:32.5673728-03:00",
+      "duration_ms": 646,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -808,9 +791,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T00:56:02.3313348-03:00",
-      "finished_at": "2026-06-03T00:56:03.0187801-03:00",
-      "duration_ms": 687,
+      "started_at": "2026-06-03T01:24:32.5677230-03:00",
+      "finished_at": "2026-06-03T01:24:33.4628541-03:00",
+      "duration_ms": 895,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -821,9 +804,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T00:56:03.0190647-03:00",
-      "finished_at": "2026-06-03T00:56:03.7889617-03:00",
-      "duration_ms": 770,
+      "started_at": "2026-06-03T01:24:33.4630614-03:00",
+      "finished_at": "2026-06-03T01:24:34.1243954-03:00",
+      "duration_ms": 661,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -834,9 +817,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T00:56:03.7892799-03:00",
-      "finished_at": "2026-06-03T00:56:04.4819302-03:00",
-      "duration_ms": 693,
+      "started_at": "2026-06-03T01:24:34.1246902-03:00",
+      "finished_at": "2026-06-03T01:24:34.7556363-03:00",
+      "duration_ms": 631,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -847,9 +830,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T00:56:04.4821887-03:00",
-      "finished_at": "2026-06-03T00:56:05.2364194-03:00",
-      "duration_ms": 754,
+      "started_at": "2026-06-03T01:24:34.7558416-03:00",
+      "finished_at": "2026-06-03T01:24:36.3563167-03:00",
+      "duration_ms": 1600,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -860,9 +843,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T00:56:05.2366697-03:00",
-      "finished_at": "2026-06-03T00:56:05.8875017-03:00",
-      "duration_ms": 651,
+      "started_at": "2026-06-03T01:24:36.3567273-03:00",
+      "finished_at": "2026-06-03T01:24:37.6155503-03:00",
+      "duration_ms": 1259,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
