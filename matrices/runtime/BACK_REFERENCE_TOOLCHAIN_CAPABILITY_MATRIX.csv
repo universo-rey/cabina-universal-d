@@ -1,0 +1,11 @@
+capability,status,tool,scope,evidence,blocked_actions,stop_condition
+pac_auth_profile,AVAILABLE_READONLY,pac auth list,DEV exact profile discovery,active SDU-DATAVERSE-DEV points to org084965d9,print_secret|persist_secret,wrong_profile_or_secret
+pac_org_who,AVAILABLE_READONLY,pac org who,DEV org identity,Org ID f982db28-49e3-f011-aa23-000d3a5ca83f and Environment ID 7f65fc04-c27a-ea0d-bd2d-266aa9203c1e,prod_test_default,wrong_environment
+pac_solution_list,AVAILABLE_READONLY,pac solution list,solution confirmation,SDUCapabilityControlPlane exists unmanaged,solution_mutation,solution_missing
+dataverse_web_api_read,AVAILABLE_READONLY,az token + Invoke-RestMethod,metadata and exact-key reads,WhoAmI and metadata reads pass,token_print|broad_dump,auth_or_scope_failure
+dataverse_web_api_metadata_write,AVAILABLE_DEV_WRITE,az token + Invoke-RestMethod,one metadata-only mapping record,created mon_sdu_agent_connection_mapping 408f3320-615f-f111-a826-00224805f8f9,prod_test_default|delete|permission_change,wrong_environment_or_non_metadata_payload
+power_automate_flow_read,AVAILABLE_READONLY,Dataverse workflows table,9 manifest flow state check,9/9 disabled after write,activate_flow,flow_not_disabled
+workqueue_item_read,AVAILABLE_READONLY,Dataverse workqueueitems table,original item payload and state,original item processed statecode=2 statuscode=2,process_additional_item,item_missing_or_sensitive
+openai_api,NOT_EXECUTED,NO_APLICA,blocked by order,not used,api_call,openai_api_requested
+batch_api,NOT_EXECUTED,NO_APLICA,blocked by order,not sent,batch_submit,batch_requested
+sharepoint_planner_graph,NOT_EXECUTED,NO_APLICA,blocked by order,not touched,external_system_touch,external_system_requested

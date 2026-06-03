@@ -1,0 +1,2 @@
+validation_id,status,second_item_processed,reason,evidence,stop_condition
+second_item_validation_20260603,NO_APLICA,0,original item had enough deterministic keys to create a mapping record and no target-final validation required a second item,No additional Work Queue item was processed,max_one_additional_item

@@ -1,0 +1,13 @@
+surface,expected,observed,status,evidence,stop_condition
+environment_url,https://org084965d9.crm.dynamics.com/,https://org084965d9.crm.dynamics.com/,PASS,pac org who and Web API WhoAmI,wrong_environment
+environment_id,7f65fc04-c27a-ea0d-bd2d-266aa9203c1e,7f65fc04-c27a-ea0d-bd2d-266aa9203c1e,PASS,pac org who,wrong_environment
+organization_id,f982db28-49e3-f011-aa23-000d3a5ca83f,f982db28-49e3-f011-aa23-000d3a5ca83f,PASS,pac org who and Web API WhoAmI,wrong_organization
+solution,SDUCapabilityControlPlane,exists unmanaged version 0.1.0.0,PASS,pac solution list and Web API solutions,solution_missing
+tables,22,22 live EntityDefinitions found,PASS,Web API EntityDefinitions,table_missing
+backreference_column_checks,286,286 local postcheck PASS with 22 live sample checks,PASS,DATAVERSE_QUEUE_BACK_REFERENCE_COLUMN_POSTCHECK plus live sample,backreference_column_missing
+backreference_column_distinct_count,13,13 in governing matrix,DRIFT_RECORDED,prompt requested 29 but matrix has 13 distinct columns,requirement_matrix_drift
+workqueues,8,8 live workqueues found,PASS,Dataverse workqueues table,workqueue_missing
+flows,9,9 live workflows found,PASS,Dataverse workflows table,workflow_missing
+flow_active_count,0,0,PASS,Dataverse workflows statecode/statuscode,flow_left_active
+original_workqueue_item,20260603_wqexp_v1_connection_seed_0011,statecode=2 statuscode=2,PASS,Dataverse workqueueitems read,item_missing_or_unprocessed
+additional_items_processed,0,0,PASS,no second item processed,max_one_additional_item

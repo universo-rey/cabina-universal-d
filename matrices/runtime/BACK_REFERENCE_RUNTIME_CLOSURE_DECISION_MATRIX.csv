@@ -1,0 +1,2 @@
+decision_id,state,reason,write_allowed,target_table,target_record_id,mapping_table,mapping_record_id,target_update_executed,second_item_executed,schema_patch_executed,stop_condition
+backref_closure_20260603,NO_TARGET_BUT_CAN_CREATE_MAPPING_RECORD,zero exact target candidates but original item has canonical_id correlation_id idempotency_key and batch_id,true,,,"mon_sdu_agent_connection_mapping","408f3320-615f-f111-a826-00224805f8f9",false,false,false,target_mapping_missing_or_ambiguous
