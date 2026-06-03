@@ -85,6 +85,9 @@
 !/scripts/validators/
 /scripts/validators/*
 !/scripts/validators/*.py
+!/scripts/connections/
+/scripts/connections/*
+!/scripts/connections/*.py
 !/scripts/power-platform/
 /scripts/power-platform/*
 !/scripts/power-platform/*.ps1
@@ -342,6 +345,8 @@
 !/readbacks/20260603_ACTIVE_EXECUTION_DEV_ATTEMPT_READBACK.md
 !/readbacks/20260603_CANON_ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT_READBACK.md
 !/readbacks/20260603_POWER_PLATFORM_TEAMS_ALM_PROVISIONING_READBACK.md
+!/readbacks/20260603_MCP_TEAMS_*.md
+!/readbacks/20260603_MCP_TEAMS_*.json
 !/readbacks/dataverse/
 /readbacks/dataverse/*
 !/readbacks/dataverse/*.md
