@@ -300,6 +300,35 @@ ciego: toda ejecucion requiere target exacto, owner, identidad, alcance,
 rollback, postcheck, evidencia, stop condition y readback. Si falta target,
 rollback o postcheck, la accion queda preparada y no ejecutada.
 
+## Cadena operativa estándar activa
+
+Estado:
+
+`STANDARD_AGENT_CHAIN_ACTIVE`
+
+Cadena:
+
+rey.control_plane_orchestrator
+→ court.openai_dispatcher
+→ sdu-triage-agent
+→ court.sdu_gate
+→ court.seshat_evidence
+
+Regla:
+Toda tarea Codex Cloud debe declarar:
+
+* agente rector;
+* agente delegado;
+* agente runtime;
+* gate;
+* evidencia;
+* skill;
+* receta;
+* tool;
+* superficie;
+* validador;
+* stop condition.
+
 Estado jerarquia AGENTS.md actualizado 2026-06-01: `D:\AGENTS.md` es la
 instruccion rectora local de mayor precedencia. Las instrucciones anidadas,
 perfiles de agentes, skills repo-locales, plugins y runtimes globales solo

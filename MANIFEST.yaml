@@ -22,6 +22,22 @@ cabina_canon_state:
   secrets_policy: never_print_never_persist
   write_policy: exact_target_owner_rollback_postcheck_evidence_required
   stop_condition: stop_if_target_or_rollback_or_postcheck_missing
+standard_agent_chain:
+  status: STANDARD_AGENT_CHAIN_ACTIVE
+  chain_id: cabina.standard.chain
+  lead_agent: rey.control_plane_orchestrator
+  delegated_agent: court.openai_dispatcher
+  runtime_agent: sdu-triage-agent
+  gate_agent: court.sdu_gate
+  evidence_agent: court.seshat_evidence
+  runtime: agents_sdk_live_governed
+  cloud: codex_cloud_task_scoped
+  github: enabled_governed
+  microsoft: enabled_governed_gated_not_executed
+  production: enabled_governed_gated_not_executed
+  propagation: enabled_governed_gated_not_executed
+  secrets_policy: never_print_never_persist
+  status_final: STANDARD_AGENT_CHAIN_ACTIVE
 authority_model:
   root: CABINA_UNIVERSAL_DEL_REY
   court: CORTE_EJECUTORA_DEL_REY
