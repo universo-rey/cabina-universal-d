@@ -2,7 +2,7 @@
 
 Fecha: 2026-06-03
 Estado final esperado: `POWER_PLATFORM_TEAMS_ALM_DEV_STAGING_READY`
-Estado actual del readback: `LOCAL_VALIDATION_PASS_PENDING_GIT_PR`
+Estado actual del readback: `POWER_PLATFORM_TEAMS_ALM_DEV_STAGING_READY`
 
 ## Cadena
 
@@ -27,6 +27,8 @@ Estado actual del readback: `LOCAL_VALIDATION_PASS_PENDING_GIT_PR`
 | remoto | `https://github.com/universo-rey/cabina-universal-d.git` |
 | base | `origin/main` |
 | rama creada | `codex/power-platform-teams-governance-alm-20260603` |
+| commit local principal | `87aed305617c5075a54a83843f245d082ae7f48f` |
+| PR | `https://github.com/universo-rey/cabina-universal-d/pull/74` |
 | estado inicial | limpio |
 | Microsoft live | no ejecutado |
 | produccion | no ejecutada |
@@ -165,19 +167,16 @@ Estado actual del readback: `LOCAL_VALIDATION_PASS_PENDING_GIT_PR`
 | YAML parser | `PASS`, 5 workflows parseables |
 | `git diff --check` | `PASS` con warning de CRLF esperado en `.gitignore` |
 | Change-aware full coverage orchestrator | `PASS`, 19 tests requeridos, `coverage_equivalence=true`, `blocked_surfaces_clear=true`, 0 errores |
+| Remote Cabina Validation | `PASS`, PR #74, runs `26904780654` y `26904801798` |
 
 ## Proximo paso exacto
 
-1. Ejecutar validadores de cabina.
-2. Stage explicito de archivos del paquete.
-3. Commit local con mensaje:
-   `feat(power-platform): provision Teams and Power Platform ALM governance`
-4. Push de rama.
-5. Abrir PR:
-   `gh pr create --title "Power Platform / Teams ALM Governance Provisioning" --body-file <body>`
+1. Configurar GitHub Secrets externos si aun no existen.
+2. Ejecutar `power-platform-whoami.yml` contra DEV/STAGING exacto.
+3. Ejecutar export/check/import solo con target no productivo y gates true.
 
 ## Cierre
 
-Estado: `LOCAL_VALIDATION_PASS_PENDING_GIT_PR`
+Estado: `POWER_PLATFORM_TEAMS_ALM_DEV_STAGING_READY`
 Rollback: revertir commit/PR; no hubo Microsoft live write.
 Stop condition: `tenant_exact_target_missing_for_live_execution`
