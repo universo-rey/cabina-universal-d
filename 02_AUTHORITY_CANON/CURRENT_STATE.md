@@ -394,9 +394,16 @@ secretos ni datos live. La evidencia queda en
 `D:/.agents/codex/readbacks/2026-06-02_governance_validation_suite_phase3_readback.md`
 y
 `D:/.agents/codex/readbacks/2026-06-02_governance_validation_suite_gate_promotion_readback.md`.
-Quedan pendientes por carril separado el reemplazo change-aware del workflow,
-hash sets transversales y observacion de las proximas corridas CI con el gate
-principal.
+Actualizacion 2026-06-03: el carril de hash sets transversales queda
+implementado en `local_validate_agent_layer.ps1`,
+`local_run_repo_alignment_runtime.ps1`,
+`local_validate_operational_chain.ps1` y
+`local_validate_capability_use_hardening.ps1`; los chequeos repetidos de ids,
+columnas y stop conditions usan `HashSet[string]` case-insensitive para
+mantener la semantica de PowerShell. La evidencia queda en
+`D:/.agents/codex/readbacks/2026-06-03_validator_hash_set_performance_readback.md`.
+Quedan pendientes por carril separado el reemplazo change-aware del workflow y
+la observacion de las proximas corridas CI con el gate principal.
 
 Reglas vigentes:
 

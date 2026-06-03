@@ -31,6 +31,17 @@ function Resolve-CabinaPath {
   return Join-Path $RepoRoot $normalized
 }
 
+function New-StringSet {
+  param([object[]]$Values)
+  $set = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+  foreach ($value in @($Values)) {
+    if (-not [string]::IsNullOrWhiteSpace([string]$value)) {
+      [void]$set.Add([string]$value)
+    }
+  }
+  return $set
+}
+
 function Require-Columns {
   param(
     [string]$Path,
@@ -45,8 +56,9 @@ function Require-Columns {
     $header = Get-Content -LiteralPath $Path -TotalCount 1
     if ($header) { $actual = @($header -split ",") }
   }
+  $actualSet = New-StringSet -Values $actual
   foreach ($column in $Columns) {
-    if ($column -notin $actual) {
+    if (-not $actualSet.Contains($column)) {
       $Errors.Add("Missing column '$column' in $Path")
     }
   }
@@ -71,12 +83,12 @@ function Check-PathList {
 function Check-StopCondition {
   param(
     [string]$Value,
-    [string[]]$KnownStops,
+    [System.Collections.Generic.HashSet[string]]$KnownStops,
     [System.Collections.Generic.List[string]]$Errors,
     [string]$Context
   )
   foreach ($token in @($Value -split "\|" | ForEach-Object { $_.Trim() } | Where-Object { $_ })) {
-    if ($token -notin $KnownStops) {
+    if (-not $KnownStops.Contains($token)) {
       $Errors.Add("$Context references unknown stop_condition: $token")
     }
   }
@@ -106,8 +118,13 @@ $routingAgents = @((Get-Content -Raw -LiteralPath $routingPath | ConvertFrom-Jso
 $skillIds = @((Read-CsvRequired -Path $skillUsagePath) | ForEach-Object { $_.skill_id })
 $recipeIds = @((Read-CsvRequired -Path $recipeIndexPath) | ForEach-Object { $_.recipe_id })
 $toolIds = @((Read-CsvRequired -Path $toolIndexPath) | ForEach-Object { $_.tool_id })
-$knownStops = @((Read-CsvRequired -Path $stopPath) | ForEach-Object { $_.stop_condition })
 $rows = Read-CsvRequired -Path $matrixPath
+$agentIdSet = New-StringSet -Values $agentIds
+$skillIdSet = New-StringSet -Values $skillIds
+$recipeIdSet = New-StringSet -Values $recipeIds
+$toolIdSet = New-StringSet -Values $toolIds
+$knownStopSet = New-StringSet -Values @((Read-CsvRequired -Path $stopPath) | ForEach-Object { $_.stop_condition })
+$chainIdSet = New-StringSet -Values @($rows | ForEach-Object { $_.chain_id })
 
 foreach ($expected in @(
   "chain.chat_closeout_global",
@@ -116,7 +133,7 @@ foreach ($expected in @(
   "chain.live_runtime_order_global",
   "chain.parallel_subagent_global"
 )) {
-  if ($expected -notin @($rows | ForEach-Object { $_.chain_id })) {
+  if (-not $chainIdSet.Contains($expected)) {
     $errors.Add("Missing operational chain row: $expected")
   }
 }
@@ -127,10 +144,10 @@ foreach ($row in $rows) {
       $errors.Add("Operational chain '$($row.chain_id)' missing $field")
     }
   }
-  if ($row.owner_agent -notin $agentIds) {
+  if (-not $agentIdSet.Contains($row.owner_agent)) {
     $errors.Add("Operational chain '$($row.chain_id)' references unknown owner_agent: $($row.owner_agent)")
   }
-  if ($row.reviewer_agent -notin $agentIds) {
+  if (-not $agentIdSet.Contains($row.reviewer_agent)) {
     $errors.Add("Operational chain '$($row.chain_id)' references unknown reviewer_agent: $($row.reviewer_agent)")
   }
   if ($row.owner_agent -eq $row.reviewer_agent) {
@@ -142,28 +159,28 @@ foreach ($row in $rows) {
   foreach ($sourceField in @("required_agent_source","required_skill_source","required_recipe_source","required_tool_source","required_validator_source","required_stop_condition_source","validator")) {
     Check-PathList -Value $row.$sourceField -Errors $errors -Context "Operational chain '$($row.chain_id)' $sourceField"
   }
-  Check-StopCondition -Value $row.stop_condition -KnownStops $knownStops -Errors $errors -Context "Operational chain '$($row.chain_id)'"
+  Check-StopCondition -Value $row.stop_condition -KnownStops $knownStopSet -Errors $errors -Context "Operational chain '$($row.chain_id)'"
 }
 
 foreach ($routeAgent in $routingAgents) {
-  if ($routeAgent -notin $agentIds) {
+  if (-not $agentIdSet.Contains($routeAgent)) {
     $errors.Add("routing.json references unknown agent: $routeAgent")
   }
 }
 
 foreach ($agent in $agents) {
   foreach ($skill in @($agent.default_skills | Where-Object { $_ })) {
-    if ($skill -notin $skillIds) {
+    if (-not $skillIdSet.Contains($skill)) {
       $errors.Add("agents.json $($agent.id) default skill not indexed: $skill")
     }
   }
   foreach ($recipe in @($agent.default_recipes | Where-Object { $_ })) {
-    if ($recipe -notin $recipeIds) {
+    if (-not $recipeIdSet.Contains($recipe)) {
       $errors.Add("agents.json $($agent.id) default recipe not indexed: $recipe")
     }
   }
   foreach ($tool in @($agent.default_tools | Where-Object { $_ })) {
-    if ($tool -notin $toolIds) {
+    if (-not $toolIdSet.Contains($tool)) {
       $errors.Add("agents.json $($agent.id) default tool not indexed: $tool")
     }
   }
@@ -176,21 +193,21 @@ foreach ($row in Read-CsvRequired -Path $defaultSkillPath) {
     }
   }
   foreach ($skill in @($row.default_skill_refs -split "\|" | ForEach-Object { $_.Trim() } | Where-Object { $_ })) {
-    if ($skill -notin $skillIds) {
+    if (-not $skillIdSet.Contains($skill)) {
       $errors.Add("Default skill assignment '$($row.agent_id)' references unknown skill: $skill")
     }
   }
   foreach ($recipe in @($row.default_recipe_refs -split "\|" | ForEach-Object { $_.Trim() } | Where-Object { $_ })) {
-    if ($recipe -notin $recipeIds) {
+    if (-not $recipeIdSet.Contains($recipe)) {
       $errors.Add("Default skill assignment '$($row.agent_id)' references unknown recipe: $recipe")
     }
   }
   foreach ($tool in @($row.default_tool_refs -split "\|" | ForEach-Object { $_.Trim() } | Where-Object { $_ })) {
-    if ($tool -notin $toolIds) {
+    if (-not $toolIdSet.Contains($tool)) {
       $errors.Add("Default skill assignment '$($row.agent_id)' references unknown tool: $tool")
     }
   }
-  Check-StopCondition -Value $row.stop_condition -KnownStops $knownStops -Errors $errors -Context "Default skill assignment '$($row.agent_id)'"
+  Check-StopCondition -Value $row.stop_condition -KnownStops $knownStopSet -Errors $errors -Context "Default skill assignment '$($row.agent_id)'"
 }
 
 foreach ($row in Read-CsvRequired -Path $agentContractPath) {

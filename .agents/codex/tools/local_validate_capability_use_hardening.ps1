@@ -31,6 +31,17 @@ function Resolve-CabinaPath {
   return Join-Path $RepoRoot $normalized
 }
 
+function New-StringSet {
+  param([object[]]$Values)
+  $set = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+  foreach ($value in @($Values)) {
+    if (-not [string]::IsNullOrWhiteSpace([string]$value)) {
+      [void]$set.Add([string]$value)
+    }
+  }
+  return $set
+}
+
 function Require-Columns {
   param(
     [string]$Path,
@@ -45,8 +56,9 @@ function Require-Columns {
     $header = Get-Content -LiteralPath $Path -TotalCount 1
     if ($header) { $actual = @($header -split ",") }
   }
+  $actualSet = New-StringSet -Values $actual
   foreach ($column in $Columns) {
-    if ($column -notin $actual) {
+    if (-not $actualSet.Contains($column)) {
       $Errors.Add("Missing column '$column' in $Path")
     }
   }
@@ -76,12 +88,12 @@ function Check-PathTokens {
 function Check-Refs {
   param(
     [string]$Value,
-    [string[]]$Known,
+    [System.Collections.Generic.HashSet[string]]$Known,
     [System.Collections.Generic.List[string]]$Errors,
     [string]$Context
   )
   foreach ($token in (Split-Tokens -Value $Value)) {
-    if ($token -notin $Known) {
+    if (-not $Known.Contains($token)) {
       $Errors.Add("$Context references unknown id: $token")
     }
   }
@@ -90,12 +102,12 @@ function Check-Refs {
 function Check-StopCondition {
   param(
     [string]$Value,
-    [string[]]$KnownStops,
+    [System.Collections.Generic.HashSet[string]]$KnownStops,
     [System.Collections.Generic.List[string]]$Errors,
     [string]$Context
   )
   foreach ($token in (Split-Tokens -Value $Value)) {
-    if ($token -notin $KnownStops) {
+    if (-not $KnownStops.Contains($token)) {
       $Errors.Add("$Context references unknown stop_condition: $token")
     }
   }
@@ -155,9 +167,14 @@ $toolIds = @($toolRows | ForEach-Object { $_.tool_id })
 $pluginRows = Read-CsvRequired -Path $pluginBoundaryPath
 $pluginIds = @($pluginRows | ForEach-Object { $_.plugin_id })
 $repoRuntimeRows = Read-CsvRequired -Path $repoRuntimePath
-$knownStops = @((Read-CsvRequired -Path $stopPath) | ForEach-Object { $_.stop_condition })
+$agentIdSet = New-StringSet -Values $agentIds
+$skillIdSet = New-StringSet -Values $skillIds
+$recipeIdSet = New-StringSet -Values $recipeIds
+$toolIdSet = New-StringSet -Values $toolIds
+$pluginIdSet = New-StringSet -Values $pluginIds
+$knownStopSet = New-StringSet -Values @((Read-CsvRequired -Path $stopPath) | ForEach-Object { $_.stop_condition })
 
-if ($mandatorySkill -notin $skillIds) {
+if (-not $skillIdSet.Contains($mandatorySkill)) {
   $errors.Add("Mandatory capability discovery skill missing from SKILL_USAGE_MATRIX: $mandatorySkill")
 }
 if (-not (Test-Path -LiteralPath $mandatorySkillPath)) {
@@ -165,6 +182,7 @@ if (-not (Test-Path -LiteralPath $mandatorySkillPath)) {
 }
 
 $rows = Read-CsvRequired -Path $matrixPath
+$stageIdSet = New-StringSet -Values @($rows | ForEach-Object { $_.stage_id })
 $expectedStages = @(
   "capability_use.session_intake",
   "capability_use.before_local_read",
@@ -178,7 +196,7 @@ $expectedStages = @(
 )
 
 foreach ($expected in $expectedStages) {
-  if ($expected -notin @($rows | ForEach-Object { $_.stage_id })) {
+  if (-not $stageIdSet.Contains($expected)) {
     $errors.Add("Missing capability-use hardening row: $expected")
   }
 }
@@ -190,7 +208,7 @@ foreach ($row in $rows) {
     }
   }
   foreach ($agentField in @("lead_agent","owner_agent","reviewer_agent")) {
-    if ($row.$agentField -notin $agentIds) {
+    if (-not $agentIdSet.Contains($row.$agentField)) {
       $errors.Add("Capability-use row '$($row.stage_id)' references unknown ${agentField}: $($row.$agentField)")
     }
   }
@@ -208,7 +226,7 @@ foreach ($row in $rows) {
       $errors.Add("Capability-use row '$($row.stage_id)' missing blocked action '$blocked'")
     }
   }
-  Check-StopCondition -Value $row.stop_condition -KnownStops $knownStops -Errors $errors -Context "Capability-use row '$($row.stage_id)'"
+  Check-StopCondition -Value $row.stop_condition -KnownStops $knownStopSet -Errors $errors -Context "Capability-use row '$($row.stage_id)'"
 }
 
 foreach ($agent in $agents) {
@@ -217,32 +235,34 @@ foreach ($agent in $agents) {
       $errors.Add("agents.json $($agent.id) missing $field")
     }
   }
-  Check-Refs -Value (@($agent.default_skills) -join "|") -Known $skillIds -Errors $errors -Context "agents.json $($agent.id) default_skills"
-  if ($mandatorySkill -notin @($agent.default_skills)) {
+  $agentDefaultSkillSet = New-StringSet -Values @($agent.default_skills)
+  Check-Refs -Value (@($agent.default_skills) -join "|") -Known $skillIdSet -Errors $errors -Context "agents.json $($agent.id) default_skills"
+  if (-not $agentDefaultSkillSet.Contains($mandatorySkill)) {
     $errors.Add("agents.json $($agent.id) missing mandatory default skill: $mandatorySkill")
   }
-  Check-Refs -Value (@($agent.default_recipes) -join "|") -Known $recipeIds -Errors $errors -Context "agents.json $($agent.id) default_recipes"
-  Check-Refs -Value (@($agent.default_tools) -join "|") -Known $toolIds -Errors $errors -Context "agents.json $($agent.id) default_tools"
-  Check-Refs -Value (@($agent.default_plugins) -join "|") -Known $pluginIds -Errors $errors -Context "agents.json $($agent.id) default_plugins"
+  Check-Refs -Value (@($agent.default_recipes) -join "|") -Known $recipeIdSet -Errors $errors -Context "agents.json $($agent.id) default_recipes"
+  Check-Refs -Value (@($agent.default_tools) -join "|") -Known $toolIdSet -Errors $errors -Context "agents.json $($agent.id) default_tools"
+  Check-Refs -Value (@($agent.default_plugins) -join "|") -Known $pluginIdSet -Errors $errors -Context "agents.json $($agent.id) default_plugins"
 }
 
 foreach ($row in (Read-CsvRequired -Path $defaultSkillPath)) {
-  if ($row.agent_id -notin $agentIds) {
+  if (-not $agentIdSet.Contains($row.agent_id)) {
     $errors.Add("Default assignment references unknown agent: $($row.agent_id)")
   }
-  if ($mandatorySkill -notin (Split-Tokens -Value $row.default_skill_refs)) {
+  $defaultSkillRefSet = New-StringSet -Values (Split-Tokens -Value $row.default_skill_refs)
+  if (-not $defaultSkillRefSet.Contains($mandatorySkill)) {
     $errors.Add("Default assignment '$($row.agent_id)' missing mandatory skill: $mandatorySkill")
   }
-  Check-Refs -Value $row.default_skill_refs -Known $skillIds -Errors $errors -Context "Default assignment '$($row.agent_id)' skills"
-  Check-Refs -Value $row.default_recipe_refs -Known $recipeIds -Errors $errors -Context "Default assignment '$($row.agent_id)' recipes"
-  Check-Refs -Value $row.default_tool_refs -Known $toolIds -Errors $errors -Context "Default assignment '$($row.agent_id)' tools"
-  Check-Refs -Value $row.default_plugin_refs -Known $pluginIds -Errors $errors -Context "Default assignment '$($row.agent_id)' plugins"
+  Check-Refs -Value $row.default_skill_refs -Known $skillIdSet -Errors $errors -Context "Default assignment '$($row.agent_id)' skills"
+  Check-Refs -Value $row.default_recipe_refs -Known $recipeIdSet -Errors $errors -Context "Default assignment '$($row.agent_id)' recipes"
+  Check-Refs -Value $row.default_tool_refs -Known $toolIdSet -Errors $errors -Context "Default assignment '$($row.agent_id)' tools"
+  Check-Refs -Value $row.default_plugin_refs -Known $pluginIdSet -Errors $errors -Context "Default assignment '$($row.agent_id)' plugins"
   Check-PathTokens -Value $row.validator -Errors $errors -Context "Default assignment '$($row.agent_id)' validator"
-  Check-StopCondition -Value $row.stop_condition -KnownStops $knownStops -Errors $errors -Context "Default assignment '$($row.agent_id)'"
+  Check-StopCondition -Value $row.stop_condition -KnownStops $knownStopSet -Errors $errors -Context "Default assignment '$($row.agent_id)'"
 }
 
 foreach ($row in (Read-CsvRequired -Path $agentContractPath)) {
-  if ($row.agent_id -notin $agentIds) {
+  if (-not $agentIdSet.Contains($row.agent_id)) {
     $errors.Add("Agent execution contract references unknown agent: $($row.agent_id)")
   }
   foreach ($field in @("skill_refs","recipe_refs","tool_refs","plugin_refs","validator","stop_condition")) {
@@ -250,15 +270,16 @@ foreach ($row in (Read-CsvRequired -Path $agentContractPath)) {
       $errors.Add("Agent execution contract '$($row.agent_id)' missing $field")
     }
   }
-  Check-Refs -Value $row.skill_refs -Known $skillIds -Errors $errors -Context "Agent execution contract '$($row.agent_id)' skills"
-  if ($mandatorySkill -notin (Split-Tokens -Value $row.skill_refs)) {
+  Check-Refs -Value $row.skill_refs -Known $skillIdSet -Errors $errors -Context "Agent execution contract '$($row.agent_id)' skills"
+  $contractSkillRefSet = New-StringSet -Values (Split-Tokens -Value $row.skill_refs)
+  if (-not $contractSkillRefSet.Contains($mandatorySkill)) {
     $errors.Add("Agent execution contract '$($row.agent_id)' missing mandatory skill: $mandatorySkill")
   }
-  Check-Refs -Value $row.recipe_refs -Known $recipeIds -Errors $errors -Context "Agent execution contract '$($row.agent_id)' recipes"
-  Check-Refs -Value $row.tool_refs -Known $toolIds -Errors $errors -Context "Agent execution contract '$($row.agent_id)' tools"
-  Check-Refs -Value $row.plugin_refs -Known $pluginIds -Errors $errors -Context "Agent execution contract '$($row.agent_id)' plugins"
+  Check-Refs -Value $row.recipe_refs -Known $recipeIdSet -Errors $errors -Context "Agent execution contract '$($row.agent_id)' recipes"
+  Check-Refs -Value $row.tool_refs -Known $toolIdSet -Errors $errors -Context "Agent execution contract '$($row.agent_id)' tools"
+  Check-Refs -Value $row.plugin_refs -Known $pluginIdSet -Errors $errors -Context "Agent execution contract '$($row.agent_id)' plugins"
   Check-PathTokens -Value $row.validator -Errors $errors -Context "Agent execution contract '$($row.agent_id)' validator"
-  Check-StopCondition -Value $row.stop_condition -KnownStops $knownStops -Errors $errors -Context "Agent execution contract '$($row.agent_id)'"
+  Check-StopCondition -Value $row.stop_condition -KnownStops $knownStopSet -Errors $errors -Context "Agent execution contract '$($row.agent_id)'"
 }
 
 foreach ($row in $repoRuntimeRows) {
@@ -267,13 +288,14 @@ foreach ($row in $repoRuntimeRows) {
       $errors.Add("Repo runtime alignment '$($row.repo_id)' missing $field")
     }
   }
-  if ($mandatorySkill -notin (Split-Tokens -Value $row.default_skill_refs)) {
+  $repoDefaultSkillSet = New-StringSet -Values (Split-Tokens -Value $row.default_skill_refs)
+  if (-not $repoDefaultSkillSet.Contains($mandatorySkill)) {
     $errors.Add("Repo runtime alignment '$($row.repo_id)' missing mandatory skill: $mandatorySkill")
   }
-  Check-Refs -Value $row.default_skill_refs -Known $skillIds -Errors $errors -Context "Repo runtime alignment '$($row.repo_id)' skills"
-  Check-Refs -Value $row.default_recipe_refs -Known $recipeIds -Errors $errors -Context "Repo runtime alignment '$($row.repo_id)' recipes"
-  Check-Refs -Value $row.default_tool_refs -Known $toolIds -Errors $errors -Context "Repo runtime alignment '$($row.repo_id)' tools"
-  Check-Refs -Value $row.default_plugin_refs -Known $pluginIds -Errors $errors -Context "Repo runtime alignment '$($row.repo_id)' plugins"
+  Check-Refs -Value $row.default_skill_refs -Known $skillIdSet -Errors $errors -Context "Repo runtime alignment '$($row.repo_id)' skills"
+  Check-Refs -Value $row.default_recipe_refs -Known $recipeIdSet -Errors $errors -Context "Repo runtime alignment '$($row.repo_id)' recipes"
+  Check-Refs -Value $row.default_tool_refs -Known $toolIdSet -Errors $errors -Context "Repo runtime alignment '$($row.repo_id)' tools"
+  Check-Refs -Value $row.default_plugin_refs -Known $pluginIdSet -Errors $errors -Context "Repo runtime alignment '$($row.repo_id)' plugins"
 }
 
 foreach ($row in $pluginRows) {
@@ -282,10 +304,10 @@ foreach ($row in $pluginRows) {
       $errors.Add("Plugin boundary '$($row.plugin_id)' missing $field")
     }
   }
-  Check-Refs -Value $row.skill_refs -Known $skillIds -Errors $errors -Context "Plugin boundary '$($row.plugin_id)' skills"
-  Check-Refs -Value $row.assigned_agents -Known $agentIds -Errors $errors -Context "Plugin boundary '$($row.plugin_id)' agents"
+  Check-Refs -Value $row.skill_refs -Known $skillIdSet -Errors $errors -Context "Plugin boundary '$($row.plugin_id)' skills"
+  Check-Refs -Value $row.assigned_agents -Known $agentIdSet -Errors $errors -Context "Plugin boundary '$($row.plugin_id)' agents"
   Check-PathTokens -Value $row.validator -Errors $errors -Context "Plugin boundary '$($row.plugin_id)' validator"
-  Check-StopCondition -Value $row.stop_condition -KnownStops $knownStops -Errors $errors -Context "Plugin boundary '$($row.plugin_id)'"
+  Check-StopCondition -Value $row.stop_condition -KnownStops $knownStopSet -Errors $errors -Context "Plugin boundary '$($row.plugin_id)'"
 }
 
 foreach ($row in $toolRows) {
@@ -298,7 +320,7 @@ foreach ($row in $toolRows) {
 }
 
 foreach ($row in $recipeRows) {
-  if ($row.primary_agent -notin $agentIds) {
+  if (-not $agentIdSet.Contains($row.primary_agent)) {
     $errors.Add("Recipe '$($row.recipe_id)' references unknown primary_agent: $($row.primary_agent)")
   }
   Check-PathTokens -Value $row.path -Errors $errors -Context "Recipe '$($row.recipe_id)' path"
@@ -306,15 +328,15 @@ foreach ($row in $recipeRows) {
 
 $routing = Get-Content -Raw -LiteralPath $routingPath | ConvertFrom-Json
 foreach ($route in @($routing.routes)) {
-  Check-Refs -Value (@($route.agents) -join "|") -Known $agentIds -Errors $errors -Context "routing.json route '$($route.order_class)' agents"
+  Check-Refs -Value (@($route.agents) -join "|") -Known $agentIdSet -Errors $errors -Context "routing.json route '$($route.order_class)' agents"
 }
 foreach ($handoff in @($routing.handoff_rules)) {
-  if ($handoff.assigned_agent -notin $agentIds) {
+  if (-not $agentIdSet.Contains($handoff.assigned_agent)) {
     $errors.Add("routing.json handoff '$($handoff.when)' references unknown assigned_agent: $($handoff.assigned_agent)")
   }
-  $mustInclude = @($handoff.must_include)
+  $mustInclude = New-StringSet -Values @($handoff.must_include)
   foreach ($field in @("capability_chain","skill","recipe","plugin","tool","surface","evidence","validator","stop_condition")) {
-    if ($field -notin $mustInclude) {
+    if (-not $mustInclude.Contains($field)) {
       $warnings.Add("routing.json handoff '$($handoff.when)' does not require $field")
     }
   }

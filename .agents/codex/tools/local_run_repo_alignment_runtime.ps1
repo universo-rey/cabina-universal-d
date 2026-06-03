@@ -31,6 +31,17 @@ function Read-JsonRequired([string]$Path) {
   return $script:JsonCache[$resolvedPath]
 }
 
+function New-StringSet {
+  param([object[]]$Values)
+  $set = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+  foreach ($value in @($Values)) {
+    if (-not [string]::IsNullOrWhiteSpace([string]$value)) {
+      [void]$set.Add([string]$value)
+    }
+  }
+  return $set
+}
+
 $matrixRoot = Join-Path $Root "matrices"
 $toolsRoot = Join-Path $Root "tools"
 $recipesRoot = Join-Path $Root "recipes"
@@ -63,24 +74,28 @@ $warnings = New-Object System.Collections.Generic.List[string]
 $agentIds = @($agentsJson.agents | ForEach-Object { $_.id })
 $defaultAgentIds = @($defaultSkills | ForEach-Object { $_.agent_id })
 $contractAgentIds = @($agentContracts | ForEach-Object { $_.agent_id })
+$agentIdSet = New-StringSet -Values $agentIds
+$defaultAgentIdSet = New-StringSet -Values $defaultAgentIds
+$contractAgentIdSet = New-StringSet -Values $contractAgentIds
 
 foreach ($agentId in $agentIds) {
-  if ($defaultAgentIds -notcontains $agentId) {
+  if (-not $defaultAgentIdSet.Contains($agentId)) {
     $errors.Add("Agent missing default skills: $agentId")
   }
-  if ($contractAgentIds -notcontains $agentId) {
+  if (-not $contractAgentIdSet.Contains($agentId)) {
     $errors.Add("Agent missing execution contract: $agentId")
   }
 }
 
 $skillIds = @($skillUsage | ForEach-Object { $_.skill_id })
+$skillIdSet = New-StringSet -Values $skillIds
 foreach ($row in $defaultSkills) {
   $skills = @($row.default_skill_refs -split "\|" | Where-Object { $_ })
   if ($skills.Count -eq 0) {
     $errors.Add("Agent has empty default skill set: $($row.agent_id)")
   }
   foreach ($skill in $skills) {
-    if ($skillIds -notcontains $skill) {
+    if (-not $skillIdSet.Contains($skill)) {
       $errors.Add("Default skill not present in SKILL_USAGE_MATRIX: $($row.agent_id) -> $skill")
     }
   }
@@ -89,20 +104,23 @@ foreach ($row in $defaultSkills) {
 $recipeIds = @($recipeIndex | ForEach-Object { $_.recipe_id })
 $toolIds = @($toolIndex | ForEach-Object { $_.tool_id })
 $pluginIds = @($pluginUsage | ForEach-Object { $_.plugin_id })
+$recipeIdSet = New-StringSet -Values $recipeIds
+$toolIdSet = New-StringSet -Values $toolIds
+$pluginIdSet = New-StringSet -Values $pluginIds
 
 foreach ($row in $agentContracts) {
   foreach ($recipe in @($row.recipe_refs -split "\|" | Where-Object { $_ })) {
-    if ($recipeIds -notcontains $recipe) {
+    if (-not $recipeIdSet.Contains($recipe)) {
       $errors.Add("Recipe ref not indexed: $($row.agent_id) -> $recipe")
     }
   }
   foreach ($tool in @($row.tool_refs -split "\|" | Where-Object { $_ })) {
-    if ($toolIds -notcontains $tool) {
+    if (-not $toolIdSet.Contains($tool)) {
       $errors.Add("Tool ref not indexed: $($row.agent_id) -> $tool")
     }
   }
   foreach ($plugin in @($row.plugin_refs -split "\|" | Where-Object { $_ })) {
-    if ($pluginIds -notcontains $plugin) {
+    if (-not $pluginIdSet.Contains($plugin)) {
       $errors.Add("Plugin ref not indexed: $($row.agent_id) -> $plugin")
     }
   }
@@ -111,17 +129,19 @@ foreach ($row in $agentContracts) {
 $githubRepoIds = @($githubBase | ForEach-Object { $_.repo_id })
 $runtimeRepoIds = @($repoRuntime | ForEach-Object { $_.repo_id })
 $cabinaRepoIds = @($cabinaRepoAlignment | ForEach-Object { $_.repo_id })
+$runtimeRepoIdSet = New-StringSet -Values $runtimeRepoIds
+$cabinaRepoIdSet = New-StringSet -Values $cabinaRepoIds
 foreach ($repoId in $githubRepoIds) {
-  if ($runtimeRepoIds -notcontains $repoId) {
+  if (-not $runtimeRepoIdSet.Contains($repoId)) {
     $errors.Add("Repo missing runtime alignment row: $repoId")
   }
-  if ($cabinaRepoIds -notcontains $repoId) {
+  if (-not $cabinaRepoIdSet.Contains($repoId)) {
     $errors.Add("Repo missing cabina-universal-d alignment row: $repoId")
   }
 }
 
 foreach ($row in $repoRuntime) {
-  if ($agentIds -notcontains $row.owner_agent) {
+  if (-not $agentIdSet.Contains($row.owner_agent)) {
     $errors.Add("Repo runtime owner is not an agent: $($row.repo_id) -> $($row.owner_agent)")
   }
   if ($row.runtime_mode -ne "LOCAL_SYNTHETIC_ALIGNMENT_ONLY") {
@@ -176,6 +196,7 @@ foreach ($row in $githubActions) {
 }
 
 $preflightIds = @($githubAutomationPreflight | ForEach-Object { $_.preflight_id })
+$preflightIdSet = New-StringSet -Values $preflightIds
 foreach ($expected in @(
   "preflight.github_foundation",
   "preflight.github_actions_readonly",
@@ -184,7 +205,7 @@ foreach ($expected in @(
   "preflight.operational_chain_global",
   "preflight.repo_iteration_gate"
 )) {
-  if ($preflightIds -notcontains $expected) {
+  if (-not $preflightIdSet.Contains($expected)) {
     $errors.Add("GitHub automation preflight row missing: $expected")
   }
 }
@@ -212,6 +233,7 @@ if (-not $agentsSdkPreflight) {
 }
 
 $operationalChainIds = @($operationalChain | ForEach-Object { $_.chain_id })
+$operationalChainIdSet = New-StringSet -Values $operationalChainIds
 foreach ($expected in @(
   "chain.chat_closeout_global",
   "chain.repo_change_global",
@@ -219,7 +241,7 @@ foreach ($expected in @(
   "chain.live_runtime_order_global",
   "chain.parallel_subagent_global"
 )) {
-  if ($operationalChainIds -notcontains $expected) {
+  if (-not $operationalChainIdSet.Contains($expected)) {
     $errors.Add("Operational chain row missing: $expected")
   }
 }

@@ -188,10 +188,11 @@ runtime_alignment_state:
   openai_platform_key_name: cabina-universal-d Codex
   openai_platform_key_target: Modo On/SYS-SDU
   openai_api_smoke_status: PASS_HTTP_200_NO_BODY_PRINTED
-  validator_performance_improvement_state: LOW_RISK_IMPROVEMENTS_IMPLEMENTED_20260602
+  validator_performance_improvement_state: LOW_RISK_IMPROVEMENTS_IMPLEMENTED_20260603
   validator_performance_improvement_matrix: D:/.agents/codex/matrices/VALIDATOR_PERFORMANCE_IMPROVEMENT_MATRIX_20260602.csv
   validator_performance_improvement_readback: D:/.agents/codex/readbacks/2026-06-02_validator_performance_improvements_readback.md
-  validator_performance_improvement_scope: csv_json_cache|agent_layer_skip_workflow_nested|single_read_secret_scan|aggregate_runner_main_gate
+  validator_performance_hash_set_readback: D:/.agents/codex/readbacks/2026-06-03_validator_hash_set_performance_readback.md
+  validator_performance_improvement_scope: csv_json_cache|agent_layer_skip_workflow_nested|single_read_secret_scan|aggregate_runner_main_gate|hash_set_membership
   governance_validation_suite_state: MAIN_GOVERNANCE_GATE_AFTER_MANUAL_RUNS
   governance_validation_suite_tool: D:/.agents/codex/tools/local_run_governance_validation_suite.ps1
   governance_validation_suite_readback: D:/.agents/codex/readbacks/2026-06-02_governance_validation_suite_phase3_readback.md
