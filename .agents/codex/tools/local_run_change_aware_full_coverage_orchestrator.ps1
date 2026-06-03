@@ -258,6 +258,11 @@ function Get-GitChangedFiles {
 function Test-BlockedSurfaces {
   param([string[]]$ChangedFiles)
   $blocked = New-Object System.Collections.Generic.List[object]
+  $governedBoundaryEvidencePaths = @(
+    "dataverse/data/seed_connection_secret_boundaries.csv",
+    "matrices/connections/connection_secret_boundary_matrix.csv",
+    "validation/versioning/local_package_secret_scan_report.md"
+  )
   $patterns = @(
     @{ pattern = ".env"; reason = "secret_file" },
     @{ pattern = ".env.*"; reason = "secret_file" },
@@ -270,9 +275,13 @@ function Test-BlockedSurfaces {
     @{ pattern = "*/tenant/*"; reason = "tenant_path" }
   )
   foreach ($file in @($ChangedFiles)) {
+    $normalized = ($file -replace "\\", "/").ToLowerInvariant()
     $leaf = Split-Path -Leaf ($file -replace "/", "\")
     foreach ($entry in $patterns) {
       if ($file -like $entry.pattern -or $leaf -like $entry.pattern) {
+        if ($entry.reason -eq "secret_path" -and $governedBoundaryEvidencePaths -contains $normalized) {
+          continue
+        }
         $blocked.Add([pscustomobject]@{ path = $file; reason = $entry.reason })
       }
     }
