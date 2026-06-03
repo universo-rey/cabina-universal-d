@@ -7,7 +7,7 @@ gate principal.
 
 ## Estado
 
-HECHO_VERIFICADO: `PROMOTED_MAIN_GATE_LOCAL_VALIDATED`
+HECHO_VERIFICADO: `PROMOTED_MAIN_GATE_REMOTE_VALIDATED_PR50`
 
 Decision: promover
 `D:\.agents\codex\tools\local_run_governance_validation_suite.ps1` de runner
@@ -61,7 +61,18 @@ Validadores locales ejecutados antes del commit:
 - `local_validate_operational_chain.ps1`: `PASS`
 - `git diff --check`: `PASS`
 
-Pendiente de cierre remoto: check del PR con el nuevo gate principal.
+Check remoto del PR con el nuevo gate principal:
+
+- PR: `universo-rey/cabina-universal-d#50`
+- Run: `26856384271`
+- URL:
+  `https://github.com/universo-rey/cabina-universal-d/actions/runs/26856384271`
+- conclusion: `success`
+- step: `Governance validation suite`
+- mode: `MAIN_GOVERNANCE_GATE`
+- validators: `18/18`
+- `duration_ms=13835`
+- `result_written=false`
 
 ## Riesgos
 
@@ -93,7 +104,7 @@ Revertir el commit de promocion o restaurar:
 - skill: `tcu-descubridor-capacidades|cabina-github-actions-templates|cabina-commit-work|governed-readback-closeout`
 - receta: `recipe.github_pr_lifecycle_governed`
 - tool: `tool.local_run_governance_validation_suite|tool.github_versioning_flow`
-- estado: `PROMOTED_MAIN_GATE_LOCAL_VALIDATED`
+- estado: `PROMOTED_MAIN_GATE_REMOTE_VALIDATED_PR50`
 - evidencia: `GitHub Actions runs 26855967863 26856014739 26856054210|18_validators_passed|result_written_false`
 - validador: `local_run_governance_validation_suite.ps1|local_validate_github_automation_preflight.ps1|local_validate_operational_chain.ps1`
 - riesgo: `single_step_failure_debugging_depends_on_json_payload`
