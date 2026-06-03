@@ -386,11 +386,12 @@ La Fase 3 agrega el runner
 la suite existente, emite JSON agregado con duracion por validador y solo
 escribe resultados si se invoca con `-WriteResult`. Tras tres corridas
 manuales adicionales exitosas en GitHub Actions (`26855967863`,
-`26856014739`, `26856054210`), el workflow promueve el runner a gate principal
-para `pull_request`, `push` y `workflow_dispatch`; en CI debe cerrar con
-`result_written=false`. El workflow puede subir un artifact JSON saneado con
-resumen, conteos y duraciones, sin warnings textuales, errores textuales,
-secretos ni datos live. La evidencia queda en
+`26856014739`, `26856054210`), el workflow promovio el runner a gate principal
+inicial para `pull_request`, `push` y `workflow_dispatch`. Desde el PR raiz
+`#53`, el gate productivo vigente es el Change-Aware Full-Coverage
+Orchestrator; el runner agregado queda retenido como conjunto completo de
+validadores y evidencia diagnostica, compuesto por ese gate. La evidencia queda
+en
 `D:/.agents/codex/readbacks/2026-06-02_governance_validation_suite_phase3_readback.md`
 y
 `D:/.agents/codex/readbacks/2026-06-02_governance_validation_suite_gate_promotion_readback.md`.
@@ -418,8 +419,12 @@ obligatorios planificados y ejecutados, `all_required_passed=true`,
 `D:/.agents/codex/evals/results/change_aware_full_coverage_audit_latest.json`
 y
 `D:/.agents/codex/readbacks/2026-06-03_change_aware_full_coverage_orchestrator_readback.md`.
-Queda pendiente solo observar la primera corrida remota de PR/push con el gate
-productivo.
+El PR raiz `universo-rey/cabina-universal-d#53` quedo mergeado a `main` con
+merge commit `d21aad4280180328c41e4ca91c61e033a63551b6`. La primera corrida
+remota de `main` con el gate productivo fue GitHub Actions `26859024863`,
+workflow `Cabina Validation`, conclusion `success`, job `Local governance
+validators`, paso `Change-aware full coverage orchestrator`, con artifact
+saneado `change-aware-full-coverage-26859024863`.
 
 Reglas vigentes:
 
@@ -462,6 +467,7 @@ PR raiz merge automatizado: `universo-rey/cabina-universal-d#24` estado `MERGED`
 PR raiz biblioteca referencias: `universo-rey/cabina-universal-d#25` estado `MERGED`.
 PR raiz frontend design: `universo-rey/cabina-universal-d#26` estado `MERGED`.
 PR raiz integracion indices compartidos: `universo-rey/cabina-universal-d#27` estado `MERGED`.
+PR raiz Change-Aware Full-Coverage Orchestrator: `universo-rey/cabina-universal-d#53` estado `MERGED`.
 Rama raiz base: `main`.
-Ultima rama raiz mergeada: `codex/shared-index-integration-issues-12-15-20260602`.
-Ultimo merge commit raiz: `96d378e539018d8bf2fb139e3041888bba8a5b0e`.
+Ultima rama raiz mergeada: `codex/change-aware-full-coverage-orchestrator-20260603`.
+Ultimo merge commit raiz: `d21aad4280180328c41e4ca91c61e033a63551b6`.

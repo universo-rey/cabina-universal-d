@@ -14,27 +14,13 @@
   "required_test_count": 19,
   "changed_files": [
     ".agents/codex/evals/results/change_aware_full_coverage_audit_latest.json",
-    ".agents/codex/matrices/CHANGE_AWARE_IMPACT_GRAPH.csv",
-    ".agents/codex/matrices/CHANGE_AWARE_RISK_POLICY.csv",
-    ".agents/codex/matrices/CHANGE_AWARE_TEST_MANIFEST.csv",
-    ".agents/codex/matrices/EVIDENCE_AND_VALIDATION_MATRIX.csv",
-    ".agents/codex/matrices/GITHUB_ACTIONS_WORKFLOW_MATRIX.csv",
-    ".agents/codex/matrices/MATRIX_INDEX.csv",
-    ".agents/codex/matrices/STOP_CONDITION_GLOSSARY.csv",
-    ".agents/codex/matrices/TOOL_GOVERNANCE_MATRIX.csv",
-    ".agents/codex/matrices/VALIDATION_COVERAGE_MATRIX.csv",
-    ".agents/codex/matrices/VALIDATOR_PERFORMANCE_IMPROVEMENT_MATRIX_20260602.csv",
-    ".agents/codex/readbacks/2026-06-03_change_aware_full_coverage_orchestrator_readback.md",
+    ".agents/codex/readbacks/2026-06-03_reconcile_change_aware_gate_state_readback.md",
     ".agents/codex/README.md",
-    ".agents/codex/tools/local_run_change_aware_full_coverage_orchestrator.ps1",
-    ".agents/codex/tools/local_run_governance_validation_suite.ps1",
-    ".agents/codex/tools/local_validate_change_aware_full_coverage_orchestrator.ps1",
-    ".agents/codex/tools/TOOL_INDEX.csv",
-    ".github/workflows/cabina-validation.yml",
     ".gitignore",
     "02_AUTHORITY_CANON/CURRENT_STATE.md",
     "AGENTS.md",
-    "MANIFEST.yaml"
+    "MANIFEST.yaml",
+    "REPO_SCOPE.md"
   ],
   "impact_unknown": false,
   "expansion_applied": true,
@@ -55,39 +41,10 @@
       "runner_group": "control",
       "reasons": [
         "impact:graph.default",
-        "impact:graph.impact_graph",
-        "impact:graph.orchestrator_tool",
-        "impact:graph.orchestrator_validator",
-        "impact:graph.risk_policy",
         "impact:graph.root_manifest",
-        "impact:graph.test_manifest",
-        "impact:graph.tools",
-        "impact:graph.workflow",
         "mandatory_full_coverage",
         "risk:risk.default",
-        "risk:risk.impact_graph",
-        "risk:risk.manifest",
-        "risk:risk.manifest_root",
-        "risk:risk.risk_policy",
-        "risk:risk.runner"
-      ]
-    },
-    {
-      "test_id": "github_actions_policy",
-      "required": true,
-      "priority": 1,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "control",
-      "reasons": [
-        "impact:graph.default",
-        "impact:graph.orchestrator_tool",
-        "impact:graph.orchestrator_validator",
-        "impact:graph.workflow",
-        "mandatory_full_coverage",
-        "risk:risk.default",
-        "risk:risk.runner",
-        "risk:risk.workflow"
+        "risk:risk.manifest_root"
       ]
     },
     {
@@ -100,13 +57,10 @@
       "reasons": [
         "impact:graph.default",
         "impact:graph.instructions",
-        "impact:graph.matrices",
         "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
         "risk:risk.default",
         "risk:risk.global_config",
-        "risk:risk.readbacks",
-        "risk:risk.validator_tools"
+        "risk:risk.readbacks"
       ]
     },
     {
@@ -120,48 +74,12 @@
         "impact:graph.authority",
         "impact:graph.default",
         "impact:graph.instructions",
-        "impact:graph.matrices",
         "impact:graph.root_manifest",
         "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
         "risk:risk.authority",
         "risk:risk.default",
         "risk:risk.global_config",
         "risk:risk.manifest_root"
-      ]
-    },
-    {
-      "test_id": "codex_cloud_governed_lane",
-      "required": true,
-      "priority": 1,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.default",
-        "impact:graph.matrices",
-        "impact:graph.workflow",
-        "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
-        "risk:risk.default",
-        "risk:risk.workflow"
-      ]
-    },
-    {
-      "test_id": "github_automation_preflight",
-      "required": true,
-      "priority": 1,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.authority",
-        "impact:graph.default",
-        "impact:graph.workflow",
-        "mandatory_full_coverage",
-        "risk:risk.default",
-        "risk:risk.runner",
-        "risk:risk.workflow"
       ]
     },
     {
@@ -175,10 +93,8 @@
         "impact:graph.authority",
         "impact:graph.default",
         "impact:graph.instructions",
-        "impact:graph.matrices",
         "impact:graph.root_manifest",
         "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
         "risk:risk.authority",
         "risk:risk.default",
         "risk:risk.global_config",
@@ -194,48 +110,36 @@
       "runner_group": "runtime",
       "reasons": [
         "impact:graph.default",
-        "impact:graph.matrices",
         "impact:graph.root_manifest",
-        "impact:graph.tools",
         "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
-        "risk:risk.default",
-        "risk:risk.validator_tools"
+        "risk:risk.default"
       ]
     },
     {
-      "test_id": "agent_layer",
+      "test_id": "github_actions_policy",
+      "required": true,
+      "priority": 2,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "control",
+      "reasons": [
+        "impact:graph.default",
+        "mandatory_full_coverage",
+        "risk:risk.default"
+      ]
+    },
+    {
+      "test_id": "github_automation_preflight",
       "required": true,
       "priority": 2,
       "blocks_merge": true,
       "blocks_release": true,
       "runner_group": "governance",
       "reasons": [
+        "impact:graph.authority",
         "impact:graph.default",
-        "impact:graph.matrices",
-        "impact:graph.tools",
         "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
-        "risk:risk.default",
-        "risk:risk.readbacks",
-        "risk:risk.validator_tools"
-      ]
-    },
-    {
-      "test_id": "autonomous_agent_execution",
-      "required": true,
-      "priority": 2,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.default",
-        "impact:graph.matrices",
-        "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
-        "risk:risk.default",
-        "risk:risk.readbacks",
-        "risk:risk.validator_tools"
+        "risk:risk.default"
       ]
     },
     {
@@ -248,130 +152,153 @@
       "reasons": [
         "impact:graph.authority",
         "impact:graph.default",
-        "impact:graph.matrices",
         "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
         "risk:risk.authority",
         "risk:risk.default"
       ]
     },
     {
-      "test_id": "codex_app_environments",
+      "test_id": "autonomous_agent_execution",
       "required": true,
-      "priority": 3,
+      "priority": 6,
       "blocks_merge": true,
       "blocks_release": true,
       "runner_group": "governance",
       "reasons": [
         "impact:graph.default",
-        "impact:graph.matrices",
         "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
+        "risk:risk.default",
+        "risk:risk.readbacks"
+      ]
+    },
+    {
+      "test_id": "agent_layer",
+      "required": true,
+      "priority": 7,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "mandatory_full_coverage",
+        "risk:risk.default",
+        "risk:risk.readbacks"
+      ]
+    },
+    {
+      "test_id": "skill_metadata",
+      "required": true,
+      "priority": 8,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "mandatory_full_coverage",
         "risk:risk.default"
       ]
     },
     {
       "test_id": "document_skill_lane",
       "required": true,
-      "priority": 3,
+      "priority": 9,
       "blocks_merge": true,
       "blocks_release": true,
       "runner_group": "governance",
       "reasons": [
         "impact:graph.default",
-        "impact:graph.matrices",
         "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
-        "risk:risk.default"
-      ]
-    },
-    {
-      "test_id": "frontend_design_lane",
-      "required": true,
-      "priority": 3,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.default",
-        "impact:graph.matrices",
-        "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
-        "risk:risk.default"
-      ]
-    },
-    {
-      "test_id": "parallel_issue_queue",
-      "required": true,
-      "priority": 3,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.default",
-        "impact:graph.matrices",
-        "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
-        "risk:risk.default"
-      ]
-    },
-    {
-      "test_id": "parallel_order_governance",
-      "required": true,
-      "priority": 3,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.default",
-        "impact:graph.matrices",
-        "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
-        "risk:risk.default"
-      ]
-    },
-    {
-      "test_id": "skill_metadata",
-      "required": true,
-      "priority": 3,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.default",
-        "impact:graph.matrices",
-        "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
         "risk:risk.default"
       ]
     },
     {
       "test_id": "skill_reference_sources",
       "required": true,
-      "priority": 3,
+      "priority": 10,
       "blocks_merge": true,
       "blocks_release": true,
       "runner_group": "governance",
       "reasons": [
         "impact:graph.default",
-        "impact:graph.matrices",
         "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
+        "risk:risk.default"
+      ]
+    },
+    {
+      "test_id": "frontend_design_lane",
+      "required": true,
+      "priority": 11,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "mandatory_full_coverage",
+        "risk:risk.default"
+      ]
+    },
+    {
+      "test_id": "codex_cloud_governed_lane",
+      "required": true,
+      "priority": 12,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "mandatory_full_coverage",
+        "risk:risk.default"
+      ]
+    },
+    {
+      "test_id": "codex_app_environments",
+      "required": true,
+      "priority": 13,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "mandatory_full_coverage",
         "risk:risk.default"
       ]
     },
     {
       "test_id": "teams_cross_repo_lane_audit",
       "required": true,
-      "priority": 3,
+      "priority": 14,
       "blocks_merge": true,
       "blocks_release": true,
       "runner_group": "governance",
       "reasons": [
         "impact:graph.default",
-        "impact:graph.matrices",
         "mandatory_full_coverage",
-        "risk:risk.agent_matrices",
+        "risk:risk.default"
+      ]
+    },
+    {
+      "test_id": "parallel_order_governance",
+      "required": true,
+      "priority": 16,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "mandatory_full_coverage",
+        "risk:risk.default"
+      ]
+    },
+    {
+      "test_id": "parallel_issue_queue",
+      "required": true,
+      "priority": 17,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "mandatory_full_coverage",
         "risk:risk.default"
       ]
     }
@@ -385,175 +312,14 @@
       "reason": "default_full_coverage"
     },
     {
-      "path": ".agents/codex/matrices/CHANGE_AWARE_IMPACT_GRAPH.csv",
-      "risk_id": "risk.impact_graph",
-      "risk_level": "critical",
-      "expansion": "full",
-      "reason": "impact_graph_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/CHANGE_AWARE_IMPACT_GRAPH.csv",
-      "risk_id": "risk.agent_matrices",
-      "risk_level": "high",
-      "expansion": "full",
-      "reason": "shared_matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/CHANGE_AWARE_IMPACT_GRAPH.csv",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/matrices/CHANGE_AWARE_RISK_POLICY.csv",
-      "risk_id": "risk.risk_policy",
-      "risk_level": "critical",
-      "expansion": "full",
-      "reason": "risk_policy_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/CHANGE_AWARE_RISK_POLICY.csv",
-      "risk_id": "risk.agent_matrices",
-      "risk_level": "high",
-      "expansion": "full",
-      "reason": "shared_matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/CHANGE_AWARE_RISK_POLICY.csv",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/matrices/CHANGE_AWARE_TEST_MANIFEST.csv",
-      "risk_id": "risk.manifest",
-      "risk_level": "critical",
-      "expansion": "full",
-      "reason": "mandatory_test_manifest_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/CHANGE_AWARE_TEST_MANIFEST.csv",
-      "risk_id": "risk.agent_matrices",
-      "risk_level": "high",
-      "expansion": "full",
-      "reason": "shared_matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/CHANGE_AWARE_TEST_MANIFEST.csv",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/matrices/EVIDENCE_AND_VALIDATION_MATRIX.csv",
-      "risk_id": "risk.agent_matrices",
-      "risk_level": "high",
-      "expansion": "full",
-      "reason": "shared_matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/EVIDENCE_AND_VALIDATION_MATRIX.csv",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/matrices/GITHUB_ACTIONS_WORKFLOW_MATRIX.csv",
-      "risk_id": "risk.agent_matrices",
-      "risk_level": "high",
-      "expansion": "full",
-      "reason": "shared_matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/GITHUB_ACTIONS_WORKFLOW_MATRIX.csv",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/matrices/MATRIX_INDEX.csv",
-      "risk_id": "risk.agent_matrices",
-      "risk_level": "high",
-      "expansion": "full",
-      "reason": "shared_matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/MATRIX_INDEX.csv",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/matrices/STOP_CONDITION_GLOSSARY.csv",
-      "risk_id": "risk.agent_matrices",
-      "risk_level": "high",
-      "expansion": "full",
-      "reason": "shared_matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/STOP_CONDITION_GLOSSARY.csv",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/matrices/TOOL_GOVERNANCE_MATRIX.csv",
-      "risk_id": "risk.agent_matrices",
-      "risk_level": "high",
-      "expansion": "full",
-      "reason": "shared_matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/TOOL_GOVERNANCE_MATRIX.csv",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/matrices/VALIDATION_COVERAGE_MATRIX.csv",
-      "risk_id": "risk.agent_matrices",
-      "risk_level": "high",
-      "expansion": "full",
-      "reason": "shared_matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/VALIDATION_COVERAGE_MATRIX.csv",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/matrices/VALIDATOR_PERFORMANCE_IMPROVEMENT_MATRIX_20260602.csv",
-      "risk_id": "risk.agent_matrices",
-      "risk_level": "high",
-      "expansion": "full",
-      "reason": "shared_matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/VALIDATOR_PERFORMANCE_IMPROVEMENT_MATRIX_20260602.csv",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/readbacks/2026-06-03_change_aware_full_coverage_orchestrator_readback.md",
+      "path": ".agents/codex/readbacks/2026-06-03_reconcile_change_aware_gate_state_readback.md",
       "risk_id": "risk.readbacks",
       "risk_level": "medium",
       "expansion": "full",
       "reason": "evidence_changed"
     },
     {
-      "path": ".agents/codex/readbacks/2026-06-03_change_aware_full_coverage_orchestrator_readback.md",
+      "path": ".agents/codex/readbacks/2026-06-03_reconcile_change_aware_gate_state_readback.md",
       "risk_id": "risk.default",
       "risk_level": "medium",
       "expansion": "full",
@@ -561,83 +327,6 @@
     },
     {
       "path": ".agents/codex/README.md",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/tools/local_run_change_aware_full_coverage_orchestrator.ps1",
-      "risk_id": "risk.runner",
-      "risk_level": "critical",
-      "expansion": "full_plus_ci",
-      "reason": "orchestrator_changed"
-    },
-    {
-      "path": ".agents/codex/tools/local_run_change_aware_full_coverage_orchestrator.ps1",
-      "risk_id": "risk.validator_tools",
-      "risk_level": "critical",
-      "expansion": "full_plus_ci",
-      "reason": "shared_validator_changed"
-    },
-    {
-      "path": ".agents/codex/tools/local_run_change_aware_full_coverage_orchestrator.ps1",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/tools/local_run_governance_validation_suite.ps1",
-      "risk_id": "risk.validator_tools",
-      "risk_level": "critical",
-      "expansion": "full_plus_ci",
-      "reason": "shared_validator_changed"
-    },
-    {
-      "path": ".agents/codex/tools/local_run_governance_validation_suite.ps1",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/tools/local_validate_change_aware_full_coverage_orchestrator.ps1",
-      "risk_id": "risk.validator_tools",
-      "risk_level": "critical",
-      "expansion": "full_plus_ci",
-      "reason": "shared_validator_changed"
-    },
-    {
-      "path": ".agents/codex/tools/local_validate_change_aware_full_coverage_orchestrator.ps1",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".agents/codex/tools/TOOL_INDEX.csv",
-      "risk_id": "risk.validator_tools",
-      "risk_level": "critical",
-      "expansion": "full_plus_ci",
-      "reason": "shared_validator_changed"
-    },
-    {
-      "path": ".agents/codex/tools/TOOL_INDEX.csv",
-      "risk_id": "risk.default",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "default_full_coverage"
-    },
-    {
-      "path": ".github/workflows/cabina-validation.yml",
-      "risk_id": "risk.workflow",
-      "risk_level": "critical",
-      "expansion": "full_plus_ci",
-      "reason": "ci_cd_changed"
-    },
-    {
-      "path": ".github/workflows/cabina-validation.yml",
       "risk_id": "risk.default",
       "risk_level": "medium",
       "expansion": "full",
@@ -691,6 +380,13 @@
       "risk_level": "medium",
       "expansion": "full",
       "reason": "default_full_coverage"
+    },
+    {
+      "path": "REPO_SCOPE.md",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
     }
   ],
   "graph_matches": [
@@ -701,223 +397,13 @@
       "reason": "unknown_or_unmapped_change"
     },
     {
-      "path": ".agents/codex/matrices/CHANGE_AWARE_IMPACT_GRAPH.csv",
-      "graph_id": "graph.impact_graph",
-      "expansion": "full",
-      "reason": "impact_graph_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/CHANGE_AWARE_IMPACT_GRAPH.csv",
-      "graph_id": "graph.matrices",
-      "expansion": "full",
-      "reason": "matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/CHANGE_AWARE_IMPACT_GRAPH.csv",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".agents/codex/matrices/CHANGE_AWARE_RISK_POLICY.csv",
-      "graph_id": "graph.risk_policy",
-      "expansion": "full",
-      "reason": "risk_policy_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/CHANGE_AWARE_RISK_POLICY.csv",
-      "graph_id": "graph.matrices",
-      "expansion": "full",
-      "reason": "matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/CHANGE_AWARE_RISK_POLICY.csv",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".agents/codex/matrices/CHANGE_AWARE_TEST_MANIFEST.csv",
-      "graph_id": "graph.test_manifest",
-      "expansion": "full",
-      "reason": "test_manifest_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/CHANGE_AWARE_TEST_MANIFEST.csv",
-      "graph_id": "graph.matrices",
-      "expansion": "full",
-      "reason": "matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/CHANGE_AWARE_TEST_MANIFEST.csv",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".agents/codex/matrices/EVIDENCE_AND_VALIDATION_MATRIX.csv",
-      "graph_id": "graph.matrices",
-      "expansion": "full",
-      "reason": "matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/EVIDENCE_AND_VALIDATION_MATRIX.csv",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".agents/codex/matrices/GITHUB_ACTIONS_WORKFLOW_MATRIX.csv",
-      "graph_id": "graph.matrices",
-      "expansion": "full",
-      "reason": "matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/GITHUB_ACTIONS_WORKFLOW_MATRIX.csv",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".agents/codex/matrices/MATRIX_INDEX.csv",
-      "graph_id": "graph.matrices",
-      "expansion": "full",
-      "reason": "matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/MATRIX_INDEX.csv",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".agents/codex/matrices/STOP_CONDITION_GLOSSARY.csv",
-      "graph_id": "graph.matrices",
-      "expansion": "full",
-      "reason": "matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/STOP_CONDITION_GLOSSARY.csv",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".agents/codex/matrices/TOOL_GOVERNANCE_MATRIX.csv",
-      "graph_id": "graph.matrices",
-      "expansion": "full",
-      "reason": "matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/TOOL_GOVERNANCE_MATRIX.csv",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".agents/codex/matrices/VALIDATION_COVERAGE_MATRIX.csv",
-      "graph_id": "graph.matrices",
-      "expansion": "full",
-      "reason": "matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/VALIDATION_COVERAGE_MATRIX.csv",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".agents/codex/matrices/VALIDATOR_PERFORMANCE_IMPROVEMENT_MATRIX_20260602.csv",
-      "graph_id": "graph.matrices",
-      "expansion": "full",
-      "reason": "matrix_changed"
-    },
-    {
-      "path": ".agents/codex/matrices/VALIDATOR_PERFORMANCE_IMPROVEMENT_MATRIX_20260602.csv",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".agents/codex/readbacks/2026-06-03_change_aware_full_coverage_orchestrator_readback.md",
+      "path": ".agents/codex/readbacks/2026-06-03_reconcile_change_aware_gate_state_readback.md",
       "graph_id": "graph.default",
       "expansion": "full",
       "reason": "unknown_or_unmapped_change"
     },
     {
       "path": ".agents/codex/README.md",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".agents/codex/tools/local_run_change_aware_full_coverage_orchestrator.ps1",
-      "graph_id": "graph.orchestrator_tool",
-      "expansion": "full",
-      "reason": "orchestrator_tool_changed"
-    },
-    {
-      "path": ".agents/codex/tools/local_run_change_aware_full_coverage_orchestrator.ps1",
-      "graph_id": "graph.tools",
-      "expansion": "full",
-      "reason": "tool_changed"
-    },
-    {
-      "path": ".agents/codex/tools/local_run_change_aware_full_coverage_orchestrator.ps1",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".agents/codex/tools/local_run_governance_validation_suite.ps1",
-      "graph_id": "graph.tools",
-      "expansion": "full",
-      "reason": "tool_changed"
-    },
-    {
-      "path": ".agents/codex/tools/local_run_governance_validation_suite.ps1",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".agents/codex/tools/local_validate_change_aware_full_coverage_orchestrator.ps1",
-      "graph_id": "graph.orchestrator_validator",
-      "expansion": "full",
-      "reason": "orchestrator_validator_changed"
-    },
-    {
-      "path": ".agents/codex/tools/local_validate_change_aware_full_coverage_orchestrator.ps1",
-      "graph_id": "graph.tools",
-      "expansion": "full",
-      "reason": "tool_changed"
-    },
-    {
-      "path": ".agents/codex/tools/local_validate_change_aware_full_coverage_orchestrator.ps1",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".agents/codex/tools/TOOL_INDEX.csv",
-      "graph_id": "graph.tools",
-      "expansion": "full",
-      "reason": "tool_changed"
-    },
-    {
-      "path": ".agents/codex/tools/TOOL_INDEX.csv",
-      "graph_id": "graph.default",
-      "expansion": "full",
-      "reason": "unknown_or_unmapped_change"
-    },
-    {
-      "path": ".github/workflows/cabina-validation.yml",
-      "graph_id": "graph.workflow",
-      "expansion": "full_plus_ci",
-      "reason": "workflow_surface_changed"
-    },
-    {
-      "path": ".github/workflows/cabina-validation.yml",
       "graph_id": "graph.default",
       "expansion": "full",
       "reason": "unknown_or_unmapped_change"
@@ -963,6 +449,12 @@
       "graph_id": "graph.default",
       "expansion": "full",
       "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "REPO_SCOPE.md",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
     }
   ],
   "all_required_passed": true,
@@ -973,9 +465,9 @@
   "hidden_flaky_tests": null,
   "result_written": true,
   "audit_path": "D:\\.agents\\codex\\evals\\results\\change_aware_full_coverage_audit_latest.json",
-  "started_at": "2026-06-02T22:51:21.7518996-03:00",
-  "finished_at": "2026-06-02T22:51:40.2800551-03:00",
-  "duration_ms": 18528,
+  "started_at": "2026-06-02T23:21:20.4555444-03:00",
+  "finished_at": "2026-06-02T23:21:37.1869231-03:00",
+  "duration_ms": 16731,
   "errors": [],
   "warnings": [],
   "results": [
@@ -984,22 +476,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-02T22:51:22.8625660-03:00",
-      "finished_at": "2026-06-02T22:51:25.8893108-03:00",
-      "duration_ms": 3027,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "github_actions_policy",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-02T22:51:25.8964262-03:00",
-      "finished_at": "2026-06-02T22:51:25.9123794-03:00",
-      "duration_ms": 16,
+      "started_at": "2026-06-02T23:21:20.8807617-03:00",
+      "finished_at": "2026-06-02T23:21:23.1976422-03:00",
+      "duration_ms": 2317,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -1010,9 +489,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-02T22:51:25.9126662-03:00",
-      "finished_at": "2026-06-02T22:51:26.6705542-03:00",
-      "duration_ms": 758,
+      "started_at": "2026-06-02T23:21:23.2049805-03:00",
+      "finished_at": "2026-06-02T23:21:23.9812960-03:00",
+      "duration_ms": 776,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -1023,35 +502,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-02T22:51:26.6708514-03:00",
-      "finished_at": "2026-06-02T22:51:27.7638990-03:00",
-      "duration_ms": 1093,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "codex_cloud_governed_lane",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-02T22:51:27.7641612-03:00",
-      "finished_at": "2026-06-02T22:51:28.4306912-03:00",
-      "duration_ms": 667,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "github_automation_preflight",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-02T22:51:28.4309529-03:00",
-      "finished_at": "2026-06-02T22:51:29.1547520-03:00",
-      "duration_ms": 724,
+      "started_at": "2026-06-02T23:21:23.9818511-03:00",
+      "finished_at": "2026-06-02T23:21:24.9382962-03:00",
+      "duration_ms": 956,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -1062,9 +515,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-02T22:51:29.1549806-03:00",
-      "finished_at": "2026-06-02T22:51:29.9259517-03:00",
-      "duration_ms": 771,
+      "started_at": "2026-06-02T23:21:24.9386025-03:00",
+      "finished_at": "2026-06-02T23:21:25.7961955-03:00",
+      "duration_ms": 858,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -1075,39 +528,35 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-02T22:51:29.9262258-03:00",
-      "finished_at": "2026-06-02T22:51:30.6083913-03:00",
-      "duration_ms": 682,
+      "started_at": "2026-06-02T23:21:25.7965000-03:00",
+      "finished_at": "2026-06-02T23:21:26.4900319-03:00",
+      "duration_ms": 694,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
       "errors": []
     },
     {
-      "test_id": "agent_layer",
+      "test_id": "github_actions_policy",
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-02T22:51:30.6086000-03:00",
-      "finished_at": "2026-06-02T22:51:33.1881312-03:00",
-      "duration_ms": 2580,
-      "warning_count": 3,
+      "started_at": "2026-06-02T23:21:26.4903172-03:00",
+      "finished_at": "2026-06-02T23:21:26.5113378-03:00",
+      "duration_ms": 21,
+      "warning_count": 0,
       "error_count": 0,
-      "warnings": [
-        "Skipped workflow-level nested validator: parallel order governance",
-        "Skipped workflow-level nested validator: order packet",
-        "Skipped workflow-level nested validator: operational chain"
-      ],
+      "warnings": [],
       "errors": []
     },
     {
-      "test_id": "autonomous_agent_execution",
+      "test_id": "github_automation_preflight",
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-02T22:51:33.1883346-03:00",
-      "finished_at": "2026-06-02T22:51:33.9644338-03:00",
-      "duration_ms": 776,
+      "started_at": "2026-06-02T23:21:26.5115313-03:00",
+      "finished_at": "2026-06-02T23:21:27.2095815-03:00",
+      "duration_ms": 698,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -1118,22 +567,52 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-02T22:51:33.9646625-03:00",
-      "finished_at": "2026-06-02T22:51:34.6555081-03:00",
-      "duration_ms": 691,
+      "started_at": "2026-06-02T23:21:27.2098367-03:00",
+      "finished_at": "2026-06-02T23:21:27.8750573-03:00",
+      "duration_ms": 665,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
       "errors": []
     },
     {
-      "test_id": "codex_app_environments",
+      "test_id": "autonomous_agent_execution",
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-02T22:51:34.6557564-03:00",
-      "finished_at": "2026-06-02T22:51:35.3093951-03:00",
-      "duration_ms": 654,
+      "started_at": "2026-06-02T23:21:27.8753020-03:00",
+      "finished_at": "2026-06-02T23:21:28.6353440-03:00",
+      "duration_ms": 760,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "agent_layer",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-02T23:21:28.6355707-03:00",
+      "finished_at": "2026-06-02T23:21:31.1175115-03:00",
+      "duration_ms": 2482,
+      "warning_count": 3,
+      "error_count": 0,
+      "warnings": [
+        "Skipped workflow-level nested validator: parallel order governance",
+        "Skipped workflow-level nested validator: order packet",
+        "Skipped workflow-level nested validator: operational chain"
+      ],
+      "errors": []
+    },
+    {
+      "test_id": "skill_metadata",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-02T23:21:31.1177573-03:00",
+      "finished_at": "2026-06-02T23:21:31.8380147-03:00",
+      "duration_ms": 720,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -1144,61 +623,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-02T22:51:35.3096701-03:00",
-      "finished_at": "2026-06-02T22:51:36.0131788-03:00",
-      "duration_ms": 704,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "frontend_design_lane",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-02T22:51:36.0135127-03:00",
-      "finished_at": "2026-06-02T22:51:36.7547526-03:00",
-      "duration_ms": 741,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "parallel_issue_queue",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-02T22:51:36.7549852-03:00",
-      "finished_at": "2026-06-02T22:51:37.4747392-03:00",
-      "duration_ms": 720,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "parallel_order_governance",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-02T22:51:37.4750136-03:00",
-      "finished_at": "2026-06-02T22:51:38.1718045-03:00",
-      "duration_ms": 697,
-      "warning_count": 0,
-      "error_count": 0,
-      "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "skill_metadata",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-02T22:51:38.1720778-03:00",
-      "finished_at": "2026-06-02T22:51:38.9171894-03:00",
-      "duration_ms": 745,
+      "started_at": "2026-06-02T23:21:31.8382866-03:00",
+      "finished_at": "2026-06-02T23:21:32.4564454-03:00",
+      "duration_ms": 618,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -1209,9 +636,48 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-02T22:51:38.9174195-03:00",
-      "finished_at": "2026-06-02T22:51:39.5362493-03:00",
-      "duration_ms": 619,
+      "started_at": "2026-06-02T23:21:32.4567563-03:00",
+      "finished_at": "2026-06-02T23:21:33.1096153-03:00",
+      "duration_ms": 653,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "frontend_design_lane",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-02T23:21:33.1098860-03:00",
+      "finished_at": "2026-06-02T23:21:33.7556490-03:00",
+      "duration_ms": 646,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "codex_cloud_governed_lane",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-02T23:21:33.7558625-03:00",
+      "finished_at": "2026-06-02T23:21:34.4008468-03:00",
+      "duration_ms": 645,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "codex_app_environments",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-02T23:21:34.4011460-03:00",
+      "finished_at": "2026-06-02T23:21:35.1115029-03:00",
+      "duration_ms": 710,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -1222,9 +688,35 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-02T22:51:39.5364240-03:00",
-      "finished_at": "2026-06-02T22:51:40.2684103-03:00",
-      "duration_ms": 732,
+      "started_at": "2026-06-02T23:21:35.1117997-03:00",
+      "finished_at": "2026-06-02T23:21:35.7640888-03:00",
+      "duration_ms": 652,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "parallel_order_governance",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-02T23:21:35.7643080-03:00",
+      "finished_at": "2026-06-02T23:21:36.4141635-03:00",
+      "duration_ms": 650,
+      "warning_count": 0,
+      "error_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "parallel_issue_queue",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-02T23:21:36.4144177-03:00",
+      "finished_at": "2026-06-02T23:21:37.1710545-03:00",
+      "duration_ms": 757,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],

@@ -191,6 +191,7 @@
 !/.agents/codex/readbacks/2026-06-03_governance_validation_suite_artifact_readback.md
 !/.agents/codex/readbacks/2026-06-03_validator_hash_set_performance_readback.md
 !/.agents/codex/readbacks/2026-06-03_change_aware_full_coverage_orchestrator_readback.md
+!/.agents/codex/readbacks/2026-06-03_reconcile_change_aware_gate_state_readback.md
 
 !/.agents/codex/tools/
 /.agents/codex/tools/*

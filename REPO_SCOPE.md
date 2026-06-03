@@ -1,6 +1,6 @@
 # Repo Scope
 
-Estado: `D_ROOT_WRAPPER_REPO_LOCAL`
+Estado: `D_ROOT_WRAPPER_REPO_MAIN_CHANGE_AWARE_FULL_COVERAGE_GATE_ACTIVE`
 
 Este repo nuevo gobierna la raiz `D:\` como Cabina Universal del Rey sin
 absorber los repos anidados.
@@ -20,8 +20,11 @@ absorber los repos anidados.
   estado `MERGED`.
 - PR raiz prompt UI: `https://github.com/universo-rey/cabina-universal-d/pull/2`
   estado `MERGED`.
+- PR raiz Change-Aware Full-Coverage Orchestrator:
+  `https://github.com/universo-rey/cabina-universal-d/pull/53` estado
+  `MERGED`.
 - Ultimo merge commit raiz:
-  `98b7ddb6969abda83c36b3101307a99075856c7f`.
+  `d21aad4280180328c41e4ca91c61e033a63551b6`.
 - GitHub es la base de trabajo para todo cambio durable del universo de
   repositorios: cada cambio debe ir por rama, validacion, commit, push y PR.
 - GitHub Actions queda aprobado para validacion repo-scoped con permisos
@@ -83,6 +86,13 @@ siguen fuera de esa aprobacion.
 La matriz `.agents\codex\matrices\GITHUB_ACTIONS_WORKFLOW_MATRIX.csv` declara
 el workflow `.github\workflows\cabina-validation.yml` como superficie GitHub
 Actions aprobada para validadores locales y policy check de workflows.
+
+El gate productivo vigente de `cabina-validation.yml` es
+`.agents\codex\tools\local_run_change_aware_full_coverage_orchestrator.ps1`.
+El orquestador puede ordenar, priorizar riesgo, ajustar paralelismo declarado y
+emitir evidencia, pero no reduce cobertura obligatoria: todo PR debe conservar
+`all_required_passed=true`, `coverage_equivalence=true`, `manifest_valid=true`,
+`graph_valid=true`, `no_hidden_flaky=true` y `blocked_surfaces_clear=true`.
 
 Las matrices `.agents\codex\matrices\PARALLEL_OPERATION_CRITERIA_MATRIX.csv`
 y `.agents\codex\matrices\ORDER_PREPARATION_ASSIGNMENT_MATRIX.csv` gobiernan

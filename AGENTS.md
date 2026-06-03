@@ -241,13 +241,15 @@ y el readback en
 Estado runner agregado de validacion actualizado 2026-06-02: la Fase 3
 introduce `D:\.agents\codex\tools\local_run_governance_validation_suite.ps1`
 como runner agregado. Tras tres corridas manuales adicionales exitosas en
-GitHub Actions (`26855967863`, `26856014739`, `26856054210`), el runner queda
-promovido a gate principal de `cabina-validation.yml` para `pull_request`,
-`push` y `workflow_dispatch`. Ejecuta la suite existente, emite JSON con
-duracion por validador y puede escribir resultado solo con `-WriteResult`;
-en GitHub Actions debe cerrar con `result_written=false`. El workflow puede
-subir un artifact JSON saneado con resumen, conteos y duraciones, sin warnings
-textuales, errores textuales, secretos ni datos live. La evidencia vive en
+GitHub Actions (`26855967863`, `26856014739`, `26856054210`), el runner fue
+promovido a gate principal inicial de `cabina-validation.yml` para
+`pull_request`, `push` y `workflow_dispatch`. Desde la incorporacion del
+Change-Aware Full-Coverage Orchestrator el runner queda retenido como conjunto
+completo de validadores y evidencia diagnostica, compuesto por el gate
+change-aware productivo. Ejecuta la suite existente, emite JSON con duracion
+por validador y puede escribir resultado solo con `-WriteResult`; en GitHub
+Actions debe cerrar con `result_written=false` cuando se lo use como artefacto
+diagnostico. La evidencia historica vive en
 `D:\.agents\codex\readbacks\2026-06-02_governance_validation_suite_phase3_readback.md`
 y
 `D:\.agents\codex\readbacks\2026-06-02_governance_validation_suite_gate_promotion_readback.md`.
@@ -278,7 +280,10 @@ evidencia local en
 `D:\.agents\codex\evals\results\change_aware_full_coverage_audit_latest.json`.
 Un PR solo puede pasar si `all_required_passed`, `coverage_equivalence`,
 `manifest_valid`, `graph_valid`, `no_hidden_flaky` y
-`blocked_surfaces_clear` son verdaderos.
+`blocked_surfaces_clear` son verdaderos. Este estado ingreso por el PR raiz
+`#53`, merge commit `d21aad4280180328c41e4ca91c61e033a63551b6`; la corrida
+remota de `main` `26859024863` cerro `success` y subio el artifact saneado
+`change-aware-full-coverage-26859024863`.
 
 Estado jerarquia AGENTS.md actualizado 2026-06-01: `D:\AGENTS.md` es la
 instruccion rectora local de mayor precedencia. Las instrucciones anidadas,
@@ -317,6 +322,9 @@ Universal del Rey y como repo raiz envoltorio activo:
   `MERGED`;
 - PR raiz integracion indices compartidos:
   `https://github.com/universo-rey/cabina-universal-d/pull/27` con estado
+  `MERGED`;
+- PR raiz Change-Aware Full-Coverage Orchestrator:
+  `https://github.com/universo-rey/cabina-universal-d/pull/53` con estado
   `MERGED`;
 - allowlist: solo gobierno, canon, agentes locales, matrices, prompts,
   recetas, tools, evals, plugins, templates, readbacks/workpapers saneados y
