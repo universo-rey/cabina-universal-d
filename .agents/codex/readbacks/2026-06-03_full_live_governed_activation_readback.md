@@ -27,6 +27,9 @@ Precision markers:
 - `SETUP_SCRIPT_SELF_SUFFICIENT=yes`
 - `DEPENDENCY_INSTALL=openai|openai-agents`
 - `PWSH_PRECHECK=yes`
+- `VENV_ACTIVATION_CROSS_PLATFORM=yes`
+- `WINDOWS_GIT_BASH_COMPATIBLE=yes`
+- `POSIX_COMPATIBLE=yes`
 
 ## Sistemas Tocados
 - Repo raiz `D:/` en branch `codex/cabina-cloud-agents-sdk-baseline-20260603`.
@@ -55,6 +58,9 @@ Precision markers:
   ejecutan Microsoft write, produccion ni propagacion.
 - El setup crea o reutiliza `.venv`, instala `openai` y `openai-agents`, y
   mantiene `--run-openai-smoke` como flag explicito para llamadas live.
+- El setup detecta `.venv/bin/activate` en POSIX/Linux y
+  `.venv/Scripts/activate` en Windows/Git Bash; si no existe ninguna ruta,
+  detiene con `VENV_ACTIVATE_SCRIPT_MISSING`.
 - El mantenimiento valida existencia de `pwsh` antes de correr validadores
   PowerShell y detiene con `PWSH_MISSING_FOR_VALIDATORS` si falta.
 
@@ -107,6 +113,9 @@ cerrar cabina.
 - `SETUP_SCRIPT_SELF_SUFFICIENT=yes`.
 - `DEPENDENCY_INSTALL=openai|openai-agents`.
 - `PWSH_PRECHECK=yes`.
+- `VENV_ACTIVATION_CROSS_PLATFORM=yes`.
+- `WINDOWS_GIT_BASH_COMPATIBLE=yes`.
+- `POSIX_COMPATIBLE=yes`.
 - Estado final esperado:
   `PR56_FULL_LIVE_GOVERNED_READY_FOR_REVIEW_KEEP_DRAFT_SELF_SUFFICIENT`.
 - Audit artifact:

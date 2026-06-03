@@ -74,11 +74,26 @@ for path in "${required_files[@]}"; do
   [[ -f "$path" ]] || fail "missing_required_file=$path"
 done
 
-if command -v python3 >/dev/null 2>&1; then
-  PYTHON_BIN="${PYTHON_BIN:-python3}"
-elif command -v python >/dev/null 2>&1; then
-  PYTHON_BIN="${PYTHON_BIN:-python}"
-else
+resolve_python() {
+  local candidate
+
+  if [[ -n "${PYTHON_BIN:-}" ]]; then
+    "$PYTHON_BIN" -c 'import sys; sys.exit(0 if sys.version_info >= (3, 10) else 1)' >/dev/null 2>&1
+    return $?
+  fi
+
+  for candidate in python3 python; do
+    if command -v "$candidate" >/dev/null 2>&1 &&
+      "$candidate" -c 'import sys; sys.exit(0 if sys.version_info >= (3, 10) else 1)' >/dev/null 2>&1; then
+      PYTHON_BIN="$candidate"
+      return 0
+    fi
+  done
+
+  return 1
+}
+
+if ! resolve_python; then
   fail "PYTHON_MISSING_FOR_SETUP"
 fi
 
@@ -89,8 +104,20 @@ else
   log "VENV_REUSED=yes"
 fi
 
+if [[ -f ".venv/bin/activate" ]]; then
+  VENV_ACTIVATE_SCRIPT=".venv/bin/activate"
+elif [[ -f ".venv/Scripts/activate" ]]; then
+  VENV_ACTIVATE_SCRIPT=".venv/Scripts/activate"
+else
+  fail "VENV_ACTIVATE_SCRIPT_MISSING"
+fi
+
 # shellcheck disable=SC1091
-source ".venv/bin/activate"
+source "$VENV_ACTIVATE_SCRIPT"
+
+log "VENV_ACTIVATION_CROSS_PLATFORM=yes"
+log "WINDOWS_GIT_BASH_COMPATIBLE=yes"
+log "POSIX_COMPATIBLE=yes"
 
 python -m pip install --upgrade pip setuptools wheel
 python -m pip install --upgrade openai openai-agents
@@ -118,6 +145,9 @@ log "SETUP_SCRIPT_VERSIONED=yes"
 log "MAINTENANCE_SCRIPT_VERSIONED=yes"
 log "SETUP_SCRIPT_SELF_SUFFICIENT=yes"
 log "DEPENDENCY_INSTALL=openai|openai-agents"
+log "VENV_ACTIVATION_CROSS_PLATFORM=yes"
+log "WINDOWS_GIT_BASH_COMPATIBLE=yes"
+log "POSIX_COMPATIBLE=yes"
 log "MICROSOFT_WRITE_EXECUTED=False"
 log "PRODUCTION_EXECUTED=False"
 log "PROPAGATION_EXECUTED=False"
