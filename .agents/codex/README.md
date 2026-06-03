@@ -172,6 +172,16 @@ la capa de agentes reemplazan chequeos repetidos de membresia contra arrays por
 mantiene cobertura y no modifica workflow, permisos, superficies live ni salida
 funcional esperada.
 
+Actualizacion Change-Aware Full-Coverage Orchestrator 2026-06-03:
+`tools\local_run_change_aware_full_coverage_orchestrator.ps1` queda como gate
+productivo de CI. Usa `matrices\CHANGE_AWARE_TEST_MANIFEST.csv`,
+`matrices\CHANGE_AWARE_RISK_POLICY.csv` y
+`matrices\CHANGE_AWARE_IMPACT_GRAPH.csv` para ordenar y diagnosticar riesgo,
+pero ejecuta todos los tests obligatorios y bloquea si falta manifiesto, grafo,
+test obligatorio, equivalencia de cobertura o evidencia de fallos visibles. El
+artefacto local vive en
+`evals\results\change_aware_full_coverage_audit_latest.json`.
+
 ## Olas de agentes
 
 Ola 1: orquestacion, fronteras, registro, canon, repos, corte OpenAI y torres Escribania/Modo ON.

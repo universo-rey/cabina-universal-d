@@ -264,6 +264,22 @@ queda en
 No habilita Microsoft live, OpenAI API live, produccion, permisos, secretos ni
 cambios de workflow.
 
+Estado Change-Aware Full-Coverage Orchestrator actualizado 2026-06-03: el
+workflow `cabina-validation.yml` usa
+`D:\.agents\codex\tools\local_run_change_aware_full_coverage_orchestrator.ps1`
+como gate productivo para `pull_request`, `push` y `workflow_dispatch`.
+Change-awareness solo ordena, prioriza riesgo, ajusta paralelismo declarado,
+emite evidencia y acelera diagnostico; no elimina tests obligatorios ni
+reemplaza el full gate por test selection. El manifiesto obligatorio vive en
+`D:\.agents\codex\matrices\CHANGE_AWARE_TEST_MANIFEST.csv`, la politica de
+riesgo en `D:\.agents\codex\matrices\CHANGE_AWARE_RISK_POLICY.csv`, el grafo
+de impacto en `D:\.agents\codex\matrices\CHANGE_AWARE_IMPACT_GRAPH.csv` y la
+evidencia local en
+`D:\.agents\codex\evals\results\change_aware_full_coverage_audit_latest.json`.
+Un PR solo puede pasar si `all_required_passed`, `coverage_equivalence`,
+`manifest_valid`, `graph_valid`, `no_hidden_flaky` y
+`blocked_surfaces_clear` son verdaderos.
+
 Estado jerarquia AGENTS.md actualizado 2026-06-01: `D:\AGENTS.md` es la
 instruccion rectora local de mayor precedencia. Las instrucciones anidadas,
 perfiles de agentes, skills repo-locales, plugins y runtimes globales solo

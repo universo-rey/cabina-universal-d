@@ -192,6 +192,7 @@ $suiteStarted = Get-Date
 $results = New-Object System.Collections.Generic.List[object]
 
 $validatorSpecs = @(
+  @{ Id = "change_aware_orchestrator_static"; Tool = Resolve-ToolPath "tools\local_validate_change_aware_full_coverage_orchestrator.ps1"; Args = @("-Root", $Root, "-RepoRoot", $RepoRoot) },
   @{ Id = "github_automation_preflight"; Tool = Resolve-ToolPath "tools\local_validate_github_automation_preflight.ps1"; Args = @("-Root", $Root, "-RepoRoot", $RepoRoot) },
   @{ Id = "operational_chain"; Tool = Resolve-ToolPath "tools\local_validate_operational_chain.ps1"; Args = @("-Root", $Root, "-RepoRoot", $RepoRoot) },
   @{ Id = "capability_use_hardening"; Tool = Resolve-ToolPath "tools\local_validate_capability_use_hardening.ps1"; Args = @("-Root", $Root, "-RepoRoot", $RepoRoot) },

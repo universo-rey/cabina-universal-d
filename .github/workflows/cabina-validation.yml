@@ -50,6 +50,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
         with:
+          fetch-depth: 0
           persist-credentials: false
 
       - name: Prepare local-only folders
@@ -63,26 +64,51 @@ jobs:
             New-Item -ItemType Directory -Force -Path (Join-Path $env:GITHUB_WORKSPACE $path) | Out-Null
           }
 
-      - name: Governance validation suite
-        id: governance-suite
+      - name: Change-aware full coverage orchestrator
+        id: change-aware-full-coverage
         shell: pwsh
         run: |
           $root = Join-Path $env:GITHUB_WORKSPACE ".agents\codex"
-          $tool = Join-Path $root "tools\local_run_governance_validation_suite.ps1"
-          $output = & $tool -Root $root -RepoRoot $env:GITHUB_WORKSPACE -SkipWorkflowNestedValidators
+          $tool = Join-Path $root "tools\local_run_change_aware_full_coverage_orchestrator.ps1"
+          $rawAuditPath = Join-Path $env:RUNNER_TEMP "change-aware-full-coverage-audit-raw.json"
+          $artifactPath = Join-Path $env:RUNNER_TEMP "change-aware-full-coverage-audit.json"
+
+          $baseRef = "origin/main"
+          $headRef = "HEAD"
+          if ("${{ github.event_name }}" -eq "pull_request") {
+            $baseRef = "${{ github.event.pull_request.base.sha }}"
+            $headRef = "${{ github.event.pull_request.head.sha }}"
+          } elseif ("${{ github.event.before }}" -and "${{ github.event.before }}" -notmatch "^0+$") {
+            $baseRef = "${{ github.event.before }}"
+            $headRef = "${{ github.sha }}"
+          }
+
+          $output = & $tool -Root $root -RepoRoot $env:GITHUB_WORKSPACE -BaseRef $baseRef -HeadRef $headRef -ExecutePlan -EmitAuditArtifact -AuditPath $rawAuditPath
+          $toolExit = $LASTEXITCODE
           $output | Write-Output
           $payload = ($output -join "`n") | ConvertFrom-Json
 
-          $artifactPath = Join-Path $env:RUNNER_TEMP "governance-validation-suite-summary.json"
-          $summary = [ordered]@{
+          $audit = [ordered]@{
             status = $payload.status
-            suite_id = $payload.suite_id
+            orchestrator_id = $payload.orchestrator_id
             mode = $payload.mode
-            validator_count = $payload.validator_count
-            passed_count = $payload.passed_count
-            failed_count = $payload.failed_count
-            warning_count = $payload.warning_count
-            error_count = $payload.error_count
+            base_ref = $payload.base_ref
+            head_ref = $payload.head_ref
+            manifest_valid = $payload.manifest_valid
+            graph_valid = $payload.graph_valid
+            all_required_passed = $payload.all_required_passed
+            coverage_equivalence = $payload.coverage_equivalence
+            no_hidden_flaky = $payload.no_hidden_flaky
+            blocked_surfaces_clear = $payload.blocked_surfaces_clear
+            required_test_count = $payload.required_test_count
+            planned_test_count = $payload.planned_test_count
+            executed_required_test_count = $payload.executed_required_test_count
+            missing_required_test_count = $payload.missing_required_test_count
+            failed_required_tests = @($payload.failed_required_tests)
+            impact_unknown = $payload.impact_unknown
+            expansion_applied = $payload.expansion_applied
+            max_parallel = $payload.max_parallel
+            changed_files = @($payload.changed_files)
             started_at = $payload.started_at
             finished_at = $payload.finished_at
             duration_ms = $payload.duration_ms
@@ -98,21 +124,31 @@ jobs:
               }
             })
           }
-          $summary | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $artifactPath -Encoding UTF8
+          $audit | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $artifactPath -Encoding UTF8
           "artifact_path=$artifactPath" >> $env:GITHUB_OUTPUT
 
-          if ($payload.status -ne "PASS") {
+          if ($toolExit -ne 0 -or $payload.status -ne "PASS") {
             exit 1
           }
-          if ($payload.result_written -ne $false) {
-            throw "Governance validation suite must not write results in GitHub Actions"
+          if (
+            $payload.all_required_passed -ne $true -or
+            $payload.coverage_equivalence -ne $true -or
+            $payload.manifest_valid -ne $true -or
+            $payload.graph_valid -ne $true -or
+            $payload.no_hidden_flaky -ne $true -or
+            $payload.blocked_surfaces_clear -ne $true
+          ) {
+            throw "Change-aware full coverage acceptance flags are not all true"
+          }
+          if ($payload.result_written -ne $true) {
+            throw "Change-aware full coverage audit artifact was not emitted"
           }
 
-      - name: Upload governance suite summary
+      - name: Upload change-aware full coverage audit
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: governance-validation-suite-${{ github.run_id }}
-          path: ${{ steps.governance-suite.outputs.artifact_path }}
+          name: change-aware-full-coverage-${{ github.run_id }}
+          path: ${{ steps.change-aware-full-coverage.outputs.artifact_path }}
           if-no-files-found: error
           retention-days: 14

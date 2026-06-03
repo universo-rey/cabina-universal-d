@@ -402,8 +402,24 @@ implementado en `local_validate_agent_layer.ps1`,
 columnas y stop conditions usan `HashSet[string]` case-insensitive para
 mantener la semantica de PowerShell. La evidencia queda en
 `D:/.agents/codex/readbacks/2026-06-03_validator_hash_set_performance_readback.md`.
-Quedan pendientes por carril separado el reemplazo change-aware del workflow y
-la observacion de las proximas corridas CI con el gate principal.
+
+Actualizacion Change-Aware Full-Coverage Orchestrator 2026-06-03: el reemplazo
+change-aware del workflow queda implementado en modo productivo sin reducir
+cobertura. `cabina-validation.yml` ejecuta
+`D:/.agents/codex/tools/local_run_change_aware_full_coverage_orchestrator.ps1`
+como gate principal para PR, push y ejecucion manual. El orquestador valida
+`CHANGE_AWARE_TEST_MANIFEST.csv`, `CHANGE_AWARE_RISK_POLICY.csv` y
+`CHANGE_AWARE_IMPACT_GRAPH.csv`; detecta cambios; prioriza riesgo; ejecuta
+todos los tests obligatorios; verifica coverage equivalence; y emite artefacto
+JSON de auditoria. La corrida local de implementacion cerro con 19 tests
+obligatorios planificados y ejecutados, `all_required_passed=true`,
+`coverage_equivalence=true`, `manifest_valid=true`, `graph_valid=true`,
+`no_hidden_flaky=true` y `blocked_surfaces_clear=true`. La evidencia queda en
+`D:/.agents/codex/evals/results/change_aware_full_coverage_audit_latest.json`
+y
+`D:/.agents/codex/readbacks/2026-06-03_change_aware_full_coverage_orchestrator_readback.md`.
+Queda pendiente solo observar la primera corrida remota de PR/push con el gate
+productivo.
 
 Reglas vigentes:
 
