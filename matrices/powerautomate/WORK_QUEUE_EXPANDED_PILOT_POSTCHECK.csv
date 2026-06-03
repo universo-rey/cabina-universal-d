@@ -1,0 +1,6 @@
+"batch_id","idempotency_prefix","item_type","queue_name","queue_id","expected_new_count","live_new_batch_count","expected_total_count","live_total_count","status","evidence"
+"20260603_workqueue_expanded_pilot_dev_v1","20260603_wqexp_v1_connection_seed%","connection_seed","SDU.Connection.Seed.Queue","2277b5e7-3f5f-f111-a826-00224805f8f9","90","90","100","100","PASS","fetchxml_aggregate_count_only"
+"20260603_workqueue_expanded_pilot_dev_v1","20260603_wqexp_v1_gate_review%","gate_review","SDU.Gate.Review.Queue","59ea83ea-3f5f-f111-a826-00224805f9dd","45","45","50","50","PASS","fetchxml_aggregate_count_only"
+"20260603_workqueue_expanded_pilot_dev_v1","20260603_wqexp_v1_drift_detection%","drift_detection","SDU.Drift.Detection.Queue","2fd30de8-3f5f-f111-a826-00224805fcc4","45","45","50","50","PASS","fetchxml_aggregate_count_only"
+"20260603_workqueue_expanded_pilot_dev_v1","20260603_wqexp_v1_evidence_publish%","evidence_publish","SDU.Evidence.Publish.Queue","d8489bf0-3f5f-f111-a826-00224805f9dd","20","20","25","25","PASS","fetchxml_aggregate_count_only"
+"20260603_workqueue_expanded_pilot_dev_v1","20260603_wqexp_v1_exception_remediation%","exception_remediation","SDU.Exception.Remediation.Queue","ac89d1ef-3f5f-f111-a826-00224805fc91","25","25","25","25","PASS","fetchxml_aggregate_count_only"

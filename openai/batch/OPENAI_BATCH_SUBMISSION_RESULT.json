@@ -1,0 +1,23 @@
+{
+  "status": "OPENAI_BATCH_BLOCKED_KEY_MISSING",
+  "submitted_live": false,
+  "batch_id": null,
+  "openai_api_key_env_present": false,
+  "env_local_read": false,
+  "line_count": 5222,
+  "valid_json_lines": 5222,
+  "invalid_json_lines": 0,
+  "redaction_pass": true,
+  "secret_signal_count": 0,
+  "email_signal_count": 0,
+  "naive_phone_numeric_signal_count": 1369,
+  "contextual_phone_signal_count": 0,
+  "dni_keyword_count": 0,
+  "false_positive_note": "naive numeric scan matched IDs/counters; contextual phone scan used for security decision",
+  "cost_gate": "POR_DEFINIR",
+  "models": "gpt-4.1-mini",
+  "methods": "POST",
+  "urls": "/v1/responses",
+  "body_printed": false,
+  "secret_printed": false
+}

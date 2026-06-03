@@ -13,11 +13,37 @@
   "graph_valid": true,
   "required_test_count": 19,
   "changed_files": [
-    ".agents/codex/readbacks/2026-06-03_full_live_governed_activation_readback.md",
-    ".agents/codex/scripts/codex_cloud_full_live_governed_maintenance.sh",
-    ".agents/codex/scripts/codex_cloud_full_live_governed_setup.sh",
-    "apps/sdu-agent-runtime/README.md",
-    "governance/agents/AGENTS_SDK_AGENT_REGISTRY.md"
+    ".agents/codex/evals/results/change_aware_full_coverage_audit_latest.json",
+    ".gitignore",
+    "docs/dataverse/DATAVERSE_QUEUE_BACK_REFERENCE_ROLLBACK_PLAN.md",
+    "docs/powerautomate/DEV_DISABLED_FLOW_ROLLBACK_PLAN.md",
+    "docs/powerautomate/WORK_QUEUE_EXPANDED_PILOT_ROLLBACK_PLAN.md",
+    "docs/versioning/PR64_MERGE_ROLLBACK_PLAN.md",
+    "matrices/dataverse/DATAVERSE_QUEUE_BACK_REFERENCE_COLUMN_APPLY_RESULT.csv",
+    "matrices/dataverse/DATAVERSE_QUEUE_BACK_REFERENCE_COLUMN_PLAN.csv",
+    "matrices/dataverse/DATAVERSE_QUEUE_BACK_REFERENCE_COLUMN_POSTCHECK.csv",
+    "matrices/openai/",
+    "matrices/postmerge/",
+    "matrices/powerautomate/DEV_DISABLED_FLOW_CREATION_RESULT.csv",
+    "matrices/powerautomate/DEV_DISABLED_FLOW_POSTCHECK.csv",
+    "matrices/powerautomate/WORK_QUEUE_EXPANDED_PILOT_ITEMS.csv",
+    "matrices/powerautomate/WORK_QUEUE_EXPANDED_PILOT_POSTCHECK.csv",
+    "matrices/powerautomate/WORK_QUEUE_EXPANDED_PILOT_RESULT.csv",
+    "openai/batch/OPENAI_BATCH_SUBMISSION_RESULT.json",
+    "powerplatform/flows/dev-disabled-flow-manifest.yml",
+    "powerplatform/workqueues/pilot/workqueue_expanded_pilot_items.json",
+    "readbacks/openai/",
+    "readbacks/postmerge/",
+    "readbacks/versioning/READBACK_PR64_MERGED_AND_MAIN_SYNCED.md",
+    "readbacks/versioning/READBACK_PR64_POSTMERGE_MAIN_SYNC.md",
+    "validation/dataverse/DATAVERSE_QUEUE_BACK_REFERENCE_POSTCHECK.md",
+    "validation/openai/OPENAI_BATCH_METADATA_ONLY_PREFLIGHT.md",
+    "validation/postmerge/",
+    "validation/powerautomate/DEV_DISABLED_FLOW_POSTCHECK.md",
+    "validation/powerautomate/WORK_QUEUE_EXPANDED_PILOT_POSTCHECK.md",
+    "validation/versioning/PR64_MAIN_SYNC_POSTCHECK.md",
+    "validation/versioning/PR64_MERGE_PREFLIGHT.md",
+    "validation/versioning/PR64_POSTMERGE_MAIN_SYNC_VALIDATION.md"
   ],
   "impact_unknown": false,
   "expansion_applied": true,
@@ -104,22 +130,7 @@
       "reasons": [
         "impact:graph.default",
         "mandatory_full_coverage",
-        "risk:risk.default",
-        "risk:risk.readbacks"
-      ]
-    },
-    {
-      "test_id": "agent_layer",
-      "required": true,
-      "priority": 7,
-      "blocks_merge": true,
-      "blocks_release": true,
-      "runner_group": "governance",
-      "reasons": [
-        "impact:graph.default",
-        "mandatory_full_coverage",
-        "risk:risk.default",
-        "risk:risk.readbacks"
+        "risk:risk.default"
       ]
     },
     {
@@ -132,8 +143,7 @@
       "reasons": [
         "impact:graph.default",
         "mandatory_full_coverage",
-        "risk:risk.default",
-        "risk:risk.readbacks"
+        "risk:risk.default"
       ]
     },
     {
@@ -278,46 +288,234 @@
         "mandatory_full_coverage",
         "risk:risk.default"
       ]
+    },
+    {
+      "test_id": "agent_layer",
+      "required": true,
+      "priority": 19,
+      "blocks_merge": true,
+      "blocks_release": true,
+      "runner_group": "governance",
+      "reasons": [
+        "impact:graph.default",
+        "mandatory_full_coverage",
+        "risk:risk.default"
+      ]
     }
   ],
   "risk_matches": [
     {
-      "path": ".agents/codex/readbacks/2026-06-03_full_live_governed_activation_readback.md",
-      "risk_id": "risk.readbacks",
-      "risk_level": "medium",
-      "expansion": "full",
-      "reason": "evidence_changed"
-    },
-    {
-      "path": ".agents/codex/readbacks/2026-06-03_full_live_governed_activation_readback.md",
+      "path": ".agents/codex/evals/results/change_aware_full_coverage_audit_latest.json",
       "risk_id": "risk.default",
       "risk_level": "medium",
       "expansion": "full",
       "reason": "default_full_coverage"
     },
     {
-      "path": ".agents/codex/scripts/codex_cloud_full_live_governed_maintenance.sh",
+      "path": ".gitignore",
       "risk_id": "risk.default",
       "risk_level": "medium",
       "expansion": "full",
       "reason": "default_full_coverage"
     },
     {
-      "path": ".agents/codex/scripts/codex_cloud_full_live_governed_setup.sh",
+      "path": "docs/dataverse/DATAVERSE_QUEUE_BACK_REFERENCE_ROLLBACK_PLAN.md",
       "risk_id": "risk.default",
       "risk_level": "medium",
       "expansion": "full",
       "reason": "default_full_coverage"
     },
     {
-      "path": "apps/sdu-agent-runtime/README.md",
+      "path": "docs/powerautomate/DEV_DISABLED_FLOW_ROLLBACK_PLAN.md",
       "risk_id": "risk.default",
       "risk_level": "medium",
       "expansion": "full",
       "reason": "default_full_coverage"
     },
     {
-      "path": "governance/agents/AGENTS_SDK_AGENT_REGISTRY.md",
+      "path": "docs/powerautomate/WORK_QUEUE_EXPANDED_PILOT_ROLLBACK_PLAN.md",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "docs/versioning/PR64_MERGE_ROLLBACK_PLAN.md",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "matrices/dataverse/DATAVERSE_QUEUE_BACK_REFERENCE_COLUMN_APPLY_RESULT.csv",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "matrices/dataverse/DATAVERSE_QUEUE_BACK_REFERENCE_COLUMN_PLAN.csv",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "matrices/dataverse/DATAVERSE_QUEUE_BACK_REFERENCE_COLUMN_POSTCHECK.csv",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "matrices/openai/",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "matrices/postmerge/",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "matrices/powerautomate/DEV_DISABLED_FLOW_CREATION_RESULT.csv",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "matrices/powerautomate/DEV_DISABLED_FLOW_POSTCHECK.csv",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "matrices/powerautomate/WORK_QUEUE_EXPANDED_PILOT_ITEMS.csv",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "matrices/powerautomate/WORK_QUEUE_EXPANDED_PILOT_POSTCHECK.csv",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "matrices/powerautomate/WORK_QUEUE_EXPANDED_PILOT_RESULT.csv",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "openai/batch/OPENAI_BATCH_SUBMISSION_RESULT.json",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "powerplatform/flows/dev-disabled-flow-manifest.yml",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "powerplatform/workqueues/pilot/workqueue_expanded_pilot_items.json",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "readbacks/openai/",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "readbacks/postmerge/",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "readbacks/versioning/READBACK_PR64_MERGED_AND_MAIN_SYNCED.md",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "readbacks/versioning/READBACK_PR64_POSTMERGE_MAIN_SYNC.md",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "validation/dataverse/DATAVERSE_QUEUE_BACK_REFERENCE_POSTCHECK.md",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "validation/openai/OPENAI_BATCH_METADATA_ONLY_PREFLIGHT.md",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "validation/postmerge/",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "validation/powerautomate/DEV_DISABLED_FLOW_POSTCHECK.md",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "validation/powerautomate/WORK_QUEUE_EXPANDED_PILOT_POSTCHECK.md",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "validation/versioning/PR64_MAIN_SYNC_POSTCHECK.md",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "validation/versioning/PR64_MERGE_PREFLIGHT.md",
+      "risk_id": "risk.default",
+      "risk_level": "medium",
+      "expansion": "full",
+      "reason": "default_full_coverage"
+    },
+    {
+      "path": "validation/versioning/PR64_POSTMERGE_MAIN_SYNC_VALIDATION.md",
       "risk_id": "risk.default",
       "risk_level": "medium",
       "expansion": "full",
@@ -326,31 +524,187 @@
   ],
   "graph_matches": [
     {
-      "path": ".agents/codex/readbacks/2026-06-03_full_live_governed_activation_readback.md",
+      "path": ".agents/codex/evals/results/change_aware_full_coverage_audit_latest.json",
       "graph_id": "graph.default",
       "expansion": "full",
       "reason": "unknown_or_unmapped_change"
     },
     {
-      "path": ".agents/codex/scripts/codex_cloud_full_live_governed_maintenance.sh",
+      "path": ".gitignore",
       "graph_id": "graph.default",
       "expansion": "full",
       "reason": "unknown_or_unmapped_change"
     },
     {
-      "path": ".agents/codex/scripts/codex_cloud_full_live_governed_setup.sh",
+      "path": "docs/dataverse/DATAVERSE_QUEUE_BACK_REFERENCE_ROLLBACK_PLAN.md",
       "graph_id": "graph.default",
       "expansion": "full",
       "reason": "unknown_or_unmapped_change"
     },
     {
-      "path": "apps/sdu-agent-runtime/README.md",
+      "path": "docs/powerautomate/DEV_DISABLED_FLOW_ROLLBACK_PLAN.md",
       "graph_id": "graph.default",
       "expansion": "full",
       "reason": "unknown_or_unmapped_change"
     },
     {
-      "path": "governance/agents/AGENTS_SDK_AGENT_REGISTRY.md",
+      "path": "docs/powerautomate/WORK_QUEUE_EXPANDED_PILOT_ROLLBACK_PLAN.md",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "docs/versioning/PR64_MERGE_ROLLBACK_PLAN.md",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "matrices/dataverse/DATAVERSE_QUEUE_BACK_REFERENCE_COLUMN_APPLY_RESULT.csv",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "matrices/dataverse/DATAVERSE_QUEUE_BACK_REFERENCE_COLUMN_PLAN.csv",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "matrices/dataverse/DATAVERSE_QUEUE_BACK_REFERENCE_COLUMN_POSTCHECK.csv",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "matrices/openai/",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "matrices/postmerge/",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "matrices/powerautomate/DEV_DISABLED_FLOW_CREATION_RESULT.csv",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "matrices/powerautomate/DEV_DISABLED_FLOW_POSTCHECK.csv",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "matrices/powerautomate/WORK_QUEUE_EXPANDED_PILOT_ITEMS.csv",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "matrices/powerautomate/WORK_QUEUE_EXPANDED_PILOT_POSTCHECK.csv",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "matrices/powerautomate/WORK_QUEUE_EXPANDED_PILOT_RESULT.csv",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "openai/batch/OPENAI_BATCH_SUBMISSION_RESULT.json",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "powerplatform/flows/dev-disabled-flow-manifest.yml",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "powerplatform/workqueues/pilot/workqueue_expanded_pilot_items.json",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "readbacks/openai/",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "readbacks/postmerge/",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "readbacks/versioning/READBACK_PR64_MERGED_AND_MAIN_SYNCED.md",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "readbacks/versioning/READBACK_PR64_POSTMERGE_MAIN_SYNC.md",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "validation/dataverse/DATAVERSE_QUEUE_BACK_REFERENCE_POSTCHECK.md",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "validation/openai/OPENAI_BATCH_METADATA_ONLY_PREFLIGHT.md",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "validation/postmerge/",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "validation/powerautomate/DEV_DISABLED_FLOW_POSTCHECK.md",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "validation/powerautomate/WORK_QUEUE_EXPANDED_PILOT_POSTCHECK.md",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "validation/versioning/PR64_MAIN_SYNC_POSTCHECK.md",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "validation/versioning/PR64_MERGE_PREFLIGHT.md",
+      "graph_id": "graph.default",
+      "expansion": "full",
+      "reason": "unknown_or_unmapped_change"
+    },
+    {
+      "path": "validation/versioning/PR64_POSTMERGE_MAIN_SYNC_VALIDATION.md",
       "graph_id": "graph.default",
       "expansion": "full",
       "reason": "unknown_or_unmapped_change"
@@ -364,9 +718,9 @@
   "hidden_flaky_tests": null,
   "result_written": true,
   "audit_path": "D:\\.agents\\codex\\evals\\results\\change_aware_full_coverage_audit_latest.json",
-  "started_at": "2026-06-03T02:07:28.9078132-03:00",
-  "finished_at": "2026-06-03T02:07:48.2962425-03:00",
-  "duration_ms": 19388,
+  "started_at": "2026-06-03T11:06:00.0483338-03:00",
+  "finished_at": "2026-06-03T11:06:20.4271925-03:00",
+  "duration_ms": 20379,
   "errors": [],
   "warnings": [],
   "results": [
@@ -375,9 +729,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T02:07:29.3250226-03:00",
-      "finished_at": "2026-06-03T02:07:31.6210715-03:00",
-      "duration_ms": 2296,
+      "started_at": "2026-06-03T11:06:01.2621670-03:00",
+      "finished_at": "2026-06-03T11:06:04.6855757-03:00",
+      "duration_ms": 3423,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -388,9 +742,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T02:07:31.6279329-03:00",
-      "finished_at": "2026-06-03T02:07:31.6666626-03:00",
-      "duration_ms": 39,
+      "started_at": "2026-06-03T11:06:04.6968988-03:00",
+      "finished_at": "2026-06-03T11:06:04.7258089-03:00",
+      "duration_ms": 29,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -401,9 +755,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T02:07:31.6670490-03:00",
-      "finished_at": "2026-06-03T02:07:32.5000821-03:00",
-      "duration_ms": 833,
+      "started_at": "2026-06-03T11:06:04.7263367-03:00",
+      "finished_at": "2026-06-03T11:06:05.5545907-03:00",
+      "duration_ms": 828,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -414,9 +768,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T02:07:32.5005164-03:00",
-      "finished_at": "2026-06-03T02:07:33.3564202-03:00",
-      "duration_ms": 856,
+      "started_at": "2026-06-03T11:06:05.5548595-03:00",
+      "finished_at": "2026-06-03T11:06:06.4739387-03:00",
+      "duration_ms": 919,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -427,9 +781,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T02:07:33.3567567-03:00",
-      "finished_at": "2026-06-03T02:07:34.4411969-03:00",
-      "duration_ms": 1084,
+      "started_at": "2026-06-03T11:06:06.4742578-03:00",
+      "finished_at": "2026-06-03T11:06:07.5808661-03:00",
+      "duration_ms": 1107,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -440,29 +794,12 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T02:07:34.4415882-03:00",
-      "finished_at": "2026-06-03T02:07:35.3688361-03:00",
-      "duration_ms": 927,
+      "started_at": "2026-06-03T11:06:07.5811004-03:00",
+      "finished_at": "2026-06-03T11:06:08.4263749-03:00",
+      "duration_ms": 845,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
-      "errors": []
-    },
-    {
-      "test_id": "agent_layer",
-      "required": true,
-      "status": "PASS",
-      "exit_code": 0,
-      "started_at": "2026-06-03T02:07:35.3691201-03:00",
-      "finished_at": "2026-06-03T02:07:38.7449533-03:00",
-      "duration_ms": 3376,
-      "warning_count": 3,
-      "error_count": 0,
-      "warnings": [
-        "Skipped workflow-level nested validator: parallel order governance",
-        "Skipped workflow-level nested validator: order packet",
-        "Skipped workflow-level nested validator: operational chain"
-      ],
       "errors": []
     },
     {
@@ -470,9 +807,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T02:07:38.7451868-03:00",
-      "finished_at": "2026-06-03T02:07:39.5366456-03:00",
-      "duration_ms": 791,
+      "started_at": "2026-06-03T11:06:08.4266228-03:00",
+      "finished_at": "2026-06-03T11:06:09.2709362-03:00",
+      "duration_ms": 844,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -483,9 +820,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T02:07:39.5369203-03:00",
-      "finished_at": "2026-06-03T02:07:40.2354488-03:00",
-      "duration_ms": 699,
+      "started_at": "2026-06-03T11:06:09.2711721-03:00",
+      "finished_at": "2026-06-03T11:06:10.0141858-03:00",
+      "duration_ms": 743,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -496,9 +833,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T02:07:40.2357587-03:00",
-      "finished_at": "2026-06-03T02:07:40.9348101-03:00",
-      "duration_ms": 699,
+      "started_at": "2026-06-03T11:06:10.0144660-03:00",
+      "finished_at": "2026-06-03T11:06:10.6451572-03:00",
+      "duration_ms": 631,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -509,9 +846,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T02:07:40.9350371-03:00",
-      "finished_at": "2026-06-03T02:07:41.9368921-03:00",
-      "duration_ms": 1002,
+      "started_at": "2026-06-03T11:06:10.6454392-03:00",
+      "finished_at": "2026-06-03T11:06:11.4644154-03:00",
+      "duration_ms": 819,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -522,9 +859,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T02:07:41.9372896-03:00",
-      "finished_at": "2026-06-03T02:07:43.0312841-03:00",
-      "duration_ms": 1094,
+      "started_at": "2026-06-03T11:06:11.4646704-03:00",
+      "finished_at": "2026-06-03T11:06:12.2497950-03:00",
+      "duration_ms": 785,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -535,9 +872,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T02:07:43.0316469-03:00",
-      "finished_at": "2026-06-03T02:07:43.8951844-03:00",
-      "duration_ms": 864,
+      "started_at": "2026-06-03T11:06:12.2501087-03:00",
+      "finished_at": "2026-06-03T11:06:13.0147339-03:00",
+      "duration_ms": 765,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -548,9 +885,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T02:07:43.8954638-03:00",
-      "finished_at": "2026-06-03T02:07:44.6652925-03:00",
-      "duration_ms": 770,
+      "started_at": "2026-06-03T11:06:13.0149558-03:00",
+      "finished_at": "2026-06-03T11:06:13.7290263-03:00",
+      "duration_ms": 714,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -561,9 +898,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T02:07:44.6655391-03:00",
-      "finished_at": "2026-06-03T02:07:45.4173053-03:00",
-      "duration_ms": 752,
+      "started_at": "2026-06-03T11:06:13.7292264-03:00",
+      "finished_at": "2026-06-03T11:06:14.4762899-03:00",
+      "duration_ms": 747,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -574,9 +911,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T02:07:45.4177480-03:00",
-      "finished_at": "2026-06-03T02:07:46.1093330-03:00",
-      "duration_ms": 692,
+      "started_at": "2026-06-03T11:06:14.4765956-03:00",
+      "finished_at": "2026-06-03T11:06:15.2549645-03:00",
+      "duration_ms": 778,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -587,9 +924,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T02:07:46.1095889-03:00",
-      "finished_at": "2026-06-03T02:07:46.8660814-03:00",
-      "duration_ms": 756,
+      "started_at": "2026-06-03T11:06:15.2552352-03:00",
+      "finished_at": "2026-06-03T11:06:16.0169207-03:00",
+      "duration_ms": 762,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -600,9 +937,9 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T02:07:46.8662841-03:00",
-      "finished_at": "2026-06-03T02:07:47.5706863-03:00",
-      "duration_ms": 704,
+      "started_at": "2026-06-03T11:06:16.0171500-03:00",
+      "finished_at": "2026-06-03T11:06:16.6768781-03:00",
+      "duration_ms": 660,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
@@ -613,12 +950,29 @@
       "required": true,
       "status": "PASS",
       "exit_code": 0,
-      "started_at": "2026-06-03T02:07:47.5709317-03:00",
-      "finished_at": "2026-06-03T02:07:48.2828872-03:00",
-      "duration_ms": 712,
+      "started_at": "2026-06-03T11:06:16.6772208-03:00",
+      "finished_at": "2026-06-03T11:06:17.4395010-03:00",
+      "duration_ms": 762,
       "warning_count": 0,
       "error_count": 0,
       "warnings": [],
+      "errors": []
+    },
+    {
+      "test_id": "agent_layer",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "started_at": "2026-06-03T11:06:17.4398278-03:00",
+      "finished_at": "2026-06-03T11:06:20.4163501-03:00",
+      "duration_ms": 2977,
+      "warning_count": 3,
+      "error_count": 0,
+      "warnings": [
+        "Skipped workflow-level nested validator: parallel order governance",
+        "Skipped workflow-level nested validator: order packet",
+        "Skipped workflow-level nested validator: operational chain"
+      ],
       "errors": []
     }
   ]
