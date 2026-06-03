@@ -3,13 +3,16 @@
 ## Estado
 HECHO_VERIFICADO: Codex Cloud para `universo-rey/cabina-universal-d` ya estaba registrado como environment visible con smoke read-only no-diff. No se creo environment nuevo. El CLI no devolvio un `environment_id` estable; el ID real queda pendiente de registro cuando la superficie lo exponga.
 
+Actualizacion PR #56: el estado de cabina queda `FULL_LIVE_GOVERNED_READY`
+por smokes OpenAI live gobernados. Codex Cloud permanece repo-scoped con
+evidencia previa no-diff y sin crear environment duplicado.
+
 ## Sistemas Tocados
 - Repo local `D:/` en branch `codex/cabina-cloud-agents-sdk-baseline-20260603`.
 - Matriz local `.agents/codex/matrices/CODEX_CLOUD_CABINA_ACTIVATION_GATE_20260603.csv`.
 
 ## Sistemas No Tocados
 - Codex Cloud apply.
-- OpenAI API live.
 - Microsoft live.
 - Produccion.
 - Permisos.
@@ -22,9 +25,12 @@ HECHO_VERIFICADO: Codex Cloud para `universo-rey/cabina-universal-d` ya estaba r
 - `AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv`: `D_CABINA_UNIVERSAL_ROOT` con `ENVIRONMENT_VISIBLE_READY_NO_DIFF`.
 - Smoke previo: `task_e_6a1f119843d4832e9ed821834222c003_ready_no_diff`.
 - CI main: `26863074058 success`.
+- OpenAI API live smoke: PASS, body no impreso.
+- Responses API live smoke: PASS, body no impreso.
+- Agents SDK `Runner` live smoke: PASS, body no impreso.
 
 ## Dictamen
-`CODEX_CLOUD_CABINA_READY_BY_PRIOR_SMOKE_WITH_ENV_ID_GAP`.
+`FULL_LIVE_GOVERNED_READY`.
 
 ## Validacion Ejecutada
 - `local_validate_codex_cloud_governed_lane.ps1`: PASS.
@@ -39,19 +45,24 @@ HECHO_VERIFICADO: Codex Cloud para `universo-rey/cabina-universal-d` ya estaba r
 - AGENTS.md vigente: si.
 - Validators disponibles: si.
 - Secretos: no materializados.
-- Microsoft live: no tocado.
-- Produccion: no tocada.
-- OpenAI API live amplio: no tocado.
-- Blocker critico pendiente: ninguno para cabina local/no-live; queda gap no
-  bloqueante de registro de ID estable.
+- OpenAI API live: gobernado y ejecutado solo para smokes sinteticos.
+- Microsoft live: `MICROSOFT_LIVE_GOVERNED_GATED`, no ejecutado sin objeto
+  exacto.
+- Produccion: `PRODUCTION_GOVERNED_GATED`, no ejecutada sin target exacto.
+- Propagacion: `PROPAGATION_PREPARED_NOT_EXECUTED`.
+- Blocker critico pendiente: ninguno para OpenAI live smoke PR #56; queda gap
+  no bloqueante de registro de ID estable.
 
 ## Riesgos
-- Codex Cloud sigue limitado a status, diff no-apply y tareas repo-scoped gobernadas.
+- Codex Cloud sigue limitado a status, diff no-apply y tareas repo-scoped
+  gobernadas hasta orden especifica.
 - No se debe crear un environment duplicado para suplir el ID pendiente.
-- `codex cloud apply`, costos, secretos, live API o agentes remotos persistentes siguen fuera de este gate.
+- `codex cloud apply`, costos abiertos, secretos, Microsoft writes, produccion
+  y agentes remotos persistentes siguen fuera de este gate.
 
 ## Rollback
 Revertir este branch. No se creo ni cambio environment remoto.
 
 ## Proximo Gate
-Cerrar Agents SDK baseline local/no-live y luego preparar propagacion por repos.
+Mantener PR #56 draft hasta cierre completo. Propagar por repos solo despues
+de cerrar cabina.

@@ -3,12 +3,21 @@
 ## Estado
 
 This policy defines the root cabina baseline for OpenAI Agents SDK design work.
-It is local/no-live only and pre-runtime governed. It is a contractual baseline,
-not a declaration that a real Agents SDK runtime is ready.
+It is now `FULL_LIVE_GOVERNED_READY` for PR #56.
 
-The baseline does not import `openai-agents`, instantiate `Agent`, use `Runner`,
-bind `OpenAIResponsesModel`, call SDK tools, run SDK handoffs or enable SDK
-tracing.
+The default package path remains deterministic and local-first. The governed
+live gate has separately validated OpenAI API live, Responses API live and
+Agents SDK `Runner` live with synthetic payloads, no body dump, no secrets and
+no external writes.
+
+Current states:
+
+- `OPENAI_API_LIVE_GOVERNED_READY`
+- `RESPONSES_API_LIVE_GOVERNED_READY`
+- `AGENTS_SDK_RUNTIME_LIVE_GOVERNED_READY`
+- `MICROSOFT_LIVE_GOVERNED_GATED`
+- `PRODUCTION_GOVERNED_GATED`
+- `PROPAGATION_PREPARED_NOT_EXECUTED`
 
 ## Allowed
 
@@ -17,32 +26,39 @@ tracing.
 - Validate structured JSON outputs.
 - Prepare synthetic eval fixtures.
 - Prepare governed order packets for later live work.
+- Run governed OpenAI API `models.list` smoke without printing the response
+  body.
+- Run governed Responses API smoke with synthetic non-sensitive input.
+- Run governed Agents SDK `Agent` + `Runner` smoke with synthetic
+  non-sensitive input.
 
 ## Blocked
 
-- OpenAI API live.
-- Agents SDK live.
-- Agent Builder live.
-- `openai-agents`, `Agent`, `Runner`, `OpenAIResponsesModel`, SDK tools, SDK
-  handoffs or SDK tracing without a separate governed order.
+- Ungoverned OpenAI API live.
+- Ungoverned Agents SDK live.
+- Agent Builder live outside this PR gate.
+- SDK tools, SDK handoffs, SDK tracing, remote agents or persistent runtime
+  outside a separate governed order.
 - External vector stores.
-- Costs.
+- Open-ended costs.
 - Secrets or secret materialization.
-- Microsoft live.
+- Microsoft live writes without exact object, owner, rollback and postcheck.
 - Tenant writes.
-- Production.
+- Production without exact target, rollback and postcheck.
 - Permission changes.
 - Remote persistent agents.
 
 ## First Agent
 
 - `agent_id`: `sdu-triage-agent`
-- `mode`: `local_no_live`
+- `mode`: `full_live_governed`
+- `default_path`: `local_no_live`
 - `output`: `structured_json`
 - `external_writes`: `forbidden`
 
 ## Gate
 
-Any move from local/no-live to API-backed runtime requires a separate governed
-order with identity, data boundary, rollback, postcheck, evidence and stop
-condition.
+OpenAI live is authorized only for this PR #56 smoke gate and sanitized runtime
+verification. Microsoft live, production writes, permission changes,
+propagation and persistent remote agents still require exact target, owner,
+rollback, postcheck, evidence and stop condition before execution.

@@ -1,5 +1,11 @@
 # PR56 Precision Corrections Readback
 
+## Nota De Vigencia
+Este readback registra la correccion anterior de precision local/no-live. Queda
+superado para estado actual por
+`2026-06-03_full_live_governed_activation_readback.md`, que abre OpenAI live
+gobernado para PR #56 y mantiene Microsoft, produccion y propagacion gateados.
+
 ## Dictamen
 `PR56_PRECISION_CORRECTIONS_READY_KEEP_DRAFT`.
 
