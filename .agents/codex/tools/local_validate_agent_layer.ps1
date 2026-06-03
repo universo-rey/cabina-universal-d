@@ -18,6 +18,17 @@ function Read-CsvSafe {
   return $script:CsvCache[$resolvedPath]
 }
 
+function New-StringSet {
+  param([object[]]$Values)
+  $set = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+  foreach ($value in @($Values)) {
+    if (-not [string]::IsNullOrWhiteSpace([string]$value)) {
+      [void]$set.Add([string]$value)
+    }
+  }
+  return $set
+}
+
 function Test-RequiredColumns {
   param(
     [string]$Path,
@@ -31,8 +42,9 @@ function Test-RequiredColumns {
     $header = (Get-Content -LiteralPath $Path -TotalCount 1)
     if ($header) { $actual = @($header -split ",") }
   }
+  $actualSet = New-StringSet -Values $actual
   foreach ($column in $Columns) {
-    if ($column -notin $actual) {
+    if (-not $actualSet.Contains($column)) {
       return "Missing column '$column' in $Path"
     }
   }
@@ -176,8 +188,9 @@ foreach ($row in $toolRows) {
   }
 }
 $toolGovernanceIds = @((Read-CsvSafe -Path $toolGovernance) | ForEach-Object { $_.tool_id })
+$toolGovernanceIdSet = New-StringSet -Values $toolGovernanceIds
 foreach ($row in $toolRows) {
-  if ($row.tool_id -notin $toolGovernanceIds) {
+  if (-not $toolGovernanceIdSet.Contains($row.tool_id)) {
     $errors.Add("Tool missing governance row: $($row.tool_id)")
   }
 }
@@ -233,6 +246,7 @@ foreach ($row in $glossaryRows) {
   }
 }
 $knownStopConditions = @($glossaryRows | ForEach-Object { $_.stop_condition })
+$knownStopConditionSet = New-StringSet -Values $knownStopConditions
 foreach ($path in @(
   $parallelOperationCriteria,
   $parallelIssueQueue,
@@ -249,9 +263,10 @@ foreach ($path in @(
   $subrecipeIndex
 )) {
   foreach ($row in Read-CsvSafe -Path $path) {
-    if ($row.PSObject.Properties.Name -contains "stop_condition") {
+    $propertyNameSet = New-StringSet -Values @($row.PSObject.Properties.Name)
+    if ($propertyNameSet.Contains("stop_condition")) {
       foreach ($token in @($row.stop_condition -split "\|" | ForEach-Object { $_.Trim() } | Where-Object { $_ })) {
-        if ($token -notin $knownStopConditions) {
+        if (-not $knownStopConditionSet.Contains($token)) {
           $errors.Add("Unknown stop_condition '$token' in $path")
         }
       }
@@ -307,24 +322,33 @@ foreach ($validatorSpec in @(
 $agentData = Get-Content -LiteralPath (Join-Path $Root "agents.json") -Raw | ConvertFrom-Json
 $agentIds = @($agentData.agents | ForEach-Object { $_.id })
 $defaultSkillAssignment = Read-CsvSafe -Path (Join-Path $Root "matrices\AGENT_DEFAULT_SKILL_ASSIGNMENT_MATRIX.csv")
+$defaultSkillAssignmentByAgent = @{}
+foreach ($row in $defaultSkillAssignment) {
+  if (-not [string]::IsNullOrWhiteSpace($row.agent_id)) {
+    $defaultSkillAssignmentByAgent[$row.agent_id] = $row
+  }
+}
 foreach ($agent in $agentData.agents) {
-  $defaultRow = @($defaultSkillAssignment | Where-Object { $_.agent_id -eq $agent.id }) | Select-Object -First 1
-  if (-not $defaultRow) {
+  if (-not $defaultSkillAssignmentByAgent.ContainsKey($agent.id)) {
     $errors.Add("Agent missing from default skill assignment matrix: $($agent.id)")
     continue
   }
+  $defaultRow = $defaultSkillAssignmentByAgent[$agent.id]
+  $agentDefaultSkillSet = New-StringSet -Values @($agent.default_skills)
+  $agentDefaultRecipeSet = New-StringSet -Values @($agent.default_recipes)
+  $agentDefaultToolSet = New-StringSet -Values @($agent.default_tools)
   foreach ($skill in @($defaultRow.default_skill_refs -split "\|" | ForEach-Object { $_.Trim() } | Where-Object { $_ })) {
-    if ($skill -notin @($agent.default_skills)) {
+    if (-not $agentDefaultSkillSet.Contains($skill)) {
       $errors.Add("agents.json drift for $($agent.id): missing default_skill $skill")
     }
   }
   foreach ($recipe in @($defaultRow.default_recipe_refs -split "\|" | ForEach-Object { $_.Trim() } | Where-Object { $_ })) {
-    if ($recipe -notin @($agent.default_recipes)) {
+    if (-not $agentDefaultRecipeSet.Contains($recipe)) {
       $errors.Add("agents.json drift for $($agent.id): missing default_recipe $recipe")
     }
   }
   foreach ($tool in @($defaultRow.default_tool_refs -split "\|" | ForEach-Object { $_.Trim() } | Where-Object { $_ })) {
-    if ($tool -notin @($agent.default_tools)) {
+    if (-not $agentDefaultToolSet.Contains($tool)) {
       $errors.Add("agents.json drift for $($agent.id): missing default_tool $tool")
     }
   }
@@ -333,11 +357,13 @@ $agentWorkpaperRows = Read-CsvSafe -Path $agentWorkpapers
 $workpaperIndexRows = Read-CsvSafe -Path $workpaperIndex
 $workpaperMatrixIds = @($agentWorkpaperRows | ForEach-Object { $_.agent_id })
 $workpaperIndexIds = @($workpaperIndexRows | ForEach-Object { $_.agent_id })
+$workpaperMatrixIdSet = New-StringSet -Values $workpaperMatrixIds
+$workpaperIndexIdSet = New-StringSet -Values $workpaperIndexIds
 foreach ($agentId in $agentIds) {
-  if ($agentId -notin $workpaperMatrixIds) {
+  if (-not $workpaperMatrixIdSet.Contains($agentId)) {
     $errors.Add("Agent missing from workpaper matrix: $agentId")
   }
-  if ($agentId -notin $workpaperIndexIds) {
+  if (-not $workpaperIndexIdSet.Contains($agentId)) {
     $errors.Add("Agent missing from workpaper index: $agentId")
   }
 }

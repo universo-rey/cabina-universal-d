@@ -252,6 +252,18 @@ textuales, errores textuales, secretos ni datos live. La evidencia vive en
 y
 `D:\.agents\codex\readbacks\2026-06-02_governance_validation_suite_gate_promotion_readback.md`.
 
+Estado hash sets validadores actualizado 2026-06-03: por aprobacion del
+operador, el carril `validator_perf.hash_set_membership` queda implementado en
+`local_validate_agent_layer.ps1`, `local_run_repo_alignment_runtime.ps1`,
+`local_validate_operational_chain.ps1` y
+`local_validate_capability_use_hardening.ps1`. Los chequeos repetidos de ids,
+columnas y stop conditions usan `HashSet[string]` case-insensitive para
+preservar la semantica de `-notin/-notcontains` de PowerShell. La evidencia
+queda en
+`D:\.agents\codex\readbacks\2026-06-03_validator_hash_set_performance_readback.md`.
+No habilita Microsoft live, OpenAI API live, produccion, permisos, secretos ni
+cambios de workflow.
+
 Estado jerarquia AGENTS.md actualizado 2026-06-01: `D:\AGENTS.md` es la
 instruccion rectora local de mayor precedencia. Las instrucciones anidadas,
 perfiles de agentes, skills repo-locales, plugins y runtimes globales solo

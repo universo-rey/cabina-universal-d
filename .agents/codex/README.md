@@ -166,6 +166,12 @@ no escribe evidencia salvo que se use `-WriteResult`; en CI debe quedar
 `result_written=false`. El workflow sube un artifact JSON saneado con resumen,
 conteos y duraciones para diagnostico rapido.
 
+Actualizacion hash sets validadores 2026-06-03: los validadores principales de
+la capa de agentes reemplazan chequeos repetidos de membresia contra arrays por
+`HashSet[string]` case-insensitive en ids, columnas y stop conditions. El cambio
+mantiene cobertura y no modifica workflow, permisos, superficies live ni salida
+funcional esperada.
+
 ## Olas de agentes
 
 Ola 1: orquestacion, fronteras, registro, canon, repos, corte OpenAI y torres Escribania/Modo ON.
