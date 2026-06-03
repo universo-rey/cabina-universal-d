@@ -26,6 +26,7 @@ tool.provider_boundary_check,04_TORRES_DE_UNIVERSO,read,D:/01_GOVERNANCE_REGISTR
 tool.readback_builder,03_CORTE_EJECUTORA,write,D:\.agents\codex\readbacks,local_filesystem,external_record_write
 tool.reference_classifier,05_SOPORTE_TECNICO,read,D:\80_REFERENCIAS_TECNICAS,local_filesystem,vendor_live_execution
 tool.repo_alignment_runtime,03_CORTE_EJECUTORA,run,D:/.agents/codex/tools/local_run_repo_alignment_runtime.ps1,local_synthetic_runtime,openai_api_live|microsoft_live|production|secrets
+tool.local_run_governance_validation_suite,03_CORTE_EJECUTORA,run,D:\.agents\codex\tools\local_run_governance_validation_suite.ps1,local_filesystem,external_runtime|microsoft_live|openai_api_live|production|secret_materialization|workflow_replacement_without_review
 tool.routing_readback,00_ROUTER,write,D:\.agents\codex\readbacks,local_filesystem,remote_write
 tool.secret_scan,01_AUTORIDAD_Y_GATES,read,Select-String secret patterns,local_filesystem,secret_printing
 tool.governed_order_packet_builder,01_AUTORIDAD_Y_GATES,write,D:\.agents\codex\orders,local_order_packet,live_execution|secret_materialization|production_change

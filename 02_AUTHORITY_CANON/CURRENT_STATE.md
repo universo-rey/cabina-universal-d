@@ -381,8 +381,15 @@ conserva evidencia `path`, `line` y `pattern`. La matriz queda en
 `D:/.agents/codex/matrices/VALIDATOR_PERFORMANCE_IMPROVEMENT_MATRIX_20260602.csv`
 y el readback en
 `D:/.agents/codex/readbacks/2026-06-02_validator_performance_improvements_readback.md`.
-Quedan pendientes por carril separado el runner change-aware, hash sets
-transversales y medicion comparativa de duracion CI.
+La Fase 3 agrega el runner opcional
+`D:/.agents/codex/tools/local_run_governance_validation_suite.ps1`, que ejecuta
+la suite existente, emite JSON agregado con duracion por validador y solo
+escribe resultados si se invoca con `-WriteResult`. El workflow conserva los
+pasos individuales como gate principal y expone el runner solo para
+`workflow_dispatch` con `run_aggregate_suite`. La evidencia queda en
+`D:/.agents/codex/readbacks/2026-06-02_governance_validation_suite_phase3_readback.md`.
+Quedan pendientes por carril separado el reemplazo change-aware del workflow,
+hash sets transversales y medicion comparativa sostenida de duracion CI.
 
 Reglas vigentes:
 
