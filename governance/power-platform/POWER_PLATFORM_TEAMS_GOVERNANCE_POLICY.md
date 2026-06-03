@@ -15,8 +15,9 @@ prepara cambios. Humano aprueba produccion.
   GitHub Actions o PAC CLI.
 - Ejecutar `who-am-i` contra un Dataverse DEV/STAGING exacto con service
   principal autorizado.
-- Preparar import y publish DEV/STAGING con input manual y confirmacion
-  explicita de no produccion.
+- Preparar import y publish DEV/STAGING con input manual, confirmacion
+  explicita de no produccion, `environment_stage` DEV/STAGING y match contra
+  `POWERPLATFORM_DEV_STAGING_ENVIRONMENT_URLS`.
 - Diseñar colas de mensajes programados en SharePoint o Dataverse.
 - Registrar evidencia operacional en SharePoint/SYS o Dataverse cuando exista
   target exacto, rollback y postcheck.
@@ -27,7 +28,8 @@ prepara cambios. Humano aprueba produccion.
 
 - Envio automatico de mensajes Teams a canal o chat real.
 - Uso de Microsoft Graph para mensajes, permisos o app registrations.
-- Import, publish o cambios de Solution fuera de DEV/STAGING.
+- Import, publish o cambios de Solution fuera de DEV/STAGING o sin allowlist
+  explicita de ambiente no productivo.
 - Writes en SharePoint, Planner, Dataverse, Power Platform, Teams o tenant.
 - Alta, rotacion o modificacion de GitHub Secrets.
 - Cambios de permisos, visibilidad, licencias, conectores o identidad.
@@ -35,7 +37,8 @@ prepara cambios. Humano aprueba produccion.
 ## Prohibido en este carril
 
 - Borrar, resetear o restaurar ambientes.
-- Importar o publicar en produccion.
+- Importar o publicar en produccion o en cualquier URL no aprobada en la
+  allowlist DEV/STAGING.
 - Hardcodear tenant, usuario, password, client secret o environment URL
   productivo.
 - Mezclar tenants Escribania y Modo ON.
@@ -80,5 +83,6 @@ prepara cambios. Humano aprueba produccion.
 
 ## Criterio de cierre
 
-`POWER_PLATFORM_TEAMS_ALM_DEV_STAGING_READY` cuando existen registry, matriz,
-policy, recipes, workflows, scripts, validacion, readback, commit y PR.
+`POWER_PLATFORM_TEAMS_ALM_DEV_STAGING_READY_WITH_EXPLICIT_NONPROD_ALLOWLIST_GATE`
+cuando existen registry, matriz, policy, recipes, workflows, scripts,
+validacion, readback, commit y PR con gate explicito de allowlist DEV/STAGING.

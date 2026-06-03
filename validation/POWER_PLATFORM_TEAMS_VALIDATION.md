@@ -1,6 +1,6 @@
 # Power Platform Teams Validation
 
-Estado: `POWER_PLATFORM_TEAMS_VALIDATION_READY`
+Estado: `POWER_PLATFORM_TEAMS_VALIDATION_READY_WITH_EXPLICIT_NONPROD_ALLOWLIST_GATE`
 Fecha: 2026-06-03
 
 ## 1. Repo
@@ -39,10 +39,10 @@ Fecha: 2026-06-03
 | --- | --- |
 | workflow_dispatch | todos los workflows Power Platform son manuales |
 | inputs obligatorios | environment URL y solution inputs requeridos |
-| DEV/STAGING gates | URL bloquea `prod`, `production`, `live` |
+| DEV/STAGING gates | import/publish requieren `environment_stage` DEV/STAGING, `confirm_non_production == true` y match exacto contra `POWERPLATFORM_DEV_STAGING_ENVIRONMENT_URLS` tras normalizacion URL |
 | produccion bloqueada | no hay workflow productivo en este paquete |
-| import gated | `import_to_dev` y `confirm_non_production` requeridos |
-| publish gated | `publish_after_import` y `confirm_non_production` requeridos |
+| import gated | `import_to_dev`, `confirm_non_production`, stage DEV/STAGING y allowlist explicita requeridos |
+| publish gated | `publish_after_import`, `confirm_non_production`, stage DEV/STAGING y allowlist explicita requeridos |
 | permissions | `contents: read` |
 
 ## 5. Teams
@@ -84,6 +84,8 @@ foreach ($file in $files) {
   if ($text -notmatch "contents:\s*read") { throw "$file missing contents read" }
 }
 
+.\scripts\power-platform\validate-power-platform-alm-gates.ps1
+
 Get-ChildItem scripts/power-platform/*.ps1 | ForEach-Object {
   $tokens = $null
   $errors = $null
@@ -94,4 +96,4 @@ Get-ChildItem scripts/power-platform/*.ps1 | ForEach-Object {
 
 ## Stop condition
 
-`power_platform_teams_validation_failed`
+`power_platform_teams_explicit_nonprod_allowlist_gate_failed`

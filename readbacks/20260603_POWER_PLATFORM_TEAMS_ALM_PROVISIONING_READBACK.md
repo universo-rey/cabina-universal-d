@@ -1,8 +1,8 @@
 # Power Platform Teams ALM Provisioning Readback
 
 Fecha: 2026-06-03
-Estado final esperado: `POWER_PLATFORM_TEAMS_ALM_DEV_STAGING_READY`
-Estado actual del readback: `POWER_PLATFORM_TEAMS_ALM_DEV_STAGING_READY`
+Estado final esperado: `POWER_PLATFORM_TEAMS_ALM_DEV_STAGING_READY_WITH_EXPLICIT_NONPROD_ALLOWLIST_GATE`
+Estado actual del readback: `POWER_PLATFORM_TEAMS_ALM_DEV_STAGING_READY_WITH_EXPLICIT_NONPROD_ALLOWLIST_GATE`
 
 ## Cadena
 
@@ -69,8 +69,8 @@ Estado actual del readback: `POWER_PLATFORM_TEAMS_ALM_DEV_STAGING_READY`
 | `power-platform-whoami.yml` | validar conexion Dataverse/Power Platform | `environment_url` DEV/STAGING, service principal |
 | `power-platform-export-unpack.yml` | exportar solucion y desempaquetar | no produccion, artifact only |
 | `power-platform-check-solution.yml` | ejecutar solution checker | fail on analysis error, override documentado |
-| `power-platform-pack-import-dev.yml` | pack e import DEV opcional | `import_to_dev` + `confirm_non_production` |
-| `power-platform-alm-full-dev.yml` | ALM completo DEV/STAGING | import/publish opcional con gates |
+| `power-platform-pack-import-dev.yml` | pack e import DEV opcional | `environment_stage` DEV/STAGING + `confirm_non_production` + `POWERPLATFORM_DEV_STAGING_ENVIRONMENT_URLS` |
+| `power-platform-alm-full-dev.yml` | ALM completo DEV/STAGING | import/publish opcional con allowlist DEV/STAGING explicita |
 
 ## Scripts creados
 
@@ -81,6 +81,7 @@ Estado actual del readback: `POWER_PLATFORM_TEAMS_ALM_DEV_STAGING_READY`
 | `pp-pack-check.ps1` | pack y solution checker |
 | `pp-import-dev.ps1` | import/publish DEV/STAGING gated |
 | `pp-validate-env.ps1` | precheck local de entorno, PAC y secret env var |
+| `validate-power-platform-alm-gates.ps1` | validador local de allowlist DEV/STAGING explicita para workflows mutables |
 
 ## Fuentes leidas
 
@@ -112,7 +113,9 @@ Estado actual del readback: `POWER_PLATFORM_TEAMS_ALM_DEV_STAGING_READY`
 
 - `contents: read` se mantiene en workflows nuevos.
 - Secrets se referencian por GitHub Secrets y variable local, sin valores.
-- Import/publish quedan restringidos a DEV/STAGING.
+- Import/publish quedan restringidos a `environment_stage` DEV/STAGING,
+  `confirm_non_production == true` y match exacto contra
+  `POWERPLATFORM_DEV_STAGING_ENVIRONMENT_URLS` tras normalizacion URL.
 - Produccion queda fuera de este paquete.
 
 ## Riesgos
@@ -125,10 +128,23 @@ Estado actual del readback: `POWER_PLATFORM_TEAMS_ALM_DEV_STAGING_READY`
 | Import/publish DEV | preparado, no ejecutado |
 | Produccion | fuera de alcance, requiere workflow protegido separado |
 
+## P1 review remediation
+
+| item | resultado |
+| --- | --- |
+| problema detectado | los workflows mutables usaban heuristica de substring `prod|production|live` como bloqueo principal |
+| regla nueva | `import-solution` y `publish-solution` requieren `environment_stage` DEV/STAGING, `confirm_non_production == true` y URL normalizada incluida en `POWERPLATFORM_DEV_STAGING_ENVIRONMENT_URLS` |
+| archivos modificados | `.github/workflows/power-platform-alm-full-dev.yml`, `.github/workflows/power-platform-pack-import-dev.yml`, `scripts/power-platform/validate-power-platform-alm-gates.ps1`, docs, registry y readback |
+| no ejecutado | Microsoft live, import, publish, produccion, tenant writes, secretos |
+| rollback | revertir commit del PR o dejar `import_to_dev` / `publish_after_import` en false; remover URL de `POWERPLATFORM_DEV_STAGING_ENVIRONMENT_URLS` bloquea mutacion |
+| stop_condition | `power_platform_teams_explicit_nonprod_allowlist_gate_failed` |
+
 ## Gates pendientes
 
 - Configurar GitHub Secrets: `POWERPLATFORM_APP_ID`,
   `POWERPLATFORM_CLIENT_SECRET`, `POWERPLATFORM_TENANT_ID`.
+- Configurar GitHub Variable `POWERPLATFORM_DEV_STAGING_ENVIRONMENT_URLS` con
+  URLs DEV/STAGING aprobadas antes de import/publish.
 - Definir `environment_url` DEV/STAGING exacto.
 - Confirmar solution unique name.
 - Ejecutar `power-platform-whoami.yml`.
@@ -162,12 +178,13 @@ Estado actual del readback: `POWER_PLATFORM_TEAMS_ALM_DEV_STAGING_READY`
 
 | validador | resultado |
 | --- | --- |
-| PowerShell parser scripts | `PASS`, 5 scripts, 0 errores |
-| Workflow policy ad hoc | `PASS`, 5 workflows con `workflow_dispatch`, `contents: read`, sin `secrets.`, sin write permissions |
-| YAML parser | `PASS`, 5 workflows parseables |
-| `git diff --check` | `PASS` con warning de CRLF esperado en `.gitignore` |
-| Change-aware full coverage orchestrator | `PASS`, 19 tests requeridos, `coverage_equivalence=true`, `blocked_surfaces_clear=true`, 0 errores |
-| Remote Cabina Validation | `PASS`, PR #74, runs `26904780654` y `26904801798` |
+| PowerShell parser scripts | `PASS`, 6 scripts, 0 errores |
+| YAML parser | `PASS`, 2 workflows mutables modificados parseables |
+| `validate-power-platform-alm-gates.ps1` | `PASS`, 29 checks, 0 fallos |
+| `git diff --check` | `PASS` |
+| Governance validation suite | `PASS`, 19 validadores, 0 fallos, `result_written=false` |
+| Change-aware full coverage orchestrator | `PASS`, 19 tests requeridos, `all_required_passed=true`, `coverage_equivalence=true`, `manifest_valid=true`, `graph_valid=true`, `no_hidden_flaky=true`, `blocked_surfaces_clear=true` |
+| Remote Cabina Validation | pendiente post-push de la remediacion P1 |
 
 ## Proximo paso exacto
 
@@ -177,6 +194,6 @@ Estado actual del readback: `POWER_PLATFORM_TEAMS_ALM_DEV_STAGING_READY`
 
 ## Cierre
 
-Estado: `POWER_PLATFORM_TEAMS_ALM_DEV_STAGING_READY`
+Estado: `POWER_PLATFORM_TEAMS_ALM_DEV_STAGING_READY_WITH_EXPLICIT_NONPROD_ALLOWLIST_GATE`
 Rollback: revertir commit/PR; no hubo Microsoft live write.
-Stop condition: `tenant_exact_target_missing_for_live_execution`
+Stop condition: `power_platform_teams_explicit_nonprod_allowlist_gate_failed`
