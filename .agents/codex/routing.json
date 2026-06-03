@@ -253,6 +253,132 @@
         "rey.governance_registrar",
         "rey.frontier_guardian"
       ]
+    },
+    {
+      "order_class": "execute_local_now",
+      "signals": [
+        "EXECUTE_LOCAL_NOW",
+        "local now",
+        "ejecutar local",
+        "preflight local"
+      ],
+      "agents": [
+        "rey.control_plane_orchestrator",
+        "court.thot_schema",
+        "court.seshat_evidence"
+      ]
+    },
+    {
+      "order_class": "execute_mock_now",
+      "signals": [
+        "EXECUTE_MOCK_NOW",
+        "mock now",
+        "simulacion",
+        "dry-run"
+      ],
+      "agents": [
+        "court.thot_schema",
+        "court.openai_dispatcher",
+        "court.seshat_evidence"
+      ]
+    },
+    {
+      "order_class": "execute_dev_now",
+      "signals": [
+        "EXECUTE_DEV_NOW",
+        "DEV",
+        "dev preflight",
+        "validacion dev"
+      ],
+      "agents": [
+        "rey.frontier_guardian",
+        "court.thot_schema",
+        "court.seshat_evidence"
+      ]
+    },
+    {
+      "order_class": "execute_live_read_now",
+      "signals": [
+        "EXECUTE_LIVE_READ_NOW",
+        "live read",
+        "lectura live",
+        "read-only live"
+      ],
+      "agents": [
+        "rey.frontier_guardian",
+        "universe.escribania_tower",
+        "court.seshat_evidence"
+      ]
+    },
+    {
+      "order_class": "execute_live_write_gated_now",
+      "signals": [
+        "EXECUTE_LIVE_WRITE_GATED_NOW",
+        "live write gated",
+        "write gated",
+        "escritura live gobernada"
+      ],
+      "agents": [
+        "rey.frontier_guardian",
+        "court.sdu_gate",
+        "court.seshat_evidence"
+      ]
+    },
+    {
+      "order_class": "execute_codex_cloud_smoke_now",
+      "signals": [
+        "EXECUTE_CODEX_CLOUD_SMOKE_NOW",
+        "codex cloud smoke",
+        "cloud no-diff",
+        "cloud read-only"
+      ],
+      "agents": [
+        "court.openai_dispatcher",
+        "rey.frontier_guardian",
+        "court.seshat_evidence"
+      ]
+    },
+    {
+      "order_class": "execute_mcp_read_probe_now",
+      "signals": [
+        "EXECUTE_MCP_READ_PROBE_NOW",
+        "mcp read probe",
+        "mcp readonly",
+        "mcp mock"
+      ],
+      "agents": [
+        "court.openai_dispatcher",
+        "court.thot_schema",
+        "court.seshat_evidence"
+      ]
+    },
+    {
+      "order_class": "execute_teams_dev_test_now",
+      "signals": [
+        "EXECUTE_TEAMS_DEV_TEST_NOW",
+        "teams dev test",
+        "teams dev",
+        "mensaje teams dev"
+      ],
+      "agents": [
+        "universe.escribania_tower",
+        "rey.frontier_guardian",
+        "court.seshat_evidence"
+      ]
+    },
+    {
+      "order_class": "production_human_gate",
+      "signals": [
+        "READY_FOR_PROD_HUMAN_GATE",
+        "produccion",
+        "prod gate",
+        "production human gate"
+      ],
+      "agents": [
+        "rey.authority_canonist",
+        "court.sdu_gate",
+        "rey.frontier_guardian"
+      ]
     }
   ],
   "handoff_rules": [

@@ -6,6 +6,7 @@ Estado rector vigente 2026-06-03:
 
 - Canonizacion extendida: `CABINA_EXTENDED_RECONCILIATION_CANONIZED`.
 - Canon operativo: `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`.
+- Canon activo de ejecucion: `ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT`.
 - Cadena activa: `STANDARD_AGENT_CHAIN_ACTIVE`.
 - PRs mergeados reales detectados: 45.
 - PRs incluidos: 45.
@@ -27,6 +28,20 @@ Estado rector vigente 2026-06-03:
 - Produccion: `ENABLED_GOVERNED_GATED_NOT_EXECUTED`.
 - Propagacion: `ENABLED_GOVERNED_GATED_NOT_EXECUTED`.
 - Secretos: `NEVER_PRINT_NEVER_PERSIST`.
+
+Actualizacion canon activo 2026-06-03: por orden del operador, la cabina adopta
+`ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT`. La regla madre queda: ejecutar por
+defecto todo lo seguro, reversible, trazable y validable; no permanecer en
+documentacion si hay accion local, mock, DEV, read-only, smoke, preflight o
+live-gated que pueda producir evidencia; y detener solo el subpaso afectado
+cuando aparezca riesgo real. Los cierres genericos `disabled`, `blocked`,
+`not executed`, `prepared` o `pending` quedan reemplazados por estados activos
+con causa y proximo comando exacto. La politica vive en
+`D:/governance/canon/ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT_POLICY_20260603.md`,
+la matriz en
+`D:/governance/canon/ACTIVE_EXECUTION_CAPABILITY_MATRIX_20260603.csv` y los
+validadores nuevos en `D:/scripts/validators/active_*.py` y
+`D:/scripts/validators/no_passive_blocking_language_validator.py`.
 
 Referencias historicas superseded:
 

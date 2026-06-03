@@ -315,6 +315,37 @@ mutation, produccion y propagacion quedan habilitados solo como
 `ENABLED_GOVERNED_GATED_NOT_EXECUTED` hasta target exacto, owner, rollback,
 postcheck, evidencia y orden concreta.
 
+## Canon activo de ejecucion gobernada
+
+Estado canon activo actualizado 2026-06-03:
+`ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT`.
+
+La cabina ejecuta por defecto todo lo que sea seguro, reversible, trazable y
+validable. No permanece en documentacion si existe una accion local, mock, DEV,
+read-only, smoke, preflight o live-gated que pueda producir evidencia real sin
+cruzar secreto, produccion, permiso, tenant ambiguo ni datos regulados amplios.
+Dentro de un carril ya autorizado no se pide aprobacion por cada subpaso
+seguro: se ejecuta, se evidencia, se valida y se detiene solo el subpaso
+afectado cuando aparece riesgo real.
+
+Estados operativos activos: `EXECUTE_LOCAL_NOW`, `EXECUTE_MOCK_NOW`,
+`EXECUTE_DEV_NOW`, `EXECUTE_LIVE_READ_NOW`,
+`EXECUTE_LIVE_WRITE_GATED_NOW`, `EXECUTE_CODEX_CLOUD_SMOKE_NOW`,
+`EXECUTE_MCP_READ_PROBE_NOW`, `EXECUTE_TEAMS_DEV_TEST_NOW`,
+`READY_FOR_PROD_HUMAN_GATE`, `PENDING_TARGET_ONLY`,
+`PENDING_SECRET_ONLY`, `PENDING_IDENTITY_ONLY`, `PENDING_OWNER_ONLY`,
+`BLOCKED_SECURITY_RISK`, `BLOCKED_SECRET_EXPOSURE`,
+`BLOCKED_TENANT_AMBIGUOUS` y `BLOCKED_PRODUCTION_UNAPPROVED`.
+
+Queda prohibido cerrar carriles con `disabled`, `blocked`, `not executed`,
+`prepared` o `pending` generico. Si falta algo, nombrar la causa exacta,
+declarar el estado activo `PENDING_*_ONLY` correspondiente y dejar el proximo
+comando exacto.
+Una aprobacion humana de carril cubre subpasos seguros dentro del mismo
+alcance; no cubre force push, permisos, secretos, produccion, costos abiertos,
+tenant ambiguo, datos regulados amplios ni live write sin target,
+rollback/postcheck/evidencia.
+
 ## Cadena operativa estándar activa
 
 Estado:

@@ -43,6 +43,10 @@
 # writes require exact object or target, rollback and postcheck.
 !/governance/
 /governance/*
+!/governance/canon/
+/governance/canon/*
+!/governance/canon/*.md
+!/governance/canon/*.csv
 !/governance/agents/
 /governance/agents/*
 !/governance/agents/*.md
@@ -335,6 +339,8 @@
 !/readbacks/20260603_SDU_AGENT_RUNTIME_CONNECTIONS_TEAMS_CODEX_CLOUD_READBACK.md
 !/readbacks/20260603_SDU_AGENT_RUNTIME_CONNECTIONS_TEAMS_CODEX_CLOUD_POSTMERGE_READBACK.md
 !/readbacks/20260603_SDU_TEAMS_MCP_CODEX_CLOUD_DEV_ACTIVATION_READY_READBACK.md
+!/readbacks/20260603_ACTIVE_EXECUTION_DEV_ATTEMPT_READBACK.md
+!/readbacks/20260603_CANON_ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT_READBACK.md
 !/readbacks/20260603_POWER_PLATFORM_TEAMS_ALM_PROVISIONING_READBACK.md
 !/readbacks/dataverse/
 /readbacks/dataverse/*
