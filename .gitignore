@@ -38,6 +38,48 @@
 !/LEVELS.yaml
 !/FOLDER_LEVELS.csv
 
+# Ordered full-live governed OpenAI agent governance gate. The default
+# implementation remains local; secrets stay ignored, and Microsoft/production
+# writes require exact object or target, rollback and postcheck.
+!/governance/
+/governance/*
+!/governance/agents/
+/governance/agents/*
+!/governance/agents/*.md
+
+# Ordered SDU agent runtime skeleton for the full-live governed gate. Runtime
+# implementation remains local by default; live validation is external and
+# governed. No secrets, no nested repos and no Microsoft/production writes
+# without exact object or target, rollback and postcheck.
+!/apps/
+/apps/*
+!/apps/sdu-agent-runtime/
+/apps/sdu-agent-runtime/*
+!/apps/sdu-agent-runtime/README.md
+!/apps/sdu-agent-runtime/src/
+/apps/sdu-agent-runtime/src/*
+!/apps/sdu-agent-runtime/src/agents/
+/apps/sdu-agent-runtime/src/agents/*
+!/apps/sdu-agent-runtime/src/agents/*.py
+!/apps/sdu-agent-runtime/src/tools/
+/apps/sdu-agent-runtime/src/tools/*
+!/apps/sdu-agent-runtime/src/tools/*.py
+!/apps/sdu-agent-runtime/src/guardrails/
+/apps/sdu-agent-runtime/src/guardrails/*
+!/apps/sdu-agent-runtime/src/guardrails/*.py
+!/apps/sdu-agent-runtime/src/schemas/
+/apps/sdu-agent-runtime/src/schemas/*
+!/apps/sdu-agent-runtime/src/schemas/*.py
+!/apps/sdu-agent-runtime/src/evals/
+/apps/sdu-agent-runtime/src/evals/*
+!/apps/sdu-agent-runtime/src/evals/*.json
+!/apps/sdu-agent-runtime/src/tracing/
+/apps/sdu-agent-runtime/src/tracing/*
+!/apps/sdu-agent-runtime/src/tracing/*.py
+!/apps/sdu-agent-runtime/tests/
+/apps/sdu-agent-runtime/tests/*
+!/apps/sdu-agent-runtime/tests/*.py
+
 # Control plane ingress.
 !/00_CONTROL_PLANE_INGRESS/
 /00_CONTROL_PLANE_INGRESS/*
@@ -152,6 +194,11 @@
 /.agents/codex/plans/*
 !/.agents/codex/plans/*.md
 
+!/.agents/codex/scripts/
+/.agents/codex/scripts/*
+!/.agents/codex/scripts/codex_cloud_full_live_governed_setup.sh
+!/.agents/codex/scripts/codex_cloud_full_live_governed_maintenance.sh
+
 !/.agents/codex/orders/
 /.agents/codex/orders/*
 !/.agents/codex/orders/GOVERNED_ORDER_PREPARATION_PACKET_TEMPLATE.md
@@ -195,6 +242,12 @@
 !/.agents/codex/readbacks/2026-06-03_live_delta_reconciliation_readback.md
 !/.agents/codex/readbacks/2026-06-03_sublevel_universe_repo_lane_chain_reconciliation_readback.md
 !/.agents/codex/readbacks/2026-06-03_model_reconciliation_upgrade_integrated_readback.md
+!/.agents/codex/readbacks/2026-06-03_cabina_current_state_review.md
+!/.agents/codex/readbacks/2026-06-03_codex_cloud_cabina_activation_gate.md
+!/.agents/codex/readbacks/2026-06-03_agents_sdk_baseline_gate.md
+!/.agents/codex/readbacks/2026-06-03_repo_propagation_after_cabina_gate.md
+!/.agents/codex/readbacks/2026-06-03_pr56_precision_corrections_readback.md
+!/.agents/codex/readbacks/2026-06-03_full_live_governed_activation_readback.md
 
 !/.agents/codex/tools/
 /.agents/codex/tools/*
