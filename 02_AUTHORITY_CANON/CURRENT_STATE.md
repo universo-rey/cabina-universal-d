@@ -1,6 +1,42 @@
 # Current State
 
-Estado: `D_ROOT_WRAPPER_REPO_LOCAL_ACTIVE`
+Estado: `CABINA_EXTENDED_RECONCILIATION_CANONIZED`
+
+Estado rector vigente 2026-06-03:
+
+- Canonizacion extendida: `CABINA_EXTENDED_RECONCILIATION_CANONIZED`.
+- Canon operativo: `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`.
+- Cadena activa: `STANDARD_AGENT_CHAIN_ACTIVE`.
+- PRs mergeados reales detectados: 45.
+- PRs incluidos: 45.
+- PRs inventados: 0.
+- PR final incluido: `universo-rey/cabina-universal-d#62`.
+- Main final: `d070e87f77a510edd724dc220ade9228040ee8b7`.
+- GitHub lifecycle repo-scoped: `EXECUTED`.
+- OpenAI API live gobernado: `EXECUTED_GOVERNED`.
+- Responses API live gobernado: `EXECUTED_GOVERNED`.
+- Agents SDK runtime live gobernado: `EXECUTED_GOVERNED`.
+- Codex Cloud lifecycle: `EXECUTED_GOVERNED`.
+- Change-Aware Full-Coverage Orchestrator: gate productivo vigente.
+- Microsoft live write: `ENABLED_GOVERNED_GATED_NOT_EXECUTED`.
+- SharePoint write: `ENABLED_GOVERNED_GATED_NOT_EXECUTED`.
+- Teams write: `ENABLED_GOVERNED_GATED_NOT_EXECUTED`.
+- Planner write: `ENABLED_GOVERNED_GATED_NOT_EXECUTED`.
+- Graph mutation: `ENABLED_GOVERNED_GATED_NOT_EXECUTED`.
+- Power Platform mutation: `ENABLED_GOVERNED_GATED_NOT_EXECUTED`.
+- Produccion: `ENABLED_GOVERNED_GATED_NOT_EXECUTED`.
+- Propagacion: `ENABLED_GOVERNED_GATED_NOT_EXECUTED`.
+- Secretos: `NEVER_PRINT_NEVER_PERSIST`.
+
+Referencias historicas superseded:
+
+- PR #53 conserva la introduccion del gate Change-Aware, pero ya no es el
+  ultimo merge raiz vigente.
+- PR #56 conserva la baseline full-live governed, pero ya no es el ultimo
+  estado root vigente.
+- Los marcadores anteriores `D_ROOT_WRAPPER_REPO_LOCAL_ACTIVE` y
+  `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON` siguen como base/historia y canon
+  operativo, respectivamente, no como cierre de reconciliacion extendida.
 
 La estructura en `D:/` fue creada para revision local y ya tiene repo GitHub
 raiz envoltorio gobernado activo sobre `main`.
@@ -447,11 +483,12 @@ Reglas vigentes:
   equivale a ejecutar.
 - No mover clones aun.
 - Microsoft live queda gobernado a nivel global: SharePoint, Teams, Outlook, Entra, Microsoft Graph, Power Platform, Planner, Dataverse o tenant requieren orden gobernada con superficie, identidad, owner, rollback, postcheck y evidencia.
-- Produccion solo con autorizacion explicita separada.
+- Produccion queda `ENABLED_GOVERNED_GATED_NOT_EXECUTED` y solo se ejecuta con
+  target exacto, owner, rollback, postcheck, evidencia y orden concreta.
 - No force push, no delete branch remoto, no merge sin aprobacion y precheck,
   no permisos, no produccion sin autorizacion, no Microsoft/SharePoint/Power
-  Platform writes sin orden gobernada, no OpenAI API live ni agentes remotos
-  persistentes sin orden separada.
+  Platform writes sin orden gobernada, no OpenAI API live sin gate ni Agents
+  SDK live sin gate, y no agentes remotos persistentes sin orden separada.
 - No versionar secretos ni datos regulados fuera de frontera.
 - Escribania y Modo ON son universos.
 - CDF y Jara pertenecen a Modo ON.
@@ -468,6 +505,13 @@ PR raiz biblioteca referencias: `universo-rey/cabina-universal-d#25` estado `MER
 PR raiz frontend design: `universo-rey/cabina-universal-d#26` estado `MERGED`.
 PR raiz integracion indices compartidos: `universo-rey/cabina-universal-d#27` estado `MERGED`.
 PR raiz Change-Aware Full-Coverage Orchestrator: `universo-rey/cabina-universal-d#53` estado `MERGED`.
+PR raiz Agents SDK baseline / full-live governed: `universo-rey/cabina-universal-d#56` estado `MERGED`.
+PR raiz full-live global canon: `universo-rey/cabina-universal-d#57` estado `MERGED`.
+PR raiz setup Codex Cloud cross-platform: `universo-rey/cabina-universal-d#58` estado `MERGED`.
+PR raiz GitHub lifecycle repo-scoped: `universo-rey/cabina-universal-d#60` estado `MERGED`.
+PR raiz SDK + Codex Cloud lifecycle: `universo-rey/cabina-universal-d#61` estado `MERGED`.
+PR raiz standard agent chain: `universo-rey/cabina-universal-d#62` estado `MERGED`.
 Rama raiz base: `main`.
-Ultima rama raiz mergeada: `codex/change-aware-full-coverage-orchestrator-20260603`.
-Ultimo merge commit raiz: `d21aad4280180328c41e4ca91c61e033a63551b6`.
+Ultima rama raiz mergeada: `codex/activate-standard-agent-chain-20260603`.
+Ultimo merge commit raiz: `d070e87f77a510edd724dc220ade9228040ee8b7`.
+Estado raiz vigente: `CABINA_EXTENDED_RECONCILIATION_CANONIZED`.

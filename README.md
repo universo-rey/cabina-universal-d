@@ -1,11 +1,14 @@
 # Cabina Universal Del Rey
 
-Estado: `D_ROOT_WRAPPER_REPO_MAIN_ACTIVE`
+Estado: `CABINA_EXTENDED_RECONCILIATION_CANONIZED`
 
 ## Estado canonico actual
 
-La Cabina Universal del Rey opera como
-`CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`.
+La Cabina Universal del Rey queda canonizada como
+`CABINA_EXTENDED_RECONCILIATION_CANONIZED` despues del fan-in extendido de 45
+PRs reales mergeados hasta el PR #62. El canon operativo subyacente sigue
+siendo `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON` y la cadena activa es
+`STANDARD_AGENT_CHAIN_ACTIVE`.
 
 Ya no queda limitada a repo-only. GitHub sigue siendo canon tecnico, pero la
 cabina queda habilitada para gobernar runtime live, OpenAI, Codex Cloud,
@@ -31,7 +34,11 @@ su remoto nativo. Los agentes GitHub/Copilot y GitHub Actions de validacion
 estan aprobados para issues, ramas, commits, push, PR y checks repo-scoped;
 runtime productivo y live externo quedan habilitados solo bajo el canon
 `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`, con gates explicitos y sin writes
-ciegos.
+ciegos. La regla semantica vigente es "no live sin gate": OpenAI API,
+Responses API, Agents SDK runtime, Codex Cloud y GitHub operan gobernados;
+Microsoft write, produccion y propagacion permanecen
+`ENABLED_GOVERNED_GATED_NOT_EXECUTED` hasta target exacto, owner, rollback,
+postcheck y evidencia.
 
 Agentes en GitHub: `.github/copilot-instructions.md`,
 `.github/ISSUE_TEMPLATE/agent-task.yml`,
