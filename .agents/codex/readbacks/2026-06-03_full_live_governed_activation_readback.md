@@ -6,6 +6,8 @@ OpenAI live gobernado, sin merge, sin propagacion y manteniendo draft.
 
 Correccion final de precision: `PR56_FULL_LIVE_GOVERNED_READY_FOR_REVIEW_KEEP_DRAFT`.
 
+Microfix reproducible: `PR56_FULL_LIVE_GOVERNED_READY_FOR_REVIEW_KEEP_DRAFT_SELF_SUFFICIENT`.
+
 Estados:
 
 - `FULL_LIVE_GOVERNED_READY`
@@ -22,6 +24,9 @@ Precision markers:
 - `LIVE_RUNTIME_VALIDATION=external_governed_smoke`
 - `SETUP_SCRIPT_VERSIONED=yes`
 - `MAINTENANCE_SCRIPT_VERSIONED=yes`
+- `SETUP_SCRIPT_SELF_SUFFICIENT=yes`
+- `DEPENDENCY_INSTALL=openai|openai-agents`
+- `PWSH_PRECHECK=yes`
 
 ## Sistemas Tocados
 - Repo raiz `D:/` en branch `codex/cabina-cloud-agents-sdk-baseline-20260603`.
@@ -48,6 +53,10 @@ Precision markers:
   externo gobernado.
 - Los scripts oficiales de setup y mantenimiento estan versionados y no
   ejecutan Microsoft write, produccion ni propagacion.
+- El setup crea o reutiliza `.venv`, instala `openai` y `openai-agents`, y
+  mantiene `--run-openai-smoke` como flag explicito para llamadas live.
+- El mantenimiento valida existencia de `pwsh` antes de correr validadores
+  PowerShell y detiene con `PWSH_MISSING_FOR_VALIDATORS` si falta.
 
 ## Smokes Live
 - `import openai`: PASS, `openai=2.36.0`.
@@ -81,6 +90,7 @@ cerrar cabina.
 
 ## Validacion Local
 - `python -m unittest discover -s apps/sdu-agent-runtime/tests`: PASS, 5 tests.
+- Bash syntax for setup and maintenance scripts: PASS.
 - `git diff --check`: PASS.
 - `local_validate_operational_chain.ps1`: PASS.
 - `local_validate_capability_use_hardening.ps1`: PASS.
@@ -94,6 +104,11 @@ cerrar cabina.
 - `blocked_surfaces_clear=true`.
 - `SETUP_SCRIPT_VERSIONED=yes`.
 - `MAINTENANCE_SCRIPT_VERSIONED=yes`.
+- `SETUP_SCRIPT_SELF_SUFFICIENT=yes`.
+- `DEPENDENCY_INSTALL=openai|openai-agents`.
+- `PWSH_PRECHECK=yes`.
+- Estado final esperado:
+  `PR56_FULL_LIVE_GOVERNED_READY_FOR_REVIEW_KEEP_DRAFT_SELF_SUFFICIENT`.
 - Audit artifact:
   `.agents/codex/evals/results/change_aware_full_coverage_audit_latest.json`.
 

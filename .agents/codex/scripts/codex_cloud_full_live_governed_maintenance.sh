@@ -16,6 +16,7 @@ Default behavior:
 - verify repo identity
 - run local unit smoke
 - run git diff check
+- verify pwsh exists before PowerShell validators
 - run operational chain, capability hardening and static change-aware validator
 
 Optional:
@@ -64,12 +65,19 @@ log "SDU_TRIAGE_AGENT_IMPLEMENTATION=local_no_live"
 log "LIVE_RUNTIME_VALIDATION=external_governed_smoke"
 log "SETUP_SCRIPT_VERSIONED=yes"
 log "MAINTENANCE_SCRIPT_VERSIONED=yes"
+log "SETUP_SCRIPT_SELF_SUFFICIENT=yes"
+log "DEPENDENCY_INSTALL=openai|openai-agents"
 log "MICROSOFT_WRITE_EXECUTED=False"
 log "PRODUCTION_EXECUTED=False"
 log "PROPAGATION_EXECUTED=False"
 
 python -m unittest discover -s apps/sdu-agent-runtime/tests
 git diff --check
+
+if ! command -v pwsh >/dev/null 2>&1; then
+  fail "PWSH_MISSING_FOR_VALIDATORS"
+fi
+log "PWSH_PRECHECK=yes"
 
 pwsh -NoProfile -File .agents/codex/tools/local_validate_operational_chain.ps1
 pwsh -NoProfile -File .agents/codex/tools/local_validate_capability_use_hardening.ps1

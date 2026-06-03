@@ -32,6 +32,18 @@ Precision markers:
 - `LIVE_RUNTIME_VALIDATION=external_governed_smoke`
 - `SETUP_SCRIPT_VERSIONED=yes`
 - `MAINTENANCE_SCRIPT_VERSIONED=yes`
+- `SETUP_SCRIPT_SELF_SUFFICIENT=yes`
+- `DEPENDENCY_INSTALL=openai|openai-agents`
+- `PWSH_PRECHECK=yes`
+
+## Codex Cloud Scripts
+
+- `.agents/codex/scripts/codex_cloud_full_live_governed_setup.sh` creates or
+  reuses `.venv`, installs `openai` and `openai-agents`, then verifies imports
+  and versions. Live OpenAI calls require explicit `--run-openai-smoke`.
+- `.agents/codex/scripts/codex_cloud_full_live_governed_maintenance.sh`
+  verifies `pwsh` before PowerShell validators and stops with
+  `PWSH_MISSING_FOR_VALIDATORS` if it is unavailable.
 
 ## Smoke
 

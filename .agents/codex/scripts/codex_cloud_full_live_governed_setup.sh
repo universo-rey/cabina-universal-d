@@ -15,6 +15,8 @@ Codex Cloud or local shell context.
 Default behavior is non-live:
 - verify repo identity
 - verify required files are present
+- create or reuse .venv
+- install/upgrade openai and openai-agents inside .venv
 - verify Python imports for openai and agents
 - never print or persist secrets
 
@@ -72,6 +74,30 @@ for path in "${required_files[@]}"; do
   [[ -f "$path" ]] || fail "missing_required_file=$path"
 done
 
+if command -v python3 >/dev/null 2>&1; then
+  PYTHON_BIN="${PYTHON_BIN:-python3}"
+elif command -v python >/dev/null 2>&1; then
+  PYTHON_BIN="${PYTHON_BIN:-python}"
+else
+  fail "PYTHON_MISSING_FOR_SETUP"
+fi
+
+if [[ ! -d ".venv" ]]; then
+  "$PYTHON_BIN" -m venv .venv
+  log "VENV_CREATED=yes"
+else
+  log "VENV_REUSED=yes"
+fi
+
+# shellcheck disable=SC1091
+source ".venv/bin/activate"
+
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install --upgrade openai openai-agents
+
+log "SETUP_SCRIPT_SELF_SUFFICIENT=yes"
+log "DEPENDENCY_INSTALL=openai|openai-agents"
+
 python - <<'PY'
 import importlib.metadata
 import openai  # noqa: F401
@@ -90,6 +116,8 @@ log "SDU_TRIAGE_AGENT_IMPLEMENTATION=local_no_live"
 log "LIVE_RUNTIME_VALIDATION=external_governed_smoke"
 log "SETUP_SCRIPT_VERSIONED=yes"
 log "MAINTENANCE_SCRIPT_VERSIONED=yes"
+log "SETUP_SCRIPT_SELF_SUFFICIENT=yes"
+log "DEPENDENCY_INSTALL=openai|openai-agents"
 log "MICROSOFT_WRITE_EXECUTED=False"
 log "PRODUCTION_EXECUTED=False"
 log "PROPAGATION_EXECUTED=False"

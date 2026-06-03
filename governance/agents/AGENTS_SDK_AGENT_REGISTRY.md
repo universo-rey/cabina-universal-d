@@ -22,6 +22,9 @@
 - `maintenance_script`: `.agents/codex/scripts/codex_cloud_full_live_governed_maintenance.sh`
 - `SETUP_SCRIPT_VERSIONED`: `yes`
 - `MAINTENANCE_SCRIPT_VERSIONED`: `yes`
+- `SETUP_SCRIPT_SELF_SUFFICIENT`: `yes`
+- `DEPENDENCY_INSTALL`: `openai|openai-agents`
+- `PWSH_PRECHECK`: `yes`
 - `purpose`: classify cabina governance requests into local next gates.
 - `output_schema`: `structured_json_triage_v1`
 - `tools_allowed`: standard library local helpers, OpenAI `models.list`
@@ -48,3 +51,6 @@ Precision markers:
 - `LIVE_RUNTIME_VALIDATION=external_governed_smoke`
 - `SETUP_SCRIPT_VERSIONED=yes`
 - `MAINTENANCE_SCRIPT_VERSIONED=yes`
+- `SETUP_SCRIPT_SELF_SUFFICIENT=yes`
+- `DEPENDENCY_INSTALL=openai|openai-agents`
+- `PWSH_PRECHECK=yes`
