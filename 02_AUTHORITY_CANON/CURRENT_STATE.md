@@ -29,6 +29,26 @@ Estado rector vigente 2026-06-04:
 - Propagacion: `ENABLED_GOVERNED_GATED_NOT_EXECUTED`.
 - Secretos: `NEVER_PRINT_NEVER_PERSIST`.
 
+Actualizacion SDU-CN canonical agents 2026-06-04: por orden expresa del
+operador, el carril #88 adopta el estado
+`SDU_CN_CANONICAL_AGENTS_MULTI_REPO_MULTI_UNIVERSE_READY_FOR_REVIEW`. Los
+agentes `seshat-normativa`, `thot-tecnico`, `anubis-gate`,
+`maat-cumplimiento`, `horus-riesgo` y `narrador-normativo` quedan declarados
+como identidades canonicas suprarrepo, multiuniverso y bajo orden humana. No
+son herramientas, no son adaptadores y no pertenecen a un solo repo.
+OpenAI/Codex/Agents SDK quedan como runtimes o tools, no fuente de autoridad.
+El modelo opera sobre `ESCRIBANIA` y `MODO_ON`, con contratos repo-native para
+los cinco repos foco y sin Microsoft live, OpenAI API live, produccion,
+permisos ni secretos en este carril.
+
+Archivos rectores SDU-CN 2026-06-04:
+
+- `D:/02_AUTHORITY_CANON/SDU_CN_CANONICAL_AGENT_PANTHEON_20260604.md`
+- `D:/02_AUTHORITY_CANON/SDU_CN_MULTI_UNIVERSE_OPERATING_MODEL_20260604.md`
+- `D:/02_AUTHORITY_CANON/SDU_CN_CANONICAL_AGENT_UNIVERSE_REPO_MATRIX_20260604.csv`
+- `D:/02_AUTHORITY_CANON/SDU_CN_CANONICAL_TO_OPERATIONAL_AGENT_MAPPING_20260604.csv`
+- `D:/02_AUTHORITY_CANON/REPO_NATIVE_CONTRACT_TEMPLATE_20260604.md`
+
 Actualizacion canon textual a #78 2026-06-04: por seleccion expresa del
 operador, el texto rector queda reconciliado al estado real de `origin/main`
 en `9285edc43000166259d04d684ab34aa16beb50de`, ultimo merge incluido

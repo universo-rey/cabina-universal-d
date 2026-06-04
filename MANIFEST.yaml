@@ -38,6 +38,36 @@ standard_agent_chain:
   propagation: enabled_governed_gated_not_executed
   secrets_policy: never_print_never_persist
   status_final: STANDARD_AGENT_CHAIN_ACTIVE
+sdu_cn_canonical_agents_state:
+  status: SDU_CN_CANONICAL_AGENTS_MULTI_REPO_MULTI_UNIVERSE_READY_FOR_REVIEW
+  authority: human_order_required
+  universes:
+    - ESCRIBANIA
+    - MODO_ON
+  agents:
+    - id: seshat-normativa
+      domain: documentary_governance_evidence_metadata
+    - id: thot-tecnico
+      domain: content_types_metadata_taxonomy_tools_events
+    - id: anubis-gate
+      domain: gates_stop_conditions_rollback_postcheck
+    - id: maat-cumplimiento
+      domain: coherence_proportionality_raci_compliance_recommendation
+    - id: horus-riesgo
+      domain: risk_alerts_contradictions_nucleo_umbral_watch
+    - id: narrador-normativo
+      domain: documentary_narrative_after_approved_evidence
+  rule: "identidades canonicas suprarrepo; no son herramientas; no son adaptadores; OpenAI/Codex/Agents SDK no fuente de autoridad"
+  pantheon: D:/02_AUTHORITY_CANON/SDU_CN_CANONICAL_AGENT_PANTHEON_20260604.md
+  operating_model: D:/02_AUTHORITY_CANON/SDU_CN_MULTI_UNIVERSE_OPERATING_MODEL_20260604.md
+  universe_repo_matrix: D:/02_AUTHORITY_CANON/SDU_CN_CANONICAL_AGENT_UNIVERSE_REPO_MATRIX_20260604.csv
+  operational_mapping: D:/02_AUTHORITY_CANON/SDU_CN_CANONICAL_TO_OPERATIONAL_AGENT_MAPPING_20260604.csv
+  repo_native_contract_template: D:/02_AUTHORITY_CANON/REPO_NATIVE_CONTRACT_TEMPLATE_20260604.md
+  validators:
+    - D:/scripts/validators/sdu_cn_canonical_agent_pantheon_validator.py
+    - D:/scripts/validators/focus_5_repo_contracts_validator.py
+    - D:/scripts/validators/cabina_startup_contract_validator.py
+  stop_condition: secret_detected|seventh_agent_created|canonical_agent_missing|openai_treated_as_authority_source|microsoft_live_without_target
 extended_reconciliation_state:
   status: CABINA_EXTENDED_RECONCILIATION_CANONIZED
   as_of: 2026-06-04
