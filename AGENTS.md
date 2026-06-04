@@ -6,6 +6,27 @@ Esta raiz `D:\` es la Cabina Universal del Rey para ordenar universos, torres, r
 
 Esta carpeta puede abrirse como proyecto en Codex. Su primera funcion es orientar, clasificar y preparar trabajo gobernado. Ya opera como repo raiz envoltorio gobernado para visibilidad nativa de Codex/Git, sin absorber repos anidados y sin versionar fuera de allowlist.
 
+Estado SDU-CN canonical agents actualizado 2026-06-04: por orden expresa del
+operador, la cabina adopta
+`SDU_CN_CANONICAL_AGENTS_MULTI_REPO_MULTI_UNIVERSE_READY_FOR_REVIEW` como
+contrato de revision para el carril #88. Los agentes `seshat-normativa`,
+`thot-tecnico`, `anubis-gate`, `maat-cumplimiento`, `horus-riesgo` y
+`narrador-normativo` son identidades canonicas suprarrepo, operan sobre
+`ESCRIBANIA` y `MODO_ON`, actuan bajo orden humana y se enlazan a agentes
+operativos sin reemplazarlos. No son herramientas, no son adaptadores, no
+pertenecen a un solo repo y OpenAI/Codex/Agents SDK son runtimes o tools, no
+fuente de autoridad. Regla resumida: OpenAI/Codex/Agents SDK no fuente de
+autoridad. La evidencia rectora vive en
+`D:\02_AUTHORITY_CANON\SDU_CN_CANONICAL_AGENT_PANTHEON_20260604.md`,
+`D:\02_AUTHORITY_CANON\SDU_CN_MULTI_UNIVERSE_OPERATING_MODEL_20260604.md`,
+`D:\02_AUTHORITY_CANON\SDU_CN_CANONICAL_AGENT_UNIVERSE_REPO_MATRIX_20260604.csv`,
+`D:\02_AUTHORITY_CANON\SDU_CN_CANONICAL_TO_OPERATIONAL_AGENT_MAPPING_20260604.csv`
+y `D:\02_AUTHORITY_CANON\REPO_NATIVE_CONTRACT_TEMPLATE_20260604.md`.
+Los validadores rectores son
+`D:\scripts\validators\sdu_cn_canonical_agent_pantheon_validator.py`,
+`D:\scripts\validators\focus_5_repo_contracts_validator.py` y
+`D:\scripts\validators\cabina_startup_contract_validator.py`.
+
 Estado actualizado 2026-06-01: por orden expresa del operador, `D:\` puede
 estar inicializado como repo local envoltorio con allowlist. Esto no absorbe ni
 reemplaza los repos anidados; `organizacion` conserva su propio repo en
