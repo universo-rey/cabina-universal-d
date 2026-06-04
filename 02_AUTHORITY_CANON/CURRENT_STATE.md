@@ -27,6 +27,22 @@ Estado rector vigente 2026-06-03:
 - Produccion: `ENABLED_GOVERNED_GATED_NOT_EXECUTED`.
 - Propagacion: `ENABLED_GOVERNED_GATED_NOT_EXECUTED`.
 - Secretos: `NEVER_PRINT_NEVER_PERSIST`.
+- Mandato humano operativo SDU-CN:
+  `SDU_CN_HUMAN_OPERATIONAL_MANDATE_ACTIVE`.
+
+Actualizacion mandato humano operativo 2026-06-03: por mandato operativo del
+operador, los agentes SDU-CN responden a Enzo Figueroa bajo la identidad
+autorizada `efigueroa@registronotarial8tdf.com.ar`. La regla rectora queda:
+Enzo manda; los agentes asisten; SDU-CN ordena criterio, frontera, evidencia,
+riesgo y escalamiento; TGE ejecuta dentro del contexto Escribania; GitHub
+canoniza lo tecnico; SharePoint conserva memoria y evidencia; Teams conversa;
+OpenAI API razona sobre datos saneados; Cloud ejecuta bajo contrato. Ningun
+agente es autoridad paralela ni reemplaza a Enzo, la Escribania, criterio
+juridico, firma, protocolo, fondos ni decisiones institucionales no aprobadas.
+La politica vive en
+`D:/02_AUTHORITY_CANON/POLICIES/SDU_CN_HUMAN_OPERATIONAL_MANDATE_POLICY_20260603.md`
+y el readback en
+`D:/.agents/codex/readbacks/2026-06-03_sdu_cn_human_operational_mandate_readback.md`.
 
 Referencias historicas superseded:
 
@@ -481,6 +497,10 @@ Reglas vigentes:
 - Los agentes preparan ordenes gobernadas cuando una solicitud cruza live, API,
   produccion, permisos, secretos, costos o datos regulados; preparar orden no
   equivale a ejecutar.
+- El mandato humano autorizado prevalece sobre agentes, tools,
+  automatizaciones u outputs del modelo; si hay conflicto, se escala a
+  frontera Escribania, autoridad institucional, politica SDU-CN, evidencia,
+  rollback/postcheck y recien despues ejecucion tecnica.
 - No mover clones aun.
 - Microsoft live queda gobernado a nivel global: SharePoint, Teams, Outlook, Entra, Microsoft Graph, Power Platform, Planner, Dataverse o tenant requieren orden gobernada con superficie, identidad, owner, rollback, postcheck y evidencia.
 - Produccion queda `ENABLED_GOVERNED_GATED_NOT_EXECUTED` y solo se ejecuta con

@@ -292,6 +292,7 @@
 /02_AUTHORITY_CANON/POLICIES/*
 !/02_AUTHORITY_CANON/POLICIES/EFIGUEROA_USER_GOVERNANCE_POLICY_20260602.md
 !/02_AUTHORITY_CANON/POLICIES/TEAMS_GOVERNANCE_POLICY_20260602.md
+!/02_AUTHORITY_CANON/POLICIES/SDU_CN_HUMAN_OPERATIONAL_MANDATE_POLICY_20260603.md
 
 # Local Codex agent layer metadata. Orders/readbacks/workpapers stay out until
 # explicitly selected.
@@ -408,6 +409,8 @@
 !/.agents/codex/readbacks/2026-06-03_extended_fan_in_cabina_ecosystem_readback.md
 !/.agents/codex/readbacks/2026-06-03_extended_reconciliation_gap_analysis_readback.md
 !/.agents/codex/readbacks/2026-06-03_canon_patch_extended_reconciliation_readback.md
+!/.agents/codex/readbacks/2026-06-03_sdu_cn_human_operational_mandate_readback.md
+!/.agents/codex/readbacks/2026-06-04_work_dispatch_agents_sdk_activation_readback.md
 
 !/.agents/codex/tools/
 /.agents/codex/tools/*

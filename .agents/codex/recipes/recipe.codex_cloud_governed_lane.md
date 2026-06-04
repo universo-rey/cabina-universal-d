@@ -8,22 +8,28 @@ regulated data.
 ## Flow
 
 1. Confirm `D:\AGENTS.md`, selected repo, branch, remote and data boundary.
-2. Inventory Cloud tasks with `codex cloud list --json`.
-3. Inspect existing work with `codex cloud status <task_id>`.
-4. Review changes with `codex cloud diff <task_id>` and stop before apply.
-5. For a new Cloud task, require repo or environment identity, branch, prompt,
+2. When the order means sending work to Cloud, route it through the standard
+   chain: `rey.control_plane_orchestrator`, `court.openai_dispatcher`,
+   `sdu-triage-agent`, `court.sdu_gate` and `court.seshat_evidence`.
+3. Activate Agents SDK governed runtime when the dispatch needs agentic
+   triage, structured output validation, synthetic runtime evidence or a
+   response contract. Prefer synthetic or sanitized payloads.
+4. Inventory Cloud tasks with `codex cloud list --json`.
+5. Inspect existing work with `codex cloud status <task_id>`.
+6. Review changes with `codex cloud diff <task_id>` and stop before apply.
+7. For a new Cloud task, require repo or environment identity, branch, prompt,
    data boundary, rollback, evidence and stop condition.
-6. Prefer read-only or CI-smoke tasks first. For `SeshatSgin/sgin-cloud`, first
+8. Prefer read-only or CI-smoke tasks first. For `SeshatSgin/sgin-cloud`, first
    create or connect the Codex Cloud environment; the repo is recognized but no
    environment is visible yet. Once the environment exists, the safe first task
    is: read `AGENTS.md`, `README.md`, `runtime-local`, `skills`, `tests` and
    `validate-runtime-local.yml`; report expected checks; do not edit files.
-7. For `universo-rey/cabina-universal-d`, the first read-only smoke task is
+9. For `universo-rey/cabina-universal-d`, the first read-only smoke task is
    `task_e_6a1f119843d4832e9ed821834222c003`; inspect status and diff, never
    apply unless a later reviewed diff exists on a `codex/*` branch.
-8. For `codex cloud apply`, require a `codex/*` branch, clean worktree,
+10. For `codex cloud apply`, require a `codex/*` branch, clean worktree,
    reviewed diff, local validators and Git rollback evidence.
-9. Version accepted work through the normal GitHub branch, commit, push and PR
+11. Version accepted work through the normal GitHub branch, commit, push and PR
    lifecycle.
 
 ## Allowed
@@ -33,6 +39,8 @@ regulated data.
 - `codex cloud diff <task_id>`
 - read-only smoke prompt execution when repo and branch are fixed
 - CI-smoke prompt preparation for `SeshatSgin/sgin-cloud`
+- standard agent-chain dispatch for task-scoped remote work
+- governed Agents SDK activation for synthetic or sanitized runtime evidence
 - local apply only after governed review and clean branch
 
 ## Blocked Until Separate Order

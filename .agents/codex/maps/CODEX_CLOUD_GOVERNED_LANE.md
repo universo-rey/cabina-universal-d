@@ -43,6 +43,8 @@ operador:
 
 ## Cadena
 
+- standard_chain:
+  `rey.control_plane_orchestrator -> court.openai_dispatcher -> sdu-triage-agent -> court.sdu_gate -> court.seshat_evidence`
 - lead_agent: `court.openai_dispatcher`
 - owner_agent: `rey.frontier_guardian`
 - reviewer_agent: `court.seshat_evidence`
@@ -54,15 +56,21 @@ operador:
 ## Flujo Gobernado
 
 1. Leer `D:\AGENTS.md` y confirmar repo, branch, remoto y alcance.
-2. Usar `codex cloud list --json` para inventario.
-3. Usar `codex cloud status <task>` para estado de tareas existentes.
-4. Usar `codex cloud diff <task>` para revision; no aplicar todavia.
-5. Para `codex cloud exec`, exigir repo o environment confiable, rama
+2. Si la orden implica enviar trabajo, activar la cadena estandar y declarar
+   evidencia, rollback, postcheck, validador y stop condition antes de
+   despachar.
+3. Si el despacho requiere razonamiento agentic, contrato de respuesta o
+   validacion runtime, activar Agents SDK gobernado con payload sintetico o
+   saneado.
+4. Usar `codex cloud list --json` para inventario.
+5. Usar `codex cloud status <task>` para estado de tareas existentes.
+6. Usar `codex cloud diff <task>` para revision; no aplicar todavia.
+7. Para `codex cloud exec`, exigir repo o environment confiable, rama
    declarada, prompt read-only o CI-smoke, No secrets y frontera de datos
    acotada.
-6. Para `codex cloud apply`, exigir branch `codex/*`, worktree limpio, diff
+8. Para `codex cloud apply`, exigir branch `codex/*`, worktree limpio, diff
    revisado, alcance repo-local, validadores definidos y rollback por Git.
-7. Despues de `apply`, ejecutar validadores locales, branch/commit/push/PR y
+9. Despues de `apply`, ejecutar validadores locales, branch/commit/push/PR y
    checks GitHub si el cambio se conserva.
 
 ## Smoke Gobernado SGIN Cloud

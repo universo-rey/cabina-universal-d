@@ -26,3 +26,5 @@ recipe.one-flow-one-item-runtime-test,01_AUTORIDAD_Y_GATES,court.sdu_gate,D:\.ag
 recipe.retrospective-to-skill-propagation,03_CORTE_EJECUTORA,court.seshat_evidence,D:\.agents\codex\recipes\recipe.retrospective-to-skill-propagation.md,retrospective_learning_package
 recipe.backreference-target-mapping-before-write,01_AUTORIDAD_Y_GATES,rey.frontier_guardian,D:\.agents\codex\recipes\recipe.backreference-target-mapping-before-write.md,backreference_target_decision
 recipe.mapping-record-before-target-write,03_CORTE_EJECUTORA,court.seshat_evidence,D:\.agents\codex\recipes\recipe.mapping-record-before-target-write.md,mapping_record_evidence
+recipe.powershell_runtime_friction_guard,03_CORTE_EJECUTORA,court.thot_schema,D:\.agents\codex\recipes\recipe.powershell_runtime_friction_guard.md,powershell_runtime_friction_readback
+recipe.d_skill_availability_issue_pr_friction_review,03_CORTE_EJECUTORA,court.thot_schema,D:\.agents\codex\recipes\recipe.d_skill_availability_issue_pr_friction_review.md,d_skill_availability_issue_pr_friction_readback

@@ -6,6 +6,28 @@ Declare the local activation path for Cabina runtime alignment, Agents SDK
 preflight and parallel issue lanes without opening live API, Microsoft,
 production, secrets or remote persistent agents.
 
+## Work Dispatch And SDK Activation
+
+When the operator asks to send work to Codex Cloud, GitHub automation, OpenAI,
+Responses API or Agents SDK, the cabina must activate the standard agent chain
+before dispatch:
+
+`rey.control_plane_orchestrator -> court.openai_dispatcher -> sdu-triage-agent -> court.sdu_gate -> court.seshat_evidence`.
+
+The dispatch packet must name the exact repo or environment, branch or surface,
+prompt or payload boundary, rollback, postcheck, evidence, validator and stop
+condition. `codex cloud exec` is treated as remote task-scoped dispatch.
+
+Agents SDK is activated when the sent work needs agentic triage, structured
+runtime validation, response-contract checks or synthetic runtime evidence.
+Default evidence remains synthetic or sanitized. Live body output, secrets,
+Microsoft writes, production, permission changes, broad regulated data and
+remote persistent agents still require a separate governed order.
+
+`codex cloud apply` is not part of initial dispatch. It remains blocked until
+the diff is reviewed, the local branch/worktree is classified, rollback is
+available and local validators pass.
+
 ## Local Runtime Check
 
 Use this command when the goal is to prove runtime alignment without changing
