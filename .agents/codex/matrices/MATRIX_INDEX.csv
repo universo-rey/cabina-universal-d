@@ -64,6 +64,8 @@ surface_boundary_map,D:\.agents\codex\maps\SURFACE_BOUNDARY_MAP.csv,boundaries,0
 tool_governance_matrix,D:\.agents\codex\matrices\TOOL_GOVERNANCE_MATRIX.csv,tool_governance,05_SOPORTE_TECNICO,update when tools or surfaces change
 tool_recipe_skill_matrix,D:\.agents\codex\matrices\AGENT_TOOL_RECIPE_SKILL_MATRIX.csv,execution_contracts,00_ROUTER,update when tools recipes or skills change
 validation_coverage_matrix,D:\.agents\codex\matrices\VALIDATION_COVERAGE_MATRIX.csv,validators,03_CORTE_EJECUTORA,update when validation coverage changes
+powershell_runtime_friction_matrix,D:/.agents/codex/matrices/POWERSHELL_RUNTIME_FRICTION_MATRIX.csv,powershell_runtime_friction,03_CORTE_EJECUTORA,update when Windows PowerShell friction rules validators or command patterns change
+d_skill_availability_issue_pr_friction_matrix,D:/.agents/codex/matrices/D_SKILL_AVAILABILITY_AND_ISSUE_PR_FRICTION_MATRIX.csv,d_skill_availability_issue_pr_friction,03_CORTE_EJECUTORA,update when D-local skill availability rules or issue PR friction rules change
 workpaper_index,D:\.agents\codex\workpapers\WORKPAPER_INDEX.csv,agent_workpapers,03_CORTE_EJECUTORA,update when workpaper folder ownership changes
 skill_reference_source_matrix,D:/.agents/codex/matrices/SKILL_REFERENCE_SOURCE_MATRIX.csv,skill_reference_sources,05_SOPORTE_TECNICO,update when skill API reference sources freshness license canon boundary or validator changes
 frontend_design_lane_matrix,D:/.agents/codex/matrices/FRONTEND_DESIGN_LANE_MATRIX.csv,frontend_design_lanes,05_SOPORTE_TECNICO,update when UI design standards assets screenshot verification or production boundary changes
