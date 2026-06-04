@@ -300,20 +300,32 @@ ciego: toda ejecucion requiere target exacto, owner, identidad, alcance,
 rollback, postcheck, evidencia, stop condition y readback. Si falta target,
 rollback o postcheck, la accion queda preparada y no ejecutada.
 
-Estado reconciliacion extendida canonizado 2026-06-03: despues del fan-in
-extendido de 45 PRs mergeados reales, sin PRs inventados, la cabina queda en
-`CABINA_EXTENDED_RECONCILIATION_CANONIZED` sobre `main`
-`d070e87f77a510edd724dc220ade9228040ee8b7`, con PR final #62. El canon
-operativo subyacente sigue siendo `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON` y
-la cadena activa sigue siendo `STANDARD_AGENT_CHAIN_ACTIVE`. Los hitos #53 y
-#56 quedan como `HISTORICAL/SUPERSEDED` para ultimo-estado-raiz, no como
-estado vigente. La regla semantica vigente es no decir "no live" como bloqueo
-absoluto: usar "no live sin gate", `ENABLED_GOVERNED` o
-`ENABLED_GOVERNED_GATED_NOT_EXECUTED` segun corresponda. Microsoft live write,
-SharePoint write, Teams write, Planner write, Graph mutation, Power Platform
-mutation, produccion y propagacion quedan habilitados solo como
-`ENABLED_GOVERNED_GATED_NOT_EXECUTED` hasta target exacto, owner, rollback,
-postcheck, evidencia y orden concreta.
+Estado reconciliacion extendida base canonizado 2026-06-03: despues del
+fan-in extendido inicial de 45 PRs mergeados reales, sin PRs inventados, la
+cabina quedo en `CABINA_EXTENDED_RECONCILIATION_CANONIZED` sobre `main`
+`d070e87f77a510edd724dc220ade9228040ee8b7`, con PR final historico #62. Ese
+hito conserva la activacion de cadena estandar, pero ya no es el ultimo
+estado root vigente tras la reconciliacion textual a #78. El canon operativo
+subyacente sigue siendo `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON` y la cadena
+activa sigue siendo `STANDARD_AGENT_CHAIN_ACTIVE`. Los hitos #53, #56 y #62
+quedan como `HISTORICAL/SUPERSEDED` para ultimo-estado-raiz. La regla
+semantica vigente es no decir "no live" como bloqueo absoluto: usar "no live
+sin gate", `ENABLED_GOVERNED` o `ENABLED_GOVERNED_GATED_NOT_EXECUTED` segun
+corresponda. Microsoft live write, SharePoint write, Teams write, Planner
+write, Graph mutation, Power Platform mutation, produccion y propagacion
+quedan habilitados solo como `ENABLED_GOVERNED_GATED_NOT_EXECUTED` hasta
+target exacto, owner, rollback, postcheck, evidencia y orden concreta.
+
+Estado canon textual a #78 actualizado 2026-06-04: por seleccion expresa del
+operador, el canon textual queda reconciliado al estado real de `origin/main`
+en `9285edc43000166259d04d684ab34aa16beb50de`, con PR final incluido
+`universo-rey/cabina-universal-d#78`. Se detectan 60 PRs mergeados reales a
+`main`, sin PRs inventados. Los PRs post #62 incluidos son #63, #64, #65,
+#66, #67, #68, #69, #70, #71, #72, #73, #74, #76, #77 y #78. Los PRs #75,
+#79 y #80 permanecen abiertos y no quedan canonizados por este texto; el PR
+#81 esta cerrado sin merge y queda excluido. Esta reconciliacion no ejecuta
+Microsoft live, OpenAI API live, produccion, permisos, secretos ni
+propagacion; solo actualiza la lectura canonica del repo raiz hasta #78.
 
 ## Cadena operativa estándar activa
 
@@ -403,7 +415,19 @@ Universal del Rey y como repo raiz envoltorio activo:
 - PR raiz standard agent chain:
   `https://github.com/universo-rey/cabina-universal-d/pull/62` con estado
   `MERGED`;
+- PRs raiz post #62 canonizados a #78: #63, #64, #65, #66, #67, #68, #69,
+  #70, #71, #72, #73, #74, #76, #77 y #78 con estado `MERGED`; ultimo PR
+  incluido:
+  `https://github.com/universo-rey/cabina-universal-d/pull/78`;
+- PRs raiz abiertos no canonizados por este texto:
+  `https://github.com/universo-rey/cabina-universal-d/pull/75`,
+  `https://github.com/universo-rey/cabina-universal-d/pull/79` y
+  `https://github.com/universo-rey/cabina-universal-d/pull/80`;
+- PR raiz cerrado sin merge excluido:
+  `https://github.com/universo-rey/cabina-universal-d/pull/81`;
 - estado canonico actual: `CABINA_EXTENDED_RECONCILIATION_CANONIZED`;
+- ultimo main efectivo incluido:
+  `9285edc43000166259d04d684ab34aa16beb50de`;
 - canon operativo: `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`;
 - cadena activa: `STANDARD_AGENT_CHAIN_ACTIVE`;
 - allowlist: solo gobierno, canon, agentes locales, matrices, prompts,
