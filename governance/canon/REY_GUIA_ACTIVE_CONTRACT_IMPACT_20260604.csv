@@ -1,0 +1,10 @@
+area,before_contract,active_contract_impact,recommended_active_status,safe_next_action,risk,stop_condition
+Paquete Rey-Guia en docs,"Cerrado localmente pero ignorado por Git","No basta como cierre durable",EXECUTE_LOCAL_NOW,"Crear artefacto versionable en D:\governance\canon","Canon local no versionable","stop_if_no_allowlisted_path"
+Matriz maestra en matrices,"CSV local parseable, ignorado por Git","Debe tener copia o puntero durable allowlisted",EXECUTE_LOCAL_NOW,"Mantener CSV local y registrar impacto versionable","Perder trazabilidad Git","stop_if_trying_git_add_ignored_without_plan"
+Backlog,"Tareas documentales separadas","Cada tarea necesita estado activo o causa PENDING exacta",EXECUTE_LOCAL_NOW,"Reescribir prioridades como carriles activos","Cierre pasivo","stop_if_no_next_command"
+Decisiones humanas,"Lista separada","Cada decision debe indicar si bloquea ejecucion o solo publicacion",PENDING_OWNER_ONLY,"Resolver marca Rey, SEI, Centro Editorial, producto","Bloqueos invisibles","stop_until_owner_decision"
+Dataverse V2,"Brecha documentada","Hay accion local segura: disenar matriz V2 sin live apply",EXECUTE_LOCAL_NOW,"Crear matriz semantica V2 local/versionable","Sobremodelado o live apply accidental","stop_if_dataverse_live_apply_requested"
+Agentes,"Reutilizar agentes existentes","No crear agentes nuevos si alcanza con roles/recetas",EXECUTE_LOCAL_NOW,"Consolidar mapa Corte/Rey a SDU-CN/CDF","Duplicar agentes","stop_if_productive_agent_creation"
+SEI,EXISTE_PARCIAL,"No crear piloto; falta decision de rol",PENDING_OWNER_ONLY,"Enzo decide vigente/historico/archivo","Inventar piloto","stop_until_owner_decision"
+Centro Editorial ON,FALTA_DECISION,"No crear marca productiva; puede quedar backlog",PENDING_OWNER_ONLY,"Enzo decide frente/backlog/archivo","Marca sin operacion real","stop_until_owner_decision"
+Integracion Git,"Pendiente por allowlist","Debe pasar a carril activo repo-scoped",EXECUTE_LOCAL_NOW,"Crear branch/PR solo si Enzo abre carril versionado","Mezclar worktree sucio","stop_if_scope_or_branch_missing"
