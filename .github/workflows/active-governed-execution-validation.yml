@@ -1,0 +1,120 @@
+name: Active Governed Execution Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "AGENTS.md"
+      - "02_AUTHORITY_CANON/**"
+      - "governance/canon/**"
+      - "governance/teams/**"
+      - "governance/connections/**"
+      - "governance/codex-cloud/**"
+      - "readbacks/20260603_ACTIVE_EXECUTION_DEV_ATTEMPT_READBACK.md"
+      - "readbacks/20260603_CANON_ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT_READBACK.md"
+      - ".agents/codex/**"
+      - "scripts/validators/**"
+      - "local-agent-bridge/**"
+      - "teams-app/sdu-agent-chat/**"
+      - "tests/sdu-agent-runtime/**"
+      - ".github/workflows/active-governed-execution-validation.yml"
+  push:
+    branches:
+      - main
+      - "codex/**"
+    paths:
+      - "AGENTS.md"
+      - "02_AUTHORITY_CANON/**"
+      - "governance/canon/**"
+      - "governance/teams/**"
+      - "governance/connections/**"
+      - "governance/codex-cloud/**"
+      - "readbacks/20260603_ACTIVE_EXECUTION_DEV_ATTEMPT_READBACK.md"
+      - "readbacks/20260603_CANON_ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT_READBACK.md"
+      - ".agents/codex/**"
+      - "scripts/validators/**"
+      - "local-agent-bridge/**"
+      - "teams-app/sdu-agent-chat/**"
+      - "tests/sdu-agent-runtime/**"
+      - ".github/workflows/active-governed-execution-validation.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: active-governed-execution-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Active governed execution validators
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Active governed execution policy
+        run: |
+          python scripts/validators/active_governed_execution_policy_validator.py
+          python scripts/validators/active_execution_capability_matrix_validator.py
+          python scripts/validators/no_passive_blocking_language_validator.py
+          python scripts/validators/dev_execution_attempt_validator.py
+
+      - name: Existing DEV and mock validators
+        run: |
+          python scripts/validators/sdu_teams_identity_dev_activation_validator.py
+          python scripts/validators/sdu_mcp_dev_activation_validator.py
+          python scripts/validators/sdu_local_bridge_dev_activation_validator.py
+          python scripts/validators/sdu_codex_cloud_dev_activation_validator.py
+          python scripts/validators/sdu_dev_activation_secret_contract_validator.py
+          python tests/sdu-agent-runtime/test_dev_activation_contract.py
+          python tests/sdu-agent-runtime/simulate_sdu_agent_chat_to_tool_to_readback.py
+
+      - name: Local mock runtimes
+        run: |
+          npm test --prefix local-agent-bridge
+          npm test --prefix teams-app/sdu-agent-chat/bot
+
+      - name: Structured parse and diff check
+        shell: python
+        run: |
+          import csv
+          import json
+          import pathlib
+          import subprocess
+          root = pathlib.Path(".")
+          for path in [
+              ".agents/codex/agents.json",
+              ".agents/codex/routing.json",
+              "00_CONTROL_PLANE_INGRESS/ROUTING.json",
+          ]:
+              json.loads((root / path).read_text(encoding="utf-8"))
+          for path in [
+              "governance/canon/ACTIVE_EXECUTION_CAPABILITY_MATRIX_20260603.csv",
+              ".agents/codex/matrices/AGENT_TOOL_RECIPE_SKILL_MATRIX.csv",
+              ".agents/codex/matrices/PURPOSE_SURFACE_CAPABILITY_MATRIX.csv",
+              ".agents/codex/matrices/GITHUB_ACTIONS_WORKFLOW_MATRIX.csv",
+          ]:
+              with (root / path).open("r", encoding="utf-8-sig", newline="") as handle:
+                  rows = list(csv.DictReader(handle))
+              if not rows:
+                  raise SystemExit(f"empty csv: {path}")
+          for path in [
+              ".github/workflows/active-governed-execution-validation.yml",
+              "local-agent-bridge/dev.activation.contract.yml",
+          ]:
+              text = (root / path).read_text(encoding="utf-8")
+              if "permissions:" not in text and path.startswith(".github"):
+                  raise SystemExit(f"workflow lacks permissions: {path}")
+          subprocess.run(["git", "diff", "--check"], check=True)

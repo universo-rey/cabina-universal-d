@@ -1,0 +1,119 @@
+name: MCP Teams Canon Live Read Probe Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "governance/connections/MCP_TEAMS_*"
+      - "governance/teams/MCP_TEAMS_*"
+      - "scripts/connections/mcp_teams_live_read_probe.py"
+      - "scripts/validators/mcp_teams_*"
+      - "readbacks/20260603_MCP_TEAMS_*"
+      - ".github/workflows/mcp-teams-canon-live-read-probe-validation.yml"
+  push:
+    branches:
+      - main
+      - "codex/**"
+    paths:
+      - "governance/connections/MCP_TEAMS_*"
+      - "governance/teams/MCP_TEAMS_*"
+      - "scripts/connections/mcp_teams_live_read_probe.py"
+      - "scripts/validators/mcp_teams_*"
+      - "readbacks/20260603_MCP_TEAMS_*"
+      - ".github/workflows/mcp-teams-canon-live-read-probe-validation.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mcp-teams-canon-live-read-probe-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate Teams MCP canon pointer and live-read gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Run Teams MCP validators
+        run: |
+          python scripts/validators/mcp_teams_connection_canon_pointer_validator.py
+          python scripts/validators/mcp_teams_active_live_gate_validator.py
+          python scripts/validators/mcp_teams_live_read_probe_validator.py
+
+      - name: Parse Teams MCP artifacts
+        run: |
+          python - <<'PY'
+          import csv
+          import json
+          from pathlib import Path
+
+          with open("governance/connections/MCP_TEAMS_ACTIVE_LIVE_GATE_MATRIX_20260603.csv", newline="", encoding="utf-8-sig") as handle:
+              rows = list(csv.DictReader(handle))
+              assert rows, "empty Teams MCP live gate matrix"
+
+          json.loads(Path("readbacks/20260603_MCP_TEAMS_LIVE_READ_PROBE_EVIDENCE.json").read_text(encoding="utf-8"))
+
+          for path in [
+              "governance/connections/MCP_TEAMS_CANON_RECONCILIATION_REPORT_20260603.md",
+              "governance/connections/MCP_TEAMS_CANON_POINTER_20260603.md",
+              "governance/teams/MCP_TEAMS_FIRST_CONTROLLED_MESSAGE_GATE_20260603.md",
+              "readbacks/20260603_MCP_TEAMS_LIVE_READ_PROBE_READBACK.md",
+              "readbacks/20260603_MCP_TEAMS_CANON_ACTIVE_RECONCILIATION_READBACK.md",
+          ]:
+              text = Path(path).read_text(encoding="utf-8")
+              assert "mcp_TeamsServer" in text or "MCP Teams" in text
+          print("MCP_TEAMS_STRUCTURED_ARTIFACT_PARSE_PASS")
+          PY
+
+      - name: Secret scan
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+
+          paths = [
+              "governance/connections/MCP_TEAMS_CANON_RECONCILIATION_REPORT_20260603.md",
+              "governance/connections/MCP_TEAMS_CANON_POINTER_20260603.md",
+              "governance/connections/MCP_TEAMS_ACTIVE_LIVE_GATE_MATRIX_20260603.csv",
+              "governance/teams/MCP_TEAMS_FIRST_CONTROLLED_MESSAGE_GATE_20260603.md",
+              "scripts/connections/mcp_teams_live_read_probe.py",
+              "scripts/validators/mcp_teams_connection_canon_pointer_validator.py",
+              "scripts/validators/mcp_teams_active_live_gate_validator.py",
+              "scripts/validators/mcp_teams_live_read_probe_validator.py",
+              "readbacks/20260603_MCP_TEAMS_LIVE_READ_PROBE_READBACK.md",
+              "readbacks/20260603_MCP_TEAMS_CANON_ACTIVE_RECONCILIATION_READBACK.md",
+              "readbacks/20260603_MCP_TEAMS_LIVE_READ_PROBE_EVIDENCE.json",
+          ]
+          patterns = [
+              re.compile(r"sk-[A-Za-z0-9]{20,}"),
+              re.compile(r"(?i)(api[_-]?key|token|secret)\s*[:=]\s*['\"]?[A-Za-z0-9_\-]{16,}"),
+          ]
+          for path in paths:
+              text = Path(path).read_text(encoding="utf-8")
+              for pattern in patterns:
+                  if pattern.search(text):
+                      raise SystemExit(f"SECRET_DETECTED in {path}")
+          print("MCP_TEAMS_SECRET_SCAN_PASS")
+          PY
+
+      - name: Check whitespace
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git diff --check "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}"
+          else
+            git diff --check
+          fi

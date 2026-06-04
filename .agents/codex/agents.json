@@ -29,7 +29,11 @@
     "default_skills_required": true,
     "mandatory_capability_discovery_skill": "tcu-descubridor-capacidades",
     "autonomous_task_agents_policy": "GOVERNED_TASK_SCOPED_ACTIVE",
-    "codex_cloud_policy": "GOVERNED_REPO_SCOPED_ACTIVE_NO_SECRETS_NO_LIVE_NO_PRODUCTION",
+    "codex_cloud_policy": "EXECUTE_CODEX_CLOUD_SMOKE_NOW_NO_APPLY_WITHOUT_REVIEW",
+    "active_execution_canon": "ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT",
+    "execute_safe_reversible_traceable_validable_by_default": true,
+    "passive_final_states_policy": "cause_and_next_exact_command_required",
+    "live_write_gated_policy": "execute_only_when_target_identity_owner_rollback_postcheck_evidence_are_present",
     "no_remote_persistent_agents_without_governed_order": true
   },
   "agents": [

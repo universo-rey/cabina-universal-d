@@ -1,0 +1,64 @@
+{
+  "audience": "ce5029ee-c1d3-45c0-bdcc-efb5a4245687",
+  "auth_companion_id": "conn_canon_003503",
+  "auth_detection": {
+    "auth_profile_env_names_present": [],
+    "auth_profile_env_present": false,
+    "identity_env_names_present": [],
+    "identity_env_present": false,
+    "tenant_env_names_present": [],
+    "tenant_env_present": false,
+    "token_env_names_present_sha256": [],
+    "token_env_present": false
+  },
+  "blocked_actions": [
+    "teams_message_send",
+    "graph_write",
+    "permission_change",
+    "production_mutation",
+    "token_print",
+    "response_body_print"
+  ],
+  "connection_id": "conn_canon_003505",
+  "dry_run": true,
+  "final_status": "PENDING_SECRET_ONLY",
+  "handshake_requested": true,
+  "list_tools_requested": true,
+  "no_body_print": true,
+  "operations": [
+    {
+      "elapsed_ms": 2043,
+      "executed": true,
+      "http_status": 400,
+      "method": "endpoint_no_auth_probe",
+      "ok": false,
+      "response_body_printed": false,
+      "response_body_sha256": null,
+      "response_header_names": [
+        "Cache-Control",
+        "Connection",
+        "Content-Type",
+        "Date",
+        "Server-Timing",
+        "Strict-Transport-Security",
+        "Transfer-Encoding",
+        "X-Cache",
+        "X-Content-Type-Options",
+        "x-azure-ref",
+        "x-ms-activity-vector",
+        "x-ms-correlation-id",
+        "x-ms-gateway-clusters",
+        "x-ms-igw-tracking-id",
+        "x-ms-islandgateway",
+        "x-ms-ppapigateway",
+        "x-ms-service-request-id",
+        "x-servicefabric"
+      ]
+    }
+  ],
+  "probe_id": "MCP_TEAMS_LIVE_READ_PROBE_20260603",
+  "scope": "Tools.ListInvoke.All",
+  "server": "mcp_TeamsServer",
+  "server_url": "https://agent365.svc.cloud.microsoft/agents/servers/mcp_TeamsServer",
+  "target_tenant_label": "ESCRIBANIA"
+}
