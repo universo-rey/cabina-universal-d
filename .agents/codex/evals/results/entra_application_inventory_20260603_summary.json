@@ -1,0 +1,90 @@
+{
+  "status": "ENTRA_APPLICATION_INVENTORY_LIVE_READ_ONLY_COMPLETED_SANITIZED_CURRENT",
+  "generated_at_utc": "2026-06-03T23:37:28.1064961Z",
+  "executor_identity": "efigueroa@registronotarial8tdf.com.ar",
+  "tenant_domain": "registronotarial8tdf.com.ar",
+  "tenant_hint": "escribaniabitsch.sharepoint.com",
+  "tenant_id_hash": "1e508d8cca20",
+  "source_tool": "Azure CLI authenticated Microsoft Graph read",
+  "live_write_performed": false,
+  "permission_change_performed": false,
+  "secrets_saved": false,
+  "local_prior_active_records_deleted": true,
+  "app_registration_count": 64,
+  "service_principal_count": 563,
+  "oauth2_permission_grant_count": 60,
+  "app_owner_read_status_counts": [
+    {
+      "status": "READ_OK_SANITIZED",
+      "count": 64
+    }
+  ],
+  "app_risk_counts": [
+    {
+      "flag": "APPLICATION_PERMISSION_REQUESTED",
+      "count": 1
+    },
+    {
+      "flag": "DELEGATED_SCOPE_REQUESTED",
+      "count": 11
+    },
+    {
+      "flag": "EXPIRED_CREDENTIAL_PRESENT",
+      "count": 2
+    },
+    {
+      "flag": "NO_OWNER_VISIBLE",
+      "count": 16
+    },
+    {
+      "flag": "PASSWORD_CREDENTIAL_PRESENT",
+      "count": 6
+    }
+  ],
+  "service_principal_risk_counts": [
+    {
+      "flag": "ACCOUNT_DISABLED",
+      "count": 1
+    },
+    {
+      "flag": "APP_ROLE_ASSIGNMENT_REQUIRED",
+      "count": 6
+    },
+    {
+      "flag": "EXPIRED_CREDENTIAL_PRESENT",
+      "count": 1
+    },
+    {
+      "flag": "PASSWORD_CREDENTIAL_PRESENT",
+      "count": 1
+    }
+  ],
+  "grant_risk_counts": [
+    {
+      "risk": "HIGH_WRITE_CAPABLE_SCOPE_PRESENT",
+      "count": 28
+    },
+    {
+      "risk": "LOW_READ_OR_NEUTRAL_SCOPE_ONLY",
+      "count": 32
+    }
+  ],
+  "artifacts": {
+    "application_matrix": "D:\\.agents\\codex\\matrices\\ENTRA_APPLICATION_REGISTRY_20260603.csv",
+    "service_principal_matrix": "D:\\.agents\\codex\\matrices\\ENTRA_SERVICE_PRINCIPAL_REGISTRY_20260603.csv",
+    "permission_grant_matrix": "D:\\.agents\\codex\\matrices\\ENTRA_PERMISSION_GRANT_REGISTRY_20260603.csv",
+    "readback": "D:\\.agents\\codex\\readbacks\\2026-06-03_entra_application_inventory_readback.md"
+  },
+  "blocked_actions": [
+    "app_registration_create",
+    "app_update",
+    "service_principal_update",
+    "secret_create_or_read",
+    "consent_change",
+    "grant_delete",
+    "role_assignment",
+    "permission_mutation",
+    "production"
+  ],
+  "stop_condition": "secret_detected|raw_id_persisted|permission_mutation_attempted|tenant_mismatch"
+}

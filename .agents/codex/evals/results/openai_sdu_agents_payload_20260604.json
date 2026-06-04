@@ -1,0 +1,68 @@
+{
+  "package_id": "sdu_cn_agents_sanitized_20260604",
+  "source": "D:\\03_CORTE_EJECUTORA_DEL_REY\\10_REPOS\\02_ACTIVE\\seshat-bootstrap-sdu-cn\\matrices\\sdu_cn\\SDU_CN_AGENT_REGISTRY.csv",
+  "data_policy": "sanitized_metadata_only_no_secrets_no_regulated_document_bodies",
+  "requested_action": "normalize_and_validate_agent_contracts_no_persistent_agent_creation",
+  "agents": [
+    {
+      "agent_id": "seshat-normativa",
+      "nombre": "Seshat Normativa",
+      "funcion": "ordena documentos evidencia y metadatos",
+      "tools": "cn_validar_evidencia cn_registrar_dictamen cn_leer_memoria_seshat_sitio cn_registrar_memoria_seshat_sitio cn_generar_acta cn_leer_sharepoint_listas cn_preparar_issue_github cn_crear_issue_github",
+      "outputs": "metadata ordenada evidencia trazada y brechas documentales",
+      "approval_gate": "GATE_SDU_CN_AGENTES_LIVE; MICROSOFT_LIVE_GOVERNED_REQUIRES_GATE",
+      "status": "AGENT_COPILOT_MANIFEST_READY_LIVE_GATED"
+    },
+    {
+      "agent_id": "horus-riesgo",
+      "nombre": "Horus de Riesgo",
+      "funcion": "detecta desvios vencimientos y alertas",
+      "tools": "cn_detectar_contradiccion cn_evaluar_cumplimiento cn_escalar_autoridad cn_leer_memoria_seshat_sitio cn_leer_sharepoint_tenant cn_leer_sharepoint_listas cn_preparar_issue_github cn_crear_issue_github",
+      "outputs": "alertas riesgos y escalamiento recomendado",
+      "approval_gate": "GATE_SDU_CN_AGENTES_LIVE; MICROSOFT_LIVE_GOVERNED_REQUIRES_GATE",
+      "status": "AGENT_COPILOT_MANIFEST_READY_LIVE_GATED"
+    },
+    {
+      "agent_id": "maat-cumplimiento",
+      "nombre": "Maat de Cumplimiento",
+      "funcion": "evalua cumplimiento y consistencia del dictamen",
+      "tools": "cn_evaluar_cumplimiento cn_crear_accion_correctiva cn_escalar_autoridad cn_validar_evidencia cn_leer_memoria_seshat_sitio cn_registrar_memoria_seshat_sitio cn_preparar_issue_github cn_crear_issue_github",
+      "outputs": "recomendacion estructurada sin aprobacion final",
+      "approval_gate": "GATE_SDU_CN_AGENTES_LIVE; MICROSOFT_LIVE_GOVERNED_REQUIRES_GATE",
+      "status": "AGENT_COPILOT_MANIFEST_READY_LIVE_GATED"
+    },
+    {
+      "agent_id": "anubis-gate",
+      "nombre": "Anubis de Gate",
+      "funcion": "bloquea avances sin evidencia gate o autoridad",
+      "tools": "cn_bloquear_comunicacion cn_actualizar_estado cn_escalar_autoridad cn_usar_app_entra_seshat cn_leer_memoria_seshat_sitio cn_registrar_memoria_seshat_sitio cn_preparar_issue_github cn_crear_issue_github",
+      "outputs": "bloqueos motivos y gate requerido",
+      "approval_gate": "GATE_SDU_CN_AGENTES_LIVE; SDU_CN_GATE_DECISION; MICROSOFT_LIVE_GOVERNED_REQUIRES_GATE",
+      "status": "AGENT_COPILOT_MANIFEST_READY_LIVE_GATED"
+    },
+    {
+      "agent_id": "thot-tecnico",
+      "nombre": "Thot Tecnico",
+      "funcion": "convierte dictamenes en campos flujos schemas y eventos",
+      "tools": "cn_registrar_dictamen cn_crear_accion_correctiva cn_leer_sharepoint_listas cn_leer_sharepoint_completo cn_usar_app_entra_seshat cn_leer_memoria_seshat_sitio cn_preparar_issue_github cn_crear_issue_github",
+      "outputs": "schema tool mapping y blueprint provisionable",
+      "approval_gate": "GATE_SDU_CN_AGENTES_LIVE; SDU_CN_ENTRA_APP_CREATE_OR_REUSE_GATE; MICROSOFT_LIVE_GOVERNED_REQUIRES_GATE",
+      "status": "AGENT_COPILOT_MANIFEST_READY_LIVE_GATED"
+    },
+    {
+      "agent_id": "narrador-normativo",
+      "nombre": "Narrador Normativo",
+      "funcion": "convierte evidencia aprobada en comunicacion",
+      "tools": "cn_borrador_historytelling cn_bloquear_comunicacion cn_enviar_teams_por_app_seshat cn_registrar_memoria_seshat_sitio cn_validar_evidencia cn_leer_memoria_seshat_sitio cn_preparar_issue_github cn_crear_issue_github",
+      "outputs": "borrador comunicacional con limites y aprobacion requerida",
+      "approval_gate": "GATE_SDU_CN_AGENTES_LIVE; SDU_CN_TEAMS_APP_SEND_GATE; MICROSOFT_LIVE_GOVERNED_REQUIRES_GATE",
+      "status": "AGENT_COPILOT_MANIFEST_READY_LIVE_GATED"
+    }
+  ],
+  "stop_conditions": [
+    "secret_detected",
+    "persistent_agent_creation_requested",
+    "regulated_data_required",
+    "openai_api_error"
+  ]
+}
