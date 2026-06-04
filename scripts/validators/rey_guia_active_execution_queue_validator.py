@@ -33,6 +33,7 @@ REQUIRED_COLUMNS = [
     "title",
     "source_impact_area",
     "active_state",
+    "queue_status",
     "execute_now",
     "owner_agent",
     "reviewer_agent",
@@ -50,7 +51,6 @@ REQUIRED_COLUMNS = [
     "postcheck",
     "blocked_actions",
     "stop_condition",
-    "status",
 ]
 
 PACKAGE_POINTER_COLUMNS = [
@@ -60,6 +60,10 @@ PACKAGE_POINTER_COLUMNS = [
     "git_visibility",
     "length_bytes",
     "sha256",
+    "hash_algorithm",
+    "verified_at",
+    "verified_by",
+    "exists_at_verification",
     "versioning_decision",
     "active_queue_lane",
 ]
@@ -123,6 +127,17 @@ FORBIDDEN_BOUNDARY_PHRASES = {
     "remote_write_executed",
 }
 
+ALLOWED_QUEUE_STATUSES = {
+    "QUEUED_ACTIVE_LOCAL",
+    "RUNNING_LOCAL",
+    "VALIDATED_LOCAL",
+    "STOPPED_BY_CONDITION",
+    "PENDING_OWNER_ONLY",
+    "CLOSED_VALIDATED",
+}
+
+EXECUTABLE_COMMAND_PREFIXES = ("python ", "pwsh ", "powershell ", "git ", "gh ")
+
 
 def require_text_markers() -> None:
     impact = read_text(IMPACT_MD)
@@ -170,6 +185,9 @@ def validate_impact_csv() -> None:
         raise AssertionError(f"{IMPACT_CSV} must include EXECUTE_LOCAL_NOW impacts")
     if "PENDING_OWNER_ONLY" not in statuses:
         raise AssertionError(f"{IMPACT_CSV} must include PENDING_OWNER_ONLY impacts")
+    areas = {row["area"] for row in rows}
+    if "Producto" not in areas:
+        raise AssertionError(f"{IMPACT_CSV} must formalize Producto as an impact area")
     if len(rows) < 5:
         raise AssertionError(f"{IMPACT_CSV} must preserve the Rey-Guia impact scope")
 
@@ -194,6 +212,14 @@ def validate_package_pointer() -> None:
         sha = row["sha256"]
         if len(sha) != 64 or not all(char in "0123456789ABCDEF" for char in sha):
             raise AssertionError(f"{PACKAGE_POINTER}:{index} invalid sha256")
+        if row["hash_algorithm"] != "SHA256":
+            raise AssertionError(f"{PACKAGE_POINTER}:{index} hash_algorithm must be SHA256")
+        if row["verified_at"] != "2026-06-04":
+            raise AssertionError(f"{PACKAGE_POINTER}:{index} unexpected verified_at")
+        if not row["verified_by"].strip():
+            raise AssertionError(f"{PACKAGE_POINTER}:{index} missing verified_by")
+        if row["exists_at_verification"] not in {"yes", "no"}:
+            raise AssertionError(f"{PACKAGE_POINTER}:{index} invalid exists_at_verification")
         if row["active_queue_lane"] not in REQUIRED_LANES:
             raise AssertionError(f"{PACKAGE_POINTER}:{index} active_queue_lane is not in queue")
         if "pointer_only" not in row["versioning_decision"] and row["git_visibility"] != "tracked_repo_visible":
@@ -206,6 +232,7 @@ def validate_package_pointer() -> None:
 def validate_queue() -> None:
     rows = read_csv(QUEUE)
     require_columns(rows, REQUIRED_COLUMNS, QUEUE)
+    impact_areas = {row["area"] for row in read_csv(IMPACT_CSV)}
     if len(rows) != len(REQUIRED_LANES):
         raise AssertionError(f"{QUEUE} must contain exactly {len(REQUIRED_LANES)} lanes")
 
@@ -227,6 +254,17 @@ def validate_queue() -> None:
             raise AssertionError(f"{QUEUE}:{index} unsupported active_state {row['active_state']!r}")
         if row["active_state"] in FORBIDDEN_PASSIVE_STATES:
             raise AssertionError(f"{QUEUE}:{index} passive final state is not allowed")
+        if row["queue_status"] not in ALLOWED_QUEUE_STATUSES:
+            raise AssertionError(f"{QUEUE}:{index} unsupported queue_status {row['queue_status']!r}")
+        if row["active_state"].startswith("PENDING_") and row["queue_status"] != row["active_state"]:
+            raise AssertionError(f"{QUEUE}:{index} pending lane queue_status must match active_state")
+
+        source_areas = {area.strip() for area in row["source_impact_area"].split("|") if area.strip()}
+        missing_areas = source_areas - impact_areas
+        if missing_areas:
+            raise AssertionError(f"{QUEUE}:{index} source_impact_area not in impact CSV: {sorted(missing_areas)}")
+        if lane_id == "rey_guia.versionable_canon_pointer" and "Matriz maestra en matrices" not in source_areas:
+            raise AssertionError(f"{QUEUE}:{index} pointer lane must cover Matriz maestra en matrices")
 
         execute_now = row["execute_now"]
         if row["active_state"].startswith("EXECUTE_"):
@@ -243,8 +281,11 @@ def validate_queue() -> None:
             if "owner" not in row["stop_condition"].lower() and "decision" not in row["next_command"].lower():
                 raise AssertionError(f"{QUEUE}:{index} owner pending lane must name owner decision")
 
-        if not row["next_command"].strip():
+        next_command = row["next_command"].strip()
+        if not next_command:
             raise AssertionError(f"{QUEUE}:{index} missing next_command")
+        if not next_command.startswith(EXECUTABLE_COMMAND_PREFIXES):
+            raise AssertionError(f"{QUEUE}:{index} next_command must be an exact command or script invocation")
         if row["validator"] != "python scripts/validators/rey_guia_active_execution_queue_validator.py":
             raise AssertionError(f"{QUEUE}:{index} unexpected validator")
         if not row["rollback"].strip() or not row["postcheck"].strip():
@@ -255,6 +296,8 @@ def validate_queue() -> None:
             raise AssertionError(f"{QUEUE}:{index} must block production")
         if "live" in row["surface"].lower():
             raise AssertionError(f"{QUEUE}:{index} surface must remain local/order-only")
+        if "*" in row["write_scope"]:
+            raise AssertionError(f"{QUEUE}:{index} write_scope must not contain wildcards")
 
         lock_key = row["lock_key"]
         if lock_key in seen_locks:

@@ -16,6 +16,7 @@ No cambia los bloqueos de fondo: Microsoft live write, produccion, permisos, sec
 | Matriz maestra en `D:\matrices` | CSV local parseable, ignorado por Git | Debe tener copia o puntero durable allowlisted | EXECUTE_LOCAL_NOW | Mantener CSV local y registrar impacto/versionable aqui |
 | Backlog | Tareas documentales separadas | Cada tarea debe tener estado activo o causa `PENDING_*_ONLY` | EXECUTE_LOCAL_NOW / PENDING_TARGET_ONLY | Reescribir prioridades como carriles activos |
 | Decisiones humanas | Lista separada | Correcto, pero cada decision debe indicar si bloquea ejecucion o solo publicacion | PENDING_OWNER_ONLY | Resolver marca Rey, SEI, Centro Editorial, producto |
+| Producto | FALTA_DEFINICION | Debe tener rol activo o backlog explicito | PENDING_OWNER_ONLY | Enzo define si es producto vigente/backlog/archivo |
 | Dataverse V2 | Brecha documentada | Hay accion local segura: disenar matriz V2 sin apply live | EXECUTE_LOCAL_NOW | Crear matriz semantica V2 local/versionable |
 | Agentes | Reutilizar agentes existentes | Correcto; no crear agentes nuevos si alcanza con roles/recetas | EXECUTE_LOCAL_NOW | Consolidar mapa Corte/Rey -> SDU-CN/CDF |
 | SEI | `EXISTE_PARCIAL` | No crear piloto; falta decision de rol | PENDING_OWNER_ONLY | Enzo decide vigente/historico/archivo |
