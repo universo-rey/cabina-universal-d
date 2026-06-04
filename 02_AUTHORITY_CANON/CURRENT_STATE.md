@@ -2,17 +2,17 @@
 
 Estado: `CABINA_EXTENDED_RECONCILIATION_CANONIZED`
 
-Estado rector vigente 2026-06-03:
+Estado rector vigente 2026-06-04:
 
 - Canonizacion extendida: `CABINA_EXTENDED_RECONCILIATION_CANONIZED`.
 - Canon operativo: `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`.
 - Canon activo de ejecucion: `ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT`.
 - Cadena activa: `STANDARD_AGENT_CHAIN_ACTIVE`.
-- PRs mergeados reales detectados: 45.
-- PRs incluidos: 45.
+- PRs mergeados reales detectados: 60.
+- PRs incluidos: 60.
 - PRs inventados: 0.
-- PR final incluido: `universo-rey/cabina-universal-d#62`.
-- Main final: `d070e87f77a510edd724dc220ade9228040ee8b7`.
+- PR final incluido: `universo-rey/cabina-universal-d#78`.
+- Main final: `9285edc43000166259d04d684ab34aa16beb50de`.
 - GitHub lifecycle repo-scoped: `EXECUTED`.
 - OpenAI API live gobernado: `EXECUTED_GOVERNED`.
 - Responses API live gobernado: `EXECUTED_GOVERNED`.
@@ -28,6 +28,16 @@ Estado rector vigente 2026-06-03:
 - Produccion: `ENABLED_GOVERNED_GATED_NOT_EXECUTED`.
 - Propagacion: `ENABLED_GOVERNED_GATED_NOT_EXECUTED`.
 - Secretos: `NEVER_PRINT_NEVER_PERSIST`.
+
+Actualizacion canon textual a #78 2026-06-04: por seleccion expresa del
+operador, el texto rector queda reconciliado al estado real de `origin/main`
+en `9285edc43000166259d04d684ab34aa16beb50de`, ultimo merge incluido
+`universo-rey/cabina-universal-d#78`. Se incorporan como mergeados reales
+post #62 los PRs #63, #64, #65, #66, #67, #68, #69, #70, #71, #72, #73, #74,
+#76, #77 y #78. Los PRs #75, #79 y #80 permanecen abiertos y no quedan
+canonizados por este cierre; el PR #81 esta cerrado sin merge y queda
+excluido. La actualizacion es documental/repo-scoped: no ejecuta Microsoft
+live, OpenAI API live, produccion, permisos, secretos ni propagacion.
 
 Actualizacion canon activo 2026-06-03: por orden del operador, la cabina adopta
 `ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT`. La regla madre queda: ejecutar por
@@ -49,6 +59,8 @@ Referencias historicas superseded:
   ultimo merge raiz vigente.
 - PR #56 conserva la baseline full-live governed, pero ya no es el ultimo
   estado root vigente.
+- PR #62 conserva la activacion de cadena estandar, pero ya no es el ultimo
+  merge raiz vigente tras la reconciliacion textual a #78.
 - Los marcadores anteriores `D_ROOT_WRAPPER_REPO_LOCAL_ACTIVE` y
   `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON` siguen como base/historia y canon
   operativo, respectivamente, no como cierre de reconciliacion extendida.
@@ -526,7 +538,13 @@ PR raiz setup Codex Cloud cross-platform: `universo-rey/cabina-universal-d#58` e
 PR raiz GitHub lifecycle repo-scoped: `universo-rey/cabina-universal-d#60` estado `MERGED`.
 PR raiz SDK + Codex Cloud lifecycle: `universo-rey/cabina-universal-d#61` estado `MERGED`.
 PR raiz standard agent chain: `universo-rey/cabina-universal-d#62` estado `MERGED`.
+PRs raiz post #62 incluidos a #78: `#63`, `#64`, `#65`, `#66`, `#67`, `#68`,
+`#69`, `#70`, `#71`, `#72`, `#73`, `#74`, `#76`, `#77`, `#78` estado
+`MERGED`.
+PRs raiz abiertos no canonizados por este texto: `#75`, `#79`, `#80`.
+PR raiz cerrado sin merge excluido: `#81`.
 Rama raiz base: `main`.
-Ultima rama raiz mergeada: `codex/activate-standard-agent-chain-20260603`.
-Ultimo merge commit raiz: `d070e87f77a510edd724dc220ade9228040ee8b7`.
+Ultima rama raiz mergeada:
+`codex/sdu-agents-teams-identity-mcp-codex-cloud-dev-activation-20260603`.
+Ultimo merge commit raiz: `9285edc43000166259d04d684ab34aa16beb50de`.
 Estado raiz vigente: `CABINA_EXTENDED_RECONCILIATION_CANONIZED`.

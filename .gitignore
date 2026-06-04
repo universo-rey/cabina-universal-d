@@ -344,6 +344,11 @@
 !/readbacks/20260603_SDU_TEAMS_MCP_CODEX_CLOUD_DEV_ACTIVATION_READY_READBACK.md
 !/readbacks/20260603_ACTIVE_EXECUTION_DEV_ATTEMPT_READBACK.md
 !/readbacks/20260603_CANON_ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT_READBACK.md
+!/readbacks/20260603_SDU_TEAMS_APP_BOT_DEV_ACTIVATION_READBACK.md
+!/readbacks/20260603_MCP_DEV_READONLY_PROBES_READBACK.md
+!/readbacks/20260603_CODEX_CLOUD_SDU_DEV_SMOKE_READBACK.md
+!/readbacks/20260603_LOCAL_AGENT_BRIDGE_DEV_SMOKE_READBACK.md
+!/readbacks/20260603_SDU_TEAMS_MCP_CODEX_CLOUD_DEV_LIVE_SMOKE_READBACK.md
 !/readbacks/20260603_POWER_PLATFORM_TEAMS_ALM_PROVISIONING_READBACK.md
 !/readbacks/20260603_MCP_TEAMS_*.md
 !/readbacks/20260603_MCP_TEAMS_*.json
@@ -532,6 +537,7 @@
 !/.agents/codex/readbacks/2026-06-03_extended_fan_in_cabina_ecosystem_readback.md
 !/.agents/codex/readbacks/2026-06-03_extended_reconciliation_gap_analysis_readback.md
 !/.agents/codex/readbacks/2026-06-03_canon_patch_extended_reconciliation_readback.md
+!/.agents/codex/readbacks/2026-06-04_canon_textual_reconciliation_pr78_readback.md
 
 !/.agents/codex/tools/
 /.agents/codex/tools/*

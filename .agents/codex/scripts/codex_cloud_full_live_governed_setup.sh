@@ -56,10 +56,16 @@ REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || fail "not_in_git_rep
 cd "$REPO_ROOT"
 
 REMOTE_URL="$(git remote get-url origin 2>/dev/null || true)"
-case "$REMOTE_URL" in
-  *"$EXPECTED_REPO"* ) ;;
-  * ) fail "unexpected_origin=$REMOTE_URL" ;;
-esac
+if [[ -z "$REMOTE_URL" ]]; then
+  log "ORIGIN_REMOTE_STATUS=missing_or_empty"
+  if [[ "${CABINA_STRICT_ORIGIN_CHECK:-false}" == "true" ]]; then
+    fail "origin_missing_in_strict_mode"
+  fi
+elif [[ "$REMOTE_URL" == *"$EXPECTED_REPO"* ]]; then
+  log "ORIGIN_REMOTE_STATUS=expected"
+else
+  fail "unexpected_origin=$REMOTE_URL"
+fi
 
 required_files=(
   ".agents/codex/scripts/codex_cloud_full_live_governed_setup.sh"

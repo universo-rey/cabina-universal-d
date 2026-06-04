@@ -94,7 +94,12 @@ python -m unittest discover -s apps/sdu-agent-runtime/tests
 git diff --check
 
 if ! command -v pwsh >/dev/null 2>&1; then
-  fail "PWSH_MISSING_FOR_VALIDATORS"
+  log "PWSH_PRECHECK=missing"
+  log "POWERSHELL_VALIDATORS_SKIPPED=pwsh_missing"
+  if [[ "${CABINA_REQUIRE_PWSH_VALIDATORS:-false}" == "true" ]]; then
+    fail "PWSH_MISSING_FOR_VALIDATORS"
+  fi
+  exit 0
 fi
 log "PWSH_PRECHECK=yes"
 

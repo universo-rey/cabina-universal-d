@@ -1,0 +1,415 @@
+{
+  "summary": {
+    "status": "PASS",
+    "repository": "universo-rey/cabina-universal-d",
+    "d_repo_skill_count": 15,
+    "catalog_skill_count": 53,
+    "external_or_non_d_skill_count": 38,
+    "blocking_skill_findings": 0,
+    "issue_pr_friction_findings": 19,
+    "github_read": true
+  },
+  "skill_findings": [
+    {
+      "kind": "skill",
+      "id": "documents:documents",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "spreadsheets:Spreadsheets",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "presentations:Presentations",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "pdf",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "agentation",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "github:github",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "github:yeet",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "mcp-builder",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "openai-developers:agents-sdk",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "openai-docs",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "operativa-guardian:operativa-guardian-status",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "rey-modo-auditor-vscode-insiders",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "rey-modo-evidencia-riesgo-handoff",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "rey-modo-gobernador-capacidades",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "tcu-desarrollo-con-subagentes",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "tcu-redactor-planes-operativos",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "sdu-ejecutor-gates",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "sharepoint:sharepoint",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "sharepoint:sharepoint-site-discovery",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "teams:teams",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "teams:teams-channel-summarization",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "teams:teams-daily-digest",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "teams:teams-messages",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "teams:teams-notification-triage",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "teams:teams-planner-task-management",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "teams:teams-reply-drafting",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "superpowers:dispatching-parallel-agents",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "superpowers:subagent-driven-development",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "superpowers:systematic-debugging",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "superpowers:using-git-worktrees",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "superpowers:verification-before-completion",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "superpowers:writing-skills",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "superpowers:writing-plans",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "tcu-harness-evals-agentes",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "tcu-normalizador-sistema-modo-on",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "tcu-planificador-con-archivos",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "skill-creator",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    },
+    {
+      "kind": "skill",
+      "id": "skill-judge",
+      "rule": "not_d_repo_local_skill",
+      "severity": "info",
+      "message": "Skill is available only as plugin, installed, system, or external runtime. Treat as tool/runtime capability, not D: durable canon."
+    }
+  ],
+  "issue_pr_findings": [
+    {
+      "kind": "issue",
+      "id": "#83",
+      "rule": "powershell_runtime_surface",
+      "severity": "warn",
+      "message": "Issue or PR touches shell/runtime surface; apply the PowerShell runtime friction guard before closeout."
+    },
+    {
+      "kind": "issue",
+      "id": "#48",
+      "rule": "powershell_runtime_surface",
+      "severity": "warn",
+      "message": "Issue or PR touches shell/runtime surface; apply the PowerShell runtime friction guard before closeout."
+    },
+    {
+      "kind": "issue",
+      "id": "#47",
+      "rule": "powershell_runtime_surface",
+      "severity": "warn",
+      "message": "Issue or PR touches shell/runtime surface; apply the PowerShell runtime friction guard before closeout."
+    },
+    {
+      "kind": "issue",
+      "id": "#46",
+      "rule": "powershell_runtime_surface",
+      "severity": "warn",
+      "message": "Issue or PR touches shell/runtime surface; apply the PowerShell runtime friction guard before closeout."
+    },
+    {
+      "kind": "issue",
+      "id": "#45",
+      "rule": "powershell_runtime_surface",
+      "severity": "warn",
+      "message": "Issue or PR touches shell/runtime surface; apply the PowerShell runtime friction guard before closeout."
+    },
+    {
+      "kind": "issue",
+      "id": "#44",
+      "rule": "powershell_runtime_surface",
+      "severity": "warn",
+      "message": "Issue or PR touches shell/runtime surface; apply the PowerShell runtime friction guard before closeout."
+    },
+    {
+      "kind": "issue",
+      "id": "#33",
+      "rule": "powershell_runtime_surface",
+      "severity": "warn",
+      "message": "Issue or PR touches shell/runtime surface; apply the PowerShell runtime friction guard before closeout."
+    },
+    {
+      "kind": "issue",
+      "id": "#32",
+      "rule": "powershell_runtime_surface",
+      "severity": "warn",
+      "message": "Issue or PR touches shell/runtime surface; apply the PowerShell runtime friction guard before closeout."
+    },
+    {
+      "kind": "issue",
+      "id": "#17",
+      "rule": "powershell_runtime_surface",
+      "severity": "warn",
+      "message": "Issue or PR touches shell/runtime surface; apply the PowerShell runtime friction guard before closeout."
+    },
+    {
+      "kind": "issue",
+      "id": "#16",
+      "rule": "powershell_runtime_surface",
+      "severity": "warn",
+      "message": "Issue or PR touches shell/runtime surface; apply the PowerShell runtime friction guard before closeout."
+    },
+    {
+      "kind": "issue",
+      "id": "#15",
+      "rule": "powershell_runtime_surface",
+      "severity": "warn",
+      "message": "Issue or PR touches shell/runtime surface; apply the PowerShell runtime friction guard before closeout."
+    },
+    {
+      "kind": "issue",
+      "id": "#14",
+      "rule": "powershell_runtime_surface",
+      "severity": "warn",
+      "message": "Issue or PR touches shell/runtime surface; apply the PowerShell runtime friction guard before closeout."
+    },
+    {
+      "kind": "issue",
+      "id": "#13",
+      "rule": "powershell_runtime_surface",
+      "severity": "warn",
+      "message": "Issue or PR touches shell/runtime surface; apply the PowerShell runtime friction guard before closeout."
+    },
+    {
+      "kind": "issue",
+      "id": "#12",
+      "rule": "powershell_runtime_surface",
+      "severity": "warn",
+      "message": "Issue or PR touches shell/runtime surface; apply the PowerShell runtime friction guard before closeout."
+    },
+    {
+      "kind": "issue",
+      "id": "#11",
+      "rule": "powershell_runtime_surface",
+      "severity": "warn",
+      "message": "Issue or PR touches shell/runtime surface; apply the PowerShell runtime friction guard before closeout."
+    },
+    {
+      "kind": "issue",
+      "id": "#10",
+      "rule": "powershell_runtime_surface",
+      "severity": "warn",
+      "message": "Issue or PR touches shell/runtime surface; apply the PowerShell runtime friction guard before closeout."
+    },
+    {
+      "kind": "issue",
+      "id": "#9",
+      "rule": "powershell_runtime_surface",
+      "severity": "warn",
+      "message": "Issue or PR touches shell/runtime surface; apply the PowerShell runtime friction guard before closeout."
+    },
+    {
+      "kind": "pr",
+      "id": "#58",
+      "rule": "powershell_runtime_surface",
+      "severity": "warn",
+      "message": "Issue or PR touches shell/runtime surface; apply the PowerShell runtime friction guard before closeout."
+    },
+    {
+      "kind": "pr",
+      "id": "#49",
+      "rule": "powershell_runtime_surface",
+      "severity": "warn",
+      "message": "Issue or PR touches shell/runtime surface; apply the PowerShell runtime friction guard before closeout."
+    }
+  ]
+}
