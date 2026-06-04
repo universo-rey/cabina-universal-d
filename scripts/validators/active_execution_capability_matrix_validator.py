@@ -25,6 +25,10 @@ REQUIRED_COLUMNS = [
     "required_identity",
     "required_owner",
     "required_secret",
+    "required_secret_condition",
+    "cost_boundary",
+    "data_scope",
+    "approval_ref",
     "required_rollback",
     "required_postcheck",
     "required_evidence",
@@ -50,12 +54,15 @@ REQUIRED_CAPABILITIES = {
     "mcp.write.dev_gate",
     "codex_cloud.smoke",
     "codex_cloud.apply",
-    "codex_cloud.pr",
+    "codex_cloud.pr_packet_local",
+    "codex_cloud.pr_create_gated",
     "local_agent_bridge.mock",
     "openai_api.smoke.dev",
     "agents_sdk.local",
     "agents_sdk.live_gated",
-    "github.lifecycle",
+    "github.local_branch_commit",
+    "github.remote_push_gated",
+    "github.pr_create_gated",
     "github.admin_bypass",
     "production.change",
 }
@@ -74,13 +81,22 @@ ALLOWED_ACTIVE_STATUS = {
     "PENDING_SECRET_ONLY",
     "PENDING_IDENTITY_ONLY",
     "PENDING_OWNER_ONLY",
+    "PENDING_COST_BOUNDARY_ONLY",
     "BLOCKED_SECURITY_RISK",
     "BLOCKED_SECRET_EXPOSURE",
     "BLOCKED_TENANT_AMBIGUOUS",
     "BLOCKED_PRODUCTION_UNAPPROVED",
+    "BLOCKED_COST_BOUNDARY_MISSING",
 }
 
 PASSIVE_STATUS = {"disabled", "blocked", "not executed", "prepared", "pending"}
+ALLOWED_SECRET_VALUES = {"yes", "no", "conditional"}
+REMOTE_WRITE_PATTERNS = [
+    "git push",
+    "gh pr create",
+    "gh pr merge",
+    "codex cloud apply",
+]
 MANDATORY_NONEMPTY_FIELDS = [
     "surface",
     "current_status",
@@ -89,6 +105,10 @@ MANDATORY_NONEMPTY_FIELDS = [
     "required_identity",
     "required_owner",
     "required_secret",
+    "required_secret_condition",
+    "cost_boundary",
+    "data_scope",
+    "approval_ref",
     "required_rollback",
     "required_postcheck",
     "required_evidence",
@@ -118,13 +138,21 @@ def validate() -> None:
         active_status = row["active_status"].strip()
         execute_now = row["execute_now"].strip().lower()
         canonical_status = row["canonical_status"].strip()
+        command = row["command_or_workflow"].strip().lower()
+        required_secret = row["required_secret"].strip().lower()
 
         if active_status not in ALLOWED_ACTIVE_STATUS:
             raise AssertionError(f"{MATRIX}:{row_number} invalid active_status {active_status!r}")
-        if canonical_status != "CANON_ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT":
+        if canonical_status != "ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT":
             raise AssertionError(f"{MATRIX}:{row_number} invalid canonical_status {canonical_status!r}")
         if execute_now not in {"yes", "no"}:
             raise AssertionError(f"{MATRIX}:{row_number} execute_now must be yes or no")
+        if required_secret not in ALLOWED_SECRET_VALUES:
+            raise AssertionError(f"{MATRIX}:{row_number} required_secret must be yes/no/conditional")
+        if required_secret == "conditional" and row["required_secret_condition"].strip() == "not_required":
+            raise AssertionError(f"{MATRIX}:{row_number} conditional secret must name condition")
+        if required_secret == "no" and row["required_secret_condition"].strip() != "not_required":
+            raise AssertionError(f"{MATRIX}:{row_number} no secret rows must use required_secret_condition=not_required")
 
         for field in MANDATORY_NONEMPTY_FIELDS:
             if not row[field].strip():
@@ -146,6 +174,17 @@ def validate() -> None:
             for field in ["required_target", "required_identity", "required_owner", "required_rollback", "required_postcheck"]:
                 if "[" in row[field] and "]" in row[field]:
                     raise AssertionError(f"{MATRIX}:{row_number} live write now cannot keep placeholder in {field}")
+
+        if active_status == "EXECUTE_LOCAL_NOW" and any(pattern in command for pattern in REMOTE_WRITE_PATTERNS):
+            raise AssertionError(f"{MATRIX}:{row_number} EXECUTE_LOCAL_NOW cannot include remote write command")
+        if active_status == "EXECUTE_CODEX_CLOUD_SMOKE_NOW" and any(pattern in command for pattern in ["codex cloud apply", "git push", "gh pr create", "gh pr merge"]):
+            raise AssertionError(f"{MATRIX}:{row_number} Codex Cloud smoke cannot include apply push or PR")
+        if capability_id in {"github.lifecycle", "codex_cloud.pr"}:
+            raise AssertionError(f"{MATRIX}:{row_number} deprecated mixed capability must be split: {capability_id}")
+        if capability_id == "github.local_branch_commit" and "git push" in command:
+            raise AssertionError(f"{MATRIX}:{row_number} local git capability cannot push")
+        if capability_id == "codex_cloud.pr_packet_local" and any(pattern in command for pattern in ["git push", "gh pr create"]):
+            raise AssertionError(f"{MATRIX}:{row_number} local PR packet cannot write remotely")
 
         if row["current_status"].strip().lower() in PASSIVE_STATUS:
             raise AssertionError(f"{MATRIX}:{row_number} current_status uses passive generic wording")

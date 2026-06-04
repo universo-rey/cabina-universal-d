@@ -36,10 +36,12 @@ REQUIRED_STATES = [
     "PENDING_SECRET_ONLY",
     "PENDING_IDENTITY_ONLY",
     "PENDING_OWNER_ONLY",
+    "PENDING_COST_BOUNDARY_ONLY",
     "BLOCKED_SECURITY_RISK",
     "BLOCKED_SECRET_EXPOSURE",
     "BLOCKED_TENANT_AMBIGUOUS",
     "BLOCKED_PRODUCTION_UNAPPROVED",
+    "BLOCKED_COST_BOUNDARY_MISSING",
 ]
 
 
@@ -60,6 +62,9 @@ def validate() -> None:
             "La cabina ejecuta por defecto",
             "seguro, reversible, trazable y validable",
             "Queda prohibido cerrar un carril",
+            "Regla anti-escalamiento",
+            "Limite de costo",
+            "Comando exacto obligatorio",
             "Evidencia significa ejecucion o verificacion real",
         ],
     )
