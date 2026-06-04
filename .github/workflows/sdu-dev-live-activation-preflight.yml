@@ -1,0 +1,76 @@
+name: SDU DEV Live Activation Preflight
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "governance/teams/**"
+      - "readbacks/20260603_SDU_TEAMS_APP_BOT_DEV_ACTIVATION_READBACK.md"
+      - "readbacks/20260603_MCP_DEV_READONLY_PROBES_READBACK.md"
+      - "readbacks/20260603_CODEX_CLOUD_SDU_DEV_SMOKE_READBACK.md"
+      - "readbacks/20260603_LOCAL_AGENT_BRIDGE_DEV_SMOKE_READBACK.md"
+      - "readbacks/20260603_SDU_TEAMS_MCP_CODEX_CLOUD_DEV_LIVE_SMOKE_READBACK.md"
+      - "scripts/validators/*dev*smoke*.py"
+      - "scripts/validators/sdu_teams_app_bot_dev_activation_validator.py"
+      - "scripts/validators/sdu_first_internal_message_gate_validator.py"
+      - "scripts/validators/mcp_dev_readonly_probes_validator.py"
+      - ".github/workflows/sdu-dev-live-activation-preflight.yml"
+  push:
+    branches:
+      - main
+      - "codex/**"
+    paths:
+      - "governance/teams/**"
+      - "readbacks/20260603_SDU_TEAMS_APP_BOT_DEV_ACTIVATION_READBACK.md"
+      - "readbacks/20260603_MCP_DEV_READONLY_PROBES_READBACK.md"
+      - "readbacks/20260603_CODEX_CLOUD_SDU_DEV_SMOKE_READBACK.md"
+      - "readbacks/20260603_LOCAL_AGENT_BRIDGE_DEV_SMOKE_READBACK.md"
+      - "readbacks/20260603_SDU_TEAMS_MCP_CODEX_CLOUD_DEV_LIVE_SMOKE_READBACK.md"
+      - "scripts/validators/*dev*smoke*.py"
+      - "scripts/validators/sdu_teams_app_bot_dev_activation_validator.py"
+      - "scripts/validators/sdu_first_internal_message_gate_validator.py"
+      - "scripts/validators/mcp_dev_readonly_probes_validator.py"
+      - ".github/workflows/sdu-dev-live-activation-preflight.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sdu-dev-live-activation-preflight-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate SDU DEV live activation evidence
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Validate live activation evidence
+        run: |
+          python scripts/validators/sdu_teams_app_bot_dev_activation_validator.py
+          python scripts/validators/sdu_first_internal_message_gate_validator.py
+          python scripts/validators/mcp_dev_readonly_probes_validator.py
+          python scripts/validators/codex_cloud_sdu_dev_smoke_validator.py
+          python scripts/validators/local_agent_bridge_dev_smoke_validator.py
+          python scripts/validators/sdu_dev_live_smoke_readback_validator.py
+
+      - name: Check whitespace
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git diff --check "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}"
+          else
+            git diff --check
+          fi

@@ -5,10 +5,17 @@ import { buildEvidence } from "./evidenceAdapter.mjs";
 
 const host = process.env.SDU_BRIDGE_BIND_HOST || "127.0.0.1";
 const port = Number(process.env.SDU_BRIDGE_PORT || "8787");
+const devAuth = process.env.SDU_BRIDGE_DEV_AUTH || "DEV_AUTH_PLACEHOLDER_ONLY";
 
 function json(res, status, body) {
   res.writeHead(status, { "Content-Type": "application/json" });
   res.end(JSON.stringify(body));
+}
+
+function assertDevAuth(req) {
+  if (req.headers["x-sdu-bridge-auth"] !== devAuth) {
+    throw new Error("dev bridge auth required");
+  }
 }
 
 const server = http.createServer((req, res) => {
@@ -25,6 +32,7 @@ const server = http.createServer((req, res) => {
     });
     req.on("end", () => {
       try {
+        assertDevAuth(req);
         const payload = JSON.parse(body);
         assertSyntheticRequest(payload);
         const route = selectRoute(payload.text);
