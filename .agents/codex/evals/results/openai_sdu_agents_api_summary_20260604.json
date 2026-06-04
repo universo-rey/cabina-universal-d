@@ -1,0 +1,15 @@
+{
+  "timestamp_utc": "2026-06-04T01:48:57Z",
+  "surface": "OpenAI Responses API",
+  "action": "POST /v1/responses sanitized SDU-CN agent package",
+  "persistent_resource_created": false,
+  "request_body_printed": false,
+  "secret_printed": false,
+  "status": "PASS_HTTP_200_RESPONSE_SAVED",
+  "model_attempted": "gpt-4.1-mini",
+  "response_artifact": "D:\\.agents\\codex\\evals\\results\\openai_sdu_agents_response_20260604.json",
+  "http_status": 200,
+  "model_used": "gpt-4.1-mini",
+  "response_id": "resp_0fe78ade53affce4006a20d98ae7cc81a3acd14de95d47f0ce",
+  "output_count": 1
+}

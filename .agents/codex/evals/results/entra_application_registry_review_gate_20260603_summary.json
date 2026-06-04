@@ -1,0 +1,48 @@
+{
+  "status": "ENTRA_APPLICATION_REGISTRY_REVIEW_GATE_PREPARED_NO_TENANT_MUTATION",
+  "generated_at_utc": "2026-06-03T23:43:33.7127027Z",
+  "source_apps": 64,
+  "source_service_principals": 563,
+  "source_grants": 60,
+  "review_rows": 55,
+  "high_rows": 38,
+  "medium_rows": 16,
+  "low_rows": 1,
+  "issue_counts": [
+    {
+      "issue_class": "application_permission_requested",
+      "count": 1
+    },
+    {
+      "issue_class": "credential_present",
+      "count": 6
+    },
+    {
+      "issue_class": "expired_credential_visible",
+      "count": 2
+    },
+    {
+      "issue_class": "owner_missing_or_not_visible",
+      "count": 16
+    },
+    {
+      "issue_class": "service_principal_credential_present",
+      "count": 1
+    },
+    {
+      "issue_class": "service_principal_disabled",
+      "count": 1
+    },
+    {
+      "issue_class": "write_capable_delegated_grant",
+      "count": 28
+    }
+  ],
+  "live_write_performed": false,
+  "tenant_mutation_performed": false,
+  "artifacts": {
+    "review_matrix": "D:\\.agents\\codex\\matrices\\ENTRA_APPLICATION_REGISTRY_REVIEW_GATE_20260603.csv",
+    "readback": "D:\\.agents\\codex\\readbacks\\2026-06-03_entra_application_registry_review_gate_readback.md"
+  },
+  "stop_condition": "artifact_approval_missing|permission_mutation_attempted|credential_value_exposed|tenant_mismatch"
+}
