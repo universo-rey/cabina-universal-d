@@ -4,6 +4,7 @@
 
 HECHO_VERIFICADO: contrato repo-native de Cabina preparado y matriz central
 creada para los cinco repos foco del frente `CABINA_FOCUS_5_REPOS_20260604`.
+PR raiz: https://github.com/universo-rey/cabina-universal-d/pull/90.
 
 ## Sistemas tocados
 
