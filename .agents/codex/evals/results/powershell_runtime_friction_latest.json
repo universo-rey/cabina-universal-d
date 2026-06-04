@@ -1,0 +1,12 @@
+{
+  "summary": {
+    "status": "PASS",
+    "parse_roots": ".agents/codex/tools|dataverse/scripts|scripts",
+    "text_roots": ".agents/codex/recipes|.agents/codex/matrices|docs|readbacks|retrospectives|validation",
+    "blocking_findings": 0,
+    "warning_findings": 0,
+    "warnings_truncated": false
+  },
+  "blocks": [],
+  "warnings": []
+}
