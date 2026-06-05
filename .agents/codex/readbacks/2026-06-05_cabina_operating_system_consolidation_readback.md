@@ -64,6 +64,13 @@ Se verificaron equivalentes parciales existentes:
 - Se registraron los nuevos artefactos en `MATRIX_INDEX.csv`,
   `VALIDATION_COVERAGE_MATRIX.csv` y `EVIDENCE_AND_VALIDATION_MATRIX.csv`.
 - Se allowlisteo este readback en `.gitignore`.
+- Se fortalecio la constitucion COS con un modelo explicito de salud:
+  senales, estados permitidos y owners.
+- Se fortalecio la constitucion COS con un modelo de evolucion:
+  rama `codex/*`, no duplicacion, allowlist previa, stage explicito,
+  validadores, PR, checks, HEAD fijo y readback.
+- Se registraron `health_model` y `evolution_model` en la matriz de
+  reconciliacion COS sin crear un frente paralelo de observabilidad.
 
 ## Validacion
 
@@ -96,6 +103,9 @@ Clasificacion: `EXTERNAL_BLOCKER`, no `LOCAL_FAILURE`.
 - Bajo: la constitucion podria volverse aspiracional si se edita sin evidencia.
 - Bajo: las matrices nuevas deben permanecer indexadas y validadas.
 - Medio externo: repos hermanos dirty bloquean el validador global de topologia.
+- Medio: si las senales de salud no se mantienen sincronizadas, la Cabina puede
+  parecer sana por documento aunque falle por validador. Mitigacion: usar
+  validadores y checks como fuente observable, no narrativa.
 
 ## Rollback
 

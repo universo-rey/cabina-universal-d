@@ -104,6 +104,75 @@ Un readback no prueba live write si no declara target, gate, owner, rollback,
 postcheck y evidencia. Los readbacks historicos son evidencia, no autoridad
 superior al estado vigente.
 
+## Modelo de Salud
+
+La Cabina sabe que esta sana cuando sus senales rectoras cierran de forma
+coherente, no cuando existe un documento que lo afirma.
+
+Senales minimas de salud:
+
+- `AGENTS.md`, `MANIFEST.yaml` y `CURRENT_STATE.md` declaran el mismo estado
+  vigente o registran explicitamente una supersesion.
+- La jerarquia de instrucciones valida en
+  `.agents/codex/tools/local_validate_agents_instruction_hierarchy.ps1`.
+- La cadena agente/skill/recipe/tool/superficie/evidencia/validador/stop
+  condition valida en
+  `.agents/codex/tools/local_validate_operational_chain.ps1`.
+- El uso endurecido de capacidades valida en
+  `.agents/codex/tools/local_validate_capability_use_hardening.ps1`.
+- La capa de agentes, skills, tools, matrices y manifiestos valida en
+  `.agents/codex/tools/local_validate_agent_layer.ps1`.
+- El gate remoto productivo de GitHub Actions cierra en PASS para el PR activo.
+- La suite agregada local cierra en PASS o clasifica fallos externos como
+  `EXTERNAL_BLOCKER` con repos, archivos y siguiente carril.
+- No hay referencias operativas no justificadas a superficies legacy como
+  `D:\`.
+- No hay secretos persistidos, produccion tocada, live write sin gate, cambios
+  de remotos, `core.worktree`, force push ni absorcion de repos anidados.
+
+Estados de salud permitidos para cierre:
+
+| Estado | Uso |
+| --- | --- |
+| `HEALTHY_LOCAL` | Validadores locales relevantes PASS y sin bloqueos externos. |
+| `HEALTHY_REMOTE` | PR/checks remotos PASS, base y HEAD trazables. |
+| `HEALTHY_WITH_EXTERNAL_BLOCKERS` | El repo actual valida, pero la suite global detecta repos hermanos dirty o dependencia externa clasificada. |
+| `UNHEALTHY_LOCAL_ACTIONABLE` | Falla local corregible dentro del scope actual. |
+| `BLOCKED_SECURITY` | Se detecta secreto, produccion, permisos, tenant, live write o dato regulado sin gate. |
+
+Owners del modelo de salud:
+
+- `rey.frontier_guardian`: fronteras, gates y stop conditions.
+- `rey.authority_canonist`: coherencia entre autoridad, manifest y estado.
+- `court.thot_schema`: validators, schemas y matrices.
+- `court.seshat_evidence`: evidencia, readbacks y trazabilidad.
+- `rey.repo_cartographer`: topologia, repos hermanos, worktrees y drift.
+
+La salud se observa mediante validadores y checks existentes. Esta constitucion
+no reemplaza esos validadores: los conecta como contrato operativo.
+
+## Modelo de Evolucion
+
+La Cabina cambia sin romperse cuando toda evolucion sigue este circuito:
+
+1. Sincronizar `main` y crear una rama `codex/*` nueva para el carril.
+2. Descubrir equivalentes por nombre, alias, funcion, universo, superficie,
+   skill, recipe, validator y stop condition.
+3. Reconciliar o extender antes de crear.
+4. Declarar archivos candidatos y confirmar allowlist antes de escribir.
+5. Hacer cambios atomicos, sin mezclar politica Git, workflows, secretos,
+   produccion, permisos o live gates con mejoras de agentes salvo gate
+   especifico.
+6. Stagear rutas explicitas, nunca `git add .`.
+7. Ejecutar validadores relevantes y `git diff --check`.
+8. Abrir o actualizar PR contra `main` dentro del scope autorizado.
+9. Exigir checks PASS, base trazable y HEAD fijo para cualquier merge.
+10. Registrar readback con rollback y proximo carril.
+
+Si aparece una mejora necesaria fuera de scope, no se aplica en el carril
+actual. Se registra como proximo carril con archivo, motivo, riesgo, orden
+requerida, rollback, postcheck, validador y stop condition.
+
 ## Reconciliacion
 
 La matriz de reconciliacion de este carril es:
