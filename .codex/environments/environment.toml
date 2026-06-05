@@ -43,49 +43,49 @@ Get-ChildItem -Recurse -Directory -Filter "__pycache__" -ErrorAction SilentlyCon
 '''
 
 [[actions]]
-name = "Cabina Preflight"
+name = "Validar Cabina"
 icon = "test"
 command = "pwsh -NoProfile -File .agents/codex/tools/local_validate_capability_use_hardening.ps1"
 platform = "win32"
 
 [[actions]]
-name = "Codex Environments"
+name = "Validar Entornos Codex"
 icon = "test"
 command = "pwsh -NoProfile -File .agents/codex/tools/local_validate_codex_app_environments.ps1"
 platform = "win32"
 
 [[actions]]
-name = "Codex Cloud Lane"
+name = "Revisar Codex Cloud"
 icon = "test"
 command = "pwsh -NoProfile -File .agents/codex/tools/local_validate_codex_cloud_governed_lane.ps1"
 platform = "win32"
 
 [[actions]]
-name = "Autonomous Agents"
+name = "Validar Agentes Autonomos"
 icon = "test"
 command = "pwsh -NoProfile -File .agents/codex/tools/local_validate_autonomous_agent_execution.ps1"
 platform = "win32"
 
 [[actions]]
-name = "Runtime No Write"
+name = "Runtime Solo Lectura"
 icon = "debug"
 command = "pwsh -NoProfile -File .agents/codex/tools/local_run_repo_alignment_runtime.ps1 -NoWrite"
 platform = "win32"
 
 [[actions]]
-name = "Agent Layer"
+name = "Validar Capa de Agentes"
 icon = "test"
 command = "pwsh -NoProfile -File .agents/codex/tools/local_validate_agent_layer.ps1"
 platform = "win32"
 
 [[actions]]
-name = "Git Diff Check"
+name = "Revisar Diff Git"
 icon = "tool"
 command = "git diff --check"
 platform = "win32"
 
 [[actions]]
-name = "Git Status"
+name = "Ver Estado Git"
 icon = "tool"
 command = "git status --short --branch"
 platform = "win32"
