@@ -529,6 +529,7 @@
 !/.agents/codex/orders/ORDER_MICROSOFT_AGENTS_GOVERNED_LAB_ALIGNMENT_20260602.md
 !/.agents/codex/orders/ORDER_CODEX_CLOUD_GOVERNED_SMOKE_20260602.md
 !/.agents/codex/orders/ORDER_CODEX_ENVIRONMENT_CREATION_20260602.md
+!/.agents/codex/orders/ORDER_RECTOR_CABINA_CODEX_DAILY_FRAMEWORK_20260605.md
 
 !/.agents/codex/readbacks/
 /.agents/codex/readbacks/*
@@ -571,6 +572,7 @@
 !/.agents/codex/readbacks/2026-06-03_extended_reconciliation_gap_analysis_readback.md
 !/.agents/codex/readbacks/2026-06-03_canon_patch_extended_reconciliation_readback.md
 !/.agents/codex/readbacks/2026-06-04_canon_textual_reconciliation_pr78_readback.md
+!/.agents/codex/readbacks/2026-06-05_daily_rector_framework_readback.md
 
 !/.agents/codex/tools/
 /.agents/codex/tools/*
