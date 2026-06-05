@@ -137,6 +137,7 @@ ALLOWED_QUEUE_STATUSES = {
 }
 
 EXECUTABLE_COMMAND_PREFIXES = ("python ", "pwsh ", "powershell ", "git ", "gh ")
+ABSOLUTE_LOCAL_PATH_MARKERS = ("D:/", "D:\\")
 
 
 def require_text_markers() -> None:
@@ -163,6 +164,14 @@ def require_text_markers() -> None:
     ]:
         if marker not in readback:
             raise AssertionError(f"{READBACK} missing marker: {marker}")
+
+
+def require_no_absolute_local_paths() -> None:
+    for path in REQUIRED_FILES:
+        text = read_text(path)
+        for marker in ABSOLUTE_LOCAL_PATH_MARKERS:
+            if marker in text:
+                raise AssertionError(f"{path} contains absolute local path marker {marker!r}")
 
 
 def validate_impact_csv() -> None:
@@ -320,6 +329,7 @@ def validate_queue() -> None:
 def validate() -> None:
     require_files(REQUIRED_FILES)
     require_no_materialized_sensitive_values(REQUIRED_FILES)
+    require_no_absolute_local_paths()
     require_text_markers()
     validate_impact_csv()
     validate_package_pointer()

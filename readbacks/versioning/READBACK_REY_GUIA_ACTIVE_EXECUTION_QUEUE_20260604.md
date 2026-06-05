@@ -40,7 +40,7 @@ Revisar impacto del contrato `ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT` sobre el paq
 ## Evidencia
 
 - Los artefactos viven en rutas allowlisted de `governance/canon`, `scripts/validators` y `readbacks/versioning`.
-- El paquete brownfield local queda referenciado por hash, sin mover ni absorber `D:\docs` ni `D:\matrices`.
+- El paquete brownfield local queda referenciado por hash, sin mover ni absorber `${CABINA_ROOT}/docs` ni `${CABINA_ROOT}/matrices`.
 - La matriz maestra local fue verificada como parseable: 20 filas y 19 columnas.
 - La cola usa `queue_status` como estado operativo secundario y conserva `active_state` como estado canonico.
 - `write_scope` no usa wildcards; cada ruta queda declarada de forma deterministica.

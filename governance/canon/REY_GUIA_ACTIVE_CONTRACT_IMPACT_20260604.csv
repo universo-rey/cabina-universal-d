@@ -1,5 +1,5 @@
 area,before_contract,active_contract_impact,recommended_active_status,safe_next_action,risk,stop_condition
-Paquete Rey-Guia en docs,"Cerrado localmente pero ignorado por Git","No basta como cierre durable",EXECUTE_LOCAL_NOW,"Crear artefacto versionable en D:\governance\canon","Canon local no versionable","stop_if_no_allowlisted_path"
+Paquete Rey-Guia en docs,"Cerrado localmente pero ignorado por Git","No basta como cierre durable",EXECUTE_LOCAL_NOW,"Crear artefacto versionable en governance/canon bajo CABINA_ROOT","Canon local no versionable","stop_if_no_allowlisted_path"
 Matriz maestra en matrices,"CSV local parseable, ignorado por Git","Debe tener copia o puntero durable allowlisted",EXECUTE_LOCAL_NOW,"Mantener CSV local y registrar impacto versionable","Perder trazabilidad Git","stop_if_trying_git_add_ignored_without_plan"
 Backlog,"Tareas documentales separadas","Cada tarea necesita estado activo o causa PENDING exacta",EXECUTE_LOCAL_NOW,"Reescribir prioridades como carriles activos","Cierre pasivo","stop_if_no_next_command"
 Decisiones humanas,"Lista separada","Cada decision debe indicar si bloquea ejecucion o solo publicacion",PENDING_OWNER_ONLY,"Resolver marca Rey, SEI, Centro Editorial, producto","Bloqueos invisibles","stop_until_owner_decision"

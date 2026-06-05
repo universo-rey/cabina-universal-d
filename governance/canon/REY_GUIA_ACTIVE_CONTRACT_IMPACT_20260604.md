@@ -12,8 +12,8 @@ No cambia los bloqueos de fondo: Microsoft live write, produccion, permisos, sec
 
 | Area | Antes | Con contrato activo | Estado activo recomendado | Accion segura inmediata |
 | --- | --- | --- | --- | --- |
-| Paquete Rey-Guia en `D:\docs` | Cerrado localmente pero ignorado por Git | No basta como cierre durable | EXECUTE_LOCAL_NOW | Crear artefacto versionable en `D:\governance\canon` |
-| Matriz maestra en `D:\matrices` | CSV local parseable, ignorado por Git | Debe tener copia o puntero durable allowlisted | EXECUTE_LOCAL_NOW | Mantener CSV local y registrar impacto/versionable aqui |
+| Paquete Rey-Guia en `${CABINA_ROOT}/docs` | Cerrado localmente pero ignorado por Git | No basta como cierre durable | EXECUTE_LOCAL_NOW | Crear artefacto versionable en `governance/canon` bajo `${CABINA_ROOT}` |
+| Matriz maestra en `${CABINA_ROOT}/matrices` | CSV local parseable, ignorado por Git | Debe tener copia o puntero durable allowlisted | EXECUTE_LOCAL_NOW | Mantener CSV local y registrar impacto/versionable aqui |
 | Backlog | Tareas documentales separadas | Cada tarea debe tener estado activo o causa `PENDING_*_ONLY` | EXECUTE_LOCAL_NOW / PENDING_TARGET_ONLY | Reescribir prioridades como carriles activos |
 | Decisiones humanas | Lista separada | Correcto, pero cada decision debe indicar si bloquea ejecucion o solo publicacion | PENDING_OWNER_ONLY | Resolver marca Rey, SEI, Centro Editorial, producto |
 | Producto | FALTA_DEFINICION | Debe tener rol activo o backlog explicito | PENDING_OWNER_ONLY | Enzo define si es producto vigente/backlog/archivo |
@@ -33,7 +33,7 @@ No cambia los bloqueos de fondo: Microsoft live write, produccion, permisos, sec
 
 ## Proximo paso recomendado
 
-Crear `REY_GUIA_ACTIVE_EXECUTION_QUEUE_20260604.csv` en `D:\governance\canon` con estos carriles minimos:
+Crear `REY_GUIA_ACTIVE_EXECUTION_QUEUE_20260604.csv` en `governance/canon` bajo `${CABINA_ROOT}` con estos carriles minimos:
 
 - `rey_guia.versionable_canon_pointer`
 - `rey_guia.dataverse_v2_semantic_matrix`
