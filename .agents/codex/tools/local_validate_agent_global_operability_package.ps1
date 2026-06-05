@@ -102,6 +102,7 @@ $plan = Read-CsvChecked ".agents\codex\matrices\AGENTS_SDK_LIVE_AGENT_GLOBAL_OPE
 $framework = Read-CsvChecked ".agents\codex\matrices\AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_FRAMEWORK_20260605.csv" @("framework_component_id","component_type","component_name","source_artifact","purpose","owner_agent","validator","evidence","gate_policy","output_artifact","status","stop_condition")
 $backlog = Read-CsvChecked ".agents\codex\matrices\AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_GATED_BACKLOG_20260605.csv" @("backlog_id","decision_id","source_decision","owner_agent","target_artifact","current_local_state","next_allowed_action","gate_required","gate_owner","required_input","validator","rollback","postcheck","status","stop_condition")
 $semaphore = Read-CsvChecked ".agents\codex\matrices\AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_SEMAPHORE_MATRIX_20260605.csv" @("semaphore_id","source_backlog_id","decision_id","color","operational_meaning","current_state","decision_owner","execution_owner","gate_required","next_action","validator","evidence","rollback","postcheck","stop_condition")
+$gateQueue = Read-CsvChecked ".agents\codex\matrices\AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_GATE_QUEUE_20260605.csv" @("queue_id","semaphore_id","decision_id","color","gate_required","gate_owner","domain_owner","execution_owner","required_input","target_artifact","allowed_preparation","blocked_execution","validator","rollback","postcheck","status","stop_condition")
 
 Require-Fields $findings "finding_id" @("source_record","finding_type","severity","evidence","recommendation","next_lane","stop_condition") "findings"
 Require-Fields $decisions "decision_id" @("finding_id","decision","decision_owner","action","target_artifact","gate_required","validator","postcheck","rollback","status","stop_condition") "decisions"
@@ -112,6 +113,7 @@ Require-Fields $plan "plan_step_id" @("canonical_sdu_agent","operational_agent",
 Require-Fields $framework "framework_component_id" @("component_type","component_name","source_artifact","purpose","owner_agent","validator","evidence","gate_policy","output_artifact","status","stop_condition") "framework"
 Require-Fields $backlog "backlog_id" @("decision_id","source_decision","owner_agent","target_artifact","current_local_state","next_allowed_action","gate_required","gate_owner","required_input","validator","rollback","postcheck","status","stop_condition") "backlog"
 Require-Fields $semaphore "semaphore_id" @("source_backlog_id","decision_id","color","current_state","decision_owner","execution_owner","gate_required","next_action","validator","evidence","rollback","postcheck","stop_condition") "semaphore"
+Require-Fields $gateQueue "queue_id" @("semaphore_id","decision_id","color","gate_required","gate_owner","domain_owner","execution_owner","required_input","target_artifact","allowed_preparation","blocked_execution","validator","rollback","postcheck","status","stop_condition") "gate_queue"
 
 $findingById = As-Map $findings "finding_id"
 $decisionById = As-Map $decisions "decision_id"
@@ -120,6 +122,7 @@ $workflowById = As-Map $workflow "workflow_step_id"
 $orgById = As-Map $org "node_id"
 $planById = As-Map $plan "plan_step_id"
 $backlogById = As-Map $backlog "backlog_id"
+$semaphoreById = As-Map $semaphore "semaphore_id"
 
 $allowedDecision = @("KEEP_GATED","RETAIN_BOUNDARY","REQUIRE_LIVE_GATE","REQUIRE_HUMAN_GATE","EXECUTE_ON_NEXT_LANE","REQUIRE_WORKTREE_GATE","SERIALIZE")
 foreach ($row in $decisions) {
@@ -213,6 +216,56 @@ foreach ($row in $semaphore) {
     }
 }
 
+$redSemaphoreIds = New-Object System.Collections.Generic.HashSet[string]([StringComparer]::OrdinalIgnoreCase)
+foreach ($row in $semaphore) {
+    if ($row.color -eq "RED") {
+        $redSemaphoreIds.Add($row.semaphore_id) | Out-Null
+    }
+}
+
+$queuedSemaphoreIds = New-Object System.Collections.Generic.HashSet[string]([StringComparer]::OrdinalIgnoreCase)
+foreach ($row in $gateQueue) {
+    if (-not $semaphoreById.ContainsKey($row.semaphore_id)) {
+        Add-Error "gate queue $($row.queue_id) references missing semaphore: $($row.semaphore_id)"
+        continue
+    }
+
+    $source = $semaphoreById[$row.semaphore_id]
+    if ($source.color -ne "RED") {
+        Add-Error "gate queue $($row.queue_id) must reference RED semaphore, got $($source.color)"
+    }
+
+    foreach ($field in @("decision_id","gate_required","validator","rollback","postcheck","stop_condition")) {
+        if ($row.$field -ne $source.$field) {
+            Add-Error "gate queue $($row.queue_id) mismatch ${field}"
+        }
+    }
+
+    if ($row.color -ne "RED") {
+        Add-Error "gate queue $($row.queue_id) color must be RED"
+    }
+
+    if ($row.status -ne "GATE_PACKET_REQUIRED") {
+        Add-Error "gate queue $($row.queue_id) status must be GATE_PACKET_REQUIRED"
+    }
+
+    if ($row.allowed_preparation -notlike "prepare_*") {
+        Add-Error "gate queue $($row.queue_id) allowed_preparation must be prepare-only"
+    }
+
+    if ([string]::IsNullOrWhiteSpace($row.blocked_execution)) {
+        Add-Error "gate queue $($row.queue_id) missing blocked execution"
+    }
+
+    $queuedSemaphoreIds.Add($row.semaphore_id) | Out-Null
+}
+
+foreach ($semaphoreId in $redSemaphoreIds) {
+    if (-not $queuedSemaphoreIds.Contains($semaphoreId)) {
+        Add-Error "RED semaphore missing from gate queue: $semaphoreId"
+    }
+}
+
 $mapPaths = @(
     ".agents\codex\maps\AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_ORG_CHART_20260605.md",
     ".agents\codex\maps\AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_SDU_SEARCH_SELECTION_PLAN_20260605.md",
@@ -240,6 +293,7 @@ $result = [ordered]@{
     framework = $framework.Count
     backlog = $backlog.Count
     semaphore = $semaphore.Count
+    gate_queue = $gateQueue.Count
     warning_count = $warnings.Count
     warnings = @($warnings)
     error_count = $errors.Count
