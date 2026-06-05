@@ -51,6 +51,10 @@ Brechas principales:
 - `.agents/codex/matrices/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_DECISION_MATRIX_20260605.csv`
 - `.agents/codex/matrices/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_RACI_MATRIX_20260605.csv`
 - `.agents/codex/matrices/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_REVIEW_EVALUATION_DECISION_WORKFLOW_20260605.csv`
+- `.agents/codex/matrices/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_ORG_CHART_20260605.csv`
+- `.agents/codex/maps/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_ORG_CHART_20260605.md`
+- `.agents/codex/matrices/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_SDU_SEARCH_SELECTION_PLAN_20260605.csv`
+- `.agents/codex/maps/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_SDU_SEARCH_SELECTION_PLAN_20260605.md`
 - `.agents/codex/readbacks/2026-06-05_agents_sdk_live_agent_global_operability_readback.md`
 
 ## Decisiones Formalizadas
@@ -89,6 +93,39 @@ El workflow formalizado conecta los artefactos en una cadena ejecutable:
 6. Preparar carril siguiente solo para `EXECUTE_ON_NEXT_LANE`.
 7. Validar localmente antes de versionar.
 8. Registrar evidencia y detener en PR review hasta aprobacion humana.
+
+## Organigrama Formalizado
+
+El organigrama del carril declara la jerarquia operativa del paquete:
+
+- `rey.control_plane_orchestrator` coordina el carril y autoriza solo
+  packaging repo-scoped.
+- `rey.frontier_guardian` controla gates y fronteras criticas.
+- `court.openai_dispatcher` mantiene OpenAI y Agents SDK como runtime.
+- `court.sdu_gate` revisa decisiones y bloquea autoaprobacion.
+- `court.seshat_evidence` conserva evidencia y readback.
+- `court.thot_schema` conserva validacion y consistencia de matrices.
+- Subagentes delegados operan solo por carril declarado y stop condition.
+
+## Agentes SDU Activados Repo-Local
+
+Los seis agentes SDU-CN quedan activados como roles de busqueda y seleccion
+para este paquete, sin runtime live nuevo:
+
+- `seshat-normativa`: evidencia y trazabilidad documental.
+- `thot-tecnico`: schemas, matrices, validators e indices.
+- `horus-riesgo`: filtro de riesgo y contradicciones.
+- `anubis-gate`: gates, rollback, postcheck y stop conditions.
+- `maat-cumplimiento`: seleccion por coherencia, proporcionalidad y RACI.
+- `narrador-normativo`: narrativa solo despues de evidencia aprobada.
+
+## Plan Busqueda Y Seleccion
+
+El plan de busqueda y seleccion queda formalizado en matriz y mapa. La regla
+de seleccion es estricta: solo las decisiones `EXECUTE_ON_NEXT_LANE` pueden
+pasar al proximo carril local. Las decisiones `KEEP_GATED`,
+`REQUIRE_LIVE_GATE`, `REQUIRE_HUMAN_GATE`, `REQUIRE_WORKTREE_GATE` y
+`SERIALIZE` permanecen retenidas hasta gate humano o carril serial explicito.
 
 ## Sistemas Tocados
 
