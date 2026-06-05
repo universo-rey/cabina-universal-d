@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import csv
 import re
+import shlex
 from pathlib import Path
 
 
@@ -77,8 +78,29 @@ COMMAND_PREFIXES = (
     "gh ",
     "just ",
     "make ",
+    "codex ",
     "./",
 )
+COMMAND_SCRIPT_EXECUTABLES = {"python", "python3", "node", "pwsh", "powershell", "bash", "sh"}
+COMMAND_PATH_SUFFIXES = {".py", ".ps1", ".mjs", ".js", ".sh"}
+NARRATIVE_COMMAND_FRAGMENTS = (
+    " after approval",
+    " after target",
+    " after exact",
+    " after key",
+    " after reviewed",
+    " execute only ",
+    " when provided",
+    " cuando ",
+    " despues ",
+)
+ADMIN_BYPASS_STOP_CONDITIONS = {
+    "ADMIN_BYPASS_PRECHECK_MISSING",
+    "HEAD_CHANGED",
+    "CHECKS_NOT_GREEN",
+    "NORMAL_MERGE_AVAILABLE",
+    "BYPASS_PERMISSION_NOT_AVAILABLE",
+}
 
 
 def read_csv(path: Path) -> list[dict[str, str]]:
@@ -96,6 +118,53 @@ def is_remote_write(command: str) -> bool:
 
 def is_exact_command(command: str) -> bool:
     return command.strip().startswith(COMMAND_PREFIXES)
+
+
+def command_parts(command: str, capability_id: str) -> list[str]:
+    try:
+        return shlex.split(command, posix=False)
+    except ValueError as exc:
+        raise AssertionError(f"{capability_id}: command is not parseable") from exc
+
+
+def command_script_path(command: str, capability_id: str) -> str | None:
+    parts = command_parts(command, capability_id)
+    if not parts:
+        raise AssertionError(f"{capability_id}: missing command")
+    executable = parts[0].lower()
+    if executable not in COMMAND_SCRIPT_EXECUTABLES:
+        return None
+    for token in parts[1:]:
+        candidate = token.strip("'\"")
+        if not candidate or candidate.startswith("-"):
+            continue
+        if Path(candidate).suffix.lower() in COMMAND_PATH_SUFFIXES:
+            return candidate
+        return None
+    raise AssertionError(f"{capability_id}: script command must name a repo-visible script")
+
+
+def validate_command(command: str, capability_id: str) -> list[str]:
+    errors: list[str] = []
+    command_lower = command.lower()
+    if not is_exact_command(command):
+        errors.append(f"{capability_id}: command_or_workflow is not exact executable command")
+        return errors
+    for fragment in NARRATIVE_COMMAND_FRAGMENTS:
+        if fragment in command_lower:
+            errors.append(f"{capability_id}: command_or_workflow contains narrative fragment={fragment.strip()}")
+    try:
+        script_path = command_script_path(command, capability_id)
+    except AssertionError as exc:
+        errors.append(str(exc))
+        return errors
+    if script_path and not Path(script_path).exists():
+        errors.append(f"{capability_id}: command_or_workflow script does not exist: {script_path}")
+    return errors
+
+
+def has_placeholder(value: str) -> bool:
+    return "[" in value and "]" in value
 
 
 def validate_queue(queue_path: Path, impact_path: Path | None) -> tuple[list[str], list[str]]:
@@ -163,6 +232,7 @@ def validate_capability_matrix(matrix_path: Path) -> tuple[list[str], list[str]]
         command = row.get("command_or_workflow", "").strip()
         required_secret = row.get("required_secret", "").strip().lower()
         canonical_status = row.get("canonical_status", "").strip()
+        cost_boundary = row.get("cost_boundary", "").strip()
 
         if not capability_id:
             errors.append("Capability row without capability_id")
@@ -177,6 +247,11 @@ def validate_capability_matrix(matrix_path: Path) -> tuple[list[str], list[str]]
             errors.append(f"{capability_id}: {active_status} must have execute_now=no")
         if required_secret and required_secret not in ALLOWED_SECRET_VALUES:
             errors.append(f"{capability_id}: required_secret must be yes/no/conditional")
+        errors.extend(validate_command(command, capability_id))
+        if active_status in EXECUTE_NOW_STATES and has_placeholder(cost_boundary):
+            errors.append(f"{capability_id}: executable status cannot keep placeholder cost boundary")
+        if active_status in EXECUTE_NOW_STATES and row.get("approval_ref", "").strip().startswith("required_"):
+            errors.append(f"{capability_id}: executable status cannot keep symbolic approval_ref")
         if active_status in {"EXECUTE_LOCAL_NOW", "EXECUTE_CODEX_CLOUD_SMOKE_NOW"} and is_remote_write(command):
             errors.append(f"{capability_id}: {active_status} cannot include remote write command")
         if capability_id == "codex_cloud.pr":
@@ -185,6 +260,13 @@ def validate_capability_matrix(matrix_path: Path) -> tuple[list[str], list[str]]
             errors.append("github.lifecycle must be split into local commit remote push and PR create")
         if canonical_status != "ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT":
             warnings.append(f"{capability_id}: canonical_status should be ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT")
+        if capability_id == "github.admin_bypass":
+            stop_conditions = {part.strip() for part in row.get("stop_condition", "").split("|") if part.strip()}
+            missing_admin_conditions = sorted(ADMIN_BYPASS_STOP_CONDITIONS - stop_conditions)
+            if missing_admin_conditions:
+                errors.append(f"{capability_id}: admin bypass missing stop conditions: {', '.join(missing_admin_conditions)}")
+            if "--admin" not in command or "--match-head-commit" not in command:
+                errors.append(f"{capability_id}: admin bypass must require admin and match-head-commit")
 
     return errors, warnings
 

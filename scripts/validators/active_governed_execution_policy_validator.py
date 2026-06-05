@@ -76,6 +76,10 @@ def validate() -> None:
             "OVER_CONSERVATIVE",
             "VALID_HARD_STOP",
             "HISTORICAL_EVIDENCE",
+            "Tabla De Migracion De Lenguaje",
+            "Hard Stops Validos",
+            "costo abierto o limite economico ausente",
+            "Codex Cloud apply sin diff revisado",
             "ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT",
         ],
     )
