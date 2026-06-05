@@ -1,4 +1,4 @@
-# D:\ Cabina Universal root wrapper repo
+# C:\Users\enzo1\Documents\GitHub\cabina-universal-d Cabina Universal root wrapper repo
 #
 # This repo is intentionally narrow. It gives Codex and Git a native root for
 # the cabin while preserving every nested repo as an independent clone.
@@ -37,6 +37,13 @@
 !/LEVELS.md
 !/LEVELS.yaml
 !/FOLDER_LEVELS.csv
+
+# Repo-scoped technical reference plane. This is a governed index anchor only;
+# 80_REFERENCIAS_TECNICAS remains a legacy/read-only surface until an
+# explicit metadata retention decision.
+!/80_REFERENCIAS_TECNICAS/
+/80_REFERENCIAS_TECNICAS/*
+!/80_REFERENCIAS_TECNICAS/README.md
 
 # GATE_CABINA_ALLOWLIST_CONTEXT_READBACKS_VERSIONING
 # Allow exact Cabina Universal D context/readback baseline files.

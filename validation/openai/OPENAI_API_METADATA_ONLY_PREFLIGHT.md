@@ -13,7 +13,7 @@ OPENAI_API_SAFE_METADATA_ONLY_PASS
 - model used: gpt-4.1-mini
 - input items: 12
 - output body saved: false
-- structured CSV saved: D:\matrices\powerautomate\OPENAI_ASSISTED_WORK_QUEUE_CLASSIFICATION.csv
+- structured CSV saved: matrices\powerautomate\OPENAI_ASSISTED_WORK_QUEUE_CLASSIFICATION.csv
 - status: OPENAI_METADATA_CLASSIFICATION_PASS
 
 ## Boundary

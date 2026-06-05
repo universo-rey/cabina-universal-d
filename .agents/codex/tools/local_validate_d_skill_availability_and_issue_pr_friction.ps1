@@ -1,5 +1,5 @@
 param(
-  [string]$RepoRoot = "D:\",
+  [string]$RepoRoot = "C:\Users\enzo1\Documents\GitHub\cabina-universal-d",
   [string]$Repository = "universo-rey/cabina-universal-d",
   [switch]$UseGitHub,
   [switch]$WriteResult,
@@ -55,9 +55,9 @@ foreach ($row in $catalogRows) {
   if ($source -eq "d_drive_repo_local") {
     $localName = $skillId
     if (-not $dSkillNames.Contains($localName)) {
-      Add-Finding $findings "skill" $skillId "d_repo_skill_missing" "block" "Skill is declared d_drive_repo_local but no matching D:\.agents\skills directory exists."
+      Add-Finding $findings "skill" $skillId "d_repo_skill_missing" "block" "Skill is declared d_drive_repo_local but no matching .agents\skills directory exists."
     }
-    if ($path -and $path.StartsWith("D:/")) {
+    if ($path -and $path.StartsWith("C:/Users/enzo1/Documents/GitHub/cabina-universal-d")) {
       $candidatePath = $path.Replace("/", "\")
       if (-not (Test-Path -LiteralPath $candidatePath)) {
         Add-Finding $findings "skill" $skillId "d_repo_skill_path_missing" "block" "Skill path does not exist under D:."

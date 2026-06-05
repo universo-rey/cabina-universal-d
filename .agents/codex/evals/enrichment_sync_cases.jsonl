@@ -1,3 +1,3 @@
-{"case_id":"enrich_matrix_lane","input":"agregar matriz nueva a D:\\.agents\\codex","expected_agent":"rey.governance_registrar","expected_recipe":"recipe.d_drive_agent_layer_enrichment","expected_validator":"tool.local_validate_agent_layer"}
+{"case_id":"enrich_matrix_lane","input":"agregar matriz nueva a .agents\\codex","expected_agent":"rey.governance_registrar","expected_recipe":"recipe.d_drive_agent_layer_enrichment","expected_validator":"tool.local_validate_agent_layer"}
 {"case_id":"sync_recipe_lane","input":"agregar receta y mantener indices alineados","expected_agent":"court.openai_dispatcher","expected_recipe":"recipe.matrix_recipe_skill_sync","expected_validator":"tool.local_validate_agent_layer"}
 {"case_id":"closeout_lane","input":"cerrar frente local con readback y validacion","expected_agent":"court.seshat_evidence","expected_recipe":"recipe.governed_readback_closeout","expected_validator":"tool.local_validate_agent_layer"}

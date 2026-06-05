@@ -32,8 +32,8 @@ convert assumptions into verified state.
 
 ## Validator
 
-Primary: `D:\.agents\codex\tools\local_validate_agent_layer.ps1`.
-Companion: `D:\.agents\codex\tools\local_validate_operational_chain.ps1`.
+Primary: `.agents\codex\tools\local_validate_agent_layer.ps1`.
+Companion: `.agents\codex\tools\local_validate_operational_chain.ps1`.
 
 ## Handoff Shape
 

@@ -22,7 +22,7 @@ landing, componente interactivo o flujo con screenshots.
 - skill: `browser:control-in-app-browser|playwright|agentation|skill-creator`
 - receta: `recipe.workspace_reference_audit|recipe.schema_tool_contract`
 - tool: `tool.codex_workspace_audit|tool.local_validate_agent_layer`
-- validador: `D:\.agents\codex\tools\local_validate_frontend_design_lane.ps1`
+- validador: `.agents\codex\tools\local_validate_frontend_design_lane.ps1`
 
 ## Estandares Minimos
 

@@ -31,9 +31,9 @@ git revert -m 1 d09a7a5300efcf6738b98c5c0115b2647425b352
 
 `powershell
 git diff --check
-pwsh -NoProfile -File D:\.agents\codex\tools\local_run_governance_validation_suite.ps1 -Root D:\.agents\codex -RepoRoot D:\
-python D:\dataverse\scripts\detect_dataverse_drift.py
-pwsh -NoProfile -File D:\dataverse\scripts\validate_dataverse_manifest.ps1 -Root D:\
+pwsh -NoProfile -File .agents\codex\tools\local_run_governance_validation_suite.ps1 -Root .agents\codex -RepoRoot D:\
+python dataverse\scripts\detect_dataverse_drift.py
+pwsh -NoProfile -File dataverse\scripts\validate_dataverse_manifest.ps1 -Root D:\
 `
 
 4. Push normal y PR revert, sin squash/rebase/force push.

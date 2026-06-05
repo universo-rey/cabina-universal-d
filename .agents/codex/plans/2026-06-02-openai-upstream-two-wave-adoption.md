@@ -13,9 +13,9 @@
 ### Task 1: Wave 1 Upstream Reference Registry
 
 **Files:**
-- Create: `D:\.agents\codex\matrices\OPENAI_UPSTREAM_REFERENCE_MATRIX.csv`
-- Modify: `D:\.agents\codex\matrices\MATRIX_INDEX.csv`
-- Modify: `D:\.agents\codex\matrices\SKILL_REFERENCE_SOURCE_MATRIX.csv`
+- Create: `.agents\codex\matrices\OPENAI_UPSTREAM_REFERENCE_MATRIX.csv`
+- Modify: `.agents\codex\matrices\MATRIX_INDEX.csv`
+- Modify: `.agents\codex\matrices\SKILL_REFERENCE_SOURCE_MATRIX.csv`
 
 - [x] **Step 1: Register official OpenAI upstream repos**
 
@@ -28,8 +28,8 @@ Every row must classify upstream as technical reference, block `treat_as_canon`,
 ### Task 2: Review Repair Validate Recipe
 
 **Files:**
-- Create: `D:\.agents\codex\recipes\recipe.openai_review_repair_validate_loop.md`
-- Modify: `D:\.agents\codex\recipes\RECIPE_INDEX.csv`
+- Create: `.agents\codex\recipes\recipe.openai_review_repair_validate_loop.md`
+- Modify: `.agents\codex\recipes\RECIPE_INDEX.csv`
 
 - [x] **Step 1: Encode the loop**
 
@@ -42,7 +42,7 @@ Stop on OpenAI API live, Microsoft live, production, secrets, broad regulated da
 ### Task 3: Wave 2 Repo-Native Adoption Lanes
 
 **Files:**
-- Create: `D:\.agents\codex\matrices\OPENAI_TWO_WAVE_ADOPTION_MATRIX_20260602.csv`
+- Create: `.agents\codex\matrices\OPENAI_TWO_WAVE_ADOPTION_MATRIX_20260602.csv`
 
 - [x] **Step 1: Map Wave 1 closure lanes**
 
@@ -55,15 +55,15 @@ Rows must cover `tcu-agentic-runtime-control`, `sdu-canon`, `seshat-bootstrap-sd
 ### Task 4: Validator and Evidence
 
 **Files:**
-- Create: `D:\.agents\codex\tools\local_validate_openai_upstream_adoption.ps1`
-- Modify: `D:\.agents\codex\tools\TOOL_INDEX.csv`
-- Modify: `D:\.agents\codex\matrices\TOOL_GOVERNANCE_MATRIX.csv`
-- Modify: `D:\.agents\codex\matrices\VALIDATION_COVERAGE_MATRIX.csv`
-- Modify: `D:\.agents\codex\matrices\EVIDENCE_AND_VALIDATION_MATRIX.csv`
-- Create: `D:\.agents\codex\readbacks\2026-06-02_openai_two_wave_adoption_readback.md`
-- Create: `D:\.agents\codex\workpapers\tech.reference_librarian\2026-06-02_openai_upstream_reference.md`
-- Create: `D:\.agents\codex\workpapers\court.openai_dispatcher\2026-06-02_openai_repair_loop_and_repo_lanes.md`
-- Create: `D:\.agents\codex\workpapers\court.sdu_gate\2026-06-02_openai_adoption_gate_review.md`
+- Create: `.agents\codex\tools\local_validate_openai_upstream_adoption.ps1`
+- Modify: `.agents\codex\tools\TOOL_INDEX.csv`
+- Modify: `.agents\codex\matrices\TOOL_GOVERNANCE_MATRIX.csv`
+- Modify: `.agents\codex\matrices\VALIDATION_COVERAGE_MATRIX.csv`
+- Modify: `.agents\codex\matrices\EVIDENCE_AND_VALIDATION_MATRIX.csv`
+- Create: `.agents\codex\readbacks\2026-06-02_openai_two_wave_adoption_readback.md`
+- Create: `.agents\codex\workpapers\tech.reference_librarian\2026-06-02_openai_upstream_reference.md`
+- Create: `.agents\codex\workpapers\court.openai_dispatcher\2026-06-02_openai_repair_loop_and_repo_lanes.md`
+- Create: `.agents\codex\workpapers\court.sdu_gate\2026-06-02_openai_adoption_gate_review.md`
 
 - [x] **Step 1: Validate required artifacts**
 
@@ -76,11 +76,11 @@ The readback declares no OpenAI API live, no Microsoft live, no production, no s
 ### Task 5: Verification
 
 **Commands:**
-- `powershell -NoProfile -ExecutionPolicy Bypass -File D:\.agents\codex\tools\local_validate_openai_upstream_adoption.ps1`
-- `powershell -NoProfile -ExecutionPolicy Bypass -File D:\.agents\codex\tools\local_validate_skill_reference_sources.ps1`
-- `powershell -NoProfile -ExecutionPolicy Bypass -File D:\.agents\codex\tools\local_validate_operational_chain.ps1`
-- `powershell -NoProfile -ExecutionPolicy Bypass -File D:\.agents\codex\tools\local_validate_agent_layer.ps1`
-- `git -C D:\ diff --check`
+- `powershell -NoProfile -ExecutionPolicy Bypass -File .agents\codex\tools\local_validate_openai_upstream_adoption.ps1`
+- `powershell -NoProfile -ExecutionPolicy Bypass -File .agents\codex\tools\local_validate_skill_reference_sources.ps1`
+- `powershell -NoProfile -ExecutionPolicy Bypass -File .agents\codex\tools\local_validate_operational_chain.ps1`
+- `powershell -NoProfile -ExecutionPolicy Bypass -File .agents\codex\tools\local_validate_agent_layer.ps1`
+- `git -C C:\Users\enzo1\Documents\GitHub\cabina-universal-d diff --check`
 
 - [x] **Step 1: Run validators**
 

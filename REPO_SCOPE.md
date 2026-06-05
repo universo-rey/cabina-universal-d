@@ -1,15 +1,18 @@
 # Repo Scope
 
-Estado: `D_ROOT_WRAPPER_REPO_MAIN_CHANGE_AWARE_FULL_COVERAGE_GATE_ACTIVE`
+Estado: `C_ROOT_EFFECTIVE_CABINA_REPO_ACTIVE`
 
-Este repo nuevo gobierna la raiz `D:\` como Cabina Universal del Rey sin
-absorber los repos anidados.
+Este repo gobierna la raiz efectiva
+`C:\Users\enzo1\Documents\GitHub\cabina-universal-d` como Cabina Universal del
+Rey sin absorber los repos anidados. `D:\` queda solo como superficie legacy,
+read-only y gobernada hasta decision explicita de metadata retention.
 
 ## Regla
 
-- `D:\` es repo local envoltorio para que Codex y Git vean una raiz nativa.
+- `C:\Users\enzo1\Documents\GitHub\cabina-universal-d` es repo local envoltorio
+  para que Codex y Git vean una raiz nativa.
 - `organizacion` conserva su propio repo en
-  `D:\01_GOVERNANCE_REGISTRY\10_REPOS\02_ACTIVE\organizacion`.
+  `01_GOVERNANCE_REGISTRY\10_REPOS\02_ACTIVE\organizacion`.
 - Los demas clones bajo `10_REPOS\02_ACTIVE` conservan sus propios repos.
 - El repo raiz usa allowlist: ignora todo por defecto y solo versiona archivos
   rectores seleccionados.
@@ -32,7 +35,7 @@ absorber los repos anidados.
 
 ## Bloqueos
 
-- No `git add .` sobre `D:\`.
+- No `git add .` sobre la raiz efectiva; stagear rutas explicitas.
 - No versionar `.secrets`, caches, clones completos, dumps, credenciales,
   expedientes o datos regulados.
 - No mover clones.
@@ -48,8 +51,9 @@ gobernada.
 
 - base rectora/remota: `main`
 - rama historica mergeada: `codex/d-root-ui-visibility-20260601`
-- objetivo: hacer visible el repo raiz `D:\`, su arbol, ramas y PRs en la UI
-  nativa de Codex.
+- objetivo: hacer visible el repo raiz efectivo
+  `C:\Users\enzo1\Documents\GitHub\cabina-universal-d`, su arbol, ramas y PRs
+  en la UI nativa de Codex.
 - alcance: documental y capacidades locales saneadas; no absorbe clones ni
   reemplaza `organizacion`.
 

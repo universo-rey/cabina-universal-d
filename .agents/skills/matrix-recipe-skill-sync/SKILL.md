@@ -39,29 +39,29 @@ kept aligned.
 
 For a skill change:
 
-- Update `D:\.agents\codex\skills\SKILL_USAGE_MATRIX.csv`.
+- Update `.agents\codex\skills\SKILL_USAGE_MATRIX.csv`.
 - Ensure the skill folder has `SKILL.md`.
-- Update `D:\.agents\codex\skills\SKILL_METADATA_QUALITY_MATRIX.csv` when the
+- Update `.agents\codex\skills\SKILL_METADATA_QUALITY_MATRIX.csv` when the
   skill is repo-local.
 - Link the skill from the appropriate agent assignment matrix when an agent uses
   it.
 
 For a recipe change:
 
-- Update `D:\.agents\codex\recipes\RECIPE_INDEX.csv`.
+- Update `.agents\codex\recipes\RECIPE_INDEX.csv`.
 - Ensure the recipe file exists.
 - Link the recipe from the appropriate agent-tool-recipe-skill matrix.
 
 For a matrix or map change:
 
-- Update `D:\.agents\codex\matrices\MATRIX_INDEX.csv` or the appropriate map
+- Update `.agents\codex\matrices\MATRIX_INDEX.csv` or the appropriate map
   index.
 - Add validation coverage in the evidence and validation matrix when it affects
   closeout.
 
 For a tool change:
 
-- Update `D:\.agents\codex\tools\TOOL_INDEX.csv`.
+- Update `.agents\codex\tools\TOOL_INDEX.csv`.
 - Declare allowed and blocked surfaces.
 - Keep command paths local unless a governed order opens a live surface.
 
@@ -70,8 +70,8 @@ For a tool change:
 Run:
 
 ```powershell
-D:\.agents\codex\tools\local_validate_agent_layer.ps1
-D:\.agents\codex\tools\local_validate_skill_metadata.ps1
+.agents\codex\tools\local_validate_agent_layer.ps1
+.agents\codex\tools\local_validate_skill_metadata.ps1
 ```
 
 If the full validator is unavailable, run the closest local validator and record

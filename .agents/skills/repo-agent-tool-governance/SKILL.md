@@ -55,11 +55,11 @@ Every governed asset needs:
 
 ## Required Reads
 
-1. `D:\.agents\codex\matrices\REPO_AGENT_TOOL_GOVERNANCE_MATRIX.csv`
-2. `D:\.agents\codex\matrices\REPO_GOVERNANCE_ASSIGNMENT_MATRIX.csv`
-3. `D:\.agents\codex\matrices\AGENT_GOVERNANCE_MATRIX.csv`
-4. `D:\.agents\codex\matrices\TOOL_GOVERNANCE_MATRIX.csv`
-5. `D:\.agents\codex\maps\SURFACE_BOUNDARY_MAP.csv`
+1. `.agents\codex\matrices\REPO_AGENT_TOOL_GOVERNANCE_MATRIX.csv`
+2. `.agents\codex\matrices\REPO_GOVERNANCE_ASSIGNMENT_MATRIX.csv`
+3. `.agents\codex\matrices\AGENT_GOVERNANCE_MATRIX.csv`
+4. `.agents\codex\matrices\TOOL_GOVERNANCE_MATRIX.csv`
+5. `.agents\codex\maps\SURFACE_BOUNDARY_MAP.csv`
 
 ## Workflow
 
@@ -76,8 +76,8 @@ Every governed asset needs:
 Run:
 
 ```powershell
-D:\.agents\codex\tools\local_validate_agent_layer.ps1
-D:\.agents\codex\tools\local_validate_skill_metadata.ps1
+.agents\codex\tools\local_validate_agent_layer.ps1
+.agents\codex\tools\local_validate_skill_metadata.ps1
 ```
 
 ## Stop Conditions

@@ -1,7 +1,7 @@
 manifest_version: 0.1
-map_id: CABINA_UNIVERSAL_REY_D_LOCAL
-status: D_ROOT_WRAPPER_REPO_LOCAL_ACTIVE
-root_path: D:/
+map_id: CABINA_UNIVERSAL_REY_C_LOCAL
+status: C_ROOT_WRAPPER_REPO_LOCAL_ACTIVE
+root_path: C:/Users/enzo1/Documents/GitHub/cabina-universal-d
 owner: operador
 cabina_canon_state:
   status: CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON
@@ -58,15 +58,15 @@ sdu_cn_canonical_agents_state:
     - id: narrador-normativo
       domain: documentary_narrative_after_approved_evidence
   rule: "identidades canonicas suprarrepo; no son herramientas; no son adaptadores; OpenAI/Codex/Agents SDK no fuente de autoridad"
-  pantheon: D:/02_AUTHORITY_CANON/SDU_CN_CANONICAL_AGENT_PANTHEON_20260604.md
-  operating_model: D:/02_AUTHORITY_CANON/SDU_CN_MULTI_UNIVERSE_OPERATING_MODEL_20260604.md
-  universe_repo_matrix: D:/02_AUTHORITY_CANON/SDU_CN_CANONICAL_AGENT_UNIVERSE_REPO_MATRIX_20260604.csv
-  operational_mapping: D:/02_AUTHORITY_CANON/SDU_CN_CANONICAL_TO_OPERATIONAL_AGENT_MAPPING_20260604.csv
-  repo_native_contract_template: D:/02_AUTHORITY_CANON/REPO_NATIVE_CONTRACT_TEMPLATE_20260604.md
+  pantheon: 02_AUTHORITY_CANON/SDU_CN_CANONICAL_AGENT_PANTHEON_20260604.md
+  operating_model: 02_AUTHORITY_CANON/SDU_CN_MULTI_UNIVERSE_OPERATING_MODEL_20260604.md
+  universe_repo_matrix: 02_AUTHORITY_CANON/SDU_CN_CANONICAL_AGENT_UNIVERSE_REPO_MATRIX_20260604.csv
+  operational_mapping: 02_AUTHORITY_CANON/SDU_CN_CANONICAL_TO_OPERATIONAL_AGENT_MAPPING_20260604.csv
+  repo_native_contract_template: 02_AUTHORITY_CANON/REPO_NATIVE_CONTRACT_TEMPLATE_20260604.md
   validators:
-    - D:/scripts/validators/sdu_cn_canonical_agent_pantheon_validator.py
-    - D:/scripts/validators/focus_5_repo_contracts_validator.py
-    - D:/scripts/validators/cabina_startup_contract_validator.py
+    - scripts/validators/sdu_cn_canonical_agent_pantheon_validator.py
+    - scripts/validators/focus_5_repo_contracts_validator.py
+    - scripts/validators/cabina_startup_contract_validator.py
   stop_condition: secret_detected|seventh_agent_created|canonical_agent_missing|openai_treated_as_authority_source|microsoft_live_without_target
 extended_reconciliation_state:
   status: CABINA_EXTENDED_RECONCILIATION_CANONIZED
@@ -136,7 +136,7 @@ stop_conditions:
   - universe_or_authority_ambiguity
 hierarchy_model:
   status: LOCAL_DRAFT_REVIEW
-  level_0: D:/ as universal cabin root
+  level_0: C root as universal cabin root
   level_1: numbered governance planes
   level_2: numbered domain folders inside each plane
   level_3: lifecycle folders such as 00_INBOX 01_PLANNED 02_ACTIVE 03_WORKTREES 90_ARCHIVO
@@ -152,14 +152,14 @@ active_project_repo:
   repo_id: ORGANIZACION
   repository_full_name: universo-rey/organizacion
   remote_url: https://github.com/universo-rey/organizacion.git
-  local_path: D:/01_GOVERNANCE_REGISTRY/10_REPOS/02_ACTIVE/organizacion
+  local_path: 01_GOVERNANCE_REGISTRY/10_REPOS/02_ACTIVE/organizacion
   branch: codex/d-drive-governance-versioning-20260601
   head: tracked_by_branch
   status: ACTIVE_PROJECT_FOLDER_REMOTE_ASSOCIATED_DRAFT_PR_OPEN
 root_wrapper_repo:
   repo_id: D_CABINA_UNIVERSAL_ROOT
   repository_full_name: universo-rey/cabina-universal-d
-  local_path: D:/
+  local_path: C:/Users/enzo1/Documents/GitHub/cabina-universal-d
   branch: main
   working_branch_policy: codex/* from main
   scope: allowlist_governance_metadata
@@ -187,17 +187,17 @@ root_wrapper_repo:
 capability_import_state:
   as_of: 2026-06-01
   mode: local_declarative_copy_adapt
-  source_inventory: D:/.agents/codex/matrices/CAPABILITY_SOURCE_INVENTORY.csv
-  adoption_matrix: D:/.agents/codex/matrices/CAPABILITY_IMPORT_DECISION_MATRIX.csv
+  source_inventory: .agents/codex/matrices/CAPABILITY_SOURCE_INVENTORY.csv
+  adoption_matrix: .agents/codex/matrices/CAPABILITY_IMPORT_DECISION_MATRIX.csv
   versioned_local_folders:
-    - D:/.agents/skills
-    - D:/.agents/codex/agents
-    - D:/.agents/codex/skills
-    - D:/.agents/codex/recipes
-    - D:/.agents/codex/tools
-    - D:/.agents/codex/evals
-    - D:/.agents/codex/plugins
-    - D:/.agents/codex/templates
+    - .agents/skills
+    - .agents/codex/agents
+    - .agents/codex/skills
+    - .agents/codex/recipes
+    - .agents/codex/tools
+    - .agents/codex/evals
+    - .agents/codex/plugins
+    - .agents/codex/templates
   blocked:
     - moving_nested_repos
     - ungoverned_live_microsoft_write
@@ -218,8 +218,8 @@ github_base_work_state:
   root_closed_unmerged_prs_excluded: 81
   automated_merge_policy_state: APPROVED_WITH_PRECHECKS
   automated_merge_required_prechecks: base_main|codex_branch|non_draft|clean_merge_state|green_checks|match_head_commit|no_blocked_surfaces|post_merge_sync
-  policy: D:/02_AUTHORITY_CANON/GITHUB_BASE_WORK_POLICY.md
-  repo_matrix: D:/01_GOVERNANCE_REGISTRY/GITHUB_BASE_WORK_MATRIX.csv
+  policy: 02_AUTHORITY_CANON/GITHUB_BASE_WORK_POLICY.md
+  repo_matrix: 01_GOVERNANCE_REGISTRY/GITHUB_BASE_WORK_MATRIX.csv
   rule: all_durable_repo_work_must_route_through_github_branch_commit_push_pr
   root_repo_absorbs_nested_repos: false
   nested_repos_keep_own_remotes: true
@@ -238,47 +238,47 @@ runtime_alignment_state:
   status: LOCAL_SYNTHETIC_ALIGNMENT_ACTIVE
   runtime_mode: LOCAL_SYNTHETIC_ALIGNMENT_ONLY
   cabina_base_repository: universo-rey/cabina-universal-d
-  cabina_repo_alignment_matrix: D:/.agents/codex/matrices/CABINA_UNIVERSAL_REPO_ALIGNMENT_MATRIX.csv
+  cabina_repo_alignment_matrix: .agents/codex/matrices/CABINA_UNIVERSAL_REPO_ALIGNMENT_MATRIX.csv
   productive_runtime_gate_state: REQUIRES_GOVERNED_ORDER
   github_agent_surface_state: APPROVED_GITHUB_AGENT_SURFACE
   github_actions_surface_state: APPROVED_GITHUB_ACTIONS_SURFACE
   non_github_external_agent_gate_state: REQUIRES_GOVERNED_ORDER
-  default_skill_matrix: D:/.agents/codex/matrices/AGENT_DEFAULT_SKILL_ASSIGNMENT_MATRIX.csv
-  github_actions_matrix: D:/.agents/codex/matrices/GITHUB_ACTIONS_WORKFLOW_MATRIX.csv
-  github_automation_preflight_matrix: D:/.agents/codex/matrices/GITHUB_AUTOMATION_PREFLIGHT_MATRIX.csv
-  github_automation_preflight_tool: D:/.agents/codex/tools/local_validate_github_automation_preflight.ps1
+  default_skill_matrix: .agents/codex/matrices/AGENT_DEFAULT_SKILL_ASSIGNMENT_MATRIX.csv
+  github_actions_matrix: .agents/codex/matrices/GITHUB_ACTIONS_WORKFLOW_MATRIX.csv
+  github_automation_preflight_matrix: .agents/codex/matrices/GITHUB_AUTOMATION_PREFLIGHT_MATRIX.csv
+  github_automation_preflight_tool: .agents/codex/tools/local_validate_github_automation_preflight.ps1
   operational_chain_state: ACTIVE_GLOBAL_REQUIRED
-  operational_chain_matrix: D:/.agents/codex/matrices/OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv
-  operational_chain_tool: D:/.agents/codex/tools/local_validate_operational_chain.ps1
+  operational_chain_matrix: .agents/codex/matrices/OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv
+  operational_chain_tool: .agents/codex/tools/local_validate_operational_chain.ps1
   capability_use_hardening_state: ACTIVE_REQUIRED_FROM_INTAKE
-  capability_use_hardening_matrix: D:/.agents/codex/matrices/CAPABILITY_USE_HARDENING_MATRIX.csv
-  capability_use_hardening_tool: D:/.agents/codex/tools/local_validate_capability_use_hardening.ps1
-  mandatory_capability_discovery_skill: D:/.agents/skills/tcu-descubridor-capacidades/SKILL.md
+  capability_use_hardening_matrix: .agents/codex/matrices/CAPABILITY_USE_HARDENING_MATRIX.csv
+  capability_use_hardening_tool: .agents/codex/tools/local_validate_capability_use_hardening.ps1
+  mandatory_capability_discovery_skill: .agents/skills/tcu-descubridor-capacidades/SKILL.md
   autonomous_task_agents_state: GOVERNED_TASK_SCOPED_ACTIVE
-  autonomous_agent_execution_matrix: D:/.agents/codex/matrices/AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv
-  autonomous_agent_execution_tool: D:/.agents/codex/tools/local_validate_autonomous_agent_execution.ps1
+  autonomous_agent_execution_matrix: .agents/codex/matrices/AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv
+  autonomous_agent_execution_tool: .agents/codex/tools/local_validate_autonomous_agent_execution.ps1
   codex_cloud_task_scoped_state: ACTIVE_WHEN_ENVIRONMENT_VISIBLE_ELSE_BLOCKED
-  parallel_operation_matrix: D:/.agents/codex/matrices/PARALLEL_OPERATION_CRITERIA_MATRIX.csv
-  parallel_issue_lane_queue: D:/.agents/codex/matrices/PARALLEL_ISSUE_LANE_QUEUE.csv
-  parallel_issue_lane_queue_validator: D:/.agents/codex/tools/local_validate_parallel_issue_queue.ps1
-  order_preparation_matrix: D:/.agents/codex/matrices/ORDER_PREPARATION_ASSIGNMENT_MATRIX.csv
-  order_class_capability_matrix: D:/.agents/codex/matrices/ORDER_CLASS_CAPABILITY_MATRIX.csv
-  subagent_capability_matrix: D:/.agents/codex/matrices/SUBAGENT_CAPABILITY_ASSIGNMENT_MATRIX.csv
-  subskill_usage_matrix: D:/.agents/codex/skills/SUBSKILL_USAGE_MATRIX.csv
-  skill_metadata_quality_matrix: D:/.agents/codex/skills/SKILL_METADATA_QUALITY_MATRIX.csv
-  skill_metadata_validator: D:/.agents/codex/tools/local_validate_skill_metadata.ps1
-  document_skill_lane_matrix: D:/.agents/codex/matrices/DOCUMENT_SKILL_LANE_MATRIX.csv
-  document_skill_lane_validator: D:/.agents/codex/tools/local_validate_document_skill_lane.ps1
-  skill_reference_source_matrix: D:/.agents/codex/matrices/SKILL_REFERENCE_SOURCE_MATRIX.csv
-  skill_reference_source_validator: D:/.agents/codex/tools/local_validate_skill_reference_sources.ps1
-  frontend_design_lane_matrix: D:/.agents/codex/matrices/FRONTEND_DESIGN_LANE_MATRIX.csv
-  frontend_design_lane_validator: D:/.agents/codex/tools/local_validate_frontend_design_lane.ps1
+  parallel_operation_matrix: .agents/codex/matrices/PARALLEL_OPERATION_CRITERIA_MATRIX.csv
+  parallel_issue_lane_queue: .agents/codex/matrices/PARALLEL_ISSUE_LANE_QUEUE.csv
+  parallel_issue_lane_queue_validator: .agents/codex/tools/local_validate_parallel_issue_queue.ps1
+  order_preparation_matrix: .agents/codex/matrices/ORDER_PREPARATION_ASSIGNMENT_MATRIX.csv
+  order_class_capability_matrix: .agents/codex/matrices/ORDER_CLASS_CAPABILITY_MATRIX.csv
+  subagent_capability_matrix: .agents/codex/matrices/SUBAGENT_CAPABILITY_ASSIGNMENT_MATRIX.csv
+  subskill_usage_matrix: .agents/codex/skills/SUBSKILL_USAGE_MATRIX.csv
+  skill_metadata_quality_matrix: .agents/codex/skills/SKILL_METADATA_QUALITY_MATRIX.csv
+  skill_metadata_validator: .agents/codex/tools/local_validate_skill_metadata.ps1
+  document_skill_lane_matrix: .agents/codex/matrices/DOCUMENT_SKILL_LANE_MATRIX.csv
+  document_skill_lane_validator: .agents/codex/tools/local_validate_document_skill_lane.ps1
+  skill_reference_source_matrix: .agents/codex/matrices/SKILL_REFERENCE_SOURCE_MATRIX.csv
+  skill_reference_source_validator: .agents/codex/tools/local_validate_skill_reference_sources.ps1
+  frontend_design_lane_matrix: .agents/codex/matrices/FRONTEND_DESIGN_LANE_MATRIX.csv
+  frontend_design_lane_validator: .agents/codex/tools/local_validate_frontend_design_lane.ps1
   codex_cloud_governed_lane_state: ACTIVE_REMOTE_REPO_SCOPED
-  codex_cloud_governed_lane_map: D:/.agents/codex/maps/CODEX_CLOUD_GOVERNED_LANE.md
-  codex_cloud_governed_lane_matrix: D:/.agents/codex/matrices/CODEX_CLOUD_GOVERNED_LANE_MATRIX.csv
-  codex_cloud_repo_discovery_matrix: D:/.agents/codex/matrices/CODEX_CLOUD_REPO_DISCOVERY_MATRIX_20260602.csv
-  codex_cloud_environment_inventory: D:/.agents/codex/matrices/CODEX_CLOUD_ENVIRONMENT_INVENTORY_20260602.csv
-  codex_cloud_governed_lane_validator: D:/.agents/codex/tools/local_validate_codex_cloud_governed_lane.ps1
+  codex_cloud_governed_lane_map: .agents/codex/maps/CODEX_CLOUD_GOVERNED_LANE.md
+  codex_cloud_governed_lane_matrix: .agents/codex/matrices/CODEX_CLOUD_GOVERNED_LANE_MATRIX.csv
+  codex_cloud_repo_discovery_matrix: .agents/codex/matrices/CODEX_CLOUD_REPO_DISCOVERY_MATRIX_20260602.csv
+  codex_cloud_environment_inventory: .agents/codex/matrices/CODEX_CLOUD_ENVIRONMENT_INVENTORY_20260602.csv
+  codex_cloud_governed_lane_validator: .agents/codex/tools/local_validate_codex_cloud_governed_lane.ps1
   codex_cloud_first_remote_candidate: SeshatSgin/sgin-cloud
   codex_cloud_active_environment_smoke: task_e_6a1f119843d4832e9ed821834222c003
   codex_cloud_active_environment_smoke_status: READY_NO_DIFF
@@ -295,67 +295,67 @@ runtime_alignment_state:
   governed_ci_sgin_canonico_puro_pr: SeshatSgin/SGIN_Canonico_Puro#6
   governed_ci_sgin_canonico_puro_merge: 5a1756206230d2d123f297bf4c43c50acce0f47d
   codex_cloud_boundary: global_full_live_governed_no_secrets_no_blind_write_no_ungated_microsoft_no_ungated_production_no_auto_propagation
-  cabina_full_live_global_canon_matrix: D:/.agents/codex/matrices/CABINA_FULL_LIVE_GLOBAL_CANON_MATRIX_20260603.csv
-  cabina_full_live_global_canon_readback: D:/.agents/codex/readbacks/2026-06-03_cabina_full_live_global_canon_update_readback.md
+  cabina_full_live_global_canon_matrix: .agents/codex/matrices/CABINA_FULL_LIVE_GLOBAL_CANON_MATRIX_20260603.csv
+  cabina_full_live_global_canon_readback: .agents/codex/readbacks/2026-06-03_cabina_full_live_global_canon_update_readback.md
   codex_app_environment_state: ACTIVE_ROOT_LOCAL_WORKTREE_ENV_CREATED
-  codex_app_environment_path: D:/.codex/environments/environment.toml
-  codex_app_environment_matrix: D:/.agents/codex/matrices/CODEX_APP_LOCAL_ENVIRONMENT_MATRIX_20260602.csv
-  codex_environment_creation_queue: D:/.agents/codex/matrices/CODEX_ENVIRONMENT_CREATION_QUEUE_20260602.csv
-  codex_app_environment_validator: D:/.agents/codex/tools/local_validate_codex_app_environments.ps1
-  codex_environment_order: D:/.agents/codex/orders/ORDER_CODEX_ENVIRONMENT_CREATION_20260602.md
-  codex_environment_readback: D:/.agents/codex/readbacks/2026-06-02_codex_environments_readback.md
+  codex_app_environment_path: .codex/environments/environment.toml
+  codex_app_environment_matrix: .agents/codex/matrices/CODEX_APP_LOCAL_ENVIRONMENT_MATRIX_20260602.csv
+  codex_environment_creation_queue: .agents/codex/matrices/CODEX_ENVIRONMENT_CREATION_QUEUE_20260602.csv
+  codex_app_environment_validator: .agents/codex/tools/local_validate_codex_app_environments.ps1
+  codex_environment_order: .agents/codex/orders/ORDER_CODEX_ENVIRONMENT_CREATION_20260602.md
+  codex_environment_readback: .agents/codex/readbacks/2026-06-02_codex_environments_readback.md
   codex_cloud_environment_creation_tool_status: NO_DISPONIBLE_CLI_CREATE_ENV
   codex_cloud_environment_assignment_state: PARTIAL_9_VISIBLE_2_PENDING_LABEL_RESOLUTION
-  codex_cloud_environment_assignment_readback: D:/.agents/codex/readbacks/2026-06-02_codex_cloud_environment_assignment_readback.md
+  codex_cloud_environment_assignment_readback: .agents/codex/readbacks/2026-06-02_codex_cloud_environment_assignment_readback.md
   codex_cloud_environment_queue_counts: visible_11|visible_out_of_base_3|needs_ui_create_2
   codex_cloud_new_environment_smokes: ORGANIZACION_READY_NO_DIFF|TGE_READY_NO_DIFF|TGE_RUNTIME_READY_NO_DIFF|SGIN_CUMPLIMIENTO_READY_NO_DIFF|CDF_READY_NO_DIFF|JARA_READY_NO_DIFF|SESHAT_BOOTSTRAP_READY_NO_DIFF|TCU_AGENTIC_READY_NO_DIFF|MICROSOFT_AGENTS_GOVERNED_LAB_READY_NO_DIFF
   codex_cloud_pending_environment_labels: MODO_ON_FOUNDATION|SDU_CANON
   codex_cloud_live_lane_finalization_state: TARGET_LANES_FINALIZED_REST_PENDING_20260602
-  codex_cloud_live_lane_finalization_matrix: D:/.agents/codex/matrices/CODEX_CLOUD_LIVE_LANE_FINALIZATION_20260602.csv
-  codex_cloud_live_lane_finalization_readback: D:/.agents/codex/readbacks/2026-06-02_codex_cloud_live_lane_finalization_readback.md
+  codex_cloud_live_lane_finalization_matrix: .agents/codex/matrices/CODEX_CLOUD_LIVE_LANE_FINALIZATION_20260602.csv
+  codex_cloud_live_lane_finalization_readback: .agents/codex/readbacks/2026-06-02_codex_cloud_live_lane_finalization_readback.md
   openai_platform_key_status: LOCAL_IGNORED_ENV_READY_NO_SECRET_IN_REPO
   openai_platform_key_name: cabina-universal-d Codex
   openai_platform_key_target: Modo On/SYS-SDU
   openai_api_smoke_status: PASS_HTTP_200_NO_BODY_PRINTED
   validator_performance_improvement_state: LOW_RISK_IMPROVEMENTS_IMPLEMENTED_20260603
-  validator_performance_improvement_matrix: D:/.agents/codex/matrices/VALIDATOR_PERFORMANCE_IMPROVEMENT_MATRIX_20260602.csv
-  validator_performance_improvement_readback: D:/.agents/codex/readbacks/2026-06-02_validator_performance_improvements_readback.md
-  validator_performance_hash_set_readback: D:/.agents/codex/readbacks/2026-06-03_validator_hash_set_performance_readback.md
+  validator_performance_improvement_matrix: .agents/codex/matrices/VALIDATOR_PERFORMANCE_IMPROVEMENT_MATRIX_20260602.csv
+  validator_performance_improvement_readback: .agents/codex/readbacks/2026-06-02_validator_performance_improvements_readback.md
+  validator_performance_hash_set_readback: .agents/codex/readbacks/2026-06-03_validator_hash_set_performance_readback.md
   validator_performance_improvement_scope: csv_json_cache|agent_layer_skip_workflow_nested|single_read_secret_scan|aggregate_runner_main_gate|hash_set_membership
   governance_validation_suite_state: AVAILABLE_FULL_VALIDATOR_SET_COMPOSED_BY_CHANGE_AWARE_GATE
-  governance_validation_suite_tool: D:/.agents/codex/tools/local_run_governance_validation_suite.ps1
-  governance_validation_suite_readback: D:/.agents/codex/readbacks/2026-06-02_governance_validation_suite_phase3_readback.md
-  governance_validation_suite_promotion_readback: D:/.agents/codex/readbacks/2026-06-02_governance_validation_suite_gate_promotion_readback.md
+  governance_validation_suite_tool: .agents/codex/tools/local_run_governance_validation_suite.ps1
+  governance_validation_suite_readback: .agents/codex/readbacks/2026-06-02_governance_validation_suite_phase3_readback.md
+  governance_validation_suite_promotion_readback: .agents/codex/readbacks/2026-06-02_governance_validation_suite_gate_promotion_readback.md
   governance_validation_suite_workflow_mode: retained_as_full_validator_set_and_local_aggregate
   governance_validation_suite_artifact_mode: superseded_in_ci_by_change_aware_full_coverage_audit
-  governance_validation_suite_artifact_readback: D:/.agents/codex/readbacks/2026-06-03_governance_validation_suite_artifact_readback.md
+  governance_validation_suite_artifact_readback: .agents/codex/readbacks/2026-06-03_governance_validation_suite_artifact_readback.md
   change_aware_full_coverage_state: PRODUCTIVE_MAIN_GATE_20260603
-  change_aware_full_coverage_tool: D:/.agents/codex/tools/local_run_change_aware_full_coverage_orchestrator.ps1
-  change_aware_full_coverage_static_validator: D:/.agents/codex/tools/local_validate_change_aware_full_coverage_orchestrator.ps1
-  change_aware_test_manifest: D:/.agents/codex/matrices/CHANGE_AWARE_TEST_MANIFEST.csv
-  change_aware_risk_policy: D:/.agents/codex/matrices/CHANGE_AWARE_RISK_POLICY.csv
-  change_aware_impact_graph: D:/.agents/codex/matrices/CHANGE_AWARE_IMPACT_GRAPH.csv
-  change_aware_audit_latest: D:/.agents/codex/evals/results/change_aware_full_coverage_audit_latest.json
-  change_aware_readback: D:/.agents/codex/readbacks/2026-06-03_change_aware_full_coverage_orchestrator_readback.md
+  change_aware_full_coverage_tool: .agents/codex/tools/local_run_change_aware_full_coverage_orchestrator.ps1
+  change_aware_full_coverage_static_validator: .agents/codex/tools/local_validate_change_aware_full_coverage_orchestrator.ps1
+  change_aware_test_manifest: .agents/codex/matrices/CHANGE_AWARE_TEST_MANIFEST.csv
+  change_aware_risk_policy: .agents/codex/matrices/CHANGE_AWARE_RISK_POLICY.csv
+  change_aware_impact_graph: .agents/codex/matrices/CHANGE_AWARE_IMPACT_GRAPH.csv
+  change_aware_audit_latest: .agents/codex/evals/results/change_aware_full_coverage_audit_latest.json
+  change_aware_readback: .agents/codex/readbacks/2026-06-03_change_aware_full_coverage_orchestrator_readback.md
   change_aware_acceptance_flags: all_required_passed|coverage_equivalence|manifest_valid|graph_valid|no_hidden_flaky|blocked_surfaces_clear
   change_aware_required_test_count: 19
-  repo_local_skill_root: D:/.agents/skills
-  skill_governance_catalog: D:/.agents/codex/skills
+  repo_local_skill_root: .agents/skills
+  skill_governance_catalog: .agents/codex/skills
   repo_local_skill_availability_state: ALL_DECLARED_REPO_LOCAL_SKILLS_AVAILABLE_20260602
   repo_local_skill_count: 10
   skill_usage_matrix_declared_count: 49
   skill_usage_matrix_available_count: 49
-  skill_availability_readback: D:/.agents/codex/readbacks/2026-06-02_skill_availability_drift_readback.md
-  subrecipe_index: D:/.agents/codex/recipes/SUBRECIPE_INDEX.csv
+  skill_availability_readback: .agents/codex/readbacks/2026-06-02_skill_availability_drift_readback.md
+  subrecipe_index: .agents/codex/recipes/SUBRECIPE_INDEX.csv
   openai_local_design_state: LOCAL_DESIGN_ONLY_API_LIVE_REQUIRES_ORDER
   agents_sdk_local_preflight_state: LOCAL_IMPORT_APPROVED_NO_API_CALL
-  repo_runtime_matrix: D:/.agents/codex/matrices/REPO_RUNTIME_ALIGNMENT_MATRIX.csv
-  runtime_status_matrix: D:/.agents/codex/matrices/RUNTIME_ALIGNMENT_STATUS_MATRIX.csv
-  runtime_tool: D:/.agents/codex/tools/local_run_repo_alignment_runtime.ps1
-  all_repo_github_alignment_tool: D:/.agents/codex/tools/local_validate_all_repo_github_alignment.ps1
+  repo_runtime_matrix: .agents/codex/matrices/REPO_RUNTIME_ALIGNMENT_MATRIX.csv
+  runtime_status_matrix: .agents/codex/matrices/RUNTIME_ALIGNMENT_STATUS_MATRIX.csv
+  runtime_tool: .agents/codex/tools/local_run_repo_alignment_runtime.ps1
+  all_repo_github_alignment_tool: .agents/codex/tools/local_validate_all_repo_github_alignment.ps1
   runtime_check_mode: local_run_repo_alignment_runtime.ps1 -NoWrite
-  latest_result: D:/.agents/codex/evals/results/repo_alignment_runtime_latest.json
-  all_repo_github_alignment_result: D:/.agents/codex/evals/results/all_repo_github_alignment_latest.json
+  latest_result: .agents/codex/evals/results/repo_alignment_runtime_latest.json
+  all_repo_github_alignment_result: .agents/codex/evals/results/all_repo_github_alignment_latest.json
   agents_aligned: 14
   repos_aligned: 12
   cabina_repo_alignment_rows: 12
@@ -395,19 +395,19 @@ migration_state:
 versioning_state:
   as_of: 2026-06-01
   root_repo: D_CABINA_UNIVERSAL_ROOT
-  root_repo_local_path: D:/
+  root_repo_local_path: C:/Users/enzo1/Documents/GitHub/cabina-universal-d
   root_repo_scope: allowlist_governance_metadata
   root_repo_remote_url: https://github.com/universo-rey/cabina-universal-d.git
   governing_repo: universo-rey/organizacion
-  governing_repo_local_path: D:/01_GOVERNANCE_REGISTRY/10_REPOS/02_ACTIVE/organizacion
-  registered_file_registry: D:/01_GOVERNANCE_REGISTRY/D_DRIVE_FILE_REGISTRY.csv
-  git_status_matrix: D:/01_GOVERNANCE_REGISTRY/D_DRIVE_GIT_STATUS_MATRIX.csv
-  agent_layer_snapshot: D:/01_GOVERNANCE_REGISTRY/10_REPOS/02_ACTIVE/organizacion/05_AGENTES/D_DRIVE_CODEX_AGENT_LAYER
+  governing_repo_local_path: 01_GOVERNANCE_REGISTRY/10_REPOS/02_ACTIVE/organizacion
+  registered_file_registry: 01_GOVERNANCE_REGISTRY/D_DRIVE_FILE_REGISTRY.csv
+  git_status_matrix: 01_GOVERNANCE_REGISTRY/D_DRIVE_GIT_STATUS_MATRIX.csv
+  agent_layer_snapshot: 01_GOVERNANCE_REGISTRY/10_REPOS/02_ACTIVE/organizacion/05_AGENTES/D_DRIVE_CODEX_AGENT_LAYER
   pull_request: https://github.com/universo-rey/organizacion/pull/40
   status: D_DRIVE_LOCAL_ASSETS_REGISTERED_VERSIONED_DRAFT_PR_OPEN
   exclusions:
-    - D:/.secrets
-    - D:/$RECYCLE.BIN
-    - D:/System Volume Information
+    - .secrets
+    - $RECYCLE.BIN
+    - System Volume Information
     - .git internals
     - cache folders

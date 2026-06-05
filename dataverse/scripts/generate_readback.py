@@ -48,16 +48,16 @@ def main() -> int:
 - Branch: codex/dataverse-dev-provisioning-20260603
 
 ## Fuentes leidas
-- D:/AGENTS.md
-- D:/MANIFEST.yaml
-- D:/MAPA_HUMANO.md
-- D:/00_CONTROL_PLANE_INGRESS/ROUTING.json
-- D:/01_GOVERNANCE_REGISTRY/README.md
-- D:/02_AUTHORITY_CANON/CURRENT_STATE.md
-- D:/.agents/codex/README.md
-- D:/.agents/codex/agents.json
-- D:/.agents/codex/routing.json
-- D:/.agents/codex/matrices/*.csv
+- AGENTS.md
+- MANIFEST.yaml
+- MAPA_HUMANO.md
+- 00_CONTROL_PLANE_INGRESS/ROUTING.json
+- 01_GOVERNANCE_REGISTRY/README.md
+- 02_AUTHORITY_CANON/CURRENT_STATE.md
+- .agents/codex/README.md
+- .agents/codex/agents.json
+- .agents/codex/routing.json
+- .agents/codex/matrices/*.csv
 - Microsoft Learn: Power Platform CLI, Dataverse change tracking, solutions, deployment settings and GitHub Actions.
 
 ## Matrices

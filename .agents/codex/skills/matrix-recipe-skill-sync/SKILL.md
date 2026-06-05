@@ -1,6 +1,6 @@
 ---
 name: matrix-recipe-skill-sync
-description: Use when a D:\.agents\codex matrix, recipe, skill, tool, map, eval, or agent assignment changes and local indexes must stay aligned.
+description: Use when a .agents\codex matrix, recipe, skill, tool, map, eval, or agent assignment changes and local indexes must stay aligned.
 ---
 
 # Matrix Recipe Skill Sync
@@ -39,7 +39,7 @@ For a tool change:
 Run:
 
 ```powershell
-D:\.agents\codex\tools\local_validate_agent_layer.ps1
+.agents\codex\tools\local_validate_agent_layer.ps1
 ```
 
 If the full validator is unavailable, run `local_validate_agent_levels.ps1` and record the gap as `NO_CONSTA_FULL_LAYER_VALIDATOR`.

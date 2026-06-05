@@ -50,9 +50,9 @@ or persist secrets.
 
 ## Evidence
 
-- `D:/.agents/codex/matrices/OPENAI_UPSTREAM_REFERENCE_MATRIX.csv`
-- `D:/.agents/codex/matrices/OPENAI_TWO_WAVE_ADOPTION_MATRIX_20260602.csv`
-- `D:/.agents/codex/readbacks/2026-06-02_openai_two_wave_adoption_readback.md`
+- `.agents/codex/matrices/OPENAI_UPSTREAM_REFERENCE_MATRIX.csv`
+- `.agents/codex/matrices/OPENAI_TWO_WAVE_ADOPTION_MATRIX_20260602.csv`
+- `.agents/codex/readbacks/2026-06-02_openai_two_wave_adoption_readback.md`
 - Repo-native readback when Wave 2 is executed inside a nested repo.
 
 ## Validator
@@ -60,7 +60,7 @@ or persist secrets.
 Run:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File D:\.agents\codex\tools\local_validate_openai_upstream_adoption.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .agents\codex\tools\local_validate_openai_upstream_adoption.ps1
 ```
 
 Stop with `operational_chain_missing` if any lane lacks agent, skill, recipe,

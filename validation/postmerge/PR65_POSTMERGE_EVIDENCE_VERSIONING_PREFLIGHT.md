@@ -14,11 +14,11 @@ PR65_POSTMERGE_EVIDENCE_VERSIONING_PREFLIGHT_PASS
 - remote: https://github.com/universo-rey/cabina-universal-d.git
 
 ## Archivos autorizados
-- D:/validation/postmerge/PR65_MERGE_PREFLIGHT.md: exists
-- D:/validation/postmerge/PR65_MAIN_SYNC_POSTCHECK.md: exists
-- D:/readbacks/postmerge/READBACK_PR65_MERGED_AND_MAIN_SYNCED.md: exists
-- D:/docs/postmerge/PR65_MERGE_ROLLBACK_PLAN.md: exists, ignored by allowlist and requires explicit forced staging
-- D:/validation/postmerge/PR65_POSTMERGE_EVIDENCE_VERSIONING_PREFLIGHT.md: created for this versioning carril
+- validation/postmerge/PR65_MERGE_PREFLIGHT.md: exists
+- validation/postmerge/PR65_MAIN_SYNC_POSTCHECK.md: exists
+- readbacks/postmerge/READBACK_PR65_MERGED_AND_MAIN_SYNCED.md: exists
+- docs/postmerge/PR65_MERGE_ROLLBACK_PLAN.md: exists, ignored by allowlist and requires explicit forced staging
+- validation/postmerge/PR65_POSTMERGE_EVIDENCE_VERSIONING_PREFLIGHT.md: created for this versioning carril
 
 ## Gates
 - git pull --ff-only origin main: PASS

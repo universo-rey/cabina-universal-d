@@ -1,5 +1,5 @@
 "validator_id","decision","artifact","reason","blocked_if_live"
-"local_validate_skill_recipe_agent_learning","IMPLEMENTED","D:/.agents/codex/tools/local_validate_skill_recipe_agent_learning.ps1","simple local file and CSV validator for this retrospective package","no"
+"local_validate_skill_recipe_agent_learning","IMPLEMENTED",".agents/codex/tools/local_validate_skill_recipe_agent_learning.ps1","simple local file and CSV validator for this retrospective package","no"
 "local_validate_dataverse_seed_batch_integrity","DESIGN_ONLY","NO_APLICA","needs broader seed contract review","no"
 "local_validate_workqueue_payload_contract","DESIGN_ONLY","NO_APLICA","candidate for next Power Automate PR","no"
 "local_validate_openai_metadata_only_batch","DESIGN_ONLY","NO_APLICA","candidate after OpenAI metadata policy review","no"

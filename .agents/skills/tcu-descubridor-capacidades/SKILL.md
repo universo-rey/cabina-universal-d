@@ -50,10 +50,10 @@ or closeout.
 ## Validator
 
 Primary:
-`D:\.agents\codex\tools\local_validate_capability_use_hardening.ps1`.
+`.agents\codex\tools\local_validate_capability_use_hardening.ps1`.
 
 Companion:
-`D:\.agents\codex\tools\local_validate_autonomous_agent_execution.ps1`.
+`.agents\codex\tools\local_validate_autonomous_agent_execution.ps1`.
 
 ## Stop Conditions
 

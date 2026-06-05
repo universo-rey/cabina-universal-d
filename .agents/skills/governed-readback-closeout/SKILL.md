@@ -72,8 +72,8 @@ HECHO_VERIFICADO:
 For repo-local cabina changes, run:
 
 ```powershell
-D:\.agents\codex\tools\local_validate_operational_chain.ps1
-D:\.agents\codex\tools\local_validate_skill_metadata.ps1
+.agents\codex\tools\local_validate_operational_chain.ps1
+.agents\codex\tools\local_validate_skill_metadata.ps1
 ```
 
 ## Stop Conditions

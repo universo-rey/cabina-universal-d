@@ -1,5 +1,5 @@
 param(
-  [string]$Root = "D:\.agents\codex",
+  [string]$Root = ".agents\codex",
   [string]$Today = "2026-06-01"
 )
 
@@ -43,12 +43,12 @@ function Agent-Surface {
   param($Agent)
   $id = [string]$Agent.id
   $reads = Join-Unique @($Agent.reads)
-  if ($id -match "escribania") { return "D:\10_UNIVERSOS\ESCRIBANIA|TGE tenant surfaces governed" }
-  if ($id -match "modo_on") { return "D:\10_UNIVERSOS\MODO_ON|CDF Jara provider surfaces governed" }
-  if ($id -match "sdu|seshat|openai|thot") { return "D:\03_CORTE_EJECUTORA_DEL_REY|SDU Seshat Corte surfaces" }
-  if ($id -match "repo|governance|migration") { return "D:\01_GOVERNANCE_REGISTRY|repo local remote metadata" }
-  if ($id -match "frontier|canon") { return "D:\02_AUTHORITY_CANON|gates policies orders" }
-  if ($id -match "workspace|reference") { return "D:\.agents\codex|D:\80_REFERENCIAS_TECNICAS" }
+  if ($id -match "escribania") { return "10_UNIVERSOS\ESCRIBANIA|TGE tenant surfaces governed" }
+  if ($id -match "modo_on") { return "10_UNIVERSOS\MODO_ON|CDF Jara provider surfaces governed" }
+  if ($id -match "sdu|seshat|openai|thot") { return "03_CORTE_EJECUTORA_DEL_REY|SDU Seshat Corte surfaces" }
+  if ($id -match "repo|governance|migration") { return "01_GOVERNANCE_REGISTRY|repo local remote metadata" }
+  if ($id -match "frontier|canon") { return "02_AUTHORITY_CANON|gates policies orders" }
+  if ($id -match "workspace|reference") { return ".agents\codex|80_REFERENCIAS_TECNICAS" }
   $reads
 }
 
@@ -98,8 +98,8 @@ $data.default_policy.required_closeout_fields = @(
   "agente", "orden", "superficie", "estado", "evidencia",
   "validador", "riesgo", "rollback", "stop_condition", "proximos_carriles"
 )
-$data.artifact_roots | Add-Member -NotePropertyName workpapers -NotePropertyValue "D:\.agents\codex\workpapers" -Force
-$data.artifact_roots | Add-Member -NotePropertyName plugins -NotePropertyValue "D:\.agents\codex\plugins" -Force
+$data.artifact_roots | Add-Member -NotePropertyName workpapers -NotePropertyValue ".agents\codex\workpapers" -Force
+$data.artifact_roots | Add-Member -NotePropertyName plugins -NotePropertyValue ".agents\codex\plugins" -Force
 
 $existing = Import-Csv -LiteralPath (Join-Path $Root "matrices\AGENT_TOOL_RECIPE_SKILL_MATRIX.csv")
 $refs = @{}
@@ -150,7 +150,7 @@ foreach ($agent in @($data.agents)) {
   $id = [string]$agent.id
   $workPath = Join-Path $workRoot $id
   $snapshotPath = "05_AGENTES/D_DRIVE_CODEX_AGENT_LAYER/workpapers/$id"
-  $primarySurface = if ($agent.reads -and $agent.reads.Count -gt 0) { [string]$agent.reads[0] } else { "D:\" }
+  $primarySurface = if ($agent.reads -and $agent.reads.Count -gt 0) { [string]$agent.reads[0] } else { "AGENTS.md" }
   $surface = Agent-Surface $agent
   $agentRefs = $refs[$id]
   $skills = if ($agentRefs) { Join-Unique ($agentRefs.skills + @("superpowers:verification-before-completion")) } else { "superpowers:verification-before-completion" }
@@ -359,10 +359,10 @@ Copy-Item -LiteralPath (Join-Path $Root "matrices\PLUGIN_USAGE_MATRIX.csv") -Des
 
 $matrixPath = Join-Path $Root "matrices\MATRIX_INDEX.csv"
 $matrixRows = @(Import-Csv -LiteralPath $matrixPath)
-$matrixRows = Add-MatrixIndexRow $matrixRows "agent_workpapers_matrix" "D:\.agents\codex\matrices\AGENT_WORKPAPERS_MATRIX.csv" "agent_workpapers" "03_CORTE_EJECUTORA" "update when any agent workpaper path or validator changes"
-$matrixRows = Add-MatrixIndexRow $matrixRows "plugin_usage_matrix" "D:\.agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv" "plugins" "05_SOPORTE_TECNICO" "update when plugin availability or live boundary changes"
-$matrixRows = Add-MatrixIndexRow $matrixRows "purpose_surface_capability_matrix" "D:\.agents\codex\matrices\PURPOSE_SURFACE_CAPABILITY_MATRIX.csv" "agent_surface_capabilities" "00_ROUTER" "update when purpose surface capability or repo reading route changes"
-$matrixRows = Add-MatrixIndexRow $matrixRows "workpaper_index" "D:\.agents\codex\workpapers\WORKPAPER_INDEX.csv" "agent_workpapers" "03_CORTE_EJECUTORA" "update when workpaper folder ownership changes"
+$matrixRows = Add-MatrixIndexRow $matrixRows "agent_workpapers_matrix" ".agents\codex\matrices\AGENT_WORKPAPERS_MATRIX.csv" "agent_workpapers" "03_CORTE_EJECUTORA" "update when any agent workpaper path or validator changes"
+$matrixRows = Add-MatrixIndexRow $matrixRows "plugin_usage_matrix" ".agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv" "plugins" "05_SOPORTE_TECNICO" "update when plugin availability or live boundary changes"
+$matrixRows = Add-MatrixIndexRow $matrixRows "purpose_surface_capability_matrix" ".agents\codex\matrices\PURPOSE_SURFACE_CAPABILITY_MATRIX.csv" "agent_surface_capabilities" "00_ROUTER" "update when purpose surface capability or repo reading route changes"
+$matrixRows = Add-MatrixIndexRow $matrixRows "workpaper_index" ".agents\codex\workpapers\WORKPAPER_INDEX.csv" "agent_workpapers" "03_CORTE_EJECUTORA" "update when workpaper folder ownership changes"
 Export-Rows -Path $matrixPath -Rows $matrixRows
 
 $capPath = Join-Path $Root "matrices\CAPABILITY_MATRIX.csv"
@@ -378,27 +378,27 @@ Export-Rows -Path $capPath -Rows $capRows
 $validationPath = Join-Path $Root "matrices\VALIDATION_COVERAGE_MATRIX.csv"
 $validationRows = @(Import-Csv -LiteralPath $validationPath)
 $validationRows = Add-UniqueRows $validationRows @(
-  [pscustomobject]@{ artifact_class="workpapers"; required_index="D:\.agents\codex\workpapers\WORKPAPER_INDEX.csv"; required_validator="D:\.agents\codex\tools\local_validate_agent_workpapers.ps1"; owner_agent="court.seshat_evidence"; coverage_status="covered"; stop_condition="workpaper_missing_for_agent" },
-  [pscustomobject]@{ artifact_class="plugins"; required_index="D:\.agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv"; required_validator="D:\.agents\codex\tools\local_validate_agent_layer.ps1"; owner_agent="codex.workspace_guardian"; coverage_status="covered"; stop_condition="plugin_without_surface_boundary" }
+  [pscustomobject]@{ artifact_class="workpapers"; required_index=".agents\codex\workpapers\WORKPAPER_INDEX.csv"; required_validator=".agents\codex\tools\local_validate_agent_workpapers.ps1"; owner_agent="court.seshat_evidence"; coverage_status="covered"; stop_condition="workpaper_missing_for_agent" },
+  [pscustomobject]@{ artifact_class="plugins"; required_index=".agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv"; required_validator=".agents\codex\tools\local_validate_agent_layer.ps1"; owner_agent="codex.workspace_guardian"; coverage_status="covered"; stop_condition="plugin_without_surface_boundary" }
 ) @("artifact_class", "required_index")
 Export-Rows -Path $validationPath -Rows $validationRows
 
 $evidencePath = Join-Path $Root "matrices\EVIDENCE_AND_VALIDATION_MATRIX.csv"
 $evidenceRows = @(Import-Csv -LiteralPath $evidencePath)
 $evidenceRows = Add-UniqueRows $evidenceRows @(
-  [pscustomobject]@{ event_type="agent_workpaper_change"; required_agent="court.seshat_evidence"; required_artifact="D:\.agents\codex\workpapers"; validator_or_check="tools\local_validate_agent_workpapers.ps1|tools\local_validate_agent_layer.ps1"; stop_condition="workpaper_missing_for_agent" },
-  [pscustomobject]@{ event_type="plugin_boundary_change"; required_agent="codex.workspace_guardian"; required_artifact="D:\.agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv"; validator_or_check="tools\local_validate_agent_layer.ps1"; stop_condition="plugin_without_surface_boundary" }
+  [pscustomobject]@{ event_type="agent_workpaper_change"; required_agent="court.seshat_evidence"; required_artifact=".agents\codex\workpapers"; validator_or_check="tools\local_validate_agent_workpapers.ps1|tools\local_validate_agent_layer.ps1"; stop_condition="workpaper_missing_for_agent" },
+  [pscustomobject]@{ event_type="plugin_boundary_change"; required_agent="codex.workspace_guardian"; required_artifact=".agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv"; validator_or_check="tools\local_validate_agent_layer.ps1"; stop_condition="plugin_without_surface_boundary" }
 ) @("event_type", "required_artifact")
 Export-Rows -Path $evidencePath -Rows $evidenceRows
 
 $toolIndexPath = Join-Path $Root "tools\TOOL_INDEX.csv"
 $toolIndexRows = @(Import-Csv -LiteralPath $toolIndexPath)
 $toolIndexRows = Add-UniqueRows $toolIndexRows @(
-  [pscustomobject]@{ tool_id="tool.local_validate_agent_workpapers"; level_id="03_CORTE_EJECUTORA"; tool_type="run"; path_or_command="D:\.agents\codex\tools\local_validate_agent_workpapers.ps1"; allowed_surface="local_filesystem"; blocked_surface="external_runtime" },
-  [pscustomobject]@{ tool_id="tool.local_generate_agent_workpapers"; level_id="03_CORTE_EJECUTORA"; tool_type="run"; path_or_command="D:\.agents\codex\tools\local_generate_agent_workpapers.ps1"; allowed_surface="local_filesystem"; blocked_surface="external_runtime|live_connector_execution" },
-  [pscustomobject]@{ tool_id="tool.workpaper_index_check"; level_id="03_CORTE_EJECUTORA"; tool_type="read"; path_or_command="D:\.agents\codex\workpapers\WORKPAPER_INDEX.csv"; allowed_surface="local_filesystem"; blocked_surface="remote_write" },
-  [pscustomobject]@{ tool_id="tool.plugin_registry_check"; level_id="05_SOPORTE_TECNICO"; tool_type="read"; path_or_command="D:\.agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv"; allowed_surface="local_filesystem"; blocked_surface="live_connector_execution" },
-  [pscustomobject]@{ tool_id="tool.sharepoint_complete_read_order_builder"; level_id="01_AUTORIDAD_Y_GATES"; tool_type="write"; path_or_command="D:\.agents\codex\orders"; allowed_surface="local_order_packet"; blocked_surface="microsoft_live_read_without_order" }
+  [pscustomobject]@{ tool_id="tool.local_validate_agent_workpapers"; level_id="03_CORTE_EJECUTORA"; tool_type="run"; path_or_command=".agents\codex\tools\local_validate_agent_workpapers.ps1"; allowed_surface="local_filesystem"; blocked_surface="external_runtime" },
+  [pscustomobject]@{ tool_id="tool.local_generate_agent_workpapers"; level_id="03_CORTE_EJECUTORA"; tool_type="run"; path_or_command=".agents\codex\tools\local_generate_agent_workpapers.ps1"; allowed_surface="local_filesystem"; blocked_surface="external_runtime|live_connector_execution" },
+  [pscustomobject]@{ tool_id="tool.workpaper_index_check"; level_id="03_CORTE_EJECUTORA"; tool_type="read"; path_or_command=".agents\codex\workpapers\WORKPAPER_INDEX.csv"; allowed_surface="local_filesystem"; blocked_surface="remote_write" },
+  [pscustomobject]@{ tool_id="tool.plugin_registry_check"; level_id="05_SOPORTE_TECNICO"; tool_type="read"; path_or_command=".agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv"; allowed_surface="local_filesystem"; blocked_surface="live_connector_execution" },
+  [pscustomobject]@{ tool_id="tool.sharepoint_complete_read_order_builder"; level_id="01_AUTORIDAD_Y_GATES"; tool_type="write"; path_or_command=".agents\codex\orders"; allowed_surface="local_order_packet"; blocked_surface="microsoft_live_read_without_order" }
 ) @("tool_id")
 Export-Rows -Path $toolIndexPath -Rows $toolIndexRows
 
@@ -416,9 +416,9 @@ Export-Rows -Path $toolGovPath -Rows $toolGovRows
 $recipePath = Join-Path $Root "recipes\RECIPE_INDEX.csv"
 $recipeRows = @(Import-Csv -LiteralPath $recipePath)
 $recipeRows = Add-UniqueRows $recipeRows @(
-  [pscustomobject]@{ recipe_id="recipe.agent_workpaper_operation"; level_id="03_CORTE_EJECUTORA"; primary_agent="court.seshat_evidence"; path="D:\.agents\codex\recipes\recipe.agent_workpaper_operation.md"; output="agent_workpaper_packet" },
-  [pscustomobject]@{ recipe_id="recipe.sharepoint_complete_read_order"; level_id="01_AUTORIDAD_Y_GATES"; primary_agent="court.sdu_gate"; path="D:\.agents\codex\recipes\recipe.sharepoint_complete_read_order.md"; output="sharepoint_complete_read_order_packet" },
-  [pscustomobject]@{ recipe_id="recipe.agent_surface_capability_assignment"; level_id="04_TORRES_DE_UNIVERSO"; primary_agent="universe.escribania_tower"; path="D:\.agents\codex\recipes\recipe.agent_surface_capability_assignment.md"; output="surface_capability_assignment" }
+  [pscustomobject]@{ recipe_id="recipe.agent_workpaper_operation"; level_id="03_CORTE_EJECUTORA"; primary_agent="court.seshat_evidence"; path=".agents\codex\recipes\recipe.agent_workpaper_operation.md"; output="agent_workpaper_packet" },
+  [pscustomobject]@{ recipe_id="recipe.sharepoint_complete_read_order"; level_id="01_AUTORIDAD_Y_GATES"; primary_agent="court.sdu_gate"; path=".agents\codex\recipes\recipe.sharepoint_complete_read_order.md"; output="sharepoint_complete_read_order_packet" },
+  [pscustomobject]@{ recipe_id="recipe.agent_surface_capability_assignment"; level_id="04_TORRES_DE_UNIVERSO"; primary_agent="universe.escribania_tower"; path=".agents\codex\recipes\recipe.agent_surface_capability_assignment.md"; output="surface_capability_assignment" }
 ) @("recipe_id")
 Export-Rows -Path $recipePath -Rows $recipeRows
 
@@ -439,8 +439,8 @@ Export-Rows -Path $skillPath -Rows $skillRows
 $inventoryPath = Join-Path $Root "matrices\GOVERNED_ASSET_CANONICAL_INVENTORY.csv"
 $inventoryRows = @(Import-Csv -LiteralPath $inventoryPath)
 $inventoryRows = Add-UniqueRows $inventoryRows @(
-  [pscustomobject]@{ asset_class="workpapers"; asset_id="D_AGENT_WORKPAPERS"; owner_agent="court.seshat_evidence"; authority_level="03_CORTE_EJECUTORA"; governing_matrix="D:\.agents\codex\matrices\AGENT_WORKPAPERS_MATRIX.csv"; required_recipe="recipe.agent_workpaper_operation"; required_tool="tool.local_validate_agent_workpapers"; evidence="workpaper_readback"; validator="tool.local_validate_agent_layer"; coverage_status="covered"; stop_condition="workpaper_missing_for_agent" },
-  [pscustomobject]@{ asset_class="plugins"; asset_id="D_PLUGIN_USAGE"; owner_agent="codex.workspace_guardian"; authority_level="05_SOPORTE_TECNICO"; governing_matrix="D:\.agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv"; required_recipe="recipe.matrix_recipe_skill_sync"; required_tool="tool.plugin_registry_check"; evidence="plugin_boundary_readback"; validator="tool.local_validate_agent_layer"; coverage_status="covered"; stop_condition="plugin_without_surface_boundary" }
+  [pscustomobject]@{ asset_class="workpapers"; asset_id="D_AGENT_WORKPAPERS"; owner_agent="court.seshat_evidence"; authority_level="03_CORTE_EJECUTORA"; governing_matrix=".agents\codex\matrices\AGENT_WORKPAPERS_MATRIX.csv"; required_recipe="recipe.agent_workpaper_operation"; required_tool="tool.local_validate_agent_workpapers"; evidence="workpaper_readback"; validator="tool.local_validate_agent_layer"; coverage_status="covered"; stop_condition="workpaper_missing_for_agent" },
+  [pscustomobject]@{ asset_class="plugins"; asset_id="D_PLUGIN_USAGE"; owner_agent="codex.workspace_guardian"; authority_level="05_SOPORTE_TECNICO"; governing_matrix=".agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv"; required_recipe="recipe.matrix_recipe_skill_sync"; required_tool="tool.plugin_registry_check"; evidence="plugin_boundary_readback"; validator="tool.local_validate_agent_layer"; coverage_status="covered"; stop_condition="plugin_without_surface_boundary" }
 ) @("asset_class", "asset_id")
 Export-Rows -Path $inventoryPath -Rows $inventoryRows
 

@@ -2,9 +2,17 @@
 
 ## Rol de esta carpeta
 
-Esta raiz `D:\` es la Cabina Universal del Rey para ordenar universos, torres, repos, herramientas, sistemas, licencias, agentes y evidencia local.
+Esta raiz `C:\Users\enzo1\Documents\GitHub\cabina-universal-d` es la Cabina Universal del Rey para ordenar universos, torres, repos, herramientas, sistemas, licencias, agentes y evidencia local.
 
 Esta carpeta puede abrirse como proyecto en Codex. Su primera funcion es orientar, clasificar y preparar trabajo gobernado. Ya opera como repo raiz envoltorio gobernado para visibilidad nativa de Codex/Git, sin absorber repos anidados y sin versionar fuera de allowlist.
+
+Estado raiz efectiva actualizado 2026-06-05: por orden expresa del operador,
+la raiz operativa canonica repo-scoped queda en
+`C:\Users\enzo1\Documents\GitHub\cabina-universal-d`. La superficie `D:\`
+queda como legacy/read-only/gobernada hasta decision explicita de metadata
+retention. Las referencias historicas a `D:\` no autorizan operar Git desde
+`D:\`, tocar `D:\.git`, cambiar `core.worktree`, mover clones ni absorber
+repos anidados.
 
 Estado SDU-CN canonical agents actualizado 2026-06-04: por orden expresa del
 operador, la cabina adopta
@@ -17,20 +25,20 @@ operativos sin reemplazarlos. No son herramientas, no son adaptadores, no
 pertenecen a un solo repo y OpenAI/Codex/Agents SDK son runtimes o tools, no
 fuente de autoridad. Regla resumida: OpenAI/Codex/Agents SDK no fuente de
 autoridad. La evidencia rectora vive en
-`D:\02_AUTHORITY_CANON\SDU_CN_CANONICAL_AGENT_PANTHEON_20260604.md`,
-`D:\02_AUTHORITY_CANON\SDU_CN_MULTI_UNIVERSE_OPERATING_MODEL_20260604.md`,
-`D:\02_AUTHORITY_CANON\SDU_CN_CANONICAL_AGENT_UNIVERSE_REPO_MATRIX_20260604.csv`,
-`D:\02_AUTHORITY_CANON\SDU_CN_CANONICAL_TO_OPERATIONAL_AGENT_MAPPING_20260604.csv`
-y `D:\02_AUTHORITY_CANON\REPO_NATIVE_CONTRACT_TEMPLATE_20260604.md`.
+`02_AUTHORITY_CANON\SDU_CN_CANONICAL_AGENT_PANTHEON_20260604.md`,
+`02_AUTHORITY_CANON\SDU_CN_MULTI_UNIVERSE_OPERATING_MODEL_20260604.md`,
+`02_AUTHORITY_CANON\SDU_CN_CANONICAL_AGENT_UNIVERSE_REPO_MATRIX_20260604.csv`,
+`02_AUTHORITY_CANON\SDU_CN_CANONICAL_TO_OPERATIONAL_AGENT_MAPPING_20260604.csv`
+y `02_AUTHORITY_CANON\REPO_NATIVE_CONTRACT_TEMPLATE_20260604.md`.
 Los validadores rectores son
-`D:\scripts\validators\sdu_cn_canonical_agent_pantheon_validator.py`,
-`D:\scripts\validators\focus_5_repo_contracts_validator.py` y
-`D:\scripts\validators\cabina_startup_contract_validator.py`.
+`scripts\validators\sdu_cn_canonical_agent_pantheon_validator.py`,
+`scripts\validators\focus_5_repo_contracts_validator.py` y
+`scripts\validators\cabina_startup_contract_validator.py`.
 
 Estado actualizado 2026-06-01: por orden expresa del operador, `D:\` puede
 estar inicializado como repo local envoltorio con allowlist. Esto no absorbe ni
 reemplaza los repos anidados; `organizacion` conserva su propio repo en
-`D:\01_GOVERNANCE_REGISTRY\10_REPOS\02_ACTIVE\organizacion`.
+`01_GOVERNANCE_REGISTRY\10_REPOS\02_ACTIVE\organizacion`.
 
 Estado GitHub actualizado 2026-06-01: el repo raiz envoltorio remoto es
 `universo-rey/cabina-universal-d`. El PR raiz #1 fue mergeado a `main` con
@@ -80,10 +88,10 @@ stop condition.
 
 Estado cola paralela actualizado 2026-06-01: los carriles por issue deben
 declararse en
-`D:\.agents\codex\matrices\PARALLEL_ISSUE_LANE_QUEUE.csv` con `base_sha`,
+`.agents\codex\matrices\PARALLEL_ISSUE_LANE_QUEUE.csv` con `base_sha`,
 rama `codex/*`, file set exacto, `lock_key` unico, dependencias y
 `max_parallel`. La cola se valida con
-`D:\.agents\codex\tools\local_validate_parallel_issue_queue.ps1`. Los indices
+`.agents\codex\tools\local_validate_parallel_issue_queue.ps1`. Los indices
 compartidos requieren carril serial de integracion.
 
 Estado merge cola paralela 2026-06-01: el PR raiz #22 fue mergeado a `main`
@@ -115,11 +123,11 @@ manifiesto sin abrir Microsoft live, OpenAI API live ni produccion.
 
 Estado alineacion todos repositorios actualizado 2026-06-02: los 12 repos
 registrados quedan verificados localmente y contra GitHub read-only mediante
-`D:\.agents\codex\tools\local_validate_all_repo_github_alignment.ps1`. La
+`.agents\codex\tools\local_validate_all_repo_github_alignment.ps1`. La
 evidencia vive en
-`D:\.agents\codex\evals\results\all_repo_github_alignment_latest.json` y el
+`.agents\codex\evals\results\all_repo_github_alignment_latest.json` y el
 readback en
-`D:\.agents\codex\readbacks\2026-06-02_all_repositories_alignment_readback.md`.
+`.agents\codex\readbacks\2026-06-02_all_repositories_alignment_readback.md`.
 La alineacion no absorbe repos anidados; `SESHAT_BOOTSTRAP` conserva cambios
 locales propios que requieren carril repo-nativo.
 
@@ -132,55 +140,55 @@ Estado uso endurecido de capacidades actualizado 2026-06-02: toda entrada,
 lectura, escritura, derivacion, dispatch paralelo, gate live/costo/produccion
 y cierre debe declarar desde el inicio agente, skill, receta, plugin, tool,
 superficie, evidencia, validador y stop condition. La matriz vive en
-`D:\.agents\codex\matrices\CAPABILITY_USE_HARDENING_MATRIX.csv` y se valida
-con `D:\.agents\codex\tools\local_validate_capability_use_hardening.ps1`. Si
+`.agents\codex\matrices\CAPABILITY_USE_HARDENING_MATRIX.csv` y se valida
+con `.agents\codex\tools\local_validate_capability_use_hardening.ps1`. Si
 falta algun componente o la asignacion no resuelve, detener antes de ejecutar
 con `capability_use_preflight_missing`.
 
 Estado autonomia gobernada actualizado 2026-06-02: antes de toda asignacion,
 derivacion, ejecucion autonoma, Codex Cloud o cierre, debe usarse
-`D:\.agents\skills\tcu-descubridor-capacidades\SKILL.md` para descubrir y
+`.agents\skills\tcu-descubridor-capacidades\SKILL.md` para descubrir y
 asignar skills, recetas, plugins y tools reales o marcar `NO_DISPONIBLE`. La
-matriz `D:\.agents\codex\matrices\AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv`
+matriz `.agents\codex\matrices\AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv`
 y el validador
-`D:\.agents\codex\tools\local_validate_autonomous_agent_execution.ps1`
+`.agents\codex\tools\local_validate_autonomous_agent_execution.ps1`
 gobiernan agentes locales task-scoped, task agents y Codex Cloud repo-scoped.
 Los repos sin environment visible quedan bloqueados con
 `codex_cloud_environment_missing`; los agentes remotos persistentes siguen
 requiriendo orden gobernada separada.
 
 Estado skills repo-locales actualizado 2026-06-01: las skills portables de la
-cabina viven en `D:\.agents\skills\<skill>\SKILL.md`. La carpeta
-`D:\.agents\codex\skills` conserva el catalogo, source refs, matrices de uso y
+cabina viven en `.agents\skills\<skill>\SKILL.md`. La carpeta
+`.agents\codex\skills` conserva el catalogo, source refs, matrices de uso y
 subskills. Las instalaciones globales de usuario son runtime local, no fuente
 durable rectora.
 
 Estado metadata de skills actualizado 2026-06-01: toda skill repo-local debe
 declarar description activable, trigger boundary, allowed actions, blocked
 actions, validator, evidencia y stop condition. La matriz vive en
-`D:\.agents\codex\skills\SKILL_METADATA_QUALITY_MATRIX.csv` y el validador en
-`D:\.agents\codex\tools\local_validate_skill_metadata.ps1`.
+`.agents\codex\skills\SKILL_METADATA_QUALITY_MATRIX.csv` y el validador en
+`.agents\codex\tools\local_validate_skill_metadata.ps1`.
 
 Estado carril documental actualizado 2026-06-01: los trabajos DOCX, PDF,
 spreadsheets y presentaciones se enrutan por
-`D:\.agents\codex\matrices\DOCUMENT_SKILL_LANE_MATRIX.csv` y se validan con
-`D:\.agents\codex\tools\local_validate_document_skill_lane.ps1`. El carril es
+`.agents\codex\matrices\DOCUMENT_SKILL_LANE_MATRIX.csv` y se validan con
+`.agents\codex\tools\local_validate_document_skill_lane.ps1`. El carril es
 local-only; documentos amplios, regulados, secretos o live requieren orden
 gobernada separada.
 
 Estado runtime local actualizado 2026-06-01: el runtime de alineacion se puede
 verificar sin escribir evidencia mutable con
-`D:\.agents\codex\tools\local_run_repo_alignment_runtime.ps1 -NoWrite`. El
+`.agents\codex\tools\local_run_repo_alignment_runtime.ps1 -NoWrite`. El
 preflight Agents SDK local se valida con
-`D:\.agents\codex\tools\local_validate_github_automation_preflight.ps1 -CheckLocalSdk`
+`.agents\codex\tools\local_validate_github_automation_preflight.ps1 -CheckLocalSdk`
 y debe cerrar en `smoke=OK_NO_API_CALL`. Esto no habilita OpenAI API live,
 Agents SDK live, costos ni agentes remotos persistentes.
 
 Estado Codex Cloud gobernado actualizado 2026-06-02: Codex Cloud queda como
 carril remoto repo-scoped activo bajo
-`D:\.agents\codex\maps\CODEX_CLOUD_GOVERNED_LANE.md`,
-`D:\.agents\codex\matrices\CODEX_CLOUD_GOVERNED_LANE_MATRIX.csv` y
-`D:\.agents\codex\tools\local_validate_codex_cloud_governed_lane.ps1`.
+`.agents\codex\maps\CODEX_CLOUD_GOVERNED_LANE.md`,
+`.agents\codex\matrices\CODEX_CLOUD_GOVERNED_LANE_MATRIX.csv` y
+`.agents\codex\tools\local_validate_codex_cloud_governed_lane.ps1`.
 `SeshatSgin/sgin-cloud` queda reconocido y verificado como environment Cloud
 remoto para smoke/CI read-only o no sensible con branch fija. Quedan
 registrados el smoke read-only
@@ -191,7 +199,7 @@ y sin diff. El clon canonico local para este carril es
 `origin/main`; el clon OneDrive en `194d4db` queda marcado como atrasado y no
 debe usarse para Cloud CI sin orden de refresh o higiene. Los environments
 visibles quedan registrados en
-`D:\.agents\codex\matrices\CODEX_CLOUD_ENVIRONMENT_INVENTORY_20260602.csv`.
+`.agents\codex\matrices\CODEX_CLOUD_ENVIRONMENT_INVENTORY_20260602.csv`.
 `universo-rey/cabina-universal-d` queda probado con smoke read-only
 `task_e_6a1f119843d4832e9ed821834222c003`, estado `READY`, sin diff. Esto no
 habilita secretos, Microsoft live, SharePoint real, produccion, permisos,
@@ -212,12 +220,12 @@ label/environment real `SeshatSgin/modo-on-foundation` y
 `SeshatSgin/sdu-canon`.
 
 Estado entornos Codex actualizado 2026-06-02: la cabina crea entorno Codex app
-local/worktree repo-visible en `D:\.codex\environments\environment.toml` para
+local/worktree repo-visible en `.codex\environments\environment.toml` para
 `universo-rey/cabina-universal-d`. La matriz
-`D:\.agents\codex\matrices\CODEX_APP_LOCAL_ENVIRONMENT_MATRIX_20260602.csv`,
-la cola `D:\.agents\codex\matrices\CODEX_ENVIRONMENT_CREATION_QUEUE_20260602.csv`
+`.agents\codex\matrices\CODEX_APP_LOCAL_ENVIRONMENT_MATRIX_20260602.csv`,
+la cola `.agents\codex\matrices\CODEX_ENVIRONMENT_CREATION_QUEUE_20260602.csv`
 y el validador
-`D:\.agents\codex\tools\local_validate_codex_app_environments.ps1` gobiernan
+`.agents\codex\tools\local_validate_codex_app_environments.ps1` gobiernan
 entornos Codex app y Cloud. El CLI disponible no crea Cloud environments; los
 faltantes quedan `NEEDS_CODEX_CLOUD_UI_CREATE` con
 `codex_environment_creation_tool_unavailable` hasta UI/API real con rollback y
@@ -236,9 +244,9 @@ pendiente de environment real. La clave OpenAI aprobada para este entorno vive
 solo en `D:\.env.local`, ignorado por Git, bajo target `Modo On/SYS-SDU`; el
 smoke OpenAI API cerro `PASS_HTTP_200_NO_BODY_PRINTED` sin imprimir cuerpo ni
 secreto. La matriz
-`D:\.agents\codex\matrices\CODEX_CLOUD_LIVE_LANE_FINALIZATION_20260602.csv`
+`.agents\codex\matrices\CODEX_CLOUD_LIVE_LANE_FINALIZATION_20260602.csv`
 y el readback
-`D:\.agents\codex\readbacks\2026-06-02_codex_cloud_live_lane_finalization_readback.md`
+`.agents\codex\readbacks\2026-06-02_codex_cloud_live_lane_finalization_readback.md`
 registran evidencia, rollback y stop conditions. Esto no habilita `codex cloud
 apply`, Microsoft live, produccion, tenant writes, permisos, costos abiertos,
 datos regulados ni uso amplio de OpenAI API sin orden gobernada separada.
@@ -255,12 +263,12 @@ porque esos validadores ya corren como pasos propios; agent levels y
 workpapers permanecen dentro del validador paraguas. El escaneo de secretos
 del validador paraguas lee cada archivo una vez y preserva evidencia de linea.
 La matriz rectora vive en
-`D:\.agents\codex\matrices\VALIDATOR_PERFORMANCE_IMPROVEMENT_MATRIX_20260602.csv`
+`.agents\codex\matrices\VALIDATOR_PERFORMANCE_IMPROVEMENT_MATRIX_20260602.csv`
 y el readback en
-`D:\.agents\codex\readbacks\2026-06-02_validator_performance_improvements_readback.md`.
+`.agents\codex\readbacks\2026-06-02_validator_performance_improvements_readback.md`.
 
 Estado runner agregado de validacion actualizado 2026-06-02: la Fase 3
-introduce `D:\.agents\codex\tools\local_run_governance_validation_suite.ps1`
+introduce `.agents\codex\tools\local_run_governance_validation_suite.ps1`
 como runner agregado. Tras tres corridas manuales adicionales exitosas en
 GitHub Actions (`26855967863`, `26856014739`, `26856054210`), el runner fue
 promovido a gate principal inicial de `cabina-validation.yml` para
@@ -271,9 +279,9 @@ change-aware productivo. Ejecuta la suite existente, emite JSON con duracion
 por validador y puede escribir resultado solo con `-WriteResult`; en GitHub
 Actions debe cerrar con `result_written=false` cuando se lo use como artefacto
 diagnostico. La evidencia historica vive en
-`D:\.agents\codex\readbacks\2026-06-02_governance_validation_suite_phase3_readback.md`
+`.agents\codex\readbacks\2026-06-02_governance_validation_suite_phase3_readback.md`
 y
-`D:\.agents\codex\readbacks\2026-06-02_governance_validation_suite_gate_promotion_readback.md`.
+`.agents\codex\readbacks\2026-06-02_governance_validation_suite_gate_promotion_readback.md`.
 
 Estado hash sets validadores actualizado 2026-06-03: por aprobacion del
 operador, el carril `validator_perf.hash_set_membership` queda implementado en
@@ -283,22 +291,22 @@ operador, el carril `validator_perf.hash_set_membership` queda implementado en
 columnas y stop conditions usan `HashSet[string]` case-insensitive para
 preservar la semantica de `-notin/-notcontains` de PowerShell. La evidencia
 queda en
-`D:\.agents\codex\readbacks\2026-06-03_validator_hash_set_performance_readback.md`.
+`.agents\codex\readbacks\2026-06-03_validator_hash_set_performance_readback.md`.
 No habilita Microsoft live, OpenAI API live, produccion, permisos, secretos ni
 cambios de workflow.
 
 Estado Change-Aware Full-Coverage Orchestrator actualizado 2026-06-03: el
 workflow `cabina-validation.yml` usa
-`D:\.agents\codex\tools\local_run_change_aware_full_coverage_orchestrator.ps1`
+`.agents\codex\tools\local_run_change_aware_full_coverage_orchestrator.ps1`
 como gate productivo para `pull_request`, `push` y `workflow_dispatch`.
 Change-awareness solo ordena, prioriza riesgo, ajusta paralelismo declarado,
 emite evidencia y acelera diagnostico; no elimina tests obligatorios ni
 reemplaza el full gate por test selection. El manifiesto obligatorio vive en
-`D:\.agents\codex\matrices\CHANGE_AWARE_TEST_MANIFEST.csv`, la politica de
-riesgo en `D:\.agents\codex\matrices\CHANGE_AWARE_RISK_POLICY.csv`, el grafo
-de impacto en `D:\.agents\codex\matrices\CHANGE_AWARE_IMPACT_GRAPH.csv` y la
+`.agents\codex\matrices\CHANGE_AWARE_TEST_MANIFEST.csv`, la politica de
+riesgo en `.agents\codex\matrices\CHANGE_AWARE_RISK_POLICY.csv`, el grafo
+de impacto en `.agents\codex\matrices\CHANGE_AWARE_IMPACT_GRAPH.csv` y la
 evidencia local en
-`D:\.agents\codex\evals\results\change_aware_full_coverage_audit_latest.json`.
+`.agents\codex\evals\results\change_aware_full_coverage_audit_latest.json`.
 Un PR solo puede pasar si `all_required_passed`, `coverage_equivalence`,
 `manifest_valid`, `graph_valid`, `no_hidden_flaky` y
 `blocked_surfaces_clear` son verdaderos. Este estado ingreso por el PR raiz
@@ -408,21 +416,23 @@ Toda tarea Codex Cloud debe declarar:
 * validador;
 * stop condition.
 
-Estado jerarquia AGENTS.md actualizado 2026-06-01: `D:\AGENTS.md` es la
-instruccion rectora local de mayor precedencia. Las instrucciones anidadas,
+Estado jerarquia AGENTS.md actualizado 2026-06-05:
+`C:\Users\enzo1\Documents\GitHub\cabina-universal-d\AGENTS.md` es la
+instruccion rectora local de mayor precedencia para ejecucion repo-scoped. Las instrucciones anidadas,
 perfiles de agentes, skills repo-locales, plugins y runtimes globales solo
 pueden acotar o ejecutar dentro de esa frontera; nunca pueden debilitarla ni
 absorber repos anidados. La matriz verificable vive en
-`D:\.agents\codex\matrices\AGENTS_INSTRUCTION_SURFACE_MATRIX.csv` y el
+`.agents\codex\matrices\AGENTS_INSTRUCTION_SURFACE_MATRIX.csv` y el
 validador en
-`D:\.agents\codex\tools\local_validate_agents_instruction_hierarchy.ps1`.
+`.agents\codex\tools\local_validate_agents_instruction_hierarchy.ps1`.
 
 ## Prompt maestro para UI Codex
 
-Cuando Codex abra `D:\`, la UI debe tratar esta carpeta como la Cabina
+Cuando Codex abra `C:\Users\enzo1\Documents\GitHub\cabina-universal-d`, la UI debe tratar esta carpeta como la Cabina
 Universal del Rey y como repo raiz envoltorio activo:
 
-- workspace raiz: `D:\`;
+- workspace raiz: `C:\Users\enzo1\Documents\GitHub\cabina-universal-d`;
+- superficie legacy/read-only/gobernada: `D:\`;
 - repo raiz remoto: `https://github.com/universo-rey/cabina-universal-d.git`;
 - base rectora/remota: `main`;
 - rama de trabajo: verificar estado actual; para nuevos cambios usar `codex/*`
@@ -485,18 +495,18 @@ Universal del Rey y como repo raiz envoltorio activo:
 - allowlist: solo gobierno, canon, agentes locales, matrices, prompts,
   recetas, tools, evals, plugins, templates, readbacks/workpapers saneados y
   workflows GitHub Actions de validacion, mas skills repo-locales bajo
-  `D:\.agents\skills` y entorno Codex app local/worktree bajo `D:\.codex`;
+  `.agents\skills` y entorno Codex app local/worktree bajo `.codex`;
 - repos anidados: conservar su propio `.git`, remoto, rama y PR;
 - `organizacion`: permanece separado en
-  `D:\01_GOVERNANCE_REGISTRY\10_REPOS\02_ACTIVE\organizacion`.
+  `01_GOVERNANCE_REGISTRY\10_REPOS\02_ACTIVE\organizacion`.
 
 Si el prompt de UI, el resumen lateral o una instruccion heredada contradice
-este `AGENTS.md`, declarar la contradiccion y usar `D:\AGENTS.md` como fuente
+este `AGENTS.md`, declarar la contradiccion y usar el `AGENTS.md` de la raiz efectiva C como fuente
 rectora local antes de actuar.
 
 ## Jerarquia de instrucciones locales
 
-1. `D:\AGENTS.md`: fuente rectora local y frontera de seguridad.
+1. `C:\Users\enzo1\Documents\GitHub\cabina-universal-d\AGENTS.md`: fuente rectora local y frontera de seguridad.
 2. Lectura obligatoria local: manifiesto, mapa humano, routing, registry,
    canon, README de `.agents\codex`, `agents.json` y `routing.json`.
 3. Instrucciones anidadas locales: README de subnivel, perfiles de agentes,
@@ -515,14 +525,14 @@ corresponda.
 
 Antes de responder, mover, crear, borrar, ejecutar o proponer cambios, leer en este orden:
 
-1. `D:\MANIFEST.yaml`
-2. `D:\MAPA_HUMANO.md`
-3. `D:\00_CONTROL_PLANE_INGRESS\ROUTING.json`
-4. `D:\01_GOVERNANCE_REGISTRY\README.md`
-5. `D:\02_AUTHORITY_CANON\CURRENT_STATE.md`
-6. `D:\.agents\codex\README.md`
-7. `D:\.agents\codex\agents.json`
-8. `D:\.agents\codex\routing.json`
+1. `MANIFEST.yaml`
+2. `MAPA_HUMANO.md`
+3. `00_CONTROL_PLANE_INGRESS\ROUTING.json`
+4. `01_GOVERNANCE_REGISTRY\README.md`
+5. `02_AUTHORITY_CANON\CURRENT_STATE.md`
+6. `.agents\codex\README.md`
+7. `.agents\codex\agents.json`
+8. `.agents\codex\routing.json`
 
 Si falta un archivo rector, registrar hallazgo y detener la ejecucion destructiva. Se puede preparar borrador local de correccion.
 
@@ -555,6 +565,9 @@ Si falta un archivo rector, registrar hallazgo y detener la ejecucion destructiv
 
 - Leer antes de escribir.
 - Ejecutar primero lo local, reversible y seguro.
+- Buscar siempre la maxima frontera segura: si no se puede ejecutar live,
+  avanzar por staging, dry run, rama, PR, manifest, matriz, paquete, readback
+  o validador local sin cruzar gates.
 - Antes de cualquier ejecucion, asignacion o derivacion, declarar cadena de
   capacidad: agente, skill, receta, plugin, tool, superficie, evidencia,
   validador y stop condition; si falta, detener con
@@ -565,9 +578,11 @@ Si falta un archivo rector, registrar hallazgo y detener la ejecucion destructiv
 - Produccion es `ENABLED_GOVERNED_GATED`: solo se ejecuta con target exacto,
   owner, identidad, rollback, postcheck, evidencia, stop condition y readback.
 - No mover clones locales sin plan de migracion, inventario, origen, destino, rollback y readback.
-- No versionar, commitear, pushear ni crear PR sin orden expresa. Merge solo
-  con orden o ciclo aprobado, HEAD fijo, checks verdes y evidencia.
-- No usar `git add .` en `D:\`; el repo raiz usa allowlist y excluye clones anidados.
+- Commit, push y PR no requieren confirmacion solo dentro de un
+  objetivo/scope explicitamente autorizado por el usuario; fuera de ese scope
+  requieren orden expresa. Merge solo con orden o ciclo aprobado, HEAD fijo,
+  checks verdes y evidencia.
+- No usar `git add .`; el repo raiz usa allowlist y excluye clones anidados.
 - No escribir en Microsoft, GitHub, OpenAI API, Responses API, Agents SDK,
   SharePoint, Power Platform, tenant, produccion ni repos de propagacion sin
   orden gobernada, target exacto, owner, rollback, postcheck y evidencia.
@@ -590,7 +605,8 @@ Si falta un archivo rector, registrar hallazgo y detener la ejecucion destructiv
 
 ## Permitido sin nueva orden
 
-- Leer archivos locales bajo `D:\`.
+- Leer archivos locales bajo la raiz efectiva C y leer `D:\` solo como
+  legacy/read-only/gobernada para reconciliacion.
 - Crear o ajustar borradores locales de mapas, manifiestos, matrices, perfiles de agentes y readbacks.
 - Preparar planes de migracion sin mover activos.
 - Clasificar repos, herramientas, sistemas y licencias por metadata.

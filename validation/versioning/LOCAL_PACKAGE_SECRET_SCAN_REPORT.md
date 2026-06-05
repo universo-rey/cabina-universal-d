@@ -26,5 +26,5 @@ LOCAL_PACKAGE_SECRET_SCAN_PASS
 - Material secreto imprimible o versionable detectado: no.
 
 ## Cierre
-- `contains_secret_material` actualizado en `D:\matrices\versioning\LOCAL_PACKAGE_CHANGE_CLASSIFICATION_MATRIX.csv`.
+- `contains_secret_material` actualizado en `matrices\versioning\LOCAL_PACKAGE_CHANGE_CLASSIFICATION_MATRIX.csv`.
 - Si aparece un hallazgo futuro, el estado de cierre debe pasar a `LOCAL_PACKAGE_VERSIONING_BLOCKED_SECRET_RISK`.

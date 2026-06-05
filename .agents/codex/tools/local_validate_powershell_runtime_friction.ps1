@@ -1,5 +1,5 @@
 param(
-  [string]$RepoRoot = "D:\",
+  [string]$RepoRoot = "C:\Users\enzo1\Documents\GitHub\cabina-universal-d",
   [switch]$WriteResult,
   [int]$MaxWarnings = 200
 )

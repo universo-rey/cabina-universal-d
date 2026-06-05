@@ -12,7 +12,7 @@ Revisar el paquete DEV de Teams identity, MCP, Codex Cloud y local-agent-bridge.
 
 ## Read Scope
 
-- `D:/AGENTS.md` equivalent in checkout;
+- `AGENTS.md` equivalent in checkout;
 - `governance/teams/**`;
 - `governance/connections/**`;
 - `governance/codex-cloud/**`;

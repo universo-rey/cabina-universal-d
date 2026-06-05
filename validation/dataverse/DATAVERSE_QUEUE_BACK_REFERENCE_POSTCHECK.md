@@ -22,9 +22,9 @@ DATAVERSE_QUEUE_BACK_REFERENCE_COLUMNS_PASS
 - PROD/TEST/Default: not used
 
 ## Evidencia
-- D:\matrices\dataverse\DATAVERSE_QUEUE_BACK_REFERENCE_COLUMN_PLAN.csv
-- D:\matrices\dataverse\DATAVERSE_QUEUE_BACK_REFERENCE_COLUMN_APPLY_RESULT.csv
-- D:\matrices\dataverse\DATAVERSE_QUEUE_BACK_REFERENCE_COLUMN_POSTCHECK.csv
+- matrices\dataverse\DATAVERSE_QUEUE_BACK_REFERENCE_COLUMN_PLAN.csv
+- matrices\dataverse\DATAVERSE_QUEUE_BACK_REFERENCE_COLUMN_APPLY_RESULT.csv
+- matrices\dataverse\DATAVERSE_QUEUE_BACK_REFERENCE_COLUMN_POSTCHECK.csv
 
 ## Stop Condition
 wrong_environment_or_secret_or_missing_column_or_create_failure

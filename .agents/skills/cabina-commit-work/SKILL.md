@@ -1,6 +1,6 @@
 ---
 name: cabina-commit-work
-description: Use when durable repo work in D:\, cabina-universal-d, or registered repos must move through GitHub branch, explicit staging, commit, push, draft PR, checks, and readback under cabina governance.
+description: Use when durable repo work in cabina-universal-d or registered repos must move through GitHub branch, explicit staging, commit, push, draft PR, checks, and readback under cabina governance.
 ---
 
 # Cabina Commit Work
@@ -8,7 +8,7 @@ description: Use when durable repo work in D:\, cabina-universal-d, or registere
 ## Core Rule
 
 Every durable change must be small, intentional and reviewable in GitHub. Do
-not use `git add .` in `D:\`.
+not use `git add .` in the root wrapper repo.
 
 ## Trigger Boundary
 
@@ -28,7 +28,7 @@ nested repo's own `.git`, remote, branch and PR.
 
 ## Blocked Actions
 
-- `git add .` in `D:\`
+- `git add .` in the root wrapper repo
 - staging unrelated files
 - merge without approval and precheck, force push, remote branch deletion or
   permission changes without separate order
@@ -37,8 +37,8 @@ nested repo's own `.git`, remote, branch and PR.
 
 ## Validator
 
-Primary: `D:\.agents\codex\tools\local_validate_operational_chain.ps1`.
-Companion: `D:\.agents\codex\tools\local_validate_agent_layer.ps1`.
+Primary: `.agents\codex\tools\local_validate_operational_chain.ps1`.
+Companion: `.agents\codex\tools\local_validate_agent_layer.ps1`.
 
 ## Workflow
 

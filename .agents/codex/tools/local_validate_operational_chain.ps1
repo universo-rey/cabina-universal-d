@@ -1,6 +1,6 @@
 param(
-  [string]$Root = "D:\.agents\codex",
-  [string]$RepoRoot = "D:\"
+  [string]$Root = ".agents\codex",
+  [string]$RepoRoot = "C:\Users\enzo1\Documents\GitHub\cabina-universal-d"
 )
 
 $ErrorActionPreference = "Stop"
@@ -22,11 +22,11 @@ function Resolve-CabinaPath {
   param([string]$Path)
   if ([string]::IsNullOrWhiteSpace($Path)) { return $Path }
   $normalized = $Path -replace "/", "\"
-  if ($normalized.StartsWith("D:\.agents\codex", [System.StringComparison]::OrdinalIgnoreCase)) {
-    return Join-Path $Root ($normalized.Substring("D:\.agents\codex".Length).TrimStart("\"))
+  if ($normalized.StartsWith(".agents\codex", [System.StringComparison]::OrdinalIgnoreCase)) {
+    return Join-Path $Root ($normalized.Substring(".agents\codex".Length).TrimStart("\"))
   }
-  if ($normalized.StartsWith("D:\", [System.StringComparison]::OrdinalIgnoreCase)) {
-    return Join-Path $RepoRoot ($normalized.Substring("D:\".Length).TrimStart("\"))
+  if ($normalized.StartsWith("C:\Users\enzo1\Documents\GitHub\cabina-universal-d", [System.StringComparison]::OrdinalIgnoreCase)) {
+    return Join-Path $RepoRoot ($normalized.Substring("C:\Users\enzo1\Documents\GitHub\cabina-universal-d".Length).TrimStart("\"))
   }
   return Join-Path $RepoRoot $normalized
 }

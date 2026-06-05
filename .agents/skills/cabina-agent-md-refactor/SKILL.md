@@ -1,6 +1,6 @@
 ---
 name: cabina-agent-md-refactor
-description: Use when AGENTS.md, Codex UI prompts, project instructions, or local governance instructions in D:\ need pruning, normalization, drift review, or instruction precedence checks without weakening D:\AGENTS.md canon.
+description: Use when AGENTS.md, Codex UI prompts, project instructions, or local governance instructions in cabina-universal-d need pruning, normalization, drift review, or instruction precedence checks without weakening AGENTS.md canon.
 ---
 
 # Cabina Agent MD Refactor
@@ -26,21 +26,21 @@ cabina canon.
 
 ## Blocked Actions
 
-- removing `D:\AGENTS.md` as root authority
+- removing `AGENTS.md` as root authority
 - absorbing nested repos into the root wrapper repo
 - authorizing Microsoft live, OpenAI API live, production, permissions,
   secrets, costs or broad regulated data
 
 ## Validator
 
-Primary: `D:\.agents\codex\tools\local_validate_agents_instruction_hierarchy.ps1`.
-Companion: `D:\.agents\codex\tools\local_validate_operational_chain.ps1`.
+Primary: `.agents\codex\tools\local_validate_agents_instruction_hierarchy.ps1`.
+Companion: `.agents\codex\tools\local_validate_operational_chain.ps1`.
 
 ## Required Reads
 
-1. `D:\AGENTS.md`
-2. `D:\MANIFEST.yaml`
-3. `D:\.agents\codex\README.md`
+1. `AGENTS.md`
+2. `MANIFEST.yaml`
+3. `.agents\codex\README.md`
 4. Any prompt or instruction file being edited
 
 ## Workflow
@@ -59,4 +59,4 @@ Companion: `D:\.agents\codex\tools\local_validate_operational_chain.ps1`.
 - A change would blur nested repo boundaries.
 - A change would authorize live, production, permission, secret, cost or broad
   regulated-data surfaces.
-- The instruction source conflicts with `D:\AGENTS.md`.
+- The instruction source conflicts with `AGENTS.md`.

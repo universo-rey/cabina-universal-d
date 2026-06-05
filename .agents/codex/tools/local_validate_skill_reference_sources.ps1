@@ -1,6 +1,6 @@
 param(
-  [string]$Root = "D:\.agents\codex",
-  [string]$RepoRoot = "D:\"
+  [string]$Root = ".agents\codex",
+  [string]$RepoRoot = "C:\Users\enzo1\Documents\GitHub\cabina-universal-d"
 )
 
 $ErrorActionPreference = "Stop"
@@ -17,11 +17,18 @@ function Resolve-CabinaPath {
   param([string]$Path)
   if ([string]::IsNullOrWhiteSpace($Path)) { return $Path }
   $normalized = $Path -replace "/", "\"
-  if ($normalized.StartsWith("D:\.agents\codex", [System.StringComparison]::OrdinalIgnoreCase)) {
-    return Join-Path $Root ($normalized.Substring("D:\.agents\codex".Length).TrimStart("\"))
+  $cRoot = "C:\Users\enzo1\Documents\GitHub\cabina-universal-d"
+  if ($normalized.StartsWith(".agents\codex", [System.StringComparison]::OrdinalIgnoreCase)) {
+    return Join-Path $Root ($normalized.Substring(".agents\codex".Length).TrimStart("\"))
+  }
+  if ($normalized.StartsWith($cRoot, [System.StringComparison]::OrdinalIgnoreCase)) {
+    return Join-Path $RepoRoot ($normalized.Substring($cRoot.Length).TrimStart("\"))
   }
   if ($normalized.StartsWith("D:\", [System.StringComparison]::OrdinalIgnoreCase)) {
-    return Join-Path $RepoRoot ($normalized.Substring("D:\".Length).TrimStart("\"))
+    return Join-Path $RepoRoot ($normalized.Substring("C:\Users\enzo1\Documents\GitHub\cabina-universal-d".Length).TrimStart("\"))
+  }
+  if ($normalized -match '^[A-Za-z]:[\\/]') {
+    return $normalized
   }
   return Join-Path $RepoRoot $normalized
 }
@@ -57,17 +64,14 @@ function Check-PathTokens {
     if ($token -match '^https://') { continue }
     if ($token -match '^manual:') { continue }
     if ($token -match '^plugin:') { continue }
-    if ($token -match '^[A-Za-z]:[\\/]') {
-      if (-not $token.StartsWith("D:", [System.StringComparison]::OrdinalIgnoreCase)) {
-        continue
-      }
-      $resolved = Resolve-CabinaPath -Path $token
-      if (-not (Test-Path -LiteralPath $resolved)) {
-        $Errors.Add("$Context references missing path: $token")
-      }
+    $resolved = Resolve-CabinaPath -Path $token
+    if (Test-Path -LiteralPath $resolved) {
       continue
     }
-    $Errors.Add("$Context has unsupported locator token: $token")
+    if ($token -match '^[A-Za-z]:[\\/]') {
+      continue
+    }
+    $Errors.Add("$Context has unsupported or missing locator token: $token")
   }
 }
 
@@ -123,7 +127,7 @@ if (-not (Test-Path -LiteralPath $policyPath)) {
   $errors.Add("Missing policy document: $policyPath")
 } else {
   $policyText = Get-Content -Raw -LiteralPath $policyPath
-  foreach ($phrase in @("D:\AGENTS.md", "technical reference", "not authority canon", "freshness")) {
+  foreach ($phrase in @("root AGENTS.md", "technical reference", "not authority canon", "freshness")) {
     if (-not $policyText.Contains($phrase)) {
       $errors.Add("Policy missing required phrase: $phrase")
     }

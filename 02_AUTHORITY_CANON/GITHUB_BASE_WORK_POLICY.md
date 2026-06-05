@@ -9,7 +9,7 @@ GitHub queda declarado como base obligatoria de trabajo, revision y
 trazabilidad para el universo de repositorios de la Cabina Universal del Rey.
 
 El remoto raiz `universo-rey/cabina-universal-d` es la base GitHub transversal
-de la cabina `D:\`: registra gobierno, mapas, matrices, agentes locales y
+de la cabina `C:\Users\enzo1\Documents\GitHub\cabina-universal-d`: registra gobierno, mapas, matrices, agentes locales y
 politicas de trabajo sin absorber repos anidados.
 
 Estado actualizado 2026-06-01: `universo-rey/cabina-universal-d` ya esta
@@ -58,8 +58,8 @@ No incluye:
 
 ## Reglas De Separacion
 
-- `D:\` usa repo raiz envoltorio con allowlist.
-- `D:\` no usa `git add .`.
+- `C:\Users\enzo1\Documents\GitHub\cabina-universal-d` usa repo raiz envoltorio con allowlist.
+- `C:\Users\enzo1\Documents\GitHub\cabina-universal-d` no usa `git add .`.
 - `organizacion` conserva su propio repo y PR.
 - Los demas clones bajo `10_REPOS\02_ACTIVE` conservan su propio repo.
 - Si un repo no tiene remoto confirmado, queda `NO_CONSTA_REMOTE` y no avanza a
@@ -91,7 +91,7 @@ No incluye:
 Detener si aparece cualquiera de estas condiciones:
 
 - remoto ambiguo o inexistente;
-- repo anidado intenta ser absorbido por `D:\`;
+- repo anidado intenta ser absorbido por la raiz envoltorio;
 - dato regulado o secreto en archivos a versionar;
 - branch fuera de politica sin decision humana;
 - validador fallido;

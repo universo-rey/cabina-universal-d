@@ -32,7 +32,7 @@ Rollback solo para columnas de back-reference creadas en DEV dentro de SDUCapabi
 ## Evidencia de base
 - Created in continuation: 29
 - Existing before continuation/found in postcheck: 257
-- Apply result: D:\matrices\dataverse\DATAVERSE_QUEUE_BACK_REFERENCE_COLUMN_APPLY_RESULT.csv
+- Apply result: matrices\dataverse\DATAVERSE_QUEUE_BACK_REFERENCE_COLUMN_APPLY_RESULT.csv
 
 ## Stop Condition
 rollback_target_ambiguous_or_dependency_detected_or_wrong_environment_or_secret

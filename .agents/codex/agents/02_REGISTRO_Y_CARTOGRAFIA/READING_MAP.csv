@@ -1,6 +1,6 @@
 step,required_path,reason
-1,D:\.agents\codex\agents\02_REGISTRO_Y_CARTOGRAFIA\README.md,alcance del subnivel
-2,D:\01_GOVERNANCE_REGISTRY\REPOSITORIES.csv,inventario rector
-3,D:\01_GOVERNANCE_REGISTRY\MIGRATION_MAP_D.csv,migracion planificada
-4,D:\.agents\codex\recipes\recipe.registry_enrichment.md,receta de registro
+1,.agents\codex\agents\02_REGISTRO_Y_CARTOGRAFIA\README.md,alcance del subnivel
+2,01_GOVERNANCE_REGISTRY\REPOSITORIES.csv,inventario rector
+3,01_GOVERNANCE_REGISTRY\MIGRATION_MAP_D.csv,migracion planificada
+4,.agents\codex\recipes\recipe.registry_enrichment.md,receta de registro
 5,selected_agent_profile,perfil asignado

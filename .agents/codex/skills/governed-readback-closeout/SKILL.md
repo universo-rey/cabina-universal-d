@@ -1,6 +1,6 @@
 ---
 name: governed-readback-closeout
-description: Use when closing D:\.agents\codex local work, especially after changing matrices, recipes, skills, tools, agents, maps, validators, or Codex routing.
+description: Use when closing .agents\codex local work, especially after changing matrices, recipes, skills, tools, agents, maps, validators, or Codex routing.
 ---
 
 # Governed Readback Closeout

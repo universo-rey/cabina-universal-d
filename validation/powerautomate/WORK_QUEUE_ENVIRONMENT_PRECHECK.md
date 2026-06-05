@@ -22,7 +22,7 @@ WORK_QUEUE_ENVIRONMENT_PRECHECK_PASS
 
 ## Work Queue Entity Discovery
 - discovered rows: 1
-- discovery file: D:\matrices\powerautomate\WORK_QUEUE_DATAVERSE_ENTITY_DISCOVERY.csv
+- discovery file: matrices\powerautomate\WORK_QUEUE_DATAVERSE_ENTITY_DISCOVERY.csv
 
 ## Boundaries
 No Default, no TEST, no PROD, no production, no secrets, no personal data.

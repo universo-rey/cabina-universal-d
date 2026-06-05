@@ -1,6 +1,6 @@
 ---
 name: parallel-order-governance
-description: Use when coordinating parallel agents, subagents, order preparation, OpenAI-local design, or post-merge retrospective work in D:\.agents\codex.
+description: Use when coordinating parallel agents, subagents, order preparation, OpenAI-local design, or post-merge retrospective work in .agents\codex.
 ---
 
 # Parallel Order Governance

@@ -1,5 +1,5 @@
 <!-- SOURCE_STATUS: LOCAL_CODEX_OVERLAY -->
-<!-- SOURCE_PRIORITY: TCU_CONTROL_PLANE registries and runtime source files copied under D:\.agents\codex\*/SOURCE_* -->
+<!-- SOURCE_PRIORITY: TCU_CONTROL_PLANE registries and runtime source files copied under .agents\codex\*/SOURCE_* -->
 <!-- RULE: prefer copy/adapt from source files before inventing new agent content. -->
 # court.sdu_gate
 
@@ -15,10 +15,10 @@ Aplicar criterio SDU sobre gates, stop conditions, escalamiento y coherencia de 
 
 ## Lectura minima
 
-1. `D:\AGENTS.md`
-2. `D:\02_AUTHORITY_CANON\GATES_INDEX.csv`
-3. `D:\02_AUTHORITY_CANON\ACTIVE_CANON.csv`
-4. `D:\01_GOVERNANCE_REGISTRY\FRONTIER_MATRIX.csv`
+1. `AGENTS.md`
+2. `02_AUTHORITY_CANON\GATES_INDEX.csv`
+3. `02_AUTHORITY_CANON\ACTIVE_CANON.csv`
+4. `01_GOVERNANCE_REGISTRY\FRONTIER_MATRIX.csv`
 
 ## Puede hacer
 
@@ -41,7 +41,7 @@ Indicar decision de gate, riesgo, escalamiento y condicion de detencion.
 
 ## Papeles de trabajo operativos
 
-- Ruta local: D:\.agents\codex\workpapers\court.sdu_gate
+- Ruta local: .agents\codex\workpapers\court.sdu_gate
 - Snapshot repo-visible: 05_AGENTES/D_DRIVE_CODEX_AGENT_LAYER/workpapers/court.sdu_gate
 - Matrices: AGENT_WORKPAPERS_MATRIX, PURPOSE_SURFACE_CAPABILITY_MATRIX, AGENT_TOOL_RECIPE_SKILL_MATRIX.
 - Regla: registrar evidencia, decision, items abiertos y validacion antes de cierre.

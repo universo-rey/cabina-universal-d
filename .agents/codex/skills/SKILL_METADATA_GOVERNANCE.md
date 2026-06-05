@@ -5,7 +5,7 @@
 This document governs repo-local skill metadata for
 `universo-rey/cabina-universal-d`.
 
-The durable source for portable cabina skills is `D:\.agents\skills`. Runtime
+The durable source for portable cabina skills is `.agents\skills`. Runtime
 installs under user-global Codex folders can be used locally, but they are not
 the durable source of truth for this repo.
 
@@ -17,11 +17,11 @@ technical guidance:
 - https://www.webreactiva.com/blog/buenas-practicas-skills#1-el-campo-description-es-mas-importante-de-lo-que-crees
 - https://www.webreactiva.com/blog/como-organiza-claude-skills#1-referencia-de-librerias-y-api
 
-Local canon still comes from `D:\AGENTS.md`.
+Local canon still comes from `AGENTS.md`.
 
 ## Metadata Contract
 
-Every repo-local skill under `D:\.agents\skills\<skill>\SKILL.md` must have:
+Every repo-local skill under `.agents\skills\<skill>\SKILL.md` must have:
 
 - YAML frontmatter with `name` and `description`.
 - A description that starts with a concrete activation phrase such as
@@ -43,7 +43,7 @@ documentation to a skill package unless the validator or workflow needs it.
 
 ## Validation
 
-Run `D:\.agents\codex\tools\local_validate_skill_metadata.ps1` when any
+Run `.agents\codex\tools\local_validate_skill_metadata.ps1` when any
 repo-local `SKILL.md`, skill catalog, subskill matrix, or default skill
 assignment changes.
 

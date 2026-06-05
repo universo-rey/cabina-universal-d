@@ -137,7 +137,7 @@ ALLOWED_QUEUE_STATUSES = {
 }
 
 EXECUTABLE_COMMAND_PREFIXES = ("python ", "pwsh ", "powershell ", "git ", "gh ")
-ABSOLUTE_LOCAL_PATH_MARKERS = ("D:/", "D:\\")
+ABSOLUTE_LOCAL_PATH_MARKERS = ("C:/Users/enzo1/Documents/GitHub/cabina-universal-d", "C:\\Users\\enzo1\\Documents\\GitHub\\cabina-universal-d")
 
 
 def require_text_markers() -> None:

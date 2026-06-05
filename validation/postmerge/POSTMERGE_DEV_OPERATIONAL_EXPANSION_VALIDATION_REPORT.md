@@ -15,8 +15,8 @@ POST_MERGE_DEV_OPERATIONAL_EXPANSION_ADVANCED_PARTIAL_WITH_BLOCKERS
 ## Validadores Ejecutados
 - git diff --check: PASS (line-ending warning only for tracked audit artifact)
 - validate_dataverse_manifest.ps1: PASS
-- local_validate_agent_layer.ps1 with root D:\.agents\codex: PASS
-- local_validate_operational_chain.ps1 with root D:\.agents\codex: PASS
+- local_validate_agent_layer.ps1 with root .agents\codex: PASS
+- local_validate_operational_chain.ps1 with root .agents\codex: PASS
 - local_validate_capability_use_hardening.ps1: PASS
 - local_validate_change_aware_full_coverage_orchestrator.ps1: PASS
 - local_run_governance_validation_suite.ps1: PASS, 19/19
@@ -25,13 +25,13 @@ POST_MERGE_DEV_OPERATIONAL_EXPANSION_ADVANCED_PARTIAL_WITH_BLOCKERS
 - OpenAI JSONL metadata validator: PASS, valid_json_lines=5222, redaction_pass=True
 
 ## Evidencia Principal
-- D:\validation\postmerge\TOOLCHAIN_REAL_DISCOVERY_REPORT.md
-- D:\validation\postmerge\DEV_OPERATIONAL_FREEZE_REPORT.md
-- D:\validation\dataverse\DATAVERSE_QUEUE_BACK_REFERENCE_POSTCHECK.md
-- D:\validation\powerautomate\DEV_DISABLED_FLOW_POSTCHECK.md
-- D:\validation\powerautomate\WORK_QUEUE_EXPANDED_PILOT_POSTCHECK.md
-- D:\validation\openai\OPENAI_BATCH_METADATA_ONLY_PREFLIGHT.md
-- D:\.agents\codex\evals\results\change_aware_full_coverage_audit_latest.json
+- validation\postmerge\TOOLCHAIN_REAL_DISCOVERY_REPORT.md
+- validation\postmerge\DEV_OPERATIONAL_FREEZE_REPORT.md
+- validation\dataverse\DATAVERSE_QUEUE_BACK_REFERENCE_POSTCHECK.md
+- validation\powerautomate\DEV_DISABLED_FLOW_POSTCHECK.md
+- validation\powerautomate\WORK_QUEUE_EXPANDED_PILOT_POSTCHECK.md
+- validation\openai\OPENAI_BATCH_METADATA_ONLY_PREFLIGHT.md
+- .agents\codex\evals\results\change_aware_full_coverage_audit_latest.json
 
 ## Bloqueadores Restantes
 - OpenAI Batch no fue enviado porque OPENAI_API_KEY no está presente en el entorno del proceso y D:\.env.local no fue leído.

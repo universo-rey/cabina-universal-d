@@ -1,6 +1,6 @@
 ---
 name: d-drive-agent-layer-enrichment
-description: Use when enriching D:\.agents\codex with local matrices, recipes, skills, tools, validators, readbacks, or agent routing overlays.
+description: Use when enriching .agents\codex with local matrices, recipes, skills, tools, validators, readbacks, or agent routing overlays.
 ---
 
 # D Drive Agent Layer Enrichment
@@ -11,11 +11,11 @@ Enrich the existing D-drive agent layer by reconciling first, then adding the sm
 
 ## Required Reads
 
-1. `D:\.agents\codex\README.md`
-2. `D:\.agents\codex\matrices\MATRIX_INDEX.csv`
-3. `D:\.agents\codex\recipes\RECIPE_INDEX.csv`
-4. `D:\.agents\codex\skills\SKILL_USAGE_MATRIX.csv`
-5. `D:\.agents\codex\tools\TOOL_INDEX.csv`
+1. `.agents\codex\README.md`
+2. `.agents\codex\matrices\MATRIX_INDEX.csv`
+3. `.agents\codex\recipes\RECIPE_INDEX.csv`
+4. `.agents\codex\skills\SKILL_USAGE_MATRIX.csv`
+5. `.agents\codex\tools\TOOL_INDEX.csv`
 
 ## Workflow
 

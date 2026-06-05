@@ -24,6 +24,8 @@ La superficie `D:/` queda declarada como superficie gobernada externa/local:
 
 ```text
 governed_surface_root = D:/
+repo_scoped_reference_plane = C:/Users/enzo1/Documents/GitHub/cabina-universal-d/80_REFERENCIAS_TECNICAS
+legacy_reference_plane = 80_REFERENCIAS_TECNICAS
 ```
 
 ## Estado anterior
@@ -75,6 +77,8 @@ governed_surface_root = D:/
 old_git_root = D:/
 old_git_metadata_retained = true
 active_git_operations_must_use_new_root = true
+tool_reference_classifier_must_use_repo_scoped_reference_plane = true
+legacy_reference_plane_read_only = true
 ```
 
 ## Criterio de cierre

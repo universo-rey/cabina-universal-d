@@ -1,6 +1,6 @@
 step,required_path,reason
-1,D:\AGENTS.md,regla raiz de la cabina
-2,D:\.agents\codex\README.md,contrato local de agentes
-3,D:\.agents\codex\routing.json,derivacion por senales
-4,D:\.agents\codex\agents\LEVELS.yaml,seleccion de subnivel
-5,D:\.agents\codex\agents\00_ROUTER\rey.control_plane_orchestrator.md,perfil asignado
+1,AGENTS.md,regla raiz de la cabina
+2,.agents\codex\README.md,contrato local de agentes
+3,.agents\codex\routing.json,derivacion por senales
+4,.agents\codex\agents\LEVELS.yaml,seleccion de subnivel
+5,.agents\codex\agents\00_ROUTER\rey.control_plane_orchestrator.md,perfil asignado

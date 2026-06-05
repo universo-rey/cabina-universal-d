@@ -4,8 +4,8 @@ Estado: `EFIGUEROA_USER_GOVERNANCE_LOCAL_PREP_ACTIVE`.
 
 Sujeto gobernado: `efigueroa@registronotarial8tdf.com.ar`.
 
-Fuente rectora: `D:\AGENTS.md` y
-`D:\02_AUTHORITY_CANON\POLICIES\GLOBAL_MICROSOFT_LIVE_PRODUCTION_POLICY_20260601.md`.
+Fuente rectora: `AGENTS.md` y
+`02_AUTHORITY_CANON\POLICIES\GLOBAL_MICROSOFT_LIVE_PRODUCTION_POLICY_20260601.md`.
 
 Esta politica prepara gobierno local para una identidad de usuario Microsoft
 asociada al dominio `registronotarial8tdf.com.ar`. El dominio se enruta al

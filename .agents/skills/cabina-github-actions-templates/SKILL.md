@@ -33,8 +33,8 @@ issue forms and PR templates, not deployments or external live runtimes.
 
 ## Validator
 
-Primary: `D:\.agents\codex\tools\local_validate_github_automation_preflight.ps1`.
-Companion: `D:\.agents\codex\tools\local_validate_operational_chain.ps1`.
+Primary: `.agents\codex\tools\local_validate_github_automation_preflight.ps1`.
+Companion: `.agents\codex\tools\local_validate_operational_chain.ps1`.
 
 ## Workflow
 

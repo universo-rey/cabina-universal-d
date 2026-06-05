@@ -1,5 +1,5 @@
 param(
-  [string]$Root = "D:\.agents\codex"
+  [string]$Root = ".agents\codex"
 )
 
 $ErrorActionPreference = "Stop"
@@ -36,13 +36,14 @@ function Require-Columns {
 function Resolve-CabinaPath {
   param([string]$Path)
   if ([string]::IsNullOrWhiteSpace($Path)) { return $Path }
-  $repoRoot = Split-Path -Parent (Split-Path -Parent $Root)
+  $resolvedRoot = (Resolve-Path -LiteralPath $Root).Path
+  $repoRoot = Split-Path -Parent (Split-Path -Parent $resolvedRoot)
   $normalized = $Path -replace "/", "\"
-  if ($normalized.StartsWith("D:\.agents\codex", [System.StringComparison]::OrdinalIgnoreCase)) {
-    return Join-Path $Root ($normalized.Substring("D:\.agents\codex".Length).TrimStart("\"))
+  if ($normalized.StartsWith(".agents\codex", [System.StringComparison]::OrdinalIgnoreCase)) {
+    return Join-Path $Root ($normalized.Substring(".agents\codex".Length).TrimStart("\"))
   }
-  if ($normalized.StartsWith("D:\", [System.StringComparison]::OrdinalIgnoreCase)) {
-    return Join-Path $repoRoot ($normalized.Substring("D:\".Length).TrimStart("\"))
+  if ($normalized.StartsWith("C:\Users\enzo1\Documents\GitHub\cabina-universal-d", [System.StringComparison]::OrdinalIgnoreCase)) {
+    return Join-Path $repoRoot ($normalized.Substring("C:\Users\enzo1\Documents\GitHub\cabina-universal-d".Length).TrimStart("\"))
   }
   return $Path
 }
@@ -137,7 +138,7 @@ if (Test-Path -LiteralPath $ordersDir) {
     $text = Get-Content -Raw -LiteralPath $file.FullName
     $mentionsOldNoRepoRule = ($text -match 'sin convertir\s+`?D:\\`?\s+en repo Git directo') -or ($text -match 'no inicializar\s+`?D:\\`?')
     if ($mentionsOldNoRepoRule -and $text -notmatch "SUPERSEDED_NON_EXECUTABLE") {
-      $errors.Add("Order contradicts current D:\AGENTS.md and is not marked superseded: $($file.Name)")
+      $errors.Add("Order contradicts current root AGENTS.md and is not marked superseded: $($file.Name)")
     }
     $isPacketLike = ($text -match "Governed Order Preparation Packet") -or ($text -match "(?m)^- order_class:")
     if ($isPacketLike) {

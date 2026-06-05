@@ -1,6 +1,6 @@
 # Agent Levels
 
-Esta carpeta contiene perfiles de agentes locales para `D:\`.
+Esta carpeta contiene perfiles de agentes locales para la raiz C.
 
 La regla es lectura liviana: no abrir todos los perfiles. Primero leer `LEVELS.yaml`, elegir el subnivel por superficie y abrir solo el README del subnivel y el perfil asignado.
 
@@ -19,5 +19,5 @@ Los perfiles locales son `LOCAL_CODEX_OVERLAY`. Antes de cambiar un perfil, revi
 
 - Un agente no debe leer perfiles de otro subnivel salvo handoff expreso.
 - Un subnivel no autoriza writes live, Git versioning ni llamadas externas.
-- Todo cierre debe dejar readback en `D:\.agents\codex\readbacks`.
+- Todo cierre debe dejar readback en `.agents\codex\readbacks`.
 - Si una orden cruza universo, gate, tenant, API o costo, escala a `01_AUTORIDAD_Y_GATES`.

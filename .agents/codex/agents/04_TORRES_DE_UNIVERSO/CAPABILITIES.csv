@@ -1,4 +1,4 @@
 capability_id,agent_id,description,reads,writes,stop_condition
-cap.universe.escribania,universe.escribania_tower,gobernar superficie Escribania local,D:\10_UNIVERSOS\ESCRIBANIA,D:\10_UNIVERSOS\ESCRIBANIA\50_EVIDENCIA,tenant_identity_missing
-cap.universe.modo_on,universe.modo_on_tower,gobernar superficie Modo ON local,D:\10_UNIVERSOS\MODO_ON,D:\10_UNIVERSOS\MODO_ON\50_EVIDENCIA,provider_boundary_unclear
-cap.tower.handoff,universe.escribania_tower,preparar handoff de torre,D:\.agents\codex\recipes\recipe.universe_tower_handoff.md,D:\.agents\codex\readbacks,surface_crosses_universe_without_order
+cap.universe.escribania,universe.escribania_tower,gobernar superficie Escribania local,10_UNIVERSOS\ESCRIBANIA,10_UNIVERSOS\ESCRIBANIA\50_EVIDENCIA,tenant_identity_missing
+cap.universe.modo_on,universe.modo_on_tower,gobernar superficie Modo ON local,10_UNIVERSOS\MODO_ON,10_UNIVERSOS\MODO_ON\50_EVIDENCIA,provider_boundary_unclear
+cap.tower.handoff,universe.escribania_tower,preparar handoff de torre,.agents\codex\recipes\recipe.universe_tower_handoff.md,.agents\codex\readbacks,surface_crosses_universe_without_order

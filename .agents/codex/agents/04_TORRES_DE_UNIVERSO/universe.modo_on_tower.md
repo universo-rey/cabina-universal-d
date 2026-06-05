@@ -1,5 +1,5 @@
 <!-- SOURCE_STATUS: LOCAL_CODEX_OVERLAY -->
-<!-- SOURCE_PRIORITY: TCU_CONTROL_PLANE registries and runtime source files copied under D:\.agents\codex\*/SOURCE_* -->
+<!-- SOURCE_PRIORITY: TCU_CONTROL_PLANE registries and runtime source files copied under .agents\codex\*/SOURCE_* -->
 <!-- RULE: prefer copy/adapt from source files before inventing new agent content. -->
 # universe.modo_on_tower
 
@@ -15,10 +15,10 @@ Gobernar el universo Modo ON y ubicar CDF, Jara y activos proveedores bajo contr
 
 ## Lectura minima
 
-1. `D:\10_UNIVERSOS\MODO_ON\MANIFEST.yaml`
-2. `D:\10_UNIVERSOS\MODO_ON\ROUTING.md`
-3. `D:\01_GOVERNANCE_REGISTRY\REPOSITORIES.csv`
-4. `D:\01_GOVERNANCE_REGISTRY\OWNER_MATRIX.csv`
+1. `10_UNIVERSOS\MODO_ON\MANIFEST.yaml`
+2. `10_UNIVERSOS\MODO_ON\ROUTING.md`
+3. `01_GOVERNANCE_REGISTRY\REPOSITORIES.csv`
+4. `01_GOVERNANCE_REGISTRY\OWNER_MATRIX.csv`
 
 ## Puede hacer
 
@@ -41,7 +41,7 @@ Indicar activo, owner, frontera proveedor y readback.
 
 ## Papeles de trabajo operativos
 
-- Ruta local: D:\.agents\codex\workpapers\universe.modo_on_tower
+- Ruta local: .agents\codex\workpapers\universe.modo_on_tower
 - Snapshot repo-visible: 05_AGENTES/D_DRIVE_CODEX_AGENT_LAYER/workpapers/universe.modo_on_tower
 - Matrices: AGENT_WORKPAPERS_MATRIX, PURPOSE_SURFACE_CAPABILITY_MATRIX, AGENT_TOOL_RECIPE_SKILL_MATRIX.
 - Regla: registrar evidencia, decision, items abiertos y validacion antes de cierre.

@@ -1,6 +1,6 @@
 param(
-  [string]$Root = "D:\.agents\codex",
-  [string]$RepoRoot = "D:\"
+  [string]$Root = ".agents\codex",
+  [string]$RepoRoot = "C:\Users\enzo1\Documents\GitHub\cabina-universal-d"
 )
 
 $ErrorActionPreference = "Stop"
@@ -73,10 +73,10 @@ function Check-ValidatorRef {
   if ($Value -match '^[A-Za-z]:[\\/]') {
     $normalized = $Value -replace "/", "\"
     $resolved = $normalized
-    if ($normalized.StartsWith("D:\.agents\codex", [System.StringComparison]::OrdinalIgnoreCase)) {
-      $resolved = Join-Path $Root ($normalized.Substring("D:\.agents\codex".Length).TrimStart("\"))
-    } elseif ($normalized.StartsWith("D:\", [System.StringComparison]::OrdinalIgnoreCase)) {
-      $resolved = Join-Path $RepoRoot ($normalized.Substring("D:\".Length).TrimStart("\"))
+    if ($normalized.StartsWith(".agents\codex", [System.StringComparison]::OrdinalIgnoreCase)) {
+      $resolved = Join-Path $Root ($normalized.Substring(".agents\codex".Length).TrimStart("\"))
+    } elseif ($normalized.StartsWith("C:\Users\enzo1\Documents\GitHub\cabina-universal-d", [System.StringComparison]::OrdinalIgnoreCase)) {
+      $resolved = Join-Path $RepoRoot ($normalized.Substring("C:\Users\enzo1\Documents\GitHub\cabina-universal-d".Length).TrimStart("\"))
     }
     if (-not (Test-Path -LiteralPath $resolved)) {
       $Errors.Add("$Context validator path missing: $Value")
@@ -182,7 +182,7 @@ foreach ($row in $rows) {
     $errors.Add("Parallel issue queue row '$($row.work_unit_id)' unsupported status: $($row.status)")
   }
   foreach ($token in Split-Tokens -Value $row.write_scope) {
-    if ($token -in @("declared_file_set_only","D:/","D:\","D:/.agents/codex","D:\.agents\codex","D:/.agents/codex/matrices","D:\.agents\codex\matrices",".github","D:/.github","D:\.github")) {
+    if ($token -in @("declared_file_set_only","C:/Users/enzo1/Documents/GitHub/cabina-universal-d","C:\Users\enzo1\Documents\GitHub\cabina-universal-d",".agents/codex",".agents\codex",".agents/codex/matrices",".agents\codex\matrices",".github",".github",".github")) {
       $errors.Add("Parallel issue queue row '$($row.work_unit_id)' write_scope is too broad: $token")
     }
   }

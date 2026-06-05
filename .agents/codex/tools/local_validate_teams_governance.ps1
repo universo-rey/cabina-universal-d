@@ -1,5 +1,5 @@
 param(
-  [string]$Root = "D:\.agents\codex"
+  [string]$Root = ".agents\codex"
 )
 
 $ErrorActionPreference = "Stop"
@@ -36,13 +36,14 @@ function Require-Columns {
 function Resolve-CabinaPath {
   param([string]$Path)
   if ([string]::IsNullOrWhiteSpace($Path)) { return $Path }
-  $repoRoot = Split-Path -Parent (Split-Path -Parent $Root)
+  $resolvedRoot = (Resolve-Path -LiteralPath $Root).Path
+  $repoRoot = Split-Path -Parent (Split-Path -Parent $resolvedRoot)
   $normalized = $Path -replace "/", "\"
-  if ($normalized.StartsWith("D:\.agents\codex", [System.StringComparison]::OrdinalIgnoreCase)) {
-    return Join-Path $Root ($normalized.Substring("D:\.agents\codex".Length).TrimStart("\"))
+  if ($normalized.StartsWith(".agents\codex", [System.StringComparison]::OrdinalIgnoreCase)) {
+    return Join-Path $Root ($normalized.Substring(".agents\codex".Length).TrimStart("\"))
   }
-  if ($normalized.StartsWith("D:\", [System.StringComparison]::OrdinalIgnoreCase)) {
-    return Join-Path $repoRoot ($normalized.Substring("D:\".Length).TrimStart("\"))
+  if ($normalized.StartsWith("C:\Users\enzo1\Documents\GitHub\cabina-universal-d", [System.StringComparison]::OrdinalIgnoreCase)) {
+    return Join-Path $repoRoot ($normalized.Substring("C:\Users\enzo1\Documents\GitHub\cabina-universal-d".Length).TrimStart("\"))
   }
   return $Path
 }
@@ -96,8 +97,8 @@ $capabilityPath = Join-Path $Root "matrices\TEAMS_AGENT_CAPABILITY_MATRIX.csv"
 $toolIndexPath = Join-Path $Root "tools\TOOL_INDEX.csv"
 $pluginPath = Join-Path $Root "matrices\PLUGIN_USAGE_MATRIX.csv"
 $stopPath = Join-Path $Root "matrices\STOP_CONDITION_GLOSSARY.csv"
-$policyPath = "D:\02_AUTHORITY_CANON\POLICIES\TEAMS_GOVERNANCE_POLICY_20260602.md"
-$globalPolicyPath = "D:\02_AUTHORITY_CANON\POLICIES\GLOBAL_MICROSOFT_LIVE_PRODUCTION_POLICY_20260601.md"
+$policyPath = "02_AUTHORITY_CANON\POLICIES\TEAMS_GOVERNANCE_POLICY_20260602.md"
+$globalPolicyPath = "02_AUTHORITY_CANON\POLICIES\GLOBAL_MICROSOFT_LIVE_PRODUCTION_POLICY_20260601.md"
 $orderPath = Join-Path $Root "orders\ORDER_TEAMS_GOVERNANCE_LIVE_READ_DRAFT_20260602.md"
 $readbackPath = Join-Path $Root "readbacks\2026-06-02_teams_governance_readback.md"
 $workpaperPath = Join-Path $Root "workpapers\teams\README.md"

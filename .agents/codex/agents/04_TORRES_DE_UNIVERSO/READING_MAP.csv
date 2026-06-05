@@ -1,6 +1,6 @@
 step,required_path,reason
-1,D:\.agents\codex\agents\04_TORRES_DE_UNIVERSO\README.md,alcance del subnivel
-2,D:\10_UNIVERSOS\selected_universe\MANIFEST.yaml,manifiesto del universo
-3,D:\10_UNIVERSOS\selected_universe\ROUTING.md,ruta local del universo
-4,D:\.agents\codex\recipes\recipe.universe_tower_handoff.md,receta de handoff
+1,.agents\codex\agents\04_TORRES_DE_UNIVERSO\README.md,alcance del subnivel
+2,10_UNIVERSOS\selected_universe\MANIFEST.yaml,manifiesto del universo
+3,10_UNIVERSOS\selected_universe\ROUTING.md,ruta local del universo
+4,.agents\codex\recipes\recipe.universe_tower_handoff.md,receta de handoff
 5,selected_agent_profile,perfil asignado

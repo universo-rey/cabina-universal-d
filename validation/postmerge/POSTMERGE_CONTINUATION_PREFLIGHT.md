@@ -21,8 +21,8 @@ PASS
 - git diff --cached --name-only: empty
 
 ## Archivos ya creados verificados
-- D:/readbacks/versioning/READBACK_PR64_POSTMERGE_MAIN_SYNC.md
-- D:/validation/versioning/PR64_POSTMERGE_MAIN_SYNC_VALIDATION.md
+- readbacks/versioning/READBACK_PR64_POSTMERGE_MAIN_SYNC.md
+- validation/versioning/PR64_POSTMERGE_MAIN_SYNC_VALIDATION.md
 
 ## Secret Boundary
 - D:/.env.local ignored: yes

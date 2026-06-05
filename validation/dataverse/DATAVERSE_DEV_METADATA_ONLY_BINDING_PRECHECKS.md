@@ -15,7 +15,7 @@ DATAVERSE_DEV_METADATA_ONLY_BINDING_PRECHECK_PASS
 - Apply mode: DEV_SANDBOX_METADATA_ONLY
 
 ## Gates
-All binding gates in D:\matrices\dataverse\DATAVERSE_DEV_ENVIRONMENT_BINDING_MATRIX.csv are PASS.
+All binding gates in matrices\dataverse\DATAVERSE_DEV_ENVIRONMENT_BINDING_MATRIX.csv are PASS.
 
 ## Boundaries
 - Default environment: not used.

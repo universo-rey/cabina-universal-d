@@ -1,5 +1,5 @@
 capability_id,agent_id,description,reads,writes,stop_condition
-cap.openai.prompt_pack,court.openai_dispatcher,preparar prompt pack json corto,D:\.agents\codex\recipes\RECIPE_INDEX.csv,D:\03_CORTE_EJECUTORA_DEL_REY,live_api_needed
-cap.evidence.acta,court.seshat_evidence,registrar evidencia actas y readbacks,D:\.agents\codex\matrices\EVIDENCE_AND_VALIDATION_MATRIX.csv,D:\.agents\codex\readbacks,evidence_source_missing
-cap.schema.tool_contract,court.thot_schema,traducir orden a schema tool y validator,D:\.agents\codex\tools\TOOL_INDEX.csv,D:\.agents\codex\matrices,field_semantics_unclear
-cap.synthetic.eval,court.thot_schema,preparar evals sinteticos sin API,D:\.agents\codex\evals,D:\.agents\codex\evals,live_tool_required
+cap.openai.prompt_pack,court.openai_dispatcher,preparar prompt pack json corto,.agents\codex\recipes\RECIPE_INDEX.csv,03_CORTE_EJECUTORA_DEL_REY,live_api_needed
+cap.evidence.acta,court.seshat_evidence,registrar evidencia actas y readbacks,.agents\codex\matrices\EVIDENCE_AND_VALIDATION_MATRIX.csv,.agents\codex\readbacks,evidence_source_missing
+cap.schema.tool_contract,court.thot_schema,traducir orden a schema tool y validator,.agents\codex\tools\TOOL_INDEX.csv,.agents\codex\matrices,field_semantics_unclear
+cap.synthetic.eval,court.thot_schema,preparar evals sinteticos sin API,.agents\codex\evals,.agents\codex\evals,live_tool_required

@@ -1,5 +1,5 @@
 param(
-  [string]$Root = "D:\.agents\codex"
+  [string]$Root = ".agents\codex"
 )
 
 $ErrorActionPreference = "Stop"
