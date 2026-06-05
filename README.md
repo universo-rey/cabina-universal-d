@@ -5,9 +5,9 @@ Estado: `CABINA_EXTENDED_RECONCILIATION_CANONIZED`
 ## Estado canonico actual
 
 La Cabina Universal del Rey queda canonizada como
-`CABINA_EXTENDED_RECONCILIATION_CANONIZED` despues del fan-in extendido de 45
-PRs reales mergeados hasta el PR #62. El canon operativo subyacente sigue
-siendo `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON` y la cadena activa es
+`CABINA_OPERATING_SYSTEM_CONSOLIDATED_TO_PR96` despues de reconciliar 75 PRs
+reales mergeados hasta el PR #96. El canon operativo subyacente sigue siendo
+`CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON` y la cadena activa es
 `STANDARD_AGENT_CHAIN_ACTIVE`.
 
 Ya no queda limitada a repo-only. GitHub sigue siendo canon tecnico, pero la
@@ -28,6 +28,10 @@ Remoto privado del repo raiz: `https://github.com/universo-rey/cabina-universal-
 Base rectora/remota visible para Codex/Git: `main`. La rama activa debe
 verificarse en cada sesion. El PR raiz #1 esta mergeado; nuevos cambios
 versionables deben usar rama `codex/*` desde `main` y PR gobernado.
+
+Ultimo main efectivo consolidado: `e9e7af7f7e403697878039db27a6e72e0104fa24`
+por `universo-rey/cabina-universal-d#96`. El hito textual #78 queda como
+antecedente historico, no como ultimo estado raiz.
 
 Alineacion universal local: los repos registrados se alinean a
 `universo-rey/cabina-universal-d` como base transversal e indice, sin perder

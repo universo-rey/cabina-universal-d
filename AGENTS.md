@@ -346,15 +346,22 @@ quedan habilitados solo como `ENABLED_GOVERNED_GATED_NOT_EXECUTED` hasta
 target exacto, owner, rollback, postcheck, evidencia y orden concreta.
 
 Estado canon textual a #78 actualizado 2026-06-04: por seleccion expresa del
-operador, el canon textual queda reconciliado al estado real de `origin/main`
+operador, el canon textual quedo reconciliado al estado real de `origin/main`
 en `9285edc43000166259d04d684ab34aa16beb50de`, con PR final incluido
-`universo-rey/cabina-universal-d#78`. Se detectan 60 PRs mergeados reales a
-`main`, sin PRs inventados. Los PRs post #62 incluidos son #63, #64, #65,
-#66, #67, #68, #69, #70, #71, #72, #73, #74, #76, #77 y #78. Los PRs #75,
-#79 y #80 permanecen abiertos y no quedan canonizados por este texto; el PR
-#81 esta cerrado sin merge y queda excluido. Esta reconciliacion no ejecuta
-Microsoft live, OpenAI API live, produccion, permisos, secretos ni
-propagacion; solo actualiza la lectura canonica del repo raiz hasta #78.
+`universo-rey/cabina-universal-d#78`. Ese hito queda historico tras la
+consolidacion a #96.
+
+Estado operating system consolidation actualizado 2026-06-05: por orden del
+operador, el estado operativo repo-scoped vigente se reconcilia al `main`
+posterior a `universo-rey/cabina-universal-d#96`, merge commit
+`e9e7af7f7e403697878039db27a6e72e0104fa24`. Se detectan 75 PRs mergeados
+reales a `main`, sin PRs inventados y sin PRs abiertos. Los PRs post #78
+canonizados por este texto son #75, #79, #80, #82, #84, #85, #86, #89, #90,
+#91, #92, #93, #94, #95 y #96. Los PRs #81, #83, #87 y #88 no quedan
+incluidos como mergeados. Esta reconciliacion no ejecuta Microsoft live,
+OpenAI API live, produccion, permisos, secretos ni propagacion; solo actualiza
+la lectura canonica del repo raiz hasta #96 y consolida el sistema operativo
+real existente.
 
 ## Canon activo de ejecucion gobernada
 
@@ -477,19 +484,17 @@ Universal del Rey y como repo raiz envoltorio activo:
 - PR raiz standard agent chain:
   `https://github.com/universo-rey/cabina-universal-d/pull/62` con estado
   `MERGED`;
-- PRs raiz post #62 canonizados a #78: #63, #64, #65, #66, #67, #68, #69,
-  #70, #71, #72, #73, #74, #76, #77 y #78 con estado `MERGED`; ultimo PR
-  incluido:
-  `https://github.com/universo-rey/cabina-universal-d/pull/78`;
-- PRs raiz abiertos no canonizados por este texto:
-  `https://github.com/universo-rey/cabina-universal-d/pull/75`,
-  `https://github.com/universo-rey/cabina-universal-d/pull/79` y
-  `https://github.com/universo-rey/cabina-universal-d/pull/80`;
-- PR raiz cerrado sin merge excluido:
-  `https://github.com/universo-rey/cabina-universal-d/pull/81`;
+- PRs raiz post #62 canonizados a #96: #63, #64, #65, #66, #67, #68, #69,
+  #70, #71, #72, #73, #74, #75, #76, #77, #78, #79, #80, #82, #84, #85,
+  #86, #89, #90, #91, #92, #93, #94, #95 y #96 con estado `MERGED`; ultimo
+  PR incluido:
+  `https://github.com/universo-rey/cabina-universal-d/pull/96`;
+- PRs raiz abiertos no canonizados por este texto: ninguno detectado en
+  preflight GitHub del 2026-06-05;
+- PRs raiz cerrados sin merge excluidos: #81, #83, #87 y #88;
 - estado canonico actual: `CABINA_EXTENDED_RECONCILIATION_CANONIZED`;
 - ultimo main efectivo incluido:
-  `9285edc43000166259d04d684ab34aa16beb50de`;
+  `e9e7af7f7e403697878039db27a6e72e0104fa24`;
 - canon operativo: `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`;
 - cadena activa: `STANDARD_AGENT_CHAIN_ACTIVE`;
 - allowlist: solo gobierno, canon, agentes locales, matrices, prompts,
