@@ -48,7 +48,20 @@ Brechas principales:
 ## Artefactos Locales
 
 - `.agents/codex/matrices/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_FINDINGS_20260605.csv`
+- `.agents/codex/matrices/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_DECISION_MATRIX_20260605.csv`
 - `.agents/codex/readbacks/2026-06-05_agents_sdk_live_agent_global_operability_readback.md`
+
+## Decisiones Formalizadas
+
+La matriz de decisiones convierte los hallazgos live en acciones gobernadas:
+
+- `KEEP_GATED`: conservar frontera y no ejecutar sin gate.
+- `RETAIN_BOUNDARY`: preservar separacion de autoridad, universo o referencia.
+- `REQUIRE_LIVE_GATE`: exigir gate live antes de cualquier write.
+- `REQUIRE_HUMAN_GATE`: impedir autoaprobacion de live o produccion.
+- `REQUIRE_WORKTREE_GATE`: exigir gate de topologia/worktree.
+- `EXECUTE_ON_NEXT_LANE`: ejecutar solo en carril siguiente local y validado.
+- `SERIALIZE`: mantener serializacion para indices compartidos.
 
 ## Sistemas Tocados
 
@@ -72,10 +85,10 @@ Brechas principales:
 
 ## Proximos Carriles
 
-1. Revisar la matriz de hallazgos local.
-2. Decidir si se versiona como PR separado.
-3. Preparar `serial_agent_global_improvement_integration` si se van a cerrar brechas.
+1. Revisar la matriz de hallazgos y decisiones.
+2. Preparar `serial_agent_global_improvement_integration` para ejecutar solo decisiones `EXECUTE_ON_NEXT_LANE`.
+3. Mantener `KEEP_GATED`, `REQUIRE_LIVE_GATE`, `REQUIRE_HUMAN_GATE` y `REQUIRE_WORKTREE_GATE` hasta orden explicita.
 
 ## Stop Condition
 
-`AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_EXECUTED_LOCAL_OUTPUT_READY`
+`AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_DECISIONS_READY`
