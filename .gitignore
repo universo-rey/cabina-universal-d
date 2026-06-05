@@ -580,6 +580,7 @@
 !/.agents/codex/readbacks/2026-06-05_post_pr101_next_lane_selection_readback.md
 !/.agents/codex/readbacks/2026-06-05_agent_global_operability_next_lane_execution_readback.md
 !/.agents/codex/readbacks/2026-06-05_agent_global_operability_gated_backlog_readback.md
+!/.agents/codex/readbacks/2026-06-05_agent_global_operability_semaphore_matrix_readback.md
 
 !/.agents/codex/tools/
 /.agents/codex/tools/*
