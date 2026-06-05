@@ -108,7 +108,8 @@ extended_reconciliation_state:
     - 94
     - 95
     - 96
-  open_prs_not_canonized:
+  open_prs_not_canonized: []
+  historical_pr78_exclusions_now_superseded_by_pr96:
     - 75
     - 79
     - 80

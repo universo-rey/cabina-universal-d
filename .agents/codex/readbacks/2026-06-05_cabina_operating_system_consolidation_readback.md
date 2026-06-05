@@ -116,10 +116,7 @@ Clasificacion: `EXTERNAL_BLOCKER`, no `LOCAL_FAILURE`.
 
 ## Proximos carriles
 
-1. Ejecutar validadores locales y suite agregada.
-2. Corregir solo fallos dentro de scope.
-3. Versionar por commit y PR si la validacion pasa.
-4. Abrir carril separado para actualizar validadores especificos si se decide
-   que la constitucion requiere un validador propio.
-5. Cerrar o preservar los dirty states de repos hermanos antes de exigir PASS
-   local de la suite agregada completa.
+1. Revision humana de PR #97.
+2. Merge precheck con HEAD fijo si el operador aprueba sacar el PR de draft.
+3. Carril separado para cerrar o preservar los dirty states de repos hermanos
+   antes de exigir PASS local de la suite agregada completa.
