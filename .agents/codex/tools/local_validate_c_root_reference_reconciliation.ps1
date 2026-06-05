@@ -62,7 +62,7 @@ foreach ($file in $files) {
   }
 
   try {
-    $lines = Get-Content -LiteralPath $fullPath
+    [string[]]$lines = @(Get-Content -LiteralPath $fullPath -ErrorAction Stop)
   } catch {
     continue
   }
