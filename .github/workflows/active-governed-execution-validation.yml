@@ -68,6 +68,7 @@ jobs:
         run: |
           python scripts/validators/active_governed_execution_policy_validator.py
           python scripts/validators/active_execution_capability_matrix_validator.py
+          python scripts/validators/canon_active_execution_validator.py --matrix governance/canon/ACTIVE_EXECUTION_CAPABILITY_MATRIX_20260603.csv
           python scripts/validators/no_passive_blocking_language_validator.py
           python scripts/validators/dev_execution_attempt_validator.py
 
