@@ -239,6 +239,24 @@
       ]
     },
     {
+      "order_class": "agent_global_improvement",
+      "signals": [
+        "mejorar agentes",
+        "normalizar agentes",
+        "inventario de agentes",
+        "agentes activos",
+        "contratos declarativos",
+        "rutas skills matrices",
+        "perfiles rutas skills matrices"
+      ],
+      "agents": [
+        "rey.control_plane_orchestrator",
+        "court.thot_schema",
+        "codex.workspace_guardian",
+        "court.seshat_evidence"
+      ]
+    },
+    {
       "order_class": "agent_workpapers_versioning",
       "signals": [
         "papeles de trabajo",

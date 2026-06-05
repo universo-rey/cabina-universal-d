@@ -573,6 +573,32 @@ Si falta un archivo rector, registrar hallazgo y detener la ejecucion destructiv
 - Buscar siempre la maxima frontera segura: si no se puede ejecutar live,
   avanzar por staging, dry run, rama, PR, manifest, matriz, paquete, readback
   o validador local sin cruzar gates.
+- Antes de crear cualquier agente, perfil, skill, receta, matriz, ruta,
+  contrato o validador nuevo, ejecutar preflight de no duplicacion. Buscar
+  equivalentes por nombre exacto, alias, funcion, universo, superficie, skill,
+  receta, validador y stop condition. Si existe equivalente, no crear uno
+  nuevo: mejorar el existente o proponer reconciliacion. Si existen dos o mas
+  componentes solapados, no elegir arbitrariamente; registrar una entrada de
+  reconciliacion con componentes encontrados, autoridad fuente, diferencias,
+  riesgo, recomendacion, archivo destino, validador aplicable y stop condition.
+  Solo crear componente nuevo cuando no exista equivalente y la justificacion
+  quede respaldada por evidencia.
+- Antes de modificar archivos, declarar el conjunto exacto de archivos
+  candidatos y justificar por que cada uno esta dentro de allowlist. Durante la
+  edicion, hacer cambios atomicos y no mezclar mejoras de agentes con politica
+  Git, workflows, secretos, produccion, permisos o live gates. No tocar
+  archivos no relacionados aunque aparezcan inconsistencias, y no corregir
+  formato masivo si no es necesario para la mejora del agente. Antes de cerrar,
+  mostrar resumen de diff por archivo, clasificar cada cambio como
+  `AGENT_PROFILE_IMPROVEMENT`, `ROUTING_ALIGNMENT`, `SKILL_METADATA_FIX`,
+  `VALIDATOR_REFERENCE_FIX`, `EVIDENCE_READBACK`,
+  `MATRIX_RECONCILIATION` u `OUT_OF_SCOPE_DETECTED_NOT_CHANGED`, declarar
+  rollback exacto por archivo, confirmar que no se tocaron repos anidados y
+  confirmar que no se modificaron secretos, `.env`, produccion, Microsoft live,
+  OpenAI API live, permisos ni workflows fuera de alcance. Si aparece un
+  cambio necesario pero fuera de alcance, no aplicarlo; registrarlo como
+  proximo carril con archivo afectado, motivo, riesgo, orden requerida,
+  rollback, postcheck, validador y stop condition.
 - Antes de cualquier ejecucion, asignacion o derivacion, declarar cadena de
   capacidad: agente, skill, receta, plugin, tool, superficie, evidencia,
   validador y stop condition; si falta, detener con
