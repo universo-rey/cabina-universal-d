@@ -14,7 +14,7 @@ remote agents.
 ## Trigger Boundary
 
 Use this skill only for local D-drive governance artifacts under
-`D:\.agents\codex` and `D:\.agents\skills`, including matrices, recipes,
+`.agents\codex` and `.agents\skills`, including matrices, recipes,
 skills, tools, validators, readbacks, workpapers, maps, or agent routing
 overlays.
 
@@ -39,12 +39,12 @@ overlays.
 
 ## Required Reads
 
-1. `D:\AGENTS.md`
-2. `D:\.agents\codex\README.md`
-3. `D:\.agents\codex\matrices\MATRIX_INDEX.csv`
-4. `D:\.agents\codex\recipes\RECIPE_INDEX.csv`
-5. `D:\.agents\codex\skills\SKILL_USAGE_MATRIX.csv`
-6. `D:\.agents\codex\tools\TOOL_INDEX.csv`
+1. `AGENTS.md`
+2. `.agents\codex\README.md`
+3. `.agents\codex\matrices\MATRIX_INDEX.csv`
+4. `.agents\codex\recipes\RECIPE_INDEX.csv`
+5. `.agents\codex\skills\SKILL_USAGE_MATRIX.csv`
+6. `.agents\codex\tools\TOOL_INDEX.csv`
 
 ## Workflow
 
@@ -63,8 +63,8 @@ overlays.
 Run the most specific validator for the changed artifact, then run:
 
 ```powershell
-D:\.agents\codex\tools\local_validate_agent_layer.ps1
-D:\.agents\codex\tools\local_validate_skill_metadata.ps1
+.agents\codex\tools\local_validate_agent_layer.ps1
+.agents\codex\tools\local_validate_skill_metadata.ps1
 ```
 
 ## Stop Conditions

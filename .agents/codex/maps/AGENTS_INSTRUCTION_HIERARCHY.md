@@ -2,17 +2,27 @@
 
 ## Purpose
 
-This map defines how Cabina Universal D reads local instructions before acting.
-It keeps `D:\AGENTS.md` as the local rector source while allowing narrower
-instruction surfaces to clarify local work.
+This map defines how Cabina Universal reads local instructions before acting.
+
+## Effective Canonical Root
+
+The effective repo root is:
+
+```text
+C:/Users/enzo1/Documents/GitHub/cabina-universal-d
+```
+
+`AGENTS.md` at that root is the local rector source. `D:/` is retained only as
+a legacy, governed, read-only surface until an explicit metadata retention
+decision.
 
 ## Precedence
 
-1. `D:\AGENTS.md` is the root local authority.
+1. `AGENTS.md` under the effective repo root is the root local authority.
 2. Mandatory local readback files refine the root order without weakening it.
 3. `.agents\codex` README, routing, levels, matrices, recipes, tools and
    selected agent profiles provide scoped execution instructions.
-4. `D:\.agents\skills\<skill>\SKILL.md` contains portable repo-local skills.
+4. `.agents\skills\<skill>\SKILL.md` contains portable repo-local skills.
 5. Enabled plugins and global user skills are runtime helpers, not durable
    repo authority.
 6. Nested repositories keep their own `.git`, remote, branch, PR and internal
@@ -21,8 +31,8 @@ instruction surfaces to clarify local work.
 
 ## Contradiction Rule
 
-If a lower-precedence source contradicts `D:\AGENTS.md`, the lower source is
-not followed. The agent must name the contradiction, keep `D:\AGENTS.md` as
+If a lower-precedence source contradicts root `AGENTS.md`, the lower source is
+not followed. The agent must name the contradiction, keep root `AGENTS.md` as
 the active instruction, and stop any action that would cross a blocked surface.
 
 Examples of blocked contradictions:
@@ -43,10 +53,10 @@ boundaries.
 ## Validation
 
 The machine-readable map is
-`D:\.agents\codex\matrices\AGENTS_INSTRUCTION_SURFACE_MATRIX.csv`.
+`.agents\codex\matrices\AGENTS_INSTRUCTION_SURFACE_MATRIX.csv`.
 
 The validator is
-`D:\.agents\codex\tools\local_validate_agents_instruction_hierarchy.ps1`.
+`.agents\codex\tools\local_validate_agents_instruction_hierarchy.ps1`.
 
 The validator checks:
 

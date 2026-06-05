@@ -1,6 +1,6 @@
 param(
-  [string]$RepoRoot = "D:\",
-  [string]$MatrixPath = "D:\01_GOVERNANCE_REGISTRY\GITHUB_BASE_WORK_MATRIX.csv",
+  [string]$RepoRoot = "C:\Users\enzo1\Documents\GitHub\cabina-universal-d",
+  [string]$MatrixPath = "01_GOVERNANCE_REGISTRY\GITHUB_BASE_WORK_MATRIX.csv",
   [switch]$SkipGithub,
   [switch]$WriteResult
 )

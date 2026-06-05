@@ -1,7 +1,7 @@
 # Skills
 
 This folder maps external and repo-local Codex skills to local
-`D:\.agents\codex` sublevels.
+`.agents\codex` sublevels.
 
 It does not install or execute skills by itself. It tells the router which skill
 family belongs to each agent lane.
@@ -10,7 +10,7 @@ Source-first rule: prefer `SOURCE_TCU_SKILLS_INDEX.csv`, `SOURCE_TCU_PLUGINS_IND
 
 Storage rule:
 
-- Portable cabina skills live in `D:\.agents\skills\<skill>\SKILL.md`.
+- Portable cabina skills live in `.agents\skills\<skill>\SKILL.md`.
 - Governance catalog rows live here in `SKILL_USAGE_MATRIX.csv` and
   `SUBSKILL_USAGE_MATRIX.csv`.
 - Repo-local skill metadata quality lives here in

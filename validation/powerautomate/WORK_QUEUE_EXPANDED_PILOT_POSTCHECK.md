@@ -30,10 +30,10 @@ EXPANDED_WORKQUEUE_PILOT_CREATED_PASS
 - SDU.Exception.Remediation.Queue: new=25/25, total=25/25, status=PASS
 
 ## Evidencia
-- D:\powerplatform\workqueues\pilot\workqueue_expanded_pilot_items.json
-- D:\matrices\powerautomate\WORK_QUEUE_EXPANDED_PILOT_ITEMS.csv
-- D:\matrices\powerautomate\WORK_QUEUE_EXPANDED_PILOT_RESULT.csv
-- D:\matrices\powerautomate\WORK_QUEUE_EXPANDED_PILOT_POSTCHECK.csv
+- powerplatform\workqueues\pilot\workqueue_expanded_pilot_items.json
+- matrices\powerautomate\WORK_QUEUE_EXPANDED_PILOT_ITEMS.csv
+- matrices\powerautomate\WORK_QUEUE_EXPANDED_PILOT_RESULT.csv
+- matrices\powerautomate\WORK_QUEUE_EXPANDED_PILOT_POSTCHECK.csv
 
 ## Stop Condition
 secret_or_pii_or_wrong_environment_or_duplicate_idempotency_key_or_total_over_250

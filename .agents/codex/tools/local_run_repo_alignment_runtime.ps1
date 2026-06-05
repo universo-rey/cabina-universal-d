@@ -1,6 +1,6 @@
 param(
-  [string]$Root = "D:\.agents\codex",
-  [string]$RepoRoot = "D:\",
+  [string]$Root = ".agents\codex",
+  [string]$RepoRoot = "C:\Users\enzo1\Documents\GitHub\cabina-universal-d",
   [switch]$NoWrite,
   [switch]$CheckOnly
 )

@@ -42,8 +42,8 @@ or persistent remote agents.
 
 ## Required Sequence
 
-1. Read `D:\.agents\codex\matrices\PARALLEL_OPERATION_CRITERIA_MATRIX.csv`.
-2. Read `D:\.agents\codex\matrices\ORDER_PREPARATION_ASSIGNMENT_MATRIX.csv`.
+1. Read `.agents\codex\matrices\PARALLEL_OPERATION_CRITERIA_MATRIX.csv`.
+2. Read `.agents\codex\matrices\ORDER_PREPARATION_ASSIGNMENT_MATRIX.csv`.
 3. Declare `lead_agent`, `owner_agent`, `reviewer_agent`, `read_scope`,
    `write_scope`, `lock_key`, `dependency`, `max_parallel`, evidence,
    validator, and stop condition.
@@ -66,8 +66,8 @@ or persistent remote agents.
 Run:
 
 ```powershell
-D:\.agents\codex\tools\local_validate_parallel_order_governance.ps1
-D:\.agents\codex\tools\local_validate_skill_metadata.ps1
+.agents\codex\tools\local_validate_parallel_order_governance.ps1
+.agents\codex\tools\local_validate_skill_metadata.ps1
 ```
 
 If a named validator is not available, record it as `NO_DISPONIBLE` and run the

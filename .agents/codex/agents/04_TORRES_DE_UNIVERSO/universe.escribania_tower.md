@@ -1,5 +1,5 @@
 <!-- SOURCE_STATUS: LOCAL_CODEX_OVERLAY -->
-<!-- SOURCE_PRIORITY: TCU_CONTROL_PLANE registries and runtime source files copied under D:\.agents\codex\*/SOURCE_* -->
+<!-- SOURCE_PRIORITY: TCU_CONTROL_PLANE registries and runtime source files copied under .agents\codex\*/SOURCE_* -->
 <!-- RULE: prefer copy/adapt from source files before inventing new agent content. -->
 # universe.escribania_tower
 
@@ -15,10 +15,10 @@ Gobernar el universo Escribania, incluyendo TGE, cumplimiento, evidencia, ShareP
 
 ## Lectura minima
 
-1. `D:\10_UNIVERSOS\ESCRIBANIA\MANIFEST.yaml`
-2. `D:\10_UNIVERSOS\ESCRIBANIA\ROUTING.md`
-3. `D:\01_GOVERNANCE_REGISTRY\REPOSITORIES.csv`
-4. `D:\02_AUTHORITY_CANON\CURRENT_STATE.md`
+1. `10_UNIVERSOS\ESCRIBANIA\MANIFEST.yaml`
+2. `10_UNIVERSOS\ESCRIBANIA\ROUTING.md`
+3. `01_GOVERNANCE_REGISTRY\REPOSITORIES.csv`
+4. `02_AUTHORITY_CANON\CURRENT_STATE.md`
 
 ## Puede hacer
 
@@ -42,7 +42,7 @@ Indicar superficie Escribania, evidencia, frontera y proximo carril.
 
 ## Papeles de trabajo operativos
 
-- Ruta local: D:\.agents\codex\workpapers\universe.escribania_tower
+- Ruta local: .agents\codex\workpapers\universe.escribania_tower
 - Snapshot repo-visible: 05_AGENTES/D_DRIVE_CODEX_AGENT_LAYER/workpapers/universe.escribania_tower
 - Matrices: AGENT_WORKPAPERS_MATRIX, PURPOSE_SURFACE_CAPABILITY_MATRIX, AGENT_TOOL_RECIPE_SKILL_MATRIX.
 - Regla: registrar evidencia, decision, items abiertos y validacion antes de cierre.

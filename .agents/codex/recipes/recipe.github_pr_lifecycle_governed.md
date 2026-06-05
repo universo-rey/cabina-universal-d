@@ -39,7 +39,7 @@ Blocked inside the lifecycle unless a separate order says otherwise:
 
 ## Steps
 
-1. Read `D:\AGENTS.md` and the mandatory local sources.
+1. Read `AGENTS.md` and the mandatory local sources.
 2. Confirm repo root, remote, base branch and clean or classified worktree.
 3. Confirm lifecycle order fields: surface, owner, repo, base branch, work
    branch, allowed actions, blocked actions, validator, rollback, postcheck,

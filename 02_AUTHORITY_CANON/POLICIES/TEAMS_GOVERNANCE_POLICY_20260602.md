@@ -2,8 +2,8 @@
 
 Estado: `TEAMS_GOVERNANCE_LOCAL_PREP_ACTIVE`.
 
-Fuente rectora: `D:\AGENTS.md` y
-`D:\02_AUTHORITY_CANON\POLICIES\GLOBAL_MICROSOFT_LIVE_PRODUCTION_POLICY_20260601.md`.
+Fuente rectora: `AGENTS.md` y
+`02_AUTHORITY_CANON\POLICIES\GLOBAL_MICROSOFT_LIVE_PRODUCTION_POLICY_20260601.md`.
 
 Teams queda gobernado como superficie Microsoft live. Esta politica prepara
 gobierno local, matrices, ordenes y evidencia saneada. No autoriza lectura live,

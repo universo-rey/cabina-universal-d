@@ -1,6 +1,6 @@
 step,required_path,reason
-1,D:\.agents\codex\agents\01_AUTORIDAD_Y_GATES\README.md,alcance del subnivel
-2,D:\.agents\codex\maps\SURFACE_BOUNDARY_MAP.csv,clasificacion de superficie
-3,D:\.agents\codex\matrices\EVIDENCE_AND_VALIDATION_MATRIX.csv,cierre requerido
-4,D:\.agents\codex\recipes\recipe.gate_decision_packet.md,receta de gate
+1,.agents\codex\agents\01_AUTORIDAD_Y_GATES\README.md,alcance del subnivel
+2,.agents\codex\maps\SURFACE_BOUNDARY_MAP.csv,clasificacion de superficie
+3,.agents\codex\matrices\EVIDENCE_AND_VALIDATION_MATRIX.csv,cierre requerido
+4,.agents\codex\recipes\recipe.gate_decision_packet.md,receta de gate
 5,selected_agent_profile,perfil asignado

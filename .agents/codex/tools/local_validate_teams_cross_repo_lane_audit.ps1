@@ -1,5 +1,5 @@
 param(
-  [string]$Root = "D:\.agents\codex"
+  [string]$Root = ".agents\codex"
 )
 
 $ErrorActionPreference = "Stop"
@@ -15,13 +15,14 @@ function Read-CsvSafe {
 function Resolve-CabinaPath {
   param([string]$Path)
   if ([string]::IsNullOrWhiteSpace($Path)) { return $Path }
-  $repoRoot = Split-Path -Parent (Split-Path -Parent $Root)
+  $resolvedRoot = (Resolve-Path -LiteralPath $Root).Path
+  $repoRoot = Split-Path -Parent (Split-Path -Parent $resolvedRoot)
   $normalized = $Path -replace "/", "\"
-  if ($normalized.StartsWith("D:\.agents\codex", [System.StringComparison]::OrdinalIgnoreCase)) {
-    return Join-Path $Root ($normalized.Substring("D:\.agents\codex".Length).TrimStart("\"))
+  if ($normalized.StartsWith(".agents\codex", [System.StringComparison]::OrdinalIgnoreCase)) {
+    return Join-Path $Root ($normalized.Substring(".agents\codex".Length).TrimStart("\"))
   }
-  if ($normalized.StartsWith("D:\", [System.StringComparison]::OrdinalIgnoreCase)) {
-    return Join-Path $repoRoot ($normalized.Substring("D:\".Length).TrimStart("\"))
+  if ($normalized.StartsWith("C:\Users\enzo1\Documents\GitHub\cabina-universal-d", [System.StringComparison]::OrdinalIgnoreCase)) {
+    return Join-Path $repoRoot ($normalized.Substring("C:\Users\enzo1\Documents\GitHub\cabina-universal-d".Length).TrimStart("\"))
   }
   return $Path
 }
@@ -40,7 +41,9 @@ $skillUsagePath = Join-Path $Root "skills\SKILL_USAGE_MATRIX.csv"
 $localSkillCatalogPath = Join-Path $Root "matrices\LOCAL_SKILL_CATALOG.csv"
 $pluginUsagePath = Join-Path $Root "matrices\PLUGIN_USAGE_MATRIX.csv"
 $pluginBoundaryPath = Join-Path $Root "matrices\PLUGIN_SKILL_BOUNDARY_MATRIX.csv"
-$orderIndexPath = Join-Path (Split-Path -Parent (Split-Path -Parent $Root)) "02_AUTHORITY_CANON\GOVERNED_ORDERS_INDEX.csv"
+$resolvedRootForOrderIndex = (Resolve-Path -LiteralPath $Root).Path
+$repoRootForOrderIndex = Split-Path -Parent (Split-Path -Parent $resolvedRootForOrderIndex)
+$orderIndexPath = Join-Path $repoRootForOrderIndex "02_AUTHORITY_CANON\GOVERNED_ORDERS_INDEX.csv"
 $stopGlossaryPath = Join-Path $Root "matrices\STOP_CONDITION_GLOSSARY.csv"
 
 $errors = New-Object System.Collections.Generic.List[string]

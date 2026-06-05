@@ -18,8 +18,9 @@ evidencia, stop condition y readback.
 
 Este disco contiene el mapa local objetivo para organizar repos, herramientas, sistemas, licencias, evidencia y archivos por jerarquia.
 
-Por orden expresa del operador, `D:\` puede operar como repo local envoltorio
-para visibilidad nativa de Codex/Git. Este repo no absorbe clones anidados:
+Por orden expresa del operador, `C:\Users\enzo1\Documents\GitHub\cabina-universal-d`
+opera como repo local envoltorio para visibilidad nativa de Codex/Git. Este
+repo no absorbe clones anidados:
 `organizacion` y los demas repos conservan sus propios `.git`.
 
 Remoto privado del repo raiz: `https://github.com/universo-rey/cabina-universal-d`.

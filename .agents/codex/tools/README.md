@@ -1,6 +1,6 @@
 # Tools
 
-Local tools for the `D:\.agents\codex` folder.
+Local tools for the `.agents\codex` folder.
 
 Tools in this folder are local-only unless a governed order explicitly opens another surface.
 

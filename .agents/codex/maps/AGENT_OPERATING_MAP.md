@@ -4,10 +4,10 @@ This map keeps the agent folder lightweight.
 
 ## Read Path
 
-1. `D:\AGENTS.md`
-2. `D:\.agents\codex\README.md`
-3. `D:\.agents\codex\agents\LEVELS.yaml`
-4. `D:\.agents\codex\routing.json`
+1. `AGENTS.md`
+2. `.agents\codex\README.md`
+3. `.agents\codex\agents\LEVELS.yaml`
+4. `.agents\codex\routing.json`
 5. Selected sublevel README
 6. Selected agent profile
 7. Only the matrix, recipe or tool index required by the order
@@ -19,4 +19,4 @@ The router assigns one primary agent. Secondary agents are only read when the ha
 
 ## Closure Rule
 
-Every non-trivial action leaves evidence under `D:\.agents\codex\readbacks` and must pass the local validator before being reported as closed.
+Every non-trivial action leaves evidence under `.agents\codex\readbacks` and must pass the local validator before being reported as closed.

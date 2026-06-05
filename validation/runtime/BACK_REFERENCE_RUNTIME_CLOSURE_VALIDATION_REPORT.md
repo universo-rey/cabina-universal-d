@@ -4,7 +4,7 @@
 HECHO_VERIFICADO: BACK_REFERENCE_RUNTIME_CLOSURE_VALIDATION_PASS
 
 ## Validator
-- Tool: D:\.agents\codex\tools\local_validate_backreference_runtime_closure.ps1
+- Tool: .agents\codex\tools\local_validate_backreference_runtime_closure.ps1
 - Result: PASS
 
 ## Checks

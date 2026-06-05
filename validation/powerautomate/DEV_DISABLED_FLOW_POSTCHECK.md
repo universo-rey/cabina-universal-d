@@ -22,10 +22,10 @@ DEV_DISABLED_FLOWS_CREATED_OFF_PASS
 - Official reference: https://learn.microsoft.com/en-us/power-automate/manage-flows-with-code
 
 ## Evidencia
-- D:\powerplatform\flows\dev-disabled-flow-manifest.yml
-- D:\matrices\powerautomate\DEV_DISABLED_FLOW_CREATION_RESULT.csv
-- D:\matrices\powerautomate\DEV_DISABLED_FLOW_POSTCHECK.csv
-- D:\validation\postmerge\TOOLCHAIN_REAL_DISCOVERY_REPORT.md
+- powerplatform\flows\dev-disabled-flow-manifest.yml
+- matrices\powerautomate\DEV_DISABLED_FLOW_CREATION_RESULT.csv
+- matrices\powerautomate\DEV_DISABLED_FLOW_POSTCHECK.csv
+- validation\postmerge\TOOLCHAIN_REAL_DISCOVERY_REPORT.md
 
 ## Stop Condition
 wrong_environment_or_secret_or_active_trigger_or_duplicate_name

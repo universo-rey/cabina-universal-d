@@ -70,10 +70,10 @@
     }
   ],
   "artifacts": {
-    "application_matrix": "D:\\.agents\\codex\\matrices\\ENTRA_APPLICATION_REGISTRY_20260603.csv",
-    "service_principal_matrix": "D:\\.agents\\codex\\matrices\\ENTRA_SERVICE_PRINCIPAL_REGISTRY_20260603.csv",
-    "permission_grant_matrix": "D:\\.agents\\codex\\matrices\\ENTRA_PERMISSION_GRANT_REGISTRY_20260603.csv",
-    "readback": "D:\\.agents\\codex\\readbacks\\2026-06-03_entra_application_inventory_readback.md"
+    "application_matrix": ".agents\\codex\\matrices\\ENTRA_APPLICATION_REGISTRY_20260603.csv",
+    "service_principal_matrix": ".agents\\codex\\matrices\\ENTRA_SERVICE_PRINCIPAL_REGISTRY_20260603.csv",
+    "permission_grant_matrix": ".agents\\codex\\matrices\\ENTRA_PERMISSION_GRANT_REGISTRY_20260603.csv",
+    "readback": ".agents\\codex\\readbacks\\2026-06-03_entra_application_inventory_readback.md"
   },
   "blocked_actions": [
     "app_registration_create",

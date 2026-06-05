@@ -10,7 +10,7 @@ OPENAI_API_METADATA_ONLY_VALIDATION_PASS
 - input items: 12
 - output items: 12
 - response body saved: false
-- structured output CSV: D:\matrices\powerautomate\OPENAI_ASSISTED_WORK_QUEUE_CLASSIFICATION.csv
+- structured output CSV: matrices\powerautomate\OPENAI_ASSISTED_WORK_QUEUE_CLASSIFICATION.csv
 
 ## Redaction
 - raw paths sent: false

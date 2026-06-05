@@ -1,6 +1,6 @@
 param(
-  [string]$Root = "D:\.agents\codex",
-  [string]$RepoRoot = "D:\"
+  [string]$Root = ".agents\codex",
+  [string]$RepoRoot = "C:\Users\enzo1\Documents\GitHub\cabina-universal-d"
 )
 
 $ErrorActionPreference = "Stop"
@@ -17,13 +17,16 @@ function Resolve-CabinaPath {
   param([string]$Path)
   if ([string]::IsNullOrWhiteSpace($Path)) { return $Path }
   $normalized = $Path -replace "/", "\"
-  if ($normalized.StartsWith("D:\.agents\codex", [System.StringComparison]::OrdinalIgnoreCase)) {
-    return Join-Path $Root ($normalized.Substring("D:\.agents\codex".Length).TrimStart("\"))
+  if ($normalized.StartsWith(".agents\codex", [System.StringComparison]::OrdinalIgnoreCase)) {
+    return Join-Path $Root ($normalized.Substring(".agents\codex".Length).TrimStart("\"))
   }
-  if ($normalized.StartsWith("D:\", [System.StringComparison]::OrdinalIgnoreCase)) {
-    return Join-Path $RepoRoot ($normalized.Substring("D:\".Length).TrimStart("\"))
+  if ($normalized.StartsWith("C:\Users\enzo1\Documents\GitHub\cabina-universal-d", [System.StringComparison]::OrdinalIgnoreCase)) {
+    return Join-Path $RepoRoot ($normalized.Substring("C:\Users\enzo1\Documents\GitHub\cabina-universal-d".Length).TrimStart("\"))
   }
-  return $normalized
+  if ($normalized -match '^[A-Za-z]:\\' -or $normalized.StartsWith("\\", [System.StringComparison]::Ordinal)) {
+    return $normalized
+  }
+  return Join-Path $RepoRoot $normalized
 }
 
 function Require-Columns {
@@ -158,8 +161,8 @@ $rootRow = @($rows | Where-Object { $_.surface_id -eq "root_agents_md" }) | Sele
 if (-not $rootRow) {
   $errors.Add("Root AGENTS.md row missing")
 } else {
-  if ($rootRow.path -ne "D:\AGENTS.md") {
-    $errors.Add("root_agents_md path must be D:\AGENTS.md")
+  if ((Split-Path -Leaf $rootRow.path) -ne "AGENTS.md") {
+    $errors.Add("root_agents_md path must point to AGENTS.md under RepoRoot")
   }
   if ([int]$rootRow.precedence_rank -ne 10) {
     $errors.Add("root_agents_md precedence_rank must be 10")
@@ -201,7 +204,7 @@ foreach ($row in $rows) {
   } else {
     $ranks[$rank] = $row.surface_id
   }
-  if ($row.path.StartsWith("D:\", [System.StringComparison]::OrdinalIgnoreCase) -and $row.nested_repo_policy -ne "preserve_nested_repos") {
+  if ($row.path.StartsWith("C:\Users\enzo1\Documents\GitHub\cabina-universal-d", [System.StringComparison]::OrdinalIgnoreCase) -and $row.nested_repo_policy -ne "preserve_nested_repos") {
     $errors.Add("Instruction surface '$($row.surface_id)' must preserve nested repos")
   }
   Test-PathToken -PathToken $row.path -PathCheck $row.path_check -Errors $errors -Warnings $warnings -Context $row.surface_id
@@ -212,7 +215,7 @@ if (-not (Test-Path -LiteralPath $docPath -PathType Leaf)) {
   $errors.Add("Missing instruction hierarchy document: $docPath")
 } else {
   $docText = Get-Content -LiteralPath $docPath -Raw
-  foreach ($required in @("D:\AGENTS.md", "Precedence", "Contradiction Rule", "Nested Surface Policy", "Validation")) {
+  foreach ($required in @("Effective Canonical Root", "Precedence", "Contradiction Rule", "Nested Surface Policy", "Validation")) {
     if ($docText -notmatch [regex]::Escape($required)) {
       $errors.Add("Instruction hierarchy document missing section or marker: $required")
     }
@@ -235,7 +238,7 @@ $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }
   root = $Root
   repo_root = $RepoRoot
   instruction_surface_rows = $rows.Count
-  root_surface = "D:\AGENTS.md"
+  root_surface = Resolve-CabinaPath -Path $rootRow.path
   validator = "tool.local_validate_agents_instruction_hierarchy"
   warning_count = $warnings.Count
   warnings = @($warnings)

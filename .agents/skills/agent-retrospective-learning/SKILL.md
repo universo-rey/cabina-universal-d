@@ -37,7 +37,7 @@ readbacks.
 
 ## Validator
 
-Primary: `D:\.agents\codex\tools\local_validate_skill_recipe_agent_learning.ps1`.
+Primary: `.agents\codex\tools\local_validate_skill_recipe_agent_learning.ps1`.
 
 Companion: Change-Aware Full-Coverage Orchestrator.
 

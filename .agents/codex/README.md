@@ -1,6 +1,8 @@
 # Codex Agents Registry
 
-Esta carpeta define los agentes locales que Codex debe usar cuando `D:\` sea abierto como proyecto.
+Esta carpeta define los agentes locales que Codex debe usar cuando
+`C:\Users\enzo1\Documents\GitHub\cabina-universal-d` sea abierto como
+proyecto.
 
 Los archivos son declarativos y operativos locales: cada agente tiene papeles de trabajo versionables. No crean agentes remotos persistentes, no ejecutan llamadas externas y no autorizan writes live por si mismos.
 Microsoft live queda gobernado por orden; produccion solo puede avanzar con autorizacion explicita separada.
@@ -18,7 +20,7 @@ La carpeta debe preferir `copiar/adaptar` antes que inventar. Los archivos `SOUR
 - `agents\LEVELS.csv`: vista tabular de subniveles.
 - `agents\<subnivel>\*.md`: perfil humano/operativo de cada agente.
 - `skills\`: matriz de skills aplicables por subnivel.
-- `D:\.agents\skills\`: raiz repo-local portable para `SKILL.md` propios de
+- `.agents\skills\`: raiz repo-local portable para `SKILL.md` propios de
   la cabina. `skills\` dentro de `.agents\codex` gobierna catalogo y matrices.
 - `recipes\`: recetas operativas reutilizables.
 - `tools\`: tools locales y validador.
@@ -34,19 +36,19 @@ La carpeta debe preferir `copiar/adaptar` antes que inventar. Los archivos `SOUR
   carriles delegados.
 - `skills\SUBSKILL_USAGE_MATRIX.csv`: subskills asignadas por skill padre.
 - `recipes\SUBRECIPE_INDEX.csv`: subrecetas y validadores por receta padre.
-- `D:\.codex\`: entorno Codex app local/worktree versionable para la cabina
+- `.codex\`: entorno Codex app local/worktree versionable para la cabina
   raiz. Cloud environments se gobiernan por matriz/orden y no se inventan si
   no existe tool real de creacion.
 
 ## Regla de uso
 
-1. Leer `D:\AGENTS.md`.
+1. Leer `AGENTS.md`.
 2. Leer este README.
 3. Leer `agents\LEVELS.yaml`.
 4. Seleccionar subnivel y agente desde `routing.json`.
 5. Confirmar perfil en `agents.json`.
 6. Ejecutar primero la skill obligatoria
-   `D:\.agents\skills\tcu-descubridor-capacidades\SKILL.md` para descubrir,
+   `.agents\skills\tcu-descubridor-capacidades\SKILL.md` para descubrir,
    asignar o marcar `NO_DISPONIBLE` en skills, recetas, plugins y tools.
 7. Declarar cadena de capacidad desde
    `matrices\CAPABILITY_USE_HARDENING_MATRIX.csv`: agente, skill, receta,
@@ -123,8 +125,8 @@ Actualizacion cola paralela 2026-06-01: los work units por issue viven en
 workers. Los indices compartidos se integran en carril serial.
 
 Actualizacion skills repo-locales 2026-06-01: las skills cabina que deben
-viajar con el repo se guardan en `D:\.agents\skills\<skill>\SKILL.md`. La
-carpeta `D:\.agents\codex\skills` no instala por si misma: registra uso,
+viajar con el repo se guardan en `.agents\skills\<skill>\SKILL.md`. La
+carpeta `.agents\codex\skills` no instala por si misma: registra uso,
 subskills y source refs.
 
 Actualizacion autonomia gobernada 2026-06-02: `tcu-descubridor-capacidades`
@@ -133,11 +135,11 @@ queda como skill obligatoria antes de toda asignacion o derivacion. La matriz
 `tools\local_validate_autonomous_agent_execution.ps1` preparan agentes locales
 task-scoped y Codex Cloud repo-scoped con owner, reviewer, evidencia,
 rollback, postcheck y stop condition. Los repos sin environment visible quedan
-`BLOCKED_NO_CODEX_CLOUD_ENVIRONMENT`; los environments fuera de la base D:\ se
+`BLOCKED_NO_CODEX_CLOUD_ENVIRONMENT`; los environments fuera de la raiz C se
 marcan como candidatos, no como repos absorbidos.
 
-Actualizacion entornos Codex 2026-06-02: `D:\.codex\environments\environment.toml`
-queda creado para setup local/worktree de `D:\` con validadores de cabina. La
+Actualizacion entornos Codex 2026-06-02: `.codex\environments\environment.toml`
+queda creado para setup local/worktree de la raiz C con validadores de cabina. La
 matriz `matrices\CODEX_APP_LOCAL_ENVIRONMENT_MATRIX_20260602.csv`, la cola
 `matrices\CODEX_ENVIRONMENT_CREATION_QUEUE_20260602.csv`, la orden
 `orders\ORDER_CODEX_ENVIRONMENT_CREATION_20260602.md` y el validador

@@ -1,8 +1,8 @@
 {
   "status": "PASS",
   "mode": "LOCAL_SYNTHETIC_ALIGNMENT_ONLY",
-  "root": "D:\\.agents\\codex",
-  "repo_root": "D:\\",
+  "root": ".agents\\codex",
+  "repo_root": "C:\\Users\\enzo1\\Documents\\GitHub\\cabina-universal-d",
   "agent_count": 14,
   "default_skill_rows": 14,
   "execution_contract_rows": 14,

@@ -1,4 +1,4 @@
-# D:\ Cabina Universal root wrapper repo
+# C:\Users\enzo1\Documents\GitHub\cabina-universal-d Cabina Universal root wrapper repo
 #
 # This repo is intentionally narrow. It gives Codex and Git a native root for
 # the cabin while preserving every nested repo as an independent clone.
@@ -38,6 +38,13 @@
 !/LEVELS.yaml
 !/FOLDER_LEVELS.csv
 
+# Repo-scoped technical reference plane. This is a governed index anchor only;
+# 80_REFERENCIAS_TECNICAS remains a legacy/read-only surface until an
+# explicit metadata retention decision.
+!/80_REFERENCIAS_TECNICAS/
+/80_REFERENCIAS_TECNICAS/*
+!/80_REFERENCIAS_TECNICAS/README.md
+
 # GATE_CABINA_ALLOWLIST_CONTEXT_READBACKS_VERSIONING
 # Allow exact Cabina Universal D context/readback baseline files.
 !/00_CONTEXT/
@@ -47,11 +54,13 @@
 !/00_CONTEXT/SDU_OPEN_FRONTS_CURRENT_BASELINE.md
 !/00_CONTEXT/SDU_REPO_REVIEW_QUEUE.csv
 !/00_CONTEXT/SDU_REPO_REVIEW_QUEUE.md
+!/00_CONTEXT/CABINA_REPO_ROOT_CANONICAL_CONFIG_20260605.md
 
 !/08_READBACKS/
 /08_READBACKS/*
 !/08_READBACKS/GATE_CABINA_UNIVERSAL_D_POST_MERGE_READBACK.md
 !/08_READBACKS/GATE_CABINA_UNIVERSAL_D_REPO_QUEUE_READBACK.md
+!/08_READBACKS/GATE_CABINA_REPO_ROOT_MIGRATION_READBACK.md
 
 # Ordered full-live governed OpenAI agent governance gate. The default
 # implementation remains local; secrets stay ignored, and Microsoft/production

@@ -7,7 +7,7 @@ regulated data.
 
 ## Flow
 
-1. Confirm `D:\AGENTS.md`, selected repo, branch, remote and data boundary.
+1. Confirm `AGENTS.md`, selected repo, branch, remote and data boundary.
 2. Inventory Cloud tasks with `codex cloud list --json`.
 3. Inspect existing work with `codex cloud status <task_id>`.
 4. Review changes with `codex cloud diff <task_id>` and stop before apply.

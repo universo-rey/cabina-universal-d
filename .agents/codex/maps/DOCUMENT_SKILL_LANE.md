@@ -9,7 +9,7 @@ surfaces by default.
 ## Lane Matrix
 
 The governing matrix is
-`D:\.agents\codex\matrices\DOCUMENT_SKILL_LANE_MATRIX.csv`.
+`.agents\codex\matrices\DOCUMENT_SKILL_LANE_MATRIX.csv`.
 
 It maps:
 
@@ -20,9 +20,9 @@ It maps:
 
 ## Storage
 
-- Templates and template references: `D:\.agents\codex\templates`.
+- Templates and template references: `.agents\codex\templates`.
 - Evidence, redlines, previews and sanitized output references:
-  `D:\.agents\codex\workpapers\document_skills`.
+  `.agents\codex\workpapers\document_skills`.
 - Final regulated or secret-bearing documents must not be persisted in the repo.
   Store only sanitized metadata, checklists and readbacks unless a separate
   governed order selects the exact document, destination and retention rule.
@@ -38,4 +38,4 @@ It maps:
 
 ## Validator
 
-Run `D:\.agents\codex\tools\local_validate_document_skill_lane.ps1`.
+Run `.agents\codex\tools\local_validate_document_skill_lane.ps1`.

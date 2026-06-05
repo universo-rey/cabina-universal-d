@@ -10,10 +10,10 @@ Estado: `YA_CANONIZADO_NO_DUPLICAR`
 
 | role | canonical_id | status | surface | evidence |
 | --- | --- | --- | --- | --- |
-| Teams pattern reference | `conn_canon_003504` | `PATTERN_REFERENCE_CANON` | Teams | `D:/10_UNIVERSOS/ESCRIBANIA/10_REPOS/02_ACTIVE/torre-gemela-escribania/07_EVIDENCIA/TGE_MCP_WORKIQ_MAIL_TEAMS_PROBE_20260530.json` |
-| Teams real connection | `conn_canon_003505` | `REAL_CONNECTION_CANON` | Teams | `D:/10_UNIVERSOS/ESCRIBANIA/10_REPOS/02_ACTIVE/torre-gemela-escribania/07_EVIDENCIA/TGE_MCP_WORKIQ_MAIL_TEAMS_PROBE_20260530.json` |
-| Teams evidence reference | `conn_canon_003736` | `EVIDENCE_REFERENCE_CANON` | Teams | `D:/10_UNIVERSOS/ESCRIBANIA/10_REPOS/02_ACTIVE/torre-gemela-escribania/08_READBACKS/ACTA_TGE_AGENT365_MCP_FRONTIER_CONNECTIONS_20260530.md` |
-| Teams readback evidence | `conn_canon_004173` | `EVIDENCE_REFERENCE_CANON` | Teams | `D:/10_UNIVERSOS/ESCRIBANIA/10_REPOS/02_ACTIVE/torre-gemela-escribania/08_READBACKS/GATE_TGE_MCP_WORKIQ_MAIL_TEAMS_READBACK_20260530.md` |
+| Teams pattern reference | `conn_canon_003504` | `PATTERN_REFERENCE_CANON` | Teams | `10_UNIVERSOS/ESCRIBANIA/10_REPOS/02_ACTIVE/torre-gemela-escribania/07_EVIDENCIA/TGE_MCP_WORKIQ_MAIL_TEAMS_PROBE_20260530.json` |
+| Teams real connection | `conn_canon_003505` | `REAL_CONNECTION_CANON` | Teams | `10_UNIVERSOS/ESCRIBANIA/10_REPOS/02_ACTIVE/torre-gemela-escribania/07_EVIDENCIA/TGE_MCP_WORKIQ_MAIL_TEAMS_PROBE_20260530.json` |
+| Teams evidence reference | `conn_canon_003736` | `EVIDENCE_REFERENCE_CANON` | Teams | `10_UNIVERSOS/ESCRIBANIA/10_REPOS/02_ACTIVE/torre-gemela-escribania/08_READBACKS/ACTA_TGE_AGENT365_MCP_FRONTIER_CONNECTIONS_20260530.md` |
+| Teams readback evidence | `conn_canon_004173` | `EVIDENCE_REFERENCE_CANON` | Teams | `10_UNIVERSOS/ESCRIBANIA/10_REPOS/02_ACTIVE/torre-gemela-escribania/08_READBACKS/GATE_TGE_MCP_WORKIQ_MAIL_TEAMS_READBACK_20260530.md` |
 
 ## Companion Auth IDs
 
@@ -38,7 +38,7 @@ Estado: `YA_CANONIZADO_NO_DUPLICAR`
 
 ## Source Matrix Reconciliation
 
-The connection matrices under `D:/matrices/connections` already include the active canonical rows:
+The connection matrices under `matrices/connections` already include the active canonical rows:
 
 - `CONNECTION_DEDUP_RESULT_MATRIX.csv`: marks `conn_canon_003505` as `real_connection` and `seed_now`.
 - `CONNECTION_CANONICAL_INSTANCE_MATRIX.csv`: retains the canonical instance family.

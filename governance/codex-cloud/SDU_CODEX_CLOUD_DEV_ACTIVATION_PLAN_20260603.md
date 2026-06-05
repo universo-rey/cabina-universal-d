@@ -15,7 +15,7 @@ Preparar un probe DEV repo-scoped para Codex Cloud sobre `universo-rey/cabina-un
 
 ## Acciones Permitidas
 
-- leer `D:/AGENTS.md` o su equivalente checkout;
+- leer `AGENTS.md` o su equivalente checkout;
 - leer matrices, manifests y contratos;
 - ejecutar validadores repo-scoped;
 - devolver evidencia sin secretos.

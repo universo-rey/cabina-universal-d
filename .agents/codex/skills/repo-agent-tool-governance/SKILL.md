@@ -1,6 +1,6 @@
 ---
 name: repo-agent-tool-governance
-description: Use when D:\.agents\codex must assign, audit, or enforce governance over local repos, local agents, tools, recipes, or execution surfaces.
+description: Use when .agents\codex must assign, audit, or enforce governance over local repos, local agents, tools, recipes, or execution surfaces.
 ---
 
 # Repo Agent Tool Governance
@@ -26,11 +26,11 @@ Every governed asset needs:
 
 ## Required Reads
 
-1. `D:\.agents\codex\matrices\REPO_AGENT_TOOL_GOVERNANCE_MATRIX.csv`
-2. `D:\.agents\codex\matrices\REPO_GOVERNANCE_ASSIGNMENT_MATRIX.csv`
-3. `D:\.agents\codex\matrices\AGENT_GOVERNANCE_MATRIX.csv`
-4. `D:\.agents\codex\matrices\TOOL_GOVERNANCE_MATRIX.csv`
-5. `D:\.agents\codex\maps\SURFACE_BOUNDARY_MAP.csv`
+1. `.agents\codex\matrices\REPO_AGENT_TOOL_GOVERNANCE_MATRIX.csv`
+2. `.agents\codex\matrices\REPO_GOVERNANCE_ASSIGNMENT_MATRIX.csv`
+3. `.agents\codex\matrices\AGENT_GOVERNANCE_MATRIX.csv`
+4. `.agents\codex\matrices\TOOL_GOVERNANCE_MATRIX.csv`
+5. `.agents\codex\maps\SURFACE_BOUNDARY_MAP.csv`
 
 ## Workflow
 

@@ -24,7 +24,9 @@ Repo remoto reconocido para el primer carril activo:
 - `SeshatSgin/sgin-cloud`: repo privado con `AGENTS.md`, `README.md`,
   `runtime-local`, `skills`, `tests` y workflow `validate-runtime-local.yml`.
   Queda como environment Codex Cloud visible por CLI y candidato de smoke/CI
-  remoto fuera de la base D:\ hasta decidir registro raiz. Los tasks
+  remoto fuera de la base
+  `C:\Users\enzo1\Documents\GitHub\cabina-universal-d` hasta decidir registro
+  raiz. Los tasks
   `task_e_6a1f19895190832ebd427cf6b955bc31`,
   `task_e_6a1f1b60bc04832e855fe676e91c9ea7` y
   `task_e_6a1f2488d6d8832ea617a6616876e19c` cerraron `READY`, sin diff. Su
@@ -49,11 +51,11 @@ operador:
 - skill: `github:github|openai-docs|rey-modo-carril-codex-cloud-api|superpowers:verification-before-completion`
 - receta: `recipe.codex_cloud_governed_lane|recipe.governed_order_preparation`
 - tool: `tool.codex_cloud_cli_readonly|tool.local_validate_codex_cloud_governed_lane`
-- validador: `D:\.agents\codex\tools\local_validate_codex_cloud_governed_lane.ps1`
+- validador: `.agents\codex\tools\local_validate_codex_cloud_governed_lane.ps1`
 
 ## Flujo Gobernado
 
-1. Leer `D:\AGENTS.md` y confirmar repo, branch, remoto y alcance.
+1. Leer `AGENTS.md` y confirmar repo, branch, remoto y alcance.
 2. Usar `codex cloud list --json` para inventario.
 3. Usar `codex cloud status <task>` para estado de tareas existentes.
 4. Usar `codex cloud diff <task>` para revision; no aplicar todavia.

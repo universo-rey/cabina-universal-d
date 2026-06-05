@@ -54,7 +54,7 @@ body:
     attributes:
       label: Surface
       description: Repo, folder, PR, issue, matrix or external system.
-      placeholder: "D:/... or universo-rey/cabina-universal-d#..."
+      placeholder: "C:/Users/enzo1/Documents/GitHub/cabina-universal-d/... or universo-rey/cabina-universal-d#..."
     validations:
       required: true
   - type: input
@@ -78,7 +78,7 @@ body:
     attributes:
       label: Declared file set
       description: Exact files the agent may write. Shared indexes require a separate serial integration lane.
-      placeholder: "D:/path/file1.md\nD:/path/file2.csv"
+      placeholder: ".agents/codex/matrices/file1.csv\n02_AUTHORITY_CANON/file2.md"
     validations:
       required: true
   - type: textarea

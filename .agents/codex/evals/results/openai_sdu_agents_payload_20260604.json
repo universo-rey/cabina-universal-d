@@ -1,6 +1,6 @@
 {
   "package_id": "sdu_cn_agents_sanitized_20260604",
-  "source": "D:\\03_CORTE_EJECUTORA_DEL_REY\\10_REPOS\\02_ACTIVE\\seshat-bootstrap-sdu-cn\\matrices\\sdu_cn\\SDU_CN_AGENT_REGISTRY.csv",
+  "source": "03_CORTE_EJECUTORA_DEL_REY\\10_REPOS\\02_ACTIVE\\seshat-bootstrap-sdu-cn\\matrices\\sdu_cn\\SDU_CN_AGENT_REGISTRY.csv",
   "data_policy": "sanitized_metadata_only_no_secrets_no_regulated_document_bodies",
   "requested_action": "normalize_and_validate_agent_contracts_no_persistent_agent_creation",
   "agents": [

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "status": "LOCAL_GOVERNED_WORKPAPERS_ACTIVE",
-  "root": "D:\\",
+  "root": "C:\\Users\\enzo1\\Documents\\GitHub\\cabina-universal-d",
   "purpose": "Local governed agent layer for the Universal Rey control cabin, with versioned workpapers per agent.",
   "default_policy": {
     "mode": "local_first_governed_versioning",
@@ -41,19 +41,19 @@
       "id": "rey.control_plane_orchestrator",
       "name": "Orquestador de Cabina Universal",
       "layer": "rey_control_plane",
-      "home_path": "D:\\.agents\\codex\\agents\\00_ROUTER\\rey.control_plane_orchestrator.md",
+      "home_path": ".agents\\codex\\agents\\00_ROUTER\\rey.control_plane_orchestrator.md",
       "mission": "Recibir ordenes, clasificar superficie y derivar a canon, registro, corte o torre de universo.",
       "reads": [
-        "D:\\AGENTS.md",
-        "D:\\MANIFEST.yaml",
-        "D:\\00_CONTROL_PLANE_INGRESS\\ROUTING.json",
-        "D:\\01_GOVERNANCE_REGISTRY\\RELATIONSHIP_GRAPH.json",
-        "D:\\.agents\\codex\\routing.json"
+        "AGENTS.md",
+        "MANIFEST.yaml",
+        "00_CONTROL_PLANE_INGRESS\\ROUTING.json",
+        "01_GOVERNANCE_REGISTRY\\RELATIONSHIP_GRAPH.json",
+        ".agents\\codex\\routing.json"
       ],
       "writes": [
-        "D:\\00_CONTROL_PLANE_INGRESS\\INTAKE_QUEUE.csv",
-        "D:\\.agents\\codex\\orders",
-        "D:\\.agents\\codex\\readbacks"
+        "00_CONTROL_PLANE_INGRESS\\INTAKE_QUEUE.csv",
+        ".agents\\codex\\orders",
+        ".agents\\codex\\readbacks"
       ],
       "may_execute": [
         "local_inventory",
@@ -80,7 +80,7 @@
       ],
       "level_id": "00_ROUTER",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.control_plane_orchestrator",
+      "workpapers_path": ".agents\\codex\\workpapers\\rey.control_plane_orchestrator",
       "default_skills": [
         "rey-modo-gobernador-capacidades",
         "tcu-descubridor-capacidades",
@@ -119,17 +119,17 @@
       "id": "rey.frontier_guardian",
       "name": "Guardian de Fronteras",
       "layer": "rey_control_plane",
-      "home_path": "D:\\.agents\\codex\\agents\\01_AUTORIDAD_Y_GATES\\rey.frontier_guardian.md",
+      "home_path": ".agents\\codex\\agents\\01_AUTORIDAD_Y_GATES\\rey.frontier_guardian.md",
       "mission": "Determinar si una accion es local, versionado, live, regulada, productiva o bloqueada.",
       "reads": [
-        "D:\\AGENTS.md",
-        "D:\\02_AUTHORITY_CANON\\GATES_INDEX.csv",
-        "D:\\02_AUTHORITY_CANON\\POLICY_INDEX.csv",
-        "D:\\01_GOVERNANCE_REGISTRY\\FRONTIER_MATRIX.csv"
+        "AGENTS.md",
+        "02_AUTHORITY_CANON\\GATES_INDEX.csv",
+        "02_AUTHORITY_CANON\\POLICY_INDEX.csv",
+        "01_GOVERNANCE_REGISTRY\\FRONTIER_MATRIX.csv"
       ],
       "writes": [
-        "D:\\02_AUTHORITY_CANON\\GOVERNED_ORDERS_INDEX.csv",
-        "D:\\.agents\\codex\\readbacks"
+        "02_AUTHORITY_CANON\\GOVERNED_ORDERS_INDEX.csv",
+        ".agents\\codex\\readbacks"
       ],
       "may_execute": [
         "frontier_classification",
@@ -154,7 +154,7 @@
       ],
       "level_id": "01_AUTORIDAD_Y_GATES",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.frontier_guardian",
+      "workpapers_path": ".agents\\codex\\workpapers\\rey.frontier_guardian",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "rey-modo-gobernador-capacidades",
@@ -191,18 +191,18 @@
       "id": "rey.governance_registrar",
       "name": "Registrador de Gobierno",
       "layer": "rey_governance_registry",
-      "home_path": "D:\\.agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA\\rey.governance_registrar.md",
+      "home_path": ".agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA\\rey.governance_registrar.md",
       "mission": "Mantener inventario de universos, torres, repos, activos, owners y relaciones.",
       "reads": [
-        "D:\\01_GOVERNANCE_REGISTRY\\UNIVERSES.csv",
-        "D:\\01_GOVERNANCE_REGISTRY\\CONTROL_TOWERS.csv",
-        "D:\\01_GOVERNANCE_REGISTRY\\REPOSITORIES.csv",
-        "D:\\01_GOVERNANCE_REGISTRY\\OWNER_MATRIX.csv"
+        "01_GOVERNANCE_REGISTRY\\UNIVERSES.csv",
+        "01_GOVERNANCE_REGISTRY\\CONTROL_TOWERS.csv",
+        "01_GOVERNANCE_REGISTRY\\REPOSITORIES.csv",
+        "01_GOVERNANCE_REGISTRY\\OWNER_MATRIX.csv"
       ],
       "writes": [
-        "D:\\01_GOVERNANCE_REGISTRY\\CLASIFICACION_RESUELTA",
-        "D:\\01_GOVERNANCE_REGISTRY\\MIGRATION_MAP_D.csv",
-        "D:\\.agents\\codex\\readbacks"
+        "01_GOVERNANCE_REGISTRY\\CLASIFICACION_RESUELTA",
+        "01_GOVERNANCE_REGISTRY\\MIGRATION_MAP_D.csv",
+        ".agents\\codex\\readbacks"
       ],
       "may_execute": [
         "metadata_normalization",
@@ -226,7 +226,7 @@
       ],
       "level_id": "02_REGISTRO_Y_CARTOGRAFIA",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.governance_registrar",
+      "workpapers_path": ".agents\\codex\\workpapers\\rey.governance_registrar",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "rey-modo-gobernador-capacidades",
@@ -263,18 +263,18 @@
       "id": "rey.authority_canonist",
       "name": "Canonista de Autoridad",
       "layer": "rey_authority_canon",
-      "home_path": "D:\\.agents\\codex\\agents\\01_AUTORIDAD_Y_GATES\\rey.authority_canonist.md",
+      "home_path": ".agents\\codex\\agents\\01_AUTORIDAD_Y_GATES\\rey.authority_canonist.md",
       "mission": "Cuidar el canon activo, decisiones rectoras, gates y ordenes gobernadas.",
       "reads": [
-        "D:\\02_AUTHORITY_CANON\\CURRENT_STATE.md",
-        "D:\\02_AUTHORITY_CANON\\ACTIVE_CANON.csv",
-        "D:\\02_AUTHORITY_CANON\\DECISION_LOG.csv",
-        "D:\\02_AUTHORITY_CANON\\GOVERNED_ORDERS_INDEX.csv"
+        "02_AUTHORITY_CANON\\CURRENT_STATE.md",
+        "02_AUTHORITY_CANON\\ACTIVE_CANON.csv",
+        "02_AUTHORITY_CANON\\DECISION_LOG.csv",
+        "02_AUTHORITY_CANON\\GOVERNED_ORDERS_INDEX.csv"
       ],
       "writes": [
-        "D:\\02_AUTHORITY_CANON\\GOVERNED_ORDERS",
-        "D:\\02_AUTHORITY_CANON\\RECTOR_READBACKS",
-        "D:\\.agents\\codex\\readbacks"
+        "02_AUTHORITY_CANON\\GOVERNED_ORDERS",
+        "02_AUTHORITY_CANON\\RECTOR_READBACKS",
+        ".agents\\codex\\readbacks"
       ],
       "may_execute": [
         "canon_alignment",
@@ -298,7 +298,7 @@
       ],
       "level_id": "01_AUTORIDAD_Y_GATES",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.authority_canonist",
+      "workpapers_path": ".agents\\codex\\workpapers\\rey.authority_canonist",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "rey-modo-gobernador-capacidades",
@@ -334,17 +334,17 @@
       "id": "rey.repo_cartographer",
       "name": "Cartografo de Repos",
       "layer": "rey_registry_support",
-      "home_path": "D:\\.agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA\\rey.repo_cartographer.md",
+      "home_path": ".agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA\\rey.repo_cartographer.md",
       "mission": "Mapear clones, repos vecinos, ramas, remotos y relacion con universos sin modificar Git.",
       "reads": [
-        "D:\\01_GOVERNANCE_REGISTRY\\REPOSITORIES.csv",
-        "D:\\01_GOVERNANCE_REGISTRY\\RELATIONSHIP_GRAPH.json",
-        "D:\\10_UNIVERSOS",
-        "D:\\80_REFERENCIAS_TECNICAS"
+        "01_GOVERNANCE_REGISTRY\\REPOSITORIES.csv",
+        "01_GOVERNANCE_REGISTRY\\RELATIONSHIP_GRAPH.json",
+        "10_UNIVERSOS",
+        "80_REFERENCIAS_TECNICAS"
       ],
       "writes": [
-        "D:\\01_GOVERNANCE_REGISTRY\\MIGRATION_MAP_D.csv",
-        "D:\\.agents\\codex\\readbacks"
+        "01_GOVERNANCE_REGISTRY\\MIGRATION_MAP_D.csv",
+        ".agents\\codex\\readbacks"
       ],
       "may_execute": [
         "read_only_git_status",
@@ -369,7 +369,7 @@
       ],
       "level_id": "02_REGISTRO_Y_CARTOGRAFIA",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.repo_cartographer",
+      "workpapers_path": ".agents\\codex\\workpapers\\rey.repo_cartographer",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "github:github",
@@ -411,19 +411,19 @@
       "id": "court.openai_dispatcher",
       "name": "Despachador Corte OpenAI",
       "layer": "corte_ejecutora",
-      "home_path": "D:\\.agents\\codex\\agents\\03_CORTE_EJECUTORA\\court.openai_dispatcher.md",
+      "home_path": ".agents\\codex\\agents\\03_CORTE_EJECUTORA\\court.openai_dispatcher.md",
       "mission": "Preparar prompts, recetas, evals y activaciones locales para agentes OpenAI, Seshat y SDU.",
       "reads": [
-        "D:\\03_CORTE_EJECUTORA_DEL_REY\\MANIFEST.yaml",
-        "D:\\03_CORTE_EJECUTORA_DEL_REY\\04_PROMPTS",
-        "D:\\03_CORTE_EJECUTORA_DEL_REY\\05_RECETAS",
-        "D:\\03_CORTE_EJECUTORA_DEL_REY\\07_EVALS"
+        "03_CORTE_EJECUTORA_DEL_REY\\MANIFEST.yaml",
+        "03_CORTE_EJECUTORA_DEL_REY\\04_PROMPTS",
+        "03_CORTE_EJECUTORA_DEL_REY\\05_RECETAS",
+        "03_CORTE_EJECUTORA_DEL_REY\\07_EVALS"
       ],
       "writes": [
-        "D:\\03_CORTE_EJECUTORA_DEL_REY\\04_PROMPTS",
-        "D:\\03_CORTE_EJECUTORA_DEL_REY\\05_RECETAS",
-        "D:\\03_CORTE_EJECUTORA_DEL_REY\\07_EVALS",
-        "D:\\.agents\\codex\\readbacks"
+        "03_CORTE_EJECUTORA_DEL_REY\\04_PROMPTS",
+        "03_CORTE_EJECUTORA_DEL_REY\\05_RECETAS",
+        "03_CORTE_EJECUTORA_DEL_REY\\07_EVALS",
+        ".agents\\codex\\readbacks"
       ],
       "may_execute": [
         "prompt_pack_draft",
@@ -449,7 +449,7 @@
       ],
       "level_id": "03_CORTE_EJECUTORA",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.openai_dispatcher",
+      "workpapers_path": ".agents\\codex\\workpapers\\court.openai_dispatcher",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "github:github",
@@ -492,17 +492,17 @@
       "id": "universe.escribania_tower",
       "name": "Torre Universo Escribania",
       "layer": "universe_tower",
-      "home_path": "D:\\.agents\\codex\\agents\\04_TORRES_DE_UNIVERSO\\universe.escribania_tower.md",
+      "home_path": ".agents\\codex\\agents\\04_TORRES_DE_UNIVERSO\\universe.escribania_tower.md",
       "mission": "Gobernar el universo Escribania, incluyendo TGE, cumplimiento, evidencia y SharePoint aprobado cuando exista orden.",
       "reads": [
-        "D:\\10_UNIVERSOS\\ESCRIBANIA\\MANIFEST.yaml",
-        "D:\\10_UNIVERSOS\\ESCRIBANIA\\ROUTING.md",
-        "D:\\01_GOVERNANCE_REGISTRY\\REPOSITORIES.csv",
-        "D:\\02_AUTHORITY_CANON\\CURRENT_STATE.md"
+        "10_UNIVERSOS\\ESCRIBANIA\\MANIFEST.yaml",
+        "10_UNIVERSOS\\ESCRIBANIA\\ROUTING.md",
+        "01_GOVERNANCE_REGISTRY\\REPOSITORIES.csv",
+        "02_AUTHORITY_CANON\\CURRENT_STATE.md"
       ],
       "writes": [
-        "D:\\10_UNIVERSOS\\ESCRIBANIA\\50_EVIDENCIA",
-        "D:\\.agents\\codex\\readbacks"
+        "10_UNIVERSOS\\ESCRIBANIA\\50_EVIDENCIA",
+        ".agents\\codex\\readbacks"
       ],
       "may_execute": [
         "local_escribania_inventory",
@@ -527,7 +527,7 @@
       ],
       "level_id": "04_TORRES_DE_UNIVERSO",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\universe.escribania_tower",
+      "workpapers_path": ".agents\\codex\\workpapers\\universe.escribania_tower",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "sharepoint:sharepoint-site-discovery",
@@ -564,17 +564,17 @@
       "id": "universe.modo_on_tower",
       "name": "Torre Universo Modo ON",
       "layer": "universe_tower",
-      "home_path": "D:\\.agents\\codex\\agents\\04_TORRES_DE_UNIVERSO\\universe.modo_on_tower.md",
+      "home_path": ".agents\\codex\\agents\\04_TORRES_DE_UNIVERSO\\universe.modo_on_tower.md",
       "mission": "Gobernar el universo Modo ON y ubicar CDF, Jara y activos proveedores bajo control trazable.",
       "reads": [
-        "D:\\10_UNIVERSOS\\MODO_ON\\MANIFEST.yaml",
-        "D:\\10_UNIVERSOS\\MODO_ON\\ROUTING.md",
-        "D:\\01_GOVERNANCE_REGISTRY\\REPOSITORIES.csv",
-        "D:\\01_GOVERNANCE_REGISTRY\\OWNER_MATRIX.csv"
+        "10_UNIVERSOS\\MODO_ON\\MANIFEST.yaml",
+        "10_UNIVERSOS\\MODO_ON\\ROUTING.md",
+        "01_GOVERNANCE_REGISTRY\\REPOSITORIES.csv",
+        "01_GOVERNANCE_REGISTRY\\OWNER_MATRIX.csv"
       ],
       "writes": [
-        "D:\\10_UNIVERSOS\\MODO_ON\\50_EVIDENCIA",
-        "D:\\.agents\\codex\\readbacks"
+        "10_UNIVERSOS\\MODO_ON\\50_EVIDENCIA",
+        ".agents\\codex\\readbacks"
       ],
       "may_execute": [
         "local_modo_on_inventory",
@@ -598,7 +598,7 @@
       ],
       "level_id": "04_TORRES_DE_UNIVERSO",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\universe.modo_on_tower",
+      "workpapers_path": ".agents\\codex\\workpapers\\universe.modo_on_tower",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "tcu-normalizador-sistema-modo-on",
@@ -636,19 +636,19 @@
       "id": "court.seshat_evidence",
       "name": "Seshat de Evidencia",
       "layer": "corte_ejecutora",
-      "home_path": "D:\\.agents\\codex\\agents\\03_CORTE_EJECUTORA\\court.seshat_evidence.md",
+      "home_path": ".agents\\codex\\agents\\03_CORTE_EJECUTORA\\court.seshat_evidence.md",
       "mission": "Registrar evidencia, readbacks, actas y trazabilidad de decisiones sin sustituir autoridad humana.",
       "reads": [
-        "D:\\AGENTS.md",
-        "D:\\02_AUTHORITY_CANON\\CURRENT_STATE.md",
-        "D:\\02_AUTHORITY_CANON\\DECISION_LOG.csv",
-        "D:\\.agents\\codex\\readbacks"
+        "AGENTS.md",
+        "02_AUTHORITY_CANON\\CURRENT_STATE.md",
+        "02_AUTHORITY_CANON\\DECISION_LOG.csv",
+        ".agents\\codex\\readbacks"
       ],
       "writes": [
-        "D:\\.agents\\codex\\readbacks",
-        "D:\\02_AUTHORITY_CANON\\RECTOR_READBACKS",
-        "D:\\10_UNIVERSOS\\ESCRIBANIA\\50_EVIDENCIA",
-        "D:\\10_UNIVERSOS\\MODO_ON\\50_EVIDENCIA"
+        ".agents\\codex\\readbacks",
+        "02_AUTHORITY_CANON\\RECTOR_READBACKS",
+        "10_UNIVERSOS\\ESCRIBANIA\\50_EVIDENCIA",
+        "10_UNIVERSOS\\MODO_ON\\50_EVIDENCIA"
       ],
       "may_execute": [
         "evidence_indexing",
@@ -672,7 +672,7 @@
       ],
       "level_id": "03_CORTE_EJECUTORA",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.seshat_evidence",
+      "workpapers_path": ".agents\\codex\\workpapers\\court.seshat_evidence",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "rey-modo-evidencia-riesgo-handoff",
@@ -713,18 +713,18 @@
       "id": "court.sdu_gate",
       "name": "SDU Gate Canonico",
       "layer": "corte_ejecutora",
-      "home_path": "D:\\.agents\\codex\\agents\\01_AUTORIDAD_Y_GATES\\court.sdu_gate.md",
+      "home_path": ".agents\\codex\\agents\\01_AUTORIDAD_Y_GATES\\court.sdu_gate.md",
       "mission": "Aplicar criterio SDU sobre gates, stop conditions, escalamiento y coherencia de ordenes.",
       "reads": [
-        "D:\\AGENTS.md",
-        "D:\\02_AUTHORITY_CANON\\GATES_INDEX.csv",
-        "D:\\02_AUTHORITY_CANON\\ACTIVE_CANON.csv",
-        "D:\\01_GOVERNANCE_REGISTRY\\FRONTIER_MATRIX.csv"
+        "AGENTS.md",
+        "02_AUTHORITY_CANON\\GATES_INDEX.csv",
+        "02_AUTHORITY_CANON\\ACTIVE_CANON.csv",
+        "01_GOVERNANCE_REGISTRY\\FRONTIER_MATRIX.csv"
       ],
       "writes": [
-        "D:\\02_AUTHORITY_CANON\\GOVERNED_ORDERS",
-        "D:\\02_AUTHORITY_CANON\\RECTOR_READBACKS",
-        "D:\\.agents\\codex\\readbacks"
+        "02_AUTHORITY_CANON\\GOVERNED_ORDERS",
+        "02_AUTHORITY_CANON\\RECTOR_READBACKS",
+        ".agents\\codex\\readbacks"
       ],
       "may_execute": [
         "gate_review",
@@ -749,7 +749,7 @@
       ],
       "level_id": "01_AUTORIDAD_Y_GATES",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.sdu_gate",
+      "workpapers_path": ".agents\\codex\\workpapers\\court.sdu_gate",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "tcu-harness-evals-agentes",
@@ -785,18 +785,18 @@
       "id": "court.thot_schema",
       "name": "Thot Tecnico de Schemas",
       "layer": "corte_ejecutora",
-      "home_path": "D:\\.agents\\codex\\agents\\03_CORTE_EJECUTORA\\court.thot_schema.md",
+      "home_path": ".agents\\codex\\agents\\03_CORTE_EJECUTORA\\court.thot_schema.md",
       "mission": "Traducir narrativa, canon y ordenes a campos, schemas, matrices, tools y eventos verificables.",
       "reads": [
-        "D:\\AGENTS.md",
-        "D:\\01_GOVERNANCE_REGISTRY",
-        "D:\\02_AUTHORITY_CANON",
-        "D:\\03_CORTE_EJECUTORA_DEL_REY\\06_TOOLS"
+        "AGENTS.md",
+        "01_GOVERNANCE_REGISTRY",
+        "02_AUTHORITY_CANON",
+        "03_CORTE_EJECUTORA_DEL_REY\\06_TOOLS"
       ],
       "writes": [
-        "D:\\03_CORTE_EJECUTORA_DEL_REY\\06_TOOLS",
-        "D:\\03_CORTE_EJECUTORA_DEL_REY\\07_EVALS",
-        "D:\\.agents\\codex\\readbacks"
+        "03_CORTE_EJECUTORA_DEL_REY\\06_TOOLS",
+        "03_CORTE_EJECUTORA_DEL_REY\\07_EVALS",
+        ".agents\\codex\\readbacks"
       ],
       "may_execute": [
         "schema_draft",
@@ -820,7 +820,7 @@
       ],
       "level_id": "03_CORTE_EJECUTORA",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\court.thot_schema",
+      "workpapers_path": ".agents\\codex\\workpapers\\court.thot_schema",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "tcu-harness-evals-agentes",
@@ -867,18 +867,18 @@
       "id": "rey.migration_planner",
       "name": "Planificador de Migracion D",
       "layer": "rey_control_plane",
-      "home_path": "D:\\.agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA\\rey.migration_planner.md",
+      "home_path": ".agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA\\rey.migration_planner.md",
       "mission": "Preparar migracion local de clones, herramientas y activos al disco D sin mover nada hasta orden gobernada.",
       "reads": [
-        "D:\\01_GOVERNANCE_REGISTRY\\MIGRATION_MAP_D.csv",
-        "D:\\01_GOVERNANCE_REGISTRY\\REPOSITORIES.csv",
-        "D:\\10_UNIVERSOS",
-        "D:\\80_REFERENCIAS_TECNICAS"
+        "01_GOVERNANCE_REGISTRY\\MIGRATION_MAP_D.csv",
+        "01_GOVERNANCE_REGISTRY\\REPOSITORIES.csv",
+        "10_UNIVERSOS",
+        "80_REFERENCIAS_TECNICAS"
       ],
       "writes": [
-        "D:\\01_GOVERNANCE_REGISTRY\\MIGRATION_MAP_D.csv",
-        "D:\\.agents\\codex\\orders",
-        "D:\\.agents\\codex\\readbacks"
+        "01_GOVERNANCE_REGISTRY\\MIGRATION_MAP_D.csv",
+        ".agents\\codex\\orders",
+        ".agents\\codex\\readbacks"
       ],
       "may_execute": [
         "migration_plan_draft",
@@ -905,7 +905,7 @@
       ],
       "level_id": "02_REGISTRO_Y_CARTOGRAFIA",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\rey.migration_planner",
+      "workpapers_path": ".agents\\codex\\workpapers\\rey.migration_planner",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "tcu-planificador-con-archivos",
@@ -942,17 +942,17 @@
       "id": "tech.reference_librarian",
       "name": "Bibliotecario de Referencias Tecnicas",
       "layer": "technical_reference",
-      "home_path": "D:\\.agents\\codex\\agents\\05_SOPORTE_TECNICO\\tech.reference_librarian.md",
+      "home_path": ".agents\\codex\\agents\\05_SOPORTE_TECNICO\\tech.reference_librarian.md",
       "mission": "Separar referencias tecnicas Microsoft, OpenAI, devcontainers y tooling de canon rector vivo.",
       "reads": [
-        "D:\\80_REFERENCIAS_TECNICAS",
-        "D:\\01_GOVERNANCE_REGISTRY\\REPOSITORIES.csv",
-        "D:\\02_AUTHORITY_CANON\\ACTIVE_CANON.csv"
+        "80_REFERENCIAS_TECNICAS",
+        "01_GOVERNANCE_REGISTRY\\REPOSITORIES.csv",
+        "02_AUTHORITY_CANON\\ACTIVE_CANON.csv"
       ],
       "writes": [
-        "D:\\80_REFERENCIAS_TECNICAS",
-        "D:\\01_GOVERNANCE_REGISTRY\\CLASIFICACION_RESUELTA",
-        "D:\\.agents\\codex\\readbacks"
+        "80_REFERENCIAS_TECNICAS",
+        "01_GOVERNANCE_REGISTRY\\CLASIFICACION_RESUELTA",
+        ".agents\\codex\\readbacks"
       ],
       "may_execute": [
         "reference_classification",
@@ -976,7 +976,7 @@
       ],
       "level_id": "05_SOPORTE_TECNICO",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\tech.reference_librarian",
+      "workpapers_path": ".agents\\codex\\workpapers\\tech.reference_librarian",
       "default_skills": [
         "rey-modo-gobernador-capacidades",
         "tcu-descubridor-capacidades",
@@ -1021,17 +1021,17 @@
       "id": "codex.workspace_guardian",
       "name": "Guardian del Workspace Codex",
       "layer": "codex_workspace",
-      "home_path": "D:\\.agents\\codex\\agents\\05_SOPORTE_TECNICO\\codex.workspace_guardian.md",
+      "home_path": ".agents\\codex\\agents\\05_SOPORTE_TECNICO\\codex.workspace_guardian.md",
       "mission": "Auditar configuracion local de Codex, AGENTS.md, rutas y workspaces sin tocar secretos ni ajustes live sin orden.",
       "reads": [
-        "D:\\AGENTS.md",
-        "D:\\.agents\\codex",
-        "D:\\MANIFEST.yaml",
-        "D:\\MAPA_HUMANO.md"
+        "AGENTS.md",
+        ".agents\\codex",
+        "MANIFEST.yaml",
+        "MAPA_HUMANO.md"
       ],
       "writes": [
-        "D:\\.agents\\codex\\readbacks",
-        "D:\\00_CONTROL_PLANE_INGRESS\\PENDING_CLASSIFICATION.csv"
+        ".agents\\codex\\readbacks",
+        "00_CONTROL_PLANE_INGRESS\\PENDING_CLASSIFICATION.csv"
       ],
       "may_execute": [
         "workspace_read_only_audit",
@@ -1056,7 +1056,7 @@
       ],
       "level_id": "05_SOPORTE_TECNICO",
       "read_weight": "light_profile_only",
-      "workpapers_path": "D:\\.agents\\codex\\workpapers\\codex.workspace_guardian",
+      "workpapers_path": ".agents\\codex\\workpapers\\codex.workspace_guardian",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "rey-modo-auditor-vscode-insiders",
@@ -1099,23 +1099,23 @@
     {
       "id": "00_ROUTER",
       "name": "Router liviano",
-      "folder": "D:\\.agents\\codex\\agents\\00_ROUTER",
+      "folder": ".agents\\codex\\agents\\00_ROUTER",
       "purpose": "Entrada, clasificacion y derivacion inicial",
       "read_policy": "leer solo README raiz, LEVELS y perfil del agente asignado",
       "agents": [
         "rey.control_plane_orchestrator"
       ],
       "sublevel_artifacts": {
-        "capabilities": "D:\\.agents\\codex\\agents\\00_ROUTER\\CAPABILITIES.csv",
-        "reading_map": "D:\\.agents\\codex\\agents\\00_ROUTER\\READING_MAP.csv",
-        "handoffs": "D:\\.agents\\codex\\agents\\00_ROUTER\\HANDOFFS.csv",
-        "readme": "D:\\.agents\\codex\\agents\\00_ROUTER\\README.md"
+        "capabilities": ".agents\\codex\\agents\\00_ROUTER\\CAPABILITIES.csv",
+        "reading_map": ".agents\\codex\\agents\\00_ROUTER\\READING_MAP.csv",
+        "handoffs": ".agents\\codex\\agents\\00_ROUTER\\HANDOFFS.csv",
+        "readme": ".agents\\codex\\agents\\00_ROUTER\\README.md"
       }
     },
     {
       "id": "01_AUTORIDAD_Y_GATES",
       "name": "Autoridad y gates",
-      "folder": "D:\\.agents\\codex\\agents\\01_AUTORIDAD_Y_GATES",
+      "folder": ".agents\\codex\\agents\\01_AUTORIDAD_Y_GATES",
       "purpose": "Fronteras, canon, gates y stop conditions",
       "read_policy": "leer canon/gates solo cuando la orden toca autoridad, live, riesgo o cierre",
       "agents": [
@@ -1124,16 +1124,16 @@
         "court.sdu_gate"
       ],
       "sublevel_artifacts": {
-        "capabilities": "D:\\.agents\\codex\\agents\\01_AUTORIDAD_Y_GATES\\CAPABILITIES.csv",
-        "reading_map": "D:\\.agents\\codex\\agents\\01_AUTORIDAD_Y_GATES\\READING_MAP.csv",
-        "handoffs": "D:\\.agents\\codex\\agents\\01_AUTORIDAD_Y_GATES\\HANDOFFS.csv",
-        "readme": "D:\\.agents\\codex\\agents\\01_AUTORIDAD_Y_GATES\\README.md"
+        "capabilities": ".agents\\codex\\agents\\01_AUTORIDAD_Y_GATES\\CAPABILITIES.csv",
+        "reading_map": ".agents\\codex\\agents\\01_AUTORIDAD_Y_GATES\\READING_MAP.csv",
+        "handoffs": ".agents\\codex\\agents\\01_AUTORIDAD_Y_GATES\\HANDOFFS.csv",
+        "readme": ".agents\\codex\\agents\\01_AUTORIDAD_Y_GATES\\README.md"
       }
     },
     {
       "id": "02_REGISTRO_Y_CARTOGRAFIA",
       "name": "Registro y cartografia",
-      "folder": "D:\\.agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA",
+      "folder": ".agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA",
       "purpose": "Universos, repos, owners, migracion y mapas",
       "read_policy": "leer registries y mapas solo para inventario, migracion o jerarquia",
       "agents": [
@@ -1142,16 +1142,16 @@
         "rey.migration_planner"
       ],
       "sublevel_artifacts": {
-        "capabilities": "D:\\.agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA\\CAPABILITIES.csv",
-        "reading_map": "D:\\.agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA\\READING_MAP.csv",
-        "handoffs": "D:\\.agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA\\HANDOFFS.csv",
-        "readme": "D:\\.agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA\\README.md"
+        "capabilities": ".agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA\\CAPABILITIES.csv",
+        "reading_map": ".agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA\\READING_MAP.csv",
+        "handoffs": ".agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA\\HANDOFFS.csv",
+        "readme": ".agents\\codex\\agents\\02_REGISTRO_Y_CARTOGRAFIA\\README.md"
       }
     },
     {
       "id": "03_CORTE_EJECUTORA",
       "name": "Corte ejecutora",
-      "folder": "D:\\.agents\\codex\\agents\\03_CORTE_EJECUTORA",
+      "folder": ".agents\\codex\\agents\\03_CORTE_EJECUTORA",
       "purpose": "OpenAI, SDU/Seshat/Thot, prompts, recetas, evals y evidencia",
       "read_policy": "leer prompts/recetas/evals solo bajo orden de corte o agente",
       "agents": [
@@ -1160,16 +1160,16 @@
         "court.thot_schema"
       ],
       "sublevel_artifacts": {
-        "capabilities": "D:\\.agents\\codex\\agents\\03_CORTE_EJECUTORA\\CAPABILITIES.csv",
-        "reading_map": "D:\\.agents\\codex\\agents\\03_CORTE_EJECUTORA\\READING_MAP.csv",
-        "handoffs": "D:\\.agents\\codex\\agents\\03_CORTE_EJECUTORA\\HANDOFFS.csv",
-        "readme": "D:\\.agents\\codex\\agents\\03_CORTE_EJECUTORA\\README.md"
+        "capabilities": ".agents\\codex\\agents\\03_CORTE_EJECUTORA\\CAPABILITIES.csv",
+        "reading_map": ".agents\\codex\\agents\\03_CORTE_EJECUTORA\\READING_MAP.csv",
+        "handoffs": ".agents\\codex\\agents\\03_CORTE_EJECUTORA\\HANDOFFS.csv",
+        "readme": ".agents\\codex\\agents\\03_CORTE_EJECUTORA\\README.md"
       }
     },
     {
       "id": "04_TORRES_DE_UNIVERSO",
       "name": "Torres de universo",
-      "folder": "D:\\.agents\\codex\\agents\\04_TORRES_DE_UNIVERSO",
+      "folder": ".agents\\codex\\agents\\04_TORRES_DE_UNIVERSO",
       "purpose": "Operativa por universo: Escribania y Modo ON",
       "read_policy": "leer solo manifiesto/routing del universo seleccionado",
       "agents": [
@@ -1177,16 +1177,16 @@
         "universe.modo_on_tower"
       ],
       "sublevel_artifacts": {
-        "capabilities": "D:\\.agents\\codex\\agents\\04_TORRES_DE_UNIVERSO\\CAPABILITIES.csv",
-        "reading_map": "D:\\.agents\\codex\\agents\\04_TORRES_DE_UNIVERSO\\READING_MAP.csv",
-        "handoffs": "D:\\.agents\\codex\\agents\\04_TORRES_DE_UNIVERSO\\HANDOFFS.csv",
-        "readme": "D:\\.agents\\codex\\agents\\04_TORRES_DE_UNIVERSO\\README.md"
+        "capabilities": ".agents\\codex\\agents\\04_TORRES_DE_UNIVERSO\\CAPABILITIES.csv",
+        "reading_map": ".agents\\codex\\agents\\04_TORRES_DE_UNIVERSO\\READING_MAP.csv",
+        "handoffs": ".agents\\codex\\agents\\04_TORRES_DE_UNIVERSO\\HANDOFFS.csv",
+        "readme": ".agents\\codex\\agents\\04_TORRES_DE_UNIVERSO\\README.md"
       }
     },
     {
       "id": "05_SOPORTE_TECNICO",
       "name": "Soporte tecnico",
-      "folder": "D:\\.agents\\codex\\agents\\05_SOPORTE_TECNICO",
+      "folder": ".agents\\codex\\agents\\05_SOPORTE_TECNICO",
       "purpose": "Referencias tecnicas, tooling, workspace Codex y configuracion local",
       "read_policy": "leer solo cuando la orden sea herramienta, referencia o workspace",
       "agents": [
@@ -1194,41 +1194,41 @@
         "codex.workspace_guardian"
       ],
       "sublevel_artifacts": {
-        "capabilities": "D:\\.agents\\codex\\agents\\05_SOPORTE_TECNICO\\CAPABILITIES.csv",
-        "reading_map": "D:\\.agents\\codex\\agents\\05_SOPORTE_TECNICO\\READING_MAP.csv",
-        "handoffs": "D:\\.agents\\codex\\agents\\05_SOPORTE_TECNICO\\HANDOFFS.csv",
-        "readme": "D:\\.agents\\codex\\agents\\05_SOPORTE_TECNICO\\README.md"
+        "capabilities": ".agents\\codex\\agents\\05_SOPORTE_TECNICO\\CAPABILITIES.csv",
+        "reading_map": ".agents\\codex\\agents\\05_SOPORTE_TECNICO\\READING_MAP.csv",
+        "handoffs": ".agents\\codex\\agents\\05_SOPORTE_TECNICO\\HANDOFFS.csv",
+        "readme": ".agents\\codex\\agents\\05_SOPORTE_TECNICO\\README.md"
       }
     }
   ],
   "artifact_roots": {
-    "matrices": "D:\\.agents\\codex\\matrices",
-    "maps": "D:\\.agents\\codex\\maps",
-    "skills": "D:\\.agents\\codex\\skills",
-    "recipes": "D:\\.agents\\codex\\recipes",
-    "tools": "D:\\.agents\\codex\\tools",
-    "evals": "D:\\.agents\\codex\\evals",
-    "orders": "D:\\.agents\\codex\\orders",
-    "readbacks": "D:\\.agents\\codex\\readbacks",
-    "workpapers": "D:\\.agents\\codex\\workpapers",
-    "plugins": "D:\\.agents\\codex\\plugins"
+    "matrices": ".agents\\codex\\matrices",
+    "maps": ".agents\\codex\\maps",
+    "skills": ".agents\\codex\\skills",
+    "recipes": ".agents\\codex\\recipes",
+    "tools": ".agents\\codex\\tools",
+    "evals": ".agents\\codex\\evals",
+    "orders": ".agents\\codex\\orders",
+    "readbacks": ".agents\\codex\\readbacks",
+    "workpapers": ".agents\\codex\\workpapers",
+    "plugins": ".agents\\codex\\plugins"
   },
   "operating_contract": {
     "read_order": [
-      "D:\\AGENTS.md",
-      "D:\\.agents\\codex\\README.md",
-      "D:\\.agents\\codex\\agents\\LEVELS.yaml",
-      "D:\\.agents\\codex\\routing.json",
+      "AGENTS.md",
+      ".agents\\codex\\README.md",
+      ".agents\\codex\\agents\\LEVELS.yaml",
+      ".agents\\codex\\routing.json",
       "selected_sublevel_README",
       "selected_agent_profile"
     ],
     "required_indices": [
-      "D:\\.agents\\codex\\matrices\\MATRIX_INDEX.csv",
-      "D:\\.agents\\codex\\recipes\\RECIPE_INDEX.csv",
-      "D:\\.agents\\codex\\tools\\TOOL_INDEX.csv",
-      "D:\\.agents\\codex\\skills\\SKILL_USAGE_MATRIX.csv"
+      ".agents\\codex\\matrices\\MATRIX_INDEX.csv",
+      ".agents\\codex\\recipes\\RECIPE_INDEX.csv",
+      ".agents\\codex\\tools\\TOOL_INDEX.csv",
+      ".agents\\codex\\skills\\SKILL_USAGE_MATRIX.csv"
     ],
-    "validator": "D:\\.agents\\codex\\tools\\local_validate_agent_levels.ps1",
+    "validator": ".agents\\codex\\tools\\local_validate_agent_levels.ps1",
     "no_default_bulk_read": true,
     "no_remote_persistent_agents": true,
     "no_live_writes_without_governed_order": true

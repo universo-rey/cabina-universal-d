@@ -8,7 +8,8 @@ Este policy define como la cabina guarda y usa referencias de skills,
 librerias y documentacion API sin convertir articulos externos o vendor docs en
 canon rector.
 
-La fuente rectora local sigue siendo `D:\AGENTS.md`. Las referencias tecnicas
+La fuente rectora local sigue siendo root AGENTS.md en
+`C:\Users\enzo1\Documents\GitHub\cabina-universal-d`. Las referencias tecnicas
 ayudan a disenar skills, recetas, tools, ejemplos y gotchas, pero no sustituyen
 autoridad, gates, ordenes gobernadas ni decision humana.
 
@@ -17,24 +18,24 @@ Tokens de control para validacion: `technical reference`, `not authority canon`,
 
 ## Frontera de Autoridad
 
-1. `D:\AGENTS.md` prevalece sobre UI, resumen lateral, perfiles, plugins y
+1. root AGENTS.md prevalece sobre UI, resumen lateral, perfiles, plugins y
    runtime global.
-2. `D:\02_AUTHORITY_CANON` conserva decisiones rectoras y gates.
-3. `D:\.agents\skills\<skill>\SKILL.md` contiene skills repo-locales durables.
-4. `D:\.agents\codex\skills` contiene catalogos, source refs, matrices de uso
+2. `02_AUTHORITY_CANON` conserva decisiones rectoras y gates.
+3. `.agents\skills\<skill>\SKILL.md` contiene skills repo-locales durables.
+4. `.agents\codex\skills` contiene catalogos, source refs, matrices de uso
    y politicas de referencia.
 5. Fuentes externas como blogs, articulos, docs de vendors o ejemplos publicos
    son `technical_reference`, no `authority_canon`.
 
-Si una referencia externa contradice `D:\AGENTS.md`, se registra el hallazgo y
+Si una referencia externa contradice root AGENTS.md, se registra el hallazgo y
 se detiene con `source_reference_treated_as_canon`.
 
 ## Modelo de Almacenamiento
 
-- Skills portables: `D:\.agents\skills\<skill>\SKILL.md`.
-- Catalogo y uso: `D:\.agents\codex\skills\*.csv` y
-  `D:\.agents\codex\matrices\LOCAL_SKILL_CATALOG.csv`.
-- Referencias fuente: `D:\.agents\codex\matrices\SKILL_REFERENCE_SOURCE_MATRIX.csv`.
+- Skills portables: `.agents\skills\<skill>\SKILL.md`.
+- Catalogo y uso: `.agents\codex\skills\*.csv` y
+  `.agents\codex\matrices\LOCAL_SKILL_CATALOG.csv`.
+- Referencias fuente: `.agents\codex\matrices\SKILL_REFERENCE_SOURCE_MATRIX.csv`.
 - Scripts, assets o carpetas `references/` dentro de skills repo-locales
   requieren registro explicito antes de versionarse. Hasta que exista ese
   registro, se documenta la referencia en la matriz y se evita copiar contenido
@@ -87,7 +88,7 @@ Toda fuente usada para disenar o actualizar una skill debe declarar:
 ## Validacion
 
 El control local es
-`D:\.agents\codex\tools\local_validate_skill_reference_sources.ps1`.
+`.agents\codex\tools\local_validate_skill_reference_sources.ps1`.
 
 El cierre minimo del carril debe declarar agente, orden, superficie, skill,
 receta, tool, estado, evidencia, validador, stop condition y proximos carriles.

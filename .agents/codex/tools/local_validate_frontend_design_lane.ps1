@@ -1,6 +1,6 @@
 param(
-  [string]$Root = "D:\.agents\codex",
-  [string]$RepoRoot = "D:\"
+  [string]$Root = ".agents\codex",
+  [string]$RepoRoot = "C:\Users\enzo1\Documents\GitHub\cabina-universal-d"
 )
 
 $ErrorActionPreference = "Stop"
@@ -17,11 +17,11 @@ function Resolve-CabinaPath {
   param([string]$Path)
   if ([string]::IsNullOrWhiteSpace($Path)) { return $Path }
   $normalized = $Path -replace "/", "\"
-  if ($normalized.StartsWith("D:\.agents\codex", [System.StringComparison]::OrdinalIgnoreCase)) {
-    return Join-Path $Root ($normalized.Substring("D:\.agents\codex".Length).TrimStart("\"))
+  if ($normalized.StartsWith(".agents\codex", [System.StringComparison]::OrdinalIgnoreCase)) {
+    return Join-Path $Root ($normalized.Substring(".agents\codex".Length).TrimStart("\"))
   }
-  if ($normalized.StartsWith("D:\", [System.StringComparison]::OrdinalIgnoreCase)) {
-    return Join-Path $RepoRoot ($normalized.Substring("D:\".Length).TrimStart("\"))
+  if ($normalized.StartsWith("C:\Users\enzo1\Documents\GitHub\cabina-universal-d", [System.StringComparison]::OrdinalIgnoreCase)) {
+    return Join-Path $RepoRoot ($normalized.Substring("C:\Users\enzo1\Documents\GitHub\cabina-universal-d".Length).TrimStart("\"))
   }
   return Join-Path $RepoRoot $normalized
 }
@@ -56,14 +56,15 @@ function Check-PathTokens {
   foreach ($token in @($Value -split "\|" | ForEach-Object { $_.Trim() } | Where-Object { $_ })) {
     if ($token -match '^https://') { continue }
     if ($token -match '^manual:') { continue }
-    if ($token -match '^[A-Za-z]:[\\/]') {
-      $resolved = Resolve-CabinaPath -Path $token
-      if (-not (Test-Path -LiteralPath $resolved)) {
-        $Errors.Add("$Context references missing path: $token")
-      }
+    $resolved = Resolve-CabinaPath -Path $token
+    if (Test-Path -LiteralPath $resolved) {
       continue
     }
-    $Errors.Add("$Context has unsupported locator token: $token")
+    if ($token -match '^[A-Za-z]:[\\/]') {
+      $Errors.Add("$Context references missing path: $token")
+      continue
+    }
+    $Errors.Add("$Context has unsupported or missing locator token: $token")
   }
 }
 

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Enrich `D:\.agents\codex` without creating remote agents, touching secrets, or widening into live surfaces.
+Enrich `.agents\codex` without creating remote agents, touching secrets, or widening into live surfaces.
 
 ## Steps
 

@@ -41,8 +41,8 @@
   "live_write_performed": false,
   "tenant_mutation_performed": false,
   "artifacts": {
-    "review_matrix": "D:\\.agents\\codex\\matrices\\ENTRA_APPLICATION_REGISTRY_REVIEW_GATE_20260603.csv",
-    "readback": "D:\\.agents\\codex\\readbacks\\2026-06-03_entra_application_registry_review_gate_readback.md"
+    "review_matrix": ".agents\\codex\\matrices\\ENTRA_APPLICATION_REGISTRY_REVIEW_GATE_20260603.csv",
+    "readback": ".agents\\codex\\readbacks\\2026-06-03_entra_application_registry_review_gate_readback.md"
   },
   "stop_condition": "artifact_approval_missing|permission_mutation_attempted|credential_value_exposed|tenant_mismatch"
 }

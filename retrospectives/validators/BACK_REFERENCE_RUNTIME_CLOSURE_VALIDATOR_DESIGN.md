@@ -4,7 +4,7 @@
 HECHO_VERIFICADO: BACK_REFERENCE_RUNTIME_CLOSURE_VALIDATOR_DESIGNED_AND_IMPLEMENTED
 
 ## Tool
-- Path: D:\.agents\codex\tools\local_validate_backreference_runtime_closure.ps1
+- Path: .agents\codex\tools\local_validate_backreference_runtime_closure.ps1
 - Mode: local evidence validator
 - Live calls: none
 - Secrets: none
@@ -22,11 +22,11 @@ postcheck. It blocks if:
 - PROD, TEST, Default, secrets, personal data or documents appear as touched.
 
 ## Evidence Inputs
-- D:\matrices\runtime\BACK_REFERENCE_RUNTIME_TRACE_SOURCE_MATRIX.csv
-- D:\matrices\runtime\BACK_REFERENCE_RUNTIME_CLOSURE_DECISION_MATRIX.csv
-- D:\matrices\runtime\BACK_REFERENCE_RUNTIME_WRITE_RESULT.csv
-- D:\matrices\runtime\BACK_REFERENCE_SECOND_ITEM_VALIDATION_RESULT.csv
-- D:\validation\runtime\BACK_REFERENCE_RUNTIME_SAFE_STATE_POSTCHECK.md
+- matrices\runtime\BACK_REFERENCE_RUNTIME_TRACE_SOURCE_MATRIX.csv
+- matrices\runtime\BACK_REFERENCE_RUNTIME_CLOSURE_DECISION_MATRIX.csv
+- matrices\runtime\BACK_REFERENCE_RUNTIME_WRITE_RESULT.csv
+- matrices\runtime\BACK_REFERENCE_SECOND_ITEM_VALIDATION_RESULT.csv
+- validation\runtime\BACK_REFERENCE_RUNTIME_SAFE_STATE_POSTCHECK.md
 
 ## Stop Condition
 Any missing evidence file or failed invariant exits with FAIL and blocks PR

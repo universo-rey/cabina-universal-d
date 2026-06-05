@@ -8,7 +8,7 @@ Toda carpeta gobernada debe poder leerse en una cadena de niveles:
 
 ## Nivel 0
 
-`D:\`
+`C:\Users\enzo1\Documents\GitHub\cabina-universal-d`
 
 Cabina Universal del Rey. No es un repo por defecto; por orden expresa puede
 operar como repo local envoltorio con allowlist, sin absorber clones anidados.

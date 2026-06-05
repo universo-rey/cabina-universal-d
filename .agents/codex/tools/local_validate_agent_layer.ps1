@@ -1,5 +1,5 @@
 param(
-  [string]$Root = "D:\.agents\codex",
+  [string]$Root = ".agents\codex",
   [switch]$SkipWorkflowNestedValidators
 )
 
@@ -61,14 +61,15 @@ function Resolve-CabinaPath {
   if ([string]::IsNullOrWhiteSpace($Path)) {
     return $Path
   }
-  $repoRoot = Split-Path -Parent (Split-Path -Parent $Root)
+  $resolvedRoot = (Resolve-Path -LiteralPath $Root).Path
+  $repoRoot = Split-Path -Parent (Split-Path -Parent $resolvedRoot)
   $normalized = $Path -replace "/", "\"
-  if ($normalized.StartsWith("D:\.agents\codex", [System.StringComparison]::OrdinalIgnoreCase)) {
-    $suffix = $normalized.Substring("D:\.agents\codex".Length).TrimStart("\")
+  if ($normalized.StartsWith(".agents\codex", [System.StringComparison]::OrdinalIgnoreCase)) {
+    $suffix = $normalized.Substring(".agents\codex".Length).TrimStart("\")
     return Join-Path $Root $suffix
   }
-  if ($normalized.StartsWith("D:\", [System.StringComparison]::OrdinalIgnoreCase)) {
-    $suffix = $normalized.Substring("D:\".Length).TrimStart("\")
+  if ($normalized.StartsWith("C:\Users\enzo1\Documents\GitHub\cabina-universal-d", [System.StringComparison]::OrdinalIgnoreCase)) {
+    $suffix = $normalized.Substring("C:\Users\enzo1\Documents\GitHub\cabina-universal-d".Length).TrimStart("\")
     return Join-Path $repoRoot $suffix
   }
   return $Path
@@ -307,7 +308,8 @@ foreach ($validatorSpec in @(
     $errors.Add("Missing $($validatorSpec.Name) validator: $($validatorSpec.Path)")
   } else {
     if ($validatorSpec.Name -eq "operational chain") {
-      $repoRootForValidator = Split-Path -Parent (Split-Path -Parent $Root)
+      $resolvedRootForValidator = (Resolve-Path -LiteralPath $Root).Path
+      $repoRootForValidator = Split-Path -Parent (Split-Path -Parent $resolvedRootForValidator)
       $validatorOutput = & $validatorSpec.Path -Root $Root -RepoRoot $repoRootForValidator
     } else {
       $validatorOutput = & $validatorSpec.Path -Root $Root

@@ -1,6 +1,6 @@
 param(
-  [string]$Root = "D:\.agents\codex",
-  [string]$RepoRoot = "D:\"
+  [string]$Root = ".agents\codex",
+  [string]$RepoRoot = "C:\Users\enzo1\Documents\GitHub\cabina-universal-d"
 )
 
 $ErrorActionPreference = "Stop"
@@ -41,10 +41,10 @@ function Check-Path {
     [string]$Context
   )
   $normalized = $Path -replace "/", "\"
-  if ($normalized.StartsWith("D:\.agents\codex", [System.StringComparison]::OrdinalIgnoreCase)) {
-    $resolved = Join-Path $Root ($normalized.Substring("D:\.agents\codex".Length).TrimStart("\"))
-  } elseif ($normalized.StartsWith("D:\", [System.StringComparison]::OrdinalIgnoreCase)) {
-    $resolved = Join-Path $RepoRoot ($normalized.Substring("D:\".Length).TrimStart("\"))
+  if ($normalized.StartsWith(".agents\codex", [System.StringComparison]::OrdinalIgnoreCase)) {
+    $resolved = Join-Path $Root ($normalized.Substring(".agents\codex".Length).TrimStart("\"))
+  } elseif ($normalized.StartsWith("C:\Users\enzo1\Documents\GitHub\cabina-universal-d", [System.StringComparison]::OrdinalIgnoreCase)) {
+    $resolved = Join-Path $RepoRoot ($normalized.Substring("C:\Users\enzo1\Documents\GitHub\cabina-universal-d".Length).TrimStart("\"))
   } else {
     $resolved = Join-Path $RepoRoot $normalized
   }

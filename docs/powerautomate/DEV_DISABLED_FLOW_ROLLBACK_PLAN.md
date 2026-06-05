@@ -4,7 +4,7 @@
 DEV_DISABLED_FLOW_ROLLBACK_PREPARED_NOT_EXECUTED
 
 ## Alcance
-Aplica solo a los 9 workflows creados via Dataverse Web API en DEV y registrados en D:\matrices\powerautomate\DEV_DISABLED_FLOW_CREATION_RESULT.csv.
+Aplica solo a los 9 workflows creados via Dataverse Web API en DEV y registrados en matrices\powerautomate\DEV_DISABLED_FLOW_CREATION_RESULT.csv.
 
 ## Target
 - Environment ID: 7f65fc04-c27a-ea0d-bd2d-266aa9203c1e

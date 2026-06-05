@@ -12,7 +12,7 @@ WORK_QUEUE_OPERATIONAL_ROLLBACK_READY
 
 ## Preferred Rollback
 1. Reconfirm PAC/Dataverse target is the exact DEV sandbox.
-2. Locate pilot queue items by uniqueidbyqueue from D:\matrices\powerautomate\WORK_QUEUE_PILOT_RESULT.csv or by payload batch_id = 20260603_workqueue_pilot_dev_v1.
+2. Locate pilot queue items by uniqueidbyqueue from matrices\powerautomate\WORK_QUEUE_PILOT_RESULT.csv or by payload batch_id = 20260603_workqueue_pilot_dev_v1.
 3. Cancel/deactivate pilot items if the table operation supports it; otherwise leave with processing disabled and mark rollback in evidence.
 4. Do not delete queues unless a separate governed order names exact queues and postcheck.
 5. Do not delete Dataverse tables, columns, prior seed rows or snapshots.

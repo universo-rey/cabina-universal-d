@@ -12,7 +12,7 @@ Use this command when the goal is to prove runtime alignment without changing
 the latest result file:
 
 ```powershell
-& 'D:\.agents\codex\tools\local_run_repo_alignment_runtime.ps1' -NoWrite
+& '.agents\codex\tools\local_run_repo_alignment_runtime.ps1' -NoWrite
 ```
 
 Expected result:
@@ -25,14 +25,14 @@ Expected result:
   `merge_without_approved_precheck`
 
 Use the command without `-NoWrite` only when the operator wants to refresh
-`D:\.agents\codex\evals\results\repo_alignment_runtime_latest.json`.
+`.agents\codex\evals\results\repo_alignment_runtime_latest.json`.
 
 ## Agents SDK Local Preflight
 
 Use this command to prove the local Agents SDK import boundary:
 
 ```powershell
-& 'D:\.agents\codex\tools\local_validate_github_automation_preflight.ps1' -CheckLocalSdk
+& '.agents\codex\tools\local_validate_github_automation_preflight.ps1' -CheckLocalSdk
 ```
 
 Expected result:
@@ -49,7 +49,7 @@ governed order packet.
 ## Parallel Issue Queue
 
 The active queue is
-`D:\.agents\codex\matrices\PARALLEL_ISSUE_LANE_QUEUE.csv`.
+`.agents\codex\matrices\PARALLEL_ISSUE_LANE_QUEUE.csv`.
 
 It maps each issue or work unit to:
 
@@ -68,7 +68,7 @@ It maps each issue or work unit to:
 Validate it with:
 
 ```powershell
-& 'D:\.agents\codex\tools\local_validate_parallel_issue_queue.ps1'
+& '.agents\codex\tools\local_validate_parallel_issue_queue.ps1'
 ```
 
 Issue workers may run in parallel only when their active rows have distinct

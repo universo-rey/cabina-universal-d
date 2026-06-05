@@ -1,5 +1,5 @@
 capability_id,agent_id,description,reads,writes,stop_condition
-cap.frontier.classify,rey.frontier_guardian,clasificar frontera y riesgo,D:\.agents\codex\maps\SURFACE_BOUNDARY_MAP.csv,D:\.agents\codex\readbacks,gate_missing
-cap.canon.align,rey.authority_canonist,alinear decision con canon activo,D:\02_AUTHORITY_CANON,D:\.agents\codex\orders,conflicting_canon
-cap.sdu.stop,court.sdu_gate,definir stop condition y escalamiento,D:\.agents\codex\matrices\EVIDENCE_AND_VALIDATION_MATRIX.csv,D:\.agents\codex\readbacks,rollback_missing
-cap.order.prepare,rey.frontier_guardian,preparar texto de orden gobernada,D:\.agents\codex\recipes\recipe.gate_decision_packet.md,D:\.agents\codex\orders,postcheck_missing
+cap.frontier.classify,rey.frontier_guardian,clasificar frontera y riesgo,.agents\codex\maps\SURFACE_BOUNDARY_MAP.csv,.agents\codex\readbacks,gate_missing
+cap.canon.align,rey.authority_canonist,alinear decision con canon activo,02_AUTHORITY_CANON,.agents\codex\orders,conflicting_canon
+cap.sdu.stop,court.sdu_gate,definir stop condition y escalamiento,.agents\codex\matrices\EVIDENCE_AND_VALIDATION_MATRIX.csv,.agents\codex\readbacks,rollback_missing
+cap.order.prepare,rey.frontier_guardian,preparar texto de orden gobernada,.agents\codex\recipes\recipe.gate_decision_packet.md,.agents\codex\orders,postcheck_missing
