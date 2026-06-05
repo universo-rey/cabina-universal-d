@@ -55,6 +55,8 @@ Brechas principales:
 - `.agents/codex/maps/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_ORG_CHART_20260605.md`
 - `.agents/codex/matrices/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_SDU_SEARCH_SELECTION_PLAN_20260605.csv`
 - `.agents/codex/maps/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_SDU_SEARCH_SELECTION_PLAN_20260605.md`
+- `.agents/codex/matrices/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_FRAMEWORK_20260605.csv`
+- `.agents/codex/maps/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_FRAMEWORK_20260605.md`
 - `.agents/codex/readbacks/2026-06-05_agents_sdk_live_agent_global_operability_readback.md`
 
 ## Decisiones Formalizadas
@@ -126,6 +128,22 @@ de seleccion es estricta: solo las decisiones `EXECUTE_ON_NEXT_LANE` pueden
 pasar al proximo carril local. Las decisiones `KEEP_GATED`,
 `REQUIRE_LIVE_GATE`, `REQUIRE_HUMAN_GATE`, `REQUIRE_WORKTREE_GATE` y
 `SERIALIZE` permanecen retenidas hasta gate humano o carril serial explicito.
+
+## Framework Formalizado
+
+El framework del paquete conecta inventario fuente, hallazgos live,
+decisiones, RACI, organigrama, workflow, plan SDU, indices, cobertura y
+readback en un contrato operativo unico.
+
+Reglas:
+
+- Los hallazgos son evidencia, no autoridad.
+- Las decisiones son acciones gobernadas, no ejecucion automatica.
+- La RACI define ownership antes de cualquier carril siguiente.
+- El organigrama define escalamiento y ownership de gates.
+- El workflow define orden y stop conditions.
+- El plan SDU define busqueda, filtro, seleccion y narrativa.
+- El paquete se detiene en PR review hasta aprobacion humana.
 
 ## Sistemas Tocados
 
