@@ -65,6 +65,7 @@ def validate() -> None:
             "Regla anti-escalamiento",
             "Limite de costo",
             "Comando exacto obligatorio",
+            "Si el comando exacto contiene placeholders",
             "Evidencia significa ejecucion o verificacion real",
         ],
     )

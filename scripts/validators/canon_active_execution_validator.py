@@ -95,6 +95,7 @@ NARRATIVE_COMMAND_FRAGMENTS = (
     " despues ",
 )
 ADMIN_BYPASS_STOP_CONDITIONS = {
+    "BREAK_GLASS_APPROVAL_MISSING",
     "ADMIN_BYPASS_PRECHECK_MISSING",
     "HEAD_CHANGED",
     "CHECKS_NOT_GREEN",
@@ -265,6 +266,12 @@ def validate_capability_matrix(matrix_path: Path) -> tuple[list[str], list[str]]
             missing_admin_conditions = sorted(ADMIN_BYPASS_STOP_CONDITIONS - stop_conditions)
             if missing_admin_conditions:
                 errors.append(f"{capability_id}: admin bypass missing stop conditions: {', '.join(missing_admin_conditions)}")
+            if active_status != "BLOCKED_SECURITY_RISK":
+                errors.append(f"{capability_id}: admin bypass must be BLOCKED_SECURITY_RISK")
+            if row.get("execution_mode", "").strip() != "break_glass_only":
+                errors.append(f"{capability_id}: admin bypass must use break_glass_only execution_mode")
+            if row.get("approval_ref", "").strip() != "required_break_glass_approval":
+                errors.append(f"{capability_id}: admin bypass must require break-glass approval")
             if "--admin" not in command or "--match-head-commit" not in command:
                 errors.append(f"{capability_id}: admin bypass must require admin and match-head-commit")
 

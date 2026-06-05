@@ -94,6 +94,11 @@ Si falta una decision humana, target, secreto o costo, el carril debe quedar
 como `PENDING_*_ONLY` y debe registrar el comando exacto que se ejecutara cuando
 el dato faltante exista.
 
+Si el comando exacto contiene placeholders como `[TARGET]`, `[APPROVAL_REF]`,
+`[TENANT_ID]`, `[SECRET]`, `[MAX_USD]` o `[EXPECTED_HEAD]`, el carril no puede
+quedar en `execute_now=yes` salvo que sea un validador local/mock que no use
+esos placeholders para escribir fuera del repositorio.
+
 ## Evidencia minima
 
 Evidencia significa ejecucion o verificacion real: comando local corrido, workflow remoto observado, tarea Codex Cloud creada, probe read-only ejecutado, mock pasado, check verde o target faltante comprobado. Un documento preparado sin ejecucion debe declararse como `PENDING_*_ONLY` o como orden lista para gate, nunca como evidencia de ejecucion.
