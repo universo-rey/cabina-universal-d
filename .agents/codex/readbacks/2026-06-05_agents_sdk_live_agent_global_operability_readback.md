@@ -101,14 +101,23 @@ El workflow formalizado conecta los artefactos en una cadena ejecutable:
 - SharePoint, Teams, Planner, Graph, Dataverse y Power Platform.
 - Produccion.
 - Tenants, permisos, secretos y repos externos.
-- GitHub writes nuevos.
+- GitHub writes durante la ejecucion live original.
 
 ## Postcheck
 
 - No se imprimieron secretos.
 - No hubo writes externos.
-- No hubo stage, commit, push ni PR.
+- Durante la ejecucion live original no hubo stage, commit, push ni PR.
 - La salida live fue reducida a matriz local saneada.
+
+## Versionado Posterior
+
+- El carril repo-scoped posterior versiona la evidencia saneada en PR `#101`.
+- El versionado posterior agrego hallazgos, decisiones, RACI y workflow de
+  revision evaluacion decision.
+- El versionado posterior uso stage explicito, commit, push y PR draft
+  repo-scoped.
+- El versionado posterior no re-ejecuto OpenAI API live ni Agents SDK live.
 
 ## Proximos Carriles
 
