@@ -50,6 +50,7 @@ Brechas principales:
 - `.agents/codex/matrices/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_FINDINGS_20260605.csv`
 - `.agents/codex/matrices/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_DECISION_MATRIX_20260605.csv`
 - `.agents/codex/matrices/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_RACI_MATRIX_20260605.csv`
+- `.agents/codex/matrices/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_REVIEW_EVALUATION_DECISION_WORKFLOW_20260605.csv`
 - `.agents/codex/readbacks/2026-06-05_agents_sdk_live_agent_global_operability_readback.md`
 
 ## Decisiones Formalizadas
@@ -75,6 +76,19 @@ La matriz RACI asigna ownership operativo para cada decision live formalizada:
 - `gate_owner`: agente que controla el gate cuando hay live costo produccion o frontera critica.
 - `evidence_owner`: `court.seshat_evidence` como owner transversal de evidencia.
 - `validator_owner`: `court.thot_schema` como owner transversal de validacion.
+
+## Flujo Revision Evaluacion Decision
+
+El workflow formalizado conecta los artefactos en una cadena ejecutable:
+
+1. Revisar hallazgos saneados.
+2. Mapear hallazgos contra canon y fronteras.
+3. Evaluar riesgo gate y superficie.
+4. Asignar RACI.
+5. Separar decisiones ejecutables de decisiones gateadas o serializadas.
+6. Preparar carril siguiente solo para `EXECUTE_ON_NEXT_LANE`.
+7. Validar localmente antes de versionar.
+8. Registrar evidencia y detener en PR review hasta aprobacion humana.
 
 ## Sistemas Tocados
 
