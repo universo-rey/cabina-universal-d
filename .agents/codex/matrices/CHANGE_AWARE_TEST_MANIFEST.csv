@@ -18,3 +18,4 @@ parallel_order_governance,true,.agents/codex/tools/local_validate_parallel_order
 parallel_issue_queue,true,.agents/codex/tools/local_validate_parallel_issue_queue.ps1,-Root;{Root};-RepoRoot;{RepoRoot},parallel|issues|matrix,17,true,true,fail_visible,180,governance
 order_packets,true,.agents/codex/tools/local_validate_order_packets.ps1,-Root;{Root},orders|frontier|matrix,18,true,true,fail_visible,180,governance
 agent_layer,true,.agents/codex/tools/local_validate_agent_layer.ps1,-Root;{Root};-SkipWorkflowNestedValidators,agents|matrices|tools|skills,19,true,true,fail_visible,300,governance
+cabina_full_automation_planes,true,.agents/codex/tools/local_validate_cabina_full_automation_planes.ps1,-Root;{Root};-RepoRoot;{RepoRoot},automation|planes|matrix|governance,20,true,true,fail_visible,180,governance
