@@ -23,6 +23,9 @@ function Resolve-CabinaPath {
   if ($normalized.StartsWith("C:\Users\enzo1\Documents\GitHub\cabina-universal-d", [System.StringComparison]::OrdinalIgnoreCase)) {
     return Join-Path $RepoRoot ($normalized.Substring("C:\Users\enzo1\Documents\GitHub\cabina-universal-d".Length).TrimStart("\"))
   }
+  if ($normalized -match '^[A-Za-z]:[\\/]') {
+    return $normalized
+  }
   return Join-Path $RepoRoot $normalized
 }
 

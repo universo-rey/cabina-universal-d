@@ -43,7 +43,7 @@
     {
       "repo_id": "ORGANIZACION",
       "repository_full_name": "universo-rey/organizacion",
-      "local_path": "01_GOVERNANCE_REGISTRY/10_REPOS/02_ACTIVE/organizacion",
+      "local_path": "C:/Users/enzo1/Documents/GitHub/organizacion",
       "exists": true,
       "git_worktree": true,
       "branch": "codex/d-drive-governance-versioning-20260601",
@@ -78,7 +78,7 @@
     {
       "repo_id": "TORRE_GEMELA_ESCRIBANIA",
       "repository_full_name": "SeshatSgin/torre-gemela-escribania",
-      "local_path": "10_UNIVERSOS/ESCRIBANIA/10_REPOS/02_ACTIVE/torre-gemela-escribania",
+      "local_path": "C:/Users/enzo1/Documents/GitHub/torre-gemela-escribania",
       "exists": true,
       "git_worktree": true,
       "branch": "codex/tge-universal-repo-authority-map-20260601",
@@ -105,7 +105,7 @@
     {
       "repo_id": "TGE_AGENTIC_RUNTIME",
       "repository_full_name": "SeshatSgin/tge-agentic-runtime-control-escribania",
-      "local_path": "10_UNIVERSOS/ESCRIBANIA/10_REPOS/02_ACTIVE/tge-agentic-runtime-control-escribania",
+      "local_path": "C:/Users/enzo1/Documents/GitHub/tge-agentic-runtime-control-escribania",
       "exists": true,
       "git_worktree": true,
       "branch": "codex/tge-court-order-adapter-alignment-20260601",
@@ -123,7 +123,7 @@
     {
       "repo_id": "SGIN_CUMPLIMIENTO",
       "repository_full_name": "SeshatSgin/sgin-cumplimiento",
-      "local_path": "10_UNIVERSOS/ESCRIBANIA/10_REPOS/02_ACTIVE/sgin-cumplimiento",
+      "local_path": "C:/Users/enzo1/Documents/GitHub/sgin-cumplimiento",
       "exists": true,
       "git_worktree": true,
       "branch": "main",
@@ -141,7 +141,7 @@
     {
       "repo_id": "CDF_SOLUCIONES",
       "repository_full_name": "SeshatSgin/cdf-soluciones",
-      "local_path": "10_UNIVERSOS/MODO_ON/10_REPOS/02_ACTIVE/cdf-soluciones",
+      "local_path": "C:/Users/enzo1/Documents/GitHub/cdf-soluciones",
       "exists": true,
       "git_worktree": true,
       "branch": "codex/cdf-dual-codespace-cabina-prep",
@@ -168,7 +168,7 @@
     {
       "repo_id": "JARA_CONSULTORES",
       "repository_full_name": "SeshatSgin/jara-consultores",
-      "local_path": "10_UNIVERSOS/MODO_ON/10_REPOS/02_ACTIVE/jara-consultores",
+      "local_path": "C:/Users/enzo1/Documents/GitHub/jara-consultores",
       "exists": true,
       "git_worktree": true,
       "branch": "main",
@@ -186,7 +186,7 @@
     {
       "repo_id": "MODO_ON_FOUNDATION",
       "repository_full_name": "SeshatSgin/modo-on-foundation",
-      "local_path": "10_UNIVERSOS/MODO_ON/10_REPOS/02_ACTIVE/modo-on-foundation",
+      "local_path": "C:/Users/enzo1/Documents/GitHub/modo-on-foundation",
       "exists": true,
       "git_worktree": true,
       "branch": "main",
@@ -204,7 +204,7 @@
     {
       "repo_id": "SDU_CANON",
       "repository_full_name": "SeshatSgin/sdu-canon",
-      "local_path": "03_CORTE_EJECUTORA_DEL_REY/10_REPOS/02_ACTIVE/sdu-canon",
+      "local_path": "C:/Users/enzo1/Documents/GitHub/sdu-canon",
       "exists": true,
       "git_worktree": true,
       "branch": "main",
@@ -222,7 +222,7 @@
     {
       "repo_id": "SESHAT_BOOTSTRAP",
       "repository_full_name": "SeshatSgin/seshat-bootstrap-sdu-cn",
-      "local_path": "03_CORTE_EJECUTORA_DEL_REY/10_REPOS/02_ACTIVE/seshat-bootstrap-sdu-cn",
+      "local_path": "C:/Users/enzo1/Documents/GitHub/seshat-bootstrap-sdu-cn",
       "exists": true,
       "git_worktree": true,
       "branch": "codex/seshat-global-live-governance-20260601",
@@ -249,7 +249,7 @@
     {
       "repo_id": "SGIN",
       "repository_full_name": "universo-rey/Sgin",
-      "local_path": "03_CORTE_EJECUTORA_DEL_REY/10_REPOS/02_ACTIVE/Sgin",
+      "local_path": "C:/Users/enzo1/Documents/GitHub/Sgin",
       "exists": true,
       "git_worktree": true,
       "branch": "main",
@@ -267,7 +267,7 @@
     {
       "repo_id": "TCU_AGENTIC_RUNTIME",
       "repository_full_name": "SeshatSgin/tcu-agentic-runtime-control",
-      "local_path": "03_CORTE_EJECUTORA_DEL_REY/10_REPOS/02_ACTIVE/tcu-agentic-runtime-control",
+      "local_path": "C:/Users/enzo1/Documents/GitHub/tcu-agentic-runtime-control",
       "exists": true,
       "git_worktree": true,
       "branch": "main",
@@ -285,7 +285,7 @@
     {
       "repo_id": "MICROSOFT_AGENTS_GOVERNED_LAB",
       "repository_full_name": "universo-rey/microsoft-agents-governed-lab",
-      "local_path": "10_UNIVERSOS/ESCRIBANIA/10_REPOS/02_ACTIVE/microsoft-agents-governed-lab",
+      "local_path": "C:/Users/enzo1/Documents/GitHub/microsoft-agents-governed-lab",
       "exists": true,
       "git_worktree": true,
       "branch": "main",

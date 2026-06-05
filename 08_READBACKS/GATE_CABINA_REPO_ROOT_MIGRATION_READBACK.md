@@ -87,6 +87,38 @@ local_run_governance_validation_suite.ps1 = PASS
 git diff --check = PASS
 ```
 
+## Topologia local Codex/GitHub
+
+```text
+CODEX_HOME_ENV = no definido
+effective_CODEX_HOME = C:/Users/enzo1/.codex
+github_sibling_root = C:/Users/enzo1/Documents/GitHub
+cabina_repo = C:/Users/enzo1/Documents/GitHub/cabina-universal-d
+nested_git_inside_cabina = none
+global_codex_state_in_repo = none
+repo_scoped_codex_config = .codex/environments/environment.toml
+topology_matrix = .agents/codex/matrices/CODEX_LOCAL_REPO_TOPOLOGY_MATRIX_20260605.csv
+topology_validator = .agents/codex/tools/local_validate_repo_topology_windows_default.ps1
+```
+
+Repos materializados como hermanos bajo `C:/Users/enzo1/Documents/GitHub` desde
+GitHub canon:
+
+```text
+universo-rey/organizacion -> organizacion
+SeshatSgin/torre-gemela-escribania -> torre-gemela-escribania
+SeshatSgin/tge-agentic-runtime-control-escribania -> tge-agentic-runtime-control-escribania
+SeshatSgin/sgin-cumplimiento -> sgin-cumplimiento
+SeshatSgin/cdf-soluciones -> cdf-soluciones
+SeshatSgin/jara-consultores -> jara-consultores
+SeshatSgin/modo-on-foundation -> modo-on-foundation
+SeshatSgin/sdu-canon -> sdu-canon
+SeshatSgin/seshat-bootstrap-sdu-cn -> seshat-bootstrap-sdu-cn
+universo-rey/Sgin -> Sgin
+SeshatSgin/tcu-agentic-runtime-control -> tcu-agentic-runtime-control
+universo-rey/microsoft-agents-governed-lab -> microsoft-agents-governed-lab
+```
+
 ## Criterio de cierre
 
 Este readback queda cerrado si:
@@ -95,6 +127,9 @@ Este readback queda cerrado si:
 * `D:/` queda declarado como superficie gobernada;
 * toda referencia restante a `D:/` o `D:\` queda justificada por allowlist legacy/gobernanza;
 * ningun tool, validator, skill, recipe, manifest, prompt ejecutable o cadena operativa depende de `D:/`;
+* los repos operativos registrados viven como carpetas hermanas bajo `C:/Users/enzo1/Documents/GitHub`;
+* `cabina-universal-d` no contiene repos Git anidados, submodules, gitlinks, worktrees anidados ni clones operativos;
+* la configuracion global/personal de Codex queda fuera del repo y bajo `C:/Users/enzo1/.codex`;
 * no se toca `D:/.git`;
 * no se toca `core.worktree=D:/`;
 * no se hace merge;

@@ -204,6 +204,7 @@ $validatorSpecs = @(
   @{ Id = "frontend_design_lane"; Tool = Resolve-ToolPath "tools\local_validate_frontend_design_lane.ps1"; Args = @("-Root", $Root, "-RepoRoot", $RepoRoot) },
   @{ Id = "codex_cloud_governed_lane"; Tool = Resolve-ToolPath "tools\local_validate_codex_cloud_governed_lane.ps1"; Args = @("-Root", $Root, "-RepoRoot", $RepoRoot) },
   @{ Id = "codex_app_environments"; Tool = Resolve-ToolPath "tools\local_validate_codex_app_environments.ps1"; Args = @("-Root", $Root, "-RepoRoot", $RepoRoot) },
+  @{ Id = "repo_topology_windows_default"; Tool = Resolve-ToolPath "tools\local_validate_repo_topology_windows_default.ps1"; Args = @("-Root", $Root, "-RepoRoot", $RepoRoot) },
   @{ Id = "teams_cross_repo_lane_audit"; Tool = Resolve-ToolPath "tools\local_validate_teams_cross_repo_lane_audit.ps1"; Args = @("-Root", $Root) },
   @{ Id = "runtime_alignment"; Tool = Resolve-ToolPath "tools\local_run_repo_alignment_runtime.ps1"; Args = @("-Root", $Root, "-RepoRoot", $RepoRoot, "-NoWrite") },
   @{ Id = "parallel_order_governance"; Tool = Resolve-ToolPath "tools\local_validate_parallel_order_governance.ps1"; Args = @("-Root", $Root) },

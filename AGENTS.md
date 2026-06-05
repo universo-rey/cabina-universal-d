@@ -38,7 +38,7 @@ Los validadores rectores son
 Estado actualizado 2026-06-01: por orden expresa del operador, `D:\` puede
 estar inicializado como repo local envoltorio con allowlist. Esto no absorbe ni
 reemplaza los repos anidados; `organizacion` conserva su propio repo en
-`01_GOVERNANCE_REGISTRY\10_REPOS\02_ACTIVE\organizacion`.
+`C:\Users\enzo1\Documents\GitHub\organizacion`.
 
 Estado GitHub actualizado 2026-06-01: el repo raiz envoltorio remoto es
 `universo-rey/cabina-universal-d`. El PR raiz #1 fue mergeado a `main` con
@@ -498,7 +498,7 @@ Universal del Rey y como repo raiz envoltorio activo:
   `.agents\skills` y entorno Codex app local/worktree bajo `.codex`;
 - repos anidados: conservar su propio `.git`, remoto, rama y PR;
 - `organizacion`: permanece separado en
-  `01_GOVERNANCE_REGISTRY\10_REPOS\02_ACTIVE\organizacion`.
+  `C:\Users\enzo1\Documents\GitHub\organizacion`.
 
 Si el prompt de UI, el resumen lateral o una instruccion heredada contradice
 este `AGENTS.md`, declarar la contradiccion y usar el `AGENTS.md` de la raiz efectiva C como fuente

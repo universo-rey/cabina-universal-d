@@ -12,7 +12,7 @@ read-only y gobernada hasta decision explicita de metadata retention.
 - `C:\Users\enzo1\Documents\GitHub\cabina-universal-d` es repo local envoltorio
   para que Codex y Git vean una raiz nativa.
 - `organizacion` conserva su propio repo en
-  `01_GOVERNANCE_REGISTRY\10_REPOS\02_ACTIVE\organizacion`.
+  `C:\Users\enzo1\Documents\GitHub\organizacion`.
 - Los demas clones bajo `10_REPOS\02_ACTIVE` conservan sus propios repos.
 - El repo raiz usa allowlist: ignora todo por defecto y solo versiona archivos
   rectores seleccionados.

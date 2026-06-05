@@ -22,8 +22,8 @@ La estructura usa niveles y subniveles:
 - Nivel 4: activo concreto: repo, herramienta, sistema, licencia o paquete de evidencia.
 - Nivel 5: estructura propia del activo cuando ya es un repo o sistema administrado.
 
-Ejemplo: `01_GOVERNANCE_REGISTRY\10_REPOS\02_ACTIVE\organizacion`.
+Ejemplo: `C:\Users\enzo1\Documents\GitHub\organizacion`.
 
-Ejemplo: `10_UNIVERSOS\ESCRIBANIA\10_REPOS\02_ACTIVE\torre-gemela-escribania`.
+Ejemplo: `C:\Users\enzo1\Documents\GitHub\torre-gemela-escribania`.
 
-Ejemplo: `03_CORTE_EJECUTORA_DEL_REY\10_REPOS\02_ACTIVE\sdu-canon`.
+Ejemplo: `C:\Users\enzo1\Documents\GitHub\sdu-canon`.

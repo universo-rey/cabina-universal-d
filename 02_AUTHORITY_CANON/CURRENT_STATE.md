@@ -169,7 +169,7 @@ versiona esos cambios.
 Actualizacion Microsoft Agents governed lab 2026-06-02: por aprobacion expresa
 del operador, `universo-rey/microsoft-agents-governed-lab` queda clonado y
 registrado como repo gobernado TGE bajo
-`10_UNIVERSOS/ESCRIBANIA/10_REPOS/02_ACTIVE/microsoft-agents-governed-lab`.
+`C:/Users/enzo1/Documents/GitHub/microsoft-agents-governed-lab`.
 El repo raiz pasa a indexar 13 repos en `GITHUB_BASE_WORK_MATRIX.csv`. `origin`
 apunta al repo privado `universo-rey/microsoft-agents-governed-lab` y
 `upstream` apunta a `https://github.com/microsoft/Agents.git` con push

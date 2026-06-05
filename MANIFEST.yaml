@@ -152,7 +152,7 @@ active_project_repo:
   repo_id: ORGANIZACION
   repository_full_name: universo-rey/organizacion
   remote_url: https://github.com/universo-rey/organizacion.git
-  local_path: 01_GOVERNANCE_REGISTRY/10_REPOS/02_ACTIVE/organizacion
+  local_path: C:/Users/enzo1/Documents/GitHub/organizacion
   branch: codex/d-drive-governance-versioning-20260601
   head: tracked_by_branch
   status: ACTIVE_PROJECT_FOLDER_REMOTE_ASSOCIATED_DRAFT_PR_OPEN
@@ -399,10 +399,10 @@ versioning_state:
   root_repo_scope: allowlist_governance_metadata
   root_repo_remote_url: https://github.com/universo-rey/cabina-universal-d.git
   governing_repo: universo-rey/organizacion
-  governing_repo_local_path: 01_GOVERNANCE_REGISTRY/10_REPOS/02_ACTIVE/organizacion
+  governing_repo_local_path: C:/Users/enzo1/Documents/GitHub/organizacion
   registered_file_registry: 01_GOVERNANCE_REGISTRY/D_DRIVE_FILE_REGISTRY.csv
   git_status_matrix: 01_GOVERNANCE_REGISTRY/D_DRIVE_GIT_STATUS_MATRIX.csv
-  agent_layer_snapshot: 01_GOVERNANCE_REGISTRY/10_REPOS/02_ACTIVE/organizacion/05_AGENTES/D_DRIVE_CODEX_AGENT_LAYER
+  agent_layer_snapshot: C:/Users/enzo1/Documents/GitHub/organizacion/05_AGENTES/D_DRIVE_CODEX_AGENT_LAYER
   pull_request: https://github.com/universo-rey/organizacion/pull/40
   status: D_DRIVE_LOCAL_ASSETS_REGISTERED_VERSIONED_DRAFT_PR_OPEN
   exclusions:
