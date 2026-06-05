@@ -38,6 +38,21 @@
 !/LEVELS.yaml
 !/FOLDER_LEVELS.csv
 
+# GATE_CABINA_ALLOWLIST_CONTEXT_READBACKS_VERSIONING
+# Allow exact Cabina Universal D context/readback baseline files.
+!/00_CONTEXT/
+/00_CONTEXT/*
+!/00_CONTEXT/MERGE_SERIAL_GOVERNED_PATTERN.md
+!/00_CONTEXT/SDU_REPO_AUTHORITY_MATRIX.csv
+!/00_CONTEXT/SDU_OPEN_FRONTS_CURRENT_BASELINE.md
+!/00_CONTEXT/SDU_REPO_REVIEW_QUEUE.csv
+!/00_CONTEXT/SDU_REPO_REVIEW_QUEUE.md
+
+!/08_READBACKS/
+/08_READBACKS/*
+!/08_READBACKS/GATE_CABINA_UNIVERSAL_D_POST_MERGE_READBACK.md
+!/08_READBACKS/GATE_CABINA_UNIVERSAL_D_REPO_QUEUE_READBACK.md
+
 # Ordered full-live governed OpenAI agent governance gate. The default
 # implementation remains local; secrets stay ignored, and Microsoft/production
 # writes require exact object or target, rollback and postcheck.
