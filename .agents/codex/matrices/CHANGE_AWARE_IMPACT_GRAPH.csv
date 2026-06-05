@@ -16,4 +16,7 @@ graph.registry,01_GOVERNANCE_REGISTRY/**,registry|repo_alignment|matrix,3,runtim
 graph.skills,.agents/skills/**,skills|metadata|capability,3,skill_metadata|capability_use_hardening|agent_layer,full,repo_local_skill_changed
 graph.tools,.agents/codex/tools/**,tools|validators|runtime,2,agent_layer|change_aware_orchestrator_static,full,tool_changed
 graph.matrices,.agents/codex/matrices/**,matrix|governance|agents,3,agent_layer|operational_chain|capability_use_hardening,full,matrix_changed
+graph.agent_global_operability_matrices,.agents/codex/matrices/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_*,agent_global_operability|matrix|coverage,1,agent_global_operability_package|agent_global_operability_semaphore|agent_layer,full,agent_global_operability_matrix_changed
+graph.agent_global_operability_maps,.agents/codex/maps/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_*,agent_global_operability|map|coverage,1,agent_global_operability_package|agent_layer,full,agent_global_operability_map_changed
+graph.agent_global_operability_validators,.agents/codex/tools/local_validate_agent_global_operability_*.ps1,agent_global_operability|tools|validators|coverage,1,agent_global_operability_package|agent_global_operability_semaphore|change_aware_orchestrator_static,full,agent_global_operability_validator_changed
 graph.default,**,all,50,,full,unknown_or_unmapped_change

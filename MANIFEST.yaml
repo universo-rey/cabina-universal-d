@@ -354,7 +354,7 @@ runtime_alignment_state:
   change_aware_audit_latest: .agents/codex/evals/results/change_aware_full_coverage_audit_latest.json
   change_aware_readback: .agents/codex/readbacks/2026-06-03_change_aware_full_coverage_orchestrator_readback.md
   change_aware_acceptance_flags: all_required_passed|coverage_equivalence|manifest_valid|graph_valid|no_hidden_flaky|blocked_surfaces_clear
-  change_aware_required_test_count: 19
+  change_aware_required_test_count: 22
   repo_local_skill_root: .agents/skills
   skill_governance_catalog: .agents/codex/skills
   repo_local_skill_availability_state: ALL_DECLARED_REPO_LOCAL_SKILLS_AVAILABLE_20260602
