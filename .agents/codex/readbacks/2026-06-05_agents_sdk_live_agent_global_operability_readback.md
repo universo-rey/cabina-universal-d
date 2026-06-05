@@ -49,6 +49,7 @@ Brechas principales:
 
 - `.agents/codex/matrices/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_FINDINGS_20260605.csv`
 - `.agents/codex/matrices/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_DECISION_MATRIX_20260605.csv`
+- `.agents/codex/matrices/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_RACI_MATRIX_20260605.csv`
 - `.agents/codex/readbacks/2026-06-05_agents_sdk_live_agent_global_operability_readback.md`
 
 ## Decisiones Formalizadas
@@ -62,6 +63,18 @@ La matriz de decisiones convierte los hallazgos live en acciones gobernadas:
 - `REQUIRE_WORKTREE_GATE`: exigir gate de topologia/worktree.
 - `EXECUTE_ON_NEXT_LANE`: ejecutar solo en carril siguiente local y validado.
 - `SERIALIZE`: mantener serializacion para indices compartidos.
+
+## RACI Formalizado
+
+La matriz RACI asigna ownership operativo para cada decision live formalizada:
+
+- `responsible`: agente o subagente que ejecuta o prepara la accion.
+- `accountable`: agente que responde por la decision del carril.
+- `consulted`: agentes que deben validar frontera o coherencia antes de ejecutar.
+- `informed`: agente que conserva evidencia y readback.
+- `gate_owner`: agente que controla el gate cuando hay live costo produccion o frontera critica.
+- `evidence_owner`: `court.seshat_evidence` como owner transversal de evidencia.
+- `validator_owner`: `court.thot_schema` como owner transversal de validacion.
 
 ## Sistemas Tocados
 
