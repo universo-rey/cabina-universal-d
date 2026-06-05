@@ -94,10 +94,26 @@ Si falta una decision humana, target, secreto o costo, el carril debe quedar
 como `PENDING_*_ONLY` y debe registrar el comando exacto que se ejecutara cuando
 el dato faltante exista.
 
-Si el comando exacto contiene placeholders como `[TARGET]`, `[APPROVAL_REF]`,
-`[TENANT_ID]`, `[SECRET]`, `[MAX_USD]` o `[EXPECTED_HEAD]`, el carril no puede
-quedar en `execute_now=yes` salvo que sea un validador local/mock que no use
-esos placeholders para escribir fuera del repositorio.
+### Placeholders y `execute_now`
+
+Un comando que contiene placeholders como `[TARGET]`, `[APPROVAL_REF]`,
+`[MAX_USD]`, `[MAX_TOKENS]`, `[MODEL]`, `[TENANT_ID]`, `[HEAD]`,
+`[BASE_BRANCH]`, `[REMOTE_BRANCH]`, `[ROLLBACK_PLAN]`, `[POSTCHECK]` o
+equivalentes no puede quedar con `execute_now=yes`.
+
+Excepcion permitida: validadores locales, mock o preflight que no escriben
+fuera del repositorio, no llaman APIs live, no consumen costo externo y no
+materializan los placeholders como operacion real.
+
+Si el placeholder representa target, secreto, identidad, costo, branch remota,
+PR, live write, produccion, rollback o postcheck pendiente, el estado correcto
+es `PENDING_*_ONLY`, `READY_FOR_PROD_HUMAN_GATE` o `BLOCKED_*`, segun
+corresponda.
+
+La presencia de un comando exacto con placeholders documenta el proximo paso,
+pero no autoriza ejecucion inmediata hasta que esos placeholders esten
+resueltos y el carril tenga evidencia, owner, rollback, postcheck y
+`approval_ref` cuando aplique.
 
 ## Evidencia minima
 

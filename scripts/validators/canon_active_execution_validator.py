@@ -168,6 +168,21 @@ def has_placeholder(value: str) -> bool:
     return "[" in value and "]" in value
 
 
+def is_local_placeholder_preflight(command: str) -> bool:
+    command_lower = command.replace("\\", "/").lower()
+    if is_remote_write(command_lower):
+        return False
+    return any(
+        marker in command_lower
+        for marker in [
+            "scripts/validators/",
+            ".agents/codex/tools/local_validate_",
+            "tests/",
+            "local-agent-bridge/tests/",
+        ]
+    )
+
+
 def validate_queue(queue_path: Path, impact_path: Path | None) -> tuple[list[str], list[str]]:
     errors: list[str] = []
     warnings: list[str] = []
@@ -253,6 +268,8 @@ def validate_capability_matrix(matrix_path: Path) -> tuple[list[str], list[str]]
             errors.append(f"{capability_id}: executable status cannot keep placeholder cost boundary")
         if active_status in EXECUTE_NOW_STATES and row.get("approval_ref", "").strip().startswith("required_"):
             errors.append(f"{capability_id}: executable status cannot keep symbolic approval_ref")
+        if active_status in EXECUTE_NOW_STATES and has_placeholder(command) and not is_local_placeholder_preflight(command):
+            errors.append(f"{capability_id}: executable status cannot keep operational placeholders in command_or_workflow")
         if active_status in {"EXECUTE_LOCAL_NOW", "EXECUTE_CODEX_CLOUD_SMOKE_NOW"} and is_remote_write(command):
             errors.append(f"{capability_id}: {active_status} cannot include remote write command")
         if capability_id == "codex_cloud.pr":

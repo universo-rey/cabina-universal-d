@@ -211,6 +211,21 @@ def has_placeholder(value: str) -> bool:
     return "[" in value and "]" in value
 
 
+def is_local_placeholder_preflight(command_value: str) -> bool:
+    command = command_value.replace("\\", "/").lower()
+    if any(pattern in command for pattern in REMOTE_WRITE_PATTERNS):
+        return False
+    return any(
+        marker in command
+        for marker in [
+            "scripts/validators/",
+            ".agents/codex/tools/local_validate_",
+            "tests/",
+            "local-agent-bridge/tests/",
+        ]
+    )
+
+
 def validate() -> None:
     rows = read_csv(MATRIX)
     require_columns(rows, REQUIRED_COLUMNS, MATRIX)
@@ -255,6 +270,8 @@ def validate() -> None:
             raise AssertionError(f"{MATRIX}:{row_number} executable status cannot keep placeholder cost boundary")
         if active_status.startswith("EXECUTE_") and row["approval_ref"].strip().startswith("required_"):
             raise AssertionError(f"{MATRIX}:{row_number} executable status cannot keep symbolic approval_ref")
+        if active_status.startswith("EXECUTE_") and has_placeholder(command_value) and not is_local_placeholder_preflight(command_value):
+            raise AssertionError(f"{MATRIX}:{row_number} executable status cannot keep operational placeholders in command_or_workflow")
 
         if active_status in {"PENDING_TARGET_ONLY", "PENDING_SECRET_ONLY", "PENDING_IDENTITY_ONLY", "PENDING_OWNER_ONLY"}:
             if "PENDING_" not in row["fallback_if_missing"]:

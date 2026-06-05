@@ -65,7 +65,9 @@ def validate() -> None:
             "Regla anti-escalamiento",
             "Limite de costo",
             "Comando exacto obligatorio",
-            "Si el comando exacto contiene placeholders",
+            "Placeholders y `execute_now`",
+            "Un comando que contiene placeholders",
+            "La presencia de un comando exacto con placeholders documenta el proximo paso",
             "Evidencia significa ejecucion o verificacion real",
         ],
     )
