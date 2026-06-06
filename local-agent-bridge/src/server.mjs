@@ -6,6 +6,7 @@ import { assertSyntheticRequest } from "./policy.mjs";
 import { selectRoute } from "./router.mjs";
 import { buildEvidence } from "./evidenceAdapter.mjs";
 import { collectDashboardData } from "./dashboardData.mjs";
+import { buildShellCommandBlockedResponse, getShellConnectorStatus } from "./shellConnector.mjs";
 
 const host = process.env.SDU_BRIDGE_BIND_HOST || "127.0.0.1";
 const port = Number(process.env.SDU_BRIDGE_PORT || "8787");
@@ -47,6 +48,21 @@ const server = http.createServer((req, res) => {
       json(res, 200, collectDashboardData(repoRoot));
     } catch (error) {
       json(res, 500, { status: "blocked", reason: error.message, live_executed: false });
+    }
+    return;
+  }
+
+  if (req.method === "GET" && req.url === "/api/shell/status") {
+    json(res, 200, getShellConnectorStatus(repoRoot));
+    return;
+  }
+
+  if (req.method === "POST" && req.url === "/v1/shell/command") {
+    try {
+      assertDevAuth(req);
+      json(res, 403, buildShellCommandBlockedResponse(repoRoot));
+    } catch (error) {
+      json(res, 400, { status: "blocked", reason: error.message, live_executed: false });
     }
     return;
   }

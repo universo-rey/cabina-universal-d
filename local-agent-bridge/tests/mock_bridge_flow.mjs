@@ -7,6 +7,7 @@ import { selectRoute } from "../src/router.mjs";
 import { buildEvidence } from "../src/evidenceAdapter.mjs";
 import { resolveConnection } from "../src/mcpRegistry.mjs";
 import { collectDashboardData } from "../src/dashboardData.mjs";
+import { buildShellCommandBlockedResponse, getShellConnectorStatus } from "../src/shellConnector.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "..", "..");
@@ -37,5 +38,16 @@ assert.equal(dashboard.canvas_workbench.status, "ACTIVE_LOCAL_WORKBENCH");
 assert.equal(dashboard.canvas_workbench.project_name, "Cabina Universal Agent Control");
 assert.ok(dashboard.agile_agent_canvas.some((row) => row.control_id === "aac.canvas.seed_package"));
 assert.ok(dashboard.semaphores.every((row) => row.color));
+
+const shellStatus = getShellConnectorStatus(repoRoot);
+assert.equal(shellStatus.connector_id, "local.shell.connector.governed");
+assert.equal(shellStatus.mode, "status_only");
+assert.equal(shellStatus.live_executed, false);
+assert.ok(shellStatus.blocked_actions.includes("execute_arbitrary_command"));
+
+const shellBlocked = buildShellCommandBlockedResponse(repoRoot);
+assert.equal(shellBlocked.status, "blocked");
+assert.equal(shellBlocked.live_executed, false);
+assert.equal(shellBlocked.stop_condition, "LOCAL_SHELL_COMMAND_EXECUTION_NOT_EXPOSED");
 
 console.log("SDU_LOCAL_AGENT_BRIDGE_MOCK_FLOW_PASS");

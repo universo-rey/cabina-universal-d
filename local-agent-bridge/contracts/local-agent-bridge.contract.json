@@ -6,6 +6,8 @@
     "GET /",
     "GET /health",
     "GET /api/dashboard",
+    "GET /api/shell/status",
+    "POST /v1/shell/command",
     "POST /v1/sdu/route"
   ],
   "request": {
@@ -27,5 +29,10 @@
       "evidence"
     ],
     "liveExecutedValue": false
+  },
+  "shellConnector": {
+    "mode": "status_only",
+    "commandExecutionExposed": false,
+    "blockedStopCondition": "LOCAL_SHELL_COMMAND_EXECUTION_NOT_EXPOSED"
   }
 }
