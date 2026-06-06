@@ -91,7 +91,8 @@
         "superpowers:subagent-driven-development",
         "superpowers:writing-plans",
         "superpowers:verification-before-completion",
-        "parallel-order-governance"
+        "parallel-order-governance",
+        "vsi-superficie-viva-task-runner"
       ],
       "default_recipes": [
         "recipe.router_intake_classification",
@@ -99,7 +100,8 @@
         "recipe.agent_workpaper_operation",
         "recipe.parallel_agent_operation",
         "recipe.governed_order_preparation",
-        "recipe.openai_local_agent_design"
+        "recipe.openai_local_agent_design",
+        "recipe.vsi_prepared_agent_task_execution"
       ],
       "default_tools": [
         "tool.local_inventory",
@@ -163,7 +165,8 @@
         "repo-agent-tool-governance",
         "governed-readback-closeout",
         "superpowers:verification-before-completion",
-        "parallel-order-governance"
+        "parallel-order-governance",
+        "vsi-superficie-viva-task-runner"
       ],
       "default_recipes": [
         "recipe.gate_decision_packet",
@@ -171,7 +174,8 @@
         "recipe.agent_workpaper_operation",
         "recipe.parallel_agent_operation",
         "recipe.governed_order_preparation",
-        "recipe.openai_local_agent_design"
+        "recipe.openai_local_agent_design",
+        "recipe.vsi_live_surface_gate_packet"
       ],
       "default_tools": [
         "tool.boundary_check",
@@ -1067,7 +1071,8 @@
         "cabina-github-actions-templates",
         "superpowers:systematic-debugging",
         "superpowers:verification-before-completion",
-        "parallel-order-governance"
+        "parallel-order-governance",
+        "vsi-superficie-viva-task-runner"
       ],
       "default_recipes": [
         "recipe.workspace_reference_audit",
@@ -1075,7 +1080,8 @@
         "recipe.agent_workpaper_operation",
         "recipe.parallel_agent_operation",
         "recipe.governed_order_preparation",
-        "recipe.openai_local_agent_design"
+        "recipe.openai_local_agent_design",
+        "recipe.vsi_prepared_agent_task_execution"
       ],
       "default_tools": [
         "tool.codex_workspace_audit",
