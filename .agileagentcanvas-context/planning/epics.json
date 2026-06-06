@@ -3,19 +3,19 @@
     "schemaVersion": "1.0.0",
     "artifactType": "epics",
     "workflowName": "pm-orchestrator",
-    "projectName": "Control de Agentes de la Cabina Universal",
+    "projectName": "Cabina Universal Agent Control",
     "timestamps": {
       "created": "2026-06-06T00:00:00Z",
       "lastModified": "2026-06-06T00:00:00Z"
     },
-    "status": "local-gobernado-activo",
+    "status": "governed-local-active",
     "tags": [
       "epicas",
       "vscode-insiders",
       "control-agente",
       "solo-local"
     ],
-    "author": "Codex ejecutor gobernado",
+    "author": "Codex governed executor",
     "stepsCompleted": [
       "mapeo-requisitos",
       "desglose-epicas",
@@ -25,7 +25,7 @@
   },
   "content": {
     "overview": {
-      "projectName": "Control de Agentes de la Cabina Universal",
+      "projectName": "Cabina Universal Agent Control",
       "description": "Desglose de epicas para la mesa local de Agile Agent Canvas que gobierna superficies agente de Visual Studio Code Insiders.",
       "totalEpics": 4,
       "totalStories": 12,
@@ -129,17 +129,17 @@
       {
         "id": "EPIC-1",
         "title": "Sembrar la mesa canvas de Cabina",
-        "description": "Reemplazar artefactos demo por artefactos de Control de Agentes de la Cabina Universal y mantenerlos parseables, explicitos y reversibles.",
+        "description": "Reemplazar artefactos demo por artefactos de Cabina Universal Agent Control y mantenerlos parseables, explicitos y reversibles.",
         "priority": "must-have",
         "status": "en-progreso",
         "stories": [
           {
             "id": "S-1.1",
             "title": "Reemplazar vision demo",
-            "description": "La vision raiz identifica Control de Agentes de la Cabina Universal y declara fronteras solo-locales.",
+            "description": "La vision raiz identifica Cabina Universal Agent Control y declara fronteras solo-locales.",
             "acceptanceCriteria": [
               "vision.json parsea",
-              "projectName es Control de Agentes de la Cabina Universal",
+              "projectName es Cabina Universal Agent Control",
               "no aparece secreto ni target live"
             ],
             "status": "hecho"

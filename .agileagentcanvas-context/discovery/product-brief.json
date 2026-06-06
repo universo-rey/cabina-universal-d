@@ -3,18 +3,18 @@
     "schemaVersion": "1.0.0",
     "artifactType": "product-brief",
     "workflowName": "product-visionary",
-    "projectName": "Control de Agentes de la Cabina Universal",
+    "projectName": "Cabina Universal Agent Control",
     "timestamps": {
       "created": "2026-06-06T00:00:00Z",
       "lastModified": "2026-06-06T00:00:00Z"
     },
-    "status": "local-gobernado-activo",
+    "status": "governed-local-active",
     "tags": [
       "brief-producto",
       "control-agentes-local",
       "vscode-insiders"
     ],
-    "author": "Codex ejecutor gobernado",
+    "author": "Codex governed executor",
     "stepsCompleted": [
       "leer-agents-md",
       "leer-registry-gobierno",
@@ -37,7 +37,7 @@
     ]
   },
   "content": {
-    "productName": "Control de Agentes de la Cabina Universal",
+    "productName": "Cabina Universal Agent Control",
     "tagline": "Mesa local gobernada para agentes VSI y evidencia de cabina",
     "vision": {
       "statement": "Hacer de Visual Studio Code Insiders la mesa visible del operador para gobierno de agentes.",
@@ -159,7 +159,7 @@
     "successMetrics": [
       {
         "metric": "Identidad raiz del canvas",
-        "target": "Control de Agentes de la Cabina Universal",
+        "target": "Cabina Universal Agent Control",
         "description": "Los archivos raiz del canvas ya no identifican un proyecto demo.",
         "category": "gobierno"
       },

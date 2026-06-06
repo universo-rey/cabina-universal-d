@@ -3,19 +3,19 @@
     "schemaVersion": "1.0.0",
     "artifactType": "prd",
     "workflowName": "pm-orchestrator",
-    "projectName": "Control de Agentes de la Cabina Universal",
+    "projectName": "Cabina Universal Agent Control",
     "timestamps": {
       "created": "2026-06-06T00:00:00Z",
       "lastModified": "2026-06-06T00:00:00Z"
     },
-    "status": "local-gobernado-activo",
+    "status": "governed-local-active",
     "tags": [
       "prd",
       "agentes",
       "vscode-insiders",
       "cabina"
     ],
-    "author": "Codex ejecutor gobernado",
+    "author": "Codex governed executor",
     "stepsCompleted": [
       "relevar-requisitos",
       "inventario-superficies",
@@ -36,7 +36,7 @@
   },
   "content": {
     "productOverview": {
-      "productName": "Control de Agentes de la Cabina Universal",
+      "productName": "Cabina Universal Agent Control",
       "purpose": "Mesa local en Visual Studio Code Insiders para mapear, gobernar, programar y validar superficies agente antes de cualquier accion live o productiva.",
       "problemStatement": "La Cabina Universal tiene muchas capacidades, pero la operacion diaria necesita una superficie visual que muestre que puede ejecutarse ahora, que esta gateado y que evidencia sostiene cada decision."
     },
@@ -164,7 +164,7 @@
     },
     "successCriteria": [
       {
-        "criterion": "Artefactos raiz del canvas parsean e identifican Control de Agentes de la Cabina Universal",
+        "criterion": "Artefactos raiz del canvas parsean e identifican Cabina Universal Agent Control",
         "category": "calidad",
         "target": "PASS",
         "timeframe": "carril actual"

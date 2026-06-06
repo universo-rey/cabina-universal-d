@@ -3,12 +3,12 @@
     "schemaVersion": "1.0.0",
     "artifactType": "vision",
     "workflowName": "product-visionary",
-    "projectName": "Control de Agentes de la Cabina Universal",
+    "projectName": "Cabina Universal Agent Control",
     "timestamps": {
       "created": "2026-06-06T00:00:00Z",
       "lastModified": "2026-06-06T00:00:00Z"
     },
-    "status": "local-gobernado-activo",
+    "status": "governed-local-active",
     "tags": [
       "cabina",
       "vscode-insiders",
@@ -16,7 +16,7 @@
       "gobierno",
       "solo-local"
     ],
-    "author": "Codex ejecutor gobernado",
+    "author": "Codex governed executor",
     "stepsCompleted": [
       "preflight-workspace",
       "inventario-extension",
@@ -25,7 +25,7 @@
     ]
   },
   "content": {
-    "productName": "Control de Agentes de la Cabina Universal",
+    "productName": "Cabina Universal Agent Control",
     "vision": {
       "statement": "Convertir Visual Studio Code Insiders en la mesa local gobernada para mapear, coordinar y validar agentes sobre las superficies de la Cabina Universal.",
       "problemStatement": "La maquina ya tiene extensiones, CLIs, repos, skills, validadores y tableros con capacidad agente, pero sin una mesa local quedan como superficies dispersas.",

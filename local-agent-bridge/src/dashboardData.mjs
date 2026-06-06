@@ -111,12 +111,12 @@ function summarizeCanvasWorkbench(repoRoot, agileAgentCanvas) {
       status: row.status
     }));
 
-  const expectedProject = "Control de Agentes de la Cabina Universal";
+  const expectedProject = "Cabina Universal Agent Control";
   const parsedCount = artifacts.filter((artifact) => artifact.parses).length;
   const cabinaArtifactCount = artifacts.filter((artifact) => artifact.project_name === expectedProject).length;
   const status = seedControl && parsedCount === artifacts.length && cabinaArtifactCount === artifacts.length
-    ? "MESA_LOCAL_ACTIVA"
-    : "REQUIERE_REVISION";
+    ? "ACTIVE_LOCAL_WORKBENCH"
+    : "NEEDS_REVIEW";
 
   return {
     status,
