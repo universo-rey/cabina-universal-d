@@ -318,12 +318,70 @@
       ["YELLOW", "amarillo"],
       ["RED", "rojo"],
       ["none", "ninguno"],
-      ["local-gobernado-activo", "local gobernado activo"]
+      ["local-gobernado-activo", "local gobernado activo"],
+      ["vscode_insiders_extension", "extension de VS Code Insiders"],
+      ["visual_canvas", "canvas visual"],
+      ["workspace_settings", "configuracion del workspace"],
+      ["copilot_chat_participant", "participante de chat Copilot"],
+      ["language_model_tools_read", "tools de lectura del modelo"],
+      ["language_model_tools_write", "tools de escritura del modelo"],
+      ["graphify_commands", "comandos Graphify"],
+      ["jira_integration", "integracion Jira"],
+      ["skill_catalogue", "catalogo de skills"],
+      ["codeburn_cost_observability", "observabilidad de costo Codeburn"],
+      ["agileagentcanvas_context", "contexto Agile Agent Canvas"],
+      ["local_inventory", "inventario local"],
+      ["open_canvas_ui", "abrir canvas en la UI"],
+      ["read_manifest", "leer manifiesto"],
+      ["open_canvas", "abrir canvas"],
+      ["new_project_in_workspace", "nuevo proyecto en el workspace"],
+      ["load_existing_project", "cargar proyecto existente"],
+      ["local_settings_guardrail", "guardrail de configuracion local"],
+      ["manual_prompt_help", "ayuda manual por prompt"],
+      ["manual_local_planning", "planificacion local manual"],
+      ["bounded_repo_read", "lectura acotada del repo"],
+      ["catalogue_review", "revision de catalogo"],
+      ["write_only_declared_artifact_scope", "escribir solo alcance declarado"],
+      ["manual_plan_only", "solo plan manual"],
+      ["prepare_jira_order_packet_only", "preparar solo paquete de orden Jira"],
+      ["review_builtin_catalogue", "revisar catalogo incluido"],
+      ["prepare_user_catalogue_mapping", "preparar mapa de catalogo de usuario"],
+      ["disabled_in_workspace_settings", "deshabilitado en configuracion del workspace"],
+      ["open_in_vsi", "abrir en VSI"],
+      ["edit_local_canvas", "editar canvas local"],
+      ["version_reviewed_root_artifacts", "versionar artefactos raiz revisados"],
+      ["extension_state_unverified", "estado de extension sin verificar"],
+      ["canvas_artifact_scope_missing", "falta alcance de artefacto canvas"],
+      ["workspace_setting_drift", "drift de configuracion del workspace"],
+      ["openai_api_live_requested_without_order", "OpenAI API live solicitada sin orden"],
+      ["secret_boundary_risk", "riesgo de frontera de secretos"],
+      ["artifact_write_scope_missing", "falta alcance de escritura de artefacto"],
+      ["graphify_live_or_hook_without_gate", "Graphify live o hook sin gate"],
+      ["jira_target_or_secret_missing", "falta target Jira o secreto"],
+      ["skill_catalogue_target_missing", "falta target de catalogo de skills"],
+      ["codeburn_scope_missing", "falta alcance Codeburn"],
+      ["canvas_identity_or_json_invalid", "identidad canvas o JSON invalido"],
+      ["GATE_SECRET_USE", "gate de uso de secreto"],
+      ["GATE_LIVE_WRITE", "gate de escritura live"],
+      ["GATE_DATA_REGULATED", "gate de datos regulados"],
+      ["GATE_OPENAI_LIVE", "gate OpenAI live"],
+      ["GATE_REMOTE_GIT_MUTATION", "gate de mutacion Git remota"],
+      ["GATE_DESTRUCTIVE_ACTION", "gate de accion destructiva"],
+      ["GATE_COST_BOUNDARY", "gate de limite de costo"],
+      ["GATE_WORKTREE_METADATA", "gate de metadata worktree"],
+      ["GATE_MICROSOFT_LIVE_WRITE", "gate de escritura Microsoft live"]
     ]);
+
+    function translateParts(value) {
+      return String(value)
+        .split("|")
+        .map((part) => translations.get(part) || part.replaceAll("_", " "))
+        .join(" | ");
+    }
 
     const text = (value) => {
       if (value === undefined || value === null || value === "") return "no declarado";
-      return translations.get(String(value)) || String(value);
+      return translations.get(String(value)) || translateParts(value);
     };
 
     function cell(value, className = "") {
