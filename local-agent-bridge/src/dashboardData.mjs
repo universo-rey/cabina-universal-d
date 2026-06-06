@@ -56,6 +56,31 @@ function readCsv(repoRoot, relativePath) {
   return parseCsv(fs.readFileSync(fullPath, "utf8"));
 }
 
+function readJsonArtifact(repoRoot, relativePath) {
+  const fullPath = path.join(repoRoot, relativePath);
+  try {
+    const parsed = JSON.parse(fs.readFileSync(fullPath, "utf8"));
+    return {
+      path: relativePath,
+      exists: true,
+      parses: true,
+      project_name: parsed?.metadata?.projectName || parsed?.content?.productName || "NO_DECLARADO",
+      artifact_type: parsed?.metadata?.artifactType || "NO_DECLARADO",
+      status: parsed?.metadata?.status || "NO_DECLARADO"
+    };
+  } catch (error) {
+    return {
+      path: relativePath,
+      exists: fs.existsSync(fullPath),
+      parses: false,
+      project_name: "NO_DECLARADO",
+      artifact_type: "NO_DECLARADO",
+      status: "INVALID_JSON",
+      error: error.message
+    };
+  }
+}
+
 function countBy(rows, field) {
   return rows.reduce((counts, row) => {
     const key = row[field] || "NO_DECLARADO";
@@ -66,6 +91,44 @@ function countBy(rows, field) {
 
 function firstRows(rows, count) {
   return rows.slice(0, count);
+}
+
+function summarizeCanvasWorkbench(repoRoot, agileAgentCanvas) {
+  const artifactPaths = [
+    ".agileagentcanvas-context/vision.json",
+    ".agileagentcanvas-context/discovery/product-brief.json",
+    ".agileagentcanvas-context/planning/prd.json",
+    ".agileagentcanvas-context/planning/epics.json"
+  ];
+  const artifacts = artifactPaths.map((artifactPath) => readJsonArtifact(repoRoot, artifactPath));
+  const seedControl = agileAgentCanvas.find((row) => row.control_id === "aac.canvas.seed_package");
+  const pendingGates = agileAgentCanvas
+    .filter((row) => row.gate && row.gate !== "none" && !row.status.startsWith("EXECUTED"))
+    .map((row) => ({
+      control_id: row.control_id,
+      surface: row.surface,
+      gate: row.gate,
+      status: row.status
+    }));
+
+  const expectedProject = "Cabina Universal Agent Control";
+  const parsedCount = artifacts.filter((artifact) => artifact.parses).length;
+  const cabinaArtifactCount = artifacts.filter((artifact) => artifact.project_name === expectedProject).length;
+  const status = seedControl && parsedCount === artifacts.length && cabinaArtifactCount === artifacts.length
+    ? "ACTIVE_LOCAL_WORKBENCH"
+    : "NEEDS_REVIEW";
+
+  return {
+    status,
+    project_name: expectedProject,
+    artifact_count: artifacts.length,
+    parsed_artifacts: parsedCount,
+    cabina_artifacts: cabinaArtifactCount,
+    seed_control_status: seedControl?.status || "NO_ENCONTRADO",
+    live_executed: false,
+    pending_gates: pendingGates,
+    artifacts
+  };
 }
 
 export function resolveRepoRoot(startPath = process.cwd()) {
@@ -92,6 +155,7 @@ export function collectDashboardData(startPath = process.cwd()) {
   const gateQueue = readCsv(repoRoot, paths.gateQueue);
   const autonomous = readCsv(repoRoot, paths.autonomous);
   const agileAgentCanvas = readCsv(repoRoot, paths.agileAgentCanvas);
+  const canvasWorkbench = summarizeCanvasWorkbench(repoRoot, agileAgentCanvas);
 
   return {
     status: "ok",
@@ -102,6 +166,7 @@ export function collectDashboardData(startPath = process.cwd()) {
     summary: {
       operability_records: operability.length,
       agile_agent_canvas_controls: agileAgentCanvas.length,
+      canvas_artifacts_ready: canvasWorkbench.parsed_artifacts,
       autonomous_records: autonomous.length,
       local_task_scoped_agents: autonomous.filter((row) => row.execution_mode === "local_task_scoped_agent").length,
       codex_cloud_ready_records: autonomous.filter((row) => row.status === "ACTIVE_CODEX_CLOUD_READY").length,
@@ -111,6 +176,7 @@ export function collectDashboardData(startPath = process.cwd()) {
     semaphores: semaphore,
     gate_queue: gateQueue,
     agile_agent_canvas: agileAgentCanvas,
+    canvas_workbench: canvasWorkbench,
     operability: firstRows(operability, 40),
     autonomous: firstRows(autonomous, 60)
   };

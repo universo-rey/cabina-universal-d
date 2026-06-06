@@ -163,10 +163,35 @@
       gap: 18px;
     }
 
+    .workbench {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(130px, 1fr));
+      gap: 10px;
+      padding: 12px;
+    }
+
+    .workbench-item {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 10px;
+      min-height: 82px;
+      background: #fff;
+    }
+
+    .workbench-item strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
     @media (max-width: 980px) {
       header,
       .grid-two {
         grid-template-columns: 1fr;
+      }
+
+      .workbench {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .summary {
@@ -190,6 +215,10 @@
       .summary {
         grid-template-columns: 1fr;
       }
+
+      .workbench {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -204,6 +233,11 @@
 
   <main>
     <section class="summary" id="summary"></section>
+
+    <section class="section">
+      <h2>Mesa Agile Agent Canvas</h2>
+      <div class="workbench" id="canvas-workbench"></div>
+    </section>
 
     <section class="section">
       <h2>Semaforo de control</h2>
@@ -289,6 +323,21 @@
       return div;
     }
 
+    function renderWorkbenchItem(label, value, detail = "") {
+      const div = document.createElement("div");
+      div.className = "workbench-item";
+      const strong = document.createElement("strong");
+      strong.textContent = label;
+      const mainValue = document.createElement("div");
+      mainValue.className = "mono";
+      mainValue.textContent = text(value);
+      const small = document.createElement("div");
+      small.className = "muted";
+      small.textContent = detail;
+      div.append(strong, mainValue, small);
+      return div;
+    }
+
     function renderSemaphore(row) {
       const tr = document.createElement("tr");
       const status = document.createElement("td");
@@ -353,8 +402,17 @@
         renderMetric("agentes task-scoped locales", data.summary.local_task_scoped_agents),
         renderMetric("codex cloud ready", data.summary.codex_cloud_ready_records),
         renderMetric("controles Agile Canvas", data.summary.agile_agent_canvas_controls),
+        renderMetric("artefactos canvas", `${data.summary.canvas_artifacts_ready}/${data.canvas_workbench.artifact_count}`),
         renderMetric("gates pendientes", data.summary.gated_records),
         renderMetric("live ejecutado", data.live_executed ? "si" : "no")
+      );
+
+      const workbench = data.canvas_workbench;
+      document.getElementById("canvas-workbench").append(
+        renderWorkbenchItem("Estado", workbench.status, "workbench local"),
+        renderWorkbenchItem("Proyecto", workbench.project_name, "canvas root"),
+        renderWorkbenchItem("Seed control", workbench.seed_control_status, "matriz VSI"),
+        renderWorkbenchItem("Gates canvas", workbench.pending_gates.length, "pendientes con gate")
       );
 
       data.semaphores.forEach((row) => document.getElementById("semaphores").append(renderSemaphore(row)));

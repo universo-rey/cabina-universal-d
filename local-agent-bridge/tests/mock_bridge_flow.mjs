@@ -32,6 +32,9 @@ assert.equal(dashboard.live_executed, false);
 assert.ok(dashboard.summary.local_task_scoped_agents > 0);
 assert.ok(dashboard.summary.gated_records > 0);
 assert.equal(dashboard.summary.agile_agent_canvas_controls, dashboard.agile_agent_canvas.length);
+assert.equal(dashboard.summary.canvas_artifacts_ready, 4);
+assert.equal(dashboard.canvas_workbench.status, "ACTIVE_LOCAL_WORKBENCH");
+assert.equal(dashboard.canvas_workbench.project_name, "Cabina Universal Agent Control");
 assert.ok(dashboard.agile_agent_canvas.some((row) => row.control_id === "aac.canvas.seed_package"));
 assert.ok(dashboard.semaphores.every((row) => row.color));
 
