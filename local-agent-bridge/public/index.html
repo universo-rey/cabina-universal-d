@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cabina Agent Control</title>
+  <title>Control de Agentes de Cabina</title>
   <style>
     :root {
       color-scheme: light;
@@ -225,8 +225,8 @@
 <body>
   <header>
     <div>
-      <h1>Cabina Agent Control</h1>
-      <div class="muted">Local bridge dashboard. Read-only, synthetic, no live writes.</div>
+      <h1>Control de Agentes de Cabina</h1>
+      <div class="muted">Tablero local de puente. Lectura local, evidencia sintetica, sin escrituras live.</div>
     </div>
     <div class="meta" id="generated">cargando</div>
   </header>
@@ -245,10 +245,10 @@
         <thead>
           <tr>
             <th>Estado</th>
-            <th>Owner</th>
+            <th>Responsable</th>
             <th>Gate</th>
             <th>Proxima accion</th>
-            <th>Stop condition</th>
+            <th>Condicion de detencion</th>
           </tr>
         </thead>
         <tbody id="semaphores"></tbody>
@@ -257,12 +257,12 @@
 
     <section class="grid-two">
       <div class="section">
-        <h2>Gate queue</h2>
+        <h2>Cola de gates</h2>
         <table>
           <thead>
             <tr>
               <th>Gate</th>
-              <th>Owner</th>
+              <th>Responsable</th>
               <th>Preparacion permitida</th>
             </tr>
           </thead>
@@ -294,7 +294,7 @@
             <th>Estado</th>
             <th>Gate</th>
             <th>Permitido ahora</th>
-            <th>Stop condition</th>
+            <th>Condicion de detencion</th>
           </tr>
         </thead>
         <tbody id="agile-canvas"></tbody>
@@ -303,7 +303,28 @@
   </main>
 
   <script>
-    const text = (value) => value || "NO_DECLARADO";
+    const translations = new Map([
+      ["MESA_LOCAL_ACTIVA", "mesa local activa"],
+      ["REQUIERE_REVISION", "requiere revision"],
+      ["EXECUTED_LOCAL_VALIDATED", "ejecutado local validado"],
+      ["EXECUTED_LOCAL_GUARDED", "ejecutado local guardado"],
+      ["READY_LOCAL_GOVERNED", "listo local gobernado"],
+      ["READY_FOR_MANUAL_LOCAL_USE", "listo para uso local manual"],
+      ["GATED_REPO_WRITE_ONLY", "solo escritura repo gateada"],
+      ["GATED_PENDING", "gate pendiente"],
+      ["PENDING_TARGET_ONLY", "pendiente solo target"],
+      ["NO_DECLARADO", "no declarado"],
+      ["GREEN", "verde"],
+      ["YELLOW", "amarillo"],
+      ["RED", "rojo"],
+      ["none", "ninguno"],
+      ["local-gobernado-activo", "local gobernado activo"]
+    ]);
+
+    const text = (value) => {
+      if (value === undefined || value === null || value === "") return "no declarado";
+      return translations.get(String(value)) || String(value);
+    };
 
     function cell(value, className = "") {
       const td = document.createElement("td");
@@ -346,7 +367,7 @@
       const dot = document.createElement("span");
       dot.className = `dot ${row.color}`;
       const label = document.createElement("span");
-      label.textContent = `${row.color} / ${row.current_state}`;
+      label.textContent = `${text(row.color)} / ${text(row.current_state)}`;
       wrap.append(dot, label);
       status.append(wrap);
       tr.append(
@@ -399,8 +420,8 @@
       const summary = document.getElementById("summary");
       summary.append(
         renderMetric("registros de operabilidad", data.summary.operability_records),
-        renderMetric("agentes task-scoped locales", data.summary.local_task_scoped_agents),
-        renderMetric("codex cloud ready", data.summary.codex_cloud_ready_records),
+        renderMetric("agentes locales task-scoped", data.summary.local_task_scoped_agents),
+        renderMetric("codex cloud listo", data.summary.codex_cloud_ready_records),
         renderMetric("controles Agile Canvas", data.summary.agile_agent_canvas_controls),
         renderMetric("artefactos canvas", `${data.summary.canvas_artifacts_ready}/${data.canvas_workbench.artifact_count}`),
         renderMetric("gates pendientes", data.summary.gated_records),
@@ -409,10 +430,10 @@
 
       const workbench = data.canvas_workbench;
       document.getElementById("canvas-workbench").append(
-        renderWorkbenchItem("Estado", workbench.status, "workbench local"),
-        renderWorkbenchItem("Proyecto", workbench.project_name, "canvas root"),
-        renderWorkbenchItem("Seed control", workbench.seed_control_status, "matriz VSI"),
-        renderWorkbenchItem("Gates canvas", workbench.pending_gates.length, "pendientes con gate")
+        renderWorkbenchItem("Estado", workbench.status, "mesa local"),
+        renderWorkbenchItem("Proyecto", workbench.project_name, "raiz del canvas"),
+        renderWorkbenchItem("Control semilla", workbench.seed_control_status, "matriz VSI"),
+        renderWorkbenchItem("Gates del canvas", workbench.pending_gates.length, "pendientes con gate")
       );
 
       data.semaphores.forEach((row) => document.getElementById("semaphores").append(renderSemaphore(row)));
@@ -424,7 +445,7 @@
     }
 
     main().catch((error) => {
-      document.getElementById("generated").textContent = `blocked: ${error.message}`;
+      document.getElementById("generated").textContent = `bloqueado: ${error.message}`;
     });
   </script>
 </body>

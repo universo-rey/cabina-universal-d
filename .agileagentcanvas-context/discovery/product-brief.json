@@ -3,125 +3,125 @@
     "schemaVersion": "1.0.0",
     "artifactType": "product-brief",
     "workflowName": "product-visionary",
-    "projectName": "Cabina Universal Agent Control",
+    "projectName": "Control de Agentes de la Cabina Universal",
     "timestamps": {
       "created": "2026-06-06T00:00:00Z",
       "lastModified": "2026-06-06T00:00:00Z"
     },
-    "status": "governed-local-active",
+    "status": "local-gobernado-activo",
     "tags": [
-      "product-brief",
-      "local-agent-control",
+      "brief-producto",
+      "control-agentes-local",
       "vscode-insiders"
     ],
-    "author": "Codex governed executor",
+    "author": "Codex ejecutor gobernado",
     "stepsCompleted": [
-      "read-agents-md",
-      "read-governance-registry",
-      "inspect-agile-agent-canvas",
-      "prepare-local-workbench"
+      "leer-agents-md",
+      "leer-registry-gobierno",
+      "inspeccionar-agile-agent-canvas",
+      "preparar-mesa-local"
     ],
     "inputDocuments": [
       {
         "path": "AGENTS.md",
-        "type": "governance"
+        "type": "gobierno"
       },
       {
         "path": ".agents/codex/matrices/VSCODE_INSIDERS_AGILE_AGENT_CANVAS_GOVERNANCE_20260606.csv",
-        "type": "surface-matrix"
+        "type": "matriz-superficie"
       },
       {
         "path": "local-agent-bridge",
-        "type": "dashboard"
+        "type": "tablero"
       }
     ]
   },
   "content": {
-    "productName": "Cabina Universal Agent Control",
-    "tagline": "Local governed canvas for VSI agents and Cabina evidence",
+    "productName": "Control de Agentes de la Cabina Universal",
+    "tagline": "Mesa local gobernada para agentes VSI y evidencia de cabina",
     "vision": {
-      "statement": "Make Visual Studio Code Insiders the operator-visible workbench for governed agent control.",
-      "problemStatement": "Agent tools exist locally, but useful operation requires a shared map of surfaces, gates, validators, and evidence.",
-      "proposedSolution": "Seed Agile Agent Canvas with Cabina-native vision, PRD, epics, and explicit blocked/live lanes, then connect that evidence to the local dashboard and validators."
+      "statement": "Hacer de Visual Studio Code Insiders la mesa visible del operador para gobierno de agentes.",
+      "problemStatement": "Las herramientas agente existen localmente, pero operar bien exige un mapa compartido de superficies, gates, validadores y evidencia.",
+      "proposedSolution": "Sembrar Agile Agent Canvas con vision, PRD, epicas y lanes bloqueadas/live propias de la Cabina, conectadas al tablero local y a validadores."
     },
     "targetUsers": [
       {
-        "persona": "Operator",
-        "description": "Approves lanes, chooses surfaces, and needs fast confidence without reading every repo file.",
+        "persona": "Operador",
+        "description": "Aprueba carriles, elige superficies y necesita confianza rapida sin leer cada archivo del repo.",
         "painPoints": [
           {
-            "painPoint": "Too many installed agent extensions without a common map",
-            "severity": "high",
-            "frequency": "daily"
+            "painPoint": "Demasiadas extensiones agente instaladas sin mapa comun",
+            "severity": "alta",
+            "frequency": "diaria"
           },
           {
-            "painPoint": "Live boundaries can blur between local planning and provider writes",
-            "severity": "critical",
-            "frequency": "daily"
+            "painPoint": "Las fronteras live pueden confundirse con planificacion local",
+            "severity": "critica",
+            "frequency": "diaria"
           }
         ],
         "goals": [
           {
-            "goal": "See what is ready locally",
+            "goal": "Ver que esta listo localmente",
             "priority": "must-have"
           },
           {
-            "goal": "Approve only exact live gates",
+            "goal": "Aprobar solo gates exactos",
             "priority": "must-have"
           }
         ]
       },
       {
-        "persona": "Governed executor",
-        "description": "Executes safe repo and local changes with validators, rollback, and readback.",
+        "persona": "Ejecutor gobernado",
+        "description": "Ejecuta cambios locales y de repo con validadores, rollback y readback.",
         "painPoints": [
           {
-            "painPoint": "Duplicate capabilities create drift",
-            "severity": "high",
-            "frequency": "weekly"
+            "painPoint": "Capacidades duplicadas generan drift",
+            "severity": "alta",
+            "frequency": "semanal"
           },
           {
-            "painPoint": "Unversioned local UI state is hard to review",
-            "severity": "medium",
-            "frequency": "daily"
+            "painPoint": "Estado local no versionado es dificil de revisar",
+            "severity": "media",
+            "frequency": "diaria"
           }
         ],
         "goals": [
           {
-            "goal": "Prefer existing capabilities before new ones",
+            "goal": "Reusar capacidades existentes antes de crear nuevas",
             "priority": "must-have"
           },
           {
-            "goal": "Leave versionable evidence",
+            "goal": "Dejar evidencia versionable",
             "priority": "must-have"
           }
         ]
       }
     ],
     "marketContext": {
-      "overview": "This is an internal workbench, not a commercial product. Its value is operational control over local and repo-scoped agent surfaces.",
-      "targetMarket": "Cabina Universal local operator and governed agent execution.",
+      "overview": "Es una mesa interna, no un producto comercial. Su valor es control operativo sobre superficies agente locales y repo-scoped.",
+      "targetMarket": "Operador local de Cabina Universal y ejecucion gobernada de agentes.",
       "competitors": [
         {
-          "name": "Unmapped extension inventory",
-          "description": "Installed tools with no shared governance layer",
+          "name": "Inventario de extensiones sin mapa",
+          "description": "Herramientas instaladas sin capa comun de gobierno",
           "strengths": [
-            "Fast experimentation"
+            "Experimentacion rapida"
           ],
           "weaknesses": [
-            "Low traceability",
-            "Risky live boundary confusion"
+            "Baja trazabilidad",
+            "Riesgo de confundir frontera live"
           ]
         },
         {
-          "name": "Pure documentation",
-          "description": "Governance files without an operator-facing workbench",
+          "name": "Documentacion pura",
+          "description": "Archivos de gobierno sin mesa visible de operador",
           "strengths": [
-            "Durable record"
+            "Registro durable"
           ],
           "weaknesses": [
-            "Slower navigation",
-            "Harder day-to-day use"
+            "Navegacion mas lenta",
+            "Uso diario menos fluido"
           ]
         }
       ]
@@ -129,51 +129,51 @@
     "keyFeatures": [
       {
         "id": "KF-1",
-        "name": "VSI agent surface map",
-        "description": "Inventory installed agent-like extensions and classify each as local, gated, or blocked.",
+        "name": "Mapa de superficies agente VSI",
+        "description": "Inventariar extensiones agente instaladas y clasificarlas como locales, gateadas o bloqueadas.",
         "priority": "must-have",
-        "complexity": "medium"
+        "complexity": "media"
       },
       {
         "id": "KF-2",
-        "name": "Governed canvas artifacts",
-        "description": "Keep vision, product brief, PRD, and epics as versioned local Agile Agent Canvas artifacts.",
+        "name": "Artefactos canvas gobernados",
+        "description": "Mantener vision, brief, PRD y epicas como artefactos locales versionados de Agile Agent Canvas.",
         "priority": "must-have",
-        "complexity": "low"
+        "complexity": "baja"
       },
       {
         "id": "KF-3",
-        "name": "Dashboard evidence bridge",
-        "description": "Expose governance controls and readiness states through the local agent bridge dashboard.",
+        "name": "Puente de evidencia al tablero",
+        "description": "Exponer controles de gobierno y estados de readiness en el tablero local.",
         "priority": "should-have",
-        "complexity": "medium"
+        "complexity": "media"
       },
       {
         "id": "KF-4",
-        "name": "Live gate packets",
-        "description": "Prepare exact target, owner, rollback, postcheck, validator, and stop condition before any live provider action.",
+        "name": "Paquetes de gate live",
+        "description": "Preparar target, owner, rollback, postcheck, validador y stop condition antes de cualquier accion live.",
         "priority": "must-have",
-        "complexity": "high"
+        "complexity": "alta"
       }
     ],
     "successMetrics": [
       {
-        "metric": "Root canvas identity",
-        "target": "Cabina Universal Agent Control",
-        "description": "Root canvas files no longer identify a demo project.",
-        "category": "governance"
+        "metric": "Identidad raiz del canvas",
+        "target": "Control de Agentes de la Cabina Universal",
+        "description": "Los archivos raiz del canvas ya no identifican un proyecto demo.",
+        "category": "gobierno"
       },
       {
-        "metric": "Validator coverage",
+        "metric": "Cobertura de validadores",
         "target": "PASS",
-        "description": "JSON parse, diff whitespace, dashboard tests, and governance validators pass.",
-        "category": "quality"
+        "description": "Parse JSON, diff whitespace, tests del tablero y validadores de gobierno pasan.",
+        "category": "calidad"
       },
       {
-        "metric": "Live write count",
+        "metric": "Cantidad de writes live",
         "target": "0",
-        "description": "No live provider writes are executed in this lane.",
-        "category": "risk"
+        "description": "No se ejecutan writes live de proveedores en este carril.",
+        "category": "riesgo"
       }
     ]
   }

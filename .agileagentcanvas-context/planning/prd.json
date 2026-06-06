@@ -3,24 +3,24 @@
     "schemaVersion": "1.0.0",
     "artifactType": "prd",
     "workflowName": "pm-orchestrator",
-    "projectName": "Cabina Universal Agent Control",
+    "projectName": "Control de Agentes de la Cabina Universal",
     "timestamps": {
       "created": "2026-06-06T00:00:00Z",
       "lastModified": "2026-06-06T00:00:00Z"
     },
-    "status": "governed-local-active",
+    "status": "local-gobernado-activo",
     "tags": [
       "prd",
-      "agents",
+      "agentes",
       "vscode-insiders",
       "cabina"
     ],
-    "author": "Codex governed executor",
+    "author": "Codex ejecutor gobernado",
     "stepsCompleted": [
-      "requirements-gathering",
-      "surface-inventory",
-      "gate-analysis",
-      "local-artifact-seed"
+      "relevar-requisitos",
+      "inventario-superficies",
+      "analisis-gates",
+      "semilla-artefactos-locales"
     ],
     "inputDocuments": [
       {
@@ -36,150 +36,150 @@
   },
   "content": {
     "productOverview": {
-      "productName": "Cabina Universal Agent Control",
-      "purpose": "A local operator workbench in Visual Studio Code Insiders for mapping, governing, and validating agent surfaces before any live or production action.",
-      "problemStatement": "Cabina Universal has many capabilities, but day-to-day operation needs a visual local surface that shows what can run now, what is gated, and what evidence proves each decision."
+      "productName": "Control de Agentes de la Cabina Universal",
+      "purpose": "Mesa local en Visual Studio Code Insiders para mapear, gobernar, programar y validar superficies agente antes de cualquier accion live o productiva.",
+      "problemStatement": "La Cabina Universal tiene muchas capacidades, pero la operacion diaria necesita una superficie visual que muestre que puede ejecutarse ahora, que esta gateado y que evidencia sostiene cada decision."
     },
     "projectType": {
-      "type": "internal-control-plane",
-      "complexity": "medium",
-      "domainComplexity": "Multi-repo, multi-agent, multi-provider governance",
-      "technicalComplexity": "Local files, VS Code Insiders extensions, dashboard evidence, validators, matrices",
-      "integrationComplexity": "Local-only now; GitHub, OpenAI, Microsoft, Jira, and cloud lanes are gated by exact order",
+      "type": "control-plane-interno",
+      "complexity": "media",
+      "domainComplexity": "Gobierno multi-repo, multi-agente y multi-proveedor",
+      "technicalComplexity": "Archivos locales, extensiones VS Code Insiders, evidencia del tablero, validadores y matrices",
+      "integrationComplexity": "Local ahora; GitHub, OpenAI, Microsoft, Jira y cloud quedan gateados por orden exacta",
       "characteristics": [
-        "governed",
+        "gobernado",
         "local-first",
         "versionable",
-        "validator-backed",
-        "operator-facing"
+        "validado",
+        "visible-para-operador"
       ]
     },
     "userPersonas": [
       {
-        "name": "Operator",
-        "role": "Cabina owner",
+        "name": "Operador",
+        "role": "Responsable de cabina",
         "goals": [
-          "See safe next actions",
-          "Approve exact gates",
-          "Avoid losing context across surfaces"
+          "Ver proximas acciones seguras",
+          "Aprobar gates exactos",
+          "No perder contexto entre superficies"
         ],
         "painPoints": [
-          "Too many tools",
-          "Unclear active frontier",
-          "Manual reconstruction of agent state"
+          "Demasiadas herramientas",
+          "Frontera activa poco clara",
+          "Reconstruccion manual del estado agente"
         ],
         "behaviors": [
-          "Works inside VSI",
-          "Asks for maximum safe progress",
-          "Separates local work from live provider writes"
+          "Trabaja dentro de VSI",
+          "Pide maxima frontera segura",
+          "Separa trabajo local de writes live de proveedores"
         ],
-        "technicalProficiency": "advanced"
+        "technicalProficiency": "avanzada"
       },
       {
-        "name": "Codex governed executor",
-        "role": "Local technical executor",
+        "name": "Codex ejecutor gobernado",
+        "role": "Ejecutor tecnico local",
         "goals": [
-          "Execute safe reversible work",
-          "Validate before closeout",
-          "Produce evidence and rollback"
+          "Ejecutar trabajo seguro y reversible",
+          "Validar antes de cerrar",
+          "Producir evidencia y rollback"
         ],
         "painPoints": [
-          "Duplicate capabilities",
-          "Hidden local state",
-          "Ambiguous live boundaries"
+          "Capacidades duplicadas",
+          "Estado local oculto",
+          "Fronteras live ambiguas"
         ],
         "behaviors": [
-          "Runs preflight",
-          "Uses explicit staged files",
-          "Keeps live writes gated"
+          "Corre preflight",
+          "Stagea archivos explicitos",
+          "Mantiene writes live gateados"
         ],
-        "technicalProficiency": "expert"
+        "technicalProficiency": "experta"
       }
     ],
     "requirements": {
       "functional": [
         {
           "id": "FR-1",
-          "title": "Canvas identity",
-          "description": "Root Agile Agent Canvas artifacts must identify Cabina Universal Agent Control and not demo project data.",
+          "title": "Identidad del canvas",
+          "description": "Los artefactos raiz de Agile Agent Canvas deben identificar Control de Agentes de la Cabina Universal y no datos demo.",
           "priority": "must-have"
         },
         {
           "id": "FR-2",
-          "title": "Governed VSI surface map",
-          "description": "Installed agent-like extensions and Agile Agent Canvas capabilities must be mapped to allowed actions, blocked actions, gates, owners, validators, rollback, and stop conditions.",
+          "title": "Mapa gobernado de superficie VSI",
+          "description": "Extensiones agente y capacidades de Agile Agent Canvas deben mapearse con acciones permitidas, bloqueadas, gates, owners, validadores, rollback y stop conditions.",
           "priority": "must-have"
         },
         {
           "id": "FR-3",
-          "title": "Local dashboard bridge",
-          "description": "The local agent bridge should expose the Agile Agent Canvas governance state and agent-control controls for operator review.",
+          "title": "Puente al tablero local",
+          "description": "El bridge local debe exponer estado de gobierno de Agile Agent Canvas y controles de agent-control para revision del operador.",
           "priority": "should-have"
         },
         {
           "id": "FR-4",
-          "title": "Gate packet preparation",
-          "description": "Any Jira, OpenAI live, Microsoft live, Graph, Power Platform, production, remote mutation, or cost lane must stop at a prepared gate packet until target, owner, rollback, postcheck, evidence, and validator are present.",
+          "title": "Preparacion de paquetes de gate",
+          "description": "Todo carril Jira, OpenAI live, Microsoft live, Graph, Power Platform, produccion, mutacion remota o costo debe detenerse en paquete de gate hasta tener target, owner, rollback, postcheck, evidencia y validador.",
           "priority": "must-have"
         },
         {
           "id": "FR-5",
-          "title": "Validator-backed closeout",
-          "description": "Every repo change must run relevant JSON, whitespace, dashboard, and governance validators before closeout.",
+          "title": "Cierre con validadores",
+          "description": "Todo cambio repo debe correr validadores JSON, whitespace, dashboard y gobierno antes del cierre.",
           "priority": "must-have"
         }
       ],
       "nonFunctional": [
         {
           "id": "NFR-1",
-          "title": "No secrets",
-          "description": "Canvas artifacts must not include tokens, keys, connection strings, cookies, private data, or broad regulated data.",
-          "category": "Security"
+          "title": "Sin secretos",
+          "description": "Los artefactos canvas no deben incluir tokens, claves, connection strings, cookies, datos privados ni datos regulados amplios.",
+          "category": "Seguridad"
         },
         {
           "id": "NFR-2",
           "title": "Reversible",
-          "description": "All versioned canvas changes must have explicit rollback through Git restore or commit revert.",
-          "category": "Operations"
+          "description": "Todo cambio canvas versionado debe tener rollback explicito por Git restore o commit revert.",
+          "category": "Operacion"
         },
         {
           "id": "NFR-3",
-          "title": "Local-first",
-          "description": "This lane may read local extension metadata and repo files, but must not call live providers or write outside the workspace without a governed order.",
-          "category": "Boundary"
+          "title": "Local primero",
+          "description": "Este carril puede leer metadata local de extensiones y archivos repo, pero no llamar proveedores live ni escribir fuera del workspace sin orden gobernada.",
+          "category": "Frontera"
         }
       ],
       "technical": [
         {
           "id": "TR-1",
-          "title": "JSON parseability",
-          "description": "All versioned Agile Agent Canvas JSON artifacts must parse with local PowerShell JSON validation."
+          "title": "JSON parseable",
+          "description": "Todos los artefactos JSON versionados de Agile Agent Canvas deben parsear con validacion local PowerShell."
         },
         {
           "id": "TR-2",
-          "title": "Allowlist staging",
-          "description": "Because the root allowlist ignores top-level folders, canvas artifacts must be staged explicitly with force only after review."
+          "title": "Stage por allowlist",
+          "description": "Como la allowlist raiz ignora carpetas top-level, los artefactos canvas deben stagearse explicitamente con force solo tras revision."
         }
       ]
     },
     "successCriteria": [
       {
-        "criterion": "Root canvas artifacts parse and identify Cabina Universal Agent Control",
-        "category": "quality",
+        "criterion": "Artefactos raiz del canvas parsean e identifican Control de Agentes de la Cabina Universal",
+        "category": "calidad",
         "target": "PASS",
-        "timeframe": "current lane"
+        "timeframe": "carril actual"
       },
       {
-        "criterion": "No live provider write or secret handling occurs",
-        "category": "risk",
-        "target": "0 live writes",
-        "timeframe": "current lane"
+        "criterion": "No ocurre write live ni manejo de secretos",
+        "category": "riesgo",
+        "target": "0 writes live",
+        "timeframe": "carril actual"
       },
       {
-        "criterion": "Governance validators pass after explicit staging",
-        "category": "governance",
+        "criterion": "Validadores de gobierno pasan despues del stage explicito",
+        "category": "gobierno",
         "target": "PASS",
-        "timeframe": "current lane"
+        "timeframe": "carril actual"
       }
     ]
   }

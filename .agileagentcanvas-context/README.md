@@ -1,22 +1,23 @@
-# Cabina Universal Agent Control
+# Control de Agentes de la Cabina Universal
 
-This folder is the local Agile Agent Canvas workspace for Visual Studio Code
+Esta carpeta es la mesa local de Agile Agent Canvas para Visual Studio Code
 Insiders.
 
-Versioned root artifacts:
+Artefactos raiz versionados:
 
 - `vision.json`
 - `discovery/product-brief.json`
 - `planning/prd.json`
 - `planning/epics.json`
 
-Operational boundary:
+Frontera operativa:
 
-- local workspace artifacts only
-- no API keys, Jira tokens, tenants, production data, secrets, external writes,
-  Git hook installs, skill repo clones, or cloud execution
-- live providers require an explicit governed order with target, owner,
-  rollback, postcheck, evidence, validator, and stop condition
+- solo artefactos locales del workspace
+- sin claves API, tokens Jira, tenants, datos productivos, secretos, escrituras
+  externas, instalacion de hooks Git, clonacion de repos de skills ni ejecucion
+  cloud
+- los proveedores live requieren orden gobernada explicita con target, owner,
+  rollback, postcheck, evidencia, validador y stop condition
 
 Rollback:
 
