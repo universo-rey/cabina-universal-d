@@ -250,6 +250,22 @@
         </table>
       </div>
     </section>
+
+    <section class="section">
+      <h2>Agile Agent Canvas</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Superficie</th>
+            <th>Estado</th>
+            <th>Gate</th>
+            <th>Permitido ahora</th>
+            <th>Stop condition</th>
+          </tr>
+        </thead>
+        <tbody id="agile-canvas"></tbody>
+      </table>
+    </section>
   </main>
 
   <script>
@@ -314,6 +330,18 @@
       return tr;
     }
 
+    function renderAgileCanvas(row) {
+      const tr = document.createElement("tr");
+      tr.append(
+        cell(row.surface, "mono"),
+        cell(row.status, "mono"),
+        cell(row.gate, "mono"),
+        cell(row.allowed_now),
+        cell(row.stop_condition, "mono")
+      );
+      return tr;
+    }
+
     async function main() {
       const response = await fetch("/api/dashboard");
       const data = await response.json();
@@ -324,6 +352,7 @@
         renderMetric("registros de operabilidad", data.summary.operability_records),
         renderMetric("agentes task-scoped locales", data.summary.local_task_scoped_agents),
         renderMetric("codex cloud ready", data.summary.codex_cloud_ready_records),
+        renderMetric("controles Agile Canvas", data.summary.agile_agent_canvas_controls),
         renderMetric("gates pendientes", data.summary.gated_records),
         renderMetric("live ejecutado", data.live_executed ? "si" : "no")
       );
@@ -333,6 +362,7 @@
       data.autonomous
         .filter((row) => row.execution_mode === "local_task_scoped_agent")
         .forEach((row) => document.getElementById("agents").append(renderAgent(row)));
+      data.agile_agent_canvas.forEach((row) => document.getElementById("agile-canvas").append(renderAgileCanvas(row)));
     }
 
     main().catch((error) => {

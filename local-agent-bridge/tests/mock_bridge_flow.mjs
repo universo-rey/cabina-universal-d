@@ -31,6 +31,7 @@ assert.equal(dashboard.status, "ok");
 assert.equal(dashboard.live_executed, false);
 assert.ok(dashboard.summary.local_task_scoped_agents > 0);
 assert.ok(dashboard.summary.gated_records > 0);
+assert.equal(dashboard.summary.agile_agent_canvas_controls, 10);
 assert.ok(dashboard.semaphores.every((row) => row.color));
 
 console.log("SDU_LOCAL_AGENT_BRIDGE_MOCK_FLOW_PASS");

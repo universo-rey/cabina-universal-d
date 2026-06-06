@@ -83,13 +83,15 @@ export function collectDashboardData(startPath = process.cwd()) {
     operability: `${matricesRoot}/AGENTS_GLOBAL_OPERABILITY_INVENTORY_20260605.csv`,
     semaphore: `${matricesRoot}/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_SEMAPHORE_MATRIX_20260605.csv`,
     gateQueue: `${matricesRoot}/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_GATE_QUEUE_20260605.csv`,
-    autonomous: `${matricesRoot}/AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv`
+    autonomous: `${matricesRoot}/AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv`,
+    agileAgentCanvas: `${matricesRoot}/VSCODE_INSIDERS_AGILE_AGENT_CANVAS_GOVERNANCE_20260606.csv`
   };
 
   const operability = readCsv(repoRoot, paths.operability);
   const semaphore = readCsv(repoRoot, paths.semaphore);
   const gateQueue = readCsv(repoRoot, paths.gateQueue);
   const autonomous = readCsv(repoRoot, paths.autonomous);
+  const agileAgentCanvas = readCsv(repoRoot, paths.agileAgentCanvas);
 
   return {
     status: "ok",
@@ -99,6 +101,7 @@ export function collectDashboardData(startPath = process.cwd()) {
     sources: paths,
     summary: {
       operability_records: operability.length,
+      agile_agent_canvas_controls: agileAgentCanvas.length,
       autonomous_records: autonomous.length,
       local_task_scoped_agents: autonomous.filter((row) => row.execution_mode === "local_task_scoped_agent").length,
       codex_cloud_ready_records: autonomous.filter((row) => row.status === "ACTIVE_CODEX_CLOUD_READY").length,
@@ -107,6 +110,7 @@ export function collectDashboardData(startPath = process.cwd()) {
     },
     semaphores: semaphore,
     gate_queue: gateQueue,
+    agile_agent_canvas: agileAgentCanvas,
     operability: firstRows(operability, 40),
     autonomous: firstRows(autonomous, 60)
   };
