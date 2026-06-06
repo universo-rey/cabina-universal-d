@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cabina Agent Control</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #202124;
+      --muted: #5f6368;
+      --line: #d7dbe0;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --green: #1e8e3e;
+      --yellow: #b06000;
+      --red: #c5221f;
+      --blue: #1967d2;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font: 14px/1.4 "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 16px;
+      align-items: end;
+      padding: 20px 24px 14px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 650;
+      letter-spacing: 0;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+      word-break: break-all;
+    }
+
+    main {
+      display: grid;
+      gap: 18px;
+      padding: 18px 24px 28px;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(130px, 1fr));
+      gap: 10px;
+    }
+
+    .metric,
+    .section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+    }
+
+    .metric {
+      padding: 12px;
+      min-height: 74px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 26px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .section {
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    .section h2 {
+      margin: 0;
+      padding: 12px 14px;
+      font-size: 14px;
+      font-weight: 650;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfd;
+    }
+
+    table {
+      width: 100%;
+      min-width: 860px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 9px 10px;
+      border-bottom: 1px solid #edf0f2;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
+      background: #fbfcfd;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .GREEN { background: var(--green); }
+    .YELLOW { background: var(--yellow); }
+    .RED { background: var(--red); }
+
+    .mono {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 12px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .grid-two {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 980px) {
+      header,
+      .grid-two {
+        grid-template-columns: 1fr;
+      }
+
+      .summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .meta {
+        white-space: normal;
+      }
+    }
+
+    @media (max-width: 520px) {
+      main {
+        padding: 14px 16px 24px;
+      }
+
+      header {
+        padding: 18px 16px 12px;
+      }
+
+      .summary {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Cabina Agent Control</h1>
+      <div class="muted">Local bridge dashboard. Read-only, synthetic, no live writes.</div>
+    </div>
+    <div class="meta" id="generated">cargando</div>
+  </header>
+
+  <main>
+    <section class="summary" id="summary"></section>
+
+    <section class="section">
+      <h2>Semaforo de control</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Estado</th>
+            <th>Owner</th>
+            <th>Gate</th>
+            <th>Proxima accion</th>
+            <th>Stop condition</th>
+          </tr>
+        </thead>
+        <tbody id="semaphores"></tbody>
+      </table>
+    </section>
+
+    <section class="grid-two">
+      <div class="section">
+        <h2>Gate queue</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Gate</th>
+              <th>Owner</th>
+              <th>Preparacion permitida</th>
+            </tr>
+          </thead>
+          <tbody id="gates"></tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h2>Agentes locales</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Agente</th>
+              <th>Modo</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="agents"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const text = (value) => value || "NO_DECLARADO";
+
+    function cell(value, className = "") {
+      const td = document.createElement("td");
+      td.textContent = text(value);
+      if (className) td.className = className;
+      return td;
+    }
+
+    function renderMetric(label, value) {
+      const div = document.createElement("div");
+      div.className = "metric";
+      const strong = document.createElement("strong");
+      strong.textContent = value;
+      const span = document.createElement("span");
+      span.textContent = label;
+      div.append(strong, span);
+      return div;
+    }
+
+    function renderSemaphore(row) {
+      const tr = document.createElement("tr");
+      const status = document.createElement("td");
+      const wrap = document.createElement("span");
+      wrap.className = "status";
+      const dot = document.createElement("span");
+      dot.className = `dot ${row.color}`;
+      const label = document.createElement("span");
+      label.textContent = `${row.color} / ${row.current_state}`;
+      wrap.append(dot, label);
+      status.append(wrap);
+      tr.append(
+        status,
+        cell(row.decision_owner, "mono"),
+        cell(row.gate_required, "mono"),
+        cell(row.next_action),
+        cell(row.stop_condition, "mono")
+      );
+      return tr;
+    }
+
+    function renderGate(row) {
+      const tr = document.createElement("tr");
+      tr.append(
+        cell(row.gate_required, "mono"),
+        cell(row.gate_owner, "mono"),
+        cell(row.allowed_preparation)
+      );
+      return tr;
+    }
+
+    function renderAgent(row) {
+      const tr = document.createElement("tr");
+      tr.append(
+        cell(row.target_id || row.operational_agent, "mono"),
+        cell(row.execution_mode || row.runtime_agent),
+        cell(row.status || row.current_status, "mono")
+      );
+      return tr;
+    }
+
+    async function main() {
+      const response = await fetch("/api/dashboard");
+      const data = await response.json();
+      document.getElementById("generated").textContent = `${data.generated_at} | ${data.repo_root}`;
+
+      const summary = document.getElementById("summary");
+      summary.append(
+        renderMetric("registros de operabilidad", data.summary.operability_records),
+        renderMetric("agentes task-scoped locales", data.summary.local_task_scoped_agents),
+        renderMetric("codex cloud ready", data.summary.codex_cloud_ready_records),
+        renderMetric("gates pendientes", data.summary.gated_records),
+        renderMetric("live ejecutado", data.live_executed ? "si" : "no")
+      );
+
+      data.semaphores.forEach((row) => document.getElementById("semaphores").append(renderSemaphore(row)));
+      data.gate_queue.forEach((row) => document.getElementById("gates").append(renderGate(row)));
+      data.autonomous
+        .filter((row) => row.execution_mode === "local_task_scoped_agent")
+        .forEach((row) => document.getElementById("agents").append(renderAgent(row)));
+    }
+
+    main().catch((error) => {
+      document.getElementById("generated").textContent = `blocked: ${error.message}`;
+    });
+  </script>
+</body>
+</html>

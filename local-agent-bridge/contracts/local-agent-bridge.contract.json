@@ -3,7 +3,9 @@
   "version": "2026-06-03",
   "transport": "http-loopback",
   "allowedRoutes": [
+    "GET /",
     "GET /health",
+    "GET /api/dashboard",
     "POST /v1/sdu/route"
   ],
   "request": {
