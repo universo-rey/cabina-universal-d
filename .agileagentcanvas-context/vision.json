@@ -1,0 +1,71 @@
+{
+  "metadata": {
+    "schemaVersion": "1.0.0",
+    "artifactType": "vision",
+    "workflowName": "product-visionary",
+    "projectName": "Cabina Universal Agent Control",
+    "timestamps": {
+      "created": "2026-06-06T00:00:00Z",
+      "lastModified": "2026-06-06T00:00:00Z"
+    },
+    "status": "governed-local-active",
+    "tags": [
+      "cabina",
+      "vscode-insiders",
+      "agents",
+      "governance",
+      "local-only"
+    ],
+    "author": "Codex governed executor",
+    "stepsCompleted": [
+      "workspace-preflight",
+      "extension-inventory",
+      "capability-reconciliation",
+      "local-canvas-seed"
+    ]
+  },
+  "content": {
+    "productName": "Cabina Universal Agent Control",
+    "vision": {
+      "statement": "Turn Visual Studio Code Insiders into the governed local workbench for mapping, coordinating, and validating agents across Cabina Universal surfaces.",
+      "problemStatement": "The machine already has many agent-capable extensions, CLIs, repos, skills, validators, and dashboards, but without a local canvas they remain scattered surfaces instead of an operator-visible control table.",
+      "proposedSolution": "Use Agile Agent Canvas as a local, versioned planning surface that connects extension inventory, agent governance, dashboard evidence, validators, gates, and next safe execution lanes without invoking secrets or live writes."
+    },
+    "targetUsers": [
+      {
+        "persona": "Operator",
+        "description": "Needs a single local cockpit to decide which agents, tools, repos, and gates are ready."
+      },
+      {
+        "persona": "Codex governed executor",
+        "description": "Needs repo-scoped artifacts, validators, rollback paths, and explicit stop conditions before changing systems."
+      },
+      {
+        "persona": "Seshat evidence layer",
+        "description": "Needs durable readbacks, matrices, and local evidence that can be reviewed later."
+      },
+      {
+        "persona": "SDU gate layer",
+        "description": "Needs clear boundaries for live, tenant, cost, production, secrets, and regulated data."
+      }
+    ],
+    "successMetrics": [
+      {
+        "metric": "Canvas readiness",
+        "description": "The root Agile Agent Canvas artifacts identify Cabina Universal, not demo project data."
+      },
+      {
+        "metric": "Governed surface coverage",
+        "description": "Every active VSI agent surface has owner, gate, validator, rollback, and stop condition."
+      },
+      {
+        "metric": "Local evidence",
+        "description": "The dashboard, matrices, canvas artifacts, and validators can be inspected without live provider calls."
+      },
+      {
+        "metric": "Gate clarity",
+        "description": "Secret, Jira, OpenAI live, Microsoft live, Graph, Power Platform, production, and remote mutation lanes remain gated until exact target and rollback exist."
+      }
+    ]
+  }
+}

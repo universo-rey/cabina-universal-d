@@ -1,0 +1,186 @@
+{
+  "metadata": {
+    "schemaVersion": "1.0.0",
+    "artifactType": "prd",
+    "workflowName": "pm-orchestrator",
+    "projectName": "Cabina Universal Agent Control",
+    "timestamps": {
+      "created": "2026-06-06T00:00:00Z",
+      "lastModified": "2026-06-06T00:00:00Z"
+    },
+    "status": "governed-local-active",
+    "tags": [
+      "prd",
+      "agents",
+      "vscode-insiders",
+      "cabina"
+    ],
+    "author": "Codex governed executor",
+    "stepsCompleted": [
+      "requirements-gathering",
+      "surface-inventory",
+      "gate-analysis",
+      "local-artifact-seed"
+    ],
+    "inputDocuments": [
+      {
+        "path": "vision.json"
+      },
+      {
+        "path": "discovery/product-brief.json"
+      },
+      {
+        "path": ".agents/codex/matrices/VSCODE_INSIDERS_AGILE_AGENT_CANVAS_GOVERNANCE_20260606.csv"
+      }
+    ]
+  },
+  "content": {
+    "productOverview": {
+      "productName": "Cabina Universal Agent Control",
+      "purpose": "A local operator workbench in Visual Studio Code Insiders for mapping, governing, and validating agent surfaces before any live or production action.",
+      "problemStatement": "Cabina Universal has many capabilities, but day-to-day operation needs a visual local surface that shows what can run now, what is gated, and what evidence proves each decision."
+    },
+    "projectType": {
+      "type": "internal-control-plane",
+      "complexity": "medium",
+      "domainComplexity": "Multi-repo, multi-agent, multi-provider governance",
+      "technicalComplexity": "Local files, VS Code Insiders extensions, dashboard evidence, validators, matrices",
+      "integrationComplexity": "Local-only now; GitHub, OpenAI, Microsoft, Jira, and cloud lanes are gated by exact order",
+      "characteristics": [
+        "governed",
+        "local-first",
+        "versionable",
+        "validator-backed",
+        "operator-facing"
+      ]
+    },
+    "userPersonas": [
+      {
+        "name": "Operator",
+        "role": "Cabina owner",
+        "goals": [
+          "See safe next actions",
+          "Approve exact gates",
+          "Avoid losing context across surfaces"
+        ],
+        "painPoints": [
+          "Too many tools",
+          "Unclear active frontier",
+          "Manual reconstruction of agent state"
+        ],
+        "behaviors": [
+          "Works inside VSI",
+          "Asks for maximum safe progress",
+          "Separates local work from live provider writes"
+        ],
+        "technicalProficiency": "advanced"
+      },
+      {
+        "name": "Codex governed executor",
+        "role": "Local technical executor",
+        "goals": [
+          "Execute safe reversible work",
+          "Validate before closeout",
+          "Produce evidence and rollback"
+        ],
+        "painPoints": [
+          "Duplicate capabilities",
+          "Hidden local state",
+          "Ambiguous live boundaries"
+        ],
+        "behaviors": [
+          "Runs preflight",
+          "Uses explicit staged files",
+          "Keeps live writes gated"
+        ],
+        "technicalProficiency": "expert"
+      }
+    ],
+    "requirements": {
+      "functional": [
+        {
+          "id": "FR-1",
+          "title": "Canvas identity",
+          "description": "Root Agile Agent Canvas artifacts must identify Cabina Universal Agent Control and not demo project data.",
+          "priority": "must-have"
+        },
+        {
+          "id": "FR-2",
+          "title": "Governed VSI surface map",
+          "description": "Installed agent-like extensions and Agile Agent Canvas capabilities must be mapped to allowed actions, blocked actions, gates, owners, validators, rollback, and stop conditions.",
+          "priority": "must-have"
+        },
+        {
+          "id": "FR-3",
+          "title": "Local dashboard bridge",
+          "description": "The local agent bridge should expose the Agile Agent Canvas governance state and agent-control controls for operator review.",
+          "priority": "should-have"
+        },
+        {
+          "id": "FR-4",
+          "title": "Gate packet preparation",
+          "description": "Any Jira, OpenAI live, Microsoft live, Graph, Power Platform, production, remote mutation, or cost lane must stop at a prepared gate packet until target, owner, rollback, postcheck, evidence, and validator are present.",
+          "priority": "must-have"
+        },
+        {
+          "id": "FR-5",
+          "title": "Validator-backed closeout",
+          "description": "Every repo change must run relevant JSON, whitespace, dashboard, and governance validators before closeout.",
+          "priority": "must-have"
+        }
+      ],
+      "nonFunctional": [
+        {
+          "id": "NFR-1",
+          "title": "No secrets",
+          "description": "Canvas artifacts must not include tokens, keys, connection strings, cookies, private data, or broad regulated data.",
+          "category": "Security"
+        },
+        {
+          "id": "NFR-2",
+          "title": "Reversible",
+          "description": "All versioned canvas changes must have explicit rollback through Git restore or commit revert.",
+          "category": "Operations"
+        },
+        {
+          "id": "NFR-3",
+          "title": "Local-first",
+          "description": "This lane may read local extension metadata and repo files, but must not call live providers or write outside the workspace without a governed order.",
+          "category": "Boundary"
+        }
+      ],
+      "technical": [
+        {
+          "id": "TR-1",
+          "title": "JSON parseability",
+          "description": "All versioned Agile Agent Canvas JSON artifacts must parse with local PowerShell JSON validation."
+        },
+        {
+          "id": "TR-2",
+          "title": "Allowlist staging",
+          "description": "Because the root allowlist ignores top-level folders, canvas artifacts must be staged explicitly with force only after review."
+        }
+      ]
+    },
+    "successCriteria": [
+      {
+        "criterion": "Root canvas artifacts parse and identify Cabina Universal Agent Control",
+        "category": "quality",
+        "target": "PASS",
+        "timeframe": "current lane"
+      },
+      {
+        "criterion": "No live provider write or secret handling occurs",
+        "category": "risk",
+        "target": "0 live writes",
+        "timeframe": "current lane"
+      },
+      {
+        "criterion": "Governance validators pass after explicit staging",
+        "category": "governance",
+        "target": "PASS",
+        "timeframe": "current lane"
+      }
+    ]
+  }
+}

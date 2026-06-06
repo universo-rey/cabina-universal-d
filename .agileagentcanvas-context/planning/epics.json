@@ -1,0 +1,283 @@
+{
+  "metadata": {
+    "schemaVersion": "1.0.0",
+    "artifactType": "epics",
+    "workflowName": "pm-orchestrator",
+    "projectName": "Cabina Universal Agent Control",
+    "timestamps": {
+      "created": "2026-06-06T00:00:00Z",
+      "lastModified": "2026-06-06T00:00:00Z"
+    },
+    "status": "governed-local-active",
+    "tags": [
+      "epics",
+      "vscode-insiders",
+      "agent-control",
+      "local-only"
+    ],
+    "author": "Codex governed executor",
+    "stepsCompleted": [
+      "requirement-mapping",
+      "epic-breakdown",
+      "dependency-analysis",
+      "local-review"
+    ]
+  },
+  "content": {
+    "overview": {
+      "projectName": "Cabina Universal Agent Control",
+      "description": "Epic breakdown for the local Agile Agent Canvas workbench that governs Visual Studio Code Insiders agent surfaces for Cabina Universal.",
+      "totalEpics": 4,
+      "totalStories": 12,
+      "inputDocuments": [
+        "vision.json",
+        "discovery/product-brief.json",
+        "planning/prd.json",
+        ".agents/codex/matrices/VSCODE_INSIDERS_AGILE_AGENT_CANVAS_GOVERNANCE_20260606.csv"
+      ]
+    },
+    "requirementsInventory": {
+      "functional": [
+        {
+          "id": "FR-1",
+          "title": "Canvas identity",
+          "capabilityArea": "Canvas",
+          "relatedEpics": [
+            "EPIC-1"
+          ],
+          "relatedStories": [
+            "S-1.1",
+            "S-1.2"
+          ]
+        },
+        {
+          "id": "FR-2",
+          "title": "Governed VSI surface map",
+          "capabilityArea": "Governance",
+          "relatedEpics": [
+            "EPIC-2"
+          ],
+          "relatedStories": [
+            "S-2.1",
+            "S-2.2",
+            "S-2.3"
+          ]
+        },
+        {
+          "id": "FR-3",
+          "title": "Local dashboard bridge",
+          "capabilityArea": "Dashboard",
+          "relatedEpics": [
+            "EPIC-3"
+          ],
+          "relatedStories": [
+            "S-3.1",
+            "S-3.2"
+          ]
+        },
+        {
+          "id": "FR-4",
+          "title": "Gate packet preparation",
+          "capabilityArea": "Gates",
+          "relatedEpics": [
+            "EPIC-4"
+          ],
+          "relatedStories": [
+            "S-4.1",
+            "S-4.2",
+            "S-4.3"
+          ]
+        }
+      ],
+      "nonFunctional": [
+        {
+          "id": "NFR-1",
+          "title": "No secrets",
+          "category": "Security",
+          "relatedEpics": [
+            "EPIC-2",
+            "EPIC-4"
+          ]
+        },
+        {
+          "id": "NFR-2",
+          "title": "Reversible",
+          "category": "Operations",
+          "relatedEpics": [
+            "EPIC-1",
+            "EPIC-3"
+          ]
+        },
+        {
+          "id": "NFR-3",
+          "title": "Local-first",
+          "category": "Boundary",
+          "relatedEpics": [
+            "EPIC-1",
+            "EPIC-2",
+            "EPIC-4"
+          ]
+        }
+      ],
+      "summary": {
+        "totalFunctional": 4,
+        "totalNonFunctional": 3,
+        "totalRequirements": 7
+      }
+    },
+    "epics": [
+      {
+        "id": "EPIC-1",
+        "title": "Seed the Cabina canvas",
+        "description": "Replace demo root canvas artifacts with Cabina Universal Agent Control artifacts and keep them parseable, explicit, and reversible.",
+        "priority": "must-have",
+        "status": "in-progress",
+        "stories": [
+          {
+            "id": "S-1.1",
+            "title": "Replace demo vision",
+            "description": "Root vision identifies Cabina Universal Agent Control and declares local-only boundaries.",
+            "acceptanceCriteria": [
+              "vision.json parses",
+              "projectName is Cabina Universal Agent Control",
+              "no secret or live target appears"
+            ],
+            "status": "done"
+          },
+          {
+            "id": "S-1.2",
+            "title": "Add canvas README",
+            "description": "README describes versioned artifacts, blocked live lanes, and rollback.",
+            "acceptanceCriteria": [
+              "README exists",
+              "rollback is explicit",
+              "blocked lanes are listed"
+            ],
+            "status": "done"
+          },
+          {
+            "id": "S-1.3",
+            "title": "Stage allowlisted canvas package",
+            "description": "Because root files are ignored, stage only reviewed canvas files explicitly.",
+            "acceptanceCriteria": [
+              "git status shows only explicit canvas files plus intended matrices",
+              ".gitignore is not staged"
+            ],
+            "status": "pending"
+          }
+        ]
+      },
+      {
+        "id": "EPIC-2",
+        "title": "Govern VSI agent surfaces",
+        "description": "Keep Agile Agent Canvas, related agent extensions, and local tools mapped to gates and validators.",
+        "priority": "must-have",
+        "status": "active",
+        "stories": [
+          {
+            "id": "S-2.1",
+            "title": "Inventory installed agent extensions",
+            "description": "Use code-insiders extension list as evidence for local agent-capable surfaces.",
+            "acceptanceCriteria": [
+              "extension ids are captured",
+              "Agile Agent Canvas version is captured"
+            ],
+            "status": "done"
+          },
+          {
+            "id": "S-2.2",
+            "title": "Classify Agile Agent Canvas tools",
+            "description": "Separate read, write, Jira, Graphify, skill catalogue, and Codeburn surfaces.",
+            "acceptanceCriteria": [
+              "each surface has allowed and blocked actions",
+              "each surface has gate and stop condition"
+            ],
+            "status": "done"
+          },
+          {
+            "id": "S-2.3",
+            "title": "Prepare user catalogue lane",
+            "description": "Define target path and rollback before changing userCataloguePath or cloning skill repos.",
+            "acceptanceCriteria": [
+              "target exists",
+              "owner and rollback are declared",
+              "no external clone happens without gate"
+            ],
+            "status": "pending"
+          }
+        ]
+      },
+      {
+        "id": "EPIC-3",
+        "title": "Bridge canvas and dashboard",
+        "description": "Expose canvas readiness in the local operator dashboard alongside existing agent and governance controls.",
+        "priority": "should-have",
+        "status": "planned",
+        "stories": [
+          {
+            "id": "S-3.1",
+            "title": "Show canvas package status",
+            "description": "Dashboard reports whether root canvas artifacts parse and identify Cabina.",
+            "acceptanceCriteria": [
+              "status is computed locally",
+              "no live call is made"
+            ],
+            "status": "pending"
+          },
+          {
+            "id": "S-3.2",
+            "title": "Show next gated lanes",
+            "description": "Dashboard lists pending Jira, user catalogue, Graphify, OpenAI live, and Microsoft live gates.",
+            "acceptanceCriteria": [
+              "gate names match governance matrix",
+              "blocked lanes are visually distinct"
+            ],
+            "status": "pending"
+          }
+        ]
+      },
+      {
+        "id": "EPIC-4",
+        "title": "Prepare live-gated expansion",
+        "description": "Advance live-capable surfaces only as dry-run or order packets until exact target, owner, rollback, postcheck, evidence, and validator exist.",
+        "priority": "must-have",
+        "status": "planned",
+        "stories": [
+          {
+            "id": "S-4.1",
+            "title": "Prepare Jira read gate",
+            "description": "Document Jira target, owner, token handling, data limit, rollback, and postcheck before any Jira read.",
+            "acceptanceCriteria": [
+              "no token is stored",
+              "data limit is explicit",
+              "postcheck is explicit"
+            ],
+            "status": "pending"
+          },
+          {
+            "id": "S-4.2",
+            "title": "Prepare OpenAI/Agents SDK live gate",
+            "description": "Define allowed payload, cost boundary, secret source, eval, rollback, and stop condition.",
+            "acceptanceCriteria": [
+              "max cost is declared",
+              "payload sensitivity is declared",
+              "no live call happens without gate"
+            ],
+            "status": "pending"
+          },
+          {
+            "id": "S-4.3",
+            "title": "Prepare Microsoft live gate",
+            "description": "Define tenant, identity, target, owner, rollback, postcheck, and validator before Graph, Teams, SharePoint, Planner, Dataverse, or Power Platform mutation.",
+            "acceptanceCriteria": [
+              "tenant is exact",
+              "rollback is feasible",
+              "production is separately authorized"
+            ],
+            "status": "pending"
+          }
+        ]
+      }
+    ]
+  }
+}

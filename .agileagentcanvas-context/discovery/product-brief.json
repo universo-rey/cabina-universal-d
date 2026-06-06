@@ -1,0 +1,180 @@
+{
+  "metadata": {
+    "schemaVersion": "1.0.0",
+    "artifactType": "product-brief",
+    "workflowName": "product-visionary",
+    "projectName": "Cabina Universal Agent Control",
+    "timestamps": {
+      "created": "2026-06-06T00:00:00Z",
+      "lastModified": "2026-06-06T00:00:00Z"
+    },
+    "status": "governed-local-active",
+    "tags": [
+      "product-brief",
+      "local-agent-control",
+      "vscode-insiders"
+    ],
+    "author": "Codex governed executor",
+    "stepsCompleted": [
+      "read-agents-md",
+      "read-governance-registry",
+      "inspect-agile-agent-canvas",
+      "prepare-local-workbench"
+    ],
+    "inputDocuments": [
+      {
+        "path": "AGENTS.md",
+        "type": "governance"
+      },
+      {
+        "path": ".agents/codex/matrices/VSCODE_INSIDERS_AGILE_AGENT_CANVAS_GOVERNANCE_20260606.csv",
+        "type": "surface-matrix"
+      },
+      {
+        "path": "local-agent-bridge",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "content": {
+    "productName": "Cabina Universal Agent Control",
+    "tagline": "Local governed canvas for VSI agents and Cabina evidence",
+    "vision": {
+      "statement": "Make Visual Studio Code Insiders the operator-visible workbench for governed agent control.",
+      "problemStatement": "Agent tools exist locally, but useful operation requires a shared map of surfaces, gates, validators, and evidence.",
+      "proposedSolution": "Seed Agile Agent Canvas with Cabina-native vision, PRD, epics, and explicit blocked/live lanes, then connect that evidence to the local dashboard and validators."
+    },
+    "targetUsers": [
+      {
+        "persona": "Operator",
+        "description": "Approves lanes, chooses surfaces, and needs fast confidence without reading every repo file.",
+        "painPoints": [
+          {
+            "painPoint": "Too many installed agent extensions without a common map",
+            "severity": "high",
+            "frequency": "daily"
+          },
+          {
+            "painPoint": "Live boundaries can blur between local planning and provider writes",
+            "severity": "critical",
+            "frequency": "daily"
+          }
+        ],
+        "goals": [
+          {
+            "goal": "See what is ready locally",
+            "priority": "must-have"
+          },
+          {
+            "goal": "Approve only exact live gates",
+            "priority": "must-have"
+          }
+        ]
+      },
+      {
+        "persona": "Governed executor",
+        "description": "Executes safe repo and local changes with validators, rollback, and readback.",
+        "painPoints": [
+          {
+            "painPoint": "Duplicate capabilities create drift",
+            "severity": "high",
+            "frequency": "weekly"
+          },
+          {
+            "painPoint": "Unversioned local UI state is hard to review",
+            "severity": "medium",
+            "frequency": "daily"
+          }
+        ],
+        "goals": [
+          {
+            "goal": "Prefer existing capabilities before new ones",
+            "priority": "must-have"
+          },
+          {
+            "goal": "Leave versionable evidence",
+            "priority": "must-have"
+          }
+        ]
+      }
+    ],
+    "marketContext": {
+      "overview": "This is an internal workbench, not a commercial product. Its value is operational control over local and repo-scoped agent surfaces.",
+      "targetMarket": "Cabina Universal local operator and governed agent execution.",
+      "competitors": [
+        {
+          "name": "Unmapped extension inventory",
+          "description": "Installed tools with no shared governance layer",
+          "strengths": [
+            "Fast experimentation"
+          ],
+          "weaknesses": [
+            "Low traceability",
+            "Risky live boundary confusion"
+          ]
+        },
+        {
+          "name": "Pure documentation",
+          "description": "Governance files without an operator-facing workbench",
+          "strengths": [
+            "Durable record"
+          ],
+          "weaknesses": [
+            "Slower navigation",
+            "Harder day-to-day use"
+          ]
+        }
+      ]
+    },
+    "keyFeatures": [
+      {
+        "id": "KF-1",
+        "name": "VSI agent surface map",
+        "description": "Inventory installed agent-like extensions and classify each as local, gated, or blocked.",
+        "priority": "must-have",
+        "complexity": "medium"
+      },
+      {
+        "id": "KF-2",
+        "name": "Governed canvas artifacts",
+        "description": "Keep vision, product brief, PRD, and epics as versioned local Agile Agent Canvas artifacts.",
+        "priority": "must-have",
+        "complexity": "low"
+      },
+      {
+        "id": "KF-3",
+        "name": "Dashboard evidence bridge",
+        "description": "Expose governance controls and readiness states through the local agent bridge dashboard.",
+        "priority": "should-have",
+        "complexity": "medium"
+      },
+      {
+        "id": "KF-4",
+        "name": "Live gate packets",
+        "description": "Prepare exact target, owner, rollback, postcheck, validator, and stop condition before any live provider action.",
+        "priority": "must-have",
+        "complexity": "high"
+      }
+    ],
+    "successMetrics": [
+      {
+        "metric": "Root canvas identity",
+        "target": "Cabina Universal Agent Control",
+        "description": "Root canvas files no longer identify a demo project.",
+        "category": "governance"
+      },
+      {
+        "metric": "Validator coverage",
+        "target": "PASS",
+        "description": "JSON parse, diff whitespace, dashboard tests, and governance validators pass.",
+        "category": "quality"
+      },
+      {
+        "metric": "Live write count",
+        "target": "0",
+        "description": "No live provider writes are executed in this lane.",
+        "category": "risk"
+      }
+    ]
+  }
+}
