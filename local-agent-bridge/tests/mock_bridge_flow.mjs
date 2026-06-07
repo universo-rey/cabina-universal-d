@@ -34,6 +34,14 @@ assert.ok(evidence.blocked_surfaces.includes("codex_cloud_apply"));
 
 const dashboard = collectDashboardData(repoRoot);
 const dashboardHtml = fs.readFileSync(path.join(repoRoot, "local-agent-bridge", "public", "index.html"), "utf8");
+const workspaceSettingsPath = path.join(repoRoot, ".vscode", "settings.json");
+const workspaceSettings = fs.existsSync(workspaceSettingsPath)
+  ? JSON.parse(fs.readFileSync(workspaceSettingsPath, "utf8"))
+  : {};
+const userCataloguePacket = fs.readFileSync(
+  path.join(repoRoot, ".agents", "codex", "orders", "ORDER_VSI_AGILE_AGENT_CANVAS_USER_CATALOGUE_20260606.md"),
+  "utf8"
+);
 assert.equal(dashboard.status, "ok");
 assert.equal(dashboard.live_executed, false);
 assert.ok(dashboard.summary.local_task_scoped_agents > 0);
@@ -55,6 +63,12 @@ assert.ok(dashboard.agent_task_queue.some((row) => row.task_id === "vsi.agent.ta
 assert.ok(dashboard.agent_task_queue.every((row) => row.status === "EXECUTED_LOCAL_VALIDATED"));
 assert.match(dashboardHtml, /window\.location\.protocol === "file:"/);
 assert.match(dashboardHtml, /renderFileFallback/);
+assert.equal(Object.hasOwn(workspaceSettings, "agileagentcanvas.skillRepos"), false);
+if (fs.existsSync(workspaceSettingsPath)) {
+  assert.equal(workspaceSettings["agileagentcanvas.userCataloguePath"], ".agents/skills");
+  assert.equal(workspaceSettings["agileagentcanvas.autoSync"], false);
+}
+assert.match(userCataloguePacket, /applied_setting: \.vscode\/settings\.json::agileagentcanvas\.userCataloguePath=\.agents\/skills/);
 
 const shellStatus = getShellConnectorStatus(repoRoot);
 assert.equal(shellStatus.connector_id, "local.shell.connector.governed");
