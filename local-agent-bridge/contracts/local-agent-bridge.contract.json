@@ -38,8 +38,9 @@
   },
   "localActions": {
     "commandExecutionExposed": false,
-    "executionMode": "purpose_built_postcheck_allowlist",
+    "executionMode": "purpose_built_postcheck_allowlist|structured_local_review_no_shell",
     "allowedActionIds": [
+      "local.action.review_task_queue",
       "local.action.prepare_local_validation"
     ],
     "blockedActions": [

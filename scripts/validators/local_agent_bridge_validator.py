@@ -32,8 +32,9 @@ def validate() -> None:
     local_actions = contract.get("localActions", {})
     if local_actions.get("commandExecutionExposed") is not False:
         raise AssertionError("local actions must not expose arbitrary command execution")
-    if "local.action.prepare_local_validation" not in local_actions.get("allowedActionIds", []):
-        raise AssertionError("local action allowlist missing prepare_local_validation")
+    for action_id in ("local.action.review_task_queue", "local.action.prepare_local_validation"):
+        if action_id not in local_actions.get("allowedActionIds", []):
+            raise AssertionError(f"local action allowlist missing {action_id}")
     if "execute_arbitrary_shell_from_dashboard" not in local_actions.get("blockedActions", []):
         raise AssertionError("local actions must block arbitrary shell from dashboard")
     if contract.get("localReadSurface", {}).get("requiresLoopbackBindHost") is not True:
@@ -78,6 +79,8 @@ def validate() -> None:
         raise AssertionError("local actions must block arbitrary shell execution")
     if "purpose_built_postcheck_allowlist" not in local_actions_text:
         raise AssertionError("local actions must use purpose-built postcheck allowlist")
+    if "structured_local_review_no_shell" not in local_actions_text:
+        raise AssertionError("local actions must support structured no-shell review")
 
 
 if __name__ == "__main__":

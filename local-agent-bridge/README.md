@@ -56,5 +56,6 @@ Run the guided local validation postcheck from the dashboard:
 POST http://127.0.0.1:8787/api/local-actions/run
 ```
 
-Only `local.action.prepare_local_validation` can execute, and it runs a fixed
-postcheck allowlist. The bridge still does not expose arbitrary shell commands.
+`local.action.review_task_queue` runs a structured no-shell review of the repo
+task queue. `local.action.prepare_local_validation` runs a fixed postcheck
+allowlist. The bridge still does not expose arbitrary shell commands.

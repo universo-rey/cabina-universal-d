@@ -8,7 +8,7 @@ import { buildEvidence } from "../src/evidenceAdapter.mjs";
 import { resolveConnection } from "../src/mcpRegistry.mjs";
 import { collectDashboardData } from "../src/dashboardData.mjs";
 import { buildShellCommandBlockedResponse, getShellConnectorStatus } from "../src/shellConnector.mjs";
-import { getLocalActionExecutionPlan } from "../src/localActions.mjs";
+import { getLocalActionExecutionPlan, runLocalAction } from "../src/localActions.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "..", "..");
@@ -62,6 +62,7 @@ assert.equal(dashboard.summary.active_agile_canvas_lane, "ACTIVE_LOCAL_GOVERNED_
 assert.equal(dashboard.local_actions.length, 3);
 assert.equal(dashboard.summary.local_actions_ready, 3);
 assert.ok(dashboard.local_actions.some((row) => row.action_id === "local.action.inspect_canvas_lane"));
+assert.ok(dashboard.local_actions.some((row) => row.execution_mode === "structured_local_review"));
 assert.ok(dashboard.local_actions.some((row) => row.execution_mode === "postcheck_allowlist"));
 assert.ok(dashboard.local_actions.every((row) => !row.blocked_actions.includes("secret_handling") || row.status !== "NEEDS_REVIEW"));
 assert.ok(dashboard.agile_agent_canvas.some((row) => row.control_id === "aac.canvas.seed_package"));
@@ -114,5 +115,18 @@ assert.equal(actionPlan.execute_now, true);
 assert.equal(actionPlan.command_execution_exposed, false);
 assert.equal(actionPlan.live_executed, false);
 assert.ok(actionPlan.postcheck_commands.includes("npm test"));
+
+const queueReviewPlan = getLocalActionExecutionPlan("local.action.review_task_queue");
+assert.equal(queueReviewPlan.execute_now, true);
+assert.equal(queueReviewPlan.command_execution_exposed, false);
+assert.equal(queueReviewPlan.live_executed, false);
+assert.equal(queueReviewPlan.shell_mode, "structured_local_review_no_shell");
+const queueReview = await runLocalAction("local.action.review_task_queue", repoRoot);
+assert.equal(queueReview.status, "PASS");
+assert.equal(queueReview.command_execution_exposed, false);
+assert.equal(queueReview.live_executed, false);
+assert.equal(queueReview.review_result.task_count, dashboard.summary.agent_task_queue_records);
+assert.equal(queueReview.review_result.duplicate_task_ids.length, 0);
+assert.equal(queueReview.review_result.missing_dependencies.length, 0);
 
 console.log("SDU_LOCAL_AGENT_BRIDGE_MOCK_FLOW_PASS");

@@ -28,7 +28,7 @@
       "projectName": "Cabina Universal Agent Control",
       "description": "Desglose de epicas para la mesa local de Agile Agent Canvas que gobierna superficies agente de Visual Studio Code Insiders.",
       "totalEpics": 4,
-      "totalStories": 12,
+      "totalStories": 13,
       "inputDocuments": [
         "vision.json",
         "discovery/product-brief.json",
@@ -72,7 +72,8 @@
           ],
           "relatedStories": [
             "S-3.1",
-            "S-3.2"
+            "S-3.2",
+            "S-3.6"
           ]
         },
         {
@@ -278,6 +279,18 @@
               "solo local.action.prepare_local_validation ejecuta postcheck",
               "command_execution_exposed es false",
               "postcheck devuelve resultados PASS/FAIL"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.6",
+            "title": "Ejecutar revision estructurada de cola VSI",
+            "description": "La accion revisar cola local VSI ejecuta una revision estructurada de la matriz de tareas desde el tablero sin shell arbitrario.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run acepta local.action.review_task_queue",
+              "command_execution_exposed es false",
+              "review_result informa tareas, duplicados, dependencias faltantes y locks",
+              "liveExecuted permanece false"
             ],
             "status": "hecho"
           }

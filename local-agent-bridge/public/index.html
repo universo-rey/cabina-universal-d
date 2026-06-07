@@ -410,9 +410,13 @@
       ["local.action.review_task_queue", "revisar cola local VSI"],
       ["local.action.prepare_local_validation", "preparar validacion local"],
       ["postcheck_allowlist", "postcheck allowlist"],
+      ["structured_local_review", "revision local estructurada"],
+      ["structured_local_review_no_shell", "revision local sin shell"],
       ["guided_read_only", "lectura guiada"],
       ["GUIDED_READ_ONLY", "lectura guiada"],
       ["postcheck_passed", "postcheck aprobado"],
+      ["task_queue_review_passed", "revision de cola aprobada"],
+      ["task_queue_structured_review_failed", "fallo de revision estructurada de cola"],
       ["local_validator_fails", "fallo de validador local"],
       ["local_inventory", "inventario local"],
       ["open_canvas_ui", "abrir canvas en la UI"],
@@ -569,16 +573,19 @@
 
     async function runLocalAction(row) {
       const resultBox = document.getElementById("action-result");
-      resultBox.textContent = "postcheck en ejecucion";
+      resultBox.textContent = "accion local en ejecucion";
       const response = await fetch("/api/local-actions/run", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action_id: row.action_id })
       });
       const result = await response.json();
+      const review = result.review_result
+        ? `tareas ${result.review_result.task_count} · ejecutadas ${result.review_result.executed_count} · duplicados ${result.review_result.duplicate_task_ids.length} · dependencias faltantes ${result.review_result.missing_dependencies.length}`
+        : "";
       const checks = result.postcheck_results
         ? result.postcheck_results.map((item) => `${item.label}: ${item.status}`).join(" | ")
-        : result.evidence;
+        : review || result.evidence;
       resultBox.textContent = `${text(result.status)} · ${checks || text(result.stop_condition)}`;
     }
 
@@ -591,7 +598,7 @@
       button.textContent = text(row.title);
       button.addEventListener("click", () => {
         document.getElementById("action-selection").textContent = `${text(row.action_id)} · ${text(row.target)}`;
-        if (row.execution_mode === "postcheck_allowlist") {
+        if (row.execution_mode === "postcheck_allowlist" || row.execution_mode === "structured_local_review") {
           runLocalAction(row).catch((error) => {
             document.getElementById("action-result").textContent = `bloqueado: ${error.message}`;
           });
