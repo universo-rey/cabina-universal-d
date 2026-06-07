@@ -79,5 +79,11 @@ the route matrix. `local.action.review_server_endpoint_guards` checks loopback,
 dev-auth and no-live endpoint guards in the local server.
 `local.action.review_validator_coverage` checks that contract, validator, test,
 README and human UI cover every local action and structured result key.
+`local.action.review_error_response_shape` checks blocked and not-found responses
+for safe status, no-live evidence and bounded request bodies.
+`local.action.review_postcheck_allowlist` checks that the guided postcheck stays
+on the fixed local command allowlist. `local.action.review_shell_block_consistency`
+checks that the shell connector, contract and route matrix all keep arbitrary
+shell execution blocked.
 `local.action.prepare_local_validation` runs a fixed postcheck allowlist. The
 bridge still does not expose arbitrary shell commands.
