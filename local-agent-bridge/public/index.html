@@ -420,6 +420,9 @@
       ["error_response_shape_review", "revision de forma de errores"],
       ["postcheck_allowlist_review", "revision de allowlist de postcheck"],
       ["shell_block_consistency_review", "revision de bloqueo shell"],
+      ["dashboard_summary_consistency_review", "revision de resumen del tablero"],
+      ["local_action_status_consistency_review", "revision de estados de acciones"],
+      ["readiness_component_coverage_review", "revision de cobertura readiness"],
       ["local_agent_bridge", "puente local de agentes"],
       ["local_agent_bridge_contract", "contrato del bridge local"],
       ["local_dashboard_integrity", "integridad del tablero local"],
@@ -434,6 +437,9 @@
       ["local_error_response_shape", "forma de errores local"],
       ["local_postcheck_allowlist", "allowlist de postcheck local"],
       ["local_shell_block_consistency", "consistencia de bloqueo shell"],
+      ["local_dashboard_summary_consistency", "consistencia del resumen del tablero"],
+      ["local_action_status_consistency", "consistencia de estados de acciones"],
+      ["local_readiness_component_coverage", "cobertura de componentes readiness"],
       ["local.action.inspect_canvas_lane", "inspeccionar carril Agile Canvas"],
       ["local.action.review_task_queue", "revisar cola local VSI"],
       ["local.action.prepare_local_validation", "preparar validacion local"],
@@ -451,6 +457,9 @@
       ["local.action.review_error_response_shape", "revisar forma de errores"],
       ["local.action.review_postcheck_allowlist", "revisar allowlist de postcheck"],
       ["local.action.review_shell_block_consistency", "revisar bloqueo shell"],
+      ["local.action.review_dashboard_summary_consistency", "revisar resumen del tablero"],
+      ["local.action.review_local_action_status_consistency", "revisar estados de acciones"],
+      ["local.action.review_readiness_component_coverage", "revisar cobertura readiness"],
       ["postcheck_allowlist", "postcheck allowlist"],
       ["structured_local_review", "revision local estructurada"],
       ["structured_local_review_no_shell", "revision local sin shell"],
@@ -490,6 +499,15 @@
       ["review_shell_block_contract", "revisar contrato shell bloqueado"],
       ["review_shell_route_blocks", "revisar bloqueos de ruta shell"],
       ["review_no_shell_execution", "revisar sin ejecucion shell"],
+      ["review_dashboard_summary_counts", "revisar conteos de resumen"],
+      ["review_queue_execution_counts", "revisar conteos de ejecucion de cola"],
+      ["review_active_lane_status", "revisar estado del carril activo"],
+      ["review_action_status_values", "revisar estados de acciones"],
+      ["review_action_modes", "revisar modos de accion"],
+      ["review_action_required_fields", "revisar campos requeridos de acciones"],
+      ["review_readiness_components", "revisar componentes readiness"],
+      ["review_component_uniqueness", "revisar unicidad de componentes"],
+      ["review_component_expected_set", "revisar set esperado de componentes"],
       ["guided_read_only", "lectura guiada"],
       ["GUIDED_READ_ONLY", "lectura guiada"],
       ["postcheck_passed", "postcheck aprobado"],
@@ -521,6 +539,12 @@
       ["postcheck_allowlist_review_failed", "fallo de allowlist de postcheck"],
       ["shell_block_consistency_review_passed", "revision de bloqueo shell aprobada"],
       ["shell_block_consistency_review_failed", "fallo de bloqueo shell"],
+      ["dashboard_summary_consistency_review_passed", "revision de resumen aprobada"],
+      ["dashboard_summary_consistency_review_failed", "fallo de resumen del tablero"],
+      ["local_action_status_consistency_review_passed", "revision de estados aprobada"],
+      ["local_action_status_consistency_review_failed", "fallo de estados de acciones"],
+      ["readiness_component_coverage_review_passed", "revision de cobertura readiness aprobada"],
+      ["readiness_component_coverage_review_failed", "fallo de cobertura readiness"],
       ["task_queue_review_passed", "revision de cola aprobada"],
       ["task_queue_structured_review_failed", "fallo de revision estructurada de cola"],
       ["live_gate_packet_review_passed", "revision de paquetes aprobada"],
@@ -736,9 +760,18 @@
       const shellBlockConsistencyReview = result.shell_block_consistency_review
         ? `shell blocks ${result.shell_block_consistency_review.missing_shell_connector_blocks.length} · rutas ${result.shell_block_consistency_review.missing_route_blocks.length} · contrato ${result.shell_block_consistency_review.contract_matches ? "ok" : "falla"}`
         : "";
+      const dashboardSummaryConsistencyReview = result.dashboard_summary_consistency_review
+        ? `acciones ${result.dashboard_summary_consistency_review.summary.local_actions_ready}/${result.dashboard_summary_consistency_review.required_action_count} · cola ${result.dashboard_summary_consistency_review.summary.executed_agent_tasks}/${result.dashboard_summary_consistency_review.summary.agent_task_queue_records} · carril ${text(result.dashboard_summary_consistency_review.summary.active_agile_canvas_lane)}`
+        : "";
+      const localActionStatusConsistencyReview = result.local_action_status_consistency_review
+        ? `acciones ${result.local_action_status_consistency_review.action_count}/${result.local_action_status_consistency_review.required_action_count} · estados ${result.local_action_status_consistency_review.invalid_statuses.length} · campos ${result.local_action_status_consistency_review.missing_required_fields.length}`
+        : "";
+      const readinessComponentCoverageReview = result.readiness_component_coverage_review
+        ? `componentes ${result.readiness_component_coverage_review.component_count}/${result.readiness_component_coverage_review.expected_component_count} · faltantes ${result.readiness_component_coverage_review.missing_components.length} · extras ${result.readiness_component_coverage_review.extra_components.length}`
+        : "";
       const checks = result.postcheck_results
         ? result.postcheck_results.map((item) => `${item.label}: ${item.status}`).join(" | ")
-        : review || gateReview || canvasReview || bridgeReview || dashboardIntegrityReview || actionBoundaryReview || readinessBundleReview || uiTranslationReview || taskLineageReview || canvasStorySyncReview || routeContractSyncReview || serverEndpointGuardReview || validatorCoverageReview || errorResponseShapeReview || postcheckAllowlistReview || shellBlockConsistencyReview || result.evidence;
+        : review || gateReview || canvasReview || bridgeReview || dashboardIntegrityReview || actionBoundaryReview || readinessBundleReview || uiTranslationReview || taskLineageReview || canvasStorySyncReview || routeContractSyncReview || serverEndpointGuardReview || validatorCoverageReview || errorResponseShapeReview || postcheckAllowlistReview || shellBlockConsistencyReview || dashboardSummaryConsistencyReview || localActionStatusConsistencyReview || readinessComponentCoverageReview || result.evidence;
       resultBox.textContent = `${text(result.status)} · ${checks || text(result.stop_condition)}`;
     }
 
