@@ -59,9 +59,13 @@ assert.equal(dashboard.canvas_workbench.active_governed_lane.status, "ACTIVE_LOC
 assert.equal(dashboard.canvas_workbench.active_governed_lane.live_executed, false);
 assert.equal(dashboard.canvas_workbench.active_governed_lane.external_sync, false);
 assert.equal(dashboard.summary.active_agile_canvas_lane, "ACTIVE_LOCAL_GOVERNED_USE");
-assert.equal(dashboard.local_actions.length, 3);
-assert.equal(dashboard.summary.local_actions_ready, 3);
-assert.ok(dashboard.local_actions.some((row) => row.action_id === "local.action.inspect_canvas_lane"));
+assert.equal(dashboard.local_actions.length, 5);
+assert.equal(dashboard.summary.local_actions_ready, 5);
+assert.ok(dashboard.local_actions.some(
+  (row) => row.action_id === "local.action.inspect_canvas_lane" && row.execution_mode === "structured_local_review"
+));
+assert.ok(dashboard.local_actions.some((row) => row.action_id === "local.action.review_live_gate_packets"));
+assert.ok(dashboard.local_actions.some((row) => row.action_id === "local.action.review_bridge_contract"));
 assert.ok(dashboard.local_actions.some((row) => row.execution_mode === "structured_local_review"));
 assert.ok(dashboard.local_actions.some((row) => row.execution_mode === "postcheck_allowlist"));
 assert.ok(dashboard.local_actions.every((row) => !row.blocked_actions.includes("secret_handling") || row.status !== "NEEDS_REVIEW"));
@@ -116,6 +120,39 @@ assert.equal(actionPlan.command_execution_exposed, false);
 assert.equal(actionPlan.live_executed, false);
 assert.ok(actionPlan.postcheck_commands.includes("npm test"));
 
+const canvasLaneReviewPlan = getLocalActionExecutionPlan("local.action.inspect_canvas_lane");
+assert.equal(canvasLaneReviewPlan.execute_now, true);
+assert.equal(canvasLaneReviewPlan.command_execution_exposed, false);
+assert.equal(canvasLaneReviewPlan.live_executed, false);
+assert.equal(canvasLaneReviewPlan.shell_mode, "structured_local_review_no_shell");
+const canvasLaneReview = await runLocalAction("local.action.inspect_canvas_lane", repoRoot);
+assert.equal(canvasLaneReview.status, "PASS");
+assert.equal(canvasLaneReview.command_execution_exposed, false);
+assert.equal(canvasLaneReview.live_executed, false);
+assert.equal(canvasLaneReview.canvas_lane_review.artifact_count, 4);
+assert.equal(canvasLaneReview.canvas_lane_review.parsed_artifact_count, 4);
+assert.equal(canvasLaneReview.canvas_lane_review.missing_allowlist_entries.length, 0);
+assert.equal(canvasLaneReview.canvas_lane_review.missing_lane_fields.length, 0);
+assert.equal(canvasLaneReview.canvas_lane_review.live_executed, false);
+assert.equal(canvasLaneReview.canvas_lane_review.external_sync, false);
+
+const bridgeContractReviewPlan = getLocalActionExecutionPlan("local.action.review_bridge_contract");
+assert.equal(bridgeContractReviewPlan.execute_now, true);
+assert.equal(bridgeContractReviewPlan.command_execution_exposed, false);
+assert.equal(bridgeContractReviewPlan.live_executed, false);
+assert.equal(bridgeContractReviewPlan.shell_mode, "structured_local_review_no_shell");
+const bridgeContractReview = await runLocalAction("local.action.review_bridge_contract", repoRoot);
+assert.equal(bridgeContractReview.status, "PASS");
+assert.equal(bridgeContractReview.command_execution_exposed, false);
+assert.equal(bridgeContractReview.live_executed, false);
+assert.equal(bridgeContractReview.bridge_contract_review.transport, "http-loopback");
+assert.equal(bridgeContractReview.bridge_contract_review.missing_allowed_action_ids.length, 0);
+assert.equal(bridgeContractReview.bridge_contract_review.missing_blocked_actions.length, 0);
+assert.equal(bridgeContractReview.bridge_contract_review.missing_routes.length, 0);
+assert.equal(bridgeContractReview.bridge_contract_review.missing_contract_fields.length, 0);
+assert.equal(bridgeContractReview.bridge_contract_review.command_execution_exposed, false);
+assert.equal(bridgeContractReview.bridge_contract_review.live_executed, false);
+
 const queueReviewPlan = getLocalActionExecutionPlan("local.action.review_task_queue");
 assert.equal(queueReviewPlan.execute_now, true);
 assert.equal(queueReviewPlan.command_execution_exposed, false);
@@ -128,5 +165,20 @@ assert.equal(queueReview.live_executed, false);
 assert.equal(queueReview.review_result.task_count, dashboard.summary.agent_task_queue_records);
 assert.equal(queueReview.review_result.duplicate_task_ids.length, 0);
 assert.equal(queueReview.review_result.missing_dependencies.length, 0);
+
+const gatePacketReviewPlan = getLocalActionExecutionPlan("local.action.review_live_gate_packets");
+assert.equal(gatePacketReviewPlan.execute_now, true);
+assert.equal(gatePacketReviewPlan.command_execution_exposed, false);
+assert.equal(gatePacketReviewPlan.live_executed, false);
+assert.equal(gatePacketReviewPlan.shell_mode, "structured_local_review_no_shell");
+const gatePacketReview = await runLocalAction("local.action.review_live_gate_packets", repoRoot);
+assert.equal(gatePacketReview.status, "PASS");
+assert.equal(gatePacketReview.command_execution_exposed, false);
+assert.equal(gatePacketReview.live_executed, false);
+assert.equal(gatePacketReview.gate_packet_review.packet_count, 4);
+assert.equal(gatePacketReview.gate_packet_review.existing_packet_count, 4);
+assert.equal(gatePacketReview.gate_packet_review.missing_packets.length, 0);
+assert.equal(gatePacketReview.gate_packet_review.packets_with_missing_fields.length, 0);
+assert.ok(gatePacketReview.gate_packet_review.packets.some((packet) => packet.path.includes("POWER_PLATFORM")));
 
 console.log("SDU_LOCAL_AGENT_BRIDGE_MOCK_FLOW_PASS");

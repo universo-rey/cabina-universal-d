@@ -28,7 +28,7 @@
       "projectName": "Cabina Universal Agent Control",
       "description": "Desglose de epicas para la mesa local de Agile Agent Canvas que gobierna superficies agente de Visual Studio Code Insiders.",
       "totalEpics": 4,
-      "totalStories": 13,
+      "totalStories": 16,
       "inputDocuments": [
         "vision.json",
         "discovery/product-brief.json",
@@ -73,7 +73,9 @@
           "relatedStories": [
             "S-3.1",
             "S-3.2",
-            "S-3.6"
+            "S-3.6",
+            "S-3.7",
+            "S-3.8"
           ]
         },
         {
@@ -86,7 +88,8 @@
           "relatedStories": [
             "S-4.1",
             "S-4.2",
-            "S-4.3"
+            "S-4.3",
+            "S-4.4"
           ]
         }
       ],
@@ -225,7 +228,7 @@
         "title": "Conectar canvas y tablero",
         "description": "Exponer readiness del canvas en el tablero local del operador junto a controles de agentes y gobierno.",
         "priority": "should-have",
-        "status": "planificado",
+        "status": "activo",
         "stories": [
           {
             "id": "S-3.1",
@@ -293,6 +296,30 @@
               "liveExecuted permanece false"
             ],
             "status": "hecho"
+          },
+          {
+            "id": "S-3.7",
+            "title": "Ejecutar revision estructurada del carril Agile Canvas",
+            "description": "La accion inspeccionar carril Agile Canvas ejecuta una revision estructurada de artefactos, allowlist y validadores desde el tablero sin shell arbitrario.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run acepta local.action.inspect_canvas_lane",
+              "canvas_lane_review informa artefactos, allowlist y validadores",
+              "command_execution_exposed es false",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.8",
+            "title": "Ejecutar revision estructurada del contrato bridge",
+            "description": "La accion revisar contrato del bridge local valida contrato loopback, allowlist de acciones y matriz de rutas desde el tablero sin shell arbitrario.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run acepta local.action.review_bridge_contract",
+              "bridge_contract_review informa acciones, rutas y campos faltantes",
+              "command_execution_exposed es false",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
           }
         ]
       },
@@ -335,6 +362,18 @@
               "produccion autorizada por separado"
             ],
             "status": "pendiente"
+          },
+          {
+            "id": "S-4.4",
+            "title": "Revisar paquetes live-gateados desde tablero",
+            "description": "El tablero ejecuta una revision estructurada local de paquetes Jira, OpenAI, Microsoft y Power Platform sin llamar proveedores live.",
+            "acceptanceCriteria": [
+              "existe paquete Power Platform dry-run",
+              "endpoint /api/local-actions/run acepta local.action.review_live_gate_packets",
+              "gate_packet_review informa paquetes existentes, campos pendientes y faltantes",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
           }
         ]
       }

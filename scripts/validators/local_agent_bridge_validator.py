@@ -18,6 +18,7 @@ def validate() -> None:
             "local-agent-bridge/src/shellConnector.mjs",
             "local-agent-bridge/src/localActions.mjs",
             "local-agent-bridge/tests/mock_bridge_flow.mjs",
+            ".agents/codex/orders/ORDER_VSI_POWER_PLATFORM_DRY_RUN_20260607.md",
         ]
     )
     package = read_json("local-agent-bridge/package.json")
@@ -32,7 +33,13 @@ def validate() -> None:
     local_actions = contract.get("localActions", {})
     if local_actions.get("commandExecutionExposed") is not False:
         raise AssertionError("local actions must not expose arbitrary command execution")
-    for action_id in ("local.action.review_task_queue", "local.action.prepare_local_validation"):
+    for action_id in (
+        "local.action.inspect_canvas_lane",
+        "local.action.review_task_queue",
+        "local.action.prepare_local_validation",
+        "local.action.review_live_gate_packets",
+        "local.action.review_bridge_contract",
+    ):
         if action_id not in local_actions.get("allowedActionIds", []):
             raise AssertionError(f"local action allowlist missing {action_id}")
     if "execute_arbitrary_shell_from_dashboard" not in local_actions.get("blockedActions", []):
@@ -81,6 +88,12 @@ def validate() -> None:
         raise AssertionError("local actions must use purpose-built postcheck allowlist")
     if "structured_local_review_no_shell" not in local_actions_text:
         raise AssertionError("local actions must support structured no-shell review")
+    if "canvas_lane_review" not in local_actions_text:
+        raise AssertionError("local actions must expose structured canvas lane review")
+    if "bridge_contract_review" not in local_actions_text:
+        raise AssertionError("local actions must expose structured bridge contract review")
+    if "ORDER_VSI_POWER_PLATFORM_DRY_RUN_20260607.md" not in local_actions_text:
+        raise AssertionError("local actions must review Power Platform dry-run packet")
 
 
 if __name__ == "__main__":

@@ -56,6 +56,12 @@ Run the guided local validation postcheck from the dashboard:
 POST http://127.0.0.1:8787/api/local-actions/run
 ```
 
-`local.action.review_task_queue` runs a structured no-shell review of the repo
-task queue. `local.action.prepare_local_validation` runs a fixed postcheck
-allowlist. The bridge still does not expose arbitrary shell commands.
+`local.action.inspect_canvas_lane` runs a structured no-shell review of Agile
+Agent Canvas artifacts, write allowlist and validators. `local.action.review_task_queue`
+runs a structured no-shell review of the repo task queue.
+`local.action.review_live_gate_packets` reviews local gate packets for Jira,
+OpenAI, Microsoft and Power Platform without calling providers.
+`local.action.review_bridge_contract` reviews the loopback contract, local action
+allowlist and route matrix without exposing shell execution.
+`local.action.prepare_local_validation` runs a fixed postcheck allowlist. The
+bridge still does not expose arbitrary shell commands.
