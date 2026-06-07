@@ -8,7 +8,7 @@ acciones:
 - Intented to run `Cabina: Validate VSI function utilization` through VS Code
   command URI `workbench.action.tasks.runTask`.
 - Captured screenshot after the attempt:
-  `C:\Users\enzo1\CodexLocal\OPTIMIZACION_PC\vsi-task-run-20260607-function-utilization.png`.
+  `C:\Users\enzo1\CodexLocal\OPTIMIZACION_PC\vsi-task_run-20260607-function-utilization.png`.
 - Confirmed the command URI did not produce visible task output in VSI.
 - Inspected `digitarald.agent-memory@0.1.66` package metadata.
 - Confirmed Agent Memory exposes:
