@@ -54,6 +54,7 @@ def validate() -> None:
         "local.action.review_dashboard_summary_consistency",
         "local.action.review_local_action_status_consistency",
         "local.action.review_readiness_component_coverage",
+        "local.action.review_canvas_schema_health",
     ):
         if action_id not in local_actions.get("allowedActionIds", []):
             raise AssertionError(f"local action allowlist missing {action_id}")
@@ -129,6 +130,7 @@ def validate() -> None:
         "dashboard_summary_consistency_review",
         "local_action_status_consistency_review",
         "readiness_component_coverage_review",
+        "canvas_schema_health_review",
     ):
         if result_key not in local_actions_text:
             raise AssertionError(f"local actions must expose structured {result_key}")

@@ -59,7 +59,8 @@
       "local.action.review_shell_block_consistency",
       "local.action.review_dashboard_summary_consistency",
       "local.action.review_local_action_status_consistency",
-      "local.action.review_readiness_component_coverage"
+      "local.action.review_readiness_component_coverage",
+      "local.action.review_canvas_schema_health"
     ],
     "blockedActions": [
       "execute_arbitrary_shell_from_dashboard",

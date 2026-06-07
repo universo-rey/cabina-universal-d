@@ -22,6 +22,7 @@ const SHELL_BLOCK_CONSISTENCY_REVIEW_ACTION_ID = "local.action.review_shell_bloc
 const DASHBOARD_SUMMARY_CONSISTENCY_REVIEW_ACTION_ID = "local.action.review_dashboard_summary_consistency";
 const LOCAL_ACTION_STATUS_CONSISTENCY_REVIEW_ACTION_ID = "local.action.review_local_action_status_consistency";
 const READINESS_COMPONENT_COVERAGE_REVIEW_ACTION_ID = "local.action.review_readiness_component_coverage";
+const CANVAS_SCHEMA_HEALTH_REVIEW_ACTION_ID = "local.action.review_canvas_schema_health";
 const TASK_QUEUE_PATH = ".agents/codex/matrices/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv";
 const BRIDGE_CONTRACT_PATH = "local-agent-bridge/contracts/local-agent-bridge.contract.json";
 const ROUTES_MATRIX_PATH = "local-agent-bridge/matrices/routes_matrix.csv";
@@ -35,6 +36,15 @@ const CANVAS_ARTIFACT_PATHS = [
   ".agileagentcanvas-context/discovery/product-brief.json",
   ".agileagentcanvas-context/planning/prd.json",
   ".agileagentcanvas-context/planning/epics.json"
+];
+const CANVAS_SCHEMA_HEALTH_ARTIFACT_PATHS = [
+  ".agileagentcanvas-context/bmm/sprint-status.json",
+  ".agileagentcanvas-context/discovery/product-brief.json",
+  ".agileagentcanvas-context/planning/prd.json",
+  ".agileagentcanvas-context/planning/epics.json",
+  ".agileagentcanvas-context/solutioning/requirements.json",
+  ".agileagentcanvas-context/testing/test-cases.json",
+  ".agileagentcanvas-context/testing/test-strategy.json"
 ];
 const LIVE_GATE_PACKET_PATHS = [
   ".agents/codex/orders/ORDER_VSI_JIRA_READ_20260606.md",
@@ -64,7 +74,8 @@ function getRequiredLocalActionIds() {
     SHELL_BLOCK_CONSISTENCY_REVIEW_ACTION_ID,
     DASHBOARD_SUMMARY_CONSISTENCY_REVIEW_ACTION_ID,
     LOCAL_ACTION_STATUS_CONSISTENCY_REVIEW_ACTION_ID,
-    READINESS_COMPONENT_COVERAGE_REVIEW_ACTION_ID
+    READINESS_COMPONENT_COVERAGE_REVIEW_ACTION_ID,
+    CANVAS_SCHEMA_HEALTH_REVIEW_ACTION_ID
   ];
 }
 
@@ -88,7 +99,8 @@ function getStructuredReviewActionIds() {
     SHELL_BLOCK_CONSISTENCY_REVIEW_ACTION_ID,
     DASHBOARD_SUMMARY_CONSISTENCY_REVIEW_ACTION_ID,
     LOCAL_ACTION_STATUS_CONSISTENCY_REVIEW_ACTION_ID,
-    READINESS_COMPONENT_COVERAGE_REVIEW_ACTION_ID
+    READINESS_COMPONENT_COVERAGE_REVIEW_ACTION_ID,
+    CANVAS_SCHEMA_HEALTH_REVIEW_ACTION_ID
   ];
 }
 
@@ -279,6 +291,145 @@ function reviewCanvasLane(repoRoot) {
     missing_lane_fields: missingLaneFields,
     live_executed: liveExecuted,
     external_sync: externalSync,
+    artifacts
+  };
+}
+
+function addIssue(issues, artifactPath, field, message) {
+  issues.push(`${artifactPath}:${field}:${message}`);
+}
+
+function hasObject(value) {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function hasText(value) {
+  return typeof value === "string" && value.trim().length > 0;
+}
+
+function validateMetadataEnvelope(issues, artifactPath, artifact, expectedArtifactType) {
+  const metadata = artifact?.metadata || {};
+  const allowedStatuses = new Set(["draft", "in-progress", "approved", "final"]);
+  if (!hasText(metadata.schemaVersion)) addIssue(issues, artifactPath, "metadata.schemaVersion", "missing schema version");
+  if (metadata.artifactType !== expectedArtifactType) {
+    addIssue(issues, artifactPath, "metadata.artifactType", `expected ${expectedArtifactType}`);
+  }
+  if (!hasObject(metadata.timestamps)) addIssue(issues, artifactPath, "metadata.timestamps", "missing timestamps");
+  if (!allowedStatuses.has(metadata.status)) addIssue(issues, artifactPath, "metadata.status", "status outside allowed set");
+}
+
+function validateGovernedLaneCustomField(issues, artifactPath, artifact) {
+  if (artifact?.content?.activeGovernedLane) {
+    addIssue(issues, artifactPath, "content.activeGovernedLane", "must stay out of content for schema compatibility");
+  }
+  if (!hasObject(artifact?.metadata?.customFields?.activeGovernedLane)) {
+    addIssue(issues, artifactPath, "metadata.customFields.activeGovernedLane", "missing governed lane custom field");
+  }
+}
+
+function reviewCanvasSchemaHealth(repoRoot) {
+  const artifacts = CANVAS_SCHEMA_HEALTH_ARTIFACT_PATHS.map((artifactPath) => readJsonArtifact(repoRoot, artifactPath));
+  const parsedArtifacts = artifacts
+    .filter((artifact) => artifact.parsed)
+    .map((artifact) => [artifact.path, readJsonFile(repoRoot, artifact.path)]);
+  const byPath = new Map(parsedArtifacts);
+  const issues = [];
+
+  for (const artifact of artifacts) {
+    if (!artifact.exists) addIssue(issues, artifact.path, "file", "missing artifact");
+    if (artifact.exists && !artifact.parsed) addIssue(issues, artifact.path, "json", "invalid json");
+  }
+
+  const sprintStatusPath = ".agileagentcanvas-context/bmm/sprint-status.json";
+  const sprintStatus = byPath.get(sprintStatusPath);
+  if (sprintStatus) {
+    if (sprintStatus.metadata || sprintStatus.content) {
+      addIssue(issues, sprintStatusPath, "root", "sprint status must remain flat");
+    }
+    for (const field of ["project", "tracking_system", "development_status"]) {
+      if (!sprintStatus[field]) addIssue(issues, sprintStatusPath, field, "missing root field");
+    }
+  }
+
+  const productBriefPath = ".agileagentcanvas-context/discovery/product-brief.json";
+  const productBrief = byPath.get(productBriefPath);
+  if (productBrief) {
+    validateMetadataEnvelope(issues, productBriefPath, productBrief, "product-brief");
+    validateGovernedLaneCustomField(issues, productBriefPath, productBrief);
+    const targetUsers = productBrief?.content?.targetUsers || [];
+    const invalidPainPoints = targetUsers.flatMap((user, userIndex) => (user.painPoints || [])
+      .filter((painPoint) => !["low", "medium", "high", "critical"].includes(painPoint.severity))
+      .map((painPoint, painIndex) => `targetUsers[${userIndex}].painPoints[${painIndex}].severity=${painPoint.severity}`));
+    for (const issue of invalidPainPoints) addIssue(issues, productBriefPath, issue, "severity outside allowed set");
+  }
+
+  const prdPath = ".agileagentcanvas-context/planning/prd.json";
+  const prd = byPath.get(prdPath);
+  if (prd) {
+    validateMetadataEnvelope(issues, prdPath, prd, "prd");
+    validateGovernedLaneCustomField(issues, prdPath, prd);
+    if (!["low", "medium", "high", "enterprise"].includes(prd?.content?.projectType?.complexity)) {
+      addIssue(issues, prdPath, "content.projectType.complexity", "complexity outside allowed set");
+    }
+    const invalidProficiency = (prd?.content?.userPersonas || [])
+      .filter((persona) => !["beginner", "intermediate", "advanced", "expert"].includes(persona.technicalProficiency))
+      .map((persona) => `${persona.name || "NO_DECLARADO"}:${persona.technicalProficiency || "NO_DECLARADO"}`);
+    for (const issue of invalidProficiency) {
+      addIssue(issues, prdPath, "content.userPersonas.technicalProficiency", issue);
+    }
+  }
+
+  const epicsPath = ".agileagentcanvas-context/planning/epics.json";
+  const epics = byPath.get(epicsPath);
+  if (epics) {
+    validateMetadataEnvelope(issues, epicsPath, epics, "epics");
+    validateGovernedLaneCustomField(issues, epicsPath, epics);
+    const requirementRows = Object.values(epics?.content?.requirementsInventory || {})
+      .flatMap((value) => Array.isArray(value) ? value : []);
+    const missingDescriptions = requirementRows
+      .filter((row) => !hasText(row.description))
+      .map((row) => row.id || "NO_DECLARADO");
+    for (const issue of missingDescriptions) {
+      addIssue(issues, epicsPath, "content.requirementsInventory.description", issue);
+    }
+  }
+
+  const requirementsPath = ".agileagentcanvas-context/solutioning/requirements.json";
+  const requirements = byPath.get(requirementsPath);
+  if (requirements) {
+    validateMetadataEnvelope(issues, requirementsPath, requirements, "requirements");
+  }
+
+  const testCasesPath = ".agileagentcanvas-context/testing/test-cases.json";
+  const testCases = byPath.get(testCasesPath);
+  if (testCases) {
+    validateMetadataEnvelope(issues, testCasesPath, testCases, "test-cases");
+    const allowedTypes = new Set(["unit", "integration", "component", "e2e", "performance", "security"]);
+    const allowedStatuses = new Set(["draft", "ready", "pass", "fail", "blocked"]);
+    const invalidCases = (testCases?.content?.testCases || [])
+      .filter((testCase) => !allowedTypes.has(testCase.type) || !allowedStatuses.has(testCase.status) || !hasText(testCase.storyId))
+      .map((testCase) => testCase.id || "NO_DECLARADO");
+    for (const issue of invalidCases) addIssue(issues, testCasesPath, "content.testCases", issue);
+  }
+
+  const testStrategyPath = ".agileagentcanvas-context/testing/test-strategy.json";
+  const testStrategy = byPath.get(testStrategyPath);
+  if (testStrategy) {
+    validateMetadataEnvelope(issues, testStrategyPath, testStrategy, "test-strategy");
+    if (!Array.isArray(testStrategy?.content?.coverageTargets)) {
+      addIssue(issues, testStrategyPath, "content.coverageTargets", "must be an array");
+    }
+  }
+
+  return {
+    status: issues.length === 0 ? "PASS" : "FAIL",
+    artifact_count: artifacts.length,
+    parsed_artifact_count: artifacts.filter((artifact) => artifact.parsed).length,
+    issue_count: issues.length,
+    issues,
+    schema_contract_passed: issues.length === 0,
+    command_execution_exposed: false,
+    live_executed: false,
     artifacts
   };
 }
@@ -623,7 +774,8 @@ function reviewUiTranslationIntegrity(repoRoot) {
     "shell_block_consistency_review",
     "dashboard_summary_consistency_review",
     "local_action_status_consistency_review",
-    "readiness_component_coverage_review"
+    "readiness_component_coverage_review",
+    "canvas_schema_health_review"
   ].filter((token) => !html.includes(token));
   const fileFallbackPresent = html.includes("renderFileFallback")
     && html.includes('window.location.protocol === "file:"');
@@ -860,7 +1012,8 @@ function reviewValidatorCoverage(repoRoot) {
     "shell_block_consistency_review",
     "dashboard_summary_consistency_review",
     "local_action_status_consistency_review",
-    "readiness_component_coverage_review"
+    "readiness_component_coverage_review",
+    "canvas_schema_health_review"
   ];
   const missingResultKeys = requiredResultKeys
     .filter((key) => !validatorText.includes(key) || !testText.includes(key) || !htmlText.includes(key))
@@ -1026,7 +1179,8 @@ function getReadinessComponentNames() {
     "shell_block_consistency",
     "dashboard_summary_consistency",
     "local_action_status_consistency",
-    "readiness_component_coverage"
+    "readiness_component_coverage",
+    "canvas_schema_health"
   ];
 }
 
@@ -1140,7 +1294,8 @@ function reviewReadinessComponentCoverage() {
     "shell_block_consistency",
     "dashboard_summary_consistency",
     "local_action_status_consistency",
-    "readiness_component_coverage"
+    "readiness_component_coverage",
+    "canvas_schema_health"
   ];
   const componentNames = getReadinessComponentNames();
   const duplicateComponents = findDuplicates(componentNames);
@@ -1152,7 +1307,8 @@ function reviewReadinessComponentCoverage() {
     && duplicateComponents.length === 0
     && missingComponents.length === 0
     && extraComponents.length === 0
-    && componentNames.includes("readiness_component_coverage");
+    && componentNames.includes("readiness_component_coverage")
+    && componentNames.includes("canvas_schema_health");
 
   return {
     status: passed ? "PASS" : "FAIL",
@@ -1186,7 +1342,8 @@ function reviewReadinessBundle(repoRoot) {
     ["shell_block_consistency", reviewShellBlockConsistency(repoRoot)],
     ["dashboard_summary_consistency", reviewDashboardSummaryConsistency(repoRoot)],
     ["local_action_status_consistency", reviewLocalActionStatusConsistency(repoRoot)],
-    ["readiness_component_coverage", reviewReadinessComponentCoverage()]
+    ["readiness_component_coverage", reviewReadinessComponentCoverage()],
+    ["canvas_schema_health", reviewCanvasSchemaHealth(repoRoot)]
   ].map(([component, result]) => ({
     component,
     status: result.status,
@@ -1546,6 +1703,19 @@ export function buildLocalActions(canvasWorkbench, agentTaskQueue) {
       allowed_now: "review_readiness_components|review_component_uniqueness|review_component_expected_set",
       blocked_actions: "execute_arbitrary_shell_from_dashboard|live_provider_call|secret_handling|production_write",
       stop_condition: "readiness_component_coverage_review_failed"
+    },
+    {
+      action_id: CANVAS_SCHEMA_HEALTH_REVIEW_ACTION_ID,
+      title: "Revisar salud schema Canvas",
+      status: "READY_LOCAL_GOVERNED",
+      surface: "local_canvas_schema_health",
+      owner_agent: "codex.workspace_guardian",
+      target: "Agile Agent Canvas JSON",
+      evidence: "structured canvas schema health review available",
+      execution_mode: "structured_local_review",
+      allowed_now: "review_canvas_schema_contract|review_schema_drift|review_json_artifact_health",
+      blocked_actions: "execute_arbitrary_shell_from_dashboard|live_provider_call|secret_handling|production_write|external_sync",
+      stop_condition: "canvas_schema_health_review_failed"
     }
   ];
 }
@@ -1587,6 +1757,19 @@ export function getLocalActionExecutionPlan(actionId) {
 
 export async function runLocalAction(actionId, repoRoot) {
   const plan = getLocalActionExecutionPlan(actionId);
+  if (actionId === CANVAS_SCHEMA_HEALTH_REVIEW_ACTION_ID) {
+    const canvasSchemaHealthReview = reviewCanvasSchemaHealth(repoRoot);
+    return {
+      ...plan,
+      status: canvasSchemaHealthReview.status,
+      evidence: "structured canvas schema health review executed",
+      canvas_schema_health_review: canvasSchemaHealthReview,
+      stop_condition: canvasSchemaHealthReview.status === "PASS"
+        ? "canvas_schema_health_review_passed"
+        : "canvas_schema_health_review_failed"
+    };
+  }
+
   if (actionId === READINESS_BUNDLE_REVIEW_ACTION_ID) {
     const readinessBundleReview = reviewReadinessBundle(repoRoot);
     return {
