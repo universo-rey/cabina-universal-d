@@ -34,5 +34,10 @@
     "mode": "status_only",
     "commandExecutionExposed": false,
     "blockedStopCondition": "LOCAL_SHELL_COMMAND_EXECUTION_NOT_EXPOSED"
+  },
+  "localReadSurface": {
+    "requiresLoopbackBindHost": true,
+    "blockedStatus": 403,
+    "blockedReason": "loopback host required for local dashboard data"
   }
 }

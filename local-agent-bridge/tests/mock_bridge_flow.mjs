@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { assertSyntheticRequest } from "../src/policy.mjs";
+import { assertLoopbackReadSurface, assertSyntheticRequest, isLoopbackHost } from "../src/policy.mjs";
 import { selectRoute } from "../src/router.mjs";
 import { buildEvidence } from "../src/evidenceAdapter.mjs";
 import { resolveConnection } from "../src/mcpRegistry.mjs";
@@ -15,6 +15,11 @@ const fixturePath = path.join(repoRoot, "tests", "sdu-agent-runtime", "fixtures"
 const payload = JSON.parse(fs.readFileSync(fixturePath, "utf8"));
 
 assertSyntheticRequest(payload);
+assert.equal(isLoopbackHost("127.0.0.1"), true);
+assert.equal(isLoopbackHost("localhost"), true);
+assert.equal(isLoopbackHost("0.0.0.0"), false);
+assert.throws(() => assertLoopbackReadSurface("0.0.0.0"), /loopback host required/);
+
 const route = selectRoute(payload.text);
 assert.equal(route.route_id, "teams.route.codex_cloud");
 

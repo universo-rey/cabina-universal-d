@@ -14,6 +14,8 @@ gate opens that action.
 ## Boundary
 
 - Bind to `127.0.0.1` only.
+- Dashboard and shell status data are blocked when the bridge is bound to a
+  non-loopback host such as `0.0.0.0`.
 - Synthetic payloads only.
 - Dashboard reads local CSV matrices only.
 - No external writes.

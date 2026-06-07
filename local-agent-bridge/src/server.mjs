@@ -2,7 +2,7 @@ import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { assertSyntheticRequest } from "./policy.mjs";
+import { assertLoopbackReadSurface, assertSyntheticRequest } from "./policy.mjs";
 import { selectRoute } from "./router.mjs";
 import { buildEvidence } from "./evidenceAdapter.mjs";
 import { collectDashboardData } from "./dashboardData.mjs";
@@ -45,15 +45,21 @@ const server = http.createServer((req, res) => {
 
   if (req.method === "GET" && req.url === "/api/dashboard") {
     try {
+      assertLoopbackReadSurface(host);
       json(res, 200, collectDashboardData(repoRoot));
     } catch (error) {
-      json(res, 500, { status: "blocked", reason: error.message, live_executed: false });
+      json(res, 403, { status: "blocked", reason: error.message, live_executed: false });
     }
     return;
   }
 
   if (req.method === "GET" && req.url === "/api/shell/status") {
-    json(res, 200, getShellConnectorStatus(repoRoot));
+    try {
+      assertLoopbackReadSurface(host);
+      json(res, 200, getShellConnectorStatus(repoRoot));
+    } catch (error) {
+      json(res, 403, { status: "blocked", reason: error.message, live_executed: false });
+    }
     return;
   }
 

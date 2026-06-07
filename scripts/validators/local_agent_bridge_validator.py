@@ -28,6 +28,10 @@ def validate() -> None:
         raise AssertionError("local bridge contract must remain loopback and no-live")
     if contract.get("shellConnector", {}).get("commandExecutionExposed") is not False:
         raise AssertionError("shell connector command execution must not be exposed")
+    if contract.get("localReadSurface", {}).get("requiresLoopbackBindHost") is not True:
+        raise AssertionError("local read surface must require loopback bind host")
+    if contract.get("localReadSurface", {}).get("blockedStatus") != 403:
+        raise AssertionError("non-loopback local reads must be blocked with 403")
 
     routes_path = "local-agent-bridge/matrices/routes_matrix.csv"
     routes = read_csv(routes_path)
@@ -47,6 +51,13 @@ def validate() -> None:
         raise AssertionError("local bridge must default to loopback")
     if "live_executed: false" not in server:
         raise AssertionError("local bridge must report no live execution")
+    if "assertLoopbackReadSurface(host)" not in server:
+        raise AssertionError("dashboard and shell status must be loopback-gated")
+    policy = read_text("local-agent-bridge/src/policy.mjs")
+    if "0.0.0.0" in policy:
+        raise AssertionError("policy should not allow non-loopback wildcard hosts")
+    if "assertLoopbackReadSurface" not in policy:
+        raise AssertionError("policy must expose loopback read surface guard")
     shell_connector = read_text("local-agent-bridge/src/shellConnector.mjs")
     if "execute_arbitrary_command" not in shell_connector:
         raise AssertionError("shell connector must block arbitrary command execution")
