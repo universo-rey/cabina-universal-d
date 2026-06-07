@@ -525,6 +525,9 @@ function reviewLiveGatePackets(repoRoot) {
     const liveExecutionValidated = status === "EXECUTED_LIVE_VALIDATED"
       && /PASS/i.test(readPacketField(text, "evidence"))
       && /secrets printed false/i.test(text);
+    const localDryRunValidated = status === "EXECUTED_LOCAL_VALIDATED"
+      && /pac solution pack/i.test(readPacketField(text, "evidence"))
+      && /no tenant|no environment|no Dataverse|no production/i.test(text);
     return {
       path: packetPath,
       exists: true,
@@ -535,7 +538,8 @@ function reviewLiveGatePackets(repoRoot) {
       pending_field_count: pendingFieldCount,
       execution_boundary_declared: text.includes("## Execution Boundary"),
       live_execution_blocked: liveExecutionBlocked,
-      live_execution_validated: liveExecutionValidated
+      live_execution_validated: liveExecutionValidated,
+      local_dry_run_validated: localDryRunValidated
     };
   });
 
@@ -547,7 +551,10 @@ function reviewLiveGatePackets(repoRoot) {
     .filter((packet) => packet.exists && !packet.execution_boundary_declared)
     .map((packet) => packet.path);
   const packetsWithoutLiveBlock = packets
-    .filter((packet) => packet.exists && !packet.live_execution_blocked && !packet.live_execution_validated)
+    .filter((packet) => packet.exists
+      && !packet.live_execution_blocked
+      && !packet.live_execution_validated
+      && !packet.local_dry_run_validated)
     .map((packet) => packet.path);
   const passed = missingPackets.length === 0
     && packetsWithMissingFields.length === 0
