@@ -165,6 +165,53 @@ function summarizeCanvasWorkbench(repoRoot, agileAgentCanvas) {
   };
 }
 
+function buildLocalActions(canvasWorkbench, agentTaskQueue) {
+  const activeLane = canvasWorkbench.active_governed_lane;
+  const latestTask = [...agentTaskQueue].reverse()
+    .find((row) => row.status && row.status.startsWith("EXECUTED"));
+
+  return [
+    {
+      action_id: "local.action.inspect_canvas_lane",
+      title: "Inspeccionar carril Agile Canvas",
+      status: activeLane.status,
+      surface: "agileagentcanvas_context",
+      owner_agent: activeLane.owner_agent,
+      target: activeLane.lane_id,
+      evidence: "active_governed_lane visible en /api/dashboard",
+      allowed_now: "read_dashboard_api|review_canvas_artifacts",
+      blocked_actions: "live_provider_call|secret_handling|external_sync",
+      stop_condition: "active_lane_not_visible_in_dashboard"
+    },
+    {
+      action_id: "local.action.review_task_queue",
+      title: "Revisar cola local VSI",
+      status: agentTaskQueue.every((row) => row.status === "EXECUTED_LOCAL_VALIDATED")
+        ? "EXECUTED_LOCAL_VALIDATED"
+        : "NEEDS_REVIEW",
+      surface: "agent_task_queue_dashboard",
+      owner_agent: "codex.workspace_guardian",
+      target: `${agentTaskQueue.length} tareas`,
+      evidence: latestTask ? latestTask.task_id : "NO_DECLARADO",
+      allowed_now: "read_task_queue|review_stop_conditions",
+      blocked_actions: "dispatch_live_agents|change_status_values",
+      stop_condition: "queued_task_rendered_as_executed"
+    },
+    {
+      action_id: "local.action.prepare_local_validation",
+      title: "Preparar validacion local",
+      status: "READY_LOCAL_GOVERNED",
+      surface: "local_agent_bridge",
+      owner_agent: "codex.workspace_guardian",
+      target: "local validators",
+      evidence: "npm test|bridge validator|governance validators",
+      allowed_now: "run_local_tests|run_local_validators|smoke_loopback_dashboard",
+      blocked_actions: "execute_arbitrary_shell_from_dashboard|production_write|live_provider_call",
+      stop_condition: "local_validator_fails"
+    }
+  ];
+}
+
 export function resolveRepoRoot(startPath = process.cwd()) {
   const normalized = path.resolve(startPath);
   if (path.basename(normalized) === "local-agent-bridge") {
@@ -192,6 +239,7 @@ export function collectDashboardData(startPath = process.cwd()) {
   const agileAgentCanvas = readCsv(repoRoot, paths.agileAgentCanvas);
   const agentTaskQueue = readCsv(repoRoot, paths.agentTaskQueue);
   const canvasWorkbench = summarizeCanvasWorkbench(repoRoot, agileAgentCanvas);
+  const localActions = buildLocalActions(canvasWorkbench, agentTaskQueue);
 
   return {
     status: "ok",
@@ -204,6 +252,7 @@ export function collectDashboardData(startPath = process.cwd()) {
       agile_agent_canvas_controls: agileAgentCanvas.length,
       canvas_artifacts_ready: canvasWorkbench.parsed_artifacts,
       active_agile_canvas_lane: canvasWorkbench.active_governed_lane.status,
+      local_actions_ready: localActions.filter((row) => row.status !== "NEEDS_REVIEW").length,
       agent_task_queue_records: agentTaskQueue.length,
       queued_agent_tasks: agentTaskQueue.filter((row) => row.status === "QUEUED_READY").length,
       executed_agent_tasks: agentTaskQueue.filter((row) => row.status.startsWith("EXECUTED")).length,
@@ -217,6 +266,7 @@ export function collectDashboardData(startPath = process.cwd()) {
     gate_queue: gateQueue,
     agile_agent_canvas: agileAgentCanvas,
     canvas_workbench: canvasWorkbench,
+    local_actions: localActions,
     agent_task_queue: agentTaskQueue,
     operability: firstRows(operability, 40),
     autonomous: firstRows(autonomous, 60)

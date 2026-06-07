@@ -184,6 +184,31 @@
       font-size: 13px;
     }
 
+    .action-button {
+      appearance: none;
+      border: 1px solid var(--blue);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--blue);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 600;
+      padding: 6px 9px;
+      white-space: nowrap;
+    }
+
+    .action-button:focus,
+    .action-button:hover {
+      background: #e8f0fe;
+    }
+
+    .action-selection {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      background: #fbfcfd;
+    }
+
     @media (max-width: 980px) {
       header,
       .grid-two {
@@ -237,6 +262,24 @@
     <section class="section">
       <h2>Mesa Agile Agent Canvas</h2>
       <div class="workbench" id="canvas-workbench"></div>
+    </section>
+
+    <section class="section">
+      <h2>Acciones locales</h2>
+      <div class="action-selection" id="action-selection">sin seleccion</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Accion</th>
+            <th>Estado</th>
+            <th>Superficie</th>
+            <th>Responsable</th>
+            <th>Evidencia</th>
+            <th>Condicion de detencion</th>
+          </tr>
+        </thead>
+        <tbody id="local-actions"></tbody>
+      </table>
     </section>
 
     <section class="section">
@@ -353,6 +396,12 @@
       ["codeburn_cost_observability", "observabilidad de costo Codeburn"],
       ["agileagentcanvas_context", "contexto Agile Agent Canvas"],
       ["agile_canvas_programming_lane", "carril de programacion Agile Canvas"],
+      ["agent_task_queue_dashboard", "tablero de cola de agentes"],
+      ["local_agent_bridge", "puente local de agentes"],
+      ["local.action.inspect_canvas_lane", "inspeccionar carril Agile Canvas"],
+      ["local.action.review_task_queue", "revisar cola local VSI"],
+      ["local.action.prepare_local_validation", "preparar validacion local"],
+      ["local_validator_fails", "fallo de validador local"],
       ["local_inventory", "inventario local"],
       ["open_canvas_ui", "abrir canvas en la UI"],
       ["read_manifest", "leer manifiesto"],
@@ -506,6 +555,28 @@
       return tr;
     }
 
+    function renderLocalAction(row) {
+      const tr = document.createElement("tr");
+      const action = document.createElement("td");
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "action-button";
+      button.textContent = text(row.title);
+      button.addEventListener("click", () => {
+        document.getElementById("action-selection").textContent = `${text(row.action_id)} · ${text(row.target)}`;
+      });
+      action.append(button);
+      tr.append(
+        action,
+        cell(row.status, "mono"),
+        cell(row.surface, "mono"),
+        cell(row.owner_agent, "mono"),
+        cell(row.evidence),
+        cell(row.stop_condition, "mono")
+      );
+      return tr;
+    }
+
     function renderFileFallback() {
       document.getElementById("generated").textContent = "modo archivo local";
       document.getElementById("summary").append(
@@ -534,6 +605,7 @@
         renderMetric("codex cloud listo", data.summary.codex_cloud_ready_records),
         renderMetric("controles Agile Canvas", data.summary.agile_agent_canvas_controls),
         renderMetric("artefactos canvas", `${data.summary.canvas_artifacts_ready}/${data.canvas_workbench.artifact_count}`),
+        renderMetric("acciones locales", data.summary.local_actions_ready),
         renderMetric("tareas en cola", data.summary.queued_agent_tasks),
         renderMetric("tareas ejecutadas", data.summary.executed_agent_tasks),
         renderMetric("gates pendientes", data.summary.gated_records),
@@ -553,6 +625,7 @@
         renderWorkbenchItem("Allowlist / validadores", `${activeLane.write_allowlist_count} / ${activeLane.validator_count}`, "archivos / checks")
       );
 
+      data.local_actions.forEach((row) => document.getElementById("local-actions").append(renderLocalAction(row)));
       data.semaphores.forEach((row) => document.getElementById("semaphores").append(renderSemaphore(row)));
       data.gate_queue.forEach((row) => document.getElementById("gates").append(renderGate(row)));
       data.autonomous

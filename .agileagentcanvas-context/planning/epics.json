@@ -256,6 +256,18 @@
               "liveExecuted permanece false"
             ],
             "status": "hecho"
+          },
+          {
+            "id": "S-3.4",
+            "title": "Activar acciones locales del tablero",
+            "description": "El tablero expone acciones locales seleccionables para inspeccion, revision de cola y validacion sin ejecutar shell ni proveedores live.",
+            "acceptanceCriteria": [
+              "API expone local_actions",
+              "vista humana muestra Acciones locales",
+              "cada accion conserva blocked_actions y stop_condition",
+              "no hay ejecucion shell desde el tablero"
+            ],
+            "status": "hecho"
           }
         ]
       },

@@ -58,6 +58,10 @@ assert.equal(dashboard.canvas_workbench.active_governed_lane.status, "ACTIVE_LOC
 assert.equal(dashboard.canvas_workbench.active_governed_lane.live_executed, false);
 assert.equal(dashboard.canvas_workbench.active_governed_lane.external_sync, false);
 assert.equal(dashboard.summary.active_agile_canvas_lane, "ACTIVE_LOCAL_GOVERNED_USE");
+assert.equal(dashboard.local_actions.length, 3);
+assert.equal(dashboard.summary.local_actions_ready, 3);
+assert.ok(dashboard.local_actions.some((row) => row.action_id === "local.action.inspect_canvas_lane"));
+assert.ok(dashboard.local_actions.every((row) => !row.blocked_actions.includes("secret_handling") || row.status !== "NEEDS_REVIEW"));
 assert.ok(dashboard.agile_agent_canvas.some((row) => row.control_id === "aac.canvas.seed_package"));
 assert.ok(dashboard.semaphores.every((row) => row.color));
 assert.equal(dashboard.summary.agent_task_queue_records, dashboard.agent_task_queue.length);
@@ -70,10 +74,13 @@ assert.equal(
 assert.ok(dashboard.agent_task_queue.some((row) => row.task_id === "vsi.agent.task.002"));
 assert.ok(dashboard.agent_task_queue.some((row) => row.task_id === "vsi.agent.task.011"));
 assert.ok(dashboard.agent_task_queue.some((row) => row.task_id === "vsi.agent.task.012"));
+assert.ok(dashboard.agent_task_queue.some((row) => row.task_id === "vsi.agent.task.013"));
 assert.ok(dashboard.agent_task_queue.every((row) => row.status === "EXECUTED_LOCAL_VALIDATED"));
 assert.match(dashboardHtml, /window\.location\.protocol === "file:"/);
 assert.match(dashboardHtml, /renderFileFallback/);
 assert.match(dashboardHtml, /Carril activo/);
+assert.match(dashboardHtml, /Acciones locales/);
+assert.match(dashboardHtml, /renderLocalAction/);
 assert.equal(canvasVision.content.activeGovernedLane.status, "ACTIVE_LOCAL_GOVERNED_USE");
 assert.equal(canvasVision.content.activeGovernedLane.liveExecuted, false);
 assert.equal(canvasPrd.content.activeGovernedLane.lockKey, "lock.vsi.aac_programming_lane");
