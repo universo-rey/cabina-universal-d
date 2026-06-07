@@ -1,4 +1,4 @@
-﻿{
+{
     "status":  "PASS",
     "orchestrator_id":  "change_aware_full_coverage_orchestrator",
     "mode":  "PRODUCTIVE_FULL_COVERAGE_GATE",
