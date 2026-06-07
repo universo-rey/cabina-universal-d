@@ -48,6 +48,9 @@ def validate() -> None:
         "local.action.review_route_contract_sync",
         "local.action.review_server_endpoint_guards",
         "local.action.review_validator_coverage",
+        "local.action.review_error_response_shape",
+        "local.action.review_postcheck_allowlist",
+        "local.action.review_shell_block_consistency",
     ):
         if action_id not in local_actions.get("allowedActionIds", []):
             raise AssertionError(f"local action allowlist missing {action_id}")
@@ -111,6 +114,9 @@ def validate() -> None:
         "route_contract_sync_review",
         "server_endpoint_guard_review",
         "validator_coverage_review",
+        "error_response_shape_review",
+        "postcheck_allowlist_review",
+        "shell_block_consistency_review",
     ):
         if result_key not in local_actions_text:
             raise AssertionError(f"local actions must expose structured {result_key}")

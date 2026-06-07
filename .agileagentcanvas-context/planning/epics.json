@@ -28,7 +28,7 @@
       "projectName": "Cabina Universal Agent Control",
       "description": "Desglose de epicas para la mesa local de Agile Agent Canvas que gobierna superficies agente de Visual Studio Code Insiders.",
       "totalEpics": 4,
-      "totalStories": 28,
+      "totalStories": 31,
       "inputDocuments": [
         "vision.json",
         "discovery/product-brief.json",
@@ -87,7 +87,10 @@
             "S-3.14",
             "S-3.15",
             "S-3.16",
-            "S-3.17"
+            "S-3.17",
+            "S-3.18",
+            "S-3.19",
+            "S-3.20"
           ]
         },
         {
@@ -436,6 +439,42 @@
             "acceptanceCriteria": [
               "endpoint /api/local-actions/run acepta local.action.review_validator_coverage",
               "validator_coverage_review informa acciones y claves de resultado faltantes",
+              "command_execution_exposed es false",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.18",
+            "title": "Ejecutar revision de forma de errores",
+            "description": "La accion revisar forma de errores valida respuestas bloqueadas y not_found, live_executed=false y limites de payload.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run acepta local.action.review_error_response_shape",
+              "error_response_shape_review informa respuestas sin live y status seguro",
+              "command_execution_exposed es false",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.19",
+            "title": "Ejecutar revision de allowlist de postcheck",
+            "description": "La accion revisar allowlist de postcheck valida que los comandos guiados sigan siendo locales, fijos y sin llamadas externas.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run acepta local.action.review_postcheck_allowlist",
+              "postcheck_allowlist_review informa comandos esperados, inseguros y argumentos prohibidos",
+              "command_execution_exposed es false",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.20",
+            "title": "Ejecutar revision de bloqueo shell",
+            "description": "La accion revisar bloqueo shell valida consistencia entre conector shell, contrato y matriz de rutas.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run acepta local.action.review_shell_block_consistency",
+              "shell_block_consistency_review informa bloqueos faltantes y contrato shell",
               "command_execution_exposed es false",
               "liveExecuted permanece false"
             ],

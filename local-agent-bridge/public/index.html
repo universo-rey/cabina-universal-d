@@ -417,6 +417,9 @@
       ["route_contract_sync_review", "revision de sincronía contrato-rutas"],
       ["server_endpoint_guard_review", "revision de guards del servidor"],
       ["validator_coverage_review", "revision de cobertura de validadores"],
+      ["error_response_shape_review", "revision de forma de errores"],
+      ["postcheck_allowlist_review", "revision de allowlist de postcheck"],
+      ["shell_block_consistency_review", "revision de bloqueo shell"],
       ["local_agent_bridge", "puente local de agentes"],
       ["local_agent_bridge_contract", "contrato del bridge local"],
       ["local_dashboard_integrity", "integridad del tablero local"],
@@ -428,6 +431,9 @@
       ["local_route_contract_sync", "sincronía contrato-rutas"],
       ["local_server_endpoint_guards", "guards del servidor local"],
       ["local_validator_coverage", "cobertura de validadores"],
+      ["local_error_response_shape", "forma de errores local"],
+      ["local_postcheck_allowlist", "allowlist de postcheck local"],
+      ["local_shell_block_consistency", "consistencia de bloqueo shell"],
       ["local.action.inspect_canvas_lane", "inspeccionar carril Agile Canvas"],
       ["local.action.review_task_queue", "revisar cola local VSI"],
       ["local.action.prepare_local_validation", "preparar validacion local"],
@@ -442,6 +448,9 @@
       ["local.action.review_route_contract_sync", "revisar sincronía contrato-rutas"],
       ["local.action.review_server_endpoint_guards", "revisar guards del servidor local"],
       ["local.action.review_validator_coverage", "revisar cobertura de validadores"],
+      ["local.action.review_error_response_shape", "revisar forma de errores"],
+      ["local.action.review_postcheck_allowlist", "revisar allowlist de postcheck"],
+      ["local.action.review_shell_block_consistency", "revisar bloqueo shell"],
       ["postcheck_allowlist", "postcheck allowlist"],
       ["structured_local_review", "revision local estructurada"],
       ["structured_local_review_no_shell", "revision local sin shell"],
@@ -473,6 +482,14 @@
       ["review_action_coverage", "revisar cobertura de acciones"],
       ["review_result_keys", "revisar claves de resultado"],
       ["review_docs_tests", "revisar docs y tests"],
+      ["review_error_shapes", "revisar forma de errores"],
+      ["review_body_limits", "revisar limites de payload"],
+      ["review_postcheck_labels", "revisar etiquetas de postcheck"],
+      ["review_safe_commands", "revisar comandos seguros"],
+      ["review_no_external_calls", "revisar sin llamadas externas"],
+      ["review_shell_block_contract", "revisar contrato shell bloqueado"],
+      ["review_shell_route_blocks", "revisar bloqueos de ruta shell"],
+      ["review_no_shell_execution", "revisar sin ejecucion shell"],
       ["guided_read_only", "lectura guiada"],
       ["GUIDED_READ_ONLY", "lectura guiada"],
       ["postcheck_passed", "postcheck aprobado"],
@@ -498,6 +515,12 @@
       ["server_endpoint_guard_review_failed", "fallo de guards del servidor"],
       ["validator_coverage_review_passed", "revision de cobertura aprobada"],
       ["validator_coverage_review_failed", "fallo de cobertura de validadores"],
+      ["error_response_shape_review_passed", "revision de errores aprobada"],
+      ["error_response_shape_review_failed", "fallo de forma de errores"],
+      ["postcheck_allowlist_review_passed", "revision de postcheck aprobada"],
+      ["postcheck_allowlist_review_failed", "fallo de allowlist de postcheck"],
+      ["shell_block_consistency_review_passed", "revision de bloqueo shell aprobada"],
+      ["shell_block_consistency_review_failed", "fallo de bloqueo shell"],
       ["task_queue_review_passed", "revision de cola aprobada"],
       ["task_queue_structured_review_failed", "fallo de revision estructurada de cola"],
       ["live_gate_packet_review_passed", "revision de paquetes aprobada"],
@@ -704,9 +727,18 @@
       const validatorCoverageReview = result.validator_coverage_review
         ? `acciones ${result.validator_coverage_review.action_count} · resultados ${result.validator_coverage_review.result_key_count} · faltantes ${result.validator_coverage_review.missing_result_keys.length}`
         : "";
+      const errorResponseShapeReview = result.error_response_shape_review
+        ? `errores ${result.error_response_shape_review.guarded_error_response_count} · live ${result.error_response_shape_review.responses_missing_live_false.length} · status ${result.error_response_shape_review.responses_missing_safe_status.length}`
+        : "";
+      const postcheckAllowlistReview = result.postcheck_allowlist_review
+        ? `comandos ${result.postcheck_allowlist_review.command_count}/${result.postcheck_allowlist_review.expected_label_count} · inseguros ${result.postcheck_allowlist_review.unsafe_commands.length} · args ${result.postcheck_allowlist_review.unsafe_args.length}`
+        : "";
+      const shellBlockConsistencyReview = result.shell_block_consistency_review
+        ? `shell blocks ${result.shell_block_consistency_review.missing_shell_connector_blocks.length} · rutas ${result.shell_block_consistency_review.missing_route_blocks.length} · contrato ${result.shell_block_consistency_review.contract_matches ? "ok" : "falla"}`
+        : "";
       const checks = result.postcheck_results
         ? result.postcheck_results.map((item) => `${item.label}: ${item.status}`).join(" | ")
-        : review || gateReview || canvasReview || bridgeReview || dashboardIntegrityReview || actionBoundaryReview || readinessBundleReview || uiTranslationReview || taskLineageReview || canvasStorySyncReview || routeContractSyncReview || serverEndpointGuardReview || validatorCoverageReview || result.evidence;
+        : review || gateReview || canvasReview || bridgeReview || dashboardIntegrityReview || actionBoundaryReview || readinessBundleReview || uiTranslationReview || taskLineageReview || canvasStorySyncReview || routeContractSyncReview || serverEndpointGuardReview || validatorCoverageReview || errorResponseShapeReview || postcheckAllowlistReview || shellBlockConsistencyReview || result.evidence;
       resultBox.textContent = `${text(result.status)} · ${checks || text(result.stop_condition)}`;
     }
 

@@ -53,7 +53,10 @@
       "local.action.review_canvas_story_sync",
       "local.action.review_route_contract_sync",
       "local.action.review_server_endpoint_guards",
-      "local.action.review_validator_coverage"
+      "local.action.review_validator_coverage",
+      "local.action.review_error_response_shape",
+      "local.action.review_postcheck_allowlist",
+      "local.action.review_shell_block_consistency"
     ],
     "blockedActions": [
       "execute_arbitrary_shell_from_dashboard",

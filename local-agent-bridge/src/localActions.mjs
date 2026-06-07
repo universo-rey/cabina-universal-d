@@ -16,6 +16,9 @@ const CANVAS_STORY_SYNC_REVIEW_ACTION_ID = "local.action.review_canvas_story_syn
 const ROUTE_CONTRACT_SYNC_REVIEW_ACTION_ID = "local.action.review_route_contract_sync";
 const SERVER_ENDPOINT_GUARD_REVIEW_ACTION_ID = "local.action.review_server_endpoint_guards";
 const VALIDATOR_COVERAGE_REVIEW_ACTION_ID = "local.action.review_validator_coverage";
+const ERROR_RESPONSE_SHAPE_REVIEW_ACTION_ID = "local.action.review_error_response_shape";
+const POSTCHECK_ALLOWLIST_REVIEW_ACTION_ID = "local.action.review_postcheck_allowlist";
+const SHELL_BLOCK_CONSISTENCY_REVIEW_ACTION_ID = "local.action.review_shell_block_consistency";
 const TASK_QUEUE_PATH = ".agents/codex/matrices/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv";
 const BRIDGE_CONTRACT_PATH = "local-agent-bridge/contracts/local-agent-bridge.contract.json";
 const ROUTES_MATRIX_PATH = "local-agent-bridge/matrices/routes_matrix.csv";
@@ -47,7 +50,10 @@ function getRequiredLocalActionIds() {
     CANVAS_STORY_SYNC_REVIEW_ACTION_ID,
     ROUTE_CONTRACT_SYNC_REVIEW_ACTION_ID,
     SERVER_ENDPOINT_GUARD_REVIEW_ACTION_ID,
-    VALIDATOR_COVERAGE_REVIEW_ACTION_ID
+    VALIDATOR_COVERAGE_REVIEW_ACTION_ID,
+    ERROR_RESPONSE_SHAPE_REVIEW_ACTION_ID,
+    POSTCHECK_ALLOWLIST_REVIEW_ACTION_ID,
+    SHELL_BLOCK_CONSISTENCY_REVIEW_ACTION_ID
   ];
 }
 
@@ -65,7 +71,10 @@ function getStructuredReviewActionIds() {
     CANVAS_STORY_SYNC_REVIEW_ACTION_ID,
     ROUTE_CONTRACT_SYNC_REVIEW_ACTION_ID,
     SERVER_ENDPOINT_GUARD_REVIEW_ACTION_ID,
-    VALIDATOR_COVERAGE_REVIEW_ACTION_ID
+    VALIDATOR_COVERAGE_REVIEW_ACTION_ID,
+    ERROR_RESPONSE_SHAPE_REVIEW_ACTION_ID,
+    POSTCHECK_ALLOWLIST_REVIEW_ACTION_ID,
+    SHELL_BLOCK_CONSISTENCY_REVIEW_ACTION_ID
   ];
 }
 
@@ -670,7 +679,7 @@ function reviewCanvasStorySync(repoRoot) {
   const duplicateStoryIds = findDuplicates(storyIds);
   const declaredTotalStories = epics?.content?.overview?.totalStories;
   const totalStoriesMatches = declaredTotalStories === stories.length;
-  const currentSyncStoryIds = new Set(["S-3.15", "S-3.16", "S-3.17"]);
+  const currentSyncStoryIds = new Set(["S-3.18", "S-3.19", "S-3.20"]);
   const unfinishedDashboardStories = stories
     .filter((story) => currentSyncStoryIds.has(story.id) && story.status !== "hecho")
     .map((story) => `${story.id}:${story.status || "NO_DECLARADO"}`);
@@ -682,7 +691,7 @@ function reviewCanvasStorySync(repoRoot) {
     .filter((storyId) => storyId.startsWith("S-3.") && !functionalStoryRefs.has(storyId))
     .sort();
   const taskQueue = readTaskQueueRows(repoRoot);
-  const recentTaskIds = ["vsi.agent.task.025", "vsi.agent.task.026", "vsi.agent.task.027"];
+  const recentTaskIds = ["vsi.agent.task.028", "vsi.agent.task.029", "vsi.agent.task.030"];
   const missingRecentTasks = recentTaskIds
     .filter((taskId) => !taskQueue.some((row) => row.task_id === taskId));
   const passed = duplicateStoryIds.length === 0
@@ -821,7 +830,10 @@ function reviewValidatorCoverage(repoRoot) {
     "canvas_story_sync_review",
     "route_contract_sync_review",
     "server_endpoint_guard_review",
-    "validator_coverage_review"
+    "validator_coverage_review",
+    "error_response_shape_review",
+    "postcheck_allowlist_review",
+    "shell_block_consistency_review"
   ];
   const missingResultKeys = requiredResultKeys
     .filter((key) => !validatorText.includes(key) || !testText.includes(key) || !htmlText.includes(key))
@@ -848,6 +860,126 @@ function reviewValidatorCoverage(repoRoot) {
   };
 }
 
+function reviewErrorResponseShape(repoRoot) {
+  const serverPath = "local-agent-bridge/src/server.mjs";
+  const serverText = fs.readFileSync(path.join(repoRoot, serverPath), "utf8");
+  const guardedErrorResponses = [...serverText.matchAll(/json\(res,\s*(400|403|404),\s*\{([^}]+)\}\)/g)]
+    .map((match) => ({
+      status_code: match[1],
+      body: match[2],
+      live_false: match[2].includes("live_executed: false"),
+      blocked_or_not_found: /status:\s*"(blocked|not_found)"/.test(match[2])
+    }));
+  const responsesMissingLiveFalse = guardedErrorResponses
+    .filter((response) => !response.live_false)
+    .map((response) => response.status_code);
+  const responsesMissingSafeStatus = guardedErrorResponses
+    .filter((response) => !response.blocked_or_not_found)
+    .map((response) => response.status_code);
+  const bodySizeGuarded = serverText.includes("function readJsonBody(req, maxBytes = 2048)")
+    && serverText.includes("request body too large")
+    && serverText.includes("if (body.length > 4096) req.destroy()");
+  const noStackLeak = !serverText.includes("error.stack") && !serverText.includes("stack:");
+  const passed = guardedErrorResponses.length >= 5
+    && responsesMissingLiveFalse.length === 0
+    && responsesMissingSafeStatus.length === 0
+    && bodySizeGuarded
+    && noStackLeak;
+
+  return {
+    status: passed ? "PASS" : "FAIL",
+    server_path: serverPath,
+    guarded_error_response_count: guardedErrorResponses.length,
+    responses_missing_live_false: responsesMissingLiveFalse,
+    responses_missing_safe_status: responsesMissingSafeStatus,
+    body_size_guarded: bodySizeGuarded,
+    no_stack_leak: noStackLeak,
+    command_execution_exposed: false,
+    live_executed: false
+  };
+}
+
+function reviewPostcheckAllowlist() {
+  const commands = getPostcheckCommands();
+  const expectedLabels = [
+    "npm test",
+    "bridge validator",
+    "parallel governance",
+    "capability hardening",
+    "diff whitespace"
+  ];
+  const commandLabels = commands.map((command) => command.label);
+  const missingExpectedLabels = expectedLabels.filter((label) => !commandLabels.includes(label));
+  const extraLabels = commandLabels.filter((label) => !expectedLabels.includes(label));
+  const safeCommandNames = new Set(["npm", "python", "powershell", "git"]);
+  const unsafeCommands = commands
+    .filter((command) => !safeCommandNames.has(command.command))
+    .map((command) => `${command.label}:${command.command}`);
+  const unsafeArgs = commands
+    .filter((command) => command.args.some((arg) => /gh|curl|Invoke-|http|https|--force|reset|checkout/i.test(String(arg))))
+    .map((command) => command.label);
+  const passed = commands.length === expectedLabels.length
+    && missingExpectedLabels.length === 0
+    && extraLabels.length === 0
+    && unsafeCommands.length === 0
+    && unsafeArgs.length === 0;
+
+  return {
+    status: passed ? "PASS" : "FAIL",
+    command_count: commands.length,
+    expected_label_count: expectedLabels.length,
+    missing_expected_labels: missingExpectedLabels,
+    extra_labels: extraLabels,
+    unsafe_commands: unsafeCommands,
+    unsafe_args: unsafeArgs,
+    command_execution_exposed: false,
+    live_executed: false
+  };
+}
+
+function reviewShellBlockConsistency(repoRoot) {
+  const shellPath = "local-agent-bridge/src/shellConnector.mjs";
+  const shellText = fs.readFileSync(path.join(repoRoot, shellPath), "utf8");
+  const contract = readJsonFile(repoRoot, BRIDGE_CONTRACT_PATH);
+  const routes = parseCsv(fs.readFileSync(path.join(repoRoot, ROUTES_MATRIX_PATH), "utf8"));
+  const shellRoute = routes.find((row) => row.route_id === "bridge.shell_command_blocked") || {};
+  const requiredShellBlocks = [
+    "execute_arbitrary_command",
+    "external_write",
+    "secret_printing",
+    "production",
+    "permission_change",
+    "destructive_action"
+  ];
+  const missingShellConnectorBlocks = requiredShellBlocks
+    .filter((block) => !shellText.includes(`"${block}"`));
+  const missingRouteBlocks = requiredShellBlocks
+    .filter((block) => !String(shellRoute.blocked_actions || "").includes(block));
+  const contractMatches = contract?.shellConnector?.mode === "status_only"
+    && contract?.shellConnector?.commandExecutionExposed === false
+    && contract?.shellConnector?.blockedStopCondition === "LOCAL_SHELL_COMMAND_EXECUTION_NOT_EXPOSED";
+  const shellResponseBlocked = shellText.includes('status: "blocked"')
+    && shellText.includes("shell command execution is not exposed by the local bridge")
+    && shellText.includes("LOCAL_SHELL_COMMAND_EXECUTION_NOT_EXPOSED");
+  const passed = missingShellConnectorBlocks.length === 0
+    && missingRouteBlocks.length === 0
+    && contractMatches
+    && shellResponseBlocked;
+
+  return {
+    status: passed ? "PASS" : "FAIL",
+    shell_path: shellPath,
+    contract_path: BRIDGE_CONTRACT_PATH,
+    route_matrix_path: ROUTES_MATRIX_PATH,
+    missing_shell_connector_blocks: missingShellConnectorBlocks,
+    missing_route_blocks: missingRouteBlocks,
+    contract_matches: contractMatches,
+    shell_response_blocked: shellResponseBlocked,
+    command_execution_exposed: false,
+    live_executed: false
+  };
+}
+
 function reviewReadinessBundle(repoRoot) {
   const components = [
     ["task_queue", reviewTaskQueue(repoRoot)],
@@ -861,7 +993,10 @@ function reviewReadinessBundle(repoRoot) {
     ["canvas_story_sync", reviewCanvasStorySync(repoRoot)],
     ["route_contract_sync", reviewRouteContractSync(repoRoot)],
     ["server_endpoint_guards", reviewServerEndpointGuards(repoRoot)],
-    ["validator_coverage", reviewValidatorCoverage(repoRoot)]
+    ["validator_coverage", reviewValidatorCoverage(repoRoot)],
+    ["error_response_shape", reviewErrorResponseShape(repoRoot)],
+    ["postcheck_allowlist", reviewPostcheckAllowlist()],
+    ["shell_block_consistency", reviewShellBlockConsistency(repoRoot)]
   ].map(([component, result]) => ({
     component,
     status: result.status,
@@ -1143,6 +1278,45 @@ export function buildLocalActions(canvasWorkbench, agentTaskQueue) {
       allowed_now: "review_action_coverage|review_result_keys|review_docs_tests",
       blocked_actions: "execute_arbitrary_shell_from_dashboard|live_provider_call|secret_handling|production_write",
       stop_condition: "validator_coverage_review_failed"
+    },
+    {
+      action_id: ERROR_RESPONSE_SHAPE_REVIEW_ACTION_ID,
+      title: "Revisar forma de errores",
+      status: "READY_LOCAL_GOVERNED",
+      surface: "local_error_response_shape",
+      owner_agent: "codex.workspace_guardian",
+      target: "blocked and not_found responses",
+      evidence: "structured error response shape review available",
+      execution_mode: "structured_local_review",
+      allowed_now: "review_error_shapes|review_no_live_responses|review_body_limits",
+      blocked_actions: "execute_arbitrary_shell_from_dashboard|live_provider_call|secret_handling|production_write",
+      stop_condition: "error_response_shape_review_failed"
+    },
+    {
+      action_id: POSTCHECK_ALLOWLIST_REVIEW_ACTION_ID,
+      title: "Revisar allowlist de postcheck",
+      status: "READY_LOCAL_GOVERNED",
+      surface: "local_postcheck_allowlist",
+      owner_agent: "codex.workspace_guardian",
+      target: "purpose-built postcheck commands",
+      evidence: "structured postcheck allowlist review available",
+      execution_mode: "structured_local_review",
+      allowed_now: "review_postcheck_labels|review_safe_commands|review_no_external_calls",
+      blocked_actions: "execute_arbitrary_shell_from_dashboard|live_provider_call|secret_handling|production_write|force_push",
+      stop_condition: "postcheck_allowlist_review_failed"
+    },
+    {
+      action_id: SHELL_BLOCK_CONSISTENCY_REVIEW_ACTION_ID,
+      title: "Revisar bloqueo shell",
+      status: "READY_LOCAL_GOVERNED",
+      surface: "local_shell_block_consistency",
+      owner_agent: "codex.workspace_guardian",
+      target: "shell connector contract and route",
+      evidence: "structured shell block consistency review available",
+      execution_mode: "structured_local_review",
+      allowed_now: "review_shell_block_contract|review_shell_route_blocks|review_no_shell_execution",
+      blocked_actions: "execute_arbitrary_shell_from_dashboard|live_provider_call|secret_handling|production_write|destructive_action",
+      stop_condition: "shell_block_consistency_review_failed"
     }
   ];
 }
@@ -1194,6 +1368,45 @@ export async function runLocalAction(actionId, repoRoot) {
       stop_condition: readinessBundleReview.status === "PASS"
         ? "readiness_bundle_review_passed"
         : "readiness_bundle_review_failed"
+    };
+  }
+
+  if (actionId === SHELL_BLOCK_CONSISTENCY_REVIEW_ACTION_ID) {
+    const shellBlockConsistencyReview = reviewShellBlockConsistency(repoRoot);
+    return {
+      ...plan,
+      status: shellBlockConsistencyReview.status,
+      evidence: "structured shell block consistency review executed",
+      shell_block_consistency_review: shellBlockConsistencyReview,
+      stop_condition: shellBlockConsistencyReview.status === "PASS"
+        ? "shell_block_consistency_review_passed"
+        : "shell_block_consistency_review_failed"
+    };
+  }
+
+  if (actionId === POSTCHECK_ALLOWLIST_REVIEW_ACTION_ID) {
+    const postcheckAllowlistReview = reviewPostcheckAllowlist();
+    return {
+      ...plan,
+      status: postcheckAllowlistReview.status,
+      evidence: "structured postcheck allowlist review executed",
+      postcheck_allowlist_review: postcheckAllowlistReview,
+      stop_condition: postcheckAllowlistReview.status === "PASS"
+        ? "postcheck_allowlist_review_passed"
+        : "postcheck_allowlist_review_failed"
+    };
+  }
+
+  if (actionId === ERROR_RESPONSE_SHAPE_REVIEW_ACTION_ID) {
+    const errorResponseShapeReview = reviewErrorResponseShape(repoRoot);
+    return {
+      ...plan,
+      status: errorResponseShapeReview.status,
+      evidence: "structured error response shape review executed",
+      error_response_shape_review: errorResponseShapeReview,
+      stop_condition: errorResponseShapeReview.status === "PASS"
+        ? "error_response_shape_review_passed"
+        : "error_response_shape_review_failed"
     };
   }
 
