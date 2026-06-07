@@ -50,7 +50,10 @@
       "local.action.review_readiness_bundle",
       "local.action.review_ui_translation_integrity",
       "local.action.review_task_lineage",
-      "local.action.review_canvas_story_sync"
+      "local.action.review_canvas_story_sync",
+      "local.action.review_route_contract_sync",
+      "local.action.review_server_endpoint_guards",
+      "local.action.review_validator_coverage"
     ],
     "blockedActions": [
       "execute_arbitrary_shell_from_dashboard",

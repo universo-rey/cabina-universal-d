@@ -28,7 +28,7 @@
       "projectName": "Cabina Universal Agent Control",
       "description": "Desglose de epicas para la mesa local de Agile Agent Canvas que gobierna superficies agente de Visual Studio Code Insiders.",
       "totalEpics": 4,
-      "totalStories": 25,
+      "totalStories": 28,
       "inputDocuments": [
         "vision.json",
         "discovery/product-brief.json",
@@ -84,7 +84,10 @@
             "S-3.11",
             "S-3.12",
             "S-3.13",
-            "S-3.14"
+            "S-3.14",
+            "S-3.15",
+            "S-3.16",
+            "S-3.17"
           ]
         },
         {
@@ -397,6 +400,42 @@
             "acceptanceCriteria": [
               "endpoint /api/local-actions/run acepta local.action.review_canvas_story_sync",
               "canvas_story_sync_review informa conteos, refs funcionales y tareas recientes faltantes",
+              "command_execution_exposed es false",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.15",
+            "title": "Ejecutar revision de sincronía contrato-rutas",
+            "description": "La accion revisar sincronía contrato-rutas valida que allowedRoutes del contrato coincida con la matriz de rutas local.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run acepta local.action.review_route_contract_sync",
+              "route_contract_sync_review informa rutas faltantes, extras y proteccion de ruta local",
+              "command_execution_exposed es false",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.16",
+            "title": "Ejecutar revision de guards del servidor local",
+            "description": "La accion revisar guards del servidor local valida endpoints, loopback, dev-auth y respuestas sin live.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run acepta local.action.review_server_endpoint_guards",
+              "server_endpoint_guard_review informa endpoints, guards loopback y guards dev-auth",
+              "command_execution_exposed es false",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.17",
+            "title": "Ejecutar revision de cobertura de validadores",
+            "description": "La accion revisar cobertura de validadores valida contrato, validador, test, README y UI contra acciones locales y claves de resultado.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run acepta local.action.review_validator_coverage",
+              "validator_coverage_review informa acciones y claves de resultado faltantes",
               "command_execution_exposed es false",
               "liveExecuted permanece false"
             ],

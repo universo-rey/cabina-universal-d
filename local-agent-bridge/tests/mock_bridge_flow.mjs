@@ -59,8 +59,8 @@ assert.equal(dashboard.canvas_workbench.active_governed_lane.status, "ACTIVE_LOC
 assert.equal(dashboard.canvas_workbench.active_governed_lane.live_executed, false);
 assert.equal(dashboard.canvas_workbench.active_governed_lane.external_sync, false);
 assert.equal(dashboard.summary.active_agile_canvas_lane, "ACTIVE_LOCAL_GOVERNED_USE");
-assert.equal(dashboard.local_actions.length, 11);
-assert.equal(dashboard.summary.local_actions_ready, 11);
+assert.equal(dashboard.local_actions.length, 14);
+assert.equal(dashboard.summary.local_actions_ready, 14);
 assert.ok(dashboard.local_actions.some(
   (row) => row.action_id === "local.action.inspect_canvas_lane" && row.execution_mode === "structured_local_review"
 ));
@@ -72,6 +72,9 @@ assert.ok(dashboard.local_actions.some((row) => row.action_id === "local.action.
 assert.ok(dashboard.local_actions.some((row) => row.action_id === "local.action.review_ui_translation_integrity"));
 assert.ok(dashboard.local_actions.some((row) => row.action_id === "local.action.review_task_lineage"));
 assert.ok(dashboard.local_actions.some((row) => row.action_id === "local.action.review_canvas_story_sync"));
+assert.ok(dashboard.local_actions.some((row) => row.action_id === "local.action.review_route_contract_sync"));
+assert.ok(dashboard.local_actions.some((row) => row.action_id === "local.action.review_server_endpoint_guards"));
+assert.ok(dashboard.local_actions.some((row) => row.action_id === "local.action.review_validator_coverage"));
 assert.ok(dashboard.local_actions.some((row) => row.execution_mode === "structured_local_review"));
 assert.ok(dashboard.local_actions.some((row) => row.execution_mode === "postcheck_allowlist"));
 assert.ok(dashboard.local_actions.every((row) => !row.blocked_actions.includes("secret_handling") || row.status !== "NEEDS_REVIEW"));
@@ -197,7 +200,7 @@ assert.equal(dashboardIntegrityReview.status, "PASS");
 assert.equal(dashboardIntegrityReview.command_execution_exposed, false);
 assert.equal(dashboardIntegrityReview.live_executed, false);
 assert.equal(dashboardIntegrityReview.dashboard_integrity_review.task_count, dashboard.summary.agent_task_queue_records);
-assert.equal(dashboardIntegrityReview.dashboard_integrity_review.local_action_count, 11);
+assert.equal(dashboardIntegrityReview.dashboard_integrity_review.local_action_count, 14);
 assert.equal(dashboardIntegrityReview.dashboard_integrity_review.non_executed_tasks.length, 0);
 assert.equal(dashboardIntegrityReview.dashboard_integrity_review.missing_required_actions.length, 0);
 assert.equal(dashboardIntegrityReview.dashboard_integrity_review.command_execution_exposed, false);
@@ -212,8 +215,8 @@ const actionBoundaryReview = await runLocalAction("local.action.review_action_bo
 assert.equal(actionBoundaryReview.status, "PASS");
 assert.equal(actionBoundaryReview.command_execution_exposed, false);
 assert.equal(actionBoundaryReview.live_executed, false);
-assert.equal(actionBoundaryReview.action_boundary_review.action_count, 11);
-assert.equal(actionBoundaryReview.action_boundary_review.executable_action_count, 11);
+assert.equal(actionBoundaryReview.action_boundary_review.action_count, 14);
+assert.equal(actionBoundaryReview.action_boundary_review.executable_action_count, 14);
 assert.equal(actionBoundaryReview.action_boundary_review.actions_missing_stop_condition.length, 0);
 assert.equal(actionBoundaryReview.action_boundary_review.plans_with_command_execution.length, 0);
 assert.equal(actionBoundaryReview.action_boundary_review.plans_with_live_execution.length, 0);
@@ -227,8 +230,8 @@ const readinessBundleReview = await runLocalAction("local.action.review_readines
 assert.equal(readinessBundleReview.status, "PASS");
 assert.equal(readinessBundleReview.command_execution_exposed, false);
 assert.equal(readinessBundleReview.live_executed, false);
-assert.equal(readinessBundleReview.readiness_bundle_review.component_count, 9);
-assert.equal(readinessBundleReview.readiness_bundle_review.passing_components, 9);
+assert.equal(readinessBundleReview.readiness_bundle_review.component_count, 12);
+assert.equal(readinessBundleReview.readiness_bundle_review.passing_components, 12);
 assert.equal(readinessBundleReview.readiness_bundle_review.failing_components.length, 0);
 assert.equal(readinessBundleReview.readiness_bundle_review.command_execution_exposed, false);
 assert.equal(readinessBundleReview.readiness_bundle_review.live_executed, false);
@@ -272,5 +275,45 @@ assert.equal(canvasStorySyncReview.live_executed, false);
 assert.equal(canvasStorySyncReview.canvas_story_sync_review.total_stories_matches, true);
 assert.equal(canvasStorySyncReview.canvas_story_sync_review.missing_functional_story_refs.length, 0);
 assert.equal(canvasStorySyncReview.canvas_story_sync_review.missing_recent_tasks.length, 0);
+
+const routeContractSyncReviewPlan = getLocalActionExecutionPlan("local.action.review_route_contract_sync");
+assert.equal(routeContractSyncReviewPlan.execute_now, true);
+assert.equal(routeContractSyncReviewPlan.command_execution_exposed, false);
+assert.equal(routeContractSyncReviewPlan.live_executed, false);
+assert.equal(routeContractSyncReviewPlan.shell_mode, "structured_local_review_no_shell");
+const routeContractSyncReview = await runLocalAction("local.action.review_route_contract_sync", repoRoot);
+assert.equal(routeContractSyncReview.status, "PASS");
+assert.equal(routeContractSyncReview.command_execution_exposed, false);
+assert.equal(routeContractSyncReview.live_executed, false);
+assert.equal(routeContractSyncReview.route_contract_sync_review.missing_allowed_routes.length, 0);
+assert.equal(routeContractSyncReview.route_contract_sync_review.extra_allowed_routes.length, 0);
+assert.equal(routeContractSyncReview.route_contract_sync_review.local_action_route_protected, true);
+
+const serverEndpointGuardReviewPlan = getLocalActionExecutionPlan("local.action.review_server_endpoint_guards");
+assert.equal(serverEndpointGuardReviewPlan.execute_now, true);
+assert.equal(serverEndpointGuardReviewPlan.command_execution_exposed, false);
+assert.equal(serverEndpointGuardReviewPlan.live_executed, false);
+assert.equal(serverEndpointGuardReviewPlan.shell_mode, "structured_local_review_no_shell");
+const serverEndpointGuardReview = await runLocalAction("local.action.review_server_endpoint_guards", repoRoot);
+assert.equal(serverEndpointGuardReview.status, "PASS");
+assert.equal(serverEndpointGuardReview.command_execution_exposed, false);
+assert.equal(serverEndpointGuardReview.live_executed, false);
+assert.equal(serverEndpointGuardReview.server_endpoint_guard_review.missing_endpoints.length, 0);
+assert.ok(serverEndpointGuardReview.server_endpoint_guard_review.loopback_guard_count >= 3);
+assert.ok(serverEndpointGuardReview.server_endpoint_guard_review.dev_auth_guard_count >= 2);
+
+const validatorCoverageReviewPlan = getLocalActionExecutionPlan("local.action.review_validator_coverage");
+assert.equal(validatorCoverageReviewPlan.execute_now, true);
+assert.equal(validatorCoverageReviewPlan.command_execution_exposed, false);
+assert.equal(validatorCoverageReviewPlan.live_executed, false);
+assert.equal(validatorCoverageReviewPlan.shell_mode, "structured_local_review_no_shell");
+const validatorCoverageReview = await runLocalAction("local.action.review_validator_coverage", repoRoot);
+assert.equal(validatorCoverageReview.status, "PASS");
+assert.equal(validatorCoverageReview.command_execution_exposed, false);
+assert.equal(validatorCoverageReview.live_executed, false);
+assert.equal(validatorCoverageReview.validator_coverage_review.missing_contract_actions.length, 0);
+assert.equal(validatorCoverageReview.validator_coverage_review.missing_validator_actions.length, 0);
+assert.equal(validatorCoverageReview.validator_coverage_review.missing_test_actions.length, 0);
+assert.equal(validatorCoverageReview.validator_coverage_review.missing_result_keys.length, 0);
 
 console.log("SDU_LOCAL_AGENT_BRIDGE_MOCK_FLOW_PASS");

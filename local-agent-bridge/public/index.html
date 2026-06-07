@@ -414,6 +414,9 @@
       ["ui_translation_review", "revision de traducciones UI"],
       ["task_lineage_review", "revision de linaje de tareas"],
       ["canvas_story_sync_review", "revision de sincronía historias-tareas"],
+      ["route_contract_sync_review", "revision de sincronía contrato-rutas"],
+      ["server_endpoint_guard_review", "revision de guards del servidor"],
+      ["validator_coverage_review", "revision de cobertura de validadores"],
       ["local_agent_bridge", "puente local de agentes"],
       ["local_agent_bridge_contract", "contrato del bridge local"],
       ["local_dashboard_integrity", "integridad del tablero local"],
@@ -422,6 +425,9 @@
       ["local_ui_translation_integrity", "integridad de traducciones UI"],
       ["local_task_lineage", "linaje de tareas local"],
       ["local_canvas_story_sync", "sincronía canvas-tareas"],
+      ["local_route_contract_sync", "sincronía contrato-rutas"],
+      ["local_server_endpoint_guards", "guards del servidor local"],
+      ["local_validator_coverage", "cobertura de validadores"],
       ["local.action.inspect_canvas_lane", "inspeccionar carril Agile Canvas"],
       ["local.action.review_task_queue", "revisar cola local VSI"],
       ["local.action.prepare_local_validation", "preparar validacion local"],
@@ -433,6 +439,9 @@
       ["local.action.review_ui_translation_integrity", "revisar traducciones del tablero"],
       ["local.action.review_task_lineage", "revisar linaje de tareas"],
       ["local.action.review_canvas_story_sync", "revisar sincronía historias-tareas"],
+      ["local.action.review_route_contract_sync", "revisar sincronía contrato-rutas"],
+      ["local.action.review_server_endpoint_guards", "revisar guards del servidor local"],
+      ["local.action.review_validator_coverage", "revisar cobertura de validadores"],
       ["postcheck_allowlist", "postcheck allowlist"],
       ["structured_local_review", "revision local estructurada"],
       ["structured_local_review_no_shell", "revision local sin shell"],
@@ -455,6 +464,15 @@
       ["review_story_counts", "revisar conteo de historias"],
       ["review_functional_refs", "revisar referencias funcionales"],
       ["review_task_story_sync", "revisar sincronía tarea-historia"],
+      ["review_allowed_routes", "revisar rutas permitidas"],
+      ["review_route_matrix", "revisar matriz de rutas"],
+      ["review_route_blocks", "revisar bloqueos de rutas"],
+      ["review_loopback_guards", "revisar guards loopback"],
+      ["review_dev_auth_guards", "revisar guards de auth dev"],
+      ["review_no_live_responses", "revisar respuestas sin live"],
+      ["review_action_coverage", "revisar cobertura de acciones"],
+      ["review_result_keys", "revisar claves de resultado"],
+      ["review_docs_tests", "revisar docs y tests"],
       ["guided_read_only", "lectura guiada"],
       ["GUIDED_READ_ONLY", "lectura guiada"],
       ["postcheck_passed", "postcheck aprobado"],
@@ -474,6 +492,12 @@
       ["task_lineage_review_failed", "fallo de linaje de tareas"],
       ["canvas_story_sync_review_passed", "revision de sincronía aprobada"],
       ["canvas_story_sync_review_failed", "fallo de sincronía historias-tareas"],
+      ["route_contract_sync_review_passed", "revision contrato-rutas aprobada"],
+      ["route_contract_sync_review_failed", "fallo de sincronía contrato-rutas"],
+      ["server_endpoint_guard_review_passed", "revision de guards aprobada"],
+      ["server_endpoint_guard_review_failed", "fallo de guards del servidor"],
+      ["validator_coverage_review_passed", "revision de cobertura aprobada"],
+      ["validator_coverage_review_failed", "fallo de cobertura de validadores"],
       ["task_queue_review_passed", "revision de cola aprobada"],
       ["task_queue_structured_review_failed", "fallo de revision estructurada de cola"],
       ["live_gate_packet_review_passed", "revision de paquetes aprobada"],
@@ -671,9 +695,18 @@
       const canvasStorySyncReview = result.canvas_story_sync_review
         ? `historias ${result.canvas_story_sync_review.actual_story_count}/${result.canvas_story_sync_review.declared_total_stories} · refs ${result.canvas_story_sync_review.missing_functional_story_refs.length} · tareas ${result.canvas_story_sync_review.missing_recent_tasks.length}`
         : "";
+      const routeContractSyncReview = result.route_contract_sync_review
+        ? `rutas ${result.route_contract_sync_review.matrix_route_count}/${result.route_contract_sync_review.allowed_route_count} · faltantes ${result.route_contract_sync_review.missing_allowed_routes.length} · extras ${result.route_contract_sync_review.extra_allowed_routes.length}`
+        : "";
+      const serverEndpointGuardReview = result.server_endpoint_guard_review
+        ? `endpoints ${result.server_endpoint_guard_review.required_endpoint_count} · loopback ${result.server_endpoint_guard_review.loopback_guard_count} · auth ${result.server_endpoint_guard_review.dev_auth_guard_count}`
+        : "";
+      const validatorCoverageReview = result.validator_coverage_review
+        ? `acciones ${result.validator_coverage_review.action_count} · resultados ${result.validator_coverage_review.result_key_count} · faltantes ${result.validator_coverage_review.missing_result_keys.length}`
+        : "";
       const checks = result.postcheck_results
         ? result.postcheck_results.map((item) => `${item.label}: ${item.status}`).join(" | ")
-        : review || gateReview || canvasReview || bridgeReview || dashboardIntegrityReview || actionBoundaryReview || readinessBundleReview || uiTranslationReview || taskLineageReview || canvasStorySyncReview || result.evidence;
+        : review || gateReview || canvasReview || bridgeReview || dashboardIntegrityReview || actionBoundaryReview || readinessBundleReview || uiTranslationReview || taskLineageReview || canvasStorySyncReview || routeContractSyncReview || serverEndpointGuardReview || validatorCoverageReview || result.evidence;
       resultBox.textContent = `${text(result.status)} · ${checks || text(result.stop_condition)}`;
     }
 
