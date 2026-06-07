@@ -70,8 +70,8 @@ assert.ok(dashboard.visible_gate_lane.items.some((row) => row.surface === "skill
 assert.ok(dashboard.visible_gate_lane.items.some((row) => row.surface === "graphify_commands"));
 assert.ok(dashboard.visible_gate_lane.items.some((row) => row.gate.includes("GATE_OPENAI_LIVE")));
 assert.ok(dashboard.visible_gate_lane.items.some((row) => row.gate.includes("GATE_MICROSOFT_LIVE_WRITE")));
-assert.equal(dashboard.local_actions.length, 20);
-assert.equal(dashboard.summary.local_actions_ready, 20);
+assert.equal(dashboard.local_actions.length, 21);
+assert.equal(dashboard.summary.local_actions_ready, 21);
 assert.ok(dashboard.local_actions.some(
   (row) => row.action_id === "local.action.inspect_canvas_lane" && row.execution_mode === "structured_local_review"
 ));
@@ -92,6 +92,7 @@ assert.ok(dashboard.local_actions.some((row) => row.action_id === "local.action.
 assert.ok(dashboard.local_actions.some((row) => row.action_id === "local.action.review_dashboard_summary_consistency"));
 assert.ok(dashboard.local_actions.some((row) => row.action_id === "local.action.review_local_action_status_consistency"));
 assert.ok(dashboard.local_actions.some((row) => row.action_id === "local.action.review_readiness_component_coverage"));
+assert.ok(dashboard.local_actions.some((row) => row.action_id === "local.action.review_canvas_schema_health"));
 assert.ok(dashboard.local_actions.some((row) => row.execution_mode === "structured_local_review"));
 assert.ok(dashboard.local_actions.some((row) => row.execution_mode === "postcheck_allowlist"));
 assert.ok(dashboard.local_actions.every((row) => !row.blocked_actions.includes("secret_handling") || row.status !== "NEEDS_REVIEW"));
@@ -219,7 +220,7 @@ assert.equal(dashboardIntegrityReview.status, "PASS");
 assert.equal(dashboardIntegrityReview.command_execution_exposed, false);
 assert.equal(dashboardIntegrityReview.live_executed, false);
 assert.equal(dashboardIntegrityReview.dashboard_integrity_review.task_count, dashboard.summary.agent_task_queue_records);
-assert.equal(dashboardIntegrityReview.dashboard_integrity_review.local_action_count, 20);
+assert.equal(dashboardIntegrityReview.dashboard_integrity_review.local_action_count, 21);
 assert.equal(dashboardIntegrityReview.dashboard_integrity_review.non_executed_tasks.length, 0);
 assert.equal(dashboardIntegrityReview.dashboard_integrity_review.missing_required_actions.length, 0);
 assert.equal(dashboardIntegrityReview.dashboard_integrity_review.command_execution_exposed, false);
@@ -234,8 +235,8 @@ const actionBoundaryReview = await runLocalAction("local.action.review_action_bo
 assert.equal(actionBoundaryReview.status, "PASS");
 assert.equal(actionBoundaryReview.command_execution_exposed, false);
 assert.equal(actionBoundaryReview.live_executed, false);
-assert.equal(actionBoundaryReview.action_boundary_review.action_count, 20);
-assert.equal(actionBoundaryReview.action_boundary_review.executable_action_count, 20);
+assert.equal(actionBoundaryReview.action_boundary_review.action_count, 21);
+assert.equal(actionBoundaryReview.action_boundary_review.executable_action_count, 21);
 assert.equal(actionBoundaryReview.action_boundary_review.actions_missing_stop_condition.length, 0);
 assert.equal(actionBoundaryReview.action_boundary_review.plans_with_command_execution.length, 0);
 assert.equal(actionBoundaryReview.action_boundary_review.plans_with_live_execution.length, 0);
@@ -249,8 +250,8 @@ const readinessBundleReview = await runLocalAction("local.action.review_readines
 assert.equal(readinessBundleReview.status, "PASS");
 assert.equal(readinessBundleReview.command_execution_exposed, false);
 assert.equal(readinessBundleReview.live_executed, false);
-assert.equal(readinessBundleReview.readiness_bundle_review.component_count, 18);
-assert.equal(readinessBundleReview.readiness_bundle_review.passing_components, 18);
+assert.equal(readinessBundleReview.readiness_bundle_review.component_count, 19);
+assert.equal(readinessBundleReview.readiness_bundle_review.passing_components, 19);
 assert.equal(readinessBundleReview.readiness_bundle_review.failing_components.length, 0);
 assert.equal(readinessBundleReview.readiness_bundle_review.command_execution_exposed, false);
 assert.equal(readinessBundleReview.readiness_bundle_review.live_executed, false);
@@ -383,7 +384,7 @@ const dashboardSummaryConsistencyReview = await runLocalAction("local.action.rev
 assert.equal(dashboardSummaryConsistencyReview.status, "PASS");
 assert.equal(dashboardSummaryConsistencyReview.command_execution_exposed, false);
 assert.equal(dashboardSummaryConsistencyReview.live_executed, false);
-assert.equal(dashboardSummaryConsistencyReview.dashboard_summary_consistency_review.summary.local_actions_ready, 20);
+assert.equal(dashboardSummaryConsistencyReview.dashboard_summary_consistency_review.summary.local_actions_ready, 21);
 assert.equal(dashboardSummaryConsistencyReview.dashboard_summary_consistency_review.summary.queued_agent_tasks, 0);
 assert.equal(
   dashboardSummaryConsistencyReview.dashboard_summary_consistency_review.summary.executed_agent_tasks,
@@ -400,7 +401,7 @@ const localActionStatusConsistencyReview = await runLocalAction("local.action.re
 assert.equal(localActionStatusConsistencyReview.status, "PASS");
 assert.equal(localActionStatusConsistencyReview.command_execution_exposed, false);
 assert.equal(localActionStatusConsistencyReview.live_executed, false);
-assert.equal(localActionStatusConsistencyReview.local_action_status_consistency_review.action_count, 20);
+assert.equal(localActionStatusConsistencyReview.local_action_status_consistency_review.action_count, 21);
 assert.equal(localActionStatusConsistencyReview.local_action_status_consistency_review.missing_required_actions.length, 0);
 assert.equal(localActionStatusConsistencyReview.local_action_status_consistency_review.unknown_actions.length, 0);
 assert.equal(localActionStatusConsistencyReview.local_action_status_consistency_review.invalid_statuses.length, 0);
@@ -415,9 +416,23 @@ const readinessComponentCoverageReview = await runLocalAction("local.action.revi
 assert.equal(readinessComponentCoverageReview.status, "PASS");
 assert.equal(readinessComponentCoverageReview.command_execution_exposed, false);
 assert.equal(readinessComponentCoverageReview.live_executed, false);
-assert.equal(readinessComponentCoverageReview.readiness_component_coverage_review.component_count, 18);
+assert.equal(readinessComponentCoverageReview.readiness_component_coverage_review.component_count, 19);
 assert.equal(readinessComponentCoverageReview.readiness_component_coverage_review.missing_components.length, 0);
 assert.equal(readinessComponentCoverageReview.readiness_component_coverage_review.extra_components.length, 0);
 assert.equal(readinessComponentCoverageReview.readiness_component_coverage_review.duplicate_components.length, 0);
+
+const canvasSchemaHealthReviewPlan = getLocalActionExecutionPlan("local.action.review_canvas_schema_health");
+assert.equal(canvasSchemaHealthReviewPlan.execute_now, true);
+assert.equal(canvasSchemaHealthReviewPlan.command_execution_exposed, false);
+assert.equal(canvasSchemaHealthReviewPlan.live_executed, false);
+assert.equal(canvasSchemaHealthReviewPlan.shell_mode, "structured_local_review_no_shell");
+const canvasSchemaHealthReview = await runLocalAction("local.action.review_canvas_schema_health", repoRoot);
+assert.equal(canvasSchemaHealthReview.status, "PASS");
+assert.equal(canvasSchemaHealthReview.command_execution_exposed, false);
+assert.equal(canvasSchemaHealthReview.live_executed, false);
+assert.equal(canvasSchemaHealthReview.canvas_schema_health_review.artifact_count, 7);
+assert.equal(canvasSchemaHealthReview.canvas_schema_health_review.parsed_artifact_count, 7);
+assert.equal(canvasSchemaHealthReview.canvas_schema_health_review.issue_count, 0);
+assert.equal(canvasSchemaHealthReview.canvas_schema_health_review.schema_contract_passed, true);
 
 console.log("SDU_LOCAL_AGENT_BRIDGE_MOCK_FLOW_PASS");

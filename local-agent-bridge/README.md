@@ -90,5 +90,7 @@ Agile Canvas lane. `local.action.review_local_action_status_consistency` checks
 local action statuses, execution modes and required fields.
 `local.action.review_readiness_component_coverage` checks the readiness bundle
 component set for expected coverage and uniqueness.
+`local.action.review_canvas_schema_health` checks the Agile Agent Canvas JSON
+schema-health lane for the seven previously drift-prone local artifacts.
 `local.action.prepare_local_validation` runs a fixed postcheck allowlist. The
 bridge still does not expose arbitrary shell commands.
