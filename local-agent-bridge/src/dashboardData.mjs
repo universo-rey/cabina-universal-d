@@ -81,6 +81,15 @@ function readJsonArtifact(repoRoot, relativePath) {
   }
 }
 
+function readJson(repoRoot, relativePath) {
+  const fullPath = path.join(repoRoot, relativePath);
+  try {
+    return JSON.parse(fs.readFileSync(fullPath, "utf8"));
+  } catch {
+    return null;
+  }
+}
+
 function countBy(rows, field) {
   return rows.reduce((counts, row) => {
     const key = row[field] || "NO_DECLARADO";
@@ -114,6 +123,8 @@ function summarizeCanvasWorkbench(repoRoot, agileAgentCanvas) {
   const expectedProject = "Cabina Universal Agent Control";
   const parsedCount = artifacts.filter((artifact) => artifact.parses).length;
   const cabinaArtifactCount = artifacts.filter((artifact) => artifact.project_name === expectedProject).length;
+  const prd = readJson(repoRoot, ".agileagentcanvas-context/planning/prd.json");
+  const activeLane = prd?.content?.activeGovernedLane;
   const status = seedControl && parsedCount === artifacts.length && cabinaArtifactCount === artifacts.length
     ? "ACTIVE_LOCAL_WORKBENCH"
     : "NEEDS_REVIEW";
@@ -126,6 +137,29 @@ function summarizeCanvasWorkbench(repoRoot, agileAgentCanvas) {
     cabina_artifacts: cabinaArtifactCount,
     seed_control_status: seedControl?.status || "NO_ENCONTRADO",
     live_executed: false,
+    active_governed_lane: activeLane
+      ? {
+        lane_id: activeLane.laneId || "NO_DECLARADO",
+        status: activeLane.status || "NO_DECLARADO",
+        owner_agent: activeLane.ownerAgent || "NO_DECLARADO",
+        reviewer_agent: activeLane.reviewerAgent || "NO_DECLARADO",
+        lock_key: activeLane.lockKey || "NO_DECLARADO",
+        write_allowlist_count: Array.isArray(activeLane.writeAllowlist) ? activeLane.writeAllowlist.length : 0,
+        validator_count: Array.isArray(activeLane.validators) ? activeLane.validators.length : 0,
+        live_executed: activeLane.liveExecuted === true,
+        external_sync: activeLane.externalSync === true
+      }
+      : {
+        lane_id: "NO_ENCONTRADO",
+        status: "NO_ENCONTRADO",
+        owner_agent: "NO_DECLARADO",
+        reviewer_agent: "NO_DECLARADO",
+        lock_key: "NO_DECLARADO",
+        write_allowlist_count: 0,
+        validator_count: 0,
+        live_executed: false,
+        external_sync: false
+      },
     pending_gates: pendingGates,
     artifacts
   };
@@ -169,6 +203,7 @@ export function collectDashboardData(startPath = process.cwd()) {
       operability_records: operability.length,
       agile_agent_canvas_controls: agileAgentCanvas.length,
       canvas_artifacts_ready: canvasWorkbench.parsed_artifacts,
+      active_agile_canvas_lane: canvasWorkbench.active_governed_lane.status,
       agent_task_queue_records: agentTaskQueue.length,
       queued_agent_tasks: agentTaskQueue.filter((row) => row.status === "QUEUED_READY").length,
       executed_agent_tasks: agentTaskQueue.filter((row) => row.status.startsWith("EXECUTED")).length,

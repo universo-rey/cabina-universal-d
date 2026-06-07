@@ -323,6 +323,7 @@
     const translations = new Map([
       ["Cabina Universal Agent Control", "Control de Agentes de la Cabina Universal"],
       ["ACTIVE_LOCAL_WORKBENCH", "mesa local activa"],
+      ["ACTIVE_LOCAL_GOVERNED_USE", "uso local gobernado activo"],
       ["MESA_LOCAL_ACTIVA", "mesa local activa"],
       ["NEEDS_REVIEW", "requiere revision"],
       ["REQUIERE_REVISION", "requiere revision"],
@@ -351,6 +352,7 @@
       ["skill_catalogue", "catalogo de skills"],
       ["codeburn_cost_observability", "observabilidad de costo Codeburn"],
       ["agileagentcanvas_context", "contexto Agile Agent Canvas"],
+      ["agile_canvas_programming_lane", "carril de programacion Agile Canvas"],
       ["local_inventory", "inventario local"],
       ["open_canvas_ui", "abrir canvas en la UI"],
       ["read_manifest", "leer manifiesto"],
@@ -539,11 +541,16 @@
       );
 
       const workbench = data.canvas_workbench;
+      const activeLane = workbench.active_governed_lane;
       document.getElementById("canvas-workbench").append(
         renderWorkbenchItem("Estado", workbench.status, "mesa local"),
         renderWorkbenchItem("Proyecto", workbench.project_name, "raiz del canvas"),
         renderWorkbenchItem("Control semilla", workbench.seed_control_status, "matriz VSI"),
-        renderWorkbenchItem("Gates del canvas", workbench.pending_gates.length, "pendientes con gate")
+        renderWorkbenchItem("Gates del canvas", workbench.pending_gates.length, "pendientes con gate"),
+        renderWorkbenchItem("Carril activo", activeLane.lane_id, activeLane.lock_key),
+        renderWorkbenchItem("Estado del carril", activeLane.status, activeLane.live_executed ? "live ejecutado" : "sin live"),
+        renderWorkbenchItem("Owner / reviewer", `${activeLane.owner_agent} / ${activeLane.reviewer_agent}`, "agentes"),
+        renderWorkbenchItem("Allowlist / validadores", `${activeLane.write_allowlist_count} / ${activeLane.validator_count}`, "archivos / checks")
       );
 
       data.semaphores.forEach((row) => document.getElementById("semaphores").append(renderSemaphore(row)));

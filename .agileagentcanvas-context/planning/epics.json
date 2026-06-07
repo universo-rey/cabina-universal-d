@@ -245,6 +245,17 @@
               "lanes bloqueadas se distinguen visualmente"
             ],
             "status": "pendiente"
+          },
+          {
+            "id": "S-3.3",
+            "title": "Mostrar carril activo Agile Agent Canvas",
+            "description": "El tablero local lee activeGovernedLane desde el PRD del canvas y lo muestra como carril de uso local gobernado.",
+            "acceptanceCriteria": [
+              "API expone active_governed_lane",
+              "vista humana muestra Carril activo",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
           }
         ]
       },
