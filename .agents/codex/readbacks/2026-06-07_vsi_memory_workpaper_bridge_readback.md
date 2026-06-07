@@ -18,12 +18,16 @@ acciones:
   - settings: `agentMemory.storageBackend`, `agentMemory.autoSyncToFile`
 - Configured repo-local bridge in `.vscode/settings.json`:
   - `agentMemory.storageBackend=disk`
-  - `agentMemory.autoSyncToFile=.agents/codex/workpapers/codex.workspace_guardian/AGENT_MEMORY_SYNC.md`
+  - `agentMemory.autoSyncToFile=.vscode/memory/AGENT_MEMORY_SYNC.md`
   - `agentMemory.tldr.enabled=false`
+- Resolved PR review feedback by keeping auto-synced raw memory in the ignored
+  `.vscode/memory/` local buffer and reserving the tracked workpaper for
+  sanitized manual exports only.
 
 resultado:
-- Memory/Memory Log visual panel can connect indirectly to workpapers through
-  the extension auto-sync setting.
+- Memory/Memory Log visual panel can connect to a local ignored memory buffer
+  through the extension auto-sync setting.
+- Workpapers can receive only sanitized manual exports from that buffer.
 - The actual memory write operation still requires a VSI agent/model turn that
   invokes the VS Code language model tool `memory`.
 - That `memory` tool is not callable from this Codex tool runtime in this
@@ -37,7 +41,8 @@ validadores:
 - `git diff --check`
 
 riesgo:
-- Bajo. No secrets, no live writes, no production, no tenant mutation.
+- Bajo. Raw memory stays ignored/local-only; no secrets, no live writes, no
+  production, no tenant mutation.
 
 rollback:
 - `git restore -- .gitignore .vscode/settings.json .agents/codex/workpapers/codex.workspace_guardian/AGENT_MEMORY_SYNC.md .agents/codex/readbacks/2026-06-07_vsi_memory_workpaper_bridge_readback.md scripts/validators/vsi_function_utilization_validator.py .agents/codex/matrices/VSI_FUNCTION_UTILIZATION_MATRIX_20260607.csv`

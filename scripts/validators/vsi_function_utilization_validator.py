@@ -23,7 +23,8 @@ MATRIX_INDEX_PATH = ".agents/codex/matrices/MATRIX_INDEX.csv"
 TASK_QUEUE_PATH = ".agents/codex/matrices/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv"
 WORKSPACE_EVIDENCE_PATH = ".agents/codex/workpapers/codex.workspace_guardian/EVIDENCE_LOG.csv"
 SESHAT_EVIDENCE_PATH = ".agents/codex/workpapers/court.seshat_evidence/EVIDENCE_LOG.csv"
-MEMORY_SYNC_PATH = ".agents/codex/workpapers/codex.workspace_guardian/AGENT_MEMORY_SYNC.md"
+MEMORY_LOCAL_SYNC_PATH = ".vscode/memory/AGENT_MEMORY_SYNC.md"
+MEMORY_WORKPAPER_EXPORT_PATH = ".agents/codex/workpapers/codex.workspace_guardian/AGENT_MEMORY_SYNC.md"
 VALIDATOR_PATH = "scripts/validators/vsi_function_utilization_validator.py"
 TASK_LABEL = "Cabina: Validate VSI function utilization"
 TASK_ID = "vsi.agent.task.042"
@@ -118,8 +119,8 @@ def _assert_memory_bridge_settings() -> None:
         raise AssertionError(f"{SETTINGS_PATH} must be a JSON object")
     if settings.get("agentMemory.storageBackend") != "disk":
         raise AssertionError("agentMemory.storageBackend must be disk")
-    if settings.get("agentMemory.autoSyncToFile") != MEMORY_SYNC_PATH:
-        raise AssertionError("agentMemory.autoSyncToFile must point to governed workpaper sync file")
+    if settings.get("agentMemory.autoSyncToFile") != MEMORY_LOCAL_SYNC_PATH:
+        raise AssertionError("agentMemory.autoSyncToFile must point to ignored local memory buffer")
     if settings.get("agentMemory.tldr.enabled") is not False:
         raise AssertionError("agentMemory.tldr.enabled must be false for no implicit AI summary")
 
@@ -202,7 +203,7 @@ def validate() -> None:
         TASK_QUEUE_PATH,
         WORKSPACE_EVIDENCE_PATH,
         SESHAT_EVIDENCE_PATH,
-        MEMORY_SYNC_PATH,
+        MEMORY_WORKPAPER_EXPORT_PATH,
         VALIDATOR_PATH,
     ])
     require_no_materialized_sensitive_values([
@@ -215,7 +216,7 @@ def validate() -> None:
         TASK_QUEUE_PATH,
         WORKSPACE_EVIDENCE_PATH,
         SESHAT_EVIDENCE_PATH,
-        MEMORY_SYNC_PATH,
+        MEMORY_WORKPAPER_EXPORT_PATH,
     ])
     rows = read_csv(MATRIX_PATH)
     require_columns(rows, REQUIRED_COLUMNS, MATRIX_PATH)
