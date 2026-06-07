@@ -63,5 +63,11 @@ runs a structured no-shell review of the repo task queue.
 OpenAI, Microsoft and Power Platform without calling providers.
 `local.action.review_bridge_contract` reviews the loopback contract, local action
 allowlist and route matrix without exposing shell execution.
+`local.action.review_dashboard_integrity` checks task counts, canvas artifacts,
+local action readiness and the no-live boundary as one structured dashboard
+review. `local.action.review_action_boundary` checks every local action plan for
+stop conditions, shell exposure and live execution. `local.action.review_readiness_bundle`
+aggregates the queue, canvas, live-gate packet, contract, dashboard integrity and
+action boundary reviews into one local no-shell readiness result.
 `local.action.prepare_local_validation` runs a fixed postcheck allowlist. The
 bridge still does not expose arbitrary shell commands.

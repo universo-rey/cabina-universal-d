@@ -28,7 +28,7 @@
       "projectName": "Cabina Universal Agent Control",
       "description": "Desglose de epicas para la mesa local de Agile Agent Canvas que gobierna superficies agente de Visual Studio Code Insiders.",
       "totalEpics": 4,
-      "totalStories": 16,
+      "totalStories": 19,
       "inputDocuments": [
         "vision.json",
         "discovery/product-brief.json",
@@ -75,7 +75,10 @@
             "S-3.2",
             "S-3.6",
             "S-3.7",
-            "S-3.8"
+            "S-3.8",
+            "S-3.9",
+            "S-3.10",
+            "S-3.11"
           ]
         },
         {
@@ -316,6 +319,42 @@
             "acceptanceCriteria": [
               "endpoint /api/local-actions/run acepta local.action.review_bridge_contract",
               "bridge_contract_review informa acciones, rutas y campos faltantes",
+              "command_execution_exposed es false",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.9",
+            "title": "Ejecutar revision de integridad del tablero",
+            "description": "La accion revisar integridad del tablero valida conteos de cola, acciones locales, artefactos canvas y frontera sin live desde el tablero.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run acepta local.action.review_dashboard_integrity",
+              "dashboard_integrity_review informa tareas, acciones, artefactos y faltantes",
+              "command_execution_exposed es false",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.10",
+            "title": "Ejecutar revision de frontera de acciones locales",
+            "description": "La accion revisar frontera de acciones valida planes, stop conditions y limites no-shell/no-live para todas las acciones locales.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run acepta local.action.review_action_boundary",
+              "action_boundary_review informa planes, acciones y fronteras faltantes",
+              "ningun plan expone shell arbitrario",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.11",
+            "title": "Ejecutar readiness agregado del tablero",
+            "description": "La accion revisar readiness agregado compone revisiones de cola, canvas, paquetes gateados, contrato, integridad y frontera de acciones.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run acepta local.action.review_readiness_bundle",
+              "readiness_bundle_review informa componentes passing y fallidos",
               "command_execution_exposed es false",
               "liveExecuted permanece false"
             ],

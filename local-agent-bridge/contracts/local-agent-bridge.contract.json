@@ -44,7 +44,10 @@
       "local.action.review_task_queue",
       "local.action.prepare_local_validation",
       "local.action.review_live_gate_packets",
-      "local.action.review_bridge_contract"
+      "local.action.review_bridge_contract",
+      "local.action.review_dashboard_integrity",
+      "local.action.review_action_boundary",
+      "local.action.review_readiness_bundle"
     ],
     "blockedActions": [
       "execute_arbitrary_shell_from_dashboard",

@@ -7,6 +7,9 @@ const CANVAS_LANE_REVIEW_ACTION_ID = "local.action.inspect_canvas_lane";
 const TASK_QUEUE_REVIEW_ACTION_ID = "local.action.review_task_queue";
 const LIVE_GATE_PACKET_REVIEW_ACTION_ID = "local.action.review_live_gate_packets";
 const BRIDGE_CONTRACT_REVIEW_ACTION_ID = "local.action.review_bridge_contract";
+const DASHBOARD_INTEGRITY_REVIEW_ACTION_ID = "local.action.review_dashboard_integrity";
+const ACTION_BOUNDARY_REVIEW_ACTION_ID = "local.action.review_action_boundary";
+const READINESS_BUNDLE_REVIEW_ACTION_ID = "local.action.review_readiness_bundle";
 const TASK_QUEUE_PATH = ".agents/codex/matrices/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv";
 const BRIDGE_CONTRACT_PATH = "local-agent-bridge/contracts/local-agent-bridge.contract.json";
 const ROUTES_MATRIX_PATH = "local-agent-bridge/matrices/routes_matrix.csv";
@@ -22,6 +25,31 @@ const LIVE_GATE_PACKET_PATHS = [
   ".agents/codex/orders/ORDER_VSI_MICROSOFT_LIVE_20260606.md",
   ".agents/codex/orders/ORDER_VSI_POWER_PLATFORM_DRY_RUN_20260607.md"
 ];
+
+function getRequiredLocalActionIds() {
+  return [
+    CANVAS_LANE_REVIEW_ACTION_ID,
+    TASK_QUEUE_REVIEW_ACTION_ID,
+    POSTCHECK_ACTION_ID,
+    LIVE_GATE_PACKET_REVIEW_ACTION_ID,
+    BRIDGE_CONTRACT_REVIEW_ACTION_ID,
+    DASHBOARD_INTEGRITY_REVIEW_ACTION_ID,
+    ACTION_BOUNDARY_REVIEW_ACTION_ID,
+    READINESS_BUNDLE_REVIEW_ACTION_ID
+  ];
+}
+
+function getStructuredReviewActionIds() {
+  return [
+    CANVAS_LANE_REVIEW_ACTION_ID,
+    TASK_QUEUE_REVIEW_ACTION_ID,
+    LIVE_GATE_PACKET_REVIEW_ACTION_ID,
+    BRIDGE_CONTRACT_REVIEW_ACTION_ID,
+    DASHBOARD_INTEGRITY_REVIEW_ACTION_ID,
+    ACTION_BOUNDARY_REVIEW_ACTION_ID,
+    READINESS_BUNDLE_REVIEW_ACTION_ID
+  ];
+}
 
 function commandSpec(label, command, args) {
   return { label, command, args };
@@ -123,6 +151,10 @@ function findDuplicates(values) {
   return [...duplicates].sort();
 }
 
+function readJsonFile(repoRoot, artifactPath) {
+  return JSON.parse(fs.readFileSync(path.join(repoRoot, artifactPath), "utf8"));
+}
+
 function readJsonArtifact(repoRoot, artifactPath) {
   const fullPath = path.join(repoRoot, artifactPath);
   if (!fs.existsSync(fullPath)) {
@@ -135,7 +167,7 @@ function readJsonArtifact(repoRoot, artifactPath) {
   }
 
   try {
-    const parsed = JSON.parse(fs.readFileSync(fullPath, "utf8"));
+    const parsed = readJsonFile(repoRoot, artifactPath);
     return {
       path: artifactPath,
       exists: true,
@@ -157,7 +189,7 @@ function reviewCanvasLane(repoRoot) {
   const prd = readJsonArtifact(repoRoot, ".agileagentcanvas-context/planning/prd.json");
   let activeLane = {};
   if (prd.parsed) {
-    const prdJson = JSON.parse(fs.readFileSync(path.join(repoRoot, ".agileagentcanvas-context/planning/prd.json"), "utf8"));
+    const prdJson = readJsonFile(repoRoot, ".agileagentcanvas-context/planning/prd.json");
     activeLane = prdJson?.content?.activeGovernedLane || {};
   }
 
@@ -326,7 +358,7 @@ function reviewLiveGatePackets(repoRoot) {
 function reviewBridgeContract(repoRoot) {
   const contractArtifact = readJsonArtifact(repoRoot, BRIDGE_CONTRACT_PATH);
   const contract = contractArtifact.parsed
-    ? JSON.parse(fs.readFileSync(path.join(repoRoot, BRIDGE_CONTRACT_PATH), "utf8"))
+    ? readJsonFile(repoRoot, BRIDGE_CONTRACT_PATH)
     : {};
   const routesPath = path.join(repoRoot, ROUTES_MATRIX_PATH);
   const routes = fs.existsSync(routesPath)
@@ -335,13 +367,7 @@ function reviewBridgeContract(repoRoot) {
   const routeIds = new Set(routes.map((row) => row.route_id).filter(Boolean));
   const allowedActionIds = contract?.localActions?.allowedActionIds || [];
   const blockedActions = contract?.localActions?.blockedActions || [];
-  const requiredActionIds = [
-    CANVAS_LANE_REVIEW_ACTION_ID,
-    TASK_QUEUE_REVIEW_ACTION_ID,
-    POSTCHECK_ACTION_ID,
-    LIVE_GATE_PACKET_REVIEW_ACTION_ID,
-    BRIDGE_CONTRACT_REVIEW_ACTION_ID
-  ];
+  const requiredActionIds = getRequiredLocalActionIds();
   const missingAllowedActionIds = requiredActionIds
     .filter((actionId) => !allowedActionIds.includes(actionId))
     .sort();
@@ -399,6 +425,167 @@ function reviewBridgeContract(repoRoot) {
     command_execution_exposed: contract?.localActions?.commandExecutionExposed === true
       || contract?.shellConnector?.commandExecutionExposed === true,
     live_executed: contract?.response?.liveExecutedValue === true
+  };
+}
+
+function buildReviewCanvasWorkbench(repoRoot) {
+  const prdArtifact = readJsonArtifact(repoRoot, ".agileagentcanvas-context/planning/prd.json");
+  const activeLane = prdArtifact.parsed
+    ? readJsonFile(repoRoot, ".agileagentcanvas-context/planning/prd.json")?.content?.activeGovernedLane || {}
+    : {};
+  return {
+    active_governed_lane: {
+      lane_id: activeLane.laneId || "NO_DECLARADO",
+      status: activeLane.status || "NO_DECLARADO",
+      owner_agent: activeLane.ownerAgent || "NO_DECLARADO",
+      reviewer_agent: activeLane.reviewerAgent || "NO_DECLARADO",
+      lock_key: activeLane.lockKey || "NO_DECLARADO",
+      live_executed: activeLane.liveExecuted === true,
+      external_sync: activeLane.externalSync === true
+    }
+  };
+}
+
+function readTaskQueueRows(repoRoot) {
+  return parseCsv(fs.readFileSync(path.join(repoRoot, TASK_QUEUE_PATH), "utf8"));
+}
+
+function buildReviewLocalActions(repoRoot) {
+  return buildLocalActions(buildReviewCanvasWorkbench(repoRoot), readTaskQueueRows(repoRoot));
+}
+
+function reviewDashboardIntegrity(repoRoot) {
+  const taskQueueReview = reviewTaskQueue(repoRoot);
+  const canvasLaneReview = reviewCanvasLane(repoRoot);
+  const localActions = buildReviewLocalActions(repoRoot);
+  const actionIds = localActions.map((action) => action.action_id);
+  const requiredActionIds = getRequiredLocalActionIds();
+  const missingRequiredActions = requiredActionIds.filter((actionId) => !actionIds.includes(actionId)).sort();
+  const plans = requiredActionIds.map((actionId) => getLocalActionExecutionPlan(actionId));
+  const nonReadyLocalActions = localActions
+    .filter((action) => !["READY_LOCAL_GOVERNED", "EXECUTED_LOCAL_VALIDATED"].includes(action.status))
+    .map((action) => `${action.action_id}:${action.status}`);
+  const plansWithCommandExecution = plans
+    .filter((plan) => plan.command_execution_exposed === true)
+    .map((plan) => plan.action_id);
+  const plansWithLiveExecution = plans
+    .filter((plan) => plan.live_executed === true)
+    .map((plan) => plan.action_id);
+  const passed = taskQueueReview.status === "PASS"
+    && canvasLaneReview.status === "PASS"
+    && localActions.length === requiredActionIds.length
+    && missingRequiredActions.length === 0
+    && nonReadyLocalActions.length === 0
+    && plansWithCommandExecution.length === 0
+    && plansWithLiveExecution.length === 0;
+
+  return {
+    status: passed ? "PASS" : "FAIL",
+    task_count: taskQueueReview.task_count,
+    executed_task_count: taskQueueReview.executed_count,
+    non_executed_tasks: taskQueueReview.non_executed_tasks,
+    local_action_count: localActions.length,
+    ready_local_action_count: localActions.filter((action) => action.status === "READY_LOCAL_GOVERNED").length,
+    executed_local_action_count: localActions.filter((action) => action.status === "EXECUTED_LOCAL_VALIDATED").length,
+    non_ready_local_actions: nonReadyLocalActions,
+    canvas_artifact_count: canvasLaneReview.artifact_count,
+    parsed_canvas_artifact_count: canvasLaneReview.parsed_artifact_count,
+    active_lane_status: canvasLaneReview.lane_status,
+    missing_required_actions: missingRequiredActions,
+    command_execution_exposed: plansWithCommandExecution.length > 0,
+    live_executed: canvasLaneReview.live_executed || plansWithLiveExecution.length > 0,
+    plans_with_command_execution: plansWithCommandExecution,
+    plans_with_live_execution: plansWithLiveExecution
+  };
+}
+
+function reviewActionBoundary(repoRoot) {
+  const localActions = buildReviewLocalActions(repoRoot);
+  const requiredActionIds = getRequiredLocalActionIds();
+  const actionIds = new Set(localActions.map((action) => action.action_id));
+  const plans = requiredActionIds.map((actionId) => getLocalActionExecutionPlan(actionId));
+  const actionsMissingStopCondition = localActions
+    .filter((action) => !action.stop_condition)
+    .map((action) => action.action_id);
+  const actionsMissingBoundaryBlocks = localActions
+    .filter((action) => !/live_provider_call|secret_handling|production_write|execute_arbitrary_shell_from_dashboard|dispatch_live_agents/.test(action.blocked_actions || ""))
+    .map((action) => action.action_id);
+  const plansWithCommandExecution = plans
+    .filter((plan) => plan.command_execution_exposed === true)
+    .map((plan) => plan.action_id);
+  const plansWithLiveExecution = plans
+    .filter((plan) => plan.live_executed === true)
+    .map((plan) => plan.action_id);
+  const unknownActions = localActions
+    .filter((action) => !requiredActionIds.includes(action.action_id))
+    .map((action) => action.action_id);
+  const missingRequiredActions = requiredActionIds.filter((actionId) => !actionIds.has(actionId));
+  const nonExecutableRequiredActions = plans
+    .filter((plan) => !plan.execute_now)
+    .map((plan) => plan.action_id);
+  const passed = localActions.length === requiredActionIds.length
+    && missingRequiredActions.length === 0
+    && unknownActions.length === 0
+    && actionsMissingStopCondition.length === 0
+    && actionsMissingBoundaryBlocks.length === 0
+    && plansWithCommandExecution.length === 0
+    && plansWithLiveExecution.length === 0
+    && nonExecutableRequiredActions.length === 0;
+
+  return {
+    status: passed ? "PASS" : "FAIL",
+    action_count: localActions.length,
+    plan_count: plans.length,
+    executable_action_count: plans.filter((plan) => plan.execute_now).length,
+    actions_missing_stop_condition: actionsMissingStopCondition,
+    actions_missing_boundary_blocks: actionsMissingBoundaryBlocks,
+    plans_with_command_execution: plansWithCommandExecution,
+    plans_with_live_execution: plansWithLiveExecution,
+    unknown_actions: unknownActions,
+    missing_required_actions: missingRequiredActions,
+    non_executable_required_actions: nonExecutableRequiredActions,
+    command_execution_exposed: plansWithCommandExecution.length > 0,
+    live_executed: plansWithLiveExecution.length > 0
+  };
+}
+
+function reviewReadinessBundle(repoRoot) {
+  const components = [
+    ["task_queue", reviewTaskQueue(repoRoot)],
+    ["canvas_lane", reviewCanvasLane(repoRoot)],
+    ["live_gate_packets", reviewLiveGatePackets(repoRoot)],
+    ["bridge_contract", reviewBridgeContract(repoRoot)],
+    ["dashboard_integrity", reviewDashboardIntegrity(repoRoot)],
+    ["action_boundary", reviewActionBoundary(repoRoot)]
+  ].map(([component, result]) => ({
+    component,
+    status: result.status,
+    live_executed: result.live_executed === true,
+    command_execution_exposed: result.command_execution_exposed === true
+  }));
+  const failingComponents = components
+    .filter((component) => component.status !== "PASS")
+    .map((component) => `${component.component}:${component.status}`);
+  const commandExecutionComponents = components
+    .filter((component) => component.command_execution_exposed)
+    .map((component) => component.component);
+  const liveExecutionComponents = components
+    .filter((component) => component.live_executed)
+    .map((component) => component.component);
+  const passed = failingComponents.length === 0
+    && commandExecutionComponents.length === 0
+    && liveExecutionComponents.length === 0;
+
+  return {
+    status: passed ? "PASS" : "FAIL",
+    component_count: components.length,
+    passing_components: components.filter((component) => component.status === "PASS").length,
+    failing_components: failingComponents,
+    command_execution_components: commandExecutionComponents,
+    live_execution_components: liveExecutionComponents,
+    command_execution_exposed: commandExecutionComponents.length > 0,
+    live_executed: liveExecutionComponents.length > 0,
+    components
   };
 }
 
@@ -482,7 +669,7 @@ export function buildLocalActions(canvasWorkbench, agentTaskQueue) {
       stop_condition: "canvas_lane_structured_review_failed"
     },
     {
-      action_id: "local.action.review_task_queue",
+      action_id: TASK_QUEUE_REVIEW_ACTION_ID,
       title: "Revisar cola local VSI",
       status: agentTaskQueue.every((row) => row.status === "EXECUTED_LOCAL_VALIDATED")
         ? "EXECUTED_LOCAL_VALIDATED"
@@ -534,48 +721,51 @@ export function buildLocalActions(canvasWorkbench, agentTaskQueue) {
       allowed_now: "read_bridge_contract|review_loopback_boundary|review_action_allowlist",
       blocked_actions: "execute_arbitrary_shell_from_dashboard|live_provider_call|secret_handling|production_write",
       stop_condition: "bridge_contract_structured_review_failed"
+    },
+    {
+      action_id: DASHBOARD_INTEGRITY_REVIEW_ACTION_ID,
+      title: "Revisar integridad del tablero",
+      status: "READY_LOCAL_GOVERNED",
+      surface: "local_dashboard_integrity",
+      owner_agent: "codex.workspace_guardian",
+      target: "acciones|cola|canvas",
+      evidence: "structured dashboard integrity review available",
+      execution_mode: "structured_local_review",
+      allowed_now: "review_dashboard_counts|review_action_allowlist|review_no_live_boundary",
+      blocked_actions: "execute_arbitrary_shell_from_dashboard|live_provider_call|secret_handling|production_write",
+      stop_condition: "dashboard_integrity_review_failed"
+    },
+    {
+      action_id: ACTION_BOUNDARY_REVIEW_ACTION_ID,
+      title: "Revisar frontera de acciones",
+      status: "READY_LOCAL_GOVERNED",
+      surface: "local_action_boundary",
+      owner_agent: "codex.workspace_guardian",
+      target: "local action plans",
+      evidence: "structured action boundary review available",
+      execution_mode: "structured_local_review",
+      allowed_now: "review_action_plans|review_no_live_boundary|review_stop_conditions",
+      blocked_actions: "execute_arbitrary_shell_from_dashboard|live_provider_call|secret_handling|production_write",
+      stop_condition: "action_boundary_review_failed"
+    },
+    {
+      action_id: READINESS_BUNDLE_REVIEW_ACTION_ID,
+      title: "Revisar readiness agregado",
+      status: "READY_LOCAL_GOVERNED",
+      surface: "local_readiness_bundle",
+      owner_agent: "codex.workspace_guardian",
+      target: "dashboard readiness bundle",
+      evidence: "structured readiness bundle review available",
+      execution_mode: "structured_local_review",
+      allowed_now: "review_readiness_bundle|review_component_status|review_no_live_boundary",
+      blocked_actions: "execute_arbitrary_shell_from_dashboard|live_provider_call|secret_handling|production_write",
+      stop_condition: "readiness_bundle_review_failed"
     }
   ];
 }
 
 export function getLocalActionExecutionPlan(actionId) {
-  if (actionId === BRIDGE_CONTRACT_REVIEW_ACTION_ID) {
-    return {
-      action_id: actionId,
-      execute_now: true,
-      status: "READY_LOCAL_GOVERNED",
-      command_execution_exposed: false,
-      live_executed: false,
-      shell_mode: "structured_local_review_no_shell",
-      postcheck_commands: []
-    };
-  }
-
-  if (actionId === CANVAS_LANE_REVIEW_ACTION_ID) {
-    return {
-      action_id: actionId,
-      execute_now: true,
-      status: "READY_LOCAL_GOVERNED",
-      command_execution_exposed: false,
-      live_executed: false,
-      shell_mode: "structured_local_review_no_shell",
-      postcheck_commands: []
-    };
-  }
-
-  if (actionId === LIVE_GATE_PACKET_REVIEW_ACTION_ID) {
-    return {
-      action_id: actionId,
-      execute_now: true,
-      status: "READY_LOCAL_GOVERNED",
-      command_execution_exposed: false,
-      live_executed: false,
-      shell_mode: "structured_local_review_no_shell",
-      postcheck_commands: []
-    };
-  }
-
-  if (actionId === TASK_QUEUE_REVIEW_ACTION_ID) {
+  if (getStructuredReviewActionIds().includes(actionId)) {
     return {
       action_id: actionId,
       execute_now: true,
@@ -611,6 +801,45 @@ export function getLocalActionExecutionPlan(actionId) {
 
 export async function runLocalAction(actionId, repoRoot) {
   const plan = getLocalActionExecutionPlan(actionId);
+  if (actionId === READINESS_BUNDLE_REVIEW_ACTION_ID) {
+    const readinessBundleReview = reviewReadinessBundle(repoRoot);
+    return {
+      ...plan,
+      status: readinessBundleReview.status,
+      evidence: "structured readiness bundle review executed",
+      readiness_bundle_review: readinessBundleReview,
+      stop_condition: readinessBundleReview.status === "PASS"
+        ? "readiness_bundle_review_passed"
+        : "readiness_bundle_review_failed"
+    };
+  }
+
+  if (actionId === ACTION_BOUNDARY_REVIEW_ACTION_ID) {
+    const actionBoundaryReview = reviewActionBoundary(repoRoot);
+    return {
+      ...plan,
+      status: actionBoundaryReview.status,
+      evidence: "structured local action boundary review executed",
+      action_boundary_review: actionBoundaryReview,
+      stop_condition: actionBoundaryReview.status === "PASS"
+        ? "action_boundary_review_passed"
+        : "action_boundary_review_failed"
+    };
+  }
+
+  if (actionId === DASHBOARD_INTEGRITY_REVIEW_ACTION_ID) {
+    const dashboardIntegrityReview = reviewDashboardIntegrity(repoRoot);
+    return {
+      ...plan,
+      status: dashboardIntegrityReview.status,
+      evidence: "structured dashboard integrity review executed",
+      dashboard_integrity_review: dashboardIntegrityReview,
+      stop_condition: dashboardIntegrityReview.status === "PASS"
+        ? "dashboard_integrity_review_passed"
+        : "dashboard_integrity_review_failed"
+    };
+  }
+
   if (actionId === BRIDGE_CONTRACT_REVIEW_ACTION_ID) {
     const bridgeContractReview = reviewBridgeContract(repoRoot);
     return {
