@@ -42,6 +42,9 @@ const userCataloguePacket = fs.readFileSync(
   path.join(repoRoot, ".agents", "codex", "orders", "ORDER_VSI_AGILE_AGENT_CANVAS_USER_CATALOGUE_20260606.md"),
   "utf8"
 );
+const canvasVision = JSON.parse(fs.readFileSync(path.join(repoRoot, ".agileagentcanvas-context", "vision.json"), "utf8"));
+const canvasPrd = JSON.parse(fs.readFileSync(path.join(repoRoot, ".agileagentcanvas-context", "planning", "prd.json"), "utf8"));
+const canvasEpics = JSON.parse(fs.readFileSync(path.join(repoRoot, ".agileagentcanvas-context", "planning", "epics.json"), "utf8"));
 assert.equal(dashboard.status, "ok");
 assert.equal(dashboard.live_executed, false);
 assert.ok(dashboard.summary.local_task_scoped_agents > 0);
@@ -60,9 +63,17 @@ assert.equal(
   dashboard.summary.agent_task_queue_records
 );
 assert.ok(dashboard.agent_task_queue.some((row) => row.task_id === "vsi.agent.task.002"));
+assert.ok(dashboard.agent_task_queue.some((row) => row.task_id === "vsi.agent.task.011"));
 assert.ok(dashboard.agent_task_queue.every((row) => row.status === "EXECUTED_LOCAL_VALIDATED"));
 assert.match(dashboardHtml, /window\.location\.protocol === "file:"/);
 assert.match(dashboardHtml, /renderFileFallback/);
+assert.equal(canvasVision.content.activeGovernedLane.status, "ACTIVE_LOCAL_GOVERNED_USE");
+assert.equal(canvasVision.content.activeGovernedLane.liveExecuted, false);
+assert.equal(canvasPrd.content.activeGovernedLane.lockKey, "lock.vsi.aac_programming_lane");
+assert.equal(canvasPrd.content.activeGovernedLane.liveExecuted, false);
+assert.ok(canvasPrd.content.activeGovernedLane.writeAllowlist.includes(".agileagentcanvas-context/vision.json"));
+assert.equal(canvasEpics.content.activeGovernedLane.linkedStory, "S-1.4");
+assert.equal(canvasEpics.content.activeGovernedLane.externalSync, false);
 assert.equal(Object.hasOwn(workspaceSettings, "agileagentcanvas.skillRepos"), false);
 if (fs.existsSync(workspaceSettingsPath)) {
   assert.equal(workspaceSettings["agileagentcanvas.userCataloguePath"], ".agents/skills");

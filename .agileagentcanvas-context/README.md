@@ -10,6 +10,15 @@ Artefactos raiz versionados:
 - `planning/prd.json`
 - `planning/epics.json`
 
+Carril activo:
+
+- `agile_canvas_programming_lane`
+- owner: `codex.workspace_guardian`
+- reviewer: `court.seshat_evidence`
+- lock: `lock.vsi.aac_programming_lane`
+- estado: `ACTIVE_LOCAL_GOVERNED_USE`
+- scope: artefactos Agile Agent Canvas, tablero local y cola VSI allowlisted
+
 Frontera operativa:
 
 - solo artefactos locales del workspace

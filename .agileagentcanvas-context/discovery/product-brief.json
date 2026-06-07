@@ -6,7 +6,7 @@
     "projectName": "Cabina Universal Agent Control",
     "timestamps": {
       "created": "2026-06-06T00:00:00Z",
-      "lastModified": "2026-06-06T00:00:00Z"
+      "lastModified": "2026-06-07T00:00:00Z"
     },
     "status": "governed-local-active",
     "tags": [
@@ -156,6 +156,28 @@
         "complexity": "alta"
       }
     ],
+    "activeGovernedLane": {
+      "laneId": "agile_canvas_programming_lane",
+      "status": "ACTIVE_LOCAL_GOVERNED_USE",
+      "ownerAgent": "codex.workspace_guardian",
+      "reviewerAgent": "court.seshat_evidence",
+      "lockKey": "lock.vsi.aac_programming_lane",
+      "allowedUse": [
+        "actualizar artefactos Agile Agent Canvas allowlisted",
+        "mantener evidencia en tablero local",
+        "registrar cierre en cola VSI",
+        "ejecutar validadores locales"
+      ],
+      "blockedUse": [
+        "auto-sync externo",
+        "Jira live",
+        "OpenAI live",
+        "Microsoft live",
+        "secretos",
+        "produccion"
+      ],
+      "liveExecuted": false
+    },
     "successMetrics": [
       {
         "metric": "Identidad raiz del canvas",

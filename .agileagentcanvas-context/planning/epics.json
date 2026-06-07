@@ -6,7 +6,7 @@
     "projectName": "Cabina Universal Agent Control",
     "timestamps": {
       "created": "2026-06-06T00:00:00Z",
-      "lastModified": "2026-06-06T00:00:00Z"
+      "lastModified": "2026-06-07T00:00:00Z"
     },
     "status": "governed-local-active",
     "tags": [
@@ -163,7 +163,19 @@
               "git status muestra solo archivos canvas explicitos mas matrices previstas",
               ".gitignore no queda staged"
             ],
-            "status": "pendiente"
+            "status": "hecho"
+          },
+          {
+            "id": "S-1.4",
+            "title": "Abrir uso real del carril Agile Agent Canvas",
+            "description": "El canvas declara un carril activo repo-local con owner, reviewer, lock, allowlist, validadores y gates live bloqueados.",
+            "acceptanceCriteria": [
+              "activeGovernedLane.status es ACTIVE_LOCAL_GOVERNED_USE",
+              "liveExecuted es false",
+              "writeAllowlist coincide con el paquete de orden",
+              "validadores locales pasan"
+            ],
+            "status": "hecho"
           }
         ]
       },
@@ -203,7 +215,7 @@
               "owner y rollback declarados",
               "no ocurre clon externo sin gate"
             ],
-            "status": "pendiente"
+            "status": "hecho"
           }
         ]
       },
@@ -278,6 +290,17 @@
           }
         ]
       }
-    ]
+    ],
+    "activeGovernedLane": {
+      "laneId": "agile_canvas_programming_lane",
+      "status": "ACTIVE_LOCAL_GOVERNED_USE",
+      "ownerAgent": "codex.workspace_guardian",
+      "reviewerAgent": "court.seshat_evidence",
+      "lockKey": "lock.vsi.aac_programming_lane",
+      "linkedStory": "S-1.4",
+      "liveExecuted": false,
+      "externalSync": false,
+      "stopCondition": "programming_lane_exits_allowlist"
+    }
   }
 }

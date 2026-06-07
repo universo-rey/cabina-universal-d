@@ -6,7 +6,7 @@
     "projectName": "Cabina Universal Agent Control",
     "timestamps": {
       "created": "2026-06-06T00:00:00Z",
-      "lastModified": "2026-06-06T00:00:00Z"
+      "lastModified": "2026-06-07T00:00:00Z"
     },
     "status": "governed-local-active",
     "tags": [
@@ -49,6 +49,18 @@
         "description": "Necesita fronteras claras para live, tenant, costo, produccion, secretos y datos regulados."
       }
     ],
+    "activeGovernedLane": {
+      "laneId": "agile_canvas_programming_lane",
+      "status": "ACTIVE_LOCAL_GOVERNED_USE",
+      "ownerAgent": "codex.workspace_guardian",
+      "reviewerAgent": "court.seshat_evidence",
+      "lockKey": "lock.vsi.aac_programming_lane",
+      "scope": "Abrir uso real repo-local de Agile Agent Canvas sobre la allowlist preparada.",
+      "liveExecuted": false,
+      "externalSync": false,
+      "gate": "none_for_repo_local_allowlist",
+      "stopCondition": "programming_lane_exits_allowlist"
+    },
     "successMetrics": [
       {
         "metric": "Mesa canvas lista",
