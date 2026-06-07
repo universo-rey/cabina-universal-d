@@ -147,7 +147,8 @@ export function collectDashboardData(startPath = process.cwd()) {
     semaphore: `${matricesRoot}/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_SEMAPHORE_MATRIX_20260605.csv`,
     gateQueue: `${matricesRoot}/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_GATE_QUEUE_20260605.csv`,
     autonomous: `${matricesRoot}/AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv`,
-    agileAgentCanvas: `${matricesRoot}/VSCODE_INSIDERS_AGILE_AGENT_CANVAS_GOVERNANCE_20260606.csv`
+    agileAgentCanvas: `${matricesRoot}/VSCODE_INSIDERS_AGILE_AGENT_CANVAS_GOVERNANCE_20260606.csv`,
+    agentTaskQueue: `${matricesRoot}/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv`
   };
 
   const operability = readCsv(repoRoot, paths.operability);
@@ -155,6 +156,7 @@ export function collectDashboardData(startPath = process.cwd()) {
   const gateQueue = readCsv(repoRoot, paths.gateQueue);
   const autonomous = readCsv(repoRoot, paths.autonomous);
   const agileAgentCanvas = readCsv(repoRoot, paths.agileAgentCanvas);
+  const agentTaskQueue = readCsv(repoRoot, paths.agentTaskQueue);
   const canvasWorkbench = summarizeCanvasWorkbench(repoRoot, agileAgentCanvas);
 
   return {
@@ -167,6 +169,9 @@ export function collectDashboardData(startPath = process.cwd()) {
       operability_records: operability.length,
       agile_agent_canvas_controls: agileAgentCanvas.length,
       canvas_artifacts_ready: canvasWorkbench.parsed_artifacts,
+      agent_task_queue_records: agentTaskQueue.length,
+      queued_agent_tasks: agentTaskQueue.filter((row) => row.status === "QUEUED_READY").length,
+      executed_agent_tasks: agentTaskQueue.filter((row) => row.status.startsWith("EXECUTED")).length,
       autonomous_records: autonomous.length,
       local_task_scoped_agents: autonomous.filter((row) => row.execution_mode === "local_task_scoped_agent").length,
       codex_cloud_ready_records: autonomous.filter((row) => row.status === "ACTIVE_CODEX_CLOUD_READY").length,
@@ -177,6 +182,7 @@ export function collectDashboardData(startPath = process.cwd()) {
     gate_queue: gateQueue,
     agile_agent_canvas: agileAgentCanvas,
     canvas_workbench: canvasWorkbench,
+    agent_task_queue: agentTaskQueue,
     operability: firstRows(operability, 40),
     autonomous: firstRows(autonomous, 60)
   };

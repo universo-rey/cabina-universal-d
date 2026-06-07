@@ -43,6 +43,11 @@ assert.equal(dashboard.canvas_workbench.status, "ACTIVE_LOCAL_WORKBENCH");
 assert.equal(dashboard.canvas_workbench.project_name, "Cabina Universal Agent Control");
 assert.ok(dashboard.agile_agent_canvas.some((row) => row.control_id === "aac.canvas.seed_package"));
 assert.ok(dashboard.semaphores.every((row) => row.color));
+assert.equal(dashboard.summary.agent_task_queue_records, dashboard.agent_task_queue.length);
+assert.ok(dashboard.summary.queued_agent_tasks > 0);
+assert.ok(dashboard.summary.executed_agent_tasks > 0);
+assert.ok(dashboard.agent_task_queue.some((row) => row.task_id === "vsi.agent.task.002"));
+assert.ok(dashboard.agent_task_queue.some((row) => row.status === "QUEUED_READY"));
 
 const shellStatus = getShellConnectorStatus(repoRoot);
 assert.equal(shellStatus.connector_id, "local.shell.connector.governed");

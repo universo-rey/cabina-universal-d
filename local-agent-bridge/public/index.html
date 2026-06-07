@@ -300,6 +300,23 @@
         <tbody id="agile-canvas"></tbody>
       </table>
     </section>
+
+    <section class="section">
+      <h2>Cola de tareas de agentes</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Tarea</th>
+            <th>Estado</th>
+            <th>Responsable</th>
+            <th>Revisor</th>
+            <th>Dependencia</th>
+            <th>Condicion de detencion</th>
+          </tr>
+        </thead>
+        <tbody id="agent-task-queue"></tbody>
+      </table>
+    </section>
   </main>
 
   <script>
@@ -315,6 +332,7 @@
       ["READY_FOR_MANUAL_LOCAL_USE", "listo para uso local manual"],
       ["GATED_REPO_WRITE_ONLY", "solo escritura repo gateada"],
       ["GATED_PENDING", "gate pendiente"],
+      ["QUEUED_READY", "en cola listo"],
       ["PENDING_TARGET_ONLY", "pendiente solo target"],
       ["NO_DECLARADO", "no declarado"],
       ["GREEN", "verde"],
@@ -473,6 +491,19 @@
       return tr;
     }
 
+    function renderAgentTask(row) {
+      const tr = document.createElement("tr");
+      tr.append(
+        cell(`${row.task_id} · ${row.title}`, "mono"),
+        cell(row.status, "mono"),
+        cell(row.owner_agent, "mono"),
+        cell(row.reviewer_agent, "mono"),
+        cell(row.dependency, "mono"),
+        cell(row.stop_condition, "mono")
+      );
+      return tr;
+    }
+
     async function main() {
       const response = await fetch("/api/dashboard");
       const data = await response.json();
@@ -485,6 +516,8 @@
         renderMetric("codex cloud listo", data.summary.codex_cloud_ready_records),
         renderMetric("controles Agile Canvas", data.summary.agile_agent_canvas_controls),
         renderMetric("artefactos canvas", `${data.summary.canvas_artifacts_ready}/${data.canvas_workbench.artifact_count}`),
+        renderMetric("tareas en cola", data.summary.queued_agent_tasks),
+        renderMetric("tareas ejecutadas", data.summary.executed_agent_tasks),
         renderMetric("gates pendientes", data.summary.gated_records),
         renderMetric("live ejecutado", data.live_executed ? "si" : "no")
       );
@@ -503,6 +536,7 @@
         .filter((row) => row.execution_mode === "local_task_scoped_agent")
         .forEach((row) => document.getElementById("agents").append(renderAgent(row)));
       data.agile_agent_canvas.forEach((row) => document.getElementById("agile-canvas").append(renderAgileCanvas(row)));
+      data.agent_task_queue.forEach((row) => document.getElementById("agent-task-queue").append(renderAgentTask(row)));
     }
 
     main().catch((error) => {
