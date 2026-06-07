@@ -16,6 +16,7 @@ def validate() -> None:
             "local-agent-bridge/src/evidenceAdapter.mjs",
             "local-agent-bridge/src/mcpRegistry.mjs",
             "local-agent-bridge/src/shellConnector.mjs",
+            "local-agent-bridge/src/localActions.mjs",
             "local-agent-bridge/tests/mock_bridge_flow.mjs",
         ]
     )
@@ -28,6 +29,13 @@ def validate() -> None:
         raise AssertionError("local bridge contract must remain loopback and no-live")
     if contract.get("shellConnector", {}).get("commandExecutionExposed") is not False:
         raise AssertionError("shell connector command execution must not be exposed")
+    local_actions = contract.get("localActions", {})
+    if local_actions.get("commandExecutionExposed") is not False:
+        raise AssertionError("local actions must not expose arbitrary command execution")
+    if "local.action.prepare_local_validation" not in local_actions.get("allowedActionIds", []):
+        raise AssertionError("local action allowlist missing prepare_local_validation")
+    if "execute_arbitrary_shell_from_dashboard" not in local_actions.get("blockedActions", []):
+        raise AssertionError("local actions must block arbitrary shell from dashboard")
     if contract.get("localReadSurface", {}).get("requiresLoopbackBindHost") is not True:
         raise AssertionError("local read surface must require loopback bind host")
     if contract.get("localReadSurface", {}).get("blockedStatus") != 403:
@@ -42,9 +50,9 @@ def validate() -> None:
         if "external_write" not in row["blocked_actions"] and "teams_send" not in row["blocked_actions"]:
             raise AssertionError(f"{row['route_id']} missing write block")
     route_ids = {row["route_id"] for row in routes}
-    for route_id in ("bridge.shell_status", "bridge.shell_command_blocked"):
+    for route_id in ("bridge.shell_status", "bridge.shell_command_blocked", "bridge.local_action_run"):
         if route_id not in route_ids:
-            raise AssertionError(f"missing governed shell connector route: {route_id}")
+            raise AssertionError(f"missing governed local route: {route_id}")
 
     server = read_text("local-agent-bridge/src/server.mjs")
     if '127.0.0.1' not in server:
@@ -53,6 +61,8 @@ def validate() -> None:
         raise AssertionError("local bridge must report no live execution")
     if "assertLoopbackReadSurface(host)" not in server:
         raise AssertionError("dashboard and shell status must be loopback-gated")
+    if '"/api/local-actions/run"' not in server:
+        raise AssertionError("local action endpoint must be declared")
     policy = read_text("local-agent-bridge/src/policy.mjs")
     if "0.0.0.0" in policy:
         raise AssertionError("policy should not allow non-loopback wildcard hosts")
@@ -63,6 +73,11 @@ def validate() -> None:
         raise AssertionError("shell connector must block arbitrary command execution")
     if "status_only" not in shell_connector:
         raise AssertionError("shell connector must remain status_only")
+    local_actions_text = read_text("local-agent-bridge/src/localActions.mjs")
+    if "execute_arbitrary_shell_from_dashboard" not in local_actions_text:
+        raise AssertionError("local actions must block arbitrary shell execution")
+    if "purpose_built_postcheck_allowlist" not in local_actions_text:
+        raise AssertionError("local actions must use purpose-built postcheck allowlist")
 
 
 if __name__ == "__main__":

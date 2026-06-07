@@ -268,6 +268,18 @@
               "no hay ejecucion shell desde el tablero"
             ],
             "status": "hecho"
+          },
+          {
+            "id": "S-3.5",
+            "title": "Ejecutar postcheck guiado desde el tablero",
+            "description": "La accion preparar validacion local ejecuta un postcheck allowlisted desde el tablero mediante endpoint dedicado, sin exponer shell arbitrario.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run existe",
+              "solo local.action.prepare_local_validation ejecuta postcheck",
+              "command_execution_exposed es false",
+              "postcheck devuelve resultados PASS/FAIL"
+            ],
+            "status": "hecho"
           }
         ]
       },

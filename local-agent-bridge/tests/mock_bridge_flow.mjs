@@ -8,6 +8,7 @@ import { buildEvidence } from "../src/evidenceAdapter.mjs";
 import { resolveConnection } from "../src/mcpRegistry.mjs";
 import { collectDashboardData } from "../src/dashboardData.mjs";
 import { buildShellCommandBlockedResponse, getShellConnectorStatus } from "../src/shellConnector.mjs";
+import { getLocalActionExecutionPlan } from "../src/localActions.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "..", "..");
@@ -61,6 +62,7 @@ assert.equal(dashboard.summary.active_agile_canvas_lane, "ACTIVE_LOCAL_GOVERNED_
 assert.equal(dashboard.local_actions.length, 3);
 assert.equal(dashboard.summary.local_actions_ready, 3);
 assert.ok(dashboard.local_actions.some((row) => row.action_id === "local.action.inspect_canvas_lane"));
+assert.ok(dashboard.local_actions.some((row) => row.execution_mode === "postcheck_allowlist"));
 assert.ok(dashboard.local_actions.every((row) => !row.blocked_actions.includes("secret_handling") || row.status !== "NEEDS_REVIEW"));
 assert.ok(dashboard.agile_agent_canvas.some((row) => row.control_id === "aac.canvas.seed_package"));
 assert.ok(dashboard.semaphores.every((row) => row.color));
@@ -81,6 +83,7 @@ assert.match(dashboardHtml, /renderFileFallback/);
 assert.match(dashboardHtml, /Carril activo/);
 assert.match(dashboardHtml, /Acciones locales/);
 assert.match(dashboardHtml, /renderLocalAction/);
+assert.match(dashboardHtml, /runLocalAction/);
 assert.equal(canvasVision.content.activeGovernedLane.status, "ACTIVE_LOCAL_GOVERNED_USE");
 assert.equal(canvasVision.content.activeGovernedLane.liveExecuted, false);
 assert.equal(canvasPrd.content.activeGovernedLane.lockKey, "lock.vsi.aac_programming_lane");
@@ -105,5 +108,11 @@ const shellBlocked = buildShellCommandBlockedResponse(repoRoot);
 assert.equal(shellBlocked.status, "blocked");
 assert.equal(shellBlocked.live_executed, false);
 assert.equal(shellBlocked.stop_condition, "LOCAL_SHELL_COMMAND_EXECUTION_NOT_EXPOSED");
+
+const actionPlan = getLocalActionExecutionPlan("local.action.prepare_local_validation");
+assert.equal(actionPlan.execute_now, true);
+assert.equal(actionPlan.command_execution_exposed, false);
+assert.equal(actionPlan.live_executed, false);
+assert.ok(actionPlan.postcheck_commands.includes("npm test"));
 
 console.log("SDU_LOCAL_AGENT_BRIDGE_MOCK_FLOW_PASS");
