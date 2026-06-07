@@ -173,6 +173,7 @@ function summarizeCanvasWorkbench(repoRoot, agileAgentCanvas) {
 function gateNextAction(row) {
   const surface = row.surface || "";
   const gate = row.gate || row.gate_required || "";
+  if (String(row.status || row.observed_state || "").includes("SUSPENDED")) return "suspendido por operador";
   if (surface === "jira_integration") return "preparar paquete Jira existente";
   if (surface === "skill_catalogue") return "usar catalogo local workspace";
   if (surface === "graphify_commands") return "mantener plan manual gateado";
@@ -183,7 +184,7 @@ function gateNextAction(row) {
 
 function buildVisibleGateLane(gateQueue, agileAgentCanvas) {
   const canvasItems = agileAgentCanvas
-    .filter((row) => row.gate && row.gate !== "none")
+    .filter((row) => row.gate && row.gate !== "none" && !String(row.status || row.observed_state || "").includes("SUSPENDED"))
     .map((row) => ({
       source: "agile_agent_canvas",
       gate: row.gate,
