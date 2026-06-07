@@ -1,0 +1,13 @@
+{
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "agileagentcanvas.outputFolder": ".agileagentcanvas-context",
+    "agileagentcanvas.userCataloguePath": ".agents/skills",
+    "agileagentcanvas.autoSync": false,
+    "agileagentcanvas.graphify.autoBootstrapOnNewProject": false,
+    "agileagentcanvas.graphify.autoUpdateOnSave": false,
+    "agileagentcanvas.graphify.showCodebaseLane": false,
+    "agileagentcanvas.codeburn.enabled": false,
+    "agentMemory.storageBackend": "disk",
+    "agentMemory.autoSyncToFile": ".vscode/memory/AGENT_MEMORY_SYNC.md",
+    "agentMemory.tldr.enabled": false
+}

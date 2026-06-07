@@ -16,12 +16,15 @@ from sdu_runtime_common import (
 NAME = "VSI_FUNCTION_UTILIZATION_VALIDATOR"
 MATRIX_PATH = ".agents/codex/matrices/VSI_FUNCTION_UTILIZATION_MATRIX_20260607.csv"
 TASKS_PATH = ".vscode/tasks.json"
+SETTINGS_PATH = ".vscode/settings.json"
 COVERAGE_PATH = ".agents/codex/matrices/VALIDATION_COVERAGE_MATRIX.csv"
 NO_PS_PREP_PATH = ".agents/codex/matrices/NO_PS_VALIDATOR_PREP_MATRIX_20260607.csv"
 MATRIX_INDEX_PATH = ".agents/codex/matrices/MATRIX_INDEX.csv"
 TASK_QUEUE_PATH = ".agents/codex/matrices/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv"
 WORKSPACE_EVIDENCE_PATH = ".agents/codex/workpapers/codex.workspace_guardian/EVIDENCE_LOG.csv"
 SESHAT_EVIDENCE_PATH = ".agents/codex/workpapers/court.seshat_evidence/EVIDENCE_LOG.csv"
+MEMORY_LOCAL_SYNC_PATH = ".vscode/memory/AGENT_MEMORY_SYNC.md"
+MEMORY_WORKPAPER_EXPORT_PATH = ".agents/codex/workpapers/codex.workspace_guardian/AGENT_MEMORY_SYNC.md"
 VALIDATOR_PATH = "scripts/validators/vsi_function_utilization_validator.py"
 TASK_LABEL = "Cabina: Validate VSI function utilization"
 TASK_ID = "vsi.agent.task.042"
@@ -110,6 +113,18 @@ def _assert_task_contract() -> None:
         raise AssertionError(f"{TASK_LABEL} references blocked shell runtime")
 
 
+def _assert_memory_bridge_settings() -> None:
+    settings = read_json(SETTINGS_PATH)
+    if not isinstance(settings, dict):
+        raise AssertionError(f"{SETTINGS_PATH} must be a JSON object")
+    if settings.get("agentMemory.storageBackend") != "disk":
+        raise AssertionError("agentMemory.storageBackend must be disk")
+    if settings.get("agentMemory.autoSyncToFile") != MEMORY_LOCAL_SYNC_PATH:
+        raise AssertionError("agentMemory.autoSyncToFile must point to ignored local memory buffer")
+    if settings.get("agentMemory.tldr.enabled") is not False:
+        raise AssertionError("agentMemory.tldr.enabled must be false for no implicit AI summary")
+
+
 def _assert_coverage() -> None:
     rows = read_csv(COVERAGE_PATH)
     matches = [row for row in rows if row.get("artifact_class") == "vsi_function_utilization"]
@@ -181,23 +196,27 @@ def validate() -> None:
     require_files([
         MATRIX_PATH,
         TASKS_PATH,
+        SETTINGS_PATH,
         COVERAGE_PATH,
         NO_PS_PREP_PATH,
         MATRIX_INDEX_PATH,
         TASK_QUEUE_PATH,
         WORKSPACE_EVIDENCE_PATH,
         SESHAT_EVIDENCE_PATH,
+        MEMORY_WORKPAPER_EXPORT_PATH,
         VALIDATOR_PATH,
     ])
     require_no_materialized_sensitive_values([
         MATRIX_PATH,
         TASKS_PATH,
+        SETTINGS_PATH,
         COVERAGE_PATH,
         NO_PS_PREP_PATH,
         MATRIX_INDEX_PATH,
         TASK_QUEUE_PATH,
         WORKSPACE_EVIDENCE_PATH,
         SESHAT_EVIDENCE_PATH,
+        MEMORY_WORKPAPER_EXPORT_PATH,
     ])
     rows = read_csv(MATRIX_PATH)
     require_columns(rows, REQUIRED_COLUMNS, MATRIX_PATH)
@@ -224,6 +243,7 @@ def validate() -> None:
                 raise AssertionError(f"{MATRIX_PATH}:{index} {function_id} missing {field}")
 
     _assert_task_contract()
+    _assert_memory_bridge_settings()
     _assert_coverage()
     _assert_no_ps_prep()
     _assert_matrix_index()
