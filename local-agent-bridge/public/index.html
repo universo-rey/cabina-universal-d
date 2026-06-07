@@ -408,13 +408,22 @@
       ["live_gate_packet_review", "revision de paquetes live-gateados"],
       ["canvas_lane_review", "revision de carril canvas"],
       ["bridge_contract_review", "revision de contrato bridge"],
+      ["dashboard_integrity_review", "revision de integridad del tablero"],
+      ["action_boundary_review", "revision de frontera de acciones"],
+      ["readiness_bundle_review", "revision de readiness agregado"],
       ["local_agent_bridge", "puente local de agentes"],
       ["local_agent_bridge_contract", "contrato del bridge local"],
+      ["local_dashboard_integrity", "integridad del tablero local"],
+      ["local_action_boundary", "frontera de acciones locales"],
+      ["local_readiness_bundle", "readiness local agregado"],
       ["local.action.inspect_canvas_lane", "inspeccionar carril Agile Canvas"],
       ["local.action.review_task_queue", "revisar cola local VSI"],
       ["local.action.prepare_local_validation", "preparar validacion local"],
       ["local.action.review_live_gate_packets", "revisar paquetes live-gateados"],
       ["local.action.review_bridge_contract", "revisar contrato del bridge local"],
+      ["local.action.review_dashboard_integrity", "revisar integridad del tablero"],
+      ["local.action.review_action_boundary", "revisar frontera de acciones"],
+      ["local.action.review_readiness_bundle", "revisar readiness agregado"],
       ["postcheck_allowlist", "postcheck allowlist"],
       ["structured_local_review", "revision local estructurada"],
       ["structured_local_review_no_shell", "revision local sin shell"],
@@ -422,6 +431,12 @@
       ["read_bridge_contract", "leer contrato bridge"],
       ["review_loopback_boundary", "revisar frontera loopback"],
       ["review_action_allowlist", "revisar allowlist de acciones"],
+      ["review_dashboard_counts", "revisar conteos del tablero"],
+      ["review_no_live_boundary", "revisar frontera sin live"],
+      ["review_action_plans", "revisar planes de accion"],
+      ["review_stop_conditions", "revisar condiciones de detencion"],
+      ["review_readiness_bundle", "revisar readiness agregado"],
+      ["review_component_status", "revisar estado de componentes"],
       ["guided_read_only", "lectura guiada"],
       ["GUIDED_READ_ONLY", "lectura guiada"],
       ["postcheck_passed", "postcheck aprobado"],
@@ -429,6 +444,12 @@
       ["canvas_lane_structured_review_failed", "fallo de revision de carril canvas"],
       ["bridge_contract_review_passed", "revision de contrato aprobada"],
       ["bridge_contract_structured_review_failed", "fallo de revision de contrato bridge"],
+      ["dashboard_integrity_review_passed", "revision de integridad aprobada"],
+      ["dashboard_integrity_review_failed", "fallo de integridad del tablero"],
+      ["action_boundary_review_passed", "revision de frontera aprobada"],
+      ["action_boundary_review_failed", "fallo de frontera de acciones"],
+      ["readiness_bundle_review_passed", "readiness agregado aprobado"],
+      ["readiness_bundle_review_failed", "fallo de readiness agregado"],
       ["task_queue_review_passed", "revision de cola aprobada"],
       ["task_queue_structured_review_failed", "fallo de revision estructurada de cola"],
       ["live_gate_packet_review_passed", "revision de paquetes aprobada"],
@@ -608,9 +629,18 @@
       const bridgeReview = result.bridge_contract_review
         ? `acciones ${result.bridge_contract_review.allowed_action_count} · rutas ${result.bridge_contract_review.route_count} · faltantes ${result.bridge_contract_review.missing_allowed_action_ids.length} · campos ${result.bridge_contract_review.missing_contract_fields.length}`
         : "";
+      const dashboardIntegrityReview = result.dashboard_integrity_review
+        ? `tareas ${result.dashboard_integrity_review.executed_task_count}/${result.dashboard_integrity_review.task_count} · acciones ${result.dashboard_integrity_review.local_action_count} · artefactos ${result.dashboard_integrity_review.parsed_canvas_artifact_count}/${result.dashboard_integrity_review.canvas_artifact_count} · faltantes ${result.dashboard_integrity_review.missing_required_actions.length}`
+        : "";
+      const actionBoundaryReview = result.action_boundary_review
+        ? `acciones ${result.action_boundary_review.action_count} · planes ${result.action_boundary_review.plan_count} · shell ${result.action_boundary_review.plans_with_command_execution.length} · live ${result.action_boundary_review.plans_with_live_execution.length}`
+        : "";
+      const readinessBundleReview = result.readiness_bundle_review
+        ? `componentes ${result.readiness_bundle_review.passing_components}/${result.readiness_bundle_review.component_count} · fallos ${result.readiness_bundle_review.failing_components.length} · live ${result.readiness_bundle_review.live_execution_components.length}`
+        : "";
       const checks = result.postcheck_results
         ? result.postcheck_results.map((item) => `${item.label}: ${item.status}`).join(" | ")
-        : review || gateReview || canvasReview || bridgeReview || result.evidence;
+        : review || gateReview || canvasReview || bridgeReview || dashboardIntegrityReview || actionBoundaryReview || readinessBundleReview || result.evidence;
       resultBox.textContent = `${text(result.status)} · ${checks || text(result.stop_condition)}`;
     }
 
