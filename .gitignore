@@ -362,6 +362,7 @@
 
 !/readbacks/
 /readbacks/*
+!/readbacks/*.md
 !/readbacks/20260603_SDU_AGENTS_RUNTIME_CONNECTIONS_PREFLIGHT.md
 !/readbacks/20260603_SDU_AGENT_RUNTIME_CONNECTIONS_TEAMS_CODEX_CLOUD_READBACK.md
 !/readbacks/20260603_SDU_AGENT_RUNTIME_CONNECTIONS_TEAMS_CODEX_CLOUD_POSTMERGE_READBACK.md
@@ -533,6 +534,7 @@
 
 !/.agents/codex/readbacks/
 /.agents/codex/readbacks/*
+!/.agents/codex/readbacks/*.md
 !/.agents/codex/readbacks/RETROSPECTIVE_PR3_AGENT_ALIGNMENT_20260601.md
 !/.agents/codex/readbacks/2026-06-02_teams_cross_repo_lane_audit_readback.md
 !/.agents/codex/readbacks/2026-06-02_microsoft_production_tenant_write_next_lanes_readback.md
