@@ -204,6 +204,10 @@ function findDuplicates(values) {
   return [...duplicates].sort();
 }
 
+function isExecutedTaskStatus(status) {
+  return String(status || "").startsWith("EXECUTED");
+}
+
 function readJsonFile(repoRoot, artifactPath) {
   return JSON.parse(fs.readFileSync(path.join(repoRoot, artifactPath), "utf8"));
 }
@@ -446,7 +450,7 @@ function reviewTaskQueue(repoRoot) {
     .filter((row) => !row.lock_key)
     .map((row) => row.task_id || "NO_DECLARADO");
   const nonExecutedTasks = rows
-    .filter((row) => row.status !== "EXECUTED_LOCAL_VALIDATED")
+    .filter((row) => !isExecutedTaskStatus(row.status))
     .map((row) => `${row.task_id}:${row.status || "NO_DECLARADO"}`);
 
   const passed = duplicateTaskIds.length === 0
@@ -458,7 +462,7 @@ function reviewTaskQueue(repoRoot) {
     status: passed ? "PASS" : "FAIL",
     source: TASK_QUEUE_PATH,
     task_count: rows.length,
-    executed_count: rows.filter((row) => row.status === "EXECUTED_LOCAL_VALIDATED").length,
+    executed_count: rows.filter((row) => isExecutedTaskStatus(row.status)).length,
     queued_count: rows.filter((row) => row.status === "QUEUED_READY").length,
     duplicate_task_ids: duplicateTaskIds,
     missing_dependencies: missingDependencies,
@@ -469,6 +473,11 @@ function reviewTaskQueue(repoRoot) {
 
 function readPacketField(text, field) {
   const match = text.match(new RegExp(`^- ${field}:\\s*(.+)$`, "m"));
+  return match ? match[1].trim() : "";
+}
+
+function readPacketStatus(text) {
+  const match = text.match(/^Status:\s*`?([^`\r\n]+)`?/m);
   return match ? match[1].trim() : "";
 }
 
@@ -511,15 +520,22 @@ function reviewLiveGatePackets(repoRoot) {
     const pendingFieldCount = requiredFields
       .map((field) => readPacketField(text, field))
       .filter((value) => value.includes("PENDING_")).length;
+    const status = readPacketStatus(text);
+    const liveExecutionBlocked = /does not|no ejecuta|no llama|does not call|does not write/i.test(text);
+    const liveExecutionValidated = status === "EXECUTED_LIVE_VALIDATED"
+      && /PASS/i.test(readPacketField(text, "evidence"))
+      && /secrets printed false/i.test(text);
     return {
       path: packetPath,
       exists: true,
+      status,
       surface: readPacketField(text, "surface") || "NO_DECLARADO",
       stop_condition: readPacketField(text, "stop_condition") || "NO_DECLARADO",
       missing_fields: missingFields,
       pending_field_count: pendingFieldCount,
       execution_boundary_declared: text.includes("## Execution Boundary"),
-      live_execution_blocked: /does not|no ejecuta|no llama|does not call|does not write/i.test(text)
+      live_execution_blocked: liveExecutionBlocked,
+      live_execution_validated: liveExecutionValidated
     };
   });
 
@@ -531,7 +547,7 @@ function reviewLiveGatePackets(repoRoot) {
     .filter((packet) => packet.exists && !packet.execution_boundary_declared)
     .map((packet) => packet.path);
   const packetsWithoutLiveBlock = packets
-    .filter((packet) => packet.exists && !packet.live_execution_blocked)
+    .filter((packet) => packet.exists && !packet.live_execution_blocked && !packet.live_execution_validated)
     .map((packet) => packet.path);
   const passed = missingPackets.length === 0
     && packetsWithMissingFields.length === 0
@@ -823,7 +839,7 @@ function reviewTaskLineage(repoRoot) {
     .filter((row) => !row.lock_key)
     .map((row) => row.task_id || "NO_DECLARADO");
   const unvalidatedTasks = rows
-    .filter((row) => row.status !== "EXECUTED_LOCAL_VALIDATED")
+    .filter((row) => !isExecutedTaskStatus(row.status))
     .map((row) => `${row.task_id}:${row.status || "NO_DECLARADO"}`);
   const passed = duplicateTaskIds.length === 0
     && missingDependencies.length === 0
@@ -1458,7 +1474,7 @@ export function buildLocalActions(canvasWorkbench, agentTaskQueue) {
     {
       action_id: TASK_QUEUE_REVIEW_ACTION_ID,
       title: "Revisar cola local VSI",
-      status: agentTaskQueue.every((row) => row.status === "EXECUTED_LOCAL_VALIDATED")
+      status: agentTaskQueue.every((row) => isExecutedTaskStatus(row.status))
         ? "EXECUTED_LOCAL_VALIDATED"
         : "NEEDS_REVIEW",
       surface: "agent_task_queue_dashboard",

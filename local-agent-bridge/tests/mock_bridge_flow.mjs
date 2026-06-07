@@ -112,7 +112,10 @@ assert.ok(dashboard.agent_task_queue.some((row) => row.task_id === "vsi.agent.ta
 assert.ok(dashboard.agent_task_queue.some((row) => row.task_id === "vsi.agent.task.011"));
 assert.ok(dashboard.agent_task_queue.some((row) => row.task_id === "vsi.agent.task.012"));
 assert.ok(dashboard.agent_task_queue.some((row) => row.task_id === "vsi.agent.task.013"));
-assert.ok(dashboard.agent_task_queue.every((row) => row.status === "EXECUTED_LOCAL_VALIDATED"));
+assert.ok(dashboard.agent_task_queue.some(
+  (row) => row.task_id === "vsi.agent.task.037" && row.status === "EXECUTED_LIVE_VALIDATED"
+));
+assert.ok(dashboard.agent_task_queue.every((row) => String(row.status || "").startsWith("EXECUTED")));
 assert.match(dashboardHtml, /window\.location\.protocol === "file:"/);
 assert.match(dashboardHtml, /renderFileFallback/);
 assert.match(dashboardHtml, /Carril activo/);
