@@ -1,0 +1,180 @@
+{
+  "metadata": {
+    "schemaVersion": "1.0.0",
+    "artifactType": "product-brief",
+    "workflowName": "product-visionary",
+    "projectName": "Cabina Universal Agent Control",
+    "timestamps": {
+      "created": "2026-06-06T00:00:00Z",
+      "lastModified": "2026-06-06T00:00:00Z"
+    },
+    "status": "governed-local-active",
+    "tags": [
+      "brief-producto",
+      "control-agentes-local",
+      "vscode-insiders"
+    ],
+    "author": "Codex governed executor",
+    "stepsCompleted": [
+      "leer-agents-md",
+      "leer-registry-gobierno",
+      "inspeccionar-agile-agent-canvas",
+      "preparar-mesa-local"
+    ],
+    "inputDocuments": [
+      {
+        "path": "AGENTS.md",
+        "type": "gobierno"
+      },
+      {
+        "path": ".agents/codex/matrices/VSCODE_INSIDERS_AGILE_AGENT_CANVAS_GOVERNANCE_20260606.csv",
+        "type": "matriz-superficie"
+      },
+      {
+        "path": "local-agent-bridge",
+        "type": "tablero"
+      }
+    ]
+  },
+  "content": {
+    "productName": "Cabina Universal Agent Control",
+    "tagline": "Mesa local gobernada para agentes VSI y evidencia de cabina",
+    "vision": {
+      "statement": "Hacer de Visual Studio Code Insiders la mesa visible del operador para gobierno de agentes.",
+      "problemStatement": "Las herramientas agente existen localmente, pero operar bien exige un mapa compartido de superficies, gates, validadores y evidencia.",
+      "proposedSolution": "Sembrar Agile Agent Canvas con vision, PRD, epicas y lanes bloqueadas/live propias de la Cabina, conectadas al tablero local y a validadores."
+    },
+    "targetUsers": [
+      {
+        "persona": "Operador",
+        "description": "Aprueba carriles, elige superficies y necesita confianza rapida sin leer cada archivo del repo.",
+        "painPoints": [
+          {
+            "painPoint": "Demasiadas extensiones agente instaladas sin mapa comun",
+            "severity": "alta",
+            "frequency": "diaria"
+          },
+          {
+            "painPoint": "Las fronteras live pueden confundirse con planificacion local",
+            "severity": "critica",
+            "frequency": "diaria"
+          }
+        ],
+        "goals": [
+          {
+            "goal": "Ver que esta listo localmente",
+            "priority": "must-have"
+          },
+          {
+            "goal": "Aprobar solo gates exactos",
+            "priority": "must-have"
+          }
+        ]
+      },
+      {
+        "persona": "Ejecutor gobernado",
+        "description": "Ejecuta cambios locales y de repo con validadores, rollback y readback.",
+        "painPoints": [
+          {
+            "painPoint": "Capacidades duplicadas generan drift",
+            "severity": "alta",
+            "frequency": "semanal"
+          },
+          {
+            "painPoint": "Estado local no versionado es dificil de revisar",
+            "severity": "media",
+            "frequency": "diaria"
+          }
+        ],
+        "goals": [
+          {
+            "goal": "Reusar capacidades existentes antes de crear nuevas",
+            "priority": "must-have"
+          },
+          {
+            "goal": "Dejar evidencia versionable",
+            "priority": "must-have"
+          }
+        ]
+      }
+    ],
+    "marketContext": {
+      "overview": "Es una mesa interna, no un producto comercial. Su valor es control operativo sobre superficies agente locales y repo-scoped.",
+      "targetMarket": "Operador local de Cabina Universal y ejecucion gobernada de agentes.",
+      "competitors": [
+        {
+          "name": "Inventario de extensiones sin mapa",
+          "description": "Herramientas instaladas sin capa comun de gobierno",
+          "strengths": [
+            "Experimentacion rapida"
+          ],
+          "weaknesses": [
+            "Baja trazabilidad",
+            "Riesgo de confundir frontera live"
+          ]
+        },
+        {
+          "name": "Documentacion pura",
+          "description": "Archivos de gobierno sin mesa visible de operador",
+          "strengths": [
+            "Registro durable"
+          ],
+          "weaknesses": [
+            "Navegacion mas lenta",
+            "Uso diario menos fluido"
+          ]
+        }
+      ]
+    },
+    "keyFeatures": [
+      {
+        "id": "KF-1",
+        "name": "Mapa de superficies agente VSI",
+        "description": "Inventariar extensiones agente instaladas y clasificarlas como locales, gateadas o bloqueadas.",
+        "priority": "must-have",
+        "complexity": "media"
+      },
+      {
+        "id": "KF-2",
+        "name": "Artefactos canvas gobernados",
+        "description": "Mantener vision, brief, PRD y epicas como artefactos locales versionados de Agile Agent Canvas.",
+        "priority": "must-have",
+        "complexity": "baja"
+      },
+      {
+        "id": "KF-3",
+        "name": "Puente de evidencia al tablero",
+        "description": "Exponer controles de gobierno y estados de readiness en el tablero local.",
+        "priority": "should-have",
+        "complexity": "media"
+      },
+      {
+        "id": "KF-4",
+        "name": "Paquetes de gate live",
+        "description": "Preparar target, owner, rollback, postcheck, validador y stop condition antes de cualquier accion live.",
+        "priority": "must-have",
+        "complexity": "alta"
+      }
+    ],
+    "successMetrics": [
+      {
+        "metric": "Identidad raiz del canvas",
+        "target": "Cabina Universal Agent Control",
+        "description": "Los archivos raiz del canvas ya no identifican un proyecto demo.",
+        "category": "gobierno"
+      },
+      {
+        "metric": "Cobertura de validadores",
+        "target": "PASS",
+        "description": "Parse JSON, diff whitespace, tests del tablero y validadores de gobierno pasan.",
+        "category": "calidad"
+      },
+      {
+        "metric": "Cantidad de writes live",
+        "target": "0",
+        "description": "No se ejecutan writes live de proveedores en este carril.",
+        "category": "riesgo"
+      }
+    ]
+  }
+}

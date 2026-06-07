@@ -28,3 +28,5 @@ recipe.one-flow-one-item-runtime-test,01_AUTORIDAD_Y_GATES,court.sdu_gate,.agent
 recipe.retrospective-to-skill-propagation,03_CORTE_EJECUTORA,court.seshat_evidence,.agents\codex\recipes\recipe.retrospective-to-skill-propagation.md,retrospective_learning_package
 recipe.backreference-target-mapping-before-write,01_AUTORIDAD_Y_GATES,rey.frontier_guardian,.agents\codex\recipes\recipe.backreference-target-mapping-before-write.md,backreference_target_decision
 recipe.mapping-record-before-target-write,03_CORTE_EJECUTORA,court.seshat_evidence,.agents\codex\recipes\recipe.mapping-record-before-target-write.md,mapping_record_evidence
+recipe.vsi_prepared_agent_task_execution,05_SOPORTE_TECNICO,codex.workspace_guardian,.agents\codex\recipes\recipe.vsi_prepared_agent_task_execution.md,vsi_task_execution_readback
+recipe.vsi_live_surface_gate_packet,01_AUTORIDAD_Y_GATES,rey.frontier_guardian,.agents\codex\recipes\recipe.vsi_live_surface_gate_packet.md,vsi_live_gate_packet

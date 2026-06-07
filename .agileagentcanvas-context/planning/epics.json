@@ -1,0 +1,283 @@
+{
+  "metadata": {
+    "schemaVersion": "1.0.0",
+    "artifactType": "epics",
+    "workflowName": "pm-orchestrator",
+    "projectName": "Cabina Universal Agent Control",
+    "timestamps": {
+      "created": "2026-06-06T00:00:00Z",
+      "lastModified": "2026-06-06T00:00:00Z"
+    },
+    "status": "governed-local-active",
+    "tags": [
+      "epicas",
+      "vscode-insiders",
+      "control-agente",
+      "solo-local"
+    ],
+    "author": "Codex governed executor",
+    "stepsCompleted": [
+      "mapeo-requisitos",
+      "desglose-epicas",
+      "analisis-dependencias",
+      "revision-local"
+    ]
+  },
+  "content": {
+    "overview": {
+      "projectName": "Cabina Universal Agent Control",
+      "description": "Desglose de epicas para la mesa local de Agile Agent Canvas que gobierna superficies agente de Visual Studio Code Insiders.",
+      "totalEpics": 4,
+      "totalStories": 12,
+      "inputDocuments": [
+        "vision.json",
+        "discovery/product-brief.json",
+        "planning/prd.json",
+        ".agents/codex/matrices/VSCODE_INSIDERS_AGILE_AGENT_CANVAS_GOVERNANCE_20260606.csv"
+      ]
+    },
+    "requirementsInventory": {
+      "functional": [
+        {
+          "id": "FR-1",
+          "title": "Identidad del canvas",
+          "capabilityArea": "Canvas",
+          "relatedEpics": [
+            "EPIC-1"
+          ],
+          "relatedStories": [
+            "S-1.1",
+            "S-1.2"
+          ]
+        },
+        {
+          "id": "FR-2",
+          "title": "Mapa gobernado de superficie VSI",
+          "capabilityArea": "Gobierno",
+          "relatedEpics": [
+            "EPIC-2"
+          ],
+          "relatedStories": [
+            "S-2.1",
+            "S-2.2",
+            "S-2.3"
+          ]
+        },
+        {
+          "id": "FR-3",
+          "title": "Puente al tablero local",
+          "capabilityArea": "Tablero",
+          "relatedEpics": [
+            "EPIC-3"
+          ],
+          "relatedStories": [
+            "S-3.1",
+            "S-3.2"
+          ]
+        },
+        {
+          "id": "FR-4",
+          "title": "Preparacion de paquetes de gate",
+          "capabilityArea": "Gates",
+          "relatedEpics": [
+            "EPIC-4"
+          ],
+          "relatedStories": [
+            "S-4.1",
+            "S-4.2",
+            "S-4.3"
+          ]
+        }
+      ],
+      "nonFunctional": [
+        {
+          "id": "NFR-1",
+          "title": "Sin secretos",
+          "category": "Seguridad",
+          "relatedEpics": [
+            "EPIC-2",
+            "EPIC-4"
+          ]
+        },
+        {
+          "id": "NFR-2",
+          "title": "Reversible",
+          "category": "Operacion",
+          "relatedEpics": [
+            "EPIC-1",
+            "EPIC-3"
+          ]
+        },
+        {
+          "id": "NFR-3",
+          "title": "Local primero",
+          "category": "Frontera",
+          "relatedEpics": [
+            "EPIC-1",
+            "EPIC-2",
+            "EPIC-4"
+          ]
+        }
+      ],
+      "summary": {
+        "totalFunctional": 4,
+        "totalNonFunctional": 3,
+        "totalRequirements": 7
+      }
+    },
+    "epics": [
+      {
+        "id": "EPIC-1",
+        "title": "Sembrar la mesa canvas de Cabina",
+        "description": "Reemplazar artefactos demo por artefactos de Cabina Universal Agent Control y mantenerlos parseables, explicitos y reversibles.",
+        "priority": "must-have",
+        "status": "en-progreso",
+        "stories": [
+          {
+            "id": "S-1.1",
+            "title": "Reemplazar vision demo",
+            "description": "La vision raiz identifica Cabina Universal Agent Control y declara fronteras solo-locales.",
+            "acceptanceCriteria": [
+              "vision.json parsea",
+              "projectName es Cabina Universal Agent Control",
+              "no aparece secreto ni target live"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-1.2",
+            "title": "Agregar README del canvas",
+            "description": "El README describe artefactos versionados, lanes live bloqueadas y rollback.",
+            "acceptanceCriteria": [
+              "README existe",
+              "rollback es explicito",
+              "lanes bloqueadas estan listadas"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-1.3",
+            "title": "Stagear paquete canvas allowlisted",
+            "description": "Como los archivos raiz estan ignorados, stagear solo los archivos canvas revisados.",
+            "acceptanceCriteria": [
+              "git status muestra solo archivos canvas explicitos mas matrices previstas",
+              ".gitignore no queda staged"
+            ],
+            "status": "pendiente"
+          }
+        ]
+      },
+      {
+        "id": "EPIC-2",
+        "title": "Gobernar superficies agente VSI",
+        "description": "Mantener Agile Agent Canvas, extensiones agente y tools locales mapeadas a gates y validadores.",
+        "priority": "must-have",
+        "status": "activo",
+        "stories": [
+          {
+            "id": "S-2.1",
+            "title": "Inventariar extensiones agente instaladas",
+            "description": "Usar lista de extensiones de code-insiders como evidencia de superficies locales con capacidad agente.",
+            "acceptanceCriteria": [
+              "ids de extensiones capturados",
+              "version de Agile Agent Canvas capturada"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-2.2",
+            "title": "Clasificar tools de Agile Agent Canvas",
+            "description": "Separar superficies de lectura, escritura, Jira, Graphify, catalogo de skills y Codeburn.",
+            "acceptanceCriteria": [
+              "cada superficie tiene acciones permitidas y bloqueadas",
+              "cada superficie tiene gate y stop condition"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-2.3",
+            "title": "Preparar carril de catalogo de usuario",
+            "description": "Definir target path y rollback antes de cambiar userCataloguePath o clonar repos de skills.",
+            "acceptanceCriteria": [
+              "target existe",
+              "owner y rollback declarados",
+              "no ocurre clon externo sin gate"
+            ],
+            "status": "pendiente"
+          }
+        ]
+      },
+      {
+        "id": "EPIC-3",
+        "title": "Conectar canvas y tablero",
+        "description": "Exponer readiness del canvas en el tablero local del operador junto a controles de agentes y gobierno.",
+        "priority": "should-have",
+        "status": "planificado",
+        "stories": [
+          {
+            "id": "S-3.1",
+            "title": "Mostrar estado del paquete canvas",
+            "description": "El tablero informa si los artefactos raiz parsean e identifican la Cabina.",
+            "acceptanceCriteria": [
+              "estado calculado localmente",
+              "no hay llamada live"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.2",
+            "title": "Mostrar proximos gates",
+            "description": "El tablero lista gates pendientes de Jira, catalogo usuario, Graphify, OpenAI live y Microsoft live.",
+            "acceptanceCriteria": [
+              "nombres de gate coinciden con matriz de gobierno",
+              "lanes bloqueadas se distinguen visualmente"
+            ],
+            "status": "pendiente"
+          }
+        ]
+      },
+      {
+        "id": "EPIC-4",
+        "title": "Preparar expansion live-gateada",
+        "description": "Avanzar superficies live-capable solo como dry-run u orden preparada hasta tener target, owner, rollback, postcheck, evidencia y validador exactos.",
+        "priority": "must-have",
+        "status": "planificado",
+        "stories": [
+          {
+            "id": "S-4.1",
+            "title": "Preparar gate de lectura Jira",
+            "description": "Documentar target Jira, owner, manejo de token, limite de datos, rollback y postcheck antes de cualquier lectura Jira.",
+            "acceptanceCriteria": [
+              "no se almacena token",
+              "limite de datos explicito",
+              "postcheck explicito"
+            ],
+            "status": "pendiente"
+          },
+          {
+            "id": "S-4.2",
+            "title": "Preparar gate OpenAI/Agents SDK live",
+            "description": "Definir payload permitido, limite de costo, fuente de secreto, eval, rollback y stop condition.",
+            "acceptanceCriteria": [
+              "costo maximo declarado",
+              "sensibilidad de payload declarada",
+              "no hay llamada live sin gate"
+            ],
+            "status": "pendiente"
+          },
+          {
+            "id": "S-4.3",
+            "title": "Preparar gate Microsoft live",
+            "description": "Definir tenant, identidad, target, owner, rollback, postcheck y validador antes de mutar Graph, Teams, SharePoint, Planner, Dataverse o Power Platform.",
+            "acceptanceCriteria": [
+              "tenant exacto",
+              "rollback viable",
+              "produccion autorizada por separado"
+            ],
+            "status": "pendiente"
+          }
+        ]
+      }
+    ]
+  }
+}

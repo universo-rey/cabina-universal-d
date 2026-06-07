@@ -8,6 +8,16 @@ export const blockedSurfaces = [
   "external_write"
 ];
 
+export function isLoopbackHost(host) {
+  return host === "127.0.0.1" || host === "localhost" || host === "::1";
+}
+
+export function assertLoopbackReadSurface(host) {
+  if (!isLoopbackHost(host)) {
+    throw new Error("loopback host required for local dashboard data");
+  }
+}
+
 export function assertSyntheticRequest(payload) {
   if (!payload || payload.synthetic !== true) {
     throw new Error("synthetic payload required");

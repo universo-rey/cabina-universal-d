@@ -1,0 +1,71 @@
+{
+  "metadata": {
+    "schemaVersion": "1.0.0",
+    "artifactType": "vision",
+    "workflowName": "product-visionary",
+    "projectName": "Cabina Universal Agent Control",
+    "timestamps": {
+      "created": "2026-06-06T00:00:00Z",
+      "lastModified": "2026-06-06T00:00:00Z"
+    },
+    "status": "governed-local-active",
+    "tags": [
+      "cabina",
+      "vscode-insiders",
+      "agentes",
+      "gobierno",
+      "solo-local"
+    ],
+    "author": "Codex governed executor",
+    "stepsCompleted": [
+      "preflight-workspace",
+      "inventario-extension",
+      "reconciliacion-capacidades",
+      "semilla-canvas-local"
+    ]
+  },
+  "content": {
+    "productName": "Cabina Universal Agent Control",
+    "vision": {
+      "statement": "Convertir Visual Studio Code Insiders en la mesa local gobernada para mapear, coordinar y validar agentes sobre las superficies de la Cabina Universal.",
+      "problemStatement": "La maquina ya tiene extensiones, CLIs, repos, skills, validadores y tableros con capacidad agente, pero sin una mesa local quedan como superficies dispersas.",
+      "proposedSolution": "Usar Agile Agent Canvas como superficie local versionada que conecta inventario de extensiones, gobierno de agentes, evidencia del tablero, validadores, gates y proximos carriles seguros sin invocar secretos ni escrituras live."
+    },
+    "targetUsers": [
+      {
+        "persona": "Operador",
+        "description": "Necesita una cabina unica para decidir que agentes, tools, repos y gates estan listos."
+      },
+      {
+        "persona": "Codex ejecutor gobernado",
+        "description": "Necesita artefactos repo-scoped, validadores, rollback y stop conditions explicitas antes de cambiar sistemas."
+      },
+      {
+        "persona": "Capa de evidencia Seshat",
+        "description": "Necesita readbacks, matrices y evidencia local durable para revision posterior."
+      },
+      {
+        "persona": "Capa de gates SDU",
+        "description": "Necesita fronteras claras para live, tenant, costo, produccion, secretos y datos regulados."
+      }
+    ],
+    "successMetrics": [
+      {
+        "metric": "Mesa canvas lista",
+        "description": "Los artefactos raiz de Agile Agent Canvas identifican la Cabina Universal y no datos demo."
+      },
+      {
+        "metric": "Cobertura de superficies gobernadas",
+        "description": "Cada superficie agente activa en VSI tiene owner, gate, validador, rollback y stop condition."
+      },
+      {
+        "metric": "Evidencia local",
+        "description": "Tablero, matrices, artefactos canvas y validadores pueden inspeccionarse sin llamadas live."
+      },
+      {
+        "metric": "Claridad de gates",
+        "description": "Secretos, Jira, OpenAI live, Microsoft live, Graph, Power Platform, produccion y mutacion remota siguen gateados hasta tener target y rollback exactos."
+      }
+    ]
+  }
+}
