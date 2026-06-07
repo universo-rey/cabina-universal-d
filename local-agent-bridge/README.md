@@ -74,5 +74,10 @@ and result renderers cover the local action surface. `local.action.review_task_l
 checks task dependencies, locks, branches and validation status.
 `local.action.review_canvas_story_sync` checks Agile Canvas story counts,
 functional references and recent task queue rows.
+`local.action.review_route_contract_sync` checks contract allowed routes against
+the route matrix. `local.action.review_server_endpoint_guards` checks loopback,
+dev-auth and no-live endpoint guards in the local server.
+`local.action.review_validator_coverage` checks that contract, validator, test,
+README and human UI cover every local action and structured result key.
 `local.action.prepare_local_validation` runs a fixed postcheck allowlist. The
 bridge still does not expose arbitrary shell commands.

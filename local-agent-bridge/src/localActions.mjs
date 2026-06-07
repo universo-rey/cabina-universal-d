@@ -13,6 +13,9 @@ const READINESS_BUNDLE_REVIEW_ACTION_ID = "local.action.review_readiness_bundle"
 const UI_TRANSLATION_REVIEW_ACTION_ID = "local.action.review_ui_translation_integrity";
 const TASK_LINEAGE_REVIEW_ACTION_ID = "local.action.review_task_lineage";
 const CANVAS_STORY_SYNC_REVIEW_ACTION_ID = "local.action.review_canvas_story_sync";
+const ROUTE_CONTRACT_SYNC_REVIEW_ACTION_ID = "local.action.review_route_contract_sync";
+const SERVER_ENDPOINT_GUARD_REVIEW_ACTION_ID = "local.action.review_server_endpoint_guards";
+const VALIDATOR_COVERAGE_REVIEW_ACTION_ID = "local.action.review_validator_coverage";
 const TASK_QUEUE_PATH = ".agents/codex/matrices/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv";
 const BRIDGE_CONTRACT_PATH = "local-agent-bridge/contracts/local-agent-bridge.contract.json";
 const ROUTES_MATRIX_PATH = "local-agent-bridge/matrices/routes_matrix.csv";
@@ -41,7 +44,10 @@ function getRequiredLocalActionIds() {
     READINESS_BUNDLE_REVIEW_ACTION_ID,
     UI_TRANSLATION_REVIEW_ACTION_ID,
     TASK_LINEAGE_REVIEW_ACTION_ID,
-    CANVAS_STORY_SYNC_REVIEW_ACTION_ID
+    CANVAS_STORY_SYNC_REVIEW_ACTION_ID,
+    ROUTE_CONTRACT_SYNC_REVIEW_ACTION_ID,
+    SERVER_ENDPOINT_GUARD_REVIEW_ACTION_ID,
+    VALIDATOR_COVERAGE_REVIEW_ACTION_ID
   ];
 }
 
@@ -56,7 +62,10 @@ function getStructuredReviewActionIds() {
     READINESS_BUNDLE_REVIEW_ACTION_ID,
     UI_TRANSLATION_REVIEW_ACTION_ID,
     TASK_LINEAGE_REVIEW_ACTION_ID,
-    CANVAS_STORY_SYNC_REVIEW_ACTION_ID
+    CANVAS_STORY_SYNC_REVIEW_ACTION_ID,
+    ROUTE_CONTRACT_SYNC_REVIEW_ACTION_ID,
+    SERVER_ENDPOINT_GUARD_REVIEW_ACTION_ID,
+    VALIDATOR_COVERAGE_REVIEW_ACTION_ID
   ];
 }
 
@@ -578,7 +587,10 @@ function reviewUiTranslationIntegrity(repoRoot) {
     "readiness_bundle_review",
     "ui_translation_review",
     "task_lineage_review",
-    "canvas_story_sync_review"
+    "canvas_story_sync_review",
+    "route_contract_sync_review",
+    "server_endpoint_guard_review",
+    "validator_coverage_review"
   ].filter((token) => !html.includes(token));
   const fileFallbackPresent = html.includes("renderFileFallback")
     && html.includes('window.location.protocol === "file:"');
@@ -658,7 +670,7 @@ function reviewCanvasStorySync(repoRoot) {
   const duplicateStoryIds = findDuplicates(storyIds);
   const declaredTotalStories = epics?.content?.overview?.totalStories;
   const totalStoriesMatches = declaredTotalStories === stories.length;
-  const currentSyncStoryIds = new Set(["S-3.12", "S-3.13", "S-3.14"]);
+  const currentSyncStoryIds = new Set(["S-3.15", "S-3.16", "S-3.17"]);
   const unfinishedDashboardStories = stories
     .filter((story) => currentSyncStoryIds.has(story.id) && story.status !== "hecho")
     .map((story) => `${story.id}:${story.status || "NO_DECLARADO"}`);
@@ -670,7 +682,7 @@ function reviewCanvasStorySync(repoRoot) {
     .filter((storyId) => storyId.startsWith("S-3.") && !functionalStoryRefs.has(storyId))
     .sort();
   const taskQueue = readTaskQueueRows(repoRoot);
-  const recentTaskIds = ["vsi.agent.task.022", "vsi.agent.task.023", "vsi.agent.task.024"];
+  const recentTaskIds = ["vsi.agent.task.025", "vsi.agent.task.026", "vsi.agent.task.027"];
   const missingRecentTasks = recentTaskIds
     .filter((taskId) => !taskQueue.some((row) => row.task_id === taskId));
   const passed = duplicateStoryIds.length === 0
@@ -694,6 +706,148 @@ function reviewCanvasStorySync(repoRoot) {
   };
 }
 
+function reviewRouteContractSync(repoRoot) {
+  const contract = readJsonFile(repoRoot, BRIDGE_CONTRACT_PATH);
+  const routes = parseCsv(fs.readFileSync(path.join(repoRoot, ROUTES_MATRIX_PATH), "utf8"));
+  const allowedRoutes = contract.allowedRoutes || [];
+  const matrixRoutes = routes.map((row) => `${row.http_method} ${row.path}`);
+  const missing_allowed_routes = matrixRoutes
+    .filter((route) => !allowedRoutes.includes(route))
+    .sort();
+  const extra_allowed_routes = allowedRoutes
+    .filter((route) => !matrixRoutes.includes(route))
+    .sort();
+  const duplicate_matrix_routes = findDuplicates(matrixRoutes);
+  const localActionRoute = routes.find((row) => row.route_id === "bridge.local_action_run") || {};
+  const localActionRouteProtected = String(localActionRoute.blocked_actions || "").includes("execute_arbitrary_command")
+    && String(localActionRoute.blocked_actions || "").includes("non_loopback_read")
+    && String(localActionRoute.blocked_actions || "").includes("live_call");
+  const missingValidators = routes
+    .filter((row) => row.validator !== "scripts/validators/local_agent_bridge_validator.py")
+    .map((row) => row.route_id || "NO_DECLARADO");
+  const inactiveRoutes = routes
+    .filter((row) => row.status !== "ACTIVE_DEV")
+    .map((row) => `${row.route_id}:${row.status || "NO_DECLARADO"}`);
+  const passed = missing_allowed_routes.length === 0
+    && extra_allowed_routes.length === 0
+    && duplicate_matrix_routes.length === 0
+    && localActionRouteProtected
+    && missingValidators.length === 0
+    && inactiveRoutes.length === 0;
+
+  return {
+    status: passed ? "PASS" : "FAIL",
+    contract_path: BRIDGE_CONTRACT_PATH,
+    route_matrix_path: ROUTES_MATRIX_PATH,
+    allowed_route_count: allowedRoutes.length,
+    matrix_route_count: matrixRoutes.length,
+    missing_allowed_routes,
+    extra_allowed_routes,
+    duplicate_matrix_routes,
+    local_action_route_protected: localActionRouteProtected,
+    missing_validators: missingValidators,
+    inactive_routes: inactiveRoutes,
+    command_execution_exposed: false,
+    live_executed: false
+  };
+}
+
+function reviewServerEndpointGuards(repoRoot) {
+  const serverPath = "local-agent-bridge/src/server.mjs";
+  const serverText = fs.readFileSync(path.join(repoRoot, serverPath), "utf8");
+  const requiredEndpoints = [
+    'req.method === "GET" && req.url === "/"',
+    'req.method === "GET" && req.url === "/health"',
+    'req.method === "GET" && req.url === "/api/dashboard"',
+    'req.method === "GET" && req.url === "/api/shell/status"',
+    'req.method === "POST" && req.url === "/api/local-actions/run"',
+    'req.method === "POST" && req.url === "/v1/shell/command"',
+    'req.method === "POST" && req.url === "/v1/sdu/route"'
+  ];
+  const missingEndpoints = requiredEndpoints.filter((endpoint) => !serverText.includes(endpoint));
+  const loopbackGuardCount = (serverText.match(/assertLoopbackReadSurface\(host\)/g) || []).length;
+  const devAuthGuardCount = (serverText.match(/assertDevAuth\(req\)/g) || []).length;
+  const localActionBodyGuarded = serverText.includes("const payload = await readJsonBody(req);")
+    && serverText.includes("const actionId = String(payload.action_id || \"\");")
+    && serverText.includes("await runLocalAction(actionId, repoRoot)");
+  const notFoundNoLive = serverText.includes('json(res, 404, { status: "not_found", live_executed: false })');
+  const passed = missingEndpoints.length === 0
+    && loopbackGuardCount >= 3
+    && devAuthGuardCount >= 2
+    && localActionBodyGuarded
+    && notFoundNoLive;
+
+  return {
+    status: passed ? "PASS" : "FAIL",
+    server_path: serverPath,
+    required_endpoint_count: requiredEndpoints.length,
+    missing_endpoints: missingEndpoints,
+    loopback_guard_count: loopbackGuardCount,
+    dev_auth_guard_count: devAuthGuardCount,
+    local_action_body_guarded: localActionBodyGuarded,
+    not_found_no_live: notFoundNoLive,
+    command_execution_exposed: false,
+    live_executed: false
+  };
+}
+
+function reviewValidatorCoverage(repoRoot) {
+  const validatorPath = "scripts/validators/local_agent_bridge_validator.py";
+  const testPath = "local-agent-bridge/tests/mock_bridge_flow.mjs";
+  const readmePath = "local-agent-bridge/README.md";
+  const htmlPath = "local-agent-bridge/public/index.html";
+  const validatorText = fs.readFileSync(path.join(repoRoot, validatorPath), "utf8");
+  const testText = fs.readFileSync(path.join(repoRoot, testPath), "utf8");
+  const readmeText = fs.readFileSync(path.join(repoRoot, readmePath), "utf8");
+  const htmlText = fs.readFileSync(path.join(repoRoot, htmlPath), "utf8");
+  const contract = readJsonFile(repoRoot, BRIDGE_CONTRACT_PATH);
+  const allowedActionIds = contract?.localActions?.allowedActionIds || [];
+  const requiredActionIds = getRequiredLocalActionIds();
+  const missingContractActions = requiredActionIds.filter((actionId) => !allowedActionIds.includes(actionId));
+  const missingValidatorActions = requiredActionIds.filter((actionId) => !validatorText.includes(actionId));
+  const missingTestActions = requiredActionIds.filter((actionId) => !testText.includes(actionId));
+  const missingReadmeActions = requiredActionIds.filter((actionId) => !readmeText.includes(actionId));
+  const missingHtmlActions = requiredActionIds.filter((actionId) => !htmlText.includes(actionId));
+  const requiredResultKeys = [
+    "canvas_lane_review",
+    "review_result",
+    "gate_packet_review",
+    "bridge_contract_review",
+    "dashboard_integrity_review",
+    "action_boundary_review",
+    "readiness_bundle_review",
+    "ui_translation_review",
+    "task_lineage_review",
+    "canvas_story_sync_review",
+    "route_contract_sync_review",
+    "server_endpoint_guard_review",
+    "validator_coverage_review"
+  ];
+  const missingResultKeys = requiredResultKeys
+    .filter((key) => !validatorText.includes(key) || !testText.includes(key) || !htmlText.includes(key))
+    .sort();
+  const passed = missingContractActions.length === 0
+    && missingValidatorActions.length === 0
+    && missingTestActions.length === 0
+    && missingReadmeActions.length === 0
+    && missingHtmlActions.length === 0
+    && missingResultKeys.length === 0;
+
+  return {
+    status: passed ? "PASS" : "FAIL",
+    action_count: requiredActionIds.length,
+    result_key_count: requiredResultKeys.length,
+    missing_contract_actions: missingContractActions,
+    missing_validator_actions: missingValidatorActions,
+    missing_test_actions: missingTestActions,
+    missing_readme_actions: missingReadmeActions,
+    missing_html_actions: missingHtmlActions,
+    missing_result_keys: missingResultKeys,
+    command_execution_exposed: false,
+    live_executed: false
+  };
+}
+
 function reviewReadinessBundle(repoRoot) {
   const components = [
     ["task_queue", reviewTaskQueue(repoRoot)],
@@ -704,7 +858,10 @@ function reviewReadinessBundle(repoRoot) {
     ["action_boundary", reviewActionBoundary(repoRoot)],
     ["ui_translation_integrity", reviewUiTranslationIntegrity(repoRoot)],
     ["task_lineage", reviewTaskLineage(repoRoot)],
-    ["canvas_story_sync", reviewCanvasStorySync(repoRoot)]
+    ["canvas_story_sync", reviewCanvasStorySync(repoRoot)],
+    ["route_contract_sync", reviewRouteContractSync(repoRoot)],
+    ["server_endpoint_guards", reviewServerEndpointGuards(repoRoot)],
+    ["validator_coverage", reviewValidatorCoverage(repoRoot)]
   ].map(([component, result]) => ({
     component,
     status: result.status,
@@ -947,6 +1104,45 @@ export function buildLocalActions(canvasWorkbench, agentTaskQueue) {
       allowed_now: "review_story_counts|review_functional_refs|review_task_story_sync",
       blocked_actions: "execute_arbitrary_shell_from_dashboard|live_provider_call|secret_handling|production_write|external_sync",
       stop_condition: "canvas_story_sync_review_failed"
+    },
+    {
+      action_id: ROUTE_CONTRACT_SYNC_REVIEW_ACTION_ID,
+      title: "Revisar sincronía contrato-rutas",
+      status: "READY_LOCAL_GOVERNED",
+      surface: "local_route_contract_sync",
+      owner_agent: "codex.workspace_guardian",
+      target: "bridge contract and route matrix",
+      evidence: "structured route contract sync review available",
+      execution_mode: "structured_local_review",
+      allowed_now: "review_allowed_routes|review_route_matrix|review_route_blocks",
+      blocked_actions: "execute_arbitrary_shell_from_dashboard|live_provider_call|secret_handling|production_write",
+      stop_condition: "route_contract_sync_review_failed"
+    },
+    {
+      action_id: SERVER_ENDPOINT_GUARD_REVIEW_ACTION_ID,
+      title: "Revisar guards del servidor local",
+      status: "READY_LOCAL_GOVERNED",
+      surface: "local_server_endpoint_guards",
+      owner_agent: "codex.workspace_guardian",
+      target: "loopback and dev-auth endpoints",
+      evidence: "structured server endpoint guard review available",
+      execution_mode: "structured_local_review",
+      allowed_now: "review_loopback_guards|review_dev_auth_guards|review_no_live_responses",
+      blocked_actions: "execute_arbitrary_shell_from_dashboard|live_provider_call|secret_handling|production_write",
+      stop_condition: "server_endpoint_guard_review_failed"
+    },
+    {
+      action_id: VALIDATOR_COVERAGE_REVIEW_ACTION_ID,
+      title: "Revisar cobertura de validadores",
+      status: "READY_LOCAL_GOVERNED",
+      surface: "local_validator_coverage",
+      owner_agent: "codex.workspace_guardian",
+      target: "contract|validator|test|README|UI",
+      evidence: "structured validator coverage review available",
+      execution_mode: "structured_local_review",
+      allowed_now: "review_action_coverage|review_result_keys|review_docs_tests",
+      blocked_actions: "execute_arbitrary_shell_from_dashboard|live_provider_call|secret_handling|production_write",
+      stop_condition: "validator_coverage_review_failed"
     }
   ];
 }
@@ -998,6 +1194,45 @@ export async function runLocalAction(actionId, repoRoot) {
       stop_condition: readinessBundleReview.status === "PASS"
         ? "readiness_bundle_review_passed"
         : "readiness_bundle_review_failed"
+    };
+  }
+
+  if (actionId === VALIDATOR_COVERAGE_REVIEW_ACTION_ID) {
+    const validatorCoverageReview = reviewValidatorCoverage(repoRoot);
+    return {
+      ...plan,
+      status: validatorCoverageReview.status,
+      evidence: "structured validator coverage review executed",
+      validator_coverage_review: validatorCoverageReview,
+      stop_condition: validatorCoverageReview.status === "PASS"
+        ? "validator_coverage_review_passed"
+        : "validator_coverage_review_failed"
+    };
+  }
+
+  if (actionId === SERVER_ENDPOINT_GUARD_REVIEW_ACTION_ID) {
+    const serverEndpointGuardReview = reviewServerEndpointGuards(repoRoot);
+    return {
+      ...plan,
+      status: serverEndpointGuardReview.status,
+      evidence: "structured server endpoint guard review executed",
+      server_endpoint_guard_review: serverEndpointGuardReview,
+      stop_condition: serverEndpointGuardReview.status === "PASS"
+        ? "server_endpoint_guard_review_passed"
+        : "server_endpoint_guard_review_failed"
+    };
+  }
+
+  if (actionId === ROUTE_CONTRACT_SYNC_REVIEW_ACTION_ID) {
+    const routeContractSyncReview = reviewRouteContractSync(repoRoot);
+    return {
+      ...plan,
+      status: routeContractSyncReview.status,
+      evidence: "structured route contract sync review executed",
+      route_contract_sync_review: routeContractSyncReview,
+      stop_condition: routeContractSyncReview.status === "PASS"
+        ? "route_contract_sync_review_passed"
+        : "route_contract_sync_review_failed"
     };
   }
 

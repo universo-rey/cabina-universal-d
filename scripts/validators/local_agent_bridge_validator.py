@@ -45,6 +45,9 @@ def validate() -> None:
         "local.action.review_ui_translation_integrity",
         "local.action.review_task_lineage",
         "local.action.review_canvas_story_sync",
+        "local.action.review_route_contract_sync",
+        "local.action.review_server_endpoint_guards",
+        "local.action.review_validator_coverage",
     ):
         if action_id not in local_actions.get("allowedActionIds", []):
             raise AssertionError(f"local action allowlist missing {action_id}")
@@ -94,22 +97,23 @@ def validate() -> None:
         raise AssertionError("local actions must use purpose-built postcheck allowlist")
     if "structured_local_review_no_shell" not in local_actions_text:
         raise AssertionError("local actions must support structured no-shell review")
-    if "canvas_lane_review" not in local_actions_text:
-        raise AssertionError("local actions must expose structured canvas lane review")
-    if "bridge_contract_review" not in local_actions_text:
-        raise AssertionError("local actions must expose structured bridge contract review")
-    if "dashboard_integrity_review" not in local_actions_text:
-        raise AssertionError("local actions must expose structured dashboard integrity review")
-    if "action_boundary_review" not in local_actions_text:
-        raise AssertionError("local actions must expose structured action boundary review")
-    if "readiness_bundle_review" not in local_actions_text:
-        raise AssertionError("local actions must expose structured readiness bundle review")
-    if "ui_translation_review" not in local_actions_text:
-        raise AssertionError("local actions must expose structured UI translation review")
-    if "task_lineage_review" not in local_actions_text:
-        raise AssertionError("local actions must expose structured task lineage review")
-    if "canvas_story_sync_review" not in local_actions_text:
-        raise AssertionError("local actions must expose structured canvas story sync review")
+    for result_key in (
+        "canvas_lane_review",
+        "review_result",
+        "gate_packet_review",
+        "bridge_contract_review",
+        "dashboard_integrity_review",
+        "action_boundary_review",
+        "readiness_bundle_review",
+        "ui_translation_review",
+        "task_lineage_review",
+        "canvas_story_sync_review",
+        "route_contract_sync_review",
+        "server_endpoint_guard_review",
+        "validator_coverage_review",
+    ):
+        if result_key not in local_actions_text:
+            raise AssertionError(f"local actions must expose structured {result_key}")
     if "ORDER_VSI_POWER_PLATFORM_DRY_RUN_20260607.md" not in local_actions_text:
         raise AssertionError("local actions must review Power Platform dry-run packet")
 
