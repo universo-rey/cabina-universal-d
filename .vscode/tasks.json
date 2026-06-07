@@ -22,6 +22,16 @@
             "problemMatcher": []
         },
         {
+            "label": "Cabina: Validate VSI function utilization",
+            "type": "process",
+            "command": "python",
+            "args": [
+                "scripts/validators/vsi_function_utilization_validator.py"
+            ],
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
             "label": "Cabina: Validate no-PS validator prep",
             "type": "process",
             "command": "python",

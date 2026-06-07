@@ -1,2 +1,3 @@
 "date","evidence_id","source","artifact","validator","result","notes"
 "2026-06-01","EVD-codex.workspace_guardian-WORKPAPERS-20260601","D agent layer","D:\.agents\codex\workpapers\codex.workspace_guardian","tool.local_validate_agent_workpapers","prepared_pending_fan_in_validation","no live execution"
+"2026-06-07","EVD-VSI-FUNCTION-UTILIZATION-20260607","VS Code Insiders screenshot and status",".agents/codex/matrices/VSI_FUNCTION_UTILIZATION_MATRIX_20260607.csv","scripts/validators/vsi_function_utilization_validator.py","EXECUTED_LOCAL_VALIDATED","Memory and Memory Log represented as governed repo-local workpaper evidence; visual panel remains separate extension gap"
