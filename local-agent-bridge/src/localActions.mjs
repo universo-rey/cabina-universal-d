@@ -699,7 +699,7 @@ function reviewCanvasStorySync(repoRoot) {
   const duplicateStoryIds = findDuplicates(storyIds);
   const declaredTotalStories = epics?.content?.overview?.totalStories;
   const totalStoriesMatches = declaredTotalStories === stories.length;
-  const currentSyncStoryIds = new Set(["S-3.21", "S-3.22", "S-3.23"]);
+  const currentSyncStoryIds = new Set(["S-3.2", "S-3.21", "S-3.22", "S-3.23"]);
   const unfinishedDashboardStories = stories
     .filter((story) => currentSyncStoryIds.has(story.id) && story.status !== "hecho")
     .map((story) => `${story.id}:${story.status || "NO_DECLARADO"}`);
@@ -711,7 +711,7 @@ function reviewCanvasStorySync(repoRoot) {
     .filter((storyId) => storyId.startsWith("S-3.") && !functionalStoryRefs.has(storyId))
     .sort();
   const taskQueue = readTaskQueueRows(repoRoot);
-  const recentTaskIds = ["vsi.agent.task.031", "vsi.agent.task.032", "vsi.agent.task.033"];
+  const recentTaskIds = ["vsi.agent.task.031", "vsi.agent.task.032", "vsi.agent.task.033", "vsi.agent.task.034"];
   const missingRecentTasks = recentTaskIds
     .filter((taskId) => !taskQueue.some((row) => row.task_id === taskId));
   const passed = duplicateStoryIds.length === 0

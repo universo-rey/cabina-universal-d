@@ -166,6 +166,58 @@ function summarizeCanvasWorkbench(repoRoot, agileAgentCanvas) {
   };
 }
 
+function gateNextAction(row) {
+  const surface = row.surface || "";
+  const gate = row.gate || row.gate_required || "";
+  if (surface === "jira_integration") return "preparar paquete Jira existente";
+  if (surface === "skill_catalogue") return "usar catalogo local workspace";
+  if (surface === "graphify_commands") return "mantener plan manual gateado";
+  if (gate.includes("GATE_OPENAI_LIVE")) return "preparar gate OpenAI live";
+  if (gate.includes("GATE_MICROSOFT_LIVE_WRITE")) return "preparar gate Microsoft live";
+  return row.allowed_preparation || row.allowed_now || "preparacion local gobernada";
+}
+
+function buildVisibleGateLane(gateQueue, agileAgentCanvas) {
+  const canvasItems = agileAgentCanvas
+    .filter((row) => row.gate && row.gate !== "none")
+    .map((row) => ({
+      source: "agile_agent_canvas",
+      gate: row.gate,
+      surface: row.surface,
+      status: row.status,
+      owner_agent: row.owner_agent,
+      next_action: gateNextAction(row),
+      blocked_actions: row.blocked_without_gate,
+      target: row.control_id,
+      validator: row.validator,
+      stop_condition: row.stop_condition
+    }));
+  const queueItems = gateQueue.map((row) => ({
+    source: "global_gate_queue",
+    gate: row.gate_required,
+    surface: row.target_artifact,
+    status: row.status,
+    owner_agent: row.gate_owner,
+    next_action: gateNextAction(row),
+    blocked_actions: row.blocked_execution,
+    target: row.queue_id,
+    validator: row.validator,
+    stop_condition: row.stop_condition
+  }));
+  const items = [...canvasItems, ...queueItems];
+
+  return {
+    status: items.length > 0 ? "ACTIVE_VISIBLE_GATE_LANE" : "NO_VISIBLE_GATES",
+    item_count: items.length,
+    canvas_gate_count: canvasItems.length,
+    queue_gate_count: queueItems.length,
+    ready_preparation_count: items.filter((item) => item.next_action).length,
+    blocked_live_count: items.filter((item) => item.blocked_actions).length,
+    live_executed: false,
+    items
+  };
+}
+
 export function resolveRepoRoot(startPath = process.cwd()) {
   const normalized = path.resolve(startPath);
   if (path.basename(normalized) === "local-agent-bridge") {
@@ -194,6 +246,7 @@ export function collectDashboardData(startPath = process.cwd()) {
   const agentTaskQueue = readCsv(repoRoot, paths.agentTaskQueue);
   const canvasWorkbench = summarizeCanvasWorkbench(repoRoot, agileAgentCanvas);
   const localActions = buildLocalActions(canvasWorkbench, agentTaskQueue);
+  const visibleGateLane = buildVisibleGateLane(gateQueue, agileAgentCanvas);
 
   return {
     status: "ok",
@@ -214,10 +267,12 @@ export function collectDashboardData(startPath = process.cwd()) {
       local_task_scoped_agents: autonomous.filter((row) => row.execution_mode === "local_task_scoped_agent").length,
       codex_cloud_ready_records: autonomous.filter((row) => row.status === "ACTIVE_CODEX_CLOUD_READY").length,
       gated_records: gateQueue.length,
+      visible_gate_records: visibleGateLane.item_count,
       semaphore: countBy(semaphore, "color")
     },
     semaphores: semaphore,
     gate_queue: gateQueue,
+    visible_gate_lane: visibleGateLane,
     agile_agent_canvas: agileAgentCanvas,
     canvas_workbench: canvasWorkbench,
     local_actions: localActions,
