@@ -32,6 +32,7 @@ REQUIRED_COLUMNS = [
 REQUIRED_VALIDATORS = {
     "readonly_task_preparation": "scripts/validators/readonly_task_preparation_validator.py",
     "no_ps_validator_prep": "scripts/validators/no_ps_validator_prep_validator.py",
+    "vsi_memory_log_no_ps": "scripts/validators/vsi_memory_log_no_ps_validator.py",
 }
 
 FORBIDDEN_COMMAND_TOKENS = ("powershell", "pwsh", ".ps1")
