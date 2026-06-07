@@ -169,6 +169,12 @@
 /.github/workflows/*
 !/.github/workflows/*.yml
 
+# VS Code Insiders repo-local task surface. Settings remain local unless
+# explicitly allowlisted by a separate governed change.
+!/.vscode/
+/.vscode/*
+!/.vscode/tasks.json
+
 # SDU agent runtime DEV connection scaffolds. These are local templates and
 # mock/dev surfaces only; no tenant install, no live messages and no remote
 # runtime apply are versioned here.
