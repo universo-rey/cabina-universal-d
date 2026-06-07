@@ -261,12 +261,14 @@
           {
             "id": "S-3.2",
             "title": "Mostrar proximos gates",
-            "description": "El tablero lista gates pendientes de Jira, catalogo usuario, Graphify, OpenAI live y Microsoft live.",
+            "description": "El tablero lista los gates existentes como carril visible de proximos movimientos para Jira, catalogo usuario, Graphify, OpenAI live y Microsoft live.",
             "acceptanceCriteria": [
               "nombres de gate coinciden con matriz de gobierno",
-              "lanes bloqueadas se distinguen visualmente"
+              "lanes bloqueadas se distinguen visualmente",
+              "visible_gate_lane deriva de gate_queue y Agile Agent Canvas sin crear paquetes nuevos",
+              "liveExecuted permanece false"
             ],
-            "status": "pendiente"
+            "status": "hecho"
           },
           {
             "id": "S-3.3",

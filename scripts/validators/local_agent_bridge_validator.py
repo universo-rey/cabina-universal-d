@@ -97,6 +97,12 @@ def validate() -> None:
     if "status_only" not in shell_connector:
         raise AssertionError("shell connector must remain status_only")
     local_actions_text = read_text("local-agent-bridge/src/localActions.mjs")
+    dashboard_data_text = read_text("local-agent-bridge/src/dashboardData.mjs")
+    dashboard_html = read_text("local-agent-bridge/public/index.html")
+    if "visible_gate_lane" not in dashboard_data_text or "ACTIVE_VISIBLE_GATE_LANE" not in dashboard_data_text:
+        raise AssertionError("dashboard data must expose a visible gate lane from existing gates")
+    if "renderVisibleGate" not in dashboard_html or "visible-gate-lane" not in dashboard_html:
+        raise AssertionError("dashboard UI must render the visible gate lane")
     if "execute_arbitrary_shell_from_dashboard" not in local_actions_text:
         raise AssertionError("local actions must block arbitrary shell execution")
     if "purpose_built_postcheck_allowlist" not in local_actions_text:
