@@ -61,7 +61,9 @@ assert.equal(dashboard.canvas_workbench.active_governed_lane.external_sync, fals
 assert.equal(dashboard.summary.active_agile_canvas_lane, "ACTIVE_LOCAL_GOVERNED_USE");
 assert.equal(dashboard.local_actions.length, 4);
 assert.equal(dashboard.summary.local_actions_ready, 4);
-assert.ok(dashboard.local_actions.some((row) => row.action_id === "local.action.inspect_canvas_lane"));
+assert.ok(dashboard.local_actions.some(
+  (row) => row.action_id === "local.action.inspect_canvas_lane" && row.execution_mode === "structured_local_review"
+));
 assert.ok(dashboard.local_actions.some((row) => row.action_id === "local.action.review_live_gate_packets"));
 assert.ok(dashboard.local_actions.some((row) => row.execution_mode === "structured_local_review"));
 assert.ok(dashboard.local_actions.some((row) => row.execution_mode === "postcheck_allowlist"));
@@ -116,6 +118,22 @@ assert.equal(actionPlan.execute_now, true);
 assert.equal(actionPlan.command_execution_exposed, false);
 assert.equal(actionPlan.live_executed, false);
 assert.ok(actionPlan.postcheck_commands.includes("npm test"));
+
+const canvasLaneReviewPlan = getLocalActionExecutionPlan("local.action.inspect_canvas_lane");
+assert.equal(canvasLaneReviewPlan.execute_now, true);
+assert.equal(canvasLaneReviewPlan.command_execution_exposed, false);
+assert.equal(canvasLaneReviewPlan.live_executed, false);
+assert.equal(canvasLaneReviewPlan.shell_mode, "structured_local_review_no_shell");
+const canvasLaneReview = await runLocalAction("local.action.inspect_canvas_lane", repoRoot);
+assert.equal(canvasLaneReview.status, "PASS");
+assert.equal(canvasLaneReview.command_execution_exposed, false);
+assert.equal(canvasLaneReview.live_executed, false);
+assert.equal(canvasLaneReview.canvas_lane_review.artifact_count, 4);
+assert.equal(canvasLaneReview.canvas_lane_review.parsed_artifact_count, 4);
+assert.equal(canvasLaneReview.canvas_lane_review.missing_allowlist_entries.length, 0);
+assert.equal(canvasLaneReview.canvas_lane_review.missing_lane_fields.length, 0);
+assert.equal(canvasLaneReview.canvas_lane_review.live_executed, false);
+assert.equal(canvasLaneReview.canvas_lane_review.external_sync, false);
 
 const queueReviewPlan = getLocalActionExecutionPlan("local.action.review_task_queue");
 assert.equal(queueReviewPlan.execute_now, true);

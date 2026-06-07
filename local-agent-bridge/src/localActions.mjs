@@ -3,9 +3,16 @@ import fs from "node:fs";
 import path from "node:path";
 
 const POSTCHECK_ACTION_ID = "local.action.prepare_local_validation";
+const CANVAS_LANE_REVIEW_ACTION_ID = "local.action.inspect_canvas_lane";
 const TASK_QUEUE_REVIEW_ACTION_ID = "local.action.review_task_queue";
 const LIVE_GATE_PACKET_REVIEW_ACTION_ID = "local.action.review_live_gate_packets";
 const TASK_QUEUE_PATH = ".agents/codex/matrices/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv";
+const CANVAS_ARTIFACT_PATHS = [
+  ".agileagentcanvas-context/vision.json",
+  ".agileagentcanvas-context/discovery/product-brief.json",
+  ".agileagentcanvas-context/planning/prd.json",
+  ".agileagentcanvas-context/planning/epics.json"
+];
 const LIVE_GATE_PACKET_PATHS = [
   ".agents/codex/orders/ORDER_VSI_JIRA_READ_20260606.md",
   ".agents/codex/orders/ORDER_VSI_OPENAI_LIVE_20260606.md",
@@ -111,6 +118,89 @@ function findDuplicates(values) {
     seen.add(value);
   }
   return [...duplicates].sort();
+}
+
+function readJsonArtifact(repoRoot, artifactPath) {
+  const fullPath = path.join(repoRoot, artifactPath);
+  if (!fs.existsSync(fullPath)) {
+    return {
+      path: artifactPath,
+      exists: false,
+      parsed: false,
+      project_name: "NO_ENCONTRADO"
+    };
+  }
+
+  try {
+    const parsed = JSON.parse(fs.readFileSync(fullPath, "utf8"));
+    return {
+      path: artifactPath,
+      exists: true,
+      parsed: true,
+      project_name: parsed?.metadata?.projectName || parsed?.content?.productOverview?.productName || "NO_DECLARADO"
+    };
+  } catch (error) {
+    return {
+      path: artifactPath,
+      exists: true,
+      parsed: false,
+      project_name: "JSON_INVALID",
+      error: error.message
+    };
+  }
+}
+
+function reviewCanvasLane(repoRoot) {
+  const prd = readJsonArtifact(repoRoot, ".agileagentcanvas-context/planning/prd.json");
+  let activeLane = {};
+  if (prd.parsed) {
+    const prdJson = JSON.parse(fs.readFileSync(path.join(repoRoot, ".agileagentcanvas-context/planning/prd.json"), "utf8"));
+    activeLane = prdJson?.content?.activeGovernedLane || {};
+  }
+
+  const artifacts = CANVAS_ARTIFACT_PATHS.map((artifactPath) => readJsonArtifact(repoRoot, artifactPath));
+  const writeAllowlist = Array.isArray(activeLane.writeAllowlist) ? activeLane.writeAllowlist : [];
+  const validators = Array.isArray(activeLane.validators) ? activeLane.validators : [];
+  const missingAllowlistEntries = writeAllowlist
+    .filter((relativePath) => !fs.existsSync(path.join(repoRoot, relativePath)))
+    .sort();
+  const missingLaneFields = [
+    ["laneId", activeLane.laneId],
+    ["status", activeLane.status],
+    ["ownerAgent", activeLane.ownerAgent],
+    ["reviewerAgent", activeLane.reviewerAgent],
+    ["lockKey", activeLane.lockKey],
+    ["writeAllowlist", writeAllowlist.length > 0],
+    ["validators", validators.length > 0]
+  ]
+    .filter(([, value]) => !value)
+    .map(([field]) => field);
+
+  const liveExecuted = activeLane.liveExecuted === true;
+  const externalSync = activeLane.externalSync === true;
+  const passed = artifacts.every((artifact) => artifact.exists && artifact.parsed)
+    && missingAllowlistEntries.length === 0
+    && missingLaneFields.length === 0
+    && !liveExecuted
+    && !externalSync;
+
+  return {
+    status: passed ? "PASS" : "FAIL",
+    lane_id: activeLane.laneId || "NO_DECLARADO",
+    lane_status: activeLane.status || "NO_DECLARADO",
+    owner_agent: activeLane.ownerAgent || "NO_DECLARADO",
+    reviewer_agent: activeLane.reviewerAgent || "NO_DECLARADO",
+    lock_key: activeLane.lockKey || "NO_DECLARADO",
+    artifact_count: artifacts.length,
+    parsed_artifact_count: artifacts.filter((artifact) => artifact.parsed).length,
+    allowlist_count: writeAllowlist.length,
+    missing_allowlist_entries: missingAllowlistEntries,
+    validator_count: validators.length,
+    missing_lane_fields: missingLaneFields,
+    live_executed: liveExecuted,
+    external_sync: externalSync,
+    artifacts
+  };
 }
 
 function reviewTaskQueue(repoRoot) {
@@ -297,17 +387,17 @@ export function buildLocalActions(canvasWorkbench, agentTaskQueue) {
 
   return [
     {
-      action_id: "local.action.inspect_canvas_lane",
+      action_id: CANVAS_LANE_REVIEW_ACTION_ID,
       title: "Inspeccionar carril Agile Canvas",
-      status: activeLane.status,
+      status: "READY_LOCAL_GOVERNED",
       surface: "agileagentcanvas_context",
       owner_agent: activeLane.owner_agent,
       target: activeLane.lane_id,
-      evidence: "active_governed_lane visible en /api/dashboard",
-      execution_mode: "guided_read_only",
-      allowed_now: "read_dashboard_api|review_canvas_artifacts",
+      evidence: "structured canvas lane review available",
+      execution_mode: "structured_local_review",
+      allowed_now: "run_structured_canvas_lane_review|review_canvas_artifacts|review_allowlist",
       blocked_actions: "live_provider_call|secret_handling|external_sync",
-      stop_condition: "active_lane_not_visible_in_dashboard"
+      stop_condition: "canvas_lane_structured_review_failed"
     },
     {
       action_id: "local.action.review_task_queue",
@@ -354,6 +444,18 @@ export function buildLocalActions(canvasWorkbench, agentTaskQueue) {
 }
 
 export function getLocalActionExecutionPlan(actionId) {
+  if (actionId === CANVAS_LANE_REVIEW_ACTION_ID) {
+    return {
+      action_id: actionId,
+      execute_now: true,
+      status: "READY_LOCAL_GOVERNED",
+      command_execution_exposed: false,
+      live_executed: false,
+      shell_mode: "structured_local_review_no_shell",
+      postcheck_commands: []
+    };
+  }
+
   if (actionId === LIVE_GATE_PACKET_REVIEW_ACTION_ID) {
     return {
       action_id: actionId,
@@ -402,6 +504,19 @@ export function getLocalActionExecutionPlan(actionId) {
 
 export async function runLocalAction(actionId, repoRoot) {
   const plan = getLocalActionExecutionPlan(actionId);
+  if (actionId === CANVAS_LANE_REVIEW_ACTION_ID) {
+    const canvasLaneReview = reviewCanvasLane(repoRoot);
+    return {
+      ...plan,
+      status: canvasLaneReview.status,
+      evidence: "structured canvas lane review executed",
+      canvas_lane_review: canvasLaneReview,
+      stop_condition: canvasLaneReview.status === "PASS"
+        ? "canvas_lane_review_passed"
+        : "canvas_lane_structured_review_failed"
+    };
+  }
+
   if (actionId === LIVE_GATE_PACKET_REVIEW_ACTION_ID) {
     const packetReview = reviewLiveGatePackets(repoRoot);
     return {

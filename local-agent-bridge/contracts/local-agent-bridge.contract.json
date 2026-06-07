@@ -40,6 +40,7 @@
     "commandExecutionExposed": false,
     "executionMode": "purpose_built_postcheck_allowlist|structured_local_review_no_shell",
     "allowedActionIds": [
+      "local.action.inspect_canvas_lane",
       "local.action.review_task_queue",
       "local.action.prepare_local_validation",
       "local.action.review_live_gate_packets"

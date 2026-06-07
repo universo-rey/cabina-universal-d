@@ -28,7 +28,7 @@
       "projectName": "Cabina Universal Agent Control",
       "description": "Desglose de epicas para la mesa local de Agile Agent Canvas que gobierna superficies agente de Visual Studio Code Insiders.",
       "totalEpics": 4,
-      "totalStories": 14,
+      "totalStories": 15,
       "inputDocuments": [
         "vision.json",
         "discovery/product-brief.json",
@@ -73,7 +73,8 @@
           "relatedStories": [
             "S-3.1",
             "S-3.2",
-            "S-3.6"
+            "S-3.6",
+            "S-3.7"
           ]
         },
         {
@@ -291,6 +292,18 @@
               "endpoint /api/local-actions/run acepta local.action.review_task_queue",
               "command_execution_exposed es false",
               "review_result informa tareas, duplicados, dependencias faltantes y locks",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.7",
+            "title": "Ejecutar revision estructurada del carril Agile Canvas",
+            "description": "La accion inspeccionar carril Agile Canvas ejecuta una revision estructurada de artefactos, allowlist y validadores desde el tablero sin shell arbitrario.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run acepta local.action.inspect_canvas_lane",
+              "canvas_lane_review informa artefactos, allowlist y validadores",
+              "command_execution_exposed es false",
               "liveExecuted permanece false"
             ],
             "status": "hecho"

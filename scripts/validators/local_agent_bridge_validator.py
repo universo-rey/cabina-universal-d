@@ -34,6 +34,7 @@ def validate() -> None:
     if local_actions.get("commandExecutionExposed") is not False:
         raise AssertionError("local actions must not expose arbitrary command execution")
     for action_id in (
+        "local.action.inspect_canvas_lane",
         "local.action.review_task_queue",
         "local.action.prepare_local_validation",
         "local.action.review_live_gate_packets",
@@ -86,6 +87,8 @@ def validate() -> None:
         raise AssertionError("local actions must use purpose-built postcheck allowlist")
     if "structured_local_review_no_shell" not in local_actions_text:
         raise AssertionError("local actions must support structured no-shell review")
+    if "canvas_lane_review" not in local_actions_text:
+        raise AssertionError("local actions must expose structured canvas lane review")
     if "ORDER_VSI_POWER_PLATFORM_DRY_RUN_20260607.md" not in local_actions_text:
         raise AssertionError("local actions must review Power Platform dry-run packet")
 
