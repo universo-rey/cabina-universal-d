@@ -43,7 +43,8 @@
       "local.action.inspect_canvas_lane",
       "local.action.review_task_queue",
       "local.action.prepare_local_validation",
-      "local.action.review_live_gate_packets"
+      "local.action.review_live_gate_packets",
+      "local.action.review_bridge_contract"
     ],
     "blockedActions": [
       "execute_arbitrary_shell_from_dashboard",

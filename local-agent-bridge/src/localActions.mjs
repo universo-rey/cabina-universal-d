@@ -6,7 +6,10 @@ const POSTCHECK_ACTION_ID = "local.action.prepare_local_validation";
 const CANVAS_LANE_REVIEW_ACTION_ID = "local.action.inspect_canvas_lane";
 const TASK_QUEUE_REVIEW_ACTION_ID = "local.action.review_task_queue";
 const LIVE_GATE_PACKET_REVIEW_ACTION_ID = "local.action.review_live_gate_packets";
+const BRIDGE_CONTRACT_REVIEW_ACTION_ID = "local.action.review_bridge_contract";
 const TASK_QUEUE_PATH = ".agents/codex/matrices/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv";
+const BRIDGE_CONTRACT_PATH = "local-agent-bridge/contracts/local-agent-bridge.contract.json";
+const ROUTES_MATRIX_PATH = "local-agent-bridge/matrices/routes_matrix.csv";
 const CANVAS_ARTIFACT_PATHS = [
   ".agileagentcanvas-context/vision.json",
   ".agileagentcanvas-context/discovery/product-brief.json",
@@ -320,6 +323,85 @@ function reviewLiveGatePackets(repoRoot) {
   };
 }
 
+function reviewBridgeContract(repoRoot) {
+  const contractArtifact = readJsonArtifact(repoRoot, BRIDGE_CONTRACT_PATH);
+  const contract = contractArtifact.parsed
+    ? JSON.parse(fs.readFileSync(path.join(repoRoot, BRIDGE_CONTRACT_PATH), "utf8"))
+    : {};
+  const routesPath = path.join(repoRoot, ROUTES_MATRIX_PATH);
+  const routes = fs.existsSync(routesPath)
+    ? parseCsv(fs.readFileSync(routesPath, "utf8"))
+    : [];
+  const routeIds = new Set(routes.map((row) => row.route_id).filter(Boolean));
+  const allowedActionIds = contract?.localActions?.allowedActionIds || [];
+  const blockedActions = contract?.localActions?.blockedActions || [];
+  const requiredActionIds = [
+    CANVAS_LANE_REVIEW_ACTION_ID,
+    TASK_QUEUE_REVIEW_ACTION_ID,
+    POSTCHECK_ACTION_ID,
+    LIVE_GATE_PACKET_REVIEW_ACTION_ID,
+    BRIDGE_CONTRACT_REVIEW_ACTION_ID
+  ];
+  const missingAllowedActionIds = requiredActionIds
+    .filter((actionId) => !allowedActionIds.includes(actionId))
+    .sort();
+  const requiredBlockedActions = [
+    "execute_arbitrary_shell_from_dashboard",
+    "live_provider_call",
+    "secret_handling",
+    "production_write"
+  ];
+  const missingBlockedActions = requiredBlockedActions
+    .filter((action) => !blockedActions.includes(action))
+    .sort();
+  const missingRoutes = ["bridge.shell_status", "bridge.shell_command_blocked", "bridge.local_action_run"]
+    .filter((routeId) => !routeIds.has(routeId));
+  const unsafeRoutes = routes
+    .filter((row) => {
+      const blocked = String(row.blocked_actions || "");
+      const externalBlocked = ["external_write", "teams_send", "graph_write", "live_call"]
+        .some((action) => blocked.includes(action));
+      const commandRouteBlocked = row.route_id !== "bridge.shell_command_blocked"
+        || blocked.includes("execute_arbitrary_command");
+      return row.status !== "ACTIVE_DEV" || !externalBlocked || !commandRouteBlocked;
+    })
+    .map((row) => row.route_id || "NO_DECLARADO");
+  const missingContractFields = [
+    ["transport", contract.transport === "http-loopback"],
+    ["response.liveExecutedValue", contract?.response?.liveExecutedValue === false],
+    ["shellConnector.commandExecutionExposed", contract?.shellConnector?.commandExecutionExposed === false],
+    ["localActions.commandExecutionExposed", contract?.localActions?.commandExecutionExposed === false],
+    ["localReadSurface.requiresLoopbackBindHost", contract?.localReadSurface?.requiresLoopbackBindHost === true],
+    ["localReadSurface.blockedStatus", contract?.localReadSurface?.blockedStatus === 403]
+  ]
+    .filter(([, ok]) => !ok)
+    .map(([field]) => field);
+  const passed = contractArtifact.parsed
+    && missingAllowedActionIds.length === 0
+    && missingBlockedActions.length === 0
+    && missingRoutes.length === 0
+    && unsafeRoutes.length === 0
+    && missingContractFields.length === 0;
+
+  return {
+    status: passed ? "PASS" : "FAIL",
+    contract_path: BRIDGE_CONTRACT_PATH,
+    route_matrix_path: ROUTES_MATRIX_PATH,
+    transport: contract.transport || "NO_DECLARADO",
+    allowed_action_count: allowedActionIds.length,
+    missing_allowed_action_ids: missingAllowedActionIds,
+    blocked_action_count: blockedActions.length,
+    missing_blocked_actions: missingBlockedActions,
+    route_count: routes.length,
+    missing_routes: missingRoutes,
+    unsafe_routes: unsafeRoutes,
+    missing_contract_fields: missingContractFields,
+    command_execution_exposed: contract?.localActions?.commandExecutionExposed === true
+      || contract?.shellConnector?.commandExecutionExposed === true,
+    live_executed: contract?.response?.liveExecutedValue === true
+  };
+}
+
 function trimOutput(value) {
   const text = String(value || "");
   if (text.length <= 4000) return text;
@@ -439,11 +521,36 @@ export function buildLocalActions(canvasWorkbench, agentTaskQueue) {
       allowed_now: "read_order_packets|review_missing_fields|review_live_boundaries",
       blocked_actions: "live_provider_call|secret_handling|connector_auth|production_write",
       stop_condition: "live_gate_packet_review_failed"
+    },
+    {
+      action_id: BRIDGE_CONTRACT_REVIEW_ACTION_ID,
+      title: "Revisar contrato del bridge local",
+      status: "READY_LOCAL_GOVERNED",
+      surface: "local_agent_bridge_contract",
+      owner_agent: "codex.workspace_guardian",
+      target: "http-loopback contract",
+      evidence: "structured bridge contract review available",
+      execution_mode: "structured_local_review",
+      allowed_now: "read_bridge_contract|review_loopback_boundary|review_action_allowlist",
+      blocked_actions: "execute_arbitrary_shell_from_dashboard|live_provider_call|secret_handling|production_write",
+      stop_condition: "bridge_contract_structured_review_failed"
     }
   ];
 }
 
 export function getLocalActionExecutionPlan(actionId) {
+  if (actionId === BRIDGE_CONTRACT_REVIEW_ACTION_ID) {
+    return {
+      action_id: actionId,
+      execute_now: true,
+      status: "READY_LOCAL_GOVERNED",
+      command_execution_exposed: false,
+      live_executed: false,
+      shell_mode: "structured_local_review_no_shell",
+      postcheck_commands: []
+    };
+  }
+
   if (actionId === CANVAS_LANE_REVIEW_ACTION_ID) {
     return {
       action_id: actionId,
@@ -504,6 +611,19 @@ export function getLocalActionExecutionPlan(actionId) {
 
 export async function runLocalAction(actionId, repoRoot) {
   const plan = getLocalActionExecutionPlan(actionId);
+  if (actionId === BRIDGE_CONTRACT_REVIEW_ACTION_ID) {
+    const bridgeContractReview = reviewBridgeContract(repoRoot);
+    return {
+      ...plan,
+      status: bridgeContractReview.status,
+      evidence: "structured bridge contract review executed",
+      bridge_contract_review: bridgeContractReview,
+      stop_condition: bridgeContractReview.status === "PASS"
+        ? "bridge_contract_review_passed"
+        : "bridge_contract_structured_review_failed"
+    };
+  }
+
   if (actionId === CANVAS_LANE_REVIEW_ACTION_ID) {
     const canvasLaneReview = reviewCanvasLane(repoRoot);
     return {

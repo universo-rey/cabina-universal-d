@@ -407,20 +407,28 @@
       ["agent_task_queue_dashboard", "tablero de cola de agentes"],
       ["live_gate_packet_review", "revision de paquetes live-gateados"],
       ["canvas_lane_review", "revision de carril canvas"],
+      ["bridge_contract_review", "revision de contrato bridge"],
       ["local_agent_bridge", "puente local de agentes"],
+      ["local_agent_bridge_contract", "contrato del bridge local"],
       ["local.action.inspect_canvas_lane", "inspeccionar carril Agile Canvas"],
       ["local.action.review_task_queue", "revisar cola local VSI"],
       ["local.action.prepare_local_validation", "preparar validacion local"],
       ["local.action.review_live_gate_packets", "revisar paquetes live-gateados"],
+      ["local.action.review_bridge_contract", "revisar contrato del bridge local"],
       ["postcheck_allowlist", "postcheck allowlist"],
       ["structured_local_review", "revision local estructurada"],
       ["structured_local_review_no_shell", "revision local sin shell"],
       ["run_structured_canvas_lane_review", "ejecutar revision estructurada de carril"],
+      ["read_bridge_contract", "leer contrato bridge"],
+      ["review_loopback_boundary", "revisar frontera loopback"],
+      ["review_action_allowlist", "revisar allowlist de acciones"],
       ["guided_read_only", "lectura guiada"],
       ["GUIDED_READ_ONLY", "lectura guiada"],
       ["postcheck_passed", "postcheck aprobado"],
       ["canvas_lane_review_passed", "revision de carril aprobada"],
       ["canvas_lane_structured_review_failed", "fallo de revision de carril canvas"],
+      ["bridge_contract_review_passed", "revision de contrato aprobada"],
+      ["bridge_contract_structured_review_failed", "fallo de revision de contrato bridge"],
       ["task_queue_review_passed", "revision de cola aprobada"],
       ["task_queue_structured_review_failed", "fallo de revision estructurada de cola"],
       ["live_gate_packet_review_passed", "revision de paquetes aprobada"],
@@ -597,9 +605,12 @@
       const canvasReview = result.canvas_lane_review
         ? `artefactos ${result.canvas_lane_review.parsed_artifact_count}/${result.canvas_lane_review.artifact_count} · allowlist ${result.canvas_lane_review.allowlist_count} · faltantes ${result.canvas_lane_review.missing_allowlist_entries.length} · validadores ${result.canvas_lane_review.validator_count}`
         : "";
+      const bridgeReview = result.bridge_contract_review
+        ? `acciones ${result.bridge_contract_review.allowed_action_count} · rutas ${result.bridge_contract_review.route_count} · faltantes ${result.bridge_contract_review.missing_allowed_action_ids.length} · campos ${result.bridge_contract_review.missing_contract_fields.length}`
+        : "";
       const checks = result.postcheck_results
         ? result.postcheck_results.map((item) => `${item.label}: ${item.status}`).join(" | ")
-        : review || gateReview || canvasReview || result.evidence;
+        : review || gateReview || canvasReview || bridgeReview || result.evidence;
       resultBox.textContent = `${text(result.status)} · ${checks || text(result.stop_condition)}`;
     }
 

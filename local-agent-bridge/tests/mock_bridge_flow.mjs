@@ -59,12 +59,13 @@ assert.equal(dashboard.canvas_workbench.active_governed_lane.status, "ACTIVE_LOC
 assert.equal(dashboard.canvas_workbench.active_governed_lane.live_executed, false);
 assert.equal(dashboard.canvas_workbench.active_governed_lane.external_sync, false);
 assert.equal(dashboard.summary.active_agile_canvas_lane, "ACTIVE_LOCAL_GOVERNED_USE");
-assert.equal(dashboard.local_actions.length, 4);
-assert.equal(dashboard.summary.local_actions_ready, 4);
+assert.equal(dashboard.local_actions.length, 5);
+assert.equal(dashboard.summary.local_actions_ready, 5);
 assert.ok(dashboard.local_actions.some(
   (row) => row.action_id === "local.action.inspect_canvas_lane" && row.execution_mode === "structured_local_review"
 ));
 assert.ok(dashboard.local_actions.some((row) => row.action_id === "local.action.review_live_gate_packets"));
+assert.ok(dashboard.local_actions.some((row) => row.action_id === "local.action.review_bridge_contract"));
 assert.ok(dashboard.local_actions.some((row) => row.execution_mode === "structured_local_review"));
 assert.ok(dashboard.local_actions.some((row) => row.execution_mode === "postcheck_allowlist"));
 assert.ok(dashboard.local_actions.every((row) => !row.blocked_actions.includes("secret_handling") || row.status !== "NEEDS_REVIEW"));
@@ -134,6 +135,23 @@ assert.equal(canvasLaneReview.canvas_lane_review.missing_allowlist_entries.lengt
 assert.equal(canvasLaneReview.canvas_lane_review.missing_lane_fields.length, 0);
 assert.equal(canvasLaneReview.canvas_lane_review.live_executed, false);
 assert.equal(canvasLaneReview.canvas_lane_review.external_sync, false);
+
+const bridgeContractReviewPlan = getLocalActionExecutionPlan("local.action.review_bridge_contract");
+assert.equal(bridgeContractReviewPlan.execute_now, true);
+assert.equal(bridgeContractReviewPlan.command_execution_exposed, false);
+assert.equal(bridgeContractReviewPlan.live_executed, false);
+assert.equal(bridgeContractReviewPlan.shell_mode, "structured_local_review_no_shell");
+const bridgeContractReview = await runLocalAction("local.action.review_bridge_contract", repoRoot);
+assert.equal(bridgeContractReview.status, "PASS");
+assert.equal(bridgeContractReview.command_execution_exposed, false);
+assert.equal(bridgeContractReview.live_executed, false);
+assert.equal(bridgeContractReview.bridge_contract_review.transport, "http-loopback");
+assert.equal(bridgeContractReview.bridge_contract_review.missing_allowed_action_ids.length, 0);
+assert.equal(bridgeContractReview.bridge_contract_review.missing_blocked_actions.length, 0);
+assert.equal(bridgeContractReview.bridge_contract_review.missing_routes.length, 0);
+assert.equal(bridgeContractReview.bridge_contract_review.missing_contract_fields.length, 0);
+assert.equal(bridgeContractReview.bridge_contract_review.command_execution_exposed, false);
+assert.equal(bridgeContractReview.bridge_contract_review.live_executed, false);
 
 const queueReviewPlan = getLocalActionExecutionPlan("local.action.review_task_queue");
 assert.equal(queueReviewPlan.execute_now, true);

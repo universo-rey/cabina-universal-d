@@ -61,5 +61,7 @@ Agent Canvas artifacts, write allowlist and validators. `local.action.review_tas
 runs a structured no-shell review of the repo task queue.
 `local.action.review_live_gate_packets` reviews local gate packets for Jira,
 OpenAI, Microsoft and Power Platform without calling providers.
+`local.action.review_bridge_contract` reviews the loopback contract, local action
+allowlist and route matrix without exposing shell execution.
 `local.action.prepare_local_validation` runs a fixed postcheck allowlist. The
 bridge still does not expose arbitrary shell commands.

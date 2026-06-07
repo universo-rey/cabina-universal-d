@@ -28,7 +28,7 @@
       "projectName": "Cabina Universal Agent Control",
       "description": "Desglose de epicas para la mesa local de Agile Agent Canvas que gobierna superficies agente de Visual Studio Code Insiders.",
       "totalEpics": 4,
-      "totalStories": 15,
+      "totalStories": 16,
       "inputDocuments": [
         "vision.json",
         "discovery/product-brief.json",
@@ -74,7 +74,8 @@
             "S-3.1",
             "S-3.2",
             "S-3.6",
-            "S-3.7"
+            "S-3.7",
+            "S-3.8"
           ]
         },
         {
@@ -303,6 +304,18 @@
             "acceptanceCriteria": [
               "endpoint /api/local-actions/run acepta local.action.inspect_canvas_lane",
               "canvas_lane_review informa artefactos, allowlist y validadores",
+              "command_execution_exposed es false",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.8",
+            "title": "Ejecutar revision estructurada del contrato bridge",
+            "description": "La accion revisar contrato del bridge local valida contrato loopback, allowlist de acciones y matriz de rutas desde el tablero sin shell arbitrario.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run acepta local.action.review_bridge_contract",
+              "bridge_contract_review informa acciones, rutas y campos faltantes",
               "command_execution_exposed es false",
               "liveExecuted permanece false"
             ],
