@@ -33,6 +33,7 @@ assert.equal(evidence.sanitized, true);
 assert.ok(evidence.blocked_surfaces.includes("codex_cloud_apply"));
 
 const dashboard = collectDashboardData(repoRoot);
+const dashboardHtml = fs.readFileSync(path.join(repoRoot, "local-agent-bridge", "public", "index.html"), "utf8");
 assert.equal(dashboard.status, "ok");
 assert.equal(dashboard.live_executed, false);
 assert.ok(dashboard.summary.local_task_scoped_agents > 0);
@@ -44,10 +45,16 @@ assert.equal(dashboard.canvas_workbench.project_name, "Cabina Universal Agent Co
 assert.ok(dashboard.agile_agent_canvas.some((row) => row.control_id === "aac.canvas.seed_package"));
 assert.ok(dashboard.semaphores.every((row) => row.color));
 assert.equal(dashboard.summary.agent_task_queue_records, dashboard.agent_task_queue.length);
-assert.ok(dashboard.summary.queued_agent_tasks > 0);
+assert.ok(dashboard.summary.queued_agent_tasks >= 0);
 assert.ok(dashboard.summary.executed_agent_tasks > 0);
+assert.equal(
+  dashboard.summary.queued_agent_tasks + dashboard.summary.executed_agent_tasks,
+  dashboard.summary.agent_task_queue_records
+);
 assert.ok(dashboard.agent_task_queue.some((row) => row.task_id === "vsi.agent.task.002"));
-assert.ok(dashboard.agent_task_queue.some((row) => row.status === "QUEUED_READY"));
+assert.ok(dashboard.agent_task_queue.every((row) => row.status === "EXECUTED_LOCAL_VALIDATED"));
+assert.match(dashboardHtml, /window\.location\.protocol === "file:"/);
+assert.match(dashboardHtml, /renderFileFallback/);
 
 const shellStatus = getShellConnectorStatus(repoRoot);
 assert.equal(shellStatus.connector_id, "local.shell.connector.governed");

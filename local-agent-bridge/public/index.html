@@ -504,7 +504,23 @@
       return tr;
     }
 
+    function renderFileFallback() {
+      document.getElementById("generated").textContent = "modo archivo local";
+      document.getElementById("summary").append(
+        renderMetric("tablero HTTP local", "127.0.0.1:8788"),
+        renderMetric("live ejecutado", "no")
+      );
+      document.getElementById("canvas-workbench").append(
+        renderWorkbenchItem("Estado", "requiere puente local", "abrir http://127.0.0.1:8788/")
+      );
+    }
+
     async function main() {
+      if (window.location.protocol === "file:") {
+        renderFileFallback();
+        return;
+      }
+
       const response = await fetch("/api/dashboard");
       const data = await response.json();
       document.getElementById("generated").textContent = `${data.generated_at} | ${data.repo_root}`;
