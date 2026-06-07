@@ -38,6 +38,7 @@ REQUIRED_COLUMNS = [
 REQUIRED_TASKS = {
     "Cabina: Validate VSI memory log no-PS": ("python", ["scripts/validators/vsi_memory_log_no_ps_validator.py"]),
     "Cabina: Validate VSI usage expansion": ("python", ["scripts/validators/vsi_usage_expansion_validator.py"]),
+    "Cabina: Validate VSI function utilization": ("python", ["scripts/validators/vsi_function_utilization_validator.py"]),
     "Cabina: Validate no-PS validator prep": ("python", ["scripts/validators/no_ps_validator_prep_validator.py"]),
     "Cabina: Validate readonly task prep": ("python", ["scripts/validators/readonly_task_preparation_validator.py"]),
     "Cabina: Git diff check": ("git", ["diff", "--check"]),
