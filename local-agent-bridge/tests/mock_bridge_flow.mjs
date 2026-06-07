@@ -124,8 +124,10 @@ assert.match(dashboardHtml, /Proximos gates/);
 assert.match(dashboardHtml, /renderLocalAction/);
 assert.match(dashboardHtml, /renderVisibleGate/);
 assert.match(dashboardHtml, /runLocalAction/);
-assert.equal(canvasVision.content.activeGovernedLane.status, "ACTIVE_LOCAL_GOVERNED_USE");
-assert.equal(canvasVision.content.activeGovernedLane.liveExecuted, false);
+const canvasVisionActiveLane = canvasVision.metadata.customFields.activeGovernedLane
+  || canvasVision.content.activeGovernedLane;
+assert.equal(canvasVisionActiveLane.status, "ACTIVE_LOCAL_GOVERNED_USE");
+assert.equal(canvasVisionActiveLane.liveExecuted, false);
 assert.equal(canvasPrd.metadata.customFields.activeGovernedLane.lockKey, "lock.vsi.aac_programming_lane");
 assert.equal(canvasPrd.metadata.customFields.activeGovernedLane.liveExecuted, false);
 assert.ok(canvasPrd.metadata.customFields.activeGovernedLane.writeAllowlist.includes(".agileagentcanvas-context/vision.json"));
