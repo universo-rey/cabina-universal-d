@@ -49,6 +49,28 @@ function Test-BridgeHealth {
   }
 }
 
+function Normalize-PathForCompare {
+  param([string]$Path)
+  if ([string]::IsNullOrWhiteSpace($Path)) {
+    return ""
+  }
+  return [System.IO.Path]::GetFullPath($Path).TrimEnd("\", "/")
+}
+
+function Assert-BridgeRepoRoot {
+  param(
+    [string]$BaseUrl,
+    [string]$ExpectedRepoRoot
+  )
+  $dashboard = Invoke-RestMethod -Method Get -Uri "$BaseUrl/api/dashboard" -TimeoutSec 8
+  $actual = Normalize-PathForCompare -Path ([string]$dashboard.repo_root)
+  $expected = Normalize-PathForCompare -Path $ExpectedRepoRoot
+  if (-not $actual.Equals($expected, [System.StringComparison]::OrdinalIgnoreCase)) {
+    throw "vsi_startup_bridge_repo_mismatch: expected=$expected actual=$actual"
+  }
+  return $dashboard
+}
+
 function Start-Bridge {
   param(
     [string]$RepoRoot,
@@ -130,10 +152,13 @@ if (-not (Test-BridgeHealth -BaseUrl $dashboardUrl)) {
   }
 }
 
+$dashboard = $null
 $codeInsiders = Join-Path $env:LOCALAPPDATA "Programs\Microsoft VS Code Insiders\bin\code-insiders.cmd"
 if (-not (Test-Path -LiteralPath $codeInsiders)) {
   throw "vsi_startup_vscode_insiders_missing: $codeInsiders"
 }
+
+$dashboard = Assert-BridgeRepoRoot -BaseUrl $dashboardUrl -ExpectedRepoRoot $repoRoot
 
 $settingsPath = Join-Path $env:APPDATA "Code - Insiders\User\settings.json"
 $settingsDir = Split-Path -Parent $settingsPath
@@ -170,7 +195,6 @@ if (-not $NoOpenVsi) {
   Start-Process "vscode-insiders://command/agileagentcanvas.openCanvas" | Out-Null
 }
 
-$dashboard = Invoke-RestMethod -Method Get -Uri "$dashboardUrl/api/dashboard" -TimeoutSec 8
 Assert-NoCompletedTaskDowngrade -Tasks @($dashboard.agent_task_queue) -MinimumCompletedTaskNumber $MinimumCompletedTaskNumber
 
 $summary = $dashboard.summary
@@ -194,6 +218,8 @@ $branch = (& git -C $repoRoot branch --show-current).Trim()
   branch = $branch
   head = $head
   dashboard_url = $dashboardUrl
+  bridge_repo_root = $dashboard.repo_root
+  bridge_repo_root_verified = $true
   bridge_started = $bridgeStarted
   bridge_process_id = $bridgeProcessId
   vscode_insiders = $codeInsiders

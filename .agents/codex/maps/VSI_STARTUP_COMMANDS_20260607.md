@@ -12,6 +12,11 @@ Insiders, fixes the Agile Agent Canvas user catalogue path to the repo-local
 `.agents\skills`, opens the Agile Agent Canvas surface, and reads the dashboard
 API before closing.
 
+Before changing the VS Code Insiders user setting, the command verifies that a
+reused loopback bridge reports this repo root through `/api/dashboard`. If the
+port belongs to another checkout or stale bridge, it fails with
+`vsi_startup_bridge_repo_mismatch`.
+
 ## Validation command without opening VSI
 
 ```powershell
@@ -37,6 +42,8 @@ local, dry-run or governed smoke lanes.
 
 - dashboard URL: `http://127.0.0.1:8795`
 - bridge launch: direct `node.exe src/server.mjs`, no nested `powershell.exe -Command`
+- bridge repo check:
+  `repo_root=C:\Users\enzo1\Documents\GitHub\cabina-universal-d`
 - VS Code Insiders CLI:
   `C:\Users\enzo1\AppData\Local\Programs\Microsoft VS Code Insiders\bin\code-insiders.cmd`
 - Agile Agent Canvas extension: `msayedshokry.agileagentcanvas`

@@ -50,6 +50,7 @@
 "more_than_one_item_or_active_flow","runtime_safety","a controlled runtime test would process more than one item or leave any manifest flow active","restore safe state and stop before further processing","runtime|flow|workqueue"
 "missing_keys_or_target_guess","runtime_safety","a mapping record or target write would proceed without deterministic keys or would rely on a guessed target","block write and require exact keys or target identity","runtime|dataverse|workqueue|backreference"
 "vsi_startup_state_regression_detected","runtime_safety","VSI startup detected a completed local task downgraded from EXECUTED state","restore the canonical task queue state before continuing startup","vsi|local_dashboard|agile_agent_canvas"
+"vsi_startup_bridge_repo_mismatch","runtime_safety","VSI startup detected a reused loopback bridge serving a different repo root","stop startup before changing user settings and restart the bridge for the expected repo","vsi|local_dashboard|agile_agent_canvas"
 "SECRET_DETECTED","secret_boundary","secret-like content is detected or would be printed or persisted","stop redact and require external secret store or sanitized evidence","repo|runtime|workflow|readback"
 "mock_smoke_failed","runtime_safety","a local mock smoke did not pass","fix local mock or keep the related execution lane stopped","local_mock|runtime|validator"
 "BLOCKED_TENANT_AMBIGUOUS","tenant_boundary","tenant site team channel or object target is ambiguous","stop live surface and require exact tenant or object target","microsoft|tenant|graph|teams|sharepoint"
