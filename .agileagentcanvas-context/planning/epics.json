@@ -8,7 +8,7 @@
       "created": "2026-06-06T00:00:00Z",
       "lastModified": "2026-06-07T00:00:00Z"
     },
-    "status": "governed-local-active",
+    "status": "in-progress",
     "tags": [
       "epicas",
       "vscode-insiders",
@@ -21,7 +21,20 @@
       "desglose-epicas",
       "analisis-dependencias",
       "revision-local"
-    ]
+    ],
+    "customFields": {
+      "activeGovernedLane": {
+        "laneId": "agile_canvas_programming_lane",
+        "status": "ACTIVE_LOCAL_GOVERNED_USE",
+        "ownerAgent": "codex.workspace_guardian",
+        "reviewerAgent": "court.seshat_evidence",
+        "lockKey": "lock.vsi.aac_programming_lane",
+        "linkedStory": "S-1.4",
+        "liveExecuted": false,
+        "externalSync": false,
+        "stopCondition": "programming_lane_exits_allowlist"
+      }
+    }
   },
   "content": {
     "overview": {
@@ -41,6 +54,7 @@
         {
           "id": "FR-1",
           "title": "Identidad del canvas",
+          "description": "Los artefactos raiz de Agile Agent Canvas identifican Cabina Universal Agent Control y no datos demo.",
           "capabilityArea": "Canvas",
           "relatedEpics": [
             "EPIC-1"
@@ -53,6 +67,7 @@
         {
           "id": "FR-2",
           "title": "Mapa gobernado de superficie VSI",
+          "description": "Las extensiones agente y capacidades de Agile Agent Canvas se clasifican con acciones permitidas, bloqueadas, gates, owners, validadores y stop conditions.",
           "capabilityArea": "Gobierno",
           "relatedEpics": [
             "EPIC-2"
@@ -66,6 +81,7 @@
         {
           "id": "FR-3",
           "title": "Puente al tablero local",
+          "description": "El bridge local expone estado de gobierno de Agile Agent Canvas y controles de agent-control para revision del operador.",
           "capabilityArea": "Tablero",
           "relatedEpics": [
             "EPIC-3"
@@ -99,6 +115,7 @@
         {
           "id": "FR-4",
           "title": "Preparacion de paquetes de gate",
+          "description": "Los carriles Jira, OpenAI live, Microsoft live, Graph, Power Platform, produccion, mutacion remota o costo se detienen en paquete de gate hasta tener target, owner, rollback, postcheck, evidencia y validador.",
           "capabilityArea": "Gates",
           "relatedEpics": [
             "EPIC-4"
@@ -115,6 +132,7 @@
         {
           "id": "NFR-1",
           "title": "Sin secretos",
+          "description": "Los artefactos canvas no incluyen tokens, claves, connection strings, cookies, datos privados ni datos regulados amplios.",
           "category": "Seguridad",
           "relatedEpics": [
             "EPIC-2",
@@ -124,6 +142,7 @@
         {
           "id": "NFR-2",
           "title": "Reversible",
+          "description": "Todo cambio canvas versionado conserva rollback explicito por Git restore o commit revert.",
           "category": "Operacion",
           "relatedEpics": [
             "EPIC-1",
@@ -133,6 +152,7 @@
         {
           "id": "NFR-3",
           "title": "Local primero",
+          "description": "El carril lee metadata local de extensiones y archivos repo, sin llamar proveedores live ni escribir fuera del workspace sin orden gobernada.",
           "category": "Frontera",
           "relatedEpics": [
             "EPIC-1",
@@ -577,17 +597,6 @@
           }
         ]
       }
-    ],
-    "activeGovernedLane": {
-      "laneId": "agile_canvas_programming_lane",
-      "status": "ACTIVE_LOCAL_GOVERNED_USE",
-      "ownerAgent": "codex.workspace_guardian",
-      "reviewerAgent": "court.seshat_evidence",
-      "lockKey": "lock.vsi.aac_programming_lane",
-      "linkedStory": "S-1.4",
-      "liveExecuted": false,
-      "externalSync": false,
-      "stopCondition": "programming_lane_exits_allowlist"
-    }
+    ]
   }
 }

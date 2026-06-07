@@ -91,6 +91,10 @@ function readJson(repoRoot, relativePath) {
   }
 }
 
+function getActiveGovernedLane(prd) {
+  return prd?.metadata?.customFields?.activeGovernedLane || prd?.content?.activeGovernedLane;
+}
+
 function countBy(rows, field) {
   return rows.reduce((counts, row) => {
     const key = row[field] || "NO_DECLARADO";
@@ -125,7 +129,7 @@ function summarizeCanvasWorkbench(repoRoot, agileAgentCanvas) {
   const parsedCount = artifacts.filter((artifact) => artifact.parses).length;
   const cabinaArtifactCount = artifacts.filter((artifact) => artifact.project_name === expectedProject).length;
   const prd = readJson(repoRoot, ".agileagentcanvas-context/planning/prd.json");
-  const activeLane = prd?.content?.activeGovernedLane;
+  const activeLane = getActiveGovernedLane(prd);
   const status = seedControl && parsedCount === artifacts.length && cabinaArtifactCount === artifacts.length
     ? "ACTIVE_LOCAL_WORKBENCH"
     : "NEEDS_REVIEW";

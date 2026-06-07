@@ -119,11 +119,11 @@ assert.match(dashboardHtml, /renderVisibleGate/);
 assert.match(dashboardHtml, /runLocalAction/);
 assert.equal(canvasVision.content.activeGovernedLane.status, "ACTIVE_LOCAL_GOVERNED_USE");
 assert.equal(canvasVision.content.activeGovernedLane.liveExecuted, false);
-assert.equal(canvasPrd.content.activeGovernedLane.lockKey, "lock.vsi.aac_programming_lane");
-assert.equal(canvasPrd.content.activeGovernedLane.liveExecuted, false);
-assert.ok(canvasPrd.content.activeGovernedLane.writeAllowlist.includes(".agileagentcanvas-context/vision.json"));
-assert.equal(canvasEpics.content.activeGovernedLane.linkedStory, "S-1.4");
-assert.equal(canvasEpics.content.activeGovernedLane.externalSync, false);
+assert.equal(canvasPrd.metadata.customFields.activeGovernedLane.lockKey, "lock.vsi.aac_programming_lane");
+assert.equal(canvasPrd.metadata.customFields.activeGovernedLane.liveExecuted, false);
+assert.ok(canvasPrd.metadata.customFields.activeGovernedLane.writeAllowlist.includes(".agileagentcanvas-context/vision.json"));
+assert.equal(canvasEpics.metadata.customFields.activeGovernedLane.linkedStory, "S-1.4");
+assert.equal(canvasEpics.metadata.customFields.activeGovernedLane.externalSync, false);
 assert.equal(Object.hasOwn(workspaceSettings, "agileagentcanvas.skillRepos"), false);
 if (fs.existsSync(workspaceSettingsPath)) {
   assert.equal(workspaceSettings["agileagentcanvas.userCataloguePath"], ".agents/skills");

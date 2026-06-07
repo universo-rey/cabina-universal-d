@@ -196,6 +196,10 @@ function readJsonFile(repoRoot, artifactPath) {
   return JSON.parse(fs.readFileSync(path.join(repoRoot, artifactPath), "utf8"));
 }
 
+function getActiveGovernedLane(prdJson) {
+  return prdJson?.metadata?.customFields?.activeGovernedLane || prdJson?.content?.activeGovernedLane || {};
+}
+
 function readJsonArtifact(repoRoot, artifactPath) {
   const fullPath = path.join(repoRoot, artifactPath);
   if (!fs.existsSync(fullPath)) {
@@ -231,7 +235,7 @@ function reviewCanvasLane(repoRoot) {
   let activeLane = {};
   if (prd.parsed) {
     const prdJson = readJsonFile(repoRoot, ".agileagentcanvas-context/planning/prd.json");
-    activeLane = prdJson?.content?.activeGovernedLane || {};
+    activeLane = getActiveGovernedLane(prdJson);
   }
 
   const artifacts = CANVAS_ARTIFACT_PATHS.map((artifactPath) => readJsonArtifact(repoRoot, artifactPath));
@@ -472,7 +476,7 @@ function reviewBridgeContract(repoRoot) {
 function buildReviewCanvasWorkbench(repoRoot) {
   const prdArtifact = readJsonArtifact(repoRoot, ".agileagentcanvas-context/planning/prd.json");
   const activeLane = prdArtifact.parsed
-    ? readJsonFile(repoRoot, ".agileagentcanvas-context/planning/prd.json")?.content?.activeGovernedLane || {}
+    ? getActiveGovernedLane(readJsonFile(repoRoot, ".agileagentcanvas-context/planning/prd.json"))
     : {};
   return {
     active_governed_lane: {

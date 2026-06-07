@@ -8,7 +8,7 @@
       "created": "2026-06-06T00:00:00Z",
       "lastModified": "2026-06-07T00:00:00Z"
     },
-    "status": "governed-local-active",
+    "status": "in-progress",
     "tags": [
       "brief-producto",
       "control-agentes-local",
@@ -34,7 +34,31 @@
         "path": "local-agent-bridge",
         "type": "tablero"
       }
-    ]
+    ],
+    "customFields": {
+      "activeGovernedLane": {
+        "laneId": "agile_canvas_programming_lane",
+        "status": "ACTIVE_LOCAL_GOVERNED_USE",
+        "ownerAgent": "codex.workspace_guardian",
+        "reviewerAgent": "court.seshat_evidence",
+        "lockKey": "lock.vsi.aac_programming_lane",
+        "allowedUse": [
+          "actualizar artefactos Agile Agent Canvas allowlisted",
+          "mantener evidencia en tablero local",
+          "registrar cierre en cola VSI",
+          "ejecutar validadores locales"
+        ],
+        "blockedUse": [
+          "auto-sync externo",
+          "Jira live",
+          "OpenAI live",
+          "Microsoft live",
+          "secretos",
+          "produccion"
+        ],
+        "liveExecuted": false
+      }
+    }
   },
   "content": {
     "productName": "Cabina Universal Agent Control",
@@ -51,12 +75,12 @@
         "painPoints": [
           {
             "painPoint": "Demasiadas extensiones agente instaladas sin mapa comun",
-            "severity": "alta",
+            "severity": "high",
             "frequency": "diaria"
           },
           {
             "painPoint": "Las fronteras live pueden confundirse con planificacion local",
-            "severity": "critica",
+            "severity": "critical",
             "frequency": "diaria"
           }
         ],
@@ -77,12 +101,12 @@
         "painPoints": [
           {
             "painPoint": "Capacidades duplicadas generan drift",
-            "severity": "alta",
+            "severity": "high",
             "frequency": "semanal"
           },
           {
             "painPoint": "Estado local no versionado es dificil de revisar",
-            "severity": "media",
+            "severity": "medium",
             "frequency": "diaria"
           }
         ],
@@ -132,52 +156,30 @@
         "name": "Mapa de superficies agente VSI",
         "description": "Inventariar extensiones agente instaladas y clasificarlas como locales, gateadas o bloqueadas.",
         "priority": "must-have",
-        "complexity": "media"
+        "complexity": "medium"
       },
       {
         "id": "KF-2",
         "name": "Artefactos canvas gobernados",
         "description": "Mantener vision, brief, PRD y epicas como artefactos locales versionados de Agile Agent Canvas.",
         "priority": "must-have",
-        "complexity": "baja"
+        "complexity": "low"
       },
       {
         "id": "KF-3",
         "name": "Puente de evidencia al tablero",
         "description": "Exponer controles de gobierno y estados de readiness en el tablero local.",
         "priority": "should-have",
-        "complexity": "media"
+        "complexity": "medium"
       },
       {
         "id": "KF-4",
         "name": "Paquetes de gate live",
         "description": "Preparar target, owner, rollback, postcheck, validador y stop condition antes de cualquier accion live.",
         "priority": "must-have",
-        "complexity": "alta"
+        "complexity": "high"
       }
     ],
-    "activeGovernedLane": {
-      "laneId": "agile_canvas_programming_lane",
-      "status": "ACTIVE_LOCAL_GOVERNED_USE",
-      "ownerAgent": "codex.workspace_guardian",
-      "reviewerAgent": "court.seshat_evidence",
-      "lockKey": "lock.vsi.aac_programming_lane",
-      "allowedUse": [
-        "actualizar artefactos Agile Agent Canvas allowlisted",
-        "mantener evidencia en tablero local",
-        "registrar cierre en cola VSI",
-        "ejecutar validadores locales"
-      ],
-      "blockedUse": [
-        "auto-sync externo",
-        "Jira live",
-        "OpenAI live",
-        "Microsoft live",
-        "secretos",
-        "produccion"
-      ],
-      "liveExecuted": false
-    },
     "successMetrics": [
       {
         "metric": "Identidad raiz del canvas",
