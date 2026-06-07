@@ -7,6 +7,7 @@ import { selectRoute } from "./router.mjs";
 import { buildEvidence } from "./evidenceAdapter.mjs";
 import { collectDashboardData } from "./dashboardData.mjs";
 import { buildShellCommandBlockedResponse, getShellConnectorStatus } from "./shellConnector.mjs";
+import { runLocalAction } from "./localActions.mjs";
 
 const host = process.env.SDU_BRIDGE_BIND_HOST || "127.0.0.1";
 const port = Number(process.env.SDU_BRIDGE_PORT || "8787");
@@ -32,7 +33,27 @@ function assertDevAuth(req) {
   }
 }
 
-const server = http.createServer((req, res) => {
+function readJsonBody(req, maxBytes = 2048) {
+  return new Promise((resolve, reject) => {
+    let body = "";
+    req.on("data", (chunk) => {
+      body += chunk;
+      if (body.length > maxBytes) {
+        reject(new Error("request body too large"));
+        req.destroy();
+      }
+    });
+    req.on("end", () => {
+      try {
+        resolve(body ? JSON.parse(body) : {});
+      } catch (error) {
+        reject(error);
+      }
+    });
+  });
+}
+
+const server = http.createServer(async (req, res) => {
   if (req.method === "GET" && req.url === "/") {
     html(res, 200, fs.readFileSync(dashboardPath, "utf8"));
     return;
@@ -59,6 +80,18 @@ const server = http.createServer((req, res) => {
       json(res, 200, getShellConnectorStatus(repoRoot));
     } catch (error) {
       json(res, 403, { status: "blocked", reason: error.message, live_executed: false });
+    }
+    return;
+  }
+
+  if (req.method === "POST" && req.url === "/api/local-actions/run") {
+    try {
+      assertLoopbackReadSurface(host);
+      const payload = await readJsonBody(req);
+      const actionId = String(payload.action_id || "");
+      json(res, 200, await runLocalAction(actionId, repoRoot));
+    } catch (error) {
+      json(res, 400, { status: "blocked", reason: error.message, live_executed: false });
     }
     return;
   }

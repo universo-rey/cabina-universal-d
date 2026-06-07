@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { buildLocalActions } from "./localActions.mjs";
 
 function parseCsv(text) {
   const rows = [];
@@ -81,6 +82,15 @@ function readJsonArtifact(repoRoot, relativePath) {
   }
 }
 
+function readJson(repoRoot, relativePath) {
+  const fullPath = path.join(repoRoot, relativePath);
+  try {
+    return JSON.parse(fs.readFileSync(fullPath, "utf8"));
+  } catch {
+    return null;
+  }
+}
+
 function countBy(rows, field) {
   return rows.reduce((counts, row) => {
     const key = row[field] || "NO_DECLARADO";
@@ -114,6 +124,8 @@ function summarizeCanvasWorkbench(repoRoot, agileAgentCanvas) {
   const expectedProject = "Cabina Universal Agent Control";
   const parsedCount = artifacts.filter((artifact) => artifact.parses).length;
   const cabinaArtifactCount = artifacts.filter((artifact) => artifact.project_name === expectedProject).length;
+  const prd = readJson(repoRoot, ".agileagentcanvas-context/planning/prd.json");
+  const activeLane = prd?.content?.activeGovernedLane;
   const status = seedControl && parsedCount === artifacts.length && cabinaArtifactCount === artifacts.length
     ? "ACTIVE_LOCAL_WORKBENCH"
     : "NEEDS_REVIEW";
@@ -126,6 +138,29 @@ function summarizeCanvasWorkbench(repoRoot, agileAgentCanvas) {
     cabina_artifacts: cabinaArtifactCount,
     seed_control_status: seedControl?.status || "NO_ENCONTRADO",
     live_executed: false,
+    active_governed_lane: activeLane
+      ? {
+        lane_id: activeLane.laneId || "NO_DECLARADO",
+        status: activeLane.status || "NO_DECLARADO",
+        owner_agent: activeLane.ownerAgent || "NO_DECLARADO",
+        reviewer_agent: activeLane.reviewerAgent || "NO_DECLARADO",
+        lock_key: activeLane.lockKey || "NO_DECLARADO",
+        write_allowlist_count: Array.isArray(activeLane.writeAllowlist) ? activeLane.writeAllowlist.length : 0,
+        validator_count: Array.isArray(activeLane.validators) ? activeLane.validators.length : 0,
+        live_executed: activeLane.liveExecuted === true,
+        external_sync: activeLane.externalSync === true
+      }
+      : {
+        lane_id: "NO_ENCONTRADO",
+        status: "NO_ENCONTRADO",
+        owner_agent: "NO_DECLARADO",
+        reviewer_agent: "NO_DECLARADO",
+        lock_key: "NO_DECLARADO",
+        write_allowlist_count: 0,
+        validator_count: 0,
+        live_executed: false,
+        external_sync: false
+      },
     pending_gates: pendingGates,
     artifacts
   };
@@ -147,7 +182,8 @@ export function collectDashboardData(startPath = process.cwd()) {
     semaphore: `${matricesRoot}/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_SEMAPHORE_MATRIX_20260605.csv`,
     gateQueue: `${matricesRoot}/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_GATE_QUEUE_20260605.csv`,
     autonomous: `${matricesRoot}/AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv`,
-    agileAgentCanvas: `${matricesRoot}/VSCODE_INSIDERS_AGILE_AGENT_CANVAS_GOVERNANCE_20260606.csv`
+    agileAgentCanvas: `${matricesRoot}/VSCODE_INSIDERS_AGILE_AGENT_CANVAS_GOVERNANCE_20260606.csv`,
+    agentTaskQueue: `${matricesRoot}/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv`
   };
 
   const operability = readCsv(repoRoot, paths.operability);
@@ -155,7 +191,9 @@ export function collectDashboardData(startPath = process.cwd()) {
   const gateQueue = readCsv(repoRoot, paths.gateQueue);
   const autonomous = readCsv(repoRoot, paths.autonomous);
   const agileAgentCanvas = readCsv(repoRoot, paths.agileAgentCanvas);
+  const agentTaskQueue = readCsv(repoRoot, paths.agentTaskQueue);
   const canvasWorkbench = summarizeCanvasWorkbench(repoRoot, agileAgentCanvas);
+  const localActions = buildLocalActions(canvasWorkbench, agentTaskQueue);
 
   return {
     status: "ok",
@@ -167,6 +205,11 @@ export function collectDashboardData(startPath = process.cwd()) {
       operability_records: operability.length,
       agile_agent_canvas_controls: agileAgentCanvas.length,
       canvas_artifacts_ready: canvasWorkbench.parsed_artifacts,
+      active_agile_canvas_lane: canvasWorkbench.active_governed_lane.status,
+      local_actions_ready: localActions.filter((row) => row.status !== "NEEDS_REVIEW").length,
+      agent_task_queue_records: agentTaskQueue.length,
+      queued_agent_tasks: agentTaskQueue.filter((row) => row.status === "QUEUED_READY").length,
+      executed_agent_tasks: agentTaskQueue.filter((row) => row.status.startsWith("EXECUTED")).length,
       autonomous_records: autonomous.length,
       local_task_scoped_agents: autonomous.filter((row) => row.execution_mode === "local_task_scoped_agent").length,
       codex_cloud_ready_records: autonomous.filter((row) => row.status === "ACTIVE_CODEX_CLOUD_READY").length,
@@ -177,6 +220,8 @@ export function collectDashboardData(startPath = process.cwd()) {
     gate_queue: gateQueue,
     agile_agent_canvas: agileAgentCanvas,
     canvas_workbench: canvasWorkbench,
+    local_actions: localActions,
+    agent_task_queue: agentTaskQueue,
     operability: firstRows(operability, 40),
     autonomous: firstRows(autonomous, 60)
   };

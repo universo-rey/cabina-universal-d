@@ -7,6 +7,7 @@
     "GET /health",
     "GET /api/dashboard",
     "GET /api/shell/status",
+    "POST /api/local-actions/run",
     "POST /v1/shell/command",
     "POST /v1/sdu/route"
   ],
@@ -34,6 +35,20 @@
     "mode": "status_only",
     "commandExecutionExposed": false,
     "blockedStopCondition": "LOCAL_SHELL_COMMAND_EXECUTION_NOT_EXPOSED"
+  },
+  "localActions": {
+    "commandExecutionExposed": false,
+    "executionMode": "purpose_built_postcheck_allowlist|structured_local_review_no_shell",
+    "allowedActionIds": [
+      "local.action.review_task_queue",
+      "local.action.prepare_local_validation"
+    ],
+    "blockedActions": [
+      "execute_arbitrary_shell_from_dashboard",
+      "live_provider_call",
+      "secret_handling",
+      "production_write"
+    ]
   },
   "localReadSurface": {
     "requiresLoopbackBindHost": true,

@@ -49,3 +49,13 @@ Check the governed shell connector:
 ```text
 http://127.0.0.1:8787/api/shell/status
 ```
+
+Run the guided local validation postcheck from the dashboard:
+
+```text
+POST http://127.0.0.1:8787/api/local-actions/run
+```
+
+`local.action.review_task_queue` runs a structured no-shell review of the repo
+task queue. `local.action.prepare_local_validation` runs a fixed postcheck
+allowlist. The bridge still does not expose arbitrary shell commands.

@@ -6,7 +6,7 @@
     "projectName": "Cabina Universal Agent Control",
     "timestamps": {
       "created": "2026-06-06T00:00:00Z",
-      "lastModified": "2026-06-06T00:00:00Z"
+      "lastModified": "2026-06-07T00:00:00Z"
     },
     "status": "governed-local-active",
     "tags": [
@@ -28,7 +28,7 @@
       "projectName": "Cabina Universal Agent Control",
       "description": "Desglose de epicas para la mesa local de Agile Agent Canvas que gobierna superficies agente de Visual Studio Code Insiders.",
       "totalEpics": 4,
-      "totalStories": 12,
+      "totalStories": 13,
       "inputDocuments": [
         "vision.json",
         "discovery/product-brief.json",
@@ -72,7 +72,8 @@
           ],
           "relatedStories": [
             "S-3.1",
-            "S-3.2"
+            "S-3.2",
+            "S-3.6"
           ]
         },
         {
@@ -163,7 +164,19 @@
               "git status muestra solo archivos canvas explicitos mas matrices previstas",
               ".gitignore no queda staged"
             ],
-            "status": "pendiente"
+            "status": "hecho"
+          },
+          {
+            "id": "S-1.4",
+            "title": "Abrir uso real del carril Agile Agent Canvas",
+            "description": "El canvas declara un carril activo repo-local con owner, reviewer, lock, allowlist, validadores y gates live bloqueados.",
+            "acceptanceCriteria": [
+              "activeGovernedLane.status es ACTIVE_LOCAL_GOVERNED_USE",
+              "liveExecuted es false",
+              "writeAllowlist coincide con el paquete de orden",
+              "validadores locales pasan"
+            ],
+            "status": "hecho"
           }
         ]
       },
@@ -203,7 +216,7 @@
               "owner y rollback declarados",
               "no ocurre clon externo sin gate"
             ],
-            "status": "pendiente"
+            "status": "hecho"
           }
         ]
       },
@@ -233,6 +246,53 @@
               "lanes bloqueadas se distinguen visualmente"
             ],
             "status": "pendiente"
+          },
+          {
+            "id": "S-3.3",
+            "title": "Mostrar carril activo Agile Agent Canvas",
+            "description": "El tablero local lee activeGovernedLane desde el PRD del canvas y lo muestra como carril de uso local gobernado.",
+            "acceptanceCriteria": [
+              "API expone active_governed_lane",
+              "vista humana muestra Carril activo",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.4",
+            "title": "Activar acciones locales del tablero",
+            "description": "El tablero expone acciones locales seleccionables para inspeccion, revision de cola y validacion sin ejecutar shell ni proveedores live.",
+            "acceptanceCriteria": [
+              "API expone local_actions",
+              "vista humana muestra Acciones locales",
+              "cada accion conserva blocked_actions y stop_condition",
+              "no hay ejecucion shell desde el tablero"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.5",
+            "title": "Ejecutar postcheck guiado desde el tablero",
+            "description": "La accion preparar validacion local ejecuta un postcheck allowlisted desde el tablero mediante endpoint dedicado, sin exponer shell arbitrario.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run existe",
+              "solo local.action.prepare_local_validation ejecuta postcheck",
+              "command_execution_exposed es false",
+              "postcheck devuelve resultados PASS/FAIL"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.6",
+            "title": "Ejecutar revision estructurada de cola VSI",
+            "description": "La accion revisar cola local VSI ejecuta una revision estructurada de la matriz de tareas desde el tablero sin shell arbitrario.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run acepta local.action.review_task_queue",
+              "command_execution_exposed es false",
+              "review_result informa tareas, duplicados, dependencias faltantes y locks",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
           }
         ]
       },
@@ -278,6 +338,17 @@
           }
         ]
       }
-    ]
+    ],
+    "activeGovernedLane": {
+      "laneId": "agile_canvas_programming_lane",
+      "status": "ACTIVE_LOCAL_GOVERNED_USE",
+      "ownerAgent": "codex.workspace_guardian",
+      "reviewerAgent": "court.seshat_evidence",
+      "lockKey": "lock.vsi.aac_programming_lane",
+      "linkedStory": "S-1.4",
+      "liveExecuted": false,
+      "externalSync": false,
+      "stopCondition": "programming_lane_exits_allowlist"
+    }
   }
 }
