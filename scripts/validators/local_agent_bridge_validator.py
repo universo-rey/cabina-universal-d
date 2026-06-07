@@ -42,6 +42,9 @@ def validate() -> None:
         "local.action.review_dashboard_integrity",
         "local.action.review_action_boundary",
         "local.action.review_readiness_bundle",
+        "local.action.review_ui_translation_integrity",
+        "local.action.review_task_lineage",
+        "local.action.review_canvas_story_sync",
     ):
         if action_id not in local_actions.get("allowedActionIds", []):
             raise AssertionError(f"local action allowlist missing {action_id}")
@@ -101,6 +104,12 @@ def validate() -> None:
         raise AssertionError("local actions must expose structured action boundary review")
     if "readiness_bundle_review" not in local_actions_text:
         raise AssertionError("local actions must expose structured readiness bundle review")
+    if "ui_translation_review" not in local_actions_text:
+        raise AssertionError("local actions must expose structured UI translation review")
+    if "task_lineage_review" not in local_actions_text:
+        raise AssertionError("local actions must expose structured task lineage review")
+    if "canvas_story_sync_review" not in local_actions_text:
+        raise AssertionError("local actions must expose structured canvas story sync review")
     if "ORDER_VSI_POWER_PLATFORM_DRY_RUN_20260607.md" not in local_actions_text:
         raise AssertionError("local actions must review Power Platform dry-run packet")
 
