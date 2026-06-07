@@ -1,0 +1,66 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Cabina: Validate VSI memory log no-PS",
+            "type": "process",
+            "command": "python",
+            "args": [
+                "scripts/validators/vsi_memory_log_no_ps_validator.py"
+            ],
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "Cabina: Validate VSI usage expansion",
+            "type": "process",
+            "command": "python",
+            "args": [
+                "scripts/validators/vsi_usage_expansion_validator.py"
+            ],
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "Cabina: Validate no-PS validator prep",
+            "type": "process",
+            "command": "python",
+            "args": [
+                "scripts/validators/no_ps_validator_prep_validator.py"
+            ],
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "Cabina: Validate readonly task prep",
+            "type": "process",
+            "command": "python",
+            "args": [
+                "scripts/validators/readonly_task_preparation_validator.py"
+            ],
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "Cabina: Git diff check",
+            "type": "process",
+            "command": "git",
+            "args": [
+                "diff",
+                "--check"
+            ],
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "Cabina: VSI status",
+            "type": "process",
+            "command": "code-insiders",
+            "args": [
+                "--status"
+            ],
+            "group": "none",
+            "problemMatcher": []
+        }
+    ]
+}
