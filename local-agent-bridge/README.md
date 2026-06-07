@@ -57,5 +57,7 @@ POST http://127.0.0.1:8787/api/local-actions/run
 ```
 
 `local.action.review_task_queue` runs a structured no-shell review of the repo
-task queue. `local.action.prepare_local_validation` runs a fixed postcheck
-allowlist. The bridge still does not expose arbitrary shell commands.
+task queue. `local.action.review_live_gate_packets` reviews local gate packets
+for Jira, OpenAI, Microsoft and Power Platform without calling providers.
+`local.action.prepare_local_validation` runs a fixed postcheck allowlist. The
+bridge still does not expose arbitrary shell commands.

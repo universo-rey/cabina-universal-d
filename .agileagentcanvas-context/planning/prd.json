@@ -109,8 +109,13 @@
         ".agileagentcanvas-context/planning/prd.json",
         ".agileagentcanvas-context/planning/epics.json",
         "local-agent-bridge/src/dashboardData.mjs",
+        "local-agent-bridge/src/localActions.mjs",
         "local-agent-bridge/public/index.html",
+        "local-agent-bridge/contracts/local-agent-bridge.contract.json",
+        "local-agent-bridge/README.md",
         "local-agent-bridge/tests/mock_bridge_flow.mjs",
+        "scripts/validators/local_agent_bridge_validator.py",
+        ".agents/codex/orders/ORDER_VSI_POWER_PLATFORM_DRY_RUN_20260607.md",
         ".agents/codex/matrices/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv"
       ],
       "validators": [

@@ -4,7 +4,14 @@ import path from "node:path";
 
 const POSTCHECK_ACTION_ID = "local.action.prepare_local_validation";
 const TASK_QUEUE_REVIEW_ACTION_ID = "local.action.review_task_queue";
+const LIVE_GATE_PACKET_REVIEW_ACTION_ID = "local.action.review_live_gate_packets";
 const TASK_QUEUE_PATH = ".agents/codex/matrices/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv";
+const LIVE_GATE_PACKET_PATHS = [
+  ".agents/codex/orders/ORDER_VSI_JIRA_READ_20260606.md",
+  ".agents/codex/orders/ORDER_VSI_OPENAI_LIVE_20260606.md",
+  ".agents/codex/orders/ORDER_VSI_MICROSOFT_LIVE_20260606.md",
+  ".agents/codex/orders/ORDER_VSI_POWER_PLATFORM_DRY_RUN_20260607.md"
+];
 
 function commandSpec(label, command, args) {
   return { label, command, args };
@@ -139,6 +146,90 @@ function reviewTaskQueue(repoRoot) {
   };
 }
 
+function readPacketField(text, field) {
+  const match = text.match(new RegExp(`^- ${field}:\\s*(.+)$`, "m"));
+  return match ? match[1].trim() : "";
+}
+
+function reviewLiveGatePackets(repoRoot) {
+  const requiredFields = [
+    "order_class",
+    "preparer_agent",
+    "reviewer_agent",
+    "approver_role",
+    "canon_as_of",
+    "source_authority",
+    "surface",
+    "identity",
+    "owner",
+    "data_boundary",
+    "allowed_actions",
+    "blocked_actions",
+    "rollback",
+    "postcheck",
+    "evidence",
+    "validator",
+    "expiration_rule",
+    "stop_condition"
+  ];
+  const packets = LIVE_GATE_PACKET_PATHS.map((packetPath) => {
+    const fullPath = path.join(repoRoot, packetPath);
+    if (!fs.existsSync(fullPath)) {
+      return {
+        path: packetPath,
+        exists: false,
+        surface: "NO_ENCONTRADO",
+        stop_condition: "order_packet_missing",
+        missing_fields: requiredFields,
+        pending_field_count: 0
+      };
+    }
+
+    const text = fs.readFileSync(fullPath, "utf8");
+    const missingFields = requiredFields.filter((field) => !readPacketField(text, field));
+    const pendingFieldCount = requiredFields
+      .map((field) => readPacketField(text, field))
+      .filter((value) => value.includes("PENDING_")).length;
+    return {
+      path: packetPath,
+      exists: true,
+      surface: readPacketField(text, "surface") || "NO_DECLARADO",
+      stop_condition: readPacketField(text, "stop_condition") || "NO_DECLARADO",
+      missing_fields: missingFields,
+      pending_field_count: pendingFieldCount,
+      execution_boundary_declared: text.includes("## Execution Boundary"),
+      live_execution_blocked: /does not|no ejecuta|no llama|does not call|does not write/i.test(text)
+    };
+  });
+
+  const missingPackets = packets.filter((packet) => !packet.exists).map((packet) => packet.path);
+  const packetsWithMissingFields = packets
+    .filter((packet) => packet.missing_fields.length > 0)
+    .map((packet) => `${packet.path}:${packet.missing_fields.join("|")}`);
+  const packetsWithoutBoundary = packets
+    .filter((packet) => packet.exists && !packet.execution_boundary_declared)
+    .map((packet) => packet.path);
+  const packetsWithoutLiveBlock = packets
+    .filter((packet) => packet.exists && !packet.live_execution_blocked)
+    .map((packet) => packet.path);
+  const passed = missingPackets.length === 0
+    && packetsWithMissingFields.length === 0
+    && packetsWithoutBoundary.length === 0
+    && packetsWithoutLiveBlock.length === 0;
+
+  return {
+    status: passed ? "PASS" : "FAIL",
+    packet_count: packets.length,
+    existing_packet_count: packets.filter((packet) => packet.exists).length,
+    pending_field_count: packets.reduce((total, packet) => total + packet.pending_field_count, 0),
+    missing_packets: missingPackets,
+    packets_with_missing_fields: packetsWithMissingFields,
+    packets_without_boundary: packetsWithoutBoundary,
+    packets_without_live_block: packetsWithoutLiveBlock,
+    packets
+  };
+}
+
 function trimOutput(value) {
   const text = String(value || "");
   if (text.length <= 4000) return text;
@@ -245,11 +336,36 @@ export function buildLocalActions(canvasWorkbench, agentTaskQueue) {
       allowed_now: "run_local_tests|run_local_validators|smoke_loopback_dashboard",
       blocked_actions: "execute_arbitrary_shell_from_dashboard|production_write|live_provider_call",
       stop_condition: "local_validator_fails"
+    },
+    {
+      action_id: LIVE_GATE_PACKET_REVIEW_ACTION_ID,
+      title: "Revisar paquetes live-gateados",
+      status: "READY_LOCAL_GOVERNED",
+      surface: "live_gate_packet_review",
+      owner_agent: "codex.workspace_guardian",
+      target: "Jira|OpenAI|Microsoft|Power Platform",
+      evidence: "order packets local structured review",
+      execution_mode: "structured_local_review",
+      allowed_now: "read_order_packets|review_missing_fields|review_live_boundaries",
+      blocked_actions: "live_provider_call|secret_handling|connector_auth|production_write",
+      stop_condition: "live_gate_packet_review_failed"
     }
   ];
 }
 
 export function getLocalActionExecutionPlan(actionId) {
+  if (actionId === LIVE_GATE_PACKET_REVIEW_ACTION_ID) {
+    return {
+      action_id: actionId,
+      execute_now: true,
+      status: "READY_LOCAL_GOVERNED",
+      command_execution_exposed: false,
+      live_executed: false,
+      shell_mode: "structured_local_review_no_shell",
+      postcheck_commands: []
+    };
+  }
+
   if (actionId === TASK_QUEUE_REVIEW_ACTION_ID) {
     return {
       action_id: actionId,
@@ -286,6 +402,19 @@ export function getLocalActionExecutionPlan(actionId) {
 
 export async function runLocalAction(actionId, repoRoot) {
   const plan = getLocalActionExecutionPlan(actionId);
+  if (actionId === LIVE_GATE_PACKET_REVIEW_ACTION_ID) {
+    const packetReview = reviewLiveGatePackets(repoRoot);
+    return {
+      ...plan,
+      status: packetReview.status,
+      evidence: "structured live-gate packet review executed",
+      gate_packet_review: packetReview,
+      stop_condition: packetReview.status === "PASS"
+        ? "live_gate_packet_review_passed"
+        : "live_gate_packet_review_failed"
+    };
+  }
+
   if (actionId === TASK_QUEUE_REVIEW_ACTION_ID) {
     const reviewResult = reviewTaskQueue(repoRoot);
     return {

@@ -41,7 +41,8 @@
     "executionMode": "purpose_built_postcheck_allowlist|structured_local_review_no_shell",
     "allowedActionIds": [
       "local.action.review_task_queue",
-      "local.action.prepare_local_validation"
+      "local.action.prepare_local_validation",
+      "local.action.review_live_gate_packets"
     ],
     "blockedActions": [
       "execute_arbitrary_shell_from_dashboard",
