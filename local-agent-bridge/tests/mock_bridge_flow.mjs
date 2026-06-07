@@ -65,7 +65,7 @@ assert.equal(dashboard.visible_gate_lane.live_executed, false);
 assert.equal(dashboard.visible_gate_lane.item_count, dashboard.summary.visible_gate_records);
 assert.ok(dashboard.visible_gate_lane.canvas_gate_count > 0);
 assert.ok(dashboard.visible_gate_lane.queue_gate_count > 0);
-assert.ok(dashboard.visible_gate_lane.items.some((row) => row.surface === "jira_integration"));
+assert.ok(!dashboard.visible_gate_lane.items.some((row) => row.surface === "jira_integration"));
 assert.ok(dashboard.visible_gate_lane.items.some((row) => row.surface === "skill_catalogue"));
 assert.ok(dashboard.visible_gate_lane.items.some((row) => row.surface === "graphify_commands"));
 assert.ok(dashboard.visible_gate_lane.items.some((row) => row.gate.includes("GATE_OPENAI_LIVE")));
@@ -97,6 +97,9 @@ assert.ok(dashboard.local_actions.some((row) => row.execution_mode === "structur
 assert.ok(dashboard.local_actions.some((row) => row.execution_mode === "postcheck_allowlist"));
 assert.ok(dashboard.local_actions.every((row) => !row.blocked_actions.includes("secret_handling") || row.status !== "NEEDS_REVIEW"));
 assert.ok(dashboard.agile_agent_canvas.some((row) => row.control_id === "aac.canvas.seed_package"));
+assert.ok(dashboard.agile_agent_canvas.some(
+  (row) => row.control_id === "aac.jira" && row.status === "SUSPENDED_BY_OPERATOR"
+));
 assert.ok(dashboard.semaphores.every((row) => row.color));
 assert.equal(dashboard.summary.agent_task_queue_records, dashboard.agent_task_queue.length);
 assert.ok(dashboard.summary.queued_agent_tasks >= 0);
