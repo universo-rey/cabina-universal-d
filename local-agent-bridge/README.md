@@ -69,5 +69,10 @@ review. `local.action.review_action_boundary` checks every local action plan for
 stop conditions, shell exposure and live execution. `local.action.review_readiness_bundle`
 aggregates the queue, canvas, live-gate packet, contract, dashboard integrity and
 action boundary reviews into one local no-shell readiness result.
+`local.action.review_ui_translation_integrity` checks that human dashboard labels
+and result renderers cover the local action surface. `local.action.review_task_lineage`
+checks task dependencies, locks, branches and validation status.
+`local.action.review_canvas_story_sync` checks Agile Canvas story counts,
+functional references and recent task queue rows.
 `local.action.prepare_local_validation` runs a fixed postcheck allowlist. The
 bridge still does not expose arbitrary shell commands.

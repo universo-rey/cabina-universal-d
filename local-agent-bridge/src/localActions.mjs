@@ -10,6 +10,9 @@ const BRIDGE_CONTRACT_REVIEW_ACTION_ID = "local.action.review_bridge_contract";
 const DASHBOARD_INTEGRITY_REVIEW_ACTION_ID = "local.action.review_dashboard_integrity";
 const ACTION_BOUNDARY_REVIEW_ACTION_ID = "local.action.review_action_boundary";
 const READINESS_BUNDLE_REVIEW_ACTION_ID = "local.action.review_readiness_bundle";
+const UI_TRANSLATION_REVIEW_ACTION_ID = "local.action.review_ui_translation_integrity";
+const TASK_LINEAGE_REVIEW_ACTION_ID = "local.action.review_task_lineage";
+const CANVAS_STORY_SYNC_REVIEW_ACTION_ID = "local.action.review_canvas_story_sync";
 const TASK_QUEUE_PATH = ".agents/codex/matrices/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv";
 const BRIDGE_CONTRACT_PATH = "local-agent-bridge/contracts/local-agent-bridge.contract.json";
 const ROUTES_MATRIX_PATH = "local-agent-bridge/matrices/routes_matrix.csv";
@@ -35,7 +38,10 @@ function getRequiredLocalActionIds() {
     BRIDGE_CONTRACT_REVIEW_ACTION_ID,
     DASHBOARD_INTEGRITY_REVIEW_ACTION_ID,
     ACTION_BOUNDARY_REVIEW_ACTION_ID,
-    READINESS_BUNDLE_REVIEW_ACTION_ID
+    READINESS_BUNDLE_REVIEW_ACTION_ID,
+    UI_TRANSLATION_REVIEW_ACTION_ID,
+    TASK_LINEAGE_REVIEW_ACTION_ID,
+    CANVAS_STORY_SYNC_REVIEW_ACTION_ID
   ];
 }
 
@@ -47,7 +53,10 @@ function getStructuredReviewActionIds() {
     BRIDGE_CONTRACT_REVIEW_ACTION_ID,
     DASHBOARD_INTEGRITY_REVIEW_ACTION_ID,
     ACTION_BOUNDARY_REVIEW_ACTION_ID,
-    READINESS_BUNDLE_REVIEW_ACTION_ID
+    READINESS_BUNDLE_REVIEW_ACTION_ID,
+    UI_TRANSLATION_REVIEW_ACTION_ID,
+    TASK_LINEAGE_REVIEW_ACTION_ID,
+    CANVAS_STORY_SYNC_REVIEW_ACTION_ID
   ];
 }
 
@@ -549,6 +558,142 @@ function reviewActionBoundary(repoRoot) {
   };
 }
 
+function reviewUiTranslationIntegrity(repoRoot) {
+  const htmlPath = "local-agent-bridge/public/index.html";
+  const html = fs.readFileSync(path.join(repoRoot, htmlPath), "utf8");
+  const localActions = buildReviewLocalActions(repoRoot);
+  const requiredTokens = [
+    ...getRequiredLocalActionIds(),
+    ...localActions.map((action) => action.surface),
+    ...localActions.map((action) => action.stop_condition),
+    "structured_local_review_no_shell",
+    "live_executed"
+  ];
+  const missingTranslationTokens = [...new Set(requiredTokens)]
+    .filter((token) => token && !html.includes(token))
+    .sort();
+  const missingResultRenderers = [
+    "dashboard_integrity_review",
+    "action_boundary_review",
+    "readiness_bundle_review",
+    "ui_translation_review",
+    "task_lineage_review",
+    "canvas_story_sync_review"
+  ].filter((token) => !html.includes(token));
+  const fileFallbackPresent = html.includes("renderFileFallback")
+    && html.includes('window.location.protocol === "file:"');
+  const passed = missingTranslationTokens.length === 0
+    && missingResultRenderers.length === 0
+    && fileFallbackPresent;
+
+  return {
+    status: passed ? "PASS" : "FAIL",
+    html_path: htmlPath,
+    required_token_count: [...new Set(requiredTokens)].length,
+    missing_translation_tokens: missingTranslationTokens,
+    missing_result_renderers: missingResultRenderers,
+    file_fallback_present: fileFallbackPresent,
+    command_execution_exposed: false,
+    live_executed: false
+  };
+}
+
+function reviewTaskLineage(repoRoot) {
+  const rows = readTaskQueueRows(repoRoot);
+  const taskIds = new Set(rows.map((row) => row.task_id).filter(Boolean));
+  const duplicateTaskIds = findDuplicates(rows.map((row) => row.task_id));
+  const missingDependencies = rows
+    .filter((row) => row.dependency && row.dependency !== "none" && !taskIds.has(row.dependency))
+    .map((row) => `${row.task_id}->${row.dependency}`);
+  const dependencyCycles = [];
+  for (const row of rows) {
+    const seen = new Set([row.task_id]);
+    let current = row.dependency;
+    while (current && current !== "none") {
+      if (seen.has(current)) {
+        dependencyCycles.push(`${row.task_id}->${current}`);
+        break;
+      }
+      seen.add(current);
+      const parent = rows.find((candidate) => candidate.task_id === current);
+      current = parent?.dependency;
+    }
+  }
+  const branchlessCodexTasks = rows
+    .filter((row) => row.branch && !row.branch.startsWith("codex/"))
+    .map((row) => `${row.task_id}:${row.branch}`);
+  const unlockedTasks = rows
+    .filter((row) => !row.lock_key)
+    .map((row) => row.task_id || "NO_DECLARADO");
+  const unvalidatedTasks = rows
+    .filter((row) => row.status !== "EXECUTED_LOCAL_VALIDATED")
+    .map((row) => `${row.task_id}:${row.status || "NO_DECLARADO"}`);
+  const passed = duplicateTaskIds.length === 0
+    && missingDependencies.length === 0
+    && dependencyCycles.length === 0
+    && branchlessCodexTasks.length === 0
+    && unlockedTasks.length === 0
+    && unvalidatedTasks.length === 0;
+
+  return {
+    status: passed ? "PASS" : "FAIL",
+    source: TASK_QUEUE_PATH,
+    task_count: rows.length,
+    duplicate_task_ids: duplicateTaskIds,
+    missing_dependencies: missingDependencies,
+    dependency_cycles: [...new Set(dependencyCycles)].sort(),
+    branchless_codex_tasks: branchlessCodexTasks,
+    unlocked_tasks: unlockedTasks,
+    unvalidated_tasks: unvalidatedTasks,
+    command_execution_exposed: false,
+    live_executed: false
+  };
+}
+
+function reviewCanvasStorySync(repoRoot) {
+  const epicsPath = ".agileagentcanvas-context/planning/epics.json";
+  const epics = readJsonFile(repoRoot, epicsPath);
+  const stories = epics?.content?.epics?.flatMap((epic) => epic.stories || []) || [];
+  const storyIds = stories.map((story) => story.id).filter(Boolean);
+  const duplicateStoryIds = findDuplicates(storyIds);
+  const declaredTotalStories = epics?.content?.overview?.totalStories;
+  const totalStoriesMatches = declaredTotalStories === stories.length;
+  const currentSyncStoryIds = new Set(["S-3.12", "S-3.13", "S-3.14"]);
+  const unfinishedDashboardStories = stories
+    .filter((story) => currentSyncStoryIds.has(story.id) && story.status !== "hecho")
+    .map((story) => `${story.id}:${story.status || "NO_DECLARADO"}`);
+  const functionalStoryRefs = new Set(
+    (epics?.content?.requirementsInventory?.functional || [])
+      .flatMap((item) => item.relatedStories || [])
+  );
+  const missingFunctionalStoryRefs = storyIds
+    .filter((storyId) => storyId.startsWith("S-3.") && !functionalStoryRefs.has(storyId))
+    .sort();
+  const taskQueue = readTaskQueueRows(repoRoot);
+  const recentTaskIds = ["vsi.agent.task.022", "vsi.agent.task.023", "vsi.agent.task.024"];
+  const missingRecentTasks = recentTaskIds
+    .filter((taskId) => !taskQueue.some((row) => row.task_id === taskId));
+  const passed = duplicateStoryIds.length === 0
+    && totalStoriesMatches
+    && unfinishedDashboardStories.length === 0
+    && missingFunctionalStoryRefs.length === 0
+    && missingRecentTasks.length === 0;
+
+  return {
+    status: passed ? "PASS" : "FAIL",
+    epics_path: epicsPath,
+    declared_total_stories: declaredTotalStories,
+    actual_story_count: stories.length,
+    total_stories_matches: totalStoriesMatches,
+    duplicate_story_ids: duplicateStoryIds,
+    unfinished_dashboard_stories: unfinishedDashboardStories,
+    missing_functional_story_refs: missingFunctionalStoryRefs,
+    missing_recent_tasks: missingRecentTasks,
+    command_execution_exposed: false,
+    live_executed: false
+  };
+}
+
 function reviewReadinessBundle(repoRoot) {
   const components = [
     ["task_queue", reviewTaskQueue(repoRoot)],
@@ -556,7 +701,10 @@ function reviewReadinessBundle(repoRoot) {
     ["live_gate_packets", reviewLiveGatePackets(repoRoot)],
     ["bridge_contract", reviewBridgeContract(repoRoot)],
     ["dashboard_integrity", reviewDashboardIntegrity(repoRoot)],
-    ["action_boundary", reviewActionBoundary(repoRoot)]
+    ["action_boundary", reviewActionBoundary(repoRoot)],
+    ["ui_translation_integrity", reviewUiTranslationIntegrity(repoRoot)],
+    ["task_lineage", reviewTaskLineage(repoRoot)],
+    ["canvas_story_sync", reviewCanvasStorySync(repoRoot)]
   ].map(([component, result]) => ({
     component,
     status: result.status,
@@ -760,6 +908,45 @@ export function buildLocalActions(canvasWorkbench, agentTaskQueue) {
       allowed_now: "review_readiness_bundle|review_component_status|review_no_live_boundary",
       blocked_actions: "execute_arbitrary_shell_from_dashboard|live_provider_call|secret_handling|production_write",
       stop_condition: "readiness_bundle_review_failed"
+    },
+    {
+      action_id: UI_TRANSLATION_REVIEW_ACTION_ID,
+      title: "Revisar traducciones del tablero",
+      status: "READY_LOCAL_GOVERNED",
+      surface: "local_ui_translation_integrity",
+      owner_agent: "codex.workspace_guardian",
+      target: "human dashboard labels",
+      evidence: "structured UI translation review available",
+      execution_mode: "structured_local_review",
+      allowed_now: "review_human_labels|review_result_renderers|review_file_fallback",
+      blocked_actions: "execute_arbitrary_shell_from_dashboard|live_provider_call|secret_handling|production_write",
+      stop_condition: "ui_translation_review_failed"
+    },
+    {
+      action_id: TASK_LINEAGE_REVIEW_ACTION_ID,
+      title: "Revisar linaje de tareas",
+      status: "READY_LOCAL_GOVERNED",
+      surface: "local_task_lineage",
+      owner_agent: "codex.workspace_guardian",
+      target: "VSI task queue dependencies",
+      evidence: "structured task lineage review available",
+      execution_mode: "structured_local_review",
+      allowed_now: "review_task_dependencies|review_lock_keys|review_codex_branches",
+      blocked_actions: "execute_arbitrary_shell_from_dashboard|dispatch_live_agents|live_provider_call|secret_handling|production_write",
+      stop_condition: "task_lineage_review_failed"
+    },
+    {
+      action_id: CANVAS_STORY_SYNC_REVIEW_ACTION_ID,
+      title: "Revisar sincronía historias-tareas",
+      status: "READY_LOCAL_GOVERNED",
+      surface: "local_canvas_story_sync",
+      owner_agent: "codex.workspace_guardian",
+      target: "Agile Canvas epics and task queue",
+      evidence: "structured canvas story sync review available",
+      execution_mode: "structured_local_review",
+      allowed_now: "review_story_counts|review_functional_refs|review_task_story_sync",
+      blocked_actions: "execute_arbitrary_shell_from_dashboard|live_provider_call|secret_handling|production_write|external_sync",
+      stop_condition: "canvas_story_sync_review_failed"
     }
   ];
 }
@@ -811,6 +998,45 @@ export async function runLocalAction(actionId, repoRoot) {
       stop_condition: readinessBundleReview.status === "PASS"
         ? "readiness_bundle_review_passed"
         : "readiness_bundle_review_failed"
+    };
+  }
+
+  if (actionId === CANVAS_STORY_SYNC_REVIEW_ACTION_ID) {
+    const canvasStorySyncReview = reviewCanvasStorySync(repoRoot);
+    return {
+      ...plan,
+      status: canvasStorySyncReview.status,
+      evidence: "structured canvas story sync review executed",
+      canvas_story_sync_review: canvasStorySyncReview,
+      stop_condition: canvasStorySyncReview.status === "PASS"
+        ? "canvas_story_sync_review_passed"
+        : "canvas_story_sync_review_failed"
+    };
+  }
+
+  if (actionId === TASK_LINEAGE_REVIEW_ACTION_ID) {
+    const taskLineageReview = reviewTaskLineage(repoRoot);
+    return {
+      ...plan,
+      status: taskLineageReview.status,
+      evidence: "structured task lineage review executed",
+      task_lineage_review: taskLineageReview,
+      stop_condition: taskLineageReview.status === "PASS"
+        ? "task_lineage_review_passed"
+        : "task_lineage_review_failed"
+    };
+  }
+
+  if (actionId === UI_TRANSLATION_REVIEW_ACTION_ID) {
+    const uiTranslationReview = reviewUiTranslationIntegrity(repoRoot);
+    return {
+      ...plan,
+      status: uiTranslationReview.status,
+      evidence: "structured UI translation review executed",
+      ui_translation_review: uiTranslationReview,
+      stop_condition: uiTranslationReview.status === "PASS"
+        ? "ui_translation_review_passed"
+        : "ui_translation_review_failed"
     };
   }
 

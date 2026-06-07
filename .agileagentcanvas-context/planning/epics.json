@@ -28,7 +28,7 @@
       "projectName": "Cabina Universal Agent Control",
       "description": "Desglose de epicas para la mesa local de Agile Agent Canvas que gobierna superficies agente de Visual Studio Code Insiders.",
       "totalEpics": 4,
-      "totalStories": 19,
+      "totalStories": 25,
       "inputDocuments": [
         "vision.json",
         "discovery/product-brief.json",
@@ -73,12 +73,18 @@
           "relatedStories": [
             "S-3.1",
             "S-3.2",
+            "S-3.3",
+            "S-3.4",
+            "S-3.5",
             "S-3.6",
             "S-3.7",
             "S-3.8",
             "S-3.9",
             "S-3.10",
-            "S-3.11"
+            "S-3.11",
+            "S-3.12",
+            "S-3.13",
+            "S-3.14"
           ]
         },
         {
@@ -355,6 +361,42 @@
             "acceptanceCriteria": [
               "endpoint /api/local-actions/run acepta local.action.review_readiness_bundle",
               "readiness_bundle_review informa componentes passing y fallidos",
+              "command_execution_exposed es false",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.12",
+            "title": "Ejecutar revision de traducciones del tablero",
+            "description": "La accion revisar traducciones del tablero valida que las etiquetas humanas, superficies y renderers de resultados cubran las acciones locales.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run acepta local.action.review_ui_translation_integrity",
+              "ui_translation_review informa tokens y renderers faltantes",
+              "command_execution_exposed es false",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.13",
+            "title": "Ejecutar revision de linaje de tareas",
+            "description": "La accion revisar linaje de tareas valida dependencias, locks, ramas codex y estados de la cola VSI.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run acepta local.action.review_task_lineage",
+              "task_lineage_review informa dependencias, ciclos, locks y tareas no validadas",
+              "command_execution_exposed es false",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.14",
+            "title": "Ejecutar revision de sincronía historias-tareas",
+            "description": "La accion revisar sincronía historias-tareas valida conteo de historias, referencias funcionales y filas recientes de cola.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run acepta local.action.review_canvas_story_sync",
+              "canvas_story_sync_review informa conteos, refs funcionales y tareas recientes faltantes",
               "command_execution_exposed es false",
               "liveExecuted permanece false"
             ],

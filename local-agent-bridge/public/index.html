@@ -411,11 +411,17 @@
       ["dashboard_integrity_review", "revision de integridad del tablero"],
       ["action_boundary_review", "revision de frontera de acciones"],
       ["readiness_bundle_review", "revision de readiness agregado"],
+      ["ui_translation_review", "revision de traducciones UI"],
+      ["task_lineage_review", "revision de linaje de tareas"],
+      ["canvas_story_sync_review", "revision de sincronía historias-tareas"],
       ["local_agent_bridge", "puente local de agentes"],
       ["local_agent_bridge_contract", "contrato del bridge local"],
       ["local_dashboard_integrity", "integridad del tablero local"],
       ["local_action_boundary", "frontera de acciones locales"],
       ["local_readiness_bundle", "readiness local agregado"],
+      ["local_ui_translation_integrity", "integridad de traducciones UI"],
+      ["local_task_lineage", "linaje de tareas local"],
+      ["local_canvas_story_sync", "sincronía canvas-tareas"],
       ["local.action.inspect_canvas_lane", "inspeccionar carril Agile Canvas"],
       ["local.action.review_task_queue", "revisar cola local VSI"],
       ["local.action.prepare_local_validation", "preparar validacion local"],
@@ -424,6 +430,9 @@
       ["local.action.review_dashboard_integrity", "revisar integridad del tablero"],
       ["local.action.review_action_boundary", "revisar frontera de acciones"],
       ["local.action.review_readiness_bundle", "revisar readiness agregado"],
+      ["local.action.review_ui_translation_integrity", "revisar traducciones del tablero"],
+      ["local.action.review_task_lineage", "revisar linaje de tareas"],
+      ["local.action.review_canvas_story_sync", "revisar sincronía historias-tareas"],
       ["postcheck_allowlist", "postcheck allowlist"],
       ["structured_local_review", "revision local estructurada"],
       ["structured_local_review_no_shell", "revision local sin shell"],
@@ -437,6 +446,15 @@
       ["review_stop_conditions", "revisar condiciones de detencion"],
       ["review_readiness_bundle", "revisar readiness agregado"],
       ["review_component_status", "revisar estado de componentes"],
+      ["review_human_labels", "revisar etiquetas humanas"],
+      ["review_result_renderers", "revisar renderers de resultados"],
+      ["review_file_fallback", "revisar fallback de archivo"],
+      ["review_task_dependencies", "revisar dependencias de tareas"],
+      ["review_lock_keys", "revisar locks de tareas"],
+      ["review_codex_branches", "revisar ramas codex"],
+      ["review_story_counts", "revisar conteo de historias"],
+      ["review_functional_refs", "revisar referencias funcionales"],
+      ["review_task_story_sync", "revisar sincronía tarea-historia"],
       ["guided_read_only", "lectura guiada"],
       ["GUIDED_READ_ONLY", "lectura guiada"],
       ["postcheck_passed", "postcheck aprobado"],
@@ -450,6 +468,12 @@
       ["action_boundary_review_failed", "fallo de frontera de acciones"],
       ["readiness_bundle_review_passed", "readiness agregado aprobado"],
       ["readiness_bundle_review_failed", "fallo de readiness agregado"],
+      ["ui_translation_review_passed", "revision de traducciones aprobada"],
+      ["ui_translation_review_failed", "fallo de traducciones del tablero"],
+      ["task_lineage_review_passed", "revision de linaje aprobada"],
+      ["task_lineage_review_failed", "fallo de linaje de tareas"],
+      ["canvas_story_sync_review_passed", "revision de sincronía aprobada"],
+      ["canvas_story_sync_review_failed", "fallo de sincronía historias-tareas"],
       ["task_queue_review_passed", "revision de cola aprobada"],
       ["task_queue_structured_review_failed", "fallo de revision estructurada de cola"],
       ["live_gate_packet_review_passed", "revision de paquetes aprobada"],
@@ -638,9 +662,18 @@
       const readinessBundleReview = result.readiness_bundle_review
         ? `componentes ${result.readiness_bundle_review.passing_components}/${result.readiness_bundle_review.component_count} · fallos ${result.readiness_bundle_review.failing_components.length} · live ${result.readiness_bundle_review.live_execution_components.length}`
         : "";
+      const uiTranslationReview = result.ui_translation_review
+        ? `tokens ${result.ui_translation_review.required_token_count} · faltantes ${result.ui_translation_review.missing_translation_tokens.length} · renderers ${result.ui_translation_review.missing_result_renderers.length}`
+        : "";
+      const taskLineageReview = result.task_lineage_review
+        ? `tareas ${result.task_lineage_review.task_count} · dependencias ${result.task_lineage_review.missing_dependencies.length} · ciclos ${result.task_lineage_review.dependency_cycles.length} · locks ${result.task_lineage_review.unlocked_tasks.length}`
+        : "";
+      const canvasStorySyncReview = result.canvas_story_sync_review
+        ? `historias ${result.canvas_story_sync_review.actual_story_count}/${result.canvas_story_sync_review.declared_total_stories} · refs ${result.canvas_story_sync_review.missing_functional_story_refs.length} · tareas ${result.canvas_story_sync_review.missing_recent_tasks.length}`
+        : "";
       const checks = result.postcheck_results
         ? result.postcheck_results.map((item) => `${item.label}: ${item.status}`).join(" | ")
-        : review || gateReview || canvasReview || bridgeReview || dashboardIntegrityReview || actionBoundaryReview || readinessBundleReview || result.evidence;
+        : review || gateReview || canvasReview || bridgeReview || dashboardIntegrityReview || actionBoundaryReview || readinessBundleReview || uiTranslationReview || taskLineageReview || canvasStorySyncReview || result.evidence;
       resultBox.textContent = `${text(result.status)} · ${checks || text(result.stop_condition)}`;
     }
 
