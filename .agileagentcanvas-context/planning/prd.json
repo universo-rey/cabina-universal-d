@@ -8,7 +8,7 @@
       "created": "2026-06-06T00:00:00Z",
       "lastModified": "2026-06-07T00:00:00Z"
     },
-    "status": "governed-local-active",
+    "status": "in-progress",
     "tags": [
       "prd",
       "agentes",
@@ -32,7 +32,43 @@
       {
         "path": ".agents/codex/matrices/VSCODE_INSIDERS_AGILE_AGENT_CANVAS_GOVERNANCE_20260606.csv"
       }
-    ]
+    ],
+    "customFields": {
+      "activeGovernedLane": {
+        "laneId": "agile_canvas_programming_lane",
+        "status": "ACTIVE_LOCAL_GOVERNED_USE",
+        "ownerAgent": "codex.workspace_guardian",
+        "reviewerAgent": "court.seshat_evidence",
+        "lockKey": "lock.vsi.aac_programming_lane",
+        "writeAllowlist": [
+          ".agileagentcanvas-context/README.md",
+          ".agileagentcanvas-context/vision.json",
+          ".agileagentcanvas-context/discovery/product-brief.json",
+          ".agileagentcanvas-context/planning/prd.json",
+          ".agileagentcanvas-context/planning/epics.json",
+          "local-agent-bridge/src/dashboardData.mjs",
+          "local-agent-bridge/src/localActions.mjs",
+          "local-agent-bridge/public/index.html",
+          "local-agent-bridge/contracts/local-agent-bridge.contract.json",
+          "local-agent-bridge/README.md",
+          "local-agent-bridge/tests/mock_bridge_flow.mjs",
+          "scripts/validators/local_agent_bridge_validator.py",
+          ".agents/codex/orders/ORDER_VSI_POWER_PLATFORM_DRY_RUN_20260607.md",
+          ".agents/codex/matrices/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv"
+        ],
+        "validators": [
+          "npm test --prefix local-agent-bridge",
+          "python scripts/validators/local_agent_bridge_validator.py",
+          ".agents/codex/tools/local_validate_order_packets.ps1",
+          ".agents/codex/tools/local_validate_parallel_order_governance.ps1",
+          ".agents/codex/tools/local_validate_agent_layer.ps1",
+          ".agents/codex/tools/local_validate_capability_use_hardening.ps1",
+          "git diff --check"
+        ],
+        "liveExecuted": false,
+        "externalSync": false
+      }
+    }
   },
   "content": {
     "productOverview": {
@@ -42,7 +78,7 @@
     },
     "projectType": {
       "type": "control-plane-interno",
-      "complexity": "media",
+      "complexity": "medium",
       "domainComplexity": "Gobierno multi-repo, multi-agente y multi-proveedor",
       "technicalComplexity": "Archivos locales, extensiones VS Code Insiders, evidencia del tablero, validadores y matrices",
       "integrationComplexity": "Local ahora; GitHub, OpenAI, Microsoft, Jira y cloud quedan gateados por orden exacta",
@@ -73,7 +109,7 @@
           "Pide maxima frontera segura",
           "Separa trabajo local de writes live de proveedores"
         ],
-        "technicalProficiency": "avanzada"
+        "technicalProficiency": "advanced"
       },
       {
         "name": "Codex ejecutor gobernado",
@@ -93,43 +129,9 @@
           "Stagea archivos explicitos",
           "Mantiene writes live gateados"
         ],
-        "technicalProficiency": "experta"
+        "technicalProficiency": "expert"
       }
     ],
-    "activeGovernedLane": {
-      "laneId": "agile_canvas_programming_lane",
-      "status": "ACTIVE_LOCAL_GOVERNED_USE",
-      "ownerAgent": "codex.workspace_guardian",
-      "reviewerAgent": "court.seshat_evidence",
-      "lockKey": "lock.vsi.aac_programming_lane",
-      "writeAllowlist": [
-        ".agileagentcanvas-context/README.md",
-        ".agileagentcanvas-context/vision.json",
-        ".agileagentcanvas-context/discovery/product-brief.json",
-        ".agileagentcanvas-context/planning/prd.json",
-        ".agileagentcanvas-context/planning/epics.json",
-        "local-agent-bridge/src/dashboardData.mjs",
-        "local-agent-bridge/src/localActions.mjs",
-        "local-agent-bridge/public/index.html",
-        "local-agent-bridge/contracts/local-agent-bridge.contract.json",
-        "local-agent-bridge/README.md",
-        "local-agent-bridge/tests/mock_bridge_flow.mjs",
-        "scripts/validators/local_agent_bridge_validator.py",
-        ".agents/codex/orders/ORDER_VSI_POWER_PLATFORM_DRY_RUN_20260607.md",
-        ".agents/codex/matrices/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv"
-      ],
-      "validators": [
-        "npm test --prefix local-agent-bridge",
-        "python scripts/validators/local_agent_bridge_validator.py",
-        ".agents/codex/tools/local_validate_order_packets.ps1",
-        ".agents/codex/tools/local_validate_parallel_order_governance.ps1",
-        ".agents/codex/tools/local_validate_agent_layer.ps1",
-        ".agents/codex/tools/local_validate_capability_use_hardening.ps1",
-        "git diff --check"
-      ],
-      "liveExecuted": false,
-      "externalSync": false
-    },
     "requirements": {
       "functional": [
         {
