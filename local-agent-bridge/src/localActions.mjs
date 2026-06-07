@@ -19,9 +19,17 @@ const VALIDATOR_COVERAGE_REVIEW_ACTION_ID = "local.action.review_validator_cover
 const ERROR_RESPONSE_SHAPE_REVIEW_ACTION_ID = "local.action.review_error_response_shape";
 const POSTCHECK_ALLOWLIST_REVIEW_ACTION_ID = "local.action.review_postcheck_allowlist";
 const SHELL_BLOCK_CONSISTENCY_REVIEW_ACTION_ID = "local.action.review_shell_block_consistency";
+const DASHBOARD_SUMMARY_CONSISTENCY_REVIEW_ACTION_ID = "local.action.review_dashboard_summary_consistency";
+const LOCAL_ACTION_STATUS_CONSISTENCY_REVIEW_ACTION_ID = "local.action.review_local_action_status_consistency";
+const READINESS_COMPONENT_COVERAGE_REVIEW_ACTION_ID = "local.action.review_readiness_component_coverage";
 const TASK_QUEUE_PATH = ".agents/codex/matrices/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv";
 const BRIDGE_CONTRACT_PATH = "local-agent-bridge/contracts/local-agent-bridge.contract.json";
 const ROUTES_MATRIX_PATH = "local-agent-bridge/matrices/routes_matrix.csv";
+const AGENT_OPERABILITY_INVENTORY_PATH = ".agents/codex/matrices/AGENTS_GLOBAL_OPERABILITY_INVENTORY_20260605.csv";
+const LIVE_SEMAPHORE_MATRIX_PATH = ".agents/codex/matrices/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_SEMAPHORE_MATRIX_20260605.csv";
+const LIVE_GATE_QUEUE_PATH = ".agents/codex/matrices/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_GATE_QUEUE_20260605.csv";
+const AUTONOMOUS_EXECUTION_MATRIX_PATH = ".agents/codex/matrices/AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv";
+const AGILE_AGENT_CANVAS_GOVERNANCE_PATH = ".agents/codex/matrices/VSCODE_INSIDERS_AGILE_AGENT_CANVAS_GOVERNANCE_20260606.csv";
 const CANVAS_ARTIFACT_PATHS = [
   ".agileagentcanvas-context/vision.json",
   ".agileagentcanvas-context/discovery/product-brief.json",
@@ -53,7 +61,10 @@ function getRequiredLocalActionIds() {
     VALIDATOR_COVERAGE_REVIEW_ACTION_ID,
     ERROR_RESPONSE_SHAPE_REVIEW_ACTION_ID,
     POSTCHECK_ALLOWLIST_REVIEW_ACTION_ID,
-    SHELL_BLOCK_CONSISTENCY_REVIEW_ACTION_ID
+    SHELL_BLOCK_CONSISTENCY_REVIEW_ACTION_ID,
+    DASHBOARD_SUMMARY_CONSISTENCY_REVIEW_ACTION_ID,
+    LOCAL_ACTION_STATUS_CONSISTENCY_REVIEW_ACTION_ID,
+    READINESS_COMPONENT_COVERAGE_REVIEW_ACTION_ID
   ];
 }
 
@@ -74,7 +85,10 @@ function getStructuredReviewActionIds() {
     VALIDATOR_COVERAGE_REVIEW_ACTION_ID,
     ERROR_RESPONSE_SHAPE_REVIEW_ACTION_ID,
     POSTCHECK_ALLOWLIST_REVIEW_ACTION_ID,
-    SHELL_BLOCK_CONSISTENCY_REVIEW_ACTION_ID
+    SHELL_BLOCK_CONSISTENCY_REVIEW_ACTION_ID,
+    DASHBOARD_SUMMARY_CONSISTENCY_REVIEW_ACTION_ID,
+    LOCAL_ACTION_STATUS_CONSISTENCY_REVIEW_ACTION_ID,
+    READINESS_COMPONENT_COVERAGE_REVIEW_ACTION_ID
   ];
 }
 
@@ -599,7 +613,13 @@ function reviewUiTranslationIntegrity(repoRoot) {
     "canvas_story_sync_review",
     "route_contract_sync_review",
     "server_endpoint_guard_review",
-    "validator_coverage_review"
+    "validator_coverage_review",
+    "error_response_shape_review",
+    "postcheck_allowlist_review",
+    "shell_block_consistency_review",
+    "dashboard_summary_consistency_review",
+    "local_action_status_consistency_review",
+    "readiness_component_coverage_review"
   ].filter((token) => !html.includes(token));
   const fileFallbackPresent = html.includes("renderFileFallback")
     && html.includes('window.location.protocol === "file:"');
@@ -679,7 +699,7 @@ function reviewCanvasStorySync(repoRoot) {
   const duplicateStoryIds = findDuplicates(storyIds);
   const declaredTotalStories = epics?.content?.overview?.totalStories;
   const totalStoriesMatches = declaredTotalStories === stories.length;
-  const currentSyncStoryIds = new Set(["S-3.18", "S-3.19", "S-3.20"]);
+  const currentSyncStoryIds = new Set(["S-3.21", "S-3.22", "S-3.23"]);
   const unfinishedDashboardStories = stories
     .filter((story) => currentSyncStoryIds.has(story.id) && story.status !== "hecho")
     .map((story) => `${story.id}:${story.status || "NO_DECLARADO"}`);
@@ -691,7 +711,7 @@ function reviewCanvasStorySync(repoRoot) {
     .filter((storyId) => storyId.startsWith("S-3.") && !functionalStoryRefs.has(storyId))
     .sort();
   const taskQueue = readTaskQueueRows(repoRoot);
-  const recentTaskIds = ["vsi.agent.task.028", "vsi.agent.task.029", "vsi.agent.task.030"];
+  const recentTaskIds = ["vsi.agent.task.031", "vsi.agent.task.032", "vsi.agent.task.033"];
   const missingRecentTasks = recentTaskIds
     .filter((taskId) => !taskQueue.some((row) => row.task_id === taskId));
   const passed = duplicateStoryIds.length === 0
@@ -833,7 +853,10 @@ function reviewValidatorCoverage(repoRoot) {
     "validator_coverage_review",
     "error_response_shape_review",
     "postcheck_allowlist_review",
-    "shell_block_consistency_review"
+    "shell_block_consistency_review",
+    "dashboard_summary_consistency_review",
+    "local_action_status_consistency_review",
+    "readiness_component_coverage_review"
   ];
   const missingResultKeys = requiredResultKeys
     .filter((key) => !validatorText.includes(key) || !testText.includes(key) || !htmlText.includes(key))
@@ -980,6 +1003,166 @@ function reviewShellBlockConsistency(repoRoot) {
   };
 }
 
+function getReadinessComponentNames() {
+  return [
+    "task_queue",
+    "canvas_lane",
+    "live_gate_packets",
+    "bridge_contract",
+    "dashboard_integrity",
+    "action_boundary",
+    "ui_translation_integrity",
+    "task_lineage",
+    "canvas_story_sync",
+    "route_contract_sync",
+    "server_endpoint_guards",
+    "validator_coverage",
+    "error_response_shape",
+    "postcheck_allowlist",
+    "shell_block_consistency",
+    "dashboard_summary_consistency",
+    "local_action_status_consistency",
+    "readiness_component_coverage"
+  ];
+}
+
+function reviewDashboardSummaryConsistency(repoRoot) {
+  const agentInventory = parseCsv(fs.readFileSync(path.join(repoRoot, AGENT_OPERABILITY_INVENTORY_PATH), "utf8"));
+  const semaphoreRows = parseCsv(fs.readFileSync(path.join(repoRoot, LIVE_SEMAPHORE_MATRIX_PATH), "utf8"));
+  const gateQueue = parseCsv(fs.readFileSync(path.join(repoRoot, LIVE_GATE_QUEUE_PATH), "utf8"));
+  const autonomousRows = parseCsv(fs.readFileSync(path.join(repoRoot, AUTONOMOUS_EXECUTION_MATRIX_PATH), "utf8"));
+  const agileAgentCanvas = parseCsv(fs.readFileSync(path.join(repoRoot, AGILE_AGENT_CANVAS_GOVERNANCE_PATH), "utf8"));
+  const taskQueue = readTaskQueueRows(repoRoot);
+  const canvasWorkbench = buildReviewCanvasWorkbench(repoRoot);
+  const localActions = buildReviewLocalActions(repoRoot);
+  const summary = {
+    agents: agentInventory.length,
+    semaphores: semaphoreRows.length,
+    gated_records: gateQueue.length,
+    local_task_scoped_agents: autonomousRows.filter((row) => row.execution_mode === "local_task_scoped_agent").length,
+    agile_agent_canvas_controls: agileAgentCanvas.length,
+    agent_task_queue_records: taskQueue.length,
+    queued_agent_tasks: taskQueue.filter((row) => row.status === "QUEUED_READY").length,
+    executed_agent_tasks: taskQueue.filter((row) => String(row.status || "").startsWith("EXECUTED")).length,
+    active_agile_canvas_lane: canvasWorkbench.active_governed_lane.status,
+    local_actions_ready: localActions.filter((row) => row.status !== "NEEDS_REVIEW").length
+  };
+  const requiredActionCount = getRequiredLocalActionIds().length;
+  const taskQueueBalanced = summary.queued_agent_tasks + summary.executed_agent_tasks === summary.agent_task_queue_records;
+  const passed = summary.local_actions_ready === requiredActionCount
+    && summary.agent_task_queue_records > 0
+    && summary.queued_agent_tasks === 0
+    && summary.executed_agent_tasks === summary.agent_task_queue_records
+    && taskQueueBalanced
+    && summary.active_agile_canvas_lane === "ACTIVE_LOCAL_GOVERNED_USE"
+    && summary.agile_agent_canvas_controls === agileAgentCanvas.length
+    && summary.gated_records > 0
+    && summary.local_task_scoped_agents > 0;
+
+  return {
+    status: passed ? "PASS" : "FAIL",
+    required_action_count: requiredActionCount,
+    summary,
+    task_queue_balanced: taskQueueBalanced,
+    command_execution_exposed: false,
+    live_executed: false
+  };
+}
+
+function reviewLocalActionStatusConsistency(repoRoot) {
+  const localActions = buildReviewLocalActions(repoRoot);
+  const requiredActionIds = getRequiredLocalActionIds();
+  const requiredActionSet = new Set(requiredActionIds);
+  const actionIds = localActions.map((action) => action.action_id);
+  const duplicateActionIds = findDuplicates(actionIds);
+  const missingRequiredActions = requiredActionIds
+    .filter((actionId) => !actionIds.includes(actionId));
+  const unknownActions = actionIds
+    .filter((actionId) => !requiredActionSet.has(actionId));
+  const allowedStatuses = new Set(["READY_LOCAL_GOVERNED", "EXECUTED_LOCAL_VALIDATED"]);
+  const invalidStatuses = localActions
+    .filter((action) => !allowedStatuses.has(action.status))
+    .map((action) => `${action.action_id}:${action.status || "NO_DECLARADO"}`);
+  const postcheckActions = localActions
+    .filter((action) => action.execution_mode === "postcheck_allowlist")
+    .map((action) => action.action_id);
+  const invalidStructuredModes = localActions
+    .filter((action) => action.action_id !== POSTCHECK_ACTION_ID && action.execution_mode !== "structured_local_review")
+    .map((action) => `${action.action_id}:${action.execution_mode || "NO_DECLARADO"}`);
+  const missingRequiredFields = localActions
+    .filter((action) => !action.owner_agent || !action.blocked_actions || !action.stop_condition || !action.allowed_now)
+    .map((action) => action.action_id || "NO_DECLARADO");
+  const passed = duplicateActionIds.length === 0
+    && missingRequiredActions.length === 0
+    && unknownActions.length === 0
+    && invalidStatuses.length === 0
+    && postcheckActions.length === 1
+    && postcheckActions[0] === POSTCHECK_ACTION_ID
+    && invalidStructuredModes.length === 0
+    && missingRequiredFields.length === 0;
+
+  return {
+    status: passed ? "PASS" : "FAIL",
+    action_count: localActions.length,
+    required_action_count: requiredActionIds.length,
+    duplicate_action_ids: duplicateActionIds,
+    missing_required_actions: missingRequiredActions,
+    unknown_actions: unknownActions,
+    invalid_statuses: invalidStatuses,
+    postcheck_actions: postcheckActions,
+    invalid_structured_modes: invalidStructuredModes,
+    missing_required_fields: missingRequiredFields,
+    command_execution_exposed: false,
+    live_executed: false
+  };
+}
+
+function reviewReadinessComponentCoverage() {
+  const expectedComponents = [
+    "task_queue",
+    "canvas_lane",
+    "live_gate_packets",
+    "bridge_contract",
+    "dashboard_integrity",
+    "action_boundary",
+    "ui_translation_integrity",
+    "task_lineage",
+    "canvas_story_sync",
+    "route_contract_sync",
+    "server_endpoint_guards",
+    "validator_coverage",
+    "error_response_shape",
+    "postcheck_allowlist",
+    "shell_block_consistency",
+    "dashboard_summary_consistency",
+    "local_action_status_consistency",
+    "readiness_component_coverage"
+  ];
+  const componentNames = getReadinessComponentNames();
+  const duplicateComponents = findDuplicates(componentNames);
+  const missingComponents = expectedComponents
+    .filter((component) => !componentNames.includes(component));
+  const extraComponents = componentNames
+    .filter((component) => !expectedComponents.includes(component));
+  const passed = componentNames.length === expectedComponents.length
+    && duplicateComponents.length === 0
+    && missingComponents.length === 0
+    && extraComponents.length === 0
+    && componentNames.includes("readiness_component_coverage");
+
+  return {
+    status: passed ? "PASS" : "FAIL",
+    component_count: componentNames.length,
+    expected_component_count: expectedComponents.length,
+    duplicate_components: duplicateComponents,
+    missing_components: missingComponents,
+    extra_components: extraComponents,
+    components: componentNames,
+    command_execution_exposed: false,
+    live_executed: false
+  };
+}
+
 function reviewReadinessBundle(repoRoot) {
   const components = [
     ["task_queue", reviewTaskQueue(repoRoot)],
@@ -996,7 +1179,10 @@ function reviewReadinessBundle(repoRoot) {
     ["validator_coverage", reviewValidatorCoverage(repoRoot)],
     ["error_response_shape", reviewErrorResponseShape(repoRoot)],
     ["postcheck_allowlist", reviewPostcheckAllowlist()],
-    ["shell_block_consistency", reviewShellBlockConsistency(repoRoot)]
+    ["shell_block_consistency", reviewShellBlockConsistency(repoRoot)],
+    ["dashboard_summary_consistency", reviewDashboardSummaryConsistency(repoRoot)],
+    ["local_action_status_consistency", reviewLocalActionStatusConsistency(repoRoot)],
+    ["readiness_component_coverage", reviewReadinessComponentCoverage()]
   ].map(([component, result]) => ({
     component,
     status: result.status,
@@ -1317,6 +1503,45 @@ export function buildLocalActions(canvasWorkbench, agentTaskQueue) {
       allowed_now: "review_shell_block_contract|review_shell_route_blocks|review_no_shell_execution",
       blocked_actions: "execute_arbitrary_shell_from_dashboard|live_provider_call|secret_handling|production_write|destructive_action",
       stop_condition: "shell_block_consistency_review_failed"
+    },
+    {
+      action_id: DASHBOARD_SUMMARY_CONSISTENCY_REVIEW_ACTION_ID,
+      title: "Revisar resumen del tablero",
+      status: "READY_LOCAL_GOVERNED",
+      surface: "local_dashboard_summary_consistency",
+      owner_agent: "codex.workspace_guardian",
+      target: "dashboard summary counts",
+      evidence: "structured dashboard summary consistency review available",
+      execution_mode: "structured_local_review",
+      allowed_now: "review_dashboard_summary_counts|review_queue_execution_counts|review_active_lane_status",
+      blocked_actions: "execute_arbitrary_shell_from_dashboard|live_provider_call|secret_handling|production_write",
+      stop_condition: "dashboard_summary_consistency_review_failed"
+    },
+    {
+      action_id: LOCAL_ACTION_STATUS_CONSISTENCY_REVIEW_ACTION_ID,
+      title: "Revisar estados de acciones",
+      status: "READY_LOCAL_GOVERNED",
+      surface: "local_action_status_consistency",
+      owner_agent: "codex.workspace_guardian",
+      target: "local action status and modes",
+      evidence: "structured local action status consistency review available",
+      execution_mode: "structured_local_review",
+      allowed_now: "review_action_status_values|review_action_modes|review_action_required_fields",
+      blocked_actions: "execute_arbitrary_shell_from_dashboard|live_provider_call|secret_handling|production_write",
+      stop_condition: "local_action_status_consistency_review_failed"
+    },
+    {
+      action_id: READINESS_COMPONENT_COVERAGE_REVIEW_ACTION_ID,
+      title: "Revisar cobertura readiness",
+      status: "READY_LOCAL_GOVERNED",
+      surface: "local_readiness_component_coverage",
+      owner_agent: "codex.workspace_guardian",
+      target: "readiness component set",
+      evidence: "structured readiness component coverage review available",
+      execution_mode: "structured_local_review",
+      allowed_now: "review_readiness_components|review_component_uniqueness|review_component_expected_set",
+      blocked_actions: "execute_arbitrary_shell_from_dashboard|live_provider_call|secret_handling|production_write",
+      stop_condition: "readiness_component_coverage_review_failed"
     }
   ];
 }
@@ -1368,6 +1593,45 @@ export async function runLocalAction(actionId, repoRoot) {
       stop_condition: readinessBundleReview.status === "PASS"
         ? "readiness_bundle_review_passed"
         : "readiness_bundle_review_failed"
+    };
+  }
+
+  if (actionId === READINESS_COMPONENT_COVERAGE_REVIEW_ACTION_ID) {
+    const readinessComponentCoverageReview = reviewReadinessComponentCoverage();
+    return {
+      ...plan,
+      status: readinessComponentCoverageReview.status,
+      evidence: "structured readiness component coverage review executed",
+      readiness_component_coverage_review: readinessComponentCoverageReview,
+      stop_condition: readinessComponentCoverageReview.status === "PASS"
+        ? "readiness_component_coverage_review_passed"
+        : "readiness_component_coverage_review_failed"
+    };
+  }
+
+  if (actionId === LOCAL_ACTION_STATUS_CONSISTENCY_REVIEW_ACTION_ID) {
+    const localActionStatusConsistencyReview = reviewLocalActionStatusConsistency(repoRoot);
+    return {
+      ...plan,
+      status: localActionStatusConsistencyReview.status,
+      evidence: "structured local action status consistency review executed",
+      local_action_status_consistency_review: localActionStatusConsistencyReview,
+      stop_condition: localActionStatusConsistencyReview.status === "PASS"
+        ? "local_action_status_consistency_review_passed"
+        : "local_action_status_consistency_review_failed"
+    };
+  }
+
+  if (actionId === DASHBOARD_SUMMARY_CONSISTENCY_REVIEW_ACTION_ID) {
+    const dashboardSummaryConsistencyReview = reviewDashboardSummaryConsistency(repoRoot);
+    return {
+      ...plan,
+      status: dashboardSummaryConsistencyReview.status,
+      evidence: "structured dashboard summary consistency review executed",
+      dashboard_summary_consistency_review: dashboardSummaryConsistencyReview,
+      stop_condition: dashboardSummaryConsistencyReview.status === "PASS"
+        ? "dashboard_summary_consistency_review_passed"
+        : "dashboard_summary_consistency_review_failed"
     };
   }
 

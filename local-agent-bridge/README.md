@@ -84,6 +84,11 @@ for safe status, no-live evidence and bounded request bodies.
 `local.action.review_postcheck_allowlist` checks that the guided postcheck stays
 on the fixed local command allowlist. `local.action.review_shell_block_consistency`
 checks that the shell connector, contract and route matrix all keep arbitrary
-shell execution blocked.
+shell execution blocked. `local.action.review_dashboard_summary_consistency`
+checks summary counts for local actions, executed queue rows and the active
+Agile Canvas lane. `local.action.review_local_action_status_consistency` checks
+local action statuses, execution modes and required fields.
+`local.action.review_readiness_component_coverage` checks the readiness bundle
+component set for expected coverage and uniqueness.
 `local.action.prepare_local_validation` runs a fixed postcheck allowlist. The
 bridge still does not expose arbitrary shell commands.

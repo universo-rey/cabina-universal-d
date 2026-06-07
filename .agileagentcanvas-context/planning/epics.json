@@ -28,7 +28,7 @@
       "projectName": "Cabina Universal Agent Control",
       "description": "Desglose de epicas para la mesa local de Agile Agent Canvas que gobierna superficies agente de Visual Studio Code Insiders.",
       "totalEpics": 4,
-      "totalStories": 31,
+      "totalStories": 34,
       "inputDocuments": [
         "vision.json",
         "discovery/product-brief.json",
@@ -90,7 +90,10 @@
             "S-3.17",
             "S-3.18",
             "S-3.19",
-            "S-3.20"
+            "S-3.20",
+            "S-3.21",
+            "S-3.22",
+            "S-3.23"
           ]
         },
         {
@@ -475,6 +478,42 @@
             "acceptanceCriteria": [
               "endpoint /api/local-actions/run acepta local.action.review_shell_block_consistency",
               "shell_block_consistency_review informa bloqueos faltantes y contrato shell",
+              "command_execution_exposed es false",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.21",
+            "title": "Ejecutar revision de resumen del tablero",
+            "description": "La accion revisar resumen del tablero valida consistencia de conteos entre acciones locales, cola ejecutada y carril Agile Canvas activo.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run acepta local.action.review_dashboard_summary_consistency",
+              "dashboard_summary_consistency_review informa acciones listas, cola ejecutada y carril activo",
+              "command_execution_exposed es false",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.22",
+            "title": "Ejecutar revision de estados de acciones locales",
+            "description": "La accion revisar estados de acciones valida ids, estados, modos y campos requeridos de las acciones locales del tablero.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run acepta local.action.review_local_action_status_consistency",
+              "local_action_status_consistency_review informa acciones faltantes, desconocidas, estados invalidos y campos faltantes",
+              "command_execution_exposed es false",
+              "liveExecuted permanece false"
+            ],
+            "status": "hecho"
+          },
+          {
+            "id": "S-3.23",
+            "title": "Ejecutar revision de cobertura de componentes readiness",
+            "description": "La accion revisar cobertura readiness valida que el readiness agregado cubra el set esperado de componentes locales sin duplicados.",
+            "acceptanceCriteria": [
+              "endpoint /api/local-actions/run acepta local.action.review_readiness_component_coverage",
+              "readiness_component_coverage_review informa componentes esperados, faltantes, extras y duplicados",
               "command_execution_exposed es false",
               "liveExecuted permanece false"
             ],
