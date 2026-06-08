@@ -7,7 +7,7 @@
 - Current: v2.1.0
 - Status: `snapshot`
 - Repo: `universo-rey/cabina-universal-d`
-- Workspace: `C:\Users\enzo1\Documents\GitHub\cabina-universal-d`
+- Workspace: repo-local root `.`
 - Branch: `codex/gov/tool-selection-policy-20260608`
 - Base head before Fase 2 cleanup: `816c907`
 - Latest verified PR head before validator implementation: `9caffff`

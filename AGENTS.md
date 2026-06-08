@@ -49,12 +49,13 @@ Precedencia operativa:
 8. Readbacks historicos.
 9. Pedido actual del usuario, dentro de las fronteras anteriores.
 
-Este repo raiz gobierna la cabina en
-`C:\Users\enzo1\Documents\GitHub\cabina-universal-d`. No absorbe repos
-anidados: cada repo conserva su propio `.git`, remoto, rama, PR e instrucciones
-internas. `D:\` es legacy/read-only/gobernada salvo orden explicita; referencias
-historicas a `D:\` no autorizan tocar `D:\.git`, cambiar `core.worktree`, mover
-clones ni absorber repos.
+Este repo raiz gobierna la cabina desde la raiz repo-local `.`. La ruta local
+fisica del workspace es contexto no portable y vive como dato estructurado en
+`MANIFEST.yaml`. No absorbe repos anidados: cada repo conserva su propio `.git`,
+remoto, rama, PR e instrucciones internas. La unidad legacy D es contexto local
+no portable y permanece read-only/gobernada salvo orden explicita; referencias
+historicas a esa unidad no autorizan tocar metadata Git, cambiar
+`core.worktree`, mover clones ni absorber repos.
 
 Antes de cualquier write, resolver:
 
