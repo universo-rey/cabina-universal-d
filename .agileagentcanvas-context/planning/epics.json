@@ -40,8 +40,8 @@
     "overview": {
       "projectName": "Cabina Universal Agent Control",
       "description": "Desglose de epicas para la mesa local de Agile Agent Canvas que gobierna superficies agente de Visual Studio Code Insiders.",
-      "totalEpics": 4,
-      "totalStories": 34,
+      "totalEpics": 5,
+      "totalStories": 41,
       "inputDocuments": [
         "vision.json",
         "discovery/product-brief.json",
@@ -126,6 +126,24 @@
             "S-4.3",
             "S-4.4"
           ]
+        },
+        {
+          "id": "FR-5",
+          "title": "Creacion y organizacion de tareas desde Agile Canvas",
+          "description": "Las tareas nuevas se crean, priorizan y organizan como historias dentro de Agile Canvas antes de pasar a matrices, PR o ejecucion.",
+          "capabilityArea": "TaskOps",
+          "relatedEpics": [
+            "EPIC-5"
+          ],
+          "relatedStories": [
+            "S-5.1",
+            "S-5.2",
+            "S-5.3",
+            "S-5.4",
+            "S-5.5",
+            "S-5.6",
+            "S-5.7"
+          ]
         }
       ],
       "nonFunctional": [
@@ -162,9 +180,9 @@
         }
       ],
       "summary": {
-        "totalFunctional": 4,
+        "totalFunctional": 5,
         "totalNonFunctional": 3,
-        "totalRequirements": 7
+        "totalRequirements": 8
       }
     },
     "epics": [
@@ -594,6 +612,92 @@
               "liveExecuted permanece false"
             ],
             "status": "hecho"
+          }
+        ]
+      },
+      {
+        "id": "EPIC-5",
+        "title": "Operar tareas desde Agile Canvas",
+        "description": "Usar Agile Canvas como superficie principal para crear, leer, organizar, priorizar y validar tareas antes de reflejarlas en matrices o ejecutar cambios.",
+        "priority": "must-have",
+        "status": "activo",
+        "stories": [
+          {
+            "id": "S-5.1",
+            "title": "Definir modo lectura del canvas",
+            "description": "El operador puede revisar tareas y carriles desde Agile Canvas sin escribir matrices ni disparar ejecucion.",
+            "acceptanceCriteria": [
+              "las tareas se leen desde artifacts canvas",
+              "no se modifica la cola VSI durante lectura",
+              "liveExecuted permanece false"
+            ],
+            "status": "pendiente"
+          },
+          {
+            "id": "S-5.2",
+            "title": "Crear tareas como historias",
+            "description": "Las tareas nuevas se registran primero como historias de Agile Canvas con owner, reviewer, rollback, postcheck y stop condition.",
+            "acceptanceCriteria": [
+              "cada historia tiene id estable",
+              "cada historia declara criterio de aceptacion",
+              "cada historia separa lectura, repo-write y live-gate"
+            ],
+            "status": "pendiente"
+          },
+          {
+            "id": "S-5.3",
+            "title": "Organizar tareas por carril",
+            "description": "Las historias del canvas se agrupan por carril operativo: lectura, UI local, validadores, gate packets, versionado y evidencia.",
+            "acceptanceCriteria": [
+              "cada tarea queda asociada a un carril",
+              "las dependencias se leen antes de ejecutar",
+              "las tareas live quedan separadas de locales"
+            ],
+            "status": "pendiente"
+          },
+          {
+            "id": "S-5.4",
+            "title": "Priorizar proxima frontera segura",
+            "description": "El canvas muestra o documenta que tareas son ejecutables localmente y cuales requieren gate humano.",
+            "acceptanceCriteria": [
+              "las tareas locales quedan antes que las live-gateadas",
+              "los gates exactos quedan visibles",
+              "no hay estado pending generico"
+            ],
+            "status": "pendiente"
+          },
+          {
+            "id": "S-5.5",
+            "title": "Sincronizar canvas con tablero local",
+            "description": "El tablero lee el estado de tareas/carriles del canvas y permite revisar sin duplicar autoridad.",
+            "acceptanceCriteria": [
+              "el tablero conserva Agile Canvas como fuente visual",
+              "la matriz se usa como evidencia y no como primer lugar de creacion",
+              "los contadores reflejan stories/carriles relevantes"
+            ],
+            "status": "pendiente"
+          },
+          {
+            "id": "S-5.6",
+            "title": "Validar schema y coherencia de tareas",
+            "description": "Las historias nuevas se validan contra JSON parseable, ids unicos, owners, stop conditions y criterios de aceptacion.",
+            "acceptanceCriteria": [
+              "epics.json parsea",
+              "no hay ids duplicados",
+              "cada tarea tiene acceptanceCriteria no vacio"
+            ],
+            "status": "pendiente"
+          },
+          {
+            "id": "S-5.7",
+            "title": "Preparar paso a ejecucion gobernada",
+            "description": "Solo despues de organizar en Agile Canvas se decide si una historia pasa a matriz VSI, rama codex, PR o paquete de gate.",
+            "acceptanceCriteria": [
+              "la decision de ejecucion queda separada de la creacion",
+              "repo-write requiere allowlist",
+              "live-write requiere gate explicito"
+            ],
+            "status": "pendiente"
           }
         ]
       }

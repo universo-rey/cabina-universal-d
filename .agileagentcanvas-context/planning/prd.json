@@ -163,6 +163,12 @@
           "title": "Cierre con validadores",
           "description": "Todo cambio repo debe correr validadores JSON, whitespace, dashboard y gobierno antes del cierre.",
           "priority": "must-have"
+        },
+        {
+          "id": "FR-6",
+          "title": "Operacion de tareas desde Agile Canvas",
+          "description": "Las tareas nuevas deben crearse y organizarse primero como historias de Agile Canvas, manteniendo matrices y colas como evidencia o salida de ejecucion gobernada.",
+          "priority": "must-have"
         }
       ],
       "nonFunctional": [

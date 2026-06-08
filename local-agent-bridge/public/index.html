@@ -178,6 +178,33 @@
       background: #fff;
     }
 
+    .command-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(150px, 1fr));
+      gap: 10px;
+      padding: 12px;
+    }
+
+    .command-card {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      min-height: 104px;
+      padding: 10px;
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+
+    .command-card strong {
+      font-size: 13px;
+      line-height: 1.25;
+    }
+
+    .command-card .muted {
+      min-height: 34px;
+    }
+
     .workbench-item strong {
       display: block;
       margin-bottom: 6px;
@@ -226,6 +253,10 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
+      .command-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       .summary {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -251,6 +282,10 @@
       .workbench {
         grid-template-columns: 1fr;
       }
+
+      .command-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -269,6 +304,12 @@
     <section class="section">
       <h2>Mesa Agile Agent Canvas</h2>
       <div class="workbench" id="canvas-workbench"></div>
+    </section>
+
+    <section class="section">
+      <h2>Comandos VSI</h2>
+      <div class="action-selection" id="vsi-command-selection">sin comando ejecutado</div>
+      <div class="command-grid" id="vsi-commands"></div>
     </section>
 
     <section class="section">
@@ -631,6 +672,57 @@
       ["GATE_MICROSOFT_LIVE_WRITE", "gate de escritura Microsoft live"]
     ]);
 
+    const vsiCommands = [
+      {
+        title: "Abrir Agile Canvas",
+        description: "Abre el canvas visual en VS Code Insiders.",
+        mode: "vscode",
+        target: "agileagentcanvas.openCanvas"
+      },
+      {
+        title: "Cargar proyecto",
+        description: "Carga el proyecto existente de Agile Agent Canvas.",
+        mode: "vscode",
+        target: "agileagentcanvas.loadProject"
+      },
+      {
+        title: "Abrir vista lateral",
+        description: "Muestra la vista Agile Agent Canvas en la barra lateral.",
+        mode: "vscode",
+        target: "workbench.view.extension.agileagentcanvas-explorer"
+      },
+      {
+        title: "Recargar VSI",
+        description: "Recarga la ventana actual de VS Code Insiders.",
+        mode: "vscode",
+        target: "workbench.action.reloadWindow"
+      },
+      {
+        title: "Cerrar Bisect",
+        description: "Detiene Extension Bisect si vuelve a bloquear extensiones.",
+        mode: "vscode",
+        target: "extension.bisect.stop"
+      },
+      {
+        title: "Readiness local",
+        description: "Revisa todos los componentes locales del tablero.",
+        mode: "local-action",
+        target: "local.action.review_readiness_bundle"
+      },
+      {
+        title: "Schemas Canvas",
+        description: "Revisa salud de schemas y artifacts JSON del canvas.",
+        mode: "local-action",
+        target: "local.action.review_canvas_schema_health"
+      },
+      {
+        title: "Bridge local",
+        description: "Revisa contrato, rutas y frontera sin live del bridge.",
+        mode: "local-action",
+        target: "local.action.review_bridge_contract"
+      }
+    ];
+
     function translateParts(value) {
       return String(value)
         .split("|")
@@ -830,6 +922,39 @@
       resultBox.textContent = `${text(result.status)} · ${checks || text(result.stop_condition)}`;
     }
 
+    function runVsiCommand(command) {
+      const selection = document.getElementById("vsi-command-selection");
+      selection.textContent = `${command.title} · ${text(command.target)}`;
+
+      if (command.mode === "vscode") {
+        window.location.href = `vscode-insiders://command/${encodeURIComponent(command.target)}`;
+        return;
+      }
+
+      if (command.mode === "local-action") {
+        runLocalAction({ action_id: command.target }).catch((error) => {
+          document.getElementById("action-result").textContent = `bloqueado: ${error.message}`;
+        });
+      }
+    }
+
+    function renderVsiCommand(command) {
+      const card = document.createElement("div");
+      card.className = "command-card";
+      const title = document.createElement("strong");
+      title.textContent = command.title;
+      const description = document.createElement("div");
+      description.className = "muted";
+      description.textContent = command.description;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "action-button";
+      button.textContent = command.mode === "vscode" ? "Enviar a VSI" : "Ejecutar review";
+      button.addEventListener("click", () => runVsiCommand(command));
+      card.append(title, description, button);
+      return card;
+    }
+
     function renderLocalAction(row) {
       const tr = document.createElement("tr");
       const action = document.createElement("td");
@@ -906,6 +1031,7 @@
         renderWorkbenchItem("Allowlist / validadores", `${activeLane.write_allowlist_count} / ${activeLane.validator_count}`, "archivos / checks")
       );
 
+      vsiCommands.forEach((command) => document.getElementById("vsi-commands").append(renderVsiCommand(command)));
       data.local_actions.forEach((row) => document.getElementById("local-actions").append(renderLocalAction(row)));
       data.visible_gate_lane.items.forEach((row) => document.getElementById("visible-gate-lane").append(renderVisibleGate(row)));
       data.semaphores.forEach((row) => document.getElementById("semaphores").append(renderSemaphore(row)));

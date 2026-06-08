@@ -1,0 +1,175 @@
+{
+  "metadata": {
+    "schemaVersion": "1.0.0",
+    "artifactType": "readiness-report",
+    "projectName": "Cabina Universal Agent Control",
+    "timestamps": {
+      "created": "2026-06-08T00:00:00Z",
+      "lastModified": "2026-06-08T00:00:00Z"
+    },
+    "status": "completed",
+    "tags": [
+      "readiness",
+      "cabina",
+      "agile-agent-canvas",
+      "local-governed"
+    ],
+    "author": "Codex governed executor"
+  },
+  "content": {
+    "summary": {
+      "projectName": "Cabina Universal Agent Control",
+      "assessmentDate": "2026-06-08",
+      "assessedBy": "Codex governed executor",
+      "overallStatus": "ready-for-local-governed-use-with-reconciliation-debt",
+      "overallScore": 88,
+      "recommendation": "Agile Agent Canvas esta listo para uso local gobernado como superficie de lectura, creacion y organizacion de tareas. La proxima frontera segura es completar S-5.1 y agregar un validador anti-drift antes de depender de artefactos CIS/solutioning/testing aun no reconciliados.",
+      "keyFindings": [
+        "Canvas schema health pasa y no ejecuta live.",
+        "La cola local VSI tiene 42 tareas ejecutadas y 0 pendientes.",
+        "EPIC-5 contiene 7 historias pendientes para operar tareas desde Agile Canvas.",
+        "Los cinco BMM abiertos por el operador fueron reconciliados a identidad Cabina.",
+        "Queda deuda semantica en artefactos CIS, solutioning y testing con contenido demo TaskFlow."
+      ],
+      "criticalActions": [
+        "Ejecutar S-5.1: modo lectura del canvas como carril activo.",
+        "Agregar validator anti-drift para bloquear identidad demo, project key demo y owners demo en artefactos activos.",
+        "Reconciliar o quarantinar artefactos CIS/solutioning/testing antes de usarlos como evidencia canonica."
+      ]
+    },
+    "assessment": {
+      "canvasIdentity": {
+        "status": "partially-reconciled",
+        "summary": "Vision, product brief, PRD, epics y los cinco BMM abiertos declaran Cabina Universal Agent Control. Otros artefactos permanecen pendientes.",
+        "findings": [
+          {
+            "finding": "Los BMM abiertos ya no deben depender de identidad demo.",
+            "type": "positive",
+            "severity": "low",
+            "recommendation": "Validar con busqueda anti-drift despues de cada lote."
+          },
+          {
+            "finding": "CIS/solutioning/testing todavia requieren reconciliacion o quarantine.",
+            "type": "gap",
+            "severity": "medium",
+            "recommendation": "No usarlos como fuente canonica hasta completar lote."
+          }
+        ]
+      },
+      "epicCoverage": {
+        "status": "ready",
+        "summary": "El backlog principal declara 5 epicas y 41 stories; EPIC-5 organiza la operacion de tareas desde Agile Canvas.",
+        "totalEpics": 5,
+        "totalStories": 41,
+        "completedStories": 31,
+        "pendingStories": 10,
+        "nextSafeStory": "S-5.1"
+      },
+      "localExecutionReadiness": {
+        "status": "ready",
+        "summary": "Bridge local, readiness bundle, story sync y schema health pasan sin exposicion de comandos arbitrarios ni live execution.",
+        "evidence": [
+          "local.action.review_readiness_bundle=PASS",
+          "local.action.review_canvas_schema_health=PASS",
+          "local.action.review_canvas_story_sync=PASS",
+          "local.action.review_task_queue=PASS"
+        ]
+      },
+      "frontierReadiness": {
+        "status": "gated",
+        "summary": "Live Jira, OpenAI/Agents SDK, Microsoft, Graph, Power Platform, produccion, secretos y costos externos siguen bloqueados hasta gate humano con target, owner, rollback, postcheck y evidencia.",
+        "gatedStories": [
+          "S-4.1",
+          "S-4.2",
+          "S-4.3"
+        ]
+      },
+      "validationReadiness": {
+        "status": "needs-semantic-validator",
+        "summary": "Validadores actuales cubren parse, schema, bridge, readiness y sincronias locales. Falta bloquear drift semantico de identidad.",
+        "recommendations": [
+          "Agregar validator anti-drift para .agileagentcanvas-context.",
+          "Incluirlo en local_agent_bridge_validator o readiness bundle.",
+          "Mantener busqueda rg como evidencia manual hasta versionarlo."
+        ]
+      }
+    },
+    "blockers": [],
+    "risks": [
+      {
+        "id": "RISK-CABINA-001",
+        "risk": "Demo artifact drift contaminates Cabina decisions",
+        "status": "mitigating",
+        "owner": "codex.workspace_guardian"
+      },
+      {
+        "id": "RISK-CABINA-002",
+        "risk": "Canvas validator passes schema while semantic drift remains",
+        "status": "mitigating",
+        "owner": "court.thot_schema"
+      },
+      {
+        "id": "RISK-CABINA-003",
+        "risk": "Live-gated stories are confused with local executable stories",
+        "status": "mitigating",
+        "owner": "rey.frontier_guardian"
+      }
+    ],
+    "recommendations": [
+      {
+        "id": "REC-CABINA-1",
+        "recommendation": "Ejecutar S-5.1 como modo lectura del Canvas.",
+        "category": "operation",
+        "priority": "must-do",
+        "effort": "low",
+        "owner": "codex.workspace_guardian",
+        "deadline": "2026-06-08"
+      },
+      {
+        "id": "REC-CABINA-2",
+        "recommendation": "Agregar validador anti-drift de identidad.",
+        "category": "validation",
+        "priority": "must-do",
+        "effort": "medium",
+        "owner": "court.thot_schema",
+        "deadline": "2026-06-08"
+      },
+      {
+        "id": "REC-CABINA-3",
+        "recommendation": "Reconciliar por lotes CIS, solutioning y testing.",
+        "category": "canon",
+        "priority": "should-do",
+        "effort": "medium",
+        "owner": "court.seshat_evidence",
+        "deadline": "2026-06-08"
+      }
+    ],
+    "nextSteps": [
+      {
+        "step": 1,
+        "action": "Marcar S-5.1 como carril activo de lectura si el operador continua en Agile Canvas.",
+        "owner": "codex.workspace_guardian",
+        "deadline": "2026-06-08",
+        "dependencies": []
+      },
+      {
+        "step": 2,
+        "action": "Crear validator anti-drift y correrlo contra .agileagentcanvas-context.",
+        "owner": "court.thot_schema",
+        "deadline": "2026-06-08",
+        "dependencies": [
+          "Step 1"
+        ]
+      },
+      {
+        "step": 3,
+        "action": "Preparar lote de reconciliacion para CIS/solutioning/testing o quarantine explicita.",
+        "owner": "court.seshat_evidence",
+        "deadline": "2026-06-08",
+        "dependencies": [
+          "Step 2"
+        ]
+      }
+    ]
+  }
+}

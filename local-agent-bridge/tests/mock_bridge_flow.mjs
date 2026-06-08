@@ -120,8 +120,17 @@ assert.match(dashboardHtml, /window\.location\.protocol === "file:"/);
 assert.match(dashboardHtml, /renderFileFallback/);
 assert.match(dashboardHtml, /Carril activo/);
 assert.match(dashboardHtml, /Acciones locales/);
+assert.match(dashboardHtml, /Comandos VSI/);
+assert.match(dashboardHtml, /Abrir Agile Canvas/);
+assert.match(dashboardHtml, /Cargar proyecto/);
+assert.match(dashboardHtml, /Cerrar Bisect/);
+assert.match(dashboardHtml, /vscode-insiders:\/\/command/);
+assert.match(dashboardHtml, /local\.action\.review_readiness_bundle/);
+assert.match(dashboardHtml, /local\.action\.review_canvas_schema_health/);
 assert.match(dashboardHtml, /Proximos gates/);
 assert.match(dashboardHtml, /renderLocalAction/);
+assert.match(dashboardHtml, /renderVsiCommand/);
+assert.match(dashboardHtml, /runVsiCommand/);
 assert.match(dashboardHtml, /renderVisibleGate/);
 assert.match(dashboardHtml, /runLocalAction/);
 const canvasVisionActiveLane = canvasVision.metadata.customFields.activeGovernedLane
