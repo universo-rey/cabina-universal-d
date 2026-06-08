@@ -5,7 +5,7 @@
 - Original source: AGENTS.md and current operating memory
 - Reason: preserve historical context while reducing active instruction drift
 - Superseded by:
-  - ../../OPERATING_MEMORY_INDEX.md
+  - ../OPERATING_MEMORY_INDEX.md
   - ../../../AGENTS.md
   - ../CANON_CHANGELOG.md
 - Status: archived

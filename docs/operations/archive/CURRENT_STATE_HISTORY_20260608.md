@@ -6,7 +6,7 @@
 - Original source: `02_AUTHORITY_CANON/CURRENT_STATE.md`
 - Reason: preserve long embedded current-state/changelog history before Fase 2 active-memory slimming
 - Superseded by:
-  - `../../OPERATING_MEMORY_INDEX.md`
+  - `../OPERATING_MEMORY_INDEX.md`
   - `../../../02_AUTHORITY_CANON/CURRENT_STATE.md`
   - `../CANON_CHANGELOG.md`
 - Status: archived

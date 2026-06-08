@@ -3,13 +3,14 @@
 ## Metadata
 
 - Last updated: 2026-06-08
-- Status: `ACTIVE_SNAPSHOT`
+- Status: `snapshot`
 - Repo: `universo-rey/cabina-universal-d`
 - Workspace: `C:\Users\enzo1\Documents\GitHub\cabina-universal-d`
 - Branch: `codex/gov/tool-selection-policy-20260608`
 - Base head before Fase 2 cleanup: `816c907`
+- Latest pushed PR head before pointer post-check: `a4e58f3`
 - Active PR: `#145`
-- PR state at Fase 2 preflight: `draft`, `CLEAN`, checks green
+- PR state at pointer post-check preflight: `draft`, `CLEAN`, checks green
 
 ## Operating State
 
@@ -18,7 +19,7 @@
 - Active execution capability matrix:
   `governance/canon/ACTIVE_EXECUTION_CAPABILITY_MATRIX_20260603.csv`.
 - Standard chain: `STANDARD_AGENT_CHAIN_ACTIVE`.
-- Memory cleanup state: `FASE_2A_2B_2C_AGGRESSIVE_CONTROLLED_CLEANUP_IN_PROGRESS`.
+- Memory cleanup state: `FASE_2_POINTER_POSTCHECK_CORRECTIONS_APPLIED`.
 - GitHub is the versionable technical canon.
 - `AGENTS.md` is the active instruction contract.
 - `MANIFEST.yaml` is the structured canon/pointer surface.
@@ -30,7 +31,8 @@
 ## Current PR And Checks
 
 - PR `#145`: `[GOV] Codify governed tool selection policy`.
-- PR head at preflight: `816c90759c2e976aa62a564c8c818963b825fe89`.
+- PR head at pointer post-check preflight:
+  `a4e58f3305849b31c740c424439e160990bed005`.
 - Merge state at preflight: `CLEAN`.
 - Draft state at preflight: `true`.
 - Remote checks at preflight:
@@ -57,9 +59,8 @@ Confirmed absent in Fase 2 audit:
   exist and are versioned in PR #145.
 - Resolved by Fase 2 target: active memory is being split into active contract,
   current snapshot, changelog and archive.
-- Active drift to validate after edits: `AGENTS.md`, `CURRENT_STATE.md`,
-  `OPERATING_MEMORY_INDEX.md`, `CANON_CHANGELOG.md` and archive pointers must
-  agree.
+- Active drift to validate after pointer post-check: archive relative links,
+  status vocabulary and PR head pointers must agree.
 
 ## Known Risks
 
@@ -69,12 +70,13 @@ Confirmed absent in Fase 2 audit:
 - This cleanup is documentary/governance only. It does not authorize live
   Microsoft, SharePoint, Dataverse, Power Platform, OpenAI, production,
   permissions, secrets, deploys or workflow changes.
-- The Fase 2 commit hash cannot be self-embedded in this snapshot before the
-  commit exists; use the final PR head/readback as the post-commit source.
+- The pointer post-check commit hash cannot be self-embedded in this snapshot
+  before the commit exists; use the final PR head/readback as the post-commit
+  source.
 
 ## Needs Verification
 
-- PR #145 checks after the Fase 2 commit.
+- PR #145 checks after the pointer post-check commit.
 - Whether `docs/operations/CANON_CHANGELOG.md` should become the only compact
   historical source after merge.
 - Whether `MANIFEST.yaml` should later point directly to the new operating

@@ -5,7 +5,8 @@ root_path: C:/Users/enzo1/Documents/GitHub/cabina-universal-d
 owner: operador
 operating_memory_state:
   as_of: 2026-06-08
-  status: FASE_2_ACTIVE_MEMORY_SLIMMED_IN_PR145
+  status: active
+  state: FASE_2_ACTIVE_MEMORY_SLIMMED_IN_PR145
   active_instruction: AGENTS.md
   current_snapshot: 02_AUTHORITY_CANON/CURRENT_STATE.md
   operating_memory_index: docs/operations/OPERATING_MEMORY_INDEX.md
