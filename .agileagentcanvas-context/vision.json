@@ -29,6 +29,21 @@
         "externalSync": false,
         "gate": "none_for_repo_local_allowlist",
         "stopCondition": "programming_lane_exits_allowlist"
+      },
+      "visionBrief": {
+        "elevatorPitch": "Usar Agile Agent Canvas como la mesa local gobernada para descubrir, coordinar y validar agentes dentro de la allowlist de la Cabina Universal.",
+        "focus": "Repositorio local, evidencia durable, validadores y gates claros para trabajo de agentes sin llamadas live ni escrituras fuera de alcance.",
+        "nonGoals": [
+          "OpenAI API live sin orden gobernada",
+          "Microsoft live sin target exacto",
+          "produccion o propagacion remota",
+          "persistir secretos en archivos, logs o readbacks"
+        ],
+        "definitionOfDone": [
+          "El canvas identifica la cabina y sus superficies gobernadas sin datos demo.",
+          "Cada superficie activa tiene owner, gate, validador, rollback y stop condition.",
+          "El tablero y los artefactos pueden inspeccionarse localmente sin llamadas live."
+        ]
       }
     },
     "stepsCompleted": [

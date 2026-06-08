@@ -4,8 +4,28 @@ Local mock bridge for SDU agent runtime connection tests. It accepts synthetic
 Teams-like activity, resolves the route, checks the MCP registry mode and emits
 sanitized evidence.
 
-It also serves a local read-only agent control dashboard from the existing
-governance matrices.
+It also serves `Control de Agentes de Cabina`, a local read-only auxiliary
+control dashboard from the existing governance matrices.
+
+The mother board is `VSI / Agile Agent Canvas` in VS Code Insiders. It is the
+primary visual surface for reading, creating and organizing Cabina tasks before
+matrix, branch, PR or live gate work. `Control de Agentes de Cabina` is an
+auxiliary queue/control dashboard for agent queue rows, readiness, visible gates
+and postchecks; it is not the Agile Agent Canvas creation/planning board.
+
+`Cola del sitio web` remains a separate external/product queue. It is not
+connected in `Control de Agentes de Cabina` unless a separate target, owner,
+rollback, postcheck and live gate exist.
+
+Agent separation is explicit. `AAC_NATIVE_AGENTS` are the native Agile Agent
+Canvas team from the VS Code Insiders extension manifest. Their repo-local
+board state is `ACTIVE_AAC_NATIVE_TEAM_GOVERNED`; direct invocation from Codex
+is not available in this session, so activation must not be reported as native
+execution. They collaborate on the board but are not Cabina authority.
+`CABINA_GOVERNANCE_AGENTS_FOR_VSI` are our Cabina governed work agents: they
+work on the VSI Agile Agent Canvas board, govern it, prepare orders, review
+evidence, apply gates and validate repo-safe orchestration. They are not native
+AAC agents and are not subordinated to the native team.
 
 The local shell connector is status-only. It reports the governed shell surface
 and blocks command execution through the bridge unless a separate task scope or

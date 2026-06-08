@@ -1,7 +1,7 @@
 {
   "generated": "2026-06-08 00:00",
   "last_updated": "2026-06-08 00:00",
-  "project": "Cabina Universal Agent Control",
+  "project": "VSI / Agile Agent Canvas - Cabina Universal Agent Control",
   "project_key": "CABINA-AAC",
   "tracking_system": "file-system",
   "story_location": ".agileagentcanvas-context/planning",
@@ -11,13 +11,19 @@
     "EPIC-3": "done",
     "EPIC-4": "backlog",
     "EPIC-5": "done",
+    "EPIC-6": "in-progress",
     "S-5.1": "done",
     "S-5.2": "done",
     "S-5.3": "done",
     "S-5.4": "done",
     "S-5.5": "done",
     "S-5.6": "done",
-    "S-5.7": "done"
+    "S-5.7": "done",
+    "S-6.1": "drafted",
+    "S-6.2": "done",
+    "S-6.3": "done",
+    "S-6.4": "done",
+    "S-6.5": "done"
   },
   "sprints": {
     "sprint_2026_06_08_canvas_reconciliation": {
@@ -32,6 +38,18 @@
         "S-5.5",
         "S-5.6",
         "S-5.7"
+      ]
+    },
+    "sprint_2026_06_08_agent_authorization_queue": {
+      "goal": "Preparar tarjetas en el tablero principal madre VSI para que agentes concretos las ejecuten solo cuando exista autorizacion humana explicita.",
+      "start_date": "2026-06-08",
+      "end_date": "2026-06-08",
+      "stories": [
+        "S-6.1",
+        "S-6.2",
+        "S-6.3",
+        "S-6.4",
+        "S-6.5"
       ]
     }
   }

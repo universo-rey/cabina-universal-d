@@ -175,6 +175,7 @@
 /.vscode/*
 !/.vscode/tasks.json
 !/.vscode/settings.json
+!/.vscode/mcp.json
 
 # SDU agent runtime DEV connection scaffolds. These are local templates and
 # mock/dev surfaces only; no tenant install, no live messages and no remote
@@ -184,6 +185,18 @@
 !/.mcp/sdu-agents/
 /.mcp/sdu-agents/*
 !/.mcp/sdu-agents/*.json
+
+# Direct local AAC MCP server. Local stdio only; no secrets, no node_modules.
+!/aac-mcp-server/
+/aac-mcp-server/*
+!/aac-mcp-server/*.json
+!/aac-mcp-server/*.md
+!/aac-mcp-server/src/
+/aac-mcp-server/src/*
+!/aac-mcp-server/src/*.mjs
+!/aac-mcp-server/tests/
+/aac-mcp-server/tests/*
+!/aac-mcp-server/tests/*.mjs
 
 !/teams-app/
 /teams-app/*
@@ -538,6 +551,10 @@
 !/.agents/codex/orders/ORDER_CODEX_CLOUD_GOVERNED_SMOKE_20260602.md
 !/.agents/codex/orders/ORDER_CODEX_ENVIRONMENT_CREATION_20260602.md
 !/.agents/codex/orders/ORDER_RECTOR_CABINA_CODEX_DAILY_FRAMEWORK_20260605.md
+!/.agents/codex/orders/ORDER_VSI_BOARD_BOUNDARY_PR_20260608.md
+!/.agents/codex/orders/ORDER_VSI_EXTERNAL_QUEUE_GATE_20260608.md
+!/.agents/codex/orders/ORDER_AGENTS_SDK_NEXT_TASK_LIVE_AUTH_20260608.md
+!/.agents/codex/orders/ORDER_SDU_AGENTS_NEXT_TASK_ACTIVATION_20260608.md
 
 !/.agents/codex/readbacks/
 /.agents/codex/readbacks/*

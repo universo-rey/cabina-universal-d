@@ -19,6 +19,9 @@ def validate() -> None:
             "local-agent-bridge/src/localActions.mjs",
             "local-agent-bridge/tests/mock_bridge_flow.mjs",
             ".agents/codex/orders/ORDER_VSI_POWER_PLATFORM_DRY_RUN_20260607.md",
+            ".agents/codex/matrices/AAC_NATIVE_AGENTS_20260608.csv",
+            ".agents/codex/matrices/AAC_NATIVE_AGENT_USE_FOR_VSI_20260608.csv",
+            ".agents/codex/matrices/CABINA_GOVERNANCE_AGENTS_FOR_VSI_20260608.csv",
             "scripts/validators/agile_canvas_identity_drift_validator.py",
             "scripts/validators/agile_canvas_task_ops_validator.py",
         ]
@@ -80,6 +83,118 @@ def validate() -> None:
         if route_id not in route_ids:
             raise AssertionError(f"missing governed local route: {route_id}")
 
+    native_path = ".agents/codex/matrices/AAC_NATIVE_AGENTS_20260608.csv"
+    native_agents = read_csv(native_path)
+    require_columns(
+        native_agents,
+        [
+            "native_agent_id",
+            "display_name",
+            "title",
+            "module",
+            "native_manifest_path",
+            "native_agent_path",
+            "surface",
+            "agent_class",
+            "authority_boundary",
+            "available_in_board",
+            "governance_relation",
+            "status",
+            "activation_status",
+            "activation_mode",
+            "direct_invocation_from_codex",
+            "activation_evidence",
+            "stop_condition",
+        ],
+        native_path,
+    )
+    expected_native_agents = {
+        "master",
+        "canvas-integrator",
+        "analyst",
+        "architect",
+        "dev",
+        "pm",
+        "qa",
+        "quick-flow-solo-dev",
+        "sm",
+        "tech-writer",
+        "ux-designer",
+        "agent-builder",
+        "module-builder",
+        "workflow-builder",
+        "tea",
+        "brainstorming-coach",
+        "creative-problem-solver",
+        "design-thinking-coach",
+        "innovation-strategist",
+        "presentation-master",
+        "storyteller",
+    }
+    native_ids = {row["native_agent_id"] for row in native_agents}
+    if native_ids != expected_native_agents:
+        raise AssertionError(f"AAC native agent mismatch: {sorted(native_ids)}")
+    for row in native_agents:
+        if row["agent_class"] != "native_aac_agent":
+            raise AssertionError(f"{row['native_agent_id']} must remain native_aac_agent")
+        if row["authority_boundary"] != "tablero_native_not_cabina_authority":
+            raise AssertionError(f"{row['native_agent_id']} has wrong authority boundary")
+        if row["status"] != "AVAILABLE_NATIVE_AAC_AGENT":
+            raise AssertionError(f"{row['native_agent_id']} must be AVAILABLE_NATIVE_AAC_AGENT")
+        if row["activation_status"] != "ACTIVE_AAC_NATIVE_TEAM_GOVERNED":
+            raise AssertionError(f"{row['native_agent_id']} must be ACTIVE_AAC_NATIVE_TEAM_GOVERNED")
+        if row["activation_mode"] != "repo_local_board_activation":
+            raise AssertionError(f"{row['native_agent_id']} must use repo-local AAC activation")
+        if row["direct_invocation_from_codex"] != "false":
+            raise AssertionError(f"{row['native_agent_id']} must not claim direct Codex invocation")
+
+    governance_path = ".agents/codex/matrices/CABINA_GOVERNANCE_AGENTS_FOR_VSI_20260608.csv"
+    governance_agents = read_csv(governance_path)
+    require_columns(
+        governance_agents,
+        [
+            "governance_agent_id",
+            "board_relation",
+            "agent_id",
+            "cabina_role",
+            "story_ids",
+            "source_order_ids",
+            "authority_source",
+            "execution_mode",
+            "dispatch_tool",
+            "governance_tool",
+            "allowed_actions",
+            "blocked_actions",
+            "status",
+            "stop_condition",
+        ],
+        governance_path,
+    )
+    expected_governance_agents = {
+        "rey.control_plane_orchestrator",
+        "codex.workspace_guardian",
+        "court.seshat_evidence",
+        "court.thot_schema",
+        "rey.repo_cartographer",
+        "rey.frontier_guardian",
+        "court.sdu_gate",
+    }
+    governance_ids = {row["agent_id"] for row in governance_agents}
+    if governance_ids != expected_governance_agents:
+        raise AssertionError(f"Cabina governance agent mismatch: {sorted(governance_ids)}")
+    overlap = native_ids.intersection(governance_ids)
+    if overlap:
+        raise AssertionError(f"AAC native and Cabina governance agents must not overlap: {sorted(overlap)}")
+    for row in governance_agents:
+        if row["board_relation"] != "cabina_governed_work_agent_not_native_aac_team":
+            raise AssertionError(f"{row['governance_agent_id']} must remain Cabina governed board work")
+        if row["execution_mode"] != "local_task_scoped_agent":
+            raise AssertionError(f"{row['governance_agent_id']} must remain local_task_scoped_agent")
+        if row["dispatch_tool"] != "multi_agent_v1.spawn_agent":
+            raise AssertionError(f"{row['governance_agent_id']} must use multi_agent_v1.spawn_agent")
+        if row["status"] != "ACTIVE_LOCAL_GOVERNED_USE":
+            raise AssertionError(f"{row['governance_agent_id']} must be ACTIVE_LOCAL_GOVERNED_USE")
+
     server = read_text("local-agent-bridge/src/server.mjs")
     if '127.0.0.1' not in server:
         raise AssertionError("local bridge must default to loopback")
@@ -102,10 +217,104 @@ def validate() -> None:
     local_actions_text = read_text("local-agent-bridge/src/localActions.mjs")
     dashboard_data_text = read_text("local-agent-bridge/src/dashboardData.mjs")
     dashboard_html = read_text("local-agent-bridge/public/index.html")
+    native_use_path = ".agents/codex/matrices/AAC_NATIVE_AGENT_USE_FOR_VSI_20260608.csv"
+    native_use_rows = read_csv(native_use_path)
+    require_columns(
+        native_use_rows,
+        [
+            "usage_id",
+            "board_id",
+            "story_id",
+            "native_agent_id",
+            "support_native_agents",
+            "cabina_governed_work_agents",
+            "callable_from_codex_now",
+            "status",
+            "stop_condition",
+        ],
+        native_use_path,
+    )
+    expected_native_use_stories = {"EPIC-6", "S-6.1", "S-6.2", "S-6.3", "S-6.4", "S-6.5"}
+    native_use_stories = {row["story_id"] for row in native_use_rows}
+    if native_use_stories != expected_native_use_stories:
+        raise AssertionError(f"AAC native use story mismatch: {sorted(native_use_stories)}")
+    for row in native_use_rows:
+        if row["board_id"] != "vsi_agile_agent_canvas_mother_board":
+            raise AssertionError(f"{row['usage_id']} must target VSI mother board")
+        if row["native_agent_id"] not in native_ids:
+            raise AssertionError(f"{row['usage_id']} references unknown native AAC agent")
+        if row["status"] != "ACTIVE_AAC_NATIVE_TEAM_GOVERNED":
+            raise AssertionError(f"{row['usage_id']} must activate native AAC team status")
+        if row["callable_from_codex_now"] != "NO_DISPONIBLE_DIRECT_EXTENSION_CALL":
+            raise AssertionError(f"{row['usage_id']} must keep native extension call boundary explicit")
+        cabina_agents = set(row["cabina_governed_work_agents"].split("|"))
+        if not cabina_agents or not cabina_agents.issubset(governance_ids):
+            raise AssertionError(f"{row['usage_id']} references unknown Cabina governed work agent")
     if "visible_gate_lane" not in dashboard_data_text or "ACTIVE_VISIBLE_GATE_LANE" not in dashboard_data_text:
         raise AssertionError("dashboard data must expose a visible gate lane from existing gates")
     if "renderVisibleGate" not in dashboard_html or "visible-gate-lane" not in dashboard_html:
         raise AssertionError("dashboard UI must render the visible gate lane")
+    if "board_boundary" not in dashboard_data_text or "BOARD_BOUNDARY_DECLARED" not in dashboard_data_text:
+        raise AssertionError("dashboard data must declare the VSI mother-board vs auxiliary-board boundary")
+    for token in (
+        "VSI / Agile Agent Canvas - Cabina Universal Agent Control",
+        "accepted_project_names",
+        "base_project_name",
+        "AAC_NATIVE_AGENTS_20260608",
+        "CABINA_GOVERNANCE_AGENTS_FOR_VSI_20260608",
+        "aacNativeAgents",
+        "cabinaGovernanceAgents",
+        "native_agents",
+        "governance_agents",
+        "aac_native_agent_records",
+        "cabina_governance_agent_records",
+        "ACTIVE_AAC_NATIVE_TEAM_GOVERNED",
+        "repo_local_board_activation",
+        "direct_invocation_from_codex",
+        "native_aac_team_not_cabina_authority",
+        "ACTIVE_CABINA_GOVERNED_WORK_LAYER",
+        "cabina_governed_work_agent_not_native_aac_team",
+        "cabina_governs_vsi_agile_agent_canvas_board",
+        "cabina_agents_work_on_board_and_govern_it",
+    ):
+        if token not in dashboard_data_text:
+            raise AssertionError(f"dashboard agent separation missing {token}")
+    for forbidden_token in (
+        "VSI_BOARD_AGENT_ROSTER_20260608",
+        "boardAgentRoster",
+        "agent_roster",
+        "board_agent_roster_records",
+    ):
+        if forbidden_token in dashboard_data_text:
+            raise AssertionError(f"dashboard must not expose ambiguous roster token {forbidden_token}")
+    for token in (
+        "vsi_agile_agent_canvas_mother_board",
+        "Tablero principal madre VSI",
+        "Agile Agent Canvas",
+        "agile_agent_canvas_creation_planning_board",
+        "primary_mother_board",
+        "vscode_insiders_agile_agent_canvas",
+        "control_agentes_cabina_queue_board",
+        "vsi_mother_board_boundary_drift",
+        "control_agentes_cabina",
+        "Tablero de cola Control de Agentes de Cabina",
+        "agent_control_queue_board",
+        "auxiliary_queue_control_board",
+        "agent_control_queue_board_boundary_drift",
+        "cola_sitio_web",
+        "NO_CONECTADA_EN_CONTROL_AGENTES_CABINA",
+        "website_queue_target_missing",
+    ):
+        if token not in dashboard_data_text:
+            raise AssertionError(f"dashboard board boundary missing {token}")
+    if "Frontera de tableros" not in dashboard_html or "renderBoardBoundaryItem" not in dashboard_html:
+        raise AssertionError("dashboard UI must render the board boundary")
+    if "no es" not in dashboard_html or "board_kind" not in dashboard_html:
+        raise AssertionError("dashboard UI must distinguish board identity and non-equivalence")
+    if "native_agents" not in dashboard_html or "governance_agents" not in dashboard_html:
+        raise AssertionError("dashboard UI must render native and Cabina governed work agents separately")
+    if "agentes cabina" not in dashboard_html or "agentes gobierno" in dashboard_html:
+        raise AssertionError("dashboard UI must label Cabina agents as board work agents, not only governance")
     if "execute_arbitrary_shell_from_dashboard" not in local_actions_text:
         raise AssertionError("local actions must block arbitrary shell execution")
     if "purpose_built_postcheck_allowlist" not in local_actions_text:

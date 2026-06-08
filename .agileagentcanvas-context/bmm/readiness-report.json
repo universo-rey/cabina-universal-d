@@ -2,7 +2,7 @@
   "metadata": {
     "schemaVersion": "1.0.0",
     "artifactType": "readiness-report",
-    "projectName": "Cabina Universal Agent Control",
+    "projectName": "VSI / Agile Agent Canvas - Cabina Universal Agent Control",
     "timestamps": {
       "created": "2026-06-08T00:00:00Z",
       "lastModified": "2026-06-08T00:00:00Z"
@@ -18,23 +18,24 @@
   },
   "content": {
     "summary": {
-      "projectName": "Cabina Universal Agent Control",
+      "projectName": "VSI / Agile Agent Canvas - Cabina Universal Agent Control",
       "assessmentDate": "2026-06-08",
       "assessedBy": "Codex governed executor",
       "overallStatus": "ready-with-concerns",
       "overallScore": 88,
-      "recommendation": "Agile Agent Canvas esta listo para uso local gobernado como superficie de lectura, creacion y organizacion de tareas. La proxima frontera segura es completar S-5.1 y agregar un validador anti-drift antes de depender de artefactos CIS/solutioning/testing aun no reconciliados.",
+      "recommendation": "Agile Agent Canvas esta listo para uso local gobernado como tablero madre VSI. Control de Agentes de Cabina queda como tablero auxiliar y la cola del sitio web queda externa/gateada. S-6.1 queda revisada localmente sin tarea de cola; S-6.2..S-6.5 quedaron ejecutadas localmente sin live, remoto, produccion ni secretos.",
       "keyFindings": [
         "Canvas schema health pasa y no ejecuta live.",
-        "La cola local VSI tiene 42 tareas ejecutadas y 0 pendientes.",
-        "EPIC-5 contiene 7 historias pendientes para operar tareas desde Agile Canvas.",
+        "La cola local VSI tiene 46 tareas: 45 EXECUTED_LOCAL_VALIDATED y 1 EXECUTED_LIVE_VALIDATED historica/sanitizada.",
+        "El backlog principal tiene 42 historias terminales y 4 pendientes/no ejecutadas; dentro de EPIC-6 solo S-6.1 queda pendiente/drafted.",
+        "EPIC-5 contiene 7 historias ejecutadas y validadas para operar tareas desde Agile Canvas.",
         "Los cinco BMM abiertos por el operador fueron reconciliados a identidad Cabina.",
-        "Queda deuda semantica en artefactos CIS, solutioning y testing con contenido demo TaskFlow."
+        "La deuda semantica en artefactos CIS, solutioning, testing y BMM queda controlada por matriz de cuarentena demo; TaskFlow queda citado solo como patron historico cuarentenado."
       ],
       "criticalActions": [
-        "Ejecutar S-5.1: modo lectura del canvas como carril activo.",
-        "Agregar validator anti-drift para bloquear identidad demo, project key demo y owners demo en artefactos activos.",
-        "Reconciliar o quarantinar artefactos CIS/solutioning/testing antes de usarlos como evidencia canonica."
+        "No repetir smoke: vsi.agent.task.037 queda como historial sanitizado, no como permiso abierto.",
+        "Usar matriz y validador de cuarentena demo antes de tomar artefactos accesorios como canon.",
+        "Mantener S-6.4 remoto y S-6.5 externo detenidos hasta gate separado con target, owner, rollback y postcheck."
       ]
     },
     "assessment": {
@@ -58,12 +59,13 @@
       },
       "epicCoverage": {
         "status": "complete",
-        "summary": "El backlog principal declara 5 epicas y 41 stories; EPIC-5 organiza la operacion de tareas desde Agile Canvas.",
-        "totalEpics": 5,
-        "totalStories": 41,
-        "completedStories": 31,
-        "pendingStories": 10,
-        "nextSafeStory": "S-5.1"
+        "summary": "El backlog principal declara 6 epicas y 46 stories; EPIC-5 esta ejecutado y EPIC-6 organiza la ejecucion local autorizada de tarjetas agente. S-6.1 queda revisada localmente pero no ejecutada en cola; S-6.2..S-6.5 quedan ejecutadas localmente.",
+        "totalEpics": 6,
+        "totalStories": 46,
+        "completedStories": 42,
+        "pendingStories": 4,
+        "nextSafeStory": "none",
+        "activeLocalExecution": "S-6.2..S-6.5 executed local governed; S-6.1 reviewed local no queue execution"
       },
       "localExecutionReadiness": {
         "status": "ready",
@@ -85,12 +87,12 @@
         ]
       },
       "validationReadiness": {
-        "status": "needs-semantic-validator",
-        "summary": "Validadores actuales cubren parse, schema, bridge, readiness y sincronias locales. Falta bloquear drift semantico de identidad.",
+        "status": "controlled",
+        "summary": "Validadores actuales cubren parse, schema, bridge, readiness, sincronias locales y cuarentena demo.",
         "recommendations": [
-          "Agregar validator anti-drift para .agileagentcanvas-context.",
-          "Incluirlo en local_agent_bridge_validator o readiness bundle.",
-          "Mantener busqueda rg como evidencia manual hasta versionarlo."
+          "Ejecutar agile_canvas_demo_quarantine_validator.py junto al set AAC.",
+          "Mantener artefactos demo solo como read_only_drift_evidence.",
+          "No usar artefactos accesorios cuarentenados como fuente activa hasta reconciliacion."
         ]
       }
     },
@@ -118,7 +120,7 @@
     "recommendations": [
       {
         "id": "REC-CABINA-1",
-        "recommendation": "Ejecutar S-5.1 como modo lectura del Canvas.",
+        "recommendation": "Mantener S-6.2..S-6.5 como carriles locales ya ejecutados desde el tablero madre; no repetir smoke ni live.",
         "category": "operation",
         "priority": "must-do",
         "effort": "low",
@@ -127,7 +129,7 @@
       },
       {
         "id": "REC-CABINA-2",
-        "recommendation": "Agregar validador anti-drift de identidad.",
+        "recommendation": "Mantener validador anti-drift y validador de cuarentena demo activos.",
         "category": "validation",
         "priority": "must-do",
         "effort": "medium",
@@ -136,7 +138,7 @@
       },
       {
         "id": "REC-CABINA-3",
-        "recommendation": "Reconciliar por lotes CIS, solutioning y testing.",
+        "recommendation": "Reconciliar por lotes CIS, solutioning, testing y BMM cuarentenados.",
         "category": "canon",
         "priority": "should-do",
         "effort": "medium",
@@ -147,14 +149,14 @@
     "nextSteps": [
       {
         "step": 1,
-        "action": "Marcar S-5.1 como carril activo de lectura si el operador continua en Agile Canvas.",
+        "action": "Conservar S-6.2..S-6.5 como ejecutadas localmente desde Agile Agent Canvas sin live ni remoto; mantener S-6.1 como revisada local sin fila ejecutable de cola.",
         "owner": "codex.workspace_guardian",
         "deadline": "2026-06-08",
         "dependencies": []
       },
       {
         "step": 2,
-        "action": "Crear validator anti-drift y correrlo contra .agileagentcanvas-context.",
+        "action": "Correr validator anti-drift y cuarentena demo contra .agileagentcanvas-context.",
         "owner": "court.thot_schema",
         "deadline": "2026-06-08",
         "dependencies": [
@@ -163,7 +165,7 @@
       },
       {
         "step": 3,
-        "action": "Preparar lote de reconciliacion para CIS/solutioning/testing o quarantine explicita.",
+        "action": "Preparar lote de reconciliacion para CIS/solutioning/testing/BMM cuarentenado.",
         "owner": "court.seshat_evidence",
         "deadline": "2026-06-08",
         "dependencies": [

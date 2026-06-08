@@ -3,7 +3,7 @@
     "schemaVersion": "1.0.0",
     "artifactType": "epics",
     "workflowName": "pm-orchestrator",
-    "projectName": "Cabina Universal Agent Control",
+    "projectName": "VSI / Agile Agent Canvas - Cabina Universal Agent Control",
     "timestamps": {
       "created": "2026-06-06T00:00:00Z",
       "lastModified": "2026-06-08T00:00:00Z"
@@ -125,6 +125,59 @@
           "liveExecuted": false,
           "externalSync": false
         }
+      },
+      "aacDirectMcpGatedWrite": {
+        "status": "EXECUTED_LOCAL_VALIDATED",
+        "targetPath": ".agileagentcanvas-context/planning/epics.json",
+        "owner": "rey.control_plane_orchestrator",
+        "reviewer": "court.seshat_evidence",
+        "runtimeTool": "aac-direct/aac_write_artifact_gated",
+        "gate": {
+          "gateId": "GATE_AAC_ARTIFACT_WRITE",
+          "approvalStatus": "APPROVED_EXPLICIT",
+          "approvalRef": "user_authorized_target_epics_2026-06-08"
+        },
+        "rollback": "git restore -- .agileagentcanvas-context/planning/epics.json",
+        "postcheck": [
+          "npm test --prefix aac-mcp-server",
+          "python scripts/validators/aac_mcp_server_validator.py",
+          "python scripts/validators/agile_canvas_task_ops_validator.py",
+          "python scripts/validators/local_agent_bridge_validator.py",
+          "git diff --check"
+        ],
+        "localWriteExecuted": true,
+        "liveExecuted": false,
+        "externalSync": false,
+        "stopCondition": "aac_direct_mcp_gated_write_executed_repo_local",
+        "note": "AAC native agents can operate on the mother board under Cabina governance; writes remain gated and repo-local unless a separate live gate is opened."
+      },
+      "parallelReconciliation20260608": {
+        "status": "EXECUTED_LOCAL_VALIDATED",
+        "lanes": [
+          "demo_drift_quarantine",
+          "s5_stopcondition_semantics",
+          "s6_local_execution_authorization"
+        ],
+        "ownerAgent": "rey.control_plane_orchestrator",
+        "reviewerAgent": "court.seshat_evidence",
+        "liveExecuted": false,
+        "externalSync": false,
+        "stopCondition": "aac_parallel_reconciliation_repo_local_validated"
+      },
+      "s6LocalExecution": {
+        "status": "EXECUTED_LOCAL_VALIDATED",
+        "storyRange": "S-6.2..S-6.5",
+        "queueTaskRange": "vsi.agent.task.043..046",
+        "approvalRef": "user_authorized_s-6_2_to_s-6_5_local_execution_2026-06-08",
+        "liveExecuted": false,
+        "externalSync": false,
+        "remoteMutationExecuted": false,
+        "externalTargetsPending": [
+          "web_site_queue",
+          "openai_live_queue",
+          "microsoft_live_queue"
+        ],
+        "stopCondition": "s-6_2_to_s-6_5_local_execution_completed_s-6_1_reviewed_no_queue_execution"
       }
     }
   },
@@ -132,8 +185,8 @@
     "overview": {
       "projectName": "Cabina Universal Agent Control",
       "description": "Desglose de epicas para la mesa local de Agile Agent Canvas que gobierna superficies agente de Visual Studio Code Insiders.",
-      "totalEpics": 5,
-      "totalStories": 41,
+      "totalEpics": 6,
+      "totalStories": 46,
       "inputDocuments": [
         "vision.json",
         "discovery/product-brief.json",
@@ -756,9 +809,10 @@
                 ".agents/codex/tools/local_validate_capability_use_hardening.ps1",
                 "git diff --check"
               ],
-              "stopCondition": "s-5_1_taskops_validation_failed",
+              "stopCondition": "s-5_1_taskops_executed_local_validated",
               "liveExecuted": false,
-              "externalSync": false
+              "externalSync": false,
+              "stopConditionSemantics": "completed_story_local_validator_passed"
             },
             "executionEvidence": {
               "status": "EXECUTED_LOCAL_VALIDATED",
@@ -806,9 +860,10 @@
                 ".agents/codex/tools/local_validate_capability_use_hardening.ps1",
                 "git diff --check"
               ],
-              "stopCondition": "s-5_2_taskops_validation_failed",
+              "stopCondition": "s-5_2_taskops_executed_local_validated",
               "liveExecuted": false,
-              "externalSync": false
+              "externalSync": false,
+              "stopConditionSemantics": "completed_story_local_validator_passed"
             },
             "executionEvidence": {
               "status": "EXECUTED_LOCAL_VALIDATED",
@@ -856,9 +911,10 @@
                 ".agents/codex/tools/local_validate_capability_use_hardening.ps1",
                 "git diff --check"
               ],
-              "stopCondition": "s-5_3_taskops_validation_failed",
+              "stopCondition": "s-5_3_taskops_executed_local_validated",
               "liveExecuted": false,
-              "externalSync": false
+              "externalSync": false,
+              "stopConditionSemantics": "completed_story_local_validator_passed"
             },
             "executionEvidence": {
               "status": "EXECUTED_LOCAL_VALIDATED",
@@ -906,9 +962,10 @@
                 ".agents/codex/tools/local_validate_capability_use_hardening.ps1",
                 "git diff --check"
               ],
-              "stopCondition": "s-5_4_taskops_validation_failed",
+              "stopCondition": "s-5_4_taskops_executed_local_validated",
               "liveExecuted": false,
-              "externalSync": false
+              "externalSync": false,
+              "stopConditionSemantics": "completed_story_local_validator_passed"
             },
             "executionEvidence": {
               "status": "EXECUTED_LOCAL_VALIDATED",
@@ -956,9 +1013,10 @@
                 ".agents/codex/tools/local_validate_capability_use_hardening.ps1",
                 "git diff --check"
               ],
-              "stopCondition": "s-5_5_taskops_validation_failed",
+              "stopCondition": "s-5_5_taskops_executed_local_validated",
               "liveExecuted": false,
-              "externalSync": false
+              "externalSync": false,
+              "stopConditionSemantics": "completed_story_local_validator_passed"
             },
             "executionEvidence": {
               "status": "EXECUTED_LOCAL_VALIDATED",
@@ -1006,9 +1064,10 @@
                 ".agents/codex/tools/local_validate_capability_use_hardening.ps1",
                 "git diff --check"
               ],
-              "stopCondition": "s-5_6_taskops_validation_failed",
+              "stopCondition": "s-5_6_taskops_executed_local_validated",
               "liveExecuted": false,
-              "externalSync": false
+              "externalSync": false,
+              "stopConditionSemantics": "completed_story_local_validator_passed"
             },
             "executionEvidence": {
               "status": "EXECUTED_LOCAL_VALIDATED",
@@ -1056,9 +1115,10 @@
                 ".agents/codex/tools/local_validate_capability_use_hardening.ps1",
                 "git diff --check"
               ],
-              "stopCondition": "s-5_7_taskops_validation_failed",
+              "stopCondition": "s-5_7_taskops_executed_local_validated",
               "liveExecuted": false,
-              "externalSync": false
+              "externalSync": false,
+              "stopConditionSemantics": "completed_story_local_validator_passed"
             },
             "executionEvidence": {
               "status": "EXECUTED_LOCAL_VALIDATED",
@@ -1085,6 +1145,1159 @@
             ".agents/codex/tools/local_validate_capability_use_hardening.ps1",
             "git diff --check"
           ]
+        }
+      },
+      {
+        "id": "EPIC-6",
+        "title": "Tarjetas autorizables para agentes",
+        "description": "Preparar tarjetas en el tablero principal madre VSI para que agentes concretos puedan ejecutarlas solo cuando exista autorizacion humana explicita.",
+        "priority": "must-have",
+        "status": "IN_PROGRESS_LOCAL_VALIDATED",
+        "multiAgentPreparationPolicy": {
+          "status": "ACTIVE_LOCAL_GOVERNED_USE",
+          "rule": "Cada tarjeta ejecutable S-6.* debe tener orden detallada y preparacion previa registrada por herramienta multiagente antes de cualquier ejecucion.",
+          "nativeAgentRosterId": "AAC_NATIVE_AGENTS_20260608",
+          "nativeAgentRosterPath": ".agents/codex/matrices/AAC_NATIVE_AGENTS_20260608.csv",
+          "nativeAgentUseMatrixId": "AAC_NATIVE_AGENT_USE_FOR_VSI_20260608",
+          "nativeAgentUseMatrixPath": ".agents/codex/matrices/AAC_NATIVE_AGENT_USE_FOR_VSI_20260608.csv",
+          "governanceAgentRosterId": "CABINA_GOVERNANCE_AGENTS_FOR_VSI_20260608",
+          "governanceAgentRosterPath": ".agents/codex/matrices/CABINA_GOVERNANCE_AGENTS_FOR_VSI_20260608.csv",
+          "requiredTool": "multi_agent_v1.spawn_agent",
+          "governanceTool": "tool.parallel_dispatch_policy_check",
+          "preparationRecipe": "recipe.parallel_agent_operation",
+          "preparationSubagentId": "019ea5af-4034-7df1-b394-ff6ae806fca8",
+          "preparationAgent": "court.thot_schema",
+          "fanInOwner": "rey.control_plane_orchestrator",
+          "executionWithoutPreparation": "blocked",
+          "nativeTeamActivationStatus": "ACTIVE_AAC_NATIVE_TEAM_GOVERNED",
+          "nativeDirectInvocationFromCodex": false,
+          "executionGate": "humanAuthorization.status == APPROVED_EXPLICIT",
+          "liveExecuted": false,
+          "externalSync": false,
+          "stopCondition": "multi_agent_preparation_missing"
+        },
+        "stories": [
+          {
+            "id": "S-6.1",
+            "title": "Leer tablero madre VSI y fijar contexto de ejecucion",
+            "description": "El agente asignado debe leer el estado real del tablero principal madre VSI, separar Control de Agentes de Cabina como tablero auxiliar y cerrar un readback sin ejecutar cambios.",
+            "acceptanceCriteria": [
+              "VSI / Agile Agent Canvas queda identificado como tablero principal madre",
+              "Control de Agentes de Cabina queda identificado como tablero auxiliar",
+              "no se ejecutan tareas, writes live, remotos ni shell arbitrario"
+            ],
+            "status": "PENDING_APPROVAL_ONLY",
+            "governance": {
+              "lane": "lectura-autorizable",
+              "ownerAgent": "codex.workspace_guardian",
+              "reviewerAgent": "court.seshat_evidence",
+              "lockKey": "lock.vsi.agent_authorization_cards",
+              "authorizationRequired": "HUMAN_APPROVAL",
+              "readyForAgentExecution": true,
+              "multiAgentPreparation": {
+                "required": true,
+                "status": "MULTI_AGENT_ORDER_READY",
+                "preparationTool": "multi_agent_v1.spawn_agent",
+                "governanceTool": "tool.parallel_dispatch_policy_check",
+                "preparationRecipe": "recipe.parallel_agent_operation",
+                "preparationSubagentId": "019ea5af-4034-7df1-b394-ff6ae806fca8",
+                "preparationAgent": "court.thot_schema",
+                "runtimeMethod": "local_task_scoped_agent",
+                "minimumFields": [
+                  "leadAgent",
+                  "ownerAgent",
+                  "reviewerAgent",
+                  "delegateAgents",
+                  "readScope",
+                  "writeScope",
+                  "lockKey",
+                  "dependency",
+                  "maxParallel",
+                  "evidenceRequired",
+                  "validators",
+                  "stopCondition",
+                  "humanAuthorization"
+                ],
+                "liveExecuted": false,
+                "externalSync": false
+              },
+              "agentOrder": {
+                "orderId": "aac.S-6.1.agent_order",
+                "mission": "Leer el estado real del tablero principal madre VSI, separar Control de Agentes de Cabina como tablero auxiliar y cerrar readback sin ejecutar cambios.",
+                "leadAgent": "rey.control_plane_orchestrator",
+                "ownerAgent": "codex.workspace_guardian",
+                "reviewerAgent": "court.seshat_evidence",
+                "delegateAgents": [
+                  "court.seshat_evidence"
+                ],
+                "agentType": "local_task_scoped_agent",
+                "nativeAacAgentAssignment": {
+                  "useMatrixId": "AAC_NATIVE_AGENT_USE_FOR_VSI_20260608",
+                  "primaryNativeAgent": "canvas-integrator",
+                  "displayName": "Morph",
+                  "module": "core",
+                  "nativeRole": "native_canvas_context_integrator",
+                  "supportNativeAgents": [
+                    "master"
+                  ],
+                  "invocationSurface": "vscode_insiders_agile_agent_canvas",
+                  "invocationMethod": "@agileagentcanvas or Agile Agent Canvas command surface",
+                  "callableFromCodexNow": "NO_DISPONIBLE_DIRECT_EXTENSION_CALL",
+                  "status": "ACTIVE_AAC_NATIVE_TEAM_GOVERNED",
+                  "stopCondition": "s-6_1_aac_native_context_agent_missing"
+                },
+                "forkContext": {
+                  "enabled": false,
+                  "baseBoard": "VSI / Agile Agent Canvas",
+                  "auxBoard": "Control de Agentes de Cabina",
+                  "sourceEpic": "EPIC-6",
+                  "sourceStory": "S-6.1",
+                  "noRemote": true,
+                  "noLive": true
+                },
+                "requiredInputs": [
+                  "story id S-6.1",
+                  "human approval reference",
+                  "tablero madre VSI",
+                  "tablero auxiliar Control de Agentes de Cabina"
+                ],
+                "readScope": [
+                  ".agileagentcanvas-context/planning/epics.json",
+                  ".agileagentcanvas-context/bmm/sprint-status.json",
+                  "local-agent-bridge/src/dashboardData.mjs",
+                  "http://127.0.0.1:8795/api/dashboard if bridge is already local"
+                ],
+                "writeScope": [],
+                "dispatchTool": {
+                  "toolId": "multi_agent_v1.spawn_agent",
+                  "governanceToolId": "tool.parallel_dispatch_policy_check",
+                  "recipeId": "recipe.parallel_agent_operation",
+                  "maxParallel": 1,
+                  "serializationRule": "serialize_on_same_lock_key"
+                },
+                "preflight": [
+                  "confirm S-6.1 status remains PENDING_APPROVAL_ONLY or explicitly approved",
+                  "confirm lockKey lock.vsi.agent_authorization_cards",
+                  "confirm writeScope is empty",
+                  "confirm no live, remote, secret, production or tenant action"
+                ],
+                "executionSteps": [
+                  "read story governance",
+                  "dispatch local task-scoped agent with multi_agent_v1.spawn_agent",
+                  "read declared canvas and dashboard evidence only",
+                  "collect tablero madre and tablero auxiliar findings",
+                  "run declared validators",
+                  "emit readback"
+                ],
+                "evidenceRequired": [
+                  "subagent id",
+                  "source files read",
+                  "story id and status",
+                  "tablero madre finding",
+                  "tablero auxiliar finding",
+                  "validator outputs",
+                  "readback"
+                ],
+                "humanAuthorization": {
+                  "required": true,
+                  "status": "APPROVED_EXPLICIT",
+                  "approvalScope": "single story S-6.1 read-only execution",
+                  "doesNotAuthorize": [
+                    "live write",
+                    "production",
+                    "secret use",
+                    "remote mutation",
+                    "merge main",
+                    "permission changes"
+                  ]
+                }
+              },
+              "allowedActionsAfterApproval": [
+                "read_canvas_artifacts",
+                "read_loopback_dashboard",
+                "emit_readback"
+              ],
+              "blockedActions": [
+                "execute_agent_task",
+                "github_remote_write",
+                "openai_api_live",
+                "microsoft_live_write",
+                "production",
+                "secret_materialization",
+                "external_sync"
+              ],
+              "rollback": "git restore -- .agileagentcanvas-context/planning/epics.json .agileagentcanvas-context/bmm/sprint-status.json",
+              "postcheck": [
+                "python scripts/validators/agile_canvas_identity_drift_validator.py",
+                "python scripts/validators/agile_canvas_task_ops_validator.py",
+                "git diff --check"
+              ],
+              "stopCondition": "s-6_1_reviewed_local_no_queue_execution",
+              "liveExecuted": false,
+              "externalSync": false
+            },
+            "reviewEvidence": {
+              "status": "REVIEWED_LOCAL_VALIDATED",
+              "reviewedAt": "2026-06-08T00:00:00Z",
+              "reviewerAgent": "court.seshat_evidence",
+              "subagentId": "019ea5ad-2e85-72d1-b57d-972dc9e33193",
+              "reviewScope": "readback evidence for S-6.1 context fixation",
+              "findings": [
+                "VSI / Agile Agent Canvas is the primary mother board",
+                "Control de Agentes de Cabina is the auxiliary loopback control board",
+                "S-6.1 did not execute agent tasks, live writes, remote writes or arbitrary shell",
+                "queue_refs_for_S-6.1=0; no new executable VSI queue row was created"
+              ],
+              "evidence": [
+                ".agileagentcanvas-context/planning/epics.json::S-6.1",
+                "http://127.0.0.1:8795/api/dashboard::board_boundary",
+                "VS Code Insiders window title: Agile Agent Canvas - cabina-universal-d"
+              ],
+              "validator": [
+                "python scripts/validators/agile_canvas_identity_drift_validator.py",
+                "python scripts/validators/agile_canvas_task_ops_validator.py",
+                "python scripts/validators/local_agent_bridge_validator.py",
+                "git diff --check"
+              ],
+              "liveExecuted": false,
+              "externalSync": false,
+              "stopCondition": "s-6_1_seshat_review_recorded"
+            },
+            "semanticResolution": {
+              "status": "REVIEWED_LOCAL_VALIDATED_NOT_QUEUE_EXECUTED",
+              "storyStatusRemains": "PENDING_APPROVAL_ONLY",
+              "reason": "S-6.1 fija contexto del tablero madre VSI y tablero auxiliar; no crea ni ejecuta fila de cola VSI.",
+              "queueTaskId": null,
+              "motherBoard": "VSI / Agile Agent Canvas",
+              "auxiliaryBoard": "Control de Agentes de Cabina",
+              "externalQueue": "web_site_queue_gated_external_surface",
+              "liveExecuted": false,
+              "externalSync": false,
+              "stopCondition": "s-6_1_reviewed_local_no_queue_execution"
+            }
+          },
+          {
+            "id": "S-6.2",
+            "title": "Reconciliar readiness report con sprint y epicas",
+            "description": "El agente asignado debe corregir o aislar el drift donde readiness report queda atrasado respecto de epics y sprint-status ya ejecutados.",
+            "acceptanceCriteria": [
+              "readiness report no declara S-5.1 como proxima si S-5.1..S-5.7 ya estan done",
+              "el drift semantico queda evidenciado con fuente y archivo",
+              "la correccion queda validada sin live ni proveedor externo"
+            ],
+            "status": "EXECUTED_LOCAL_VALIDATED",
+            "governance": {
+              "lane": "reconciliacion-readiness",
+              "ownerAgent": "court.seshat_evidence",
+              "reviewerAgent": "codex.workspace_guardian",
+              "lockKey": "lock.vsi.readiness_reconciliation",
+              "authorizationRequired": "HUMAN_APPROVAL",
+              "readyForAgentExecution": false,
+              "multiAgentPreparation": {
+                "required": true,
+                "status": "MULTI_AGENT_ORDER_READY",
+                "preparationTool": "multi_agent_v1.spawn_agent",
+                "governanceTool": "tool.parallel_dispatch_policy_check",
+                "preparationRecipe": "recipe.parallel_agent_operation",
+                "preparationSubagentId": "019ea5af-4034-7df1-b394-ff6ae806fca8",
+                "preparationAgent": "court.thot_schema",
+                "runtimeMethod": "local_task_scoped_agent",
+                "liveExecuted": false,
+                "externalSync": false
+              },
+              "agentOrder": {
+                "orderId": "aac.S-6.2.agent_order",
+                "mission": "Reconciliar el readiness report con sprint y epicas, evidenciando drift semantico y corrigiendo solo metadata local si la story queda autorizada.",
+                "leadAgent": "rey.control_plane_orchestrator",
+                "ownerAgent": "court.seshat_evidence",
+                "reviewerAgent": "codex.workspace_guardian",
+                "delegateAgents": [
+                  "court.seshat_evidence"
+                ],
+                "agentType": "local_task_scoped_agent",
+                "nativeAacAgentAssignment": {
+                  "useMatrixId": "AAC_NATIVE_AGENT_USE_FOR_VSI_20260608",
+                  "primaryNativeAgent": "sm",
+                  "displayName": "Bob",
+                  "module": "bmm",
+                  "nativeRole": "native_sprint_story_reconciler",
+                  "supportNativeAgents": [
+                    "pm"
+                  ],
+                  "invocationSurface": "vscode_insiders_agile_agent_canvas",
+                  "invocationMethod": "@agileagentcanvas or Agile Agent Canvas command surface",
+                  "callableFromCodexNow": "NO_DISPONIBLE_DIRECT_EXTENSION_CALL",
+                  "status": "ACTIVE_AAC_NATIVE_TEAM_GOVERNED",
+                  "stopCondition": "s-6_2_aac_native_sprint_agent_missing"
+                },
+                "forkContext": {
+                  "enabled": false,
+                  "baseBoard": "VSI / Agile Agent Canvas",
+                  "auxBoard": "Control de Agentes de Cabina",
+                  "sourceEpic": "EPIC-6",
+                  "sourceStory": "S-6.2",
+                  "noRemote": true,
+                  "noLive": true
+                },
+                "requiredInputs": [
+                  "readiness report source",
+                  "epics status source",
+                  "sprint status source",
+                  "human approval reference"
+                ],
+                "readScope": [
+                  ".agileagentcanvas-context/planning/epics.json",
+                  ".agileagentcanvas-context/bmm/sprint-status.json",
+                  ".agileagentcanvas-context"
+                ],
+                "writeScope": [
+                  "readiness metadata only after explicit approval"
+                ],
+                "dispatchTool": {
+                  "toolId": "multi_agent_v1.spawn_agent",
+                  "governanceToolId": "tool.parallel_dispatch_policy_check",
+                  "recipeId": "recipe.parallel_agent_operation",
+                  "maxParallel": 1,
+                  "serializationRule": "serialize_on_same_lock_key"
+                },
+                "preflight": [
+                  "parse epics.json",
+                  "parse sprint-status.json",
+                  "confirm drift source before writing",
+                  "confirm no live, remote, secret, production or tenant action"
+                ],
+                "executionSteps": [
+                  "read readiness source",
+                  "compare against EPIC-5 and EPIC-6 status",
+                  "prepare local metadata correction only if approved",
+                  "run schema and task validators",
+                  "emit readback"
+                ],
+                "evidenceRequired": [
+                  "subagent id",
+                  "files read",
+                  "drift finding",
+                  "diff summary if write approved",
+                  "validator outputs",
+                  "readback"
+                ],
+                "humanAuthorization": {
+                  "required": true,
+                  "status": "APPROVED_EXPLICIT",
+                  "approvalScope": "single story S-6.2 local governed execution only; no live, no remote mutation, no production, no secrets",
+                  "doesNotAuthorize": [
+                    "live write",
+                    "production",
+                    "secret use",
+                    "remote mutation",
+                    "merge main",
+                    "permission changes",
+                    "force push",
+                    "openai api live",
+                    "microsoft live write",
+                    "external cost"
+                  ],
+                  "approvalRef": "user_authorized_s-6_2_local_execution_2026-06-08"
+                },
+                "localExecutionAuthorization": {
+                  "status": "EXECUTED_LOCAL_VALIDATED",
+                  "approvalRef": "user_authorized_s-6_2_local_execution_2026-06-08",
+                  "allowedSurface": "repo_local_only",
+                  "liveExecuted": false,
+                  "externalSync": false,
+                  "stopCondition": "s-6_2_local_governed_execution_authorized_no_live"
+                }
+              },
+              "allowedActionsAfterApproval": [
+                "read_canvas_artifacts",
+                "update_readiness_metadata",
+                "run_local_validators",
+                "emit_readback"
+              ],
+              "blockedActions": [
+                "execute_agent_task",
+                "github_remote_write",
+                "openai_api_live",
+                "microsoft_live_write",
+                "production",
+                "secret_materialization",
+                "external_sync"
+              ],
+              "rollback": "git restore -- .agileagentcanvas-context",
+              "postcheck": [
+                "python scripts/validators/agile_canvas_task_ops_validator.py",
+                "python scripts/validators/agile_canvas_extension_schema_validator.py",
+                "git diff --check"
+              ],
+              "stopCondition": "s-6_2_local_governed_execution_authorized_no_live",
+              "liveExecuted": false,
+              "externalSync": false,
+              "localExecutionAuthorization": {
+                "status": "EXECUTED_LOCAL_VALIDATED",
+                "approvalRef": "user_authorized_s-6_2_local_execution_2026-06-08",
+                "scope": "single story S-6.2 local governed execution only",
+                "liveExecuted": false,
+                "externalSync": false,
+                "remoteMutationAuthorized": false,
+                "stopCondition": "s-6_2_local_governed_execution_authorized_no_live"
+              },
+              "executionResult": {
+                "status": "EXECUTED_LOCAL_VALIDATED",
+                "executedAt": "2026-06-08T00:00:00Z",
+                "executorAgent": "rey.control_plane_orchestrator",
+                "ownerAgent": "court.seshat_evidence",
+                "reviewerAgent": "codex.workspace_guardian",
+                "nativeAacAgent": "sm",
+                "subagentId": "019ea60f-c441-7942-a61a-c4c5a708ebfc",
+                "queueTaskId": "vsi.agent.task.043",
+                "localWriteExecuted": true,
+                "liveExecuted": false,
+                "externalSync": false,
+                "remoteMutationExecuted": false,
+                "evidence": [
+                  "readiness-report.json reconciled to completedStories=42 pendingStories=4",
+                  "nextSafeStory set to none and activeLocalExecution records S-6.2..S-6.5",
+                  "TaskFlow kept only as quarantined drift reference"
+                ],
+                "validators": [
+                  "python scripts/validators/agile_canvas_demo_quarantine_validator.py",
+                  "python scripts/validators/agile_canvas_task_ops_validator.py",
+                  "python scripts/validators/agile_canvas_extension_schema_validator.py",
+                  "git diff --check"
+                ],
+                "stopCondition": "s-6_2_local_governed_execution_authorized_no_live"
+              }
+            },
+            "executionEvidence": {
+              "status": "EXECUTED_LOCAL_VALIDATED",
+              "executedAt": "2026-06-08T00:00:00Z",
+              "executorAgent": "rey.control_plane_orchestrator",
+              "ownerAgent": "court.seshat_evidence",
+              "reviewerAgent": "codex.workspace_guardian",
+              "nativeAacAgent": "sm",
+              "subagentId": "019ea60f-c441-7942-a61a-c4c5a708ebfc",
+              "queueTaskId": "vsi.agent.task.043",
+              "localWriteExecuted": true,
+              "liveExecuted": false,
+              "externalSync": false,
+              "remoteMutationExecuted": false,
+              "evidence": [
+                "readiness-report.json reconciled to completedStories=42 pendingStories=4",
+                "nextSafeStory set to none and activeLocalExecution records S-6.2..S-6.5",
+                "TaskFlow kept only as quarantined drift reference"
+              ],
+              "validators": [
+                "python scripts/validators/agile_canvas_demo_quarantine_validator.py",
+                "python scripts/validators/agile_canvas_task_ops_validator.py",
+                "python scripts/validators/agile_canvas_extension_schema_validator.py",
+                "git diff --check"
+              ],
+              "stopCondition": "s-6_2_local_governed_execution_authorized_no_live"
+            }
+          },
+          {
+            "id": "S-6.3",
+            "title": "Preparar paso de tarjetas autorizadas a matriz VSI",
+            "description": "El agente asignado debe convertir solo tarjetas autorizadas en filas de cola/matriz VSI con dependencia, lock, rollback, postcheck y validador.",
+            "acceptanceCriteria": [
+              "solo tarjetas con autorizacion humana pasan a matriz",
+              "cada fila nueva conserva owner, reviewer, dependency, lockKey y stopCondition",
+              "las tarjetas no autorizadas permanecen en PENDING_APPROVAL_ONLY"
+            ],
+            "status": "EXECUTED_LOCAL_VALIDATED",
+            "governance": {
+              "lane": "canvas-to-vsi-queue",
+              "ownerAgent": "court.thot_schema",
+              "reviewerAgent": "court.seshat_evidence",
+              "lockKey": "lock.vsi.canvas_to_queue_authorized",
+              "authorizationRequired": "HUMAN_APPROVAL",
+              "readyForAgentExecution": false,
+              "multiAgentPreparation": {
+                "required": true,
+                "status": "MULTI_AGENT_ORDER_READY",
+                "preparationTool": "multi_agent_v1.spawn_agent",
+                "governanceTool": "tool.parallel_dispatch_policy_check",
+                "preparationRecipe": "recipe.parallel_agent_operation",
+                "preparationSubagentId": "019ea5af-4034-7df1-b394-ff6ae806fca8",
+                "preparationAgent": "court.thot_schema",
+                "runtimeMethod": "local_task_scoped_agent",
+                "liveExecuted": false,
+                "externalSync": false
+              },
+              "agentOrder": {
+                "orderId": "aac.S-6.3.agent_order",
+                "mission": "Convertir solo tarjetas autorizadas en filas de cola o matriz VSI con owner, reviewer, dependency, lockKey, rollback, postcheck y validador.",
+                "leadAgent": "rey.control_plane_orchestrator",
+                "ownerAgent": "court.thot_schema",
+                "reviewerAgent": "court.seshat_evidence",
+                "delegateAgents": [
+                  "court.thot_schema"
+                ],
+                "agentType": "local_task_scoped_agent",
+                "nativeAacAgentAssignment": {
+                  "useMatrixId": "AAC_NATIVE_AGENT_USE_FOR_VSI_20260608",
+                  "primaryNativeAgent": "canvas-integrator",
+                  "displayName": "Morph",
+                  "module": "core",
+                  "nativeRole": "native_canvas_to_queue_integrator",
+                  "supportNativeAgents": [
+                    "agent-builder"
+                  ],
+                  "invocationSurface": "vscode_insiders_agile_agent_canvas",
+                  "invocationMethod": "@agileagentcanvas or Agile Agent Canvas command surface",
+                  "callableFromCodexNow": "NO_DISPONIBLE_DIRECT_EXTENSION_CALL",
+                  "status": "ACTIVE_AAC_NATIVE_TEAM_GOVERNED",
+                  "stopCondition": "s-6_3_aac_native_queue_agent_missing"
+                },
+                "forkContext": {
+                  "enabled": false,
+                  "baseBoard": "VSI / Agile Agent Canvas",
+                  "auxBoard": "Control de Agentes de Cabina",
+                  "sourceEpic": "EPIC-6",
+                  "sourceStory": "S-6.3",
+                  "noRemote": true,
+                  "noLive": true
+                },
+                "requiredInputs": [
+                  "authorized story ids",
+                  "queue target",
+                  "lockKey",
+                  "dependency",
+                  "rollback",
+                  "postcheck",
+                  "human approval reference"
+                ],
+                "readScope": [
+                  ".agileagentcanvas-context/planning/epics.json",
+                  ".agileagentcanvas-context/bmm/sprint-status.json",
+                  ".agents/codex/matrices/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv"
+                ],
+                "writeScope": [
+                  ".agents/codex/matrices/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv only after explicit approval",
+                  ".agileagentcanvas-context/planning/epics.json only after explicit approval"
+                ],
+                "dispatchTool": {
+                  "toolId": "multi_agent_v1.spawn_agent",
+                  "governanceToolId": "tool.parallel_dispatch_policy_check",
+                  "recipeId": "recipe.parallel_agent_operation",
+                  "maxParallel": 1,
+                  "serializationRule": "serialize_on_same_lock_key"
+                },
+                "preflight": [
+                  "confirm each candidate story has humanAuthorization.status APPROVED_EXPLICIT",
+                  "confirm no unauthorized story is converted",
+                  "confirm queue lockKey is unique or serialized",
+                  "confirm no live, remote, secret, production or tenant action"
+                ],
+                "executionSteps": [
+                  "read authorized cards",
+                  "prepare exact queue rows",
+                  "write only approved local matrix rows",
+                  "run parallel order and agent layer validators",
+                  "emit readback"
+                ],
+                "evidenceRequired": [
+                  "subagent id",
+                  "authorized story ids",
+                  "matrix row diff",
+                  "validator outputs",
+                  "readback"
+                ],
+                "humanAuthorization": {
+                  "required": true,
+                  "status": "APPROVED_EXPLICIT",
+                  "approvalScope": "single story S-6.3 local governed execution only; no live, no remote mutation, no production, no secrets",
+                  "doesNotAuthorize": [
+                    "live write",
+                    "production",
+                    "secret use",
+                    "remote mutation",
+                    "merge main",
+                    "permission changes",
+                    "force push",
+                    "openai api live",
+                    "microsoft live write",
+                    "external cost"
+                  ],
+                  "approvalRef": "user_authorized_s-6_3_local_execution_2026-06-08"
+                },
+                "localExecutionAuthorization": {
+                  "status": "EXECUTED_LOCAL_VALIDATED",
+                  "approvalRef": "user_authorized_s-6_3_local_execution_2026-06-08",
+                  "allowedSurface": "repo_local_only",
+                  "liveExecuted": false,
+                  "externalSync": false,
+                  "stopCondition": "s-6_3_local_governed_execution_authorized_no_live"
+                }
+              },
+              "allowedActionsAfterApproval": [
+                "read_canvas_artifacts",
+                "update_vsi_task_queue",
+                "run_local_validators",
+                "emit_readback"
+              ],
+              "blockedActions": [
+                "execute_agent_task",
+                "github_remote_write",
+                "openai_api_live",
+                "microsoft_live_write",
+                "production",
+                "secret_materialization",
+                "external_sync"
+              ],
+              "rollback": "git restore -- .agents/codex/matrices/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv .agileagentcanvas-context/planning/epics.json .agileagentcanvas-context/bmm/sprint-status.json",
+              "postcheck": [
+                ".agents/codex/tools/local_validate_parallel_order_governance.ps1",
+                ".agents/codex/tools/local_validate_agent_layer.ps1",
+                "python scripts/validators/agile_canvas_task_ops_validator.py",
+                "git diff --check"
+              ],
+              "stopCondition": "s-6_3_local_governed_execution_authorized_no_live",
+              "liveExecuted": false,
+              "externalSync": false,
+              "localExecutionAuthorization": {
+                "status": "EXECUTED_LOCAL_VALIDATED",
+                "approvalRef": "user_authorized_s-6_3_local_execution_2026-06-08",
+                "scope": "single story S-6.3 local governed execution only",
+                "liveExecuted": false,
+                "externalSync": false,
+                "remoteMutationAuthorized": false,
+                "stopCondition": "s-6_3_local_governed_execution_authorized_no_live"
+              },
+              "executionResult": {
+                "status": "EXECUTED_LOCAL_VALIDATED",
+                "executedAt": "2026-06-08T00:00:00Z",
+                "executorAgent": "rey.control_plane_orchestrator",
+                "ownerAgent": "court.thot_schema",
+                "reviewerAgent": "court.seshat_evidence",
+                "nativeAacAgent": "canvas-integrator",
+                "subagentId": "019ea610-0add-7c50-84cc-7f7ecf1c8af9",
+                "queueTaskId": "vsi.agent.task.044",
+                "localWriteExecuted": true,
+                "liveExecuted": false,
+                "externalSync": false,
+                "remoteMutationExecuted": false,
+                "evidence": [
+                  "VSI queue expanded from 42 to 46 rows",
+                  "S-6.2..S-6.5 mapped to vsi.agent.task.043..046",
+                  "no completed task was downgraded"
+                ],
+                "validators": [
+                  ".agents/codex/tools/local_validate_parallel_order_governance.ps1",
+                  ".agents/codex/tools/local_validate_agent_layer.ps1",
+                  "python scripts/validators/agile_canvas_task_ops_validator.py",
+                  "git diff --check"
+                ],
+                "stopCondition": "s-6_3_local_governed_execution_authorized_no_live"
+              }
+            },
+            "executionEvidence": {
+              "status": "EXECUTED_LOCAL_VALIDATED",
+              "executedAt": "2026-06-08T00:00:00Z",
+              "executorAgent": "rey.control_plane_orchestrator",
+              "ownerAgent": "court.thot_schema",
+              "reviewerAgent": "court.seshat_evidence",
+              "nativeAacAgent": "canvas-integrator",
+              "subagentId": "019ea610-0add-7c50-84cc-7f7ecf1c8af9",
+              "queueTaskId": "vsi.agent.task.044",
+              "localWriteExecuted": true,
+              "liveExecuted": false,
+              "externalSync": false,
+              "remoteMutationExecuted": false,
+              "evidence": [
+                "VSI queue expanded from 42 to 46 rows",
+                "S-6.2..S-6.5 mapped to vsi.agent.task.043..046",
+                "no completed task was downgraded"
+              ],
+              "validators": [
+                ".agents/codex/tools/local_validate_parallel_order_governance.ps1",
+                ".agents/codex/tools/local_validate_agent_layer.ps1",
+                "python scripts/validators/agile_canvas_task_ops_validator.py",
+                "git diff --check"
+              ],
+              "stopCondition": "s-6_3_local_governed_execution_authorized_no_live"
+            }
+          },
+          {
+            "id": "S-6.4",
+            "title": "Preparar PR durable de frontera de tableros",
+            "description": "El agente asignado debe preparar rama, validacion, commit y PR para durable remoto de la frontera VSI madre vs Control de Agentes auxiliar, solo si el operador autoriza el ciclo GitHub.",
+            "acceptanceCriteria": [
+              "la rama usa prefijo codex/*",
+              "el stage usa rutas explicitas",
+              "no hay merge, force push ni cambio remoto sin gate separado"
+            ],
+            "status": "EXECUTED_LOCAL_VALIDATED",
+            "governance": {
+              "lane": "github-pr-autorizable",
+              "ownerAgent": "rey.repo_cartographer",
+              "reviewerAgent": "court.seshat_evidence",
+              "lockKey": "lock.vsi.board_boundary_pr",
+              "authorizationRequired": "HUMAN_APPROVAL",
+              "readyForAgentExecution": false,
+              "multiAgentPreparation": {
+                "required": true,
+                "status": "MULTI_AGENT_ORDER_READY",
+                "preparationTool": "multi_agent_v1.spawn_agent",
+                "governanceTool": "tool.parallel_dispatch_policy_check",
+                "preparationRecipe": "recipe.parallel_agent_operation",
+                "preparationSubagentId": "019ea5af-4034-7df1-b394-ff6ae806fca8",
+                "preparationAgent": "court.thot_schema",
+                "runtimeMethod": "local_task_scoped_agent",
+                "liveExecuted": false,
+                "externalSync": false
+              },
+              "agentOrder": {
+                "orderId": "aac.S-6.4.agent_order",
+                "mission": "Preparar el ciclo PR durable de frontera de tableros solo si el operador autoriza GitHub repo-scoped; sin merge, force push ni cambio remoto no declarado.",
+                "leadAgent": "rey.control_plane_orchestrator",
+                "ownerAgent": "rey.repo_cartographer",
+                "reviewerAgent": "court.seshat_evidence",
+                "delegateAgents": [
+                  "rey.repo_cartographer"
+                ],
+                "agentType": "local_task_scoped_agent",
+                "nativeAacAgentAssignment": {
+                  "useMatrixId": "AAC_NATIVE_AGENT_USE_FOR_VSI_20260608",
+                  "primaryNativeAgent": "dev",
+                  "displayName": "Amelia",
+                  "module": "bmm",
+                  "nativeRole": "native_repo_change_executor",
+                  "supportNativeAgents": [
+                    "qa"
+                  ],
+                  "invocationSurface": "vscode_insiders_agile_agent_canvas",
+                  "invocationMethod": "@agileagentcanvas or Agile Agent Canvas command surface",
+                  "callableFromCodexNow": "NO_DISPONIBLE_DIRECT_EXTENSION_CALL",
+                  "status": "ACTIVE_AAC_NATIVE_TEAM_GOVERNED",
+                  "stopCondition": "s-6_4_aac_native_repo_agent_missing"
+                },
+                "forkContext": {
+                  "enabled": false,
+                  "baseBoard": "VSI / Agile Agent Canvas",
+                  "auxBoard": "Control de Agentes de Cabina",
+                  "sourceEpic": "EPIC-6",
+                  "sourceStory": "S-6.4",
+                  "noRemote": true,
+                  "noLive": true
+                },
+                "requiredInputs": [
+                  "approved GitHub repo-scoped cycle",
+                  "branch name codex/*",
+                  "explicit file list",
+                  "rollback",
+                  "postcheck",
+                  "human approval reference"
+                ],
+                "readScope": [
+                  "git status",
+                  ".agileagentcanvas-context",
+                  "local-agent-bridge",
+                  "scripts/validators/local_agent_bridge_validator.py"
+                ],
+                "writeScope": [
+                  "codex/* branch only after explicit approval",
+                  "explicit staged paths only after explicit approval"
+                ],
+                "dispatchTool": {
+                  "toolId": "multi_agent_v1.spawn_agent",
+                  "governanceToolId": "tool.parallel_dispatch_policy_check",
+                  "recipeId": "recipe.parallel_agent_operation",
+                  "maxParallel": 1,
+                  "serializationRule": "serialize_on_same_lock_key"
+                },
+                "preflight": [
+                  "confirm root repo and branch",
+                  "confirm dirty state and explicit paths",
+                  "confirm branch codex/*",
+                  "confirm no merge main, force push, permission change, secret or production"
+                ],
+                "executionSteps": [
+                  "create codex/* branch only if approved (GATE_REMOTE_GIT_MUTATION_REQUIRED_NOT_AUTHORIZED)",
+                  "stage explicit paths",
+                  "commit small reversible change",
+                  "push codex branch only if approved (GATE_REMOTE_GIT_MUTATION_REQUIRED_NOT_AUTHORIZED)",
+                  "open or update PR only if approved (GATE_REMOTE_GIT_MUTATION_REQUIRED_NOT_AUTHORIZED)",
+                  "emit readback"
+                ],
+                "evidenceRequired": [
+                  "subagent id",
+                  "preflight git evidence",
+                  "explicit staged paths",
+                  "commit or PR evidence if approved",
+                  "validator outputs",
+                  "readback"
+                ],
+                "humanAuthorization": {
+                  "required": true,
+                  "status": "APPROVED_EXPLICIT",
+                  "approvalScope": "single story S-6.4 local governed execution only; no live, no remote mutation, no production, no secrets",
+                  "doesNotAuthorize": [
+                    "merge main",
+                    "force push",
+                    "branch deletion",
+                    "permission changes",
+                    "production",
+                    "secret use",
+                    "live write",
+                    "remote mutation",
+                    "openai api live",
+                    "microsoft live write",
+                    "external cost"
+                  ],
+                  "approvalRef": "user_authorized_s-6_4_local_execution_2026-06-08"
+                },
+                "localExecutionAuthorization": {
+                  "status": "EXECUTED_LOCAL_VALIDATED",
+                  "approvalRef": "user_authorized_s-6_4_local_execution_2026-06-08",
+                  "allowedSurface": "repo_local_only",
+                  "liveExecuted": false,
+                  "externalSync": false,
+                  "stopCondition": "s-6_4_local_governed_execution_authorized_no_live"
+                },
+                "githubRemoteAuthorization": "GATE_REMOTE_GIT_MUTATION_REQUIRED_NOT_EXECUTED"
+              },
+              "allowedActionsAfterApproval": [
+                "create_codex_branch",
+                "stage_explicit_paths",
+                "commit_small_reversible_change",
+                "push_codex_branch",
+                "open_or_update_pr"
+              ],
+              "blockedActions": [
+                "merge_main",
+                "force_push",
+                "remote_branch_delete",
+                "permission_change",
+                "openai_api_live",
+                "microsoft_live_write",
+                "production",
+                "secret_materialization"
+              ],
+              "rollback": "git restore -- .agileagentcanvas-context local-agent-bridge scripts/validators/local_agent_bridge_validator.py",
+              "postcheck": [
+                "npm test --prefix local-agent-bridge",
+                "python scripts/validators/local_agent_bridge_validator.py",
+                ".agents/codex/tools/local_validate_agent_layer.ps1",
+                ".agents/codex/tools/local_validate_capability_use_hardening.ps1",
+                "git diff --check"
+              ],
+              "stopCondition": "s-6_4_local_governed_execution_authorized_no_live",
+              "liveExecuted": false,
+              "externalSync": false,
+              "localExecutionAuthorization": {
+                "status": "EXECUTED_LOCAL_VALIDATED",
+                "approvalRef": "user_authorized_s-6_4_local_execution_2026-06-08",
+                "scope": "single story S-6.4 local governed execution only",
+                "liveExecuted": false,
+                "externalSync": false,
+                "remoteMutationAuthorized": false,
+                "stopCondition": "s-6_4_local_governed_execution_authorized_no_live"
+              },
+              "executionResult": {
+                "status": "EXECUTED_LOCAL_VALIDATED",
+                "executedAt": "2026-06-08T00:00:00Z",
+                "executorAgent": "rey.control_plane_orchestrator",
+                "ownerAgent": "rey.repo_cartographer",
+                "reviewerAgent": "court.seshat_evidence",
+                "nativeAacAgent": "dev",
+                "subagentId": "019ea610-459f-7b22-ae12-cae8104d0d64",
+                "queueTaskId": "vsi.agent.task.045",
+                "localWriteExecuted": true,
+                "liveExecuted": false,
+                "externalSync": false,
+                "remoteMutationExecuted": false,
+                "evidence": [
+                  "ORDER_VSI_BOARD_BOUNDARY_PR_20260608.md created as local PR boundary packet",
+                  "no branch stage commit push PR or merge executed",
+                  "GATE_REMOTE_GIT_MUTATION remains required for remote Git actions"
+                ],
+                "validators": [
+                  ".agents/codex/tools/local_validate_order_packets.ps1",
+                  "npm test --prefix local-agent-bridge",
+                  "python scripts/validators/local_agent_bridge_validator.py",
+                  ".agents/codex/tools/local_validate_agent_layer.ps1",
+                  "git diff --check"
+                ],
+                "stopCondition": "s-6_4_local_governed_execution_authorized_no_live"
+              },
+              "githubRemoteAuthorization": "GATE_REMOTE_GIT_MUTATION_REQUIRED_NOT_EXECUTED"
+            },
+            "executionEvidence": {
+              "status": "EXECUTED_LOCAL_VALIDATED",
+              "executedAt": "2026-06-08T00:00:00Z",
+              "executorAgent": "rey.control_plane_orchestrator",
+              "ownerAgent": "rey.repo_cartographer",
+              "reviewerAgent": "court.seshat_evidence",
+              "nativeAacAgent": "dev",
+              "subagentId": "019ea610-459f-7b22-ae12-cae8104d0d64",
+              "queueTaskId": "vsi.agent.task.045",
+              "localWriteExecuted": true,
+              "liveExecuted": false,
+              "externalSync": false,
+              "remoteMutationExecuted": false,
+              "evidence": [
+                "ORDER_VSI_BOARD_BOUNDARY_PR_20260608.md created as local PR boundary packet",
+                "no branch stage commit push PR or merge executed",
+                "GATE_REMOTE_GIT_MUTATION remains required for remote Git actions"
+              ],
+              "validators": [
+                ".agents/codex/tools/local_validate_order_packets.ps1",
+                "npm test --prefix local-agent-bridge",
+                "python scripts/validators/local_agent_bridge_validator.py",
+                ".agents/codex/tools/local_validate_agent_layer.ps1",
+                "git diff --check"
+              ],
+              "stopCondition": "s-6_4_local_governed_execution_authorized_no_live"
+            }
+          },
+          {
+            "id": "S-6.5",
+            "title": "Preparar paquete gate de colas externas",
+            "description": "El agente asignado debe preparar paquete de gate para cola del sitio web, OpenAI live o Microsoft live solo con target, owner, identidad, rollback, postcheck y limite de datos.",
+            "acceptanceCriteria": [
+              "cada superficie externa queda separada de VSI madre y del tablero auxiliar",
+              "no se ejecuta live write ni costo sin gate exacto",
+              "si falta target, owner o rollback, queda PENDING_TARGET_ONLY o PENDING_OWNER_ONLY"
+            ],
+            "status": "EXECUTED_LOCAL_VALIDATED",
+            "governance": {
+              "lane": "external-queue-gate-packet",
+              "ownerAgent": "rey.frontier_guardian",
+              "reviewerAgent": "court.sdu_gate",
+              "lockKey": "lock.vsi.external_queue_gate_packet",
+              "authorizationRequired": "HUMAN_APPROVAL",
+              "readyForAgentExecution": false,
+              "multiAgentPreparation": {
+                "required": true,
+                "status": "MULTI_AGENT_ORDER_READY",
+                "preparationTool": "multi_agent_v1.spawn_agent",
+                "governanceTool": "tool.parallel_dispatch_policy_check",
+                "preparationRecipe": "recipe.parallel_agent_operation",
+                "preparationSubagentId": "019ea5af-4034-7df1-b394-ff6ae806fca8",
+                "preparationAgent": "court.thot_schema",
+                "runtimeMethod": "local_task_scoped_agent",
+                "liveExecuted": false,
+                "externalSync": false
+              },
+              "agentOrder": {
+                "orderId": "aac.S-6.5.agent_order",
+                "mission": "Preparar paquete gate de colas externas separando sitio web, OpenAI live y Microsoft live de VSI madre y del tablero auxiliar; no ejecutar live ni costo.",
+                "leadAgent": "rey.control_plane_orchestrator",
+                "ownerAgent": "rey.frontier_guardian",
+                "reviewerAgent": "court.sdu_gate",
+                "delegateAgents": [
+                  "rey.frontier_guardian"
+                ],
+                "agentType": "local_task_scoped_agent",
+                "nativeAacAgentAssignment": {
+                  "useMatrixId": "AAC_NATIVE_AGENT_USE_FOR_VSI_20260608",
+                  "primaryNativeAgent": "architect",
+                  "displayName": "Winston",
+                  "module": "bmm",
+                  "nativeRole": "native_external_boundary_architect",
+                  "supportNativeAgents": [
+                    "tea"
+                  ],
+                  "invocationSurface": "vscode_insiders_agile_agent_canvas",
+                  "invocationMethod": "@agileagentcanvas or Agile Agent Canvas command surface",
+                  "callableFromCodexNow": "NO_DISPONIBLE_DIRECT_EXTENSION_CALL",
+                  "status": "ACTIVE_AAC_NATIVE_TEAM_GOVERNED",
+                  "stopCondition": "s-6_5_aac_native_gate_agent_missing"
+                },
+                "forkContext": {
+                  "enabled": false,
+                  "baseBoard": "VSI / Agile Agent Canvas",
+                  "auxBoard": "Control de Agentes de Cabina",
+                  "sourceEpic": "EPIC-6",
+                  "sourceStory": "S-6.5",
+                  "noRemote": true,
+                  "noLive": true
+                },
+                "requiredInputs": [
+                  "external target",
+                  "owner",
+                  "identity",
+                  "data limit",
+                  "rollback",
+                  "postcheck",
+                  "human approval reference"
+                ],
+                "readScope": [
+                  ".agileagentcanvas-context/planning/epics.json",
+                  ".agileagentcanvas-context/bmm/sprint-status.json",
+                  ".agents/codex/orders if present"
+                ],
+                "writeScope": [
+                  "gate packet only after explicit approval"
+                ],
+                "dispatchTool": {
+                  "toolId": "multi_agent_v1.spawn_agent",
+                  "governanceToolId": "tool.parallel_dispatch_policy_check",
+                  "recipeId": "recipe.parallel_agent_operation",
+                  "maxParallel": 1,
+                  "serializationRule": "serialize_on_same_lock_key"
+                },
+                "preflight": [
+                  "confirm exact target exists",
+                  "confirm owner and identity",
+                  "confirm rollback and postcheck",
+                  "confirm no live write, cost, production, secret, broad regulated data or tenant mutation"
+                ],
+                "executionSteps": [
+                  "read declared external surface only",
+                  "prepare gate packet",
+                  "validate order packet",
+                  "emit readback with pending target or owner if missing"
+                ],
+                "evidenceRequired": [
+                  "subagent id",
+                  "target and owner evidence",
+                  "gate packet",
+                  "validator outputs",
+                  "readback"
+                ],
+                "humanAuthorization": {
+                  "required": true,
+                  "status": "APPROVED_EXPLICIT",
+                  "approvalScope": "single story S-6.5 local governed execution only; no live, no remote mutation, no production, no secrets",
+                  "doesNotAuthorize": [
+                    "live write",
+                    "production",
+                    "secret use",
+                    "remote mutation",
+                    "merge main",
+                    "permission changes",
+                    "cost open-ended",
+                    "force push",
+                    "openai api live",
+                    "microsoft live write",
+                    "external cost"
+                  ],
+                  "approvalRef": "user_authorized_s-6_5_local_execution_2026-06-08"
+                },
+                "localExecutionAuthorization": {
+                  "status": "EXECUTED_LOCAL_VALIDATED",
+                  "approvalRef": "user_authorized_s-6_5_local_execution_2026-06-08",
+                  "allowedSurface": "repo_local_only",
+                  "liveExecuted": false,
+                  "externalSync": false,
+                  "stopCondition": "s-6_5_local_governed_execution_authorized_no_live"
+                }
+              },
+              "allowedActionsAfterApproval": [
+                "read_canvas_artifacts",
+                "prepare_gate_packet",
+                "validate_order_packet",
+                "emit_readback"
+              ],
+              "blockedActions": [
+                "execute_agent_task",
+                "website_write",
+                "openai_api_live",
+                "microsoft_live_write",
+                "production",
+                "secret_materialization",
+                "external_sync"
+              ],
+              "rollback": "git restore -- .agents/codex/orders .agileagentcanvas-context/planning/epics.json .agileagentcanvas-context/bmm/sprint-status.json",
+              "postcheck": [
+                ".agents/codex/tools/local_validate_order_packets.ps1",
+                ".agents/codex/tools/local_validate_operational_chain.ps1",
+                "python scripts/validators/agile_canvas_task_ops_validator.py",
+                "git diff --check"
+              ],
+              "stopCondition": "s-6_5_local_governed_execution_authorized_no_live",
+              "liveExecuted": false,
+              "externalSync": false,
+              "localExecutionAuthorization": {
+                "status": "EXECUTED_LOCAL_VALIDATED",
+                "approvalRef": "user_authorized_s-6_5_local_execution_2026-06-08",
+                "scope": "single story S-6.5 local governed execution only",
+                "liveExecuted": false,
+                "externalSync": false,
+                "remoteMutationAuthorized": false,
+                "stopCondition": "s-6_5_local_governed_execution_authorized_no_live"
+              },
+              "executionResult": {
+                "status": "EXECUTED_LOCAL_VALIDATED",
+                "executedAt": "2026-06-08T00:00:00Z",
+                "executorAgent": "rey.control_plane_orchestrator",
+                "ownerAgent": "rey.frontier_guardian",
+                "reviewerAgent": "court.sdu_gate",
+                "nativeAacAgent": "architect",
+                "subagentId": "019ea610-83a3-73b1-b18f-8ab6254fb940",
+                "queueTaskId": "vsi.agent.task.046",
+                "localWriteExecuted": true,
+                "liveExecuted": false,
+                "externalSync": false,
+                "remoteMutationExecuted": false,
+                "evidence": [
+                  "ORDER_VSI_EXTERNAL_QUEUE_GATE_20260608.md created as local gate packet",
+                  "VSI mother board, Control de Agentes auxiliary board, web queue, OpenAI live and Microsoft live are separated",
+                  "external targets remain PENDING_TARGET_ONLY until exact target owner identity rollback and postcheck exist"
+                ],
+                "validators": [
+                  ".agents/codex/tools/local_validate_order_packets.ps1",
+                  ".agents/codex/tools/local_validate_operational_chain.ps1",
+                  "python scripts/validators/agile_canvas_task_ops_validator.py",
+                  "git diff --check"
+                ],
+                "stopCondition": "s-6_5_local_governed_execution_authorized_no_live"
+              },
+              "externalTargetStatus": "PENDING_TARGET_ONLY",
+              "requiredExternalGate": "target_owner_identity_rollback_postcheck_required"
+            },
+            "executionEvidence": {
+              "status": "EXECUTED_LOCAL_VALIDATED",
+              "executedAt": "2026-06-08T00:00:00Z",
+              "executorAgent": "rey.control_plane_orchestrator",
+              "ownerAgent": "rey.frontier_guardian",
+              "reviewerAgent": "court.sdu_gate",
+              "nativeAacAgent": "architect",
+              "subagentId": "019ea610-83a3-73b1-b18f-8ab6254fb940",
+              "queueTaskId": "vsi.agent.task.046",
+              "localWriteExecuted": true,
+              "liveExecuted": false,
+              "externalSync": false,
+              "remoteMutationExecuted": false,
+              "evidence": [
+                "ORDER_VSI_EXTERNAL_QUEUE_GATE_20260608.md created as local gate packet",
+                "VSI mother board, Control de Agentes auxiliary board, web queue, OpenAI live and Microsoft live are separated",
+                "external targets remain PENDING_TARGET_ONLY until exact target owner identity rollback and postcheck exist"
+              ],
+              "validators": [
+                ".agents/codex/tools/local_validate_order_packets.ps1",
+                ".agents/codex/tools/local_validate_operational_chain.ps1",
+                "python scripts/validators/agile_canvas_task_ops_validator.py",
+                "git diff --check"
+              ],
+              "stopCondition": "s-6_5_local_governed_execution_authorized_no_live"
+            }
+          }
+        ],
+        "localExecutionAuthorization": {
+          "status": "APPROVED_EXPLICIT",
+          "approvalRef": "user_authorized_s-6_2_to_s-6_5_local_execution_2026-06-08",
+          "scope": "S-6.2..S-6.5 local governed execution only",
+          "liveExecuted": false,
+          "externalSync": false,
+          "stopCondition": "s-6_local_execution_authorized_no_live"
+        },
+        "localExecutionStatus": {
+          "status": "EXECUTED_LOCAL_PARTIAL_VALIDATED",
+          "executedStories": [
+            "S-6.2",
+            "S-6.3",
+            "S-6.4",
+            "S-6.5"
+          ],
+          "pendingStories": [
+            "S-6.1"
+          ],
+          "liveExecuted": false,
+          "externalSync": false,
+          "stopCondition": "s-6_2_to_s-6_5_local_execution_completed_s-6_1_reviewed_no_queue_execution"
         }
       }
     ]

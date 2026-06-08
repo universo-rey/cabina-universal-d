@@ -170,6 +170,45 @@
       padding: 12px;
     }
 
+    .boundary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      padding: 12px;
+    }
+
+    .boundary-item {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 12px;
+      min-height: 132px;
+      background: #fff;
+    }
+
+    .boundary-item strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .boundary-item dl {
+      display: grid;
+      grid-template-columns: 96px minmax(0, 1fr);
+      gap: 6px 10px;
+      margin: 0;
+    }
+
+    .boundary-item dt {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .boundary-item dd {
+      margin: 0;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
     .workbench-item {
       border: 1px solid var(--line);
       border-radius: 6px;
@@ -253,6 +292,10 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
+      .boundary-grid {
+        grid-template-columns: 1fr;
+      }
+
       .command-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -283,6 +326,10 @@
         grid-template-columns: 1fr;
       }
 
+      .boundary-grid {
+        grid-template-columns: 1fr;
+      }
+
       .command-grid {
         grid-template-columns: 1fr;
       }
@@ -300,6 +347,11 @@
 
   <main>
     <section class="summary" id="summary"></section>
+
+    <section class="section">
+      <h2>Frontera de tableros</h2>
+      <div class="boundary-grid" id="board-boundary"></div>
+    </section>
 
     <section class="section">
       <h2>Mesa Agile Agent Canvas</h2>
@@ -445,6 +497,19 @@
       ["GATED_PENDING", "gate pendiente"],
       ["ACTIVE_VISIBLE_GATE_LANE", "carril visible activo"],
       ["NO_VISIBLE_GATES", "sin gates visibles"],
+      ["BOARD_BOUNDARY_DECLARED", "frontera de tableros declarada"],
+      ["vsi_agile_agent_canvas_mother_board", "Tablero principal madre VSI"],
+      ["control_agentes_cabina", "Control de Agentes de Cabina"],
+      ["primary_mother_board", "tablero principal madre"],
+      ["auxiliary_control_board", "tablero auxiliar de control"],
+      ["vscode_insiders_agile_agent_canvas", "Agile Agent Canvas en VS Code Insiders"],
+      ["cola_sitio_web", "cola del sitio web"],
+      ["sitio_web_externo", "sitio web externo"],
+      ["loopback_dashboard_local", "dashboard local loopback"],
+      ["NO_CONECTADA_EN_CONTROL_AGENTES_CABINA", "no conectada en Control de Agentes de Cabina"],
+      ["website_queue_target_missing", "falta target de cola del sitio web"],
+      ["vsi_mother_board_boundary_drift", "drift de frontera del tablero madre VSI"],
+      ["auxiliary_control_board_boundary_drift", "drift de frontera del tablero auxiliar"],
       ["QUEUED_READY", "en cola listo"],
       ["PENDING_TARGET_ONLY", "pendiente solo target"],
       ["NO_DECLARADO", "no declarado"],
@@ -768,6 +833,57 @@
       return div;
     }
 
+    function renderBoardBoundaryItem(board) {
+      const div = document.createElement("div");
+      div.className = "boundary-item";
+      const title = document.createElement("strong");
+      title.textContent = text(board.label);
+      const list = document.createElement("dl");
+      [
+        ["nombre", board.explicit_name || board.label],
+        ["tipo", board.board_kind || board.authority_role || board.queue_id],
+        ["rol", board.authority_role || board.queue_id],
+        ["superficie", board.surface],
+        ["fuente", board.source],
+        ["proposito", board.purpose],
+        ["no es", board.not_this_board || "NO_APLICA"],
+        ["registros", board.records_visible_here ?? board.agent_task_records ?? 0],
+        ["nativos AAC", board.native_agents ? `${board.native_agents.record_count} agentes / ${board.native_agents.status}` : "NO_APLICA"],
+        ["agentes cabina", board.governance_agents ? `${board.governance_agents.record_count} agentes / ${board.governance_agents.status}` : "NO_APLICA"],
+        ["politica", board.write_policy],
+        ["stop", board.stop_condition]
+      ].forEach(([label, value]) => {
+        const dt = document.createElement("dt");
+        dt.textContent = label;
+        const dd = document.createElement("dd");
+        dd.className = label === "fuente" || label === "stop" ? "mono" : "";
+        dd.textContent = text(value);
+        list.append(dt, dd);
+      });
+      if (board.native_agents?.agents?.length) {
+        const dt = document.createElement("dt");
+        dt.textContent = "agentes nativos";
+        const dd = document.createElement("dd");
+        dd.className = "mono";
+        dd.textContent = board.native_agents.agents
+          .map((agent) => `${agent.native_agent_id}:${agent.display_name}`)
+          .join(" | ");
+        list.append(dt, dd);
+      }
+      if (board.governance_agents?.agents?.length) {
+        const dt = document.createElement("dt");
+        dt.textContent = "agentes cabina";
+        const dd = document.createElement("dd");
+        dd.className = "mono";
+        dd.textContent = board.governance_agents.agents
+          .map((agent) => `${agent.agent_id}:${agent.cabina_role}`)
+          .join(" | ");
+        list.append(dt, dd);
+      }
+      div.append(title, list);
+      return div;
+    }
+
     function renderSemaphore(row) {
       const tr = document.createElement("tr");
       const status = document.createElement("td");
@@ -1016,6 +1132,13 @@
         renderMetric("gates pendientes", data.summary.gated_records),
         renderMetric("gates visibles", data.summary.visible_gate_records),
         renderMetric("live ejecutado", data.live_executed ? "si" : "no")
+      );
+
+      const boardBoundary = data.board_boundary;
+      document.getElementById("board-boundary").append(
+        renderBoardBoundaryItem(boardBoundary.primary_board),
+        renderBoardBoundaryItem(boardBoundary.auxiliary_board),
+        renderBoardBoundaryItem(boardBoundary.external_website_queue)
       );
 
       const workbench = data.canvas_workbench;

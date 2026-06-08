@@ -110,7 +110,7 @@ Microsoft live, produccion, permisos, secretos y datos regulados.
 
 Estado frontend-design actualizado 2026-06-02: el PR raiz #26 fue mergeado a
 `main` con merge commit `d72fff9569ffbb5056276f5fb92fcc03e57b4bb8`. El issue
-#15 queda cerrado. La cabina adopta `FRONTEND_DESIGN_LANE.md`,
+\#15 queda cerrado. La cabina adopta `FRONTEND_DESIGN_LANE.md`,
 `FRONTEND_DESIGN_LANE_MATRIX.csv` y
 `local_validate_frontend_design_lane.ps1` para enrutar UI/apps/sites a
 estandares de diseno, assets y verificacion local sin implicar produccion.
@@ -357,7 +357,7 @@ posterior a `universo-rey/cabina-universal-d#96`, merge commit
 `e9e7af7f7e403697878039db27a6e72e0104fa24`. Se detectan 75 PRs mergeados
 reales a `main`, sin PRs inventados y sin PRs abiertos. Los PRs post #78
 canonizados por este texto son #75, #79, #80, #82, #84, #85, #86, #89, #90,
-#91, #92, #93, #94, #95 y #96. Los PRs #81, #83, #87 y #88 no quedan
+\#91, \#92, \#93, \#94, \#95 y \#96. Los PRs #81, #83, #87 y #88 no quedan
 incluidos como mergeados. Esta reconciliacion no ejecuta Microsoft live,
 OpenAI API live, produccion, permisos, secretos ni propagacion; solo actualiza
 la lectura canonica del repo raiz hasta #96 y consolida el sistema operativo
@@ -369,12 +369,26 @@ posterior a `universo-rey/cabina-universal-d#130`, merge commit
 `b86d7d157f344f8ee2018ae2cf70dcc858bea274`. Se detectan 109 PRs mergeados
 reales a `main`, sin PRs inventados y sin PRs abiertos. Los PRs post #96
 canonizados por este texto son #97, #98, #99, #100, #101, #102, #103, #104,
-#105, #106, #107, #108, #109, #110, #111, #112, #113, #114, #115, #116,
-#117, #118, #119, #120, #121, #122, #123, #124, #125, #126, #127, #128,
-#129 y #130. Esta reconciliacion no ejecuta Microsoft live, OpenAI API live,
+\#105, \#106, \#107, \#108, \#109, \#110, \#111, \#112, \#113, \#114, \#115, \#116,
+\#117, \#118, \#119, \#120, \#121, \#122, \#123, \#124, \#125, \#126, \#127, \#128,
+\#129 y \#130. Esta reconciliacion no ejecuta Microsoft live, OpenAI API live,
 produccion, permisos, secretos ni propagacion; solo actualiza la lectura
 canonica del repo raiz hasta #130 y deja el carril Agile Agent Canvas local
 validado en el maximo nivel alcanzado.
+
+Estado tablero madre VSI/AAC actualizado 2026-06-08: por reconciliacion
+repo-scoped gobernada, el estado operativo vigente se reconcilia al `main`
+posterior a `universo-rey/cabina-universal-d#132`, merge commit
+`de7f873395c2c67dec2738987e99e02b5553c150`. Se detectan 111 PRs mergeados
+reales a `main`, sin PRs inventados y sin PRs abiertos. Los PRs post #130
+canonizados por este texto son #131 y #132. El tablero principal madre queda
+fijado como `VSI / Agile Agent Canvas`; `Control de Agentes de Cabina` queda
+como tablero auxiliar; la cola del sitio web queda como superficie externa
+gateada. `S-6.1` queda revisada localmente pero no ejecutada en cola;
+`S-6.2..S-6.5` quedan ejecutadas localmente. La fila live
+`vsi.agent.task.037` queda como historial sanitizado, no como permiso abierto
+ni smoke repetible. Esta reconciliacion no ejecuta smoke, Microsoft live,
+OpenAI API live, produccion, permisos, secretos, push, PR ni propagacion.
 
 ## Canon activo de ejecucion gobernada
 
@@ -497,19 +511,19 @@ Universal del Rey y como repo raiz envoltorio activo:
 - PR raiz standard agent chain:
   `https://github.com/universo-rey/cabina-universal-d/pull/62` con estado
   `MERGED`;
-- PRs raiz post #62 canonizados a #130: #63, #64, #65, #66, #67, #68, #69,
+- PRs raiz post #62 canonizados a #132: #63, #64, #65, #66, #67, #68, #69,
   #70, #71, #72, #73, #74, #75, #76, #77, #78, #79, #80, #82, #84, #85,
   #86, #89, #90, #91, #92, #93, #94, #95, #96, #97, #98, #99, #100, #101,
   #102, #103, #104, #105, #106, #107, #108, #109, #110, #111, #112, #113,
   #114, #115, #116, #117, #118, #119, #120, #121, #122, #123, #124, #125,
-  #126, #127, #128, #129 y #130 con estado `MERGED`; ultimo PR incluido:
-  `https://github.com/universo-rey/cabina-universal-d/pull/130`;
+  #126, #127, #128, #129, #130, #131 y #132 con estado `MERGED`; ultimo PR incluido:
+  `https://github.com/universo-rey/cabina-universal-d/pull/132`;
 - PRs raiz abiertos no canonizados por este texto: ninguno detectado en
   preflight GitHub del 2026-06-08;
-- PRs raiz cerrados sin merge excluidos: #81, #83, #87 y #88;
-- estado canonico actual: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR130`;
+- PRs raiz cerrados sin merge excluidos: #81;
+- estado canonico actual: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR132`;
 - ultimo main efectivo incluido:
-  `b86d7d157f344f8ee2018ae2cf70dcc858bea274`;
+  `de7f873395c2c67dec2738987e99e02b5553c150`;
 - canon operativo: `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`;
 - cadena activa: `STANDARD_AGENT_CHAIN_ACTIVE`;
 - allowlist: solo gobierno, canon, agentes locales, matrices, prompts,
