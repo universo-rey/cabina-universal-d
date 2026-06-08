@@ -641,6 +641,12 @@ Si falta un archivo rector, registrar hallazgo y detener la ejecucion destructiv
 - Microsoft live es gobernado: SharePoint, Teams, Outlook, Entra, Graph,
   Power Platform, Planner, Dataverse o tenant requieren orden gobernada con
   superficie, identidad, owner, rollback, postcheck y evidencia.
+- Para segmentos Dataverse o tenant-controlled, usar
+  `.agents\skills\dataverse-atomic-segment-runner\SKILL.md`: resolver source y
+  target en `mon_sdu_*` por `mon_canonical_id` exacto antes de repo-local,
+  exigir `candidate_count=1`, owner, gate, rollback y postcheck, y si un
+  POST/PATCH pudo haber aplicado pero falla el script local, hacer GET
+  idempotente por canonical id antes de reintentar.
 - Produccion es `ENABLED_GOVERNED_GATED`: solo se ejecuta con target exacto,
   owner, identidad, rollback, postcheck, evidencia, stop condition y readback.
 - No mover clones locales sin plan de migracion, inventario, origen, destino, rollback y readback.
