@@ -3,16 +3,15 @@ param(
   [string]$EnvironmentUrl = 'https://org084965d9.crm.dynamics.com',
   [string]$EnvironmentId = '7f65fc04-c27a-ea0d-bd2d-266aa9203c1e',
   [string]$ExpectedUser = 'efigueroa@registronotarial8tdf.com.ar',
-  [string]$CanonicalId = 'evidence.tenant_apply_log_publish.20260608',
-  [string]$SourcePath = '.agents/codex/readbacks/2026-06-08_tenant_apply_log_publish_readback.md',
-  [string]$DisplayName = 'Tenant apply log evidence publish 20260608',
-  [string]$Status = 'EVIDENCE_PUBLISHED',
-  [string]$SeedBatchId = '20260608_tenant_evidence_publish_v1',
-  [string]$EvidenceType = 'metadata_pointer_only',
+  [string]$CanonicalId = 'readback.pr140_tenant_segments_merge_evidence_publish.20260608',
+  [string]$SourcePath = '.agents/codex/readbacks/2026-06-08_pr140_tenant_segments_merge_evidence_publish_readback.md',
+  [string]$DisplayName = 'PR140 tenant segments merge evidence publish readback 20260608',
+  [string]$Status = 'READBACK_PUBLISHED',
+  [string]$SeedBatchId = '20260608_tenant_readback_publish_v1',
   [string]$RiskLevel = 'low',
-  [string]$StopCondition = 'TENANT_APPLY_LOG_PUBLISH_APPLIED_AND_POSTCHECKED',
-  [string]$Notes = 'Sanitized metadata evidence row for the tenant apply-log publish segment. No flow activation, no SharePoint write, no production.',
-  [string]$OutputDir = 'dataverse/validation/evidence_publish_20260608',
+  [string]$StopCondition = 'TENANT_PR140_MERGE_EVIDENCE_PUBLISH_APPLIED_AND_POSTCHECKED',
+  [string]$Notes = 'Sanitized metadata readback row for PR #140 tenant-controlled segment closure. No flow activation, no SharePoint write, no production.',
+  [string]$OutputDir = 'dataverse/validation/readback_publish_20260608',
   [switch]$Apply,
   [switch]$Rollback
 )
@@ -77,11 +76,20 @@ function Invoke-DataversePost {
   Invoke-RestMethod -Method Post -Uri $Uri -Headers $postHeaders -Body ($Payload | ConvertTo-Json -Depth 8) | Out-Null
 }
 
+function Write-JsonSnapshot {
+  param([object[]]$Rows, [string]$Path)
+  if ($Rows.Count -eq 0) {
+    '[]' | Set-Content -LiteralPath $Path -Encoding UTF8
+    return
+  }
+  $Rows | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $Path -Encoding UTF8
+}
+
 Assert-NotProdLike -Value $EnvironmentUrl -Label 'ENVIRONMENT_URL'
 
 $resolvedSourcePath = Join-Path $Root $SourcePath
 if (-not (Test-Path -LiteralPath $resolvedSourcePath)) {
-  throw "SOURCE_EVIDENCE_MISSING:$SourcePath"
+  throw "SOURCE_READBACK_MISSING:$SourcePath"
 }
 $sourceHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $resolvedSourcePath).Hash.ToLowerInvariant()
 
@@ -111,13 +119,32 @@ $headers = @{
   Accept = 'application/json'
 }
 
-$metadataUri = "$EnvironmentUrl/api/data/v9.2/EntityDefinitions(LogicalName='mon_sdu_evidence')?`$select=EntitySetName,LogicalName,PrimaryIdAttribute"
+$metadataUri = "$EnvironmentUrl/api/data/v9.2/EntityDefinitions(LogicalName='mon_sdu_readback')?`$select=EntitySetName,LogicalName,PrimaryIdAttribute,PrimaryNameAttribute"
 $metadata = Invoke-DataverseGet -Uri $metadataUri -Headers $headers
-if ($metadata.EntitySetName -ne 'mon_sdu_evidences') {
+if ($metadata.EntitySetName -ne 'mon_sdu_readbacks') {
   throw "ENTITY_SET_MISMATCH:$($metadata.EntitySetName)"
 }
+if ($metadata.PrimaryIdAttribute -ne 'mon_sdu_readbackid') {
+  throw "PRIMARY_ID_MISMATCH:$($metadata.PrimaryIdAttribute)"
+}
+if ($metadata.PrimaryNameAttribute -ne 'mon_display_name') {
+  throw "PRIMARY_NAME_MISMATCH:$($metadata.PrimaryNameAttribute)"
+}
 
-$select = 'mon_canonical_id,mon_status,mon_display_name,mon_source_hash,mon_evidence_hash,mon_source_path,mon_evidence_type,mon_stop_condition,mon_notes,mon_sdu_evidenceid'
+$keysUri = "$EnvironmentUrl/api/data/v9.2/EntityDefinitions(LogicalName='mon_sdu_readback')/Keys?`$select=LogicalName,KeyAttributes,EntityKeyIndexStatus"
+$keys = Invoke-DataverseGet -Uri $keysUri -Headers $headers
+$canonicalKey = $keys.value | Where-Object { $_.LogicalName -eq 'mon_sdu_readback_canonical_id_key' } | Select-Object -First 1
+if (-not $canonicalKey) {
+  throw 'READBACK_CANONICAL_KEY_MISSING'
+}
+if ($canonicalKey.EntityKeyIndexStatus -ne 'Active') {
+  throw "READBACK_CANONICAL_KEY_NOT_ACTIVE:$($canonicalKey.EntityKeyIndexStatus)"
+}
+if (@($canonicalKey.KeyAttributes).Count -ne 1 -or @($canonicalKey.KeyAttributes)[0] -ne 'mon_canonical_id') {
+  throw 'READBACK_CANONICAL_KEY_ATTRIBUTE_MISMATCH'
+}
+
+$select = 'mon_canonical_id,mon_status,mon_display_name,mon_source_hash,mon_source_path,mon_stop_condition,mon_notes,mon_sdu_readbackid'
 $filter = "mon_canonical_id eq '$CanonicalId'"
 $queryUri = "$EnvironmentUrl/api/data/v9.2/$($metadata.EntitySetName)?`$select=$select&`$filter=$([uri]::EscapeDataString($filter))"
 $beforeRows = @((Invoke-DataverseGet -Uri $queryUri -Headers $headers).value)
@@ -129,7 +156,7 @@ $resolvedOutputDir = Join-Path $Root $OutputDir
 New-Item -ItemType Directory -Force -Path $resolvedOutputDir | Out-Null
 $stamp = Get-Date -Format 'yyyyMMdd_HHmmss'
 $beforePath = Join-Path $resolvedOutputDir "before_$stamp.json"
-$beforeRows | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $beforePath -Encoding UTF8
+Write-JsonSnapshot -Rows $beforeRows -Path $beforePath
 
 $payload = @{
   mon_canonical_id = $CanonicalId
@@ -139,8 +166,6 @@ $payload = @{
   mon_source_system = 'cabina-universal-d'
   mon_source_path = $SourcePath
   mon_source_hash = $sourceHash
-  mon_evidence_hash = $sourceHash
-  mon_evidence_type = $EvidenceType
   mon_environment_scope = 'HUBDesarrollo|7f65fc04-c27a-ea0d-bd2d-266aa9203c1e'
   mon_gate_required = $true
   mon_owner = 'SDUCapabilityControlPlane'
@@ -153,9 +178,9 @@ $payload = @{
 
 $rollbackPayload = @{
   mon_status = 'ROLLBACK_SUPERSEDED'
-  mon_stop_condition = 'ROLLBACK_SUPERSEDED_BY_OPERATOR_OR_EVIDENCE_ROLLBACK'
+  mon_stop_condition = 'ROLLBACK_SUPERSEDED_BY_OPERATOR_OR_READBACK_ROLLBACK'
   mon_last_reconciled_at = (Get-Date).ToString('yyyy-MM-ddTHH:mm:sszzz')
-  mon_notes = 'Evidence publish rollback marker applied. Evidence row retained; no physical delete.'
+  mon_notes = 'Readback publish rollback marker applied. Readback row retained; no physical delete.'
 }
 
 $mode = 'DRY_RUN'
@@ -167,8 +192,8 @@ if ($Apply) {
     $postUri = "$EnvironmentUrl/api/data/v9.2/$($metadata.EntitySetName)"
     Invoke-DataversePost -Uri $postUri -Headers $headers -Payload $payload
   } else {
-    $recordId = [string]$beforeRows[0].mon_sdu_evidenceid
-    if ([string]::IsNullOrWhiteSpace($recordId)) { throw 'identity_field_missing:mon_sdu_evidenceid' }
+    $recordId = [string]$beforeRows[0].mon_sdu_readbackid
+    if ([string]::IsNullOrWhiteSpace($recordId)) { throw 'identity_field_missing:mon_sdu_readbackid' }
     $patchUri = "$EnvironmentUrl/api/data/v9.2/$($metadata.EntitySetName)($recordId)"
     Invoke-DataversePatch -Uri $patchUri -Headers $headers -Payload $payload
   }
@@ -178,8 +203,8 @@ if ($Rollback) {
   if ($beforeRows.Count -eq 0) {
     throw 'ROLLBACK_TARGET_MISSING'
   }
-  $recordId = [string]$beforeRows[0].mon_sdu_evidenceid
-  if ([string]::IsNullOrWhiteSpace($recordId)) { throw 'identity_field_missing:mon_sdu_evidenceid' }
+  $recordId = [string]$beforeRows[0].mon_sdu_readbackid
+  if ([string]::IsNullOrWhiteSpace($recordId)) { throw 'identity_field_missing:mon_sdu_readbackid' }
   $patchUri = "$EnvironmentUrl/api/data/v9.2/$($metadata.EntitySetName)($recordId)"
   Invoke-DataversePatch -Uri $patchUri -Headers $headers -Payload $rollbackPayload
 }
@@ -194,7 +219,8 @@ if ($Rollback -and $afterRows.Count -ne 1) {
 if ($Apply) {
   $row = $afterRows[0]
   if ($row.mon_status -ne $payload.mon_status) { throw 'postcheck_status_mismatch' }
-  if ($row.mon_evidence_hash -ne $payload.mon_evidence_hash) { throw 'postcheck_hash_mismatch' }
+  if ($row.mon_source_hash -ne $payload.mon_source_hash) { throw 'postcheck_hash_mismatch' }
+  if ($row.mon_source_path -ne $payload.mon_source_path) { throw 'postcheck_source_path_mismatch' }
 }
 if ($Rollback) {
   $row = $afterRows[0]
@@ -202,10 +228,10 @@ if ($Rollback) {
 }
 
 $afterPath = Join-Path $resolvedOutputDir "after_$stamp.json"
-$afterRows | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $afterPath -Encoding UTF8
+Write-JsonSnapshot -Rows $afterRows -Path $afterPath
 
 $summary = [pscustomobject]@{
-  status = if ($Apply) { 'DATAVERSE_EVIDENCE_PUBLISH_APPLY_PASS' } elseif ($Rollback) { 'DATAVERSE_EVIDENCE_PUBLISH_ROLLBACK_PASS' } else { 'DATAVERSE_EVIDENCE_PUBLISH_DRY_RUN_PASS' }
+  status = if ($Apply) { 'DATAVERSE_READBACK_PUBLISH_APPLY_PASS' } elseif ($Rollback) { 'DATAVERSE_READBACK_PUBLISH_ROLLBACK_PASS' } else { 'DATAVERSE_READBACK_PUBLISH_DRY_RUN_PASS' }
   mode = $mode
   token_printed = $false
   environment_url = $EnvironmentUrl
@@ -213,11 +239,16 @@ $summary = [pscustomobject]@{
   pac_user = $pacUser
   azure_user = $azAccount.user
   entity_set_name = $metadata.EntitySetName
+  primary_id_attribute = $metadata.PrimaryIdAttribute
+  primary_name_attribute = $metadata.PrimaryNameAttribute
+  key_schema_name = $canonicalKey.LogicalName
+  key_attribute = @($canonicalKey.KeyAttributes)[0]
+  key_status = $canonicalKey.EntityKeyIndexStatus
   canonical_id = $CanonicalId
   candidate_count_before = $beforeRows.Count
   candidate_count_after = $afterRows.Count
   source_path = $SourcePath
-  evidence_hash = $sourceHash
+  source_hash = $sourceHash
   before_snapshot = $beforePath
   after_snapshot = $afterPath
   rollback_ready = $true
