@@ -20,7 +20,7 @@ ACTIVE_CANVAS_FILES = [
     ".agileagentcanvas-context/bmm/readiness-report.json",
 ]
 
-FORBIDDEN_ACTIVE_TOKENS = [
+FORBIDDEN_DRIFT_TOKENS = [
     "TaskFlow Pro",
     '"NOKEY"',
     "Dr. Aisha Patel",
@@ -37,12 +37,12 @@ def discover_all_canvas_json() -> list[str]:
     return [str(path).replace("\\", "/") for path in root.rglob("*.json")]
 
 
-def validate_file(path: str) -> None:
+def validate_file(path: str, *, require_identity: bool) -> None:
     text = read_text(path)
-    for token in FORBIDDEN_ACTIVE_TOKENS:
+    for token in FORBIDDEN_DRIFT_TOKENS:
         if token in text:
-            raise AssertionError(f"{path} contains forbidden active canvas drift token: {token}")
-    if REQUIRED_IDENTITY not in text:
+            raise AssertionError(f"{path} contains forbidden Agile Canvas drift token: {token}")
+    if require_identity and REQUIRED_IDENTITY not in text:
         raise AssertionError(f"{path} missing required identity: {REQUIRED_IDENTITY}")
 
 
@@ -51,14 +51,20 @@ def validate() -> None:
     parser.add_argument(
         "--all",
         action="store_true",
-        help="Scan every Agile Agent Canvas JSON file instead of the active reconciled set.",
+        help="Deprecated compatibility flag; all Agile Agent Canvas JSON files are scanned by default.",
+    )
+    parser.add_argument(
+        "--active-only",
+        action="store_true",
+        help="Scan only the active reconciled set.",
     )
     args = parser.parse_args()
 
-    paths = discover_all_canvas_json() if args.all else ACTIVE_CANVAS_FILES
+    paths = ACTIVE_CANVAS_FILES if args.active_only else discover_all_canvas_json()
     require_files(paths)
+    identity_required = set(ACTIVE_CANVAS_FILES)
     for path in paths:
-        validate_file(path)
+        validate_file(path, require_identity=path in identity_required)
 
 
 if __name__ == "__main__":
