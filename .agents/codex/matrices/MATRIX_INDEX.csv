@@ -65,6 +65,9 @@ surface_boundary_map,.agents\codex\maps\SURFACE_BOUNDARY_MAP.csv,boundaries,01_A
 tool_governance_matrix,.agents\codex\matrices\TOOL_GOVERNANCE_MATRIX.csv,tool_governance,05_SOPORTE_TECNICO,update when tools or surfaces change
 tool_recipe_skill_matrix,.agents\codex\matrices\AGENT_TOOL_RECIPE_SKILL_MATRIX.csv,execution_contracts,00_ROUTER,update when tools recipes or skills change
 validation_coverage_matrix,.agents\codex\matrices\VALIDATION_COVERAGE_MATRIX.csv,validators,03_CORTE_EJECUTORA,update when validation coverage changes
+aac_native_agents,.agents/codex/matrices/AAC_NATIVE_AGENTS_20260608.csv,aac_native_agents,00_ROUTER,update when Agile Agent Canvas native extension agent manifest changes
+aac_native_agent_use_for_vsi,.agents/codex/matrices/AAC_NATIVE_AGENT_USE_FOR_VSI_20260608.csv,aac_native_agent_use_for_vsi,00_ROUTER,update when native Agile Agent Canvas team assignments for VSI board cards change
+cabina_governance_agents_for_vsi,.agents/codex/matrices/CABINA_GOVERNANCE_AGENTS_FOR_VSI_20260608.csv,cabina_governance_agents_for_vsi,00_ROUTER,update when Cabina governed work agents that work on and govern VSI board cards change
 powershell_runtime_friction_matrix,.agents/codex/matrices/POWERSHELL_RUNTIME_FRICTION_MATRIX.csv,powershell_runtime_friction,03_CORTE_EJECUTORA,update when Windows PowerShell friction rules validators or command patterns change
 d_skill_availability_issue_pr_friction_matrix,.agents/codex/matrices/D_SKILL_AVAILABILITY_AND_ISSUE_PR_FRICTION_MATRIX.csv,d_skill_availability_issue_pr_friction,03_CORTE_EJECUTORA,update when D-local skill availability rules or issue PR friction rules change
 workpaper_index,.agents\codex\workpapers\WORKPAPER_INDEX.csv,agent_workpapers,03_CORTE_EJECUTORA,update when workpaper folder ownership changes
@@ -195,3 +198,4 @@ vscode_insiders_startup_commands,.agents/codex/maps/VSI_STARTUP_COMMANDS_2026060
 vsi_memory_log_no_ps,.agents/codex/matrices/VSI_MEMORY_LOG_NO_PS_MATRIX_20260607.csv,vscode_insiders_memory_log_no_ps,05_SOPORTE_TECNICO,update when VSI memory log artifacts no-PS policy validator evidence or historical PS-reference classification changes
 vsi_usage_expansion,.agents/codex/matrices/VSI_USAGE_EXPANSION_MATRIX_20260607.csv,vscode_insiders_usage_expansion_no_ps,05_SOPORTE_TECNICO,update when VS Code Insiders repo-local tasks validators no-PS commands or task labels change
 vsi_function_utilization,.agents/codex/matrices/VSI_FUNCTION_UTILIZATION_MATRIX_20260607.csv,vscode_insiders_function_utilization,05_SOPORTE_TECNICO,update when VS Code Insiders installed active unused functions task labels memory evidence or no-PS validators change
+aac_demo_quarantine,.agents/codex/matrices/AAC_DEMO_QUARANTINE_MATRIX_20260608.csv,aac_demo_quarantine,03_CORTE_EJECUTORA,update when Agile Agent Canvas demo drift artifacts patterns quarantine status or validator coverage change

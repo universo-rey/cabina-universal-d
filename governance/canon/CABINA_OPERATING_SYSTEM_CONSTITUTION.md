@@ -1,8 +1,8 @@
 # Cabina Operating System Constitution
 
-estado: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR130`
+estado: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR132`
 fecha: `2026-06-08`
-base: `origin/main b86d7d157f344f8ee2018ae2cf70dcc858bea274`
+base: `origin/main de7f873395c2c67dec2738987e99e02b5553c150`
 repo: `universo-rey/cabina-universal-d`
 
 ## Proposito
@@ -41,7 +41,7 @@ El sistema operativo de la Cabina ya existe distribuido en estas capas:
 | --- | --- | --- |
 | Instrucciones | `AGENTS.md`, `.agents/codex/maps/AGENTS_INSTRUCTION_HIERARCHY.md` | activo |
 | Manifest | `MANIFEST.yaml` | activo |
-| Estado canonico | `02_AUTHORITY_CANON/CURRENT_STATE.md` | reconciliado a #130 |
+| Estado canonico | `02_AUTHORITY_CANON/CURRENT_STATE.md` | reconciliado a #132 |
 | Registro | `01_GOVERNANCE_REGISTRY/GITHUB_BASE_WORK_MATRIX.csv` | activo |
 | Agentes | `.agents/codex/agents.json`, `.agents/codex/AGENTS_INDEX.csv` | activo |
 | Skills | `.agents/skills/*/SKILL.md`, `.agents/codex/skills/*` | activo |
@@ -211,6 +211,6 @@ Antes de crear una capacidad nueva:
 
 ## Estado
 
-`CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR130`
+`CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR132`
 
 La Cabina queda mas conectada y mantenible sin crear una arquitectura paralela.

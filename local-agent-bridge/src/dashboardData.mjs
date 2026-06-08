@@ -223,6 +223,111 @@ function buildVisibleGateLane(gateQueue, agileAgentCanvas) {
   };
 }
 
+function summarizeAacNativeAgents(aacNativeAgents) {
+  const availableRows = aacNativeAgents.filter((row) => row.status === "AVAILABLE_NATIVE_AAC_AGENT");
+  const activeRows = aacNativeAgents.filter((row) => row.activation_status === "ACTIVE_AAC_NATIVE_TEAM_GOVERNED");
+  return {
+    roster_id: "AAC_NATIVE_AGENTS_20260608",
+    source: ".agents/codex/matrices/AAC_NATIVE_AGENTS_20260608.csv",
+    status: activeRows.length === aacNativeAgents.length ? "ACTIVE_AAC_NATIVE_TEAM_GOVERNED" : "NEEDS_REVIEW",
+    team_role: "native_aac_team_not_cabina_authority",
+    record_count: aacNativeAgents.length,
+    available_record_count: availableRows.length,
+    active_record_count: activeRows.length,
+    activation_mode: "repo_local_board_activation",
+    direct_invocation_from_codex: false,
+    agents: aacNativeAgents.map((row) => ({
+      native_agent_id: row.native_agent_id,
+      display_name: row.display_name,
+      title: row.title,
+      module: row.module,
+      agent_class: row.agent_class,
+      authority_boundary: row.authority_boundary,
+      activation_status: row.activation_status,
+      activation_mode: row.activation_mode,
+      direct_invocation_from_codex: row.direct_invocation_from_codex === "true",
+      stop_condition: row.stop_condition
+    })),
+    live_executed: false,
+    external_sync: false
+  };
+}
+
+function summarizeCabinaGovernanceAgents(cabinaGovernanceAgents) {
+  const activeRows = cabinaGovernanceAgents.filter((row) => row.status === "ACTIVE_LOCAL_GOVERNED_USE");
+  return {
+    roster_id: "CABINA_GOVERNANCE_AGENTS_FOR_VSI_20260608",
+    source: ".agents/codex/matrices/CABINA_GOVERNANCE_AGENTS_FOR_VSI_20260608.csv",
+    status: activeRows.length === cabinaGovernanceAgents.length ? "ACTIVE_CABINA_GOVERNED_WORK_LAYER" : "NEEDS_REVIEW",
+    record_count: cabinaGovernanceAgents.length,
+    active_record_count: activeRows.length,
+    relation: "cabina_governed_work_agent_not_native_aac_team",
+    authority: "cabina_governs_vsi_agile_agent_canvas_board",
+    work_layer: "cabina_agents_work_on_board_and_govern_it",
+    agents: cabinaGovernanceAgents.map((row) => ({
+      agent_id: row.agent_id,
+      cabina_role: row.cabina_role,
+      story_ids: row.story_ids,
+      execution_mode: row.execution_mode,
+      dispatch_tool: row.dispatch_tool,
+      stop_condition: row.stop_condition
+    })),
+    live_executed: false,
+    external_sync: false
+  };
+}
+
+function buildBoardBoundary(agentTaskQueue, visibleGateLane, aacNativeAgents, cabinaGovernanceAgents) {
+  const nativeSummary = summarizeAacNativeAgents(aacNativeAgents);
+  const governanceSummary = summarizeCabinaGovernanceAgents(cabinaGovernanceAgents);
+  return {
+    status: "BOARD_BOUNDARY_DECLARED",
+    live_executed: false,
+    primary_board: {
+      board_id: "vsi_agile_agent_canvas_mother_board",
+      label: "Tablero principal madre VSI",
+      explicit_name: "Agile Agent Canvas",
+      board_kind: "agile_agent_canvas_creation_planning_board",
+      authority_role: "primary_mother_board",
+      surface: "vscode_insiders_agile_agent_canvas",
+      source: ".agileagentcanvas-context/planning/epics.json|.agileagentcanvas-context/bmm/sprint-status.json",
+      purpose: "Fuente primaria visual para leer, crear y organizar tareas antes de matriz, rama, PR o gate live.",
+      governance_policy: "Los agentes Cabina trabajan sobre este tablero y lo gobiernan; los agentes nativos AAC son un equipo nativo colaborador.",
+      not_this_board: "control_agentes_cabina_queue_board",
+      agent_task_records: agentTaskQueue.length,
+      native_agents: nativeSummary,
+      governance_agents: governanceSummary,
+      write_policy: "uso local gobernado dentro de allowlist VSI; sin live write ni shell arbitrario",
+      stop_condition: "vsi_mother_board_boundary_drift"
+    },
+    auxiliary_board: {
+      board_id: "control_agentes_cabina",
+      label: "Tablero de cola Control de Agentes de Cabina",
+      explicit_name: "Control de Agentes de Cabina",
+      board_kind: "agent_control_queue_board",
+      authority_role: "auxiliary_queue_control_board",
+      surface: "loopback_dashboard_local",
+      source: "local-agent-bridge|VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv|AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_GATE_QUEUE_20260605.csv",
+      purpose: "Tablero auxiliar de control, readiness, gates visibles y postchecks; no es la fuente primaria de creacion.",
+      not_this_board: "vsi_agile_agent_canvas_mother_board",
+      agent_task_records: agentTaskQueue.length,
+      visible_gate_records: visibleGateLane.item_count,
+      write_policy: "lectura local y reviews estructuradas; acciones guiadas sin shell arbitrario ni writes live",
+      stop_condition: "agent_control_queue_board_boundary_drift"
+    },
+    external_website_queue: {
+      queue_id: "cola_sitio_web",
+      label: "Cola del sitio web",
+      surface: "sitio_web_externo",
+      source: "NO_CONECTADA_EN_CONTROL_AGENTES_CABINA",
+      purpose: "Entrada operativa desde un sitio web o producto publicado.",
+      records_visible_here: 0,
+      write_policy: "requiere target owner rollback postcheck y gate live separado",
+      stop_condition: "website_queue_target_missing"
+    }
+  };
+}
+
 export function resolveRepoRoot(startPath = process.cwd()) {
   const normalized = path.resolve(startPath);
   if (path.basename(normalized) === "local-agent-bridge") {
@@ -240,7 +345,9 @@ export function collectDashboardData(startPath = process.cwd()) {
     gateQueue: `${matricesRoot}/AGENTS_SDK_LIVE_AGENT_GLOBAL_OPERABILITY_GATE_QUEUE_20260605.csv`,
     autonomous: `${matricesRoot}/AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv`,
     agileAgentCanvas: `${matricesRoot}/VSCODE_INSIDERS_AGILE_AGENT_CANVAS_GOVERNANCE_20260606.csv`,
-    agentTaskQueue: `${matricesRoot}/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv`
+    agentTaskQueue: `${matricesRoot}/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv`,
+    aacNativeAgents: `${matricesRoot}/AAC_NATIVE_AGENTS_20260608.csv`,
+    cabinaGovernanceAgents: `${matricesRoot}/CABINA_GOVERNANCE_AGENTS_FOR_VSI_20260608.csv`
   };
 
   const operability = readCsv(repoRoot, paths.operability);
@@ -249,9 +356,12 @@ export function collectDashboardData(startPath = process.cwd()) {
   const autonomous = readCsv(repoRoot, paths.autonomous);
   const agileAgentCanvas = readCsv(repoRoot, paths.agileAgentCanvas);
   const agentTaskQueue = readCsv(repoRoot, paths.agentTaskQueue);
+  const aacNativeAgents = readCsv(repoRoot, paths.aacNativeAgents);
+  const cabinaGovernanceAgents = readCsv(repoRoot, paths.cabinaGovernanceAgents);
   const canvasWorkbench = summarizeCanvasWorkbench(repoRoot, agileAgentCanvas);
   const localActions = buildLocalActions(canvasWorkbench, agentTaskQueue);
   const visibleGateLane = buildVisibleGateLane(gateQueue, agileAgentCanvas);
+  const boardBoundary = buildBoardBoundary(agentTaskQueue, visibleGateLane, aacNativeAgents, cabinaGovernanceAgents);
 
   return {
     status: "ok",
@@ -266,6 +376,8 @@ export function collectDashboardData(startPath = process.cwd()) {
       active_agile_canvas_lane: canvasWorkbench.active_governed_lane.status,
       local_actions_ready: localActions.filter((row) => row.status !== "NEEDS_REVIEW").length,
       agent_task_queue_records: agentTaskQueue.length,
+      aac_native_agent_records: aacNativeAgents.length,
+      cabina_governance_agent_records: cabinaGovernanceAgents.length,
       queued_agent_tasks: agentTaskQueue.filter((row) => row.status === "QUEUED_READY").length,
       executed_agent_tasks: agentTaskQueue.filter((row) => row.status.startsWith("EXECUTED")).length,
       autonomous_records: autonomous.length,
@@ -278,8 +390,11 @@ export function collectDashboardData(startPath = process.cwd()) {
     semaphores: semaphore,
     gate_queue: gateQueue,
     visible_gate_lane: visibleGateLane,
+    board_boundary: boardBoundary,
     agile_agent_canvas: agileAgentCanvas,
     canvas_workbench: canvasWorkbench,
+    aac_native_agents: aacNativeAgents,
+    cabina_governance_agents_for_vsi: cabinaGovernanceAgents,
     local_actions: localActions,
     agent_task_queue: agentTaskQueue,
     operability: firstRows(operability, 40),

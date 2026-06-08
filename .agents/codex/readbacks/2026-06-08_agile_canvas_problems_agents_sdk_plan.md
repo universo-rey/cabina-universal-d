@@ -193,20 +193,21 @@ lock_key: agile_canvas.schema.0_5_2
 current_evidence:
 
 - installed extension observed: msayedshokry.agileagentcanvas@0.5.2
-- governance matrix currently declares: msayedshokry.agileagentcanvas@0.5.0
-- schema audit: 24 PASS, 5 FAIL, 2 NO_SCHEMA, 3 SCHEMA_REF_FAIL
-- post-reconciliation validator target: 29 PASS, 2 expected NO_SCHEMA,
-  3 expected SCHEMA_REF_FAIL, 0 content failures
+- governance matrix declares: msayedshokry.agileagentcanvas@0.5.2
+- schema audit: 29 PASS, 2 NO_SCHEMA, 3 SCHEMA_REF_FAIL, 0 content failures
+- extension schema validator: PASS with expected no-schema and expected
+  schema-ref failures only
+- task ops validator: PASS
+- identity drift validator: PASS
 
 target fixes:
 
-- update governance matrix observed extension version to 0.5.2;
-- reconcile enum/status values in readiness-report, retrospective, source-tree,
-  sprint-status and planning/prd;
-- document extension-side schema ref failures for TEA artifacts without
+- none required for the current Agile Agent Canvas schema surface;
+- keep documenting extension-side schema ref failures for TEA artifacts without
   mutating valid content only to satisfy broken refs;
-- decide whether vision.json and testing/test-strategy.json remain extension
-  no-schema artifacts or need repo-local schema coverage.
+- keep vision.json and testing/test-strategy.json as expected extension
+  no-schema artifacts unless repo-local schema coverage is later added by
+  explicit order.
 
 validator:
 
@@ -303,9 +304,9 @@ git restore -- .agileagentcanvas-context scripts/validators .agents/codex/matric
 
 ## Fuentes tecnicas consultadas
 
-- https://developers.openai.com/api/docs/guides/agents
-- https://developers.openai.com/api/docs/guides/agents/sandboxes
-- https://developers.openai.com/api/docs/guides/agent-evals
+- [agents](https://developers.openai.com/api/docs/guides/agents)
+- [agents sandboxes](https://developers.openai.com/api/docs/guides/agents/sandboxes)
+- [agent evals](https://developers.openai.com/api/docs/guides/agent-evals)
 
 ## Stop condition
 
