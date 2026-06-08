@@ -51,10 +51,11 @@ Bloqueado sin gate humano separado:
 lead_agent: rey.control_plane_orchestrator
 owner_agent: codex.workspace_guardian
 schema_agent: court.thot_schema
-gate_agent: rey.frontier_guardian
+dispatcher_agent: court.openai_dispatcher
+runtime_agent: sdu-triage-agent
+gate_agent: court.sdu_gate
 evidence_agent: court.seshat_evidence
-runtime_agent: court.openai_dispatcher
-reviewer_agent: court.sdu_gate
+reviewer_agent: court.seshat_evidence
 
 Subagentes locales recomendados:
 
