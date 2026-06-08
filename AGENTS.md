@@ -672,6 +672,32 @@ Si falta un archivo rector, registrar hallazgo y detener la ejecucion destructiv
 - No cerrar ni ejecutar trabajo operativo sin cadena agente/skill/receta/plugin/tool/superficie/validador/evidencia/stop_condition.
 - Toda salida operativa debe declarar agente, skill, receta, plugin, tool, superficie, orden, evidencia, validador y condicion de detencion.
 
+## Tooling policy
+
+- Fuente de verdad de tools: `.agents\codex\tools\TOOL_INDEX.csv`,
+  `.agents\codex\matrices\TOOL_GOVERNANCE_MATRIX.csv`, `package.json`,
+  workflows, scripts y README del modulo; si no existe, marcar
+  `NO_DISPONIBLE`.
+- Orden preferido: lectura `rg`/`Get-Content`/`git status`, script del
+  proyecto, script de package manager, validador local, `gh` read-only,
+  versionado Git gobernado, live gateado.
+- Para test, lint, typecheck y build, usar primero scripts existentes del
+  modulo o workflow; no inventar comandos largos si hay script local.
+- Seguros sin nuevo gate: `rg`, `Get-Content`, `git status/log/diff`, `gh`
+  read-only, validadores locales, dry-run, `-NoWrite` y mocks.
+- Requieren aprobacion: imports, deploys, migraciones, upgrades de
+  dependencias, live writes, produccion, secretos, permisos, costos, merge,
+  push fuera de scope y cualquier cambio destructivo.
+- Evitar: `git add .`, force push, borrado de ramas, shell redirection para
+  edits manuales, Bash heredoc en PowerShell y comandos con placeholders
+  criticos.
+- Si una tool falla, registrar comando, exit status, salida saneada relevante
+  y clasificar el fallo como introducido, preexistente o incierto antes de
+  reintentar.
+- Para auditorias repo-wide de tools y validacion, usar
+  `.agents\skills\parallel-agentic-repo-audit\SKILL.md` y
+  `.agents\codex\recipes\recipe.parallel_tooling_validation_chain.md`.
+
 ## Cadena de trabajo
 
 1. Entrada: `00_CONTROL_PLANE_INGRESS`.

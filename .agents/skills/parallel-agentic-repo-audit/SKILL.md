@@ -25,6 +25,8 @@ destructive cleanup.
 - Compare findings against `AGENTS.md`, `MANIFEST.yaml`, matrices, readbacks,
   workflows and validators.
 - Propose short `AGENTS.md` rules and separate skills for repeatable workflows.
+- Use `.agents\codex\recipes\recipe.parallel_tooling_validation_chain.md` when
+  the audit must choose tools, commands, validators or rollback.
 - Fan-in findings before editing shared files or matrices.
 
 ## Blocked Actions
