@@ -69,14 +69,14 @@ sdu_cn_canonical_agents_state:
     - scripts/validators/cabina_startup_contract_validator.py
   stop_condition: secret_detected|seventh_agent_created|canonical_agent_missing|openai_treated_as_authority_source|microsoft_live_without_target
 extended_reconciliation_state:
-  status: CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR132
+  status: CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR138
   as_of: 2026-06-08
   source_state: CABINA_OPERATING_SYSTEM_CONSOLIDATED_TO_PR96
-  prs_detected: 111
-  prs_included: 111
+  prs_detected: 117
+  prs_included: 117
   invented_prs: 0
-  final_pr: 132
-  final_main: de7f873395c2c67dec2738987e99e02b5553c150
+  final_pr: 138
+  final_main: 965156884425e7dc63149cf50daebcab4fdecd04
   post_pr62_merged_prs:
     - 63
     - 64
@@ -144,6 +144,12 @@ extended_reconciliation_state:
     - 130
     - 131
     - 132
+    - 133
+    - 134
+    - 135
+    - 136
+    - 137
+    - 138
   open_prs_not_canonized: []
   historical_pr78_exclusions_now_superseded_by_pr96:
     - 75
@@ -217,12 +223,12 @@ root_wrapper_repo:
   scope: allowlist_governance_metadata
   absorbs_nested_repos: false
   remote_url: https://github.com/universo-rey/cabina-universal-d.git
-  pull_request: https://github.com/universo-rey/cabina-universal-d/pull/132
+  pull_request: https://github.com/universo-rey/cabina-universal-d/pull/138
   pull_request_status: MERGED
-  last_merged_branch: codex/agile-canvas-problems-agent-sdk-plan-20260608
-  last_merge_commit: de7f873395c2c67dec2738987e99e02b5553c150
+  last_merged_branch: codex/gov/cabina/agent-dispatch-skill-adapters__ISSUE-RECON-004
+  last_merge_commit: 965156884425e7dc63149cf50daebcab4fdecd04
   visibility: private
-  status: PRIVATE_REMOTE_MAIN_ACTIVE_PR132_MERGED_CABINA_OPERATING_SYSTEM_RECONCILED
+  status: PRIVATE_REMOTE_MAIN_ACTIVE_PR138_MERGED_CABINA_OPERATING_SYSTEM_RECONCILED
   historical_markers:
     - marker: PR53_CHANGE_AWARE_FULL_COVERAGE
       pull_request: https://github.com/universo-rey/cabina-universal-d/pull/53
@@ -261,11 +267,11 @@ github_base_work_state:
   status: GITHUB_BASE_WORK_DECLARED_ACTIVE
   github_actions_surface_state: APPROVED_GITHUB_ACTIONS_SURFACE
   root_remote_base: https://github.com/universo-rey/cabina-universal-d.git
-  root_pull_request: https://github.com/universo-rey/cabina-universal-d/pull/132
+  root_pull_request: https://github.com/universo-rey/cabina-universal-d/pull/138
   root_pull_request_status: MERGED
   root_base_branch: main
-  root_last_merge_commit: de7f873395c2c67dec2738987e99e02b5553c150
-  root_state: CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR132
+  root_last_merge_commit: 965156884425e7dc63149cf50daebcab4fdecd04
+  root_state: CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR138
   root_open_prs_not_canonized: none
   root_closed_unmerged_prs_excluded: 81
   automated_merge_policy_state: APPROVED_WITH_PRECHECKS
