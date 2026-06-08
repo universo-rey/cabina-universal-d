@@ -1,18 +1,21 @@
 # Current State
 
-Estado: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR138`
+Estado: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR143`
 
 Estado rector vigente 2026-06-08:
 
-- Canonizacion extendida: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR138`.
+- Canonizacion extendida: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR143`.
 - Canon operativo: `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`.
 - Canon activo de ejecucion: `ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT`.
 - Cadena activa: `STANDARD_AGENT_CHAIN_ACTIVE`.
-- PRs mergeados reales detectados: 117.
-- PRs incluidos: 117.
+- PRs mergeados reales detectados: 122.
+- PRs incluidos: 122.
 - PRs inventados: 0.
-- PR final incluido: `universo-rey/cabina-universal-d#138`.
-- Main final: `965156884425e7dc63149cf50daebcab4fdecd04`.
+- PR final incluido: `universo-rey/cabina-universal-d#143`.
+- Main final: `ddbf58da0647bc599255f7ef9cec83a8fb730dd0`.
+- PR abierto no canonizado: `universo-rey/cabina-universal-d#144`
+  draft, HEAD `269894804e2800727b2c35a8377f99e0054a37cd`, checks remotos
+  `SUCCESS` al preflight GitHub read-only de esta actualizacion.
 - GitHub lifecycle repo-scoped: `EXECUTED`.
 - OpenAI API live gobernado: `EXECUTED_GOVERNED`.
 - Responses API live gobernado: `EXECUTED_GOVERNED`.
@@ -28,6 +31,82 @@ Estado rector vigente 2026-06-08:
 - Produccion: `ENABLED_GOVERNED_GATED_NOT_EXECUTED`.
 - Propagacion: `ENABLED_GOVERNED_GATED_NOT_EXECUTED`.
 - Secretos: `NEVER_PRINT_NEVER_PERSIST`.
+
+Foto actual verificable 2026-06-08 post #143:
+
+- Git state: root `C:\Users\enzo1\Documents\GitHub\cabina-universal-d`,
+  remoto `https://github.com/universo-rey/cabina-universal-d.git`, `origin/main`
+  en `ddbf58da0647bc599255f7ef9cec83a8fb730dd0`, rama de trabajo
+  `codex/retrospective/dataverse-atomic-segment-skill-20260608`, HEAD
+  `269894804e2800727b2c35a8377f99e0054a37cd`, worktree limpio y ahead de
+  `main` solo por el PR draft #144.
+- Estructura actual: planos rectores `00_CONTROL_PLANE_INGRESS`,
+  `01_GOVERNANCE_REGISTRY`, `02_AUTHORITY_CANON`, `08_READBACKS`,
+  capacidades `.agents`, workflows `.github`, entorno `.codex`, dominios
+  `dataverse`, `powerplatform`, `openai`, `docs`, `governance`, `scripts`,
+  `tests`, `validation`, `readbacks`, `retrospectives`, `recipes`,
+  `matrices`, y modulos runtime `aac-mcp-server`, `local-agent-bridge` y
+  `teams-app`.
+- Tecnologias activas confirmadas: PowerShell para tools/validadores, Python
+  para validators y drift checks, Node.js ESM para mocks/dev services,
+  GitHub Actions YAML para CI, GitHub CLI para lectura/PR versionado, y
+  scripts declarativos Dataverse/Power Platform. No se detecto dependencia NPM
+  externa declarada en los tres `package.json` inspeccionados.
+- Modulos/apps/servicios confirmados por `package.json`: `aac-mcp-server`
+  con `npm start` y `npm test`, `local-agent-bridge` con `npm start` y
+  `npm test`, y `teams-app/sdu-agent-chat/bot` con `npm test`.
+- Tools y comandos disponibles: `.agents/codex/tools/TOOL_INDEX.csv` registra
+  64 tools; `.agents/codex/recipes/RECIPE_INDEX.csv` registra 32 recetas;
+  `.agents/codex/matrices/LOCAL_SKILL_CATALOG.csv` registra 61 skills. Los
+  comandos confirmados incluyen `git status/log/diff`, `gh pr view/list/checks`,
+  validadores `.agents/codex/tools/*.ps1`, scripts `dataverse/scripts/*.ps1`,
+  `python scripts/validators/*.py` y `npm test --prefix` en modulos Node.
+- Workflows confirmados: 19 archivos en `.github/workflows`. Estan
+  confirmados por ejecucion remota reciente `Cabina Validation` y
+  `Active Governed Execution Validation` sobre #144 con `SUCCESS`; los
+  workflows Dataverse, Power Platform, MCP/Teams y SDU DEV existen como
+  superficies gobernadas, algunas manuales o gateadas por environment.
+- Comandos recientes exitosos confirmados: `git diff --check`,
+  `git diff --cached --check`, `local_validate_parallel_order_governance.ps1`,
+  `local_validate_skill_metadata.ps1`,
+  `local_validate_agents_instruction_hierarchy.ps1`,
+  `local_validate_operational_chain.ps1`,
+  `local_validate_capability_use_hardening.ps1`,
+  `local_validate_agent_layer.ps1`,
+  `local_validate_skill_recipe_agent_learning.ps1`,
+  `local_validate_powershell_runtime_friction.ps1`, `gh pr checks 144`, y
+  los checks remotos de #144.
+- Fallos recientes conocidos: un extractor PowerShell ad hoc fallo con
+  `ParserError` por pipe vacio despues de un bloque `foreach`; se corrigio con
+  acumulador explicito. Historial PowerShell sanitizado muestra `pac auth who`
+  como comando reciente, pero no confirma por si solo estado actual de
+  Dataverse/Power Platform.
+- Convenciones vigentes: rama `codex/*`, stage explicito, no `git add .`,
+  validacion antes de cierre, GitHub como canon tecnico versionable, Dataverse
+  como resolver obligatorio de metadata antes de segmentos atomicos cuando
+  exista fila `mon_sdu_*`, y live/produccion/secretos siempre gateados.
+- Riesgos y restricciones: #144 no debe tratarse como canon hasta merge; no
+  ejecutar Microsoft live, SharePoint, Power Platform, Dataverse apply,
+  OpenAI live, produccion, secretos ni cambios destructivos sin target, owner,
+  rollback, postcheck, evidencia y gate. Workflows manuales Dataverse/Power
+  Platform son confirmados como archivos, no como ejecuciones live recientes.
+- Pendientes: revisar #144, convertir de draft si corresponde, mergear solo
+  con HEAD fijo y checks verdes, y luego reconciliar de nuevo el canon textual
+  a #144 si se integra.
+- Recomendaciones: mantener `CURRENT_STATE.md` como foto rectora; ajustar
+  `AGENTS.md` y `MANIFEST.yaml` solo para punteros de estado; no agregar reglas
+  nuevas de skills/tools en este carril porque #144 ya contiene la politica de
+  tooling y la receta de validacion pendiente de merge.
+
+Actualizacion current state post #143 2026-06-08: por verificacion repo-local y
+GitHub read-only, `origin/main` queda reconciliado a
+`ddbf58da0647bc599255f7ef9cec83a8fb730dd0`, merge commit de
+`universo-rey/cabina-universal-d#143` (`[GOV] Dataverse Resolver
+Precedence`). Se incorporan como mergeados reales post #138 los PRs #139,
+#140, #141, #142 y #143. PR #144 queda abierto, draft, limpio y con checks
+remotos exitosos, pero no canonizado por este texto. Esta actualizacion no
+ejecuta live, produccion, permisos, secretos, Dataverse apply, SharePoint,
+Power Platform, OpenAI live ni merge.
 
 Actualizacion Dataverse resolver obligatorio 2026-06-08: por orden expresa del
 operador, Dataverse pasa a ser el resolver obligatorio de metadata antes de
@@ -112,6 +191,20 @@ skills/adapters operativos, normaliza metadata y alinea rutas a la raiz
 repo-local `C:\Users\enzo1\Documents\GitHub\cabina-universal-d` como cambio
 estructural, no funcional. Esta reconciliacion textual no ejecuta smoke,
 Microsoft live, OpenAI API live, produccion, permisos, secretos, merge ni
+propagacion.
+
+Actualizacion canon textual post #143 2026-06-08: por reconciliacion
+repo-scoped gobernada, la cabina parte de `origin/main`
+`ddbf58da0647bc599255f7ef9cec83a8fb730dd0`, con PR final incluido
+`universo-rey/cabina-universal-d#143`. Se incorporan como mergeados reales
+post #138 los PRs #139, #140, #141, #142 y #143. PR #139 reconcilia el canon
+textual a #138; PR #140 versiona segmentos Dataverse tenant-controlled; PR
+#141 versiona segmentos 4 y 5/readback publish; PR #142 cierra workpapers
+historicos por carril separado; PR #143 codifica la precedencia Dataverse
+resolver. PR #144 queda abierto draft como carril de retrospectiva,
+instrucciones, skills y tooling policy, no como canon mergeado. Esta
+actualizacion textual no ejecuta smoke, Microsoft live, OpenAI API live,
+produccion, permisos, secretos, Dataverse apply, SharePoint, Power Platform ni
 propagacion.
 
 Actualizacion canon activo 2026-06-03: por orden del operador, la cabina adopta
@@ -613,18 +706,19 @@ PR raiz setup Codex Cloud cross-platform: `universo-rey/cabina-universal-d#58` e
 PR raiz GitHub lifecycle repo-scoped: `universo-rey/cabina-universal-d#60` estado `MERGED`.
 PR raiz SDK + Codex Cloud lifecycle: `universo-rey/cabina-universal-d#61` estado `MERGED`.
 PR raiz standard agent chain: `universo-rey/cabina-universal-d#62` estado `MERGED`.
-PRs raiz post #62 incluidos a #138: `#63`, `#64`, `#65`, `#66`, `#67`, `#68`,
+PRs raiz post #62 incluidos a #143: `#63`, `#64`, `#65`, `#66`, `#67`, `#68`,
 `#69`, `#70`, `#71`, `#72`, `#73`, `#74`, `#75`, `#76`, `#77`, `#78`, `#79`,
 `#80`, `#82`, `#84`, `#85`, `#86`, `#89`, `#90`, `#91`, `#92`, `#93`, `#94`,
 `#95`, `#96`, `#97`, `#98`, `#99`, `#100`, `#101`, `#102`, `#103`, `#104`,
 `#105`, `#106`, `#107`, `#108`, `#109`, `#110`, `#111`, `#112`, `#113`,
 `#114`, `#115`, `#116`, `#117`, `#118`, `#119`, `#120`, `#121`, `#122`,
 `#123`, `#124`, `#125`, `#126`, `#127`, `#128`, `#129`, `#130`, `#131`, `#132`,
-`#133`, `#134`, `#135`, `#136`, `#137`, `#138` estado `MERGED`.
-PRs raiz abiertos no canonizados por este texto: ninguno detectado.
+`#133`, `#134`, `#135`, `#136`, `#137`, `#138`, `#139`, `#140`, `#141`,
+`#142`, `#143` estado `MERGED`.
+PRs raiz abiertos no canonizados por este texto: `#144` draft.
 PRs raiz cerrados sin merge excluidos: `#81`.
 Rama raiz base: `main`.
 Ultima rama raiz mergeada:
-`codex/gov/cabina/agent-dispatch-skill-adapters__ISSUE-RECON-004`.
-Ultimo merge commit raiz: `965156884425e7dc63149cf50daebcab4fdecd04`.
-Estado raiz vigente: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR138`.
+`codex/gov/dataverse-resolver-priority-20260608`.
+Ultimo merge commit raiz: `ddbf58da0647bc599255f7ef9cec83a8fb730dd0`.
+Estado raiz vigente: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR143`.

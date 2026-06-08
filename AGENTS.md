@@ -395,6 +395,17 @@ estructural, no funcional. Esta reconciliacion textual no ejecuta smoke,
 Microsoft live, OpenAI API live, produccion, permisos, secretos, merge ni
 propagacion.
 
+Estado current state post #143 actualizado 2026-06-08: por verificacion
+repo-scoped y GitHub read-only, el estado rector vigente se reconcilia al
+`main` posterior a `universo-rey/cabina-universal-d#143`, merge commit
+`ddbf58da0647bc599255f7ef9cec83a8fb730dd0`. Se detectan 122 PRs mergeados
+reales a `main`, sin PRs inventados. Los PRs post #138 canonizados por este
+texto son #139, #140, #141, #142 y #143. El PR #144 queda abierto, draft,
+limpio y con checks remotos exitosos, pero no canonizado hasta merge. Esta
+reconciliacion no ejecuta Microsoft live, OpenAI API live, produccion,
+permisos, secretos, Dataverse apply, SharePoint, Power Platform ni
+propagacion.
+
 ## Canon activo de ejecucion gobernada
 
 Estado canon activo actualizado 2026-06-03:
@@ -516,20 +527,21 @@ Universal del Rey y como repo raiz envoltorio activo:
 - PR raiz standard agent chain:
   `https://github.com/universo-rey/cabina-universal-d/pull/62` con estado
   `MERGED`;
-- PRs raiz post #62 canonizados a #138: #63, #64, #65, #66, #67, #68, #69,
+- PRs raiz post #62 canonizados a #143: #63, #64, #65, #66, #67, #68, #69,
   #70, #71, #72, #73, #74, #75, #76, #77, #78, #79, #80, #82, #84, #85,
   #86, #89, #90, #91, #92, #93, #94, #95, #96, #97, #98, #99, #100, #101,
   #102, #103, #104, #105, #106, #107, #108, #109, #110, #111, #112, #113,
   #114, #115, #116, #117, #118, #119, #120, #121, #122, #123, #124, #125,
-  #126, #127, #128, #129, #130, #131, #132, #133, #134, #135, #136, #137 y
-  #138 con estado `MERGED`; ultimo PR incluido:
-  `https://github.com/universo-rey/cabina-universal-d/pull/138`;
-- PRs raiz abiertos no canonizados por este texto: ninguno detectado en
-  preflight GitHub del 2026-06-08;
+  #126, #127, #128, #129, #130, #131, #132, #133, #134, #135, #136, #137,
+  #138, #139, #140, #141, #142 y #143 con estado `MERGED`; ultimo PR incluido:
+  `https://github.com/universo-rey/cabina-universal-d/pull/143`;
+- PRs raiz abiertos no canonizados por este texto:
+  `https://github.com/universo-rey/cabina-universal-d/pull/144` con estado
+  `OPEN_DRAFT_NOT_CANONIZED`;
 - PRs raiz cerrados sin merge excluidos: #81;
-- estado canonico actual: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR138`;
+- estado canonico actual: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR143`;
 - ultimo main efectivo incluido:
-  `965156884425e7dc63149cf50daebcab4fdecd04`;
+  `ddbf58da0647bc599255f7ef9cec83a8fb730dd0`;
 - canon operativo: `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`;
 - cadena activa: `STANDARD_AGENT_CHAIN_ACTIVE`;
 - allowlist: solo gobierno, canon, agentes locales, matrices, prompts,
