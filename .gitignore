@@ -558,6 +558,8 @@
 !/.agents/codex/orders/ORDER_TENANT_CONTROLLED_GATE_STATE_PATCH_20260608.md
 !/.agents/codex/orders/ORDER_TENANT_APPLY_LOG_PUBLISH_20260608.md
 !/.agents/codex/orders/ORDER_TENANT_EVIDENCE_PUBLISH_20260608.md
+!/.agents/codex/orders/ORDER_TENANT_PR140_MERGE_EVIDENCE_PUBLISH_20260608.md
+!/.agents/codex/orders/ORDER_TENANT_READBACK_PUBLISH_20260608.md
 
 !/.agents/codex/readbacks/
 /.agents/codex/readbacks/*
