@@ -1,0 +1,14 @@
+gate_item,required_for_write,status,evidence,stop_condition
+pr139_merged,yes,PASS,"PR #139 merged; main synced to ffea37314a99aad84a11d93ad2ddd9a7c668d858",none
+canon_textual_aligned,yes,PASS,"AGENTS.md, MANIFEST.yaml and CURRENT_STATE.md aligned to PR #138 / 9651568 in merged PR #139",none
+site_exact_identity,yes,PASS,"SharePoint connector resolved escribaniabitsch.sharepoint.com /sites/soporte as Innovacion y Desarrollo",none
+document_libraries_visible,yes,PASS,"SharePoint connector listed Documentos, Proyectos y Tareas, Expedientes",none
+sharepoint_list_internal_names,yes,PENDING,"No tool enumerated SharePoint lists/internal names; m365 spo list list timed out after 180s",target_identity_ambiguous
+sharepoint_list_item_write_tool,yes,PENDING,"Available SharePoint MCP tools expose files/folders upload/update/delete, not SharePoint list item create",tool_unavailable_for_write
+pnp_connection,yes,PENDING,"PnP.PowerShell 3.1.0 installed but Get-PnPConnection reports not signed in",target_write_tool_not_connected
+power_platform_environment_exact,yes,PENDING,"pac auth who confirms active HUBDesarrollo; production target environment not selected",environment_target_ambiguous
+power_automate_flow_exact_id,yes,PENDING,"No flow id/name/environment confirmed for agente-alta-agentes",target_identity_ambiguous
+payload_approved,yes,PARTIAL,"AA-0001 payload exists as draft; live create still needs final approved target/list mapping",payload_not_approved
+rollback_plan,yes,PENDING,"Rollback requires created SharePoint item IDs or flow run id after exact create target exists",rollback_missing
+postcheck_plan,yes,PENDING,"Postcheck requires exact list IDs/internal names and item IDs to confirm records, bitacora, evidence and readback",postcheck_missing
+production_write,yes,NOT_EXECUTED,"First productive SharePoint record creation was not executed after PR #139 merge because write target remains ambiguous",PENDING_TARGET_ONLY

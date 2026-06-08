@@ -1,0 +1,5 @@
+"current","target","valid","evidence"
+"HUBDesarrollo","production","false","pac auth who confirms HUBDesarrollo active; user context states HUBDesarrollo is NOT production."
+"ESCRIBANIA BITSCH default","candidate only","false","pac org list and pac solution list succeeded, but this environment was not explicitly authorized as the production target for agente-alta-agentes."
+"RUC-KYC-Prod","candidate only","false","Name suggests a production candidate and pac read access succeeded, but the target flow was not found and the environment was not explicitly authorized for this operation."
+"production environment","unresolved","false","No exact production environment was both explicitly named and authorized for this write path."

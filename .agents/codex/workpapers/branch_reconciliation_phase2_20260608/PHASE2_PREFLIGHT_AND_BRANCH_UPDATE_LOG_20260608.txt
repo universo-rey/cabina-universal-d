@@ -1,0 +1,13 @@
+repo=C:/Users/enzo1/Documents/GitHub/cabina-universal-d
+base_branch=main
+head_initial=3ce2129
+head_initial_full=3ce212938faa36388ccc43363cf9479e1dea8807
+status_before=
+## main...origin/main
+?? .agents/codex/workpapers/branch_inventory_20260608/
+?? .agents/codex/workpapers/branch_reconciliation_phase1_20260608/
+status_after_branch_updates=
+## main...origin/main
+?? .agents/codex/workpapers/branch_inventory_20260608/
+?? .agents/codex/workpapers/branch_reconciliation_phase1_20260608/
+?? .agents/codex/workpapers/branch_reconciliation_phase2_20260608/

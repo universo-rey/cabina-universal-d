@@ -1,0 +1,91 @@
+"branch","validator","status","exit_code","output"
+"codex/gov/cabina/agent-dispatch-skill-adapters__ISSUE-RECON-004","git diff --check","PASS","0",""
+"codex/gov/cabina/agent-dispatch-skill-adapters__ISSUE-RECON-004","local_validate_agent_workpapers","PASS","0","{
+  ""status"": ""PASS"",
+  ""root"": "".agents\\codex"",
+  ""workpapers_root"": "".agents\\codex\\workpapers"",
+  ""error_count"": 0,
+  ""errors"": [],
+  ""secret_hit_count"": 0,
+  ""secret_hits"": []
+}"
+"codex/gov/cabina/agent-dispatch-skill-adapters__ISSUE-RECON-004","local_validate_operational_chain","PASS","0","{
+  ""status"": ""PASS"",
+  ""root"": "".agents\\codex"",
+  ""repo_root"": ""C:\\Users\\enzo1\\Documents\\GitHub\\cabina-universal-d"",
+  ""operational_chain_rows"": 11,
+  ""agents"": 14,
+  ""skills"": 59,
+  ""recipes"": 31,
+  ""tools"": 64,
+  ""warning_count"": 0,
+  ""warnings"": [],
+  ""error_count"": 0,
+  ""errors"": []
+}"
+"codex/gov/cabina/agent-dispatch-skill-adapters__ISSUE-RECON-004","local_validate_capability_use_hardening","PASS","0","{
+  ""status"": ""PASS"",
+  ""root"": "".agents\\codex"",
+  ""repo_root"": ""C:\\Users\\enzo1\\Documents\\GitHub\\cabina-universal-d"",
+  ""capability_use_rows"": 12,
+  ""agents"": 14,
+  ""skills"": 59,
+  ""recipes"": 31,
+  ""tools"": 64,
+  ""plugins"": 9,
+  ""repo_runtime_rows"": 13,
+  ""mandatory_skill"": ""tcu-descubridor-capacidades"",
+  ""warning_count"": 0,
+  ""warnings"": [],
+  ""error_count"": 0,
+  ""errors"": []
+}"
+"codex/gov/cabina/agent-dispatch-skill-adapters__ISSUE-RECON-004","local_validate_agent_layer","PASS","0","{
+  ""status"": ""PASS"",
+  ""root"": "".agents\\codex"",
+  ""skip_workflow_nested_validators"": false,
+  ""matrix_count"": 201,
+  ""recipe_count"": 31,
+  ""tool_count"": 64,
+  ""local_skill_count"": 59,
+  ""governed_repo_count"": 13,
+  ""governed_agent_count"": 14,
+  ""governed_asset_class_count"": 20,
+  ""canonical_inventory_count"": 75,
+  ""stop_condition_count"": 63,
+  ""coverage_exception_count"": 1,
+  ""lineage_count"": 7,
+  ""document_skill_lane_count"": 4,
+  ""workpaper_count"": 14,
+  ""plugin_usage_count"": 10,
+  ""purpose_surface_capability_count"": 23,
+  ""parallel_operation_count"": 8,
+  ""parallel_issue_queue_count"": 3,
+  ""order_preparation_count"": 7,
+  ""order_class_capability_count"": 7,
+  ""operational_chain_count"": 11,
+  ""skill_metadata_quality_count"": 30,
+  ""plugin_skill_boundary_count"": 9,
+  ""source_capability_gap_count"": 11,
+  ""subagent_alias_count"": 3,
+  ""subagent_capability_count"": 5,
+  ""subskill_count"": 27,
+  ""subrecipe_count"": 12,
+  ""warning_count"": 0,
+  ""warnings"": [],
+  ""error_count"": 0,
+  ""errors"": [],
+  ""secret_hit_count"": 0,
+  ""secret_hits"": []
+}"
+"codex/gov/cabina/agent-dispatch-skill-adapters__ISSUE-RECON-004","local_validate_skill_metadata","PASS","0","{
+  ""status"": ""PASS"",
+  ""root"": "".agents\\codex"",
+  ""repo_root"": ""C:\\Users\\enzo1\\Documents\\GitHub\\cabina-universal-d"",
+  ""repo_local_skill_count"": 30,
+  ""metadata_quality_rows"": 30,
+  ""warning_count"": 0,
+  ""warnings"": [],
+  ""error_count"": 0,
+  ""errors"": []
+}"
