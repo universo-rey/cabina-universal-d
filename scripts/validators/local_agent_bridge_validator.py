@@ -110,6 +110,8 @@ def validate() -> None:
         raise AssertionError("local actions must block arbitrary shell execution")
     if "purpose_built_postcheck_allowlist" not in local_actions_text:
         raise AssertionError("local actions must use purpose-built postcheck allowlist")
+    if "scripts/validators/agile_canvas_task_ops_validator.py" not in local_actions_text:
+        raise AssertionError("local postcheck must run Agile Canvas task ops validator")
     if "structured_local_review_no_shell" not in local_actions_text:
         raise AssertionError("local actions must support structured no-shell review")
     for result_key in (

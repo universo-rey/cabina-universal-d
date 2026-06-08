@@ -167,6 +167,7 @@ assert.equal(actionPlan.execute_now, true);
 assert.equal(actionPlan.command_execution_exposed, false);
 assert.equal(actionPlan.live_executed, false);
 assert.ok(actionPlan.postcheck_commands.includes("npm test"));
+assert.ok(actionPlan.postcheck_commands.includes("agile canvas task ops validator"));
 
 const canvasLaneReviewPlan = getLocalActionExecutionPlan("local.action.inspect_canvas_lane");
 assert.equal(canvasLaneReviewPlan.execute_now, true);
@@ -377,7 +378,7 @@ const postcheckAllowlistReview = await runLocalAction("local.action.review_postc
 assert.equal(postcheckAllowlistReview.status, "PASS");
 assert.equal(postcheckAllowlistReview.command_execution_exposed, false);
 assert.equal(postcheckAllowlistReview.live_executed, false);
-assert.equal(postcheckAllowlistReview.postcheck_allowlist_review.command_count, 5);
+assert.equal(postcheckAllowlistReview.postcheck_allowlist_review.command_count, 6);
 assert.equal(postcheckAllowlistReview.postcheck_allowlist_review.unsafe_commands.length, 0);
 assert.equal(postcheckAllowlistReview.postcheck_allowlist_review.unsafe_args.length, 0);
 
