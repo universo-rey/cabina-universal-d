@@ -1,0 +1,14 @@
+{
+  "servers": {
+    "aac-direct": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "${workspaceFolder}/aac-mcp-server/src/index.mjs"
+      ],
+      "env": {
+        "AAC_MCP_REPO_ROOT": "${workspaceFolder}"
+      }
+    }
+  }
+}

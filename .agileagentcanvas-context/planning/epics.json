@@ -127,16 +127,14 @@
         }
       },
       "aacDirectMcpGatedWrite": {
-        "status": "EXECUTED_LOCAL_VALIDATED",
-        "targetPath": ".agileagentcanvas-context/planning/epics.json",
+        "status": "EXECUTED_LOCAL_WRITE",
+        "tool": "aac-direct/aac_write_artifact_gated",
+        "target_path": ".agileagentcanvas-context/planning/epics.json",
         "owner": "rey.control_plane_orchestrator",
         "reviewer": "court.seshat_evidence",
-        "runtimeTool": "aac-direct/aac_write_artifact_gated",
-        "gate": {
-          "gateId": "GATE_AAC_ARTIFACT_WRITE",
-          "approvalStatus": "APPROVED_EXPLICIT",
-          "approvalRef": "user_authorized_target_epics_2026-06-08"
-        },
+        "gate_id": "GATE_AAC_ARTIFACT_WRITE",
+        "approval_status": "APPROVED_EXPLICIT",
+        "approval_ref": "user_write_ejecutado_2026-06-08",
         "rollback": "git restore -- .agileagentcanvas-context/planning/epics.json",
         "postcheck": [
           "npm test --prefix aac-mcp-server",
@@ -145,11 +143,10 @@
           "python scripts/validators/local_agent_bridge_validator.py",
           "git diff --check"
         ],
-        "localWriteExecuted": true,
-        "liveExecuted": false,
-        "externalSync": false,
-        "stopCondition": "aac_direct_mcp_gated_write_executed_repo_local",
-        "note": "AAC native agents can operate on the mother board under Cabina governance; writes remain gated and repo-local unless a separate live gate is opened."
+        "live_executed": false,
+        "external_sync": false,
+        "executed_at": "2026-06-08T06:08:21.4380609-03:00",
+        "stop_condition": "aac_direct_mcp_gated_write_executed_repo_local_validated"
       },
       "parallelReconciliation20260608": {
         "status": "EXECUTED_LOCAL_VALIDATED",
