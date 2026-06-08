@@ -1,18 +1,18 @@
 # Current State
 
-Estado: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR132`
+Estado: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR138`
 
 Estado rector vigente 2026-06-08:
 
-- Canonizacion extendida: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR132`.
+- Canonizacion extendida: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR138`.
 - Canon operativo: `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`.
 - Canon activo de ejecucion: `ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT`.
 - Cadena activa: `STANDARD_AGENT_CHAIN_ACTIVE`.
-- PRs mergeados reales detectados: 111.
-- PRs incluidos: 111.
+- PRs mergeados reales detectados: 117.
+- PRs incluidos: 117.
 - PRs inventados: 0.
-- PR final incluido: `universo-rey/cabina-universal-d#132`.
-- Main final: `de7f873395c2c67dec2738987e99e02b5553c150`.
+- PR final incluido: `universo-rey/cabina-universal-d#138`.
+- Main final: `965156884425e7dc63149cf50daebcab4fdecd04`.
 - GitHub lifecycle repo-scoped: `EXECUTED`.
 - OpenAI API live gobernado: `EXECUTED_GOVERNED`.
 - Responses API live gobernado: `EXECUTED_GOVERNED`.
@@ -83,18 +83,23 @@ rector al maximo nivel real observado en `main`, incluyendo el carril Agile
 Agent Canvas local validado; no ejecuta Microsoft live, OpenAI API live,
 produccion, permisos, secretos ni propagacion.
 
-Actualizacion tablero madre VSI/AAC a #132 2026-06-08: por reconciliacion
+Actualizacion canon textual post #138 2026-06-08: por reconciliacion
 repo-scoped gobernada, la cabina parte de `origin/main`
-`de7f873395c2c67dec2738987e99e02b5553c150`, con PR final incluido
-`universo-rey/cabina-universal-d#132`. Se incorporan como mergeados reales
-post #130 los PRs #131 y #132. El tablero madre queda fijado como
-`VSI / Agile Agent Canvas`; `Control de Agentes de Cabina` queda como tablero
-auxiliar y la cola del sitio web queda como superficie externa gateada. EPIC-6
-queda reconciliado con `S-6.1` revisada localmente pero no ejecutada en cola, y
-`S-6.2..S-6.5` ejecutadas localmente. La fila `vsi.agent.task.037` queda como
-historial live sanitizado, no como permiso abierto ni smoke repetible. Esta
-reconciliacion no ejecuta smoke, Microsoft live, OpenAI API live, produccion,
-permisos, secretos, push, PR ni propagacion.
+`965156884425e7dc63149cf50daebcab4fdecd04`, con PR final incluido
+`universo-rey/cabina-universal-d#138`. Se incorporan como mergeados reales
+post #132 los PRs #133, #134, #135, #136, #137 y #138. El tablero madre sigue
+fijado como `VSI / Agile Agent Canvas`; `Control de Agentes de Cabina` queda
+como tablero auxiliar y la cola del sitio web queda como superficie externa
+gateada. EPIC-6 queda reconciliado con `S-6.1` revisada localmente pero no
+ejecutada en cola, y `S-6.2..S-6.5` ejecutadas localmente. La fila
+`vsi.agent.task.037` queda como historial live sanitizado, no como permiso
+abierto ni smoke repetible. PR #138 integra
+`codex/gov/cabina/agent-dispatch-skill-adapters__ISSUE-RECON-004`, incorpora
+skills/adapters operativos, normaliza metadata y alinea rutas a la raiz
+repo-local `C:\Users\enzo1\Documents\GitHub\cabina-universal-d` como cambio
+estructural, no funcional. Esta reconciliacion textual no ejecuta smoke,
+Microsoft live, OpenAI API live, produccion, permisos, secretos, merge ni
+propagacion.
 
 Actualizacion canon activo 2026-06-03: por orden del operador, la cabina adopta
 `ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT`. La regla madre queda: ejecutar por
@@ -595,18 +600,18 @@ PR raiz setup Codex Cloud cross-platform: `universo-rey/cabina-universal-d#58` e
 PR raiz GitHub lifecycle repo-scoped: `universo-rey/cabina-universal-d#60` estado `MERGED`.
 PR raiz SDK + Codex Cloud lifecycle: `universo-rey/cabina-universal-d#61` estado `MERGED`.
 PR raiz standard agent chain: `universo-rey/cabina-universal-d#62` estado `MERGED`.
-PRs raiz post #62 incluidos a #132: `#63`, `#64`, `#65`, `#66`, `#67`, `#68`,
+PRs raiz post #62 incluidos a #138: `#63`, `#64`, `#65`, `#66`, `#67`, `#68`,
 `#69`, `#70`, `#71`, `#72`, `#73`, `#74`, `#75`, `#76`, `#77`, `#78`, `#79`,
 `#80`, `#82`, `#84`, `#85`, `#86`, `#89`, `#90`, `#91`, `#92`, `#93`, `#94`,
 `#95`, `#96`, `#97`, `#98`, `#99`, `#100`, `#101`, `#102`, `#103`, `#104`,
 `#105`, `#106`, `#107`, `#108`, `#109`, `#110`, `#111`, `#112`, `#113`,
 `#114`, `#115`, `#116`, `#117`, `#118`, `#119`, `#120`, `#121`, `#122`,
-`#123`, `#124`, `#125`, `#126`, `#127`, `#128`, `#129`, `#130`, `#131`, `#132` estado
-`MERGED`.
+`#123`, `#124`, `#125`, `#126`, `#127`, `#128`, `#129`, `#130`, `#131`, `#132`,
+`#133`, `#134`, `#135`, `#136`, `#137`, `#138` estado `MERGED`.
 PRs raiz abiertos no canonizados por este texto: ninguno detectado.
 PRs raiz cerrados sin merge excluidos: `#81`.
 Rama raiz base: `main`.
 Ultima rama raiz mergeada:
-`codex/agile-canvas-problems-agent-sdk-plan-20260608`.
-Ultimo merge commit raiz: `de7f873395c2c67dec2738987e99e02b5553c150`.
-Estado raiz vigente: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR132`.
+`codex/gov/cabina/agent-dispatch-skill-adapters__ISSUE-RECON-004`.
+Ultimo merge commit raiz: `965156884425e7dc63149cf50daebcab4fdecd04`.
+Estado raiz vigente: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR138`.

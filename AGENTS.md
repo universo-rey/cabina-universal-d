@@ -376,19 +376,24 @@ produccion, permisos, secretos ni propagacion; solo actualiza la lectura
 canonica del repo raiz hasta #130 y deja el carril Agile Agent Canvas local
 validado en el maximo nivel alcanzado.
 
-Estado tablero madre VSI/AAC actualizado 2026-06-08: por reconciliacion
+Estado canon textual post #138 actualizado 2026-06-08: por reconciliacion
 repo-scoped gobernada, el estado operativo vigente se reconcilia al `main`
-posterior a `universo-rey/cabina-universal-d#132`, merge commit
-`de7f873395c2c67dec2738987e99e02b5553c150`. Se detectan 111 PRs mergeados
-reales a `main`, sin PRs inventados y sin PRs abiertos. Los PRs post #130
-canonizados por este texto son #131 y #132. El tablero principal madre queda
-fijado como `VSI / Agile Agent Canvas`; `Control de Agentes de Cabina` queda
-como tablero auxiliar; la cola del sitio web queda como superficie externa
-gateada. `S-6.1` queda revisada localmente pero no ejecutada en cola;
-`S-6.2..S-6.5` quedan ejecutadas localmente. La fila live
+posterior a `universo-rey/cabina-universal-d#138`, merge commit
+`965156884425e7dc63149cf50daebcab4fdecd04`. Se detectan 117 PRs mergeados
+reales a `main`, sin PRs inventados y sin PRs abiertos. Los PRs post #132
+canonizados por este texto son #133, #134, #135, #136, #137 y #138. El tablero
+principal madre sigue fijado como `VSI / Agile Agent Canvas`; `Control de
+Agentes de Cabina` queda como tablero auxiliar; la cola del sitio web queda
+como superficie externa gateada. `S-6.1` queda revisada localmente pero no
+ejecutada en cola; `S-6.2..S-6.5` quedan ejecutadas localmente. La fila live
 `vsi.agent.task.037` queda como historial sanitizado, no como permiso abierto
-ni smoke repetible. Esta reconciliacion no ejecuta smoke, Microsoft live,
-OpenAI API live, produccion, permisos, secretos, push, PR ni propagacion.
+ni smoke repetible. PR #138 integra el carril
+`codex/gov/cabina/agent-dispatch-skill-adapters__ISSUE-RECON-004`, incorpora
+skills/adapters operativos, normaliza metadata y alinea rutas a la raiz
+repo-local `C:\Users\enzo1\Documents\GitHub\cabina-universal-d` como cambio
+estructural, no funcional. Esta reconciliacion textual no ejecuta smoke,
+Microsoft live, OpenAI API live, produccion, permisos, secretos, merge ni
+propagacion.
 
 ## Canon activo de ejecucion gobernada
 
@@ -511,19 +516,20 @@ Universal del Rey y como repo raiz envoltorio activo:
 - PR raiz standard agent chain:
   `https://github.com/universo-rey/cabina-universal-d/pull/62` con estado
   `MERGED`;
-- PRs raiz post #62 canonizados a #132: #63, #64, #65, #66, #67, #68, #69,
+- PRs raiz post #62 canonizados a #138: #63, #64, #65, #66, #67, #68, #69,
   #70, #71, #72, #73, #74, #75, #76, #77, #78, #79, #80, #82, #84, #85,
   #86, #89, #90, #91, #92, #93, #94, #95, #96, #97, #98, #99, #100, #101,
   #102, #103, #104, #105, #106, #107, #108, #109, #110, #111, #112, #113,
   #114, #115, #116, #117, #118, #119, #120, #121, #122, #123, #124, #125,
-  #126, #127, #128, #129, #130, #131 y #132 con estado `MERGED`; ultimo PR incluido:
-  `https://github.com/universo-rey/cabina-universal-d/pull/132`;
+  #126, #127, #128, #129, #130, #131, #132, #133, #134, #135, #136, #137 y
+  #138 con estado `MERGED`; ultimo PR incluido:
+  `https://github.com/universo-rey/cabina-universal-d/pull/138`;
 - PRs raiz abiertos no canonizados por este texto: ninguno detectado en
   preflight GitHub del 2026-06-08;
 - PRs raiz cerrados sin merge excluidos: #81;
-- estado canonico actual: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR132`;
+- estado canonico actual: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR138`;
 - ultimo main efectivo incluido:
-  `de7f873395c2c67dec2738987e99e02b5553c150`;
+  `965156884425e7dc63149cf50daebcab4fdecd04`;
 - canon operativo: `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`;
 - cadena activa: `STANDARD_AGENT_CHAIN_ACTIVE`;
 - allowlist: solo gobierno, canon, agentes locales, matrices, prompts,
