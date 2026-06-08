@@ -56,6 +56,12 @@ def validate() -> None:
         "EXECUTED_LOCAL_WRITE",
         "tools/list",
         "tools/call",
+        "fs.existsSync",
+        "AAC_MCP_FORCE_MATRIX_FALLBACK",
+        "repo_local_aac_native_agents_matrix_fallback",
+        "local_extension_path_unavailable",
+        "extension_package_available",
+        "capabilities_source",
     ):
         if token not in source:
             raise AssertionError(f"AAC MCP source missing {token}")

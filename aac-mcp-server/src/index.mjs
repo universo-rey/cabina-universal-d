@@ -91,15 +91,54 @@ function writeJson(root, relativePath, value) {
   return target;
 }
 
+function inferExtensionVersion(manifestPath) {
+  const normalized = String(manifestPath || "").replaceAll("\\", "/");
+  return normalized.match(/agileagentcanvas-([^/]+)/)?.[1] || "UNKNOWN";
+}
+
+function matrixFallbackExtension(nativeAgents, manifestPath, fallbackReason) {
+  return {
+    packagePath: "UNAVAILABLE_LOCAL_EXTENSION_PACKAGE",
+    packageJson: {
+      name: "agileagentcanvas",
+      version: inferExtensionVersion(manifestPath),
+      activationEvents: [],
+      contributes: {
+        commands: [],
+        languageModelTools: []
+      }
+    },
+    manifestPath: manifestPath || "NO_DECLARADO",
+    manifestRows: nativeAgents,
+    extensionPackageAvailable: false,
+    capabilitiesSource: "repo_local_aac_native_agents_matrix_fallback",
+    fallbackReason
+  };
+}
+
 function readExtensionPackage(nativeAgents) {
   const manifestPath = nativeAgents[0]?.native_manifest_path;
   if (!manifestPath) {
-    throw new Error("AAC native manifest path missing from roster");
+    return matrixFallbackExtension(nativeAgents, manifestPath, "native_manifest_path_missing");
+  }
+  if (process.env.AAC_MCP_FORCE_MATRIX_FALLBACK === "true") {
+    return matrixFallbackExtension(nativeAgents, manifestPath, "forced_matrix_fallback");
   }
   const packagePath = path.resolve(path.dirname(manifestPath), "..", "..", "..", "package.json");
+  if (!fs.existsSync(manifestPath) || !fs.existsSync(packagePath)) {
+    return matrixFallbackExtension(nativeAgents, manifestPath, "local_extension_path_unavailable");
+  }
   const packageJson = JSON.parse(fs.readFileSync(packagePath, "utf8"));
   const manifestRows = parseCsv(fs.readFileSync(manifestPath, "utf8"));
-  return { packagePath, packageJson, manifestPath, manifestRows };
+  return {
+    packagePath,
+    packageJson,
+    manifestPath,
+    manifestRows,
+    extensionPackageAvailable: true,
+    capabilitiesSource: "local_vscode_insiders_extension_package",
+    fallbackReason: null
+  };
 }
 
 function responseFormat(params) {
@@ -372,7 +411,15 @@ function getBoardContext(params = {}) {
 
 function getExtensionCapabilities(params = {}) {
   const { nativeAgents } = loadState();
-  const { packagePath, packageJson, manifestPath, manifestRows } = readExtensionPackage(nativeAgents);
+  const {
+    packagePath,
+    packageJson,
+    manifestPath,
+    manifestRows,
+    extensionPackageAvailable,
+    capabilitiesSource,
+    fallbackReason
+  } = readExtensionPackage(nativeAgents);
   const commands = packageJson.contributes?.commands?.map((command) => ({
     command: command.command,
     title: command.title
@@ -391,6 +438,9 @@ function getExtensionCapabilities(params = {}) {
     native_manifest_agent_count: manifestRows.length,
     package_path: packagePath,
     manifest_path: manifestPath,
+    extension_package_available: extensionPackageAvailable,
+    capabilities_source: capabilitiesSource,
+    fallback_reason: fallbackReason,
     commands,
     language_model_tools: languageModelTools,
     direct_invocation_from_codex: false
@@ -403,6 +453,7 @@ function getExtensionCapabilities(params = {}) {
     `Commands: ${output.command_count}`,
     `Language model tools: ${output.language_model_tool_count}`,
     `Native manifest agents: ${output.native_manifest_agent_count}`,
+    `Capabilities source: ${output.capabilities_source}`,
     `Direct Codex invocation: ${output.direct_invocation_from_codex}`
   ].join("\n");
   return textResult(output, responseFormat(params));

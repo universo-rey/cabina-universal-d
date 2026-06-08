@@ -10,7 +10,7 @@ const repoRoot = path.resolve(__dirname, "..", "..");
 
 const child = spawn(process.execPath, [serverPath], {
   cwd: repoRoot,
-  env: { ...process.env, AAC_MCP_REPO_ROOT: repoRoot },
+  env: { ...process.env, AAC_MCP_REPO_ROOT: repoRoot, AAC_MCP_FORCE_MATRIX_FALLBACK: "true" },
   stdio: ["pipe", "pipe", "pipe"]
 });
 
@@ -95,8 +95,12 @@ try {
     arguments: { response_format: "json" }
   });
   assert.equal(capabilities.result.structuredContent.extension_name, "agileagentcanvas");
-  assert.ok(capabilities.result.structuredContent.command_count > 0);
-  assert.ok(capabilities.result.structuredContent.language_model_tool_count > 0);
+  assert.equal(capabilities.result.structuredContent.extension_package_available, false);
+  assert.equal(capabilities.result.structuredContent.capabilities_source, "repo_local_aac_native_agents_matrix_fallback");
+  assert.equal(capabilities.result.structuredContent.fallback_reason, "forced_matrix_fallback");
+  assert.equal(capabilities.result.structuredContent.command_count, 0);
+  assert.equal(capabilities.result.structuredContent.language_model_tool_count, 0);
+  assert.equal(capabilities.result.structuredContent.native_manifest_agent_count, 21);
 
   const packet = await request("tools/call", {
     name: "aac_prepare_native_invocation",

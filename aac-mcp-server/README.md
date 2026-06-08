@@ -15,7 +15,9 @@ production or external providers.
 - `aac_get_board_context`: returns the mother-board, auxiliary-board and active
   native/Cabina agent layer context.
 - `aac_get_extension_capabilities`: reads the local VS Code Insiders extension
-  manifest and reports available AAC commands and language model tools.
+  manifest and reports available AAC commands and language model tools. If the
+  local extension install is not present, it falls back to the repo-local AAC
+  native-agent matrix and reports `extension_package_available=false`.
 - `aac_prepare_native_invocation`: prepares a non-executing invocation packet
   for an AAC native agent and story.
 - `aac_write_artifact_gated`: writes one allowlisted AAC board artifact only
