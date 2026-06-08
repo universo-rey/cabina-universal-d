@@ -91,6 +91,7 @@ Subagentes locales recomendados:
 - tool.local_validate_capability_use_hardening
 - tool.local_run_change_aware_full_coverage_orchestrator
 - tool.github_versioning_flow
+- tool.agile_canvas_extension_schema_validator
 - local JSON/schema audit using Python jsonschema
 - Agents SDK local harness with deterministic function tools
 
@@ -193,6 +194,8 @@ current_evidence:
 - installed extension observed: msayedshokry.agileagentcanvas@0.5.2
 - governance matrix currently declares: msayedshokry.agileagentcanvas@0.5.0
 - schema audit: 24 PASS, 5 FAIL, 2 NO_SCHEMA, 3 SCHEMA_REF_FAIL
+- post-reconciliation validator target: 29 PASS, 2 expected NO_SCHEMA,
+  3 expected SCHEMA_REF_FAIL, 0 content failures
 
 target fixes:
 
@@ -208,6 +211,7 @@ validator:
 
 - python scripts/validators/agile_canvas_task_ops_validator.py
 - python scripts/validators/agile_canvas_identity_drift_validator.py
+- python scripts/validators/agile_canvas_extension_schema_validator.py
 - local JSON/schema audit
 - git diff --check
 
@@ -269,6 +273,7 @@ stop_condition: READY_FOR_MERGE_HUMAN_GATE
 - git diff --check
 - python scripts/validators/agile_canvas_task_ops_validator.py
 - python scripts/validators/agile_canvas_identity_drift_validator.py
+- python scripts/validators/agile_canvas_extension_schema_validator.py
 - .agents/codex/tools/local_validate_parallel_order_governance.ps1
 - .agents/codex/tools/local_validate_capability_use_hardening.ps1
 - .agents/codex/tools/local_run_change_aware_full_coverage_orchestrator.ps1 -NoWrite

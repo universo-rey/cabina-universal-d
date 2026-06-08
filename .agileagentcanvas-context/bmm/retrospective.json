@@ -116,14 +116,14 @@
       {
         "storyId": "S-5.1",
         "storyTitle": "Definir modo lectura del canvas",
-        "outcome": "ready",
+        "outcome": "smooth",
         "notes": "La lectura de artefactos y acciones estructuradas esta validada; no requiere live.",
         "blockers": []
       },
       {
         "storyId": "S-5.6",
         "storyTitle": "Validar schema y coherencia de tareas",
-        "outcome": "needs-validator",
+        "outcome": "challenging",
         "notes": "JSON y schema pasan; falta coherencia semantica anti-demo.",
         "blockers": [
           "anti-drift validator not yet versioned"

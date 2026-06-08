@@ -21,7 +21,7 @@
       "projectName": "Cabina Universal Agent Control",
       "assessmentDate": "2026-06-08",
       "assessedBy": "Codex governed executor",
-      "overallStatus": "ready-for-local-governed-use-with-reconciliation-debt",
+      "overallStatus": "ready-with-concerns",
       "overallScore": 88,
       "recommendation": "Agile Agent Canvas esta listo para uso local gobernado como superficie de lectura, creacion y organizacion de tareas. La proxima frontera segura es completar S-5.1 y agregar un validador anti-drift antes de depender de artefactos CIS/solutioning/testing aun no reconciliados.",
       "keyFindings": [
@@ -57,7 +57,7 @@
         ]
       },
       "epicCoverage": {
-        "status": "ready",
+        "status": "complete",
         "summary": "El backlog principal declara 5 epicas y 41 stories; EPIC-5 organiza la operacion de tareas desde Agile Canvas.",
         "totalEpics": 5,
         "totalStories": 41,
