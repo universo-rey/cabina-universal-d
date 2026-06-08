@@ -140,7 +140,9 @@ assert.equal(canvasVisionActiveLane.liveExecuted, false);
 assert.equal(canvasPrd.metadata.customFields.activeGovernedLane.lockKey, "lock.vsi.aac_programming_lane");
 assert.equal(canvasPrd.metadata.customFields.activeGovernedLane.liveExecuted, false);
 assert.ok(canvasPrd.metadata.customFields.activeGovernedLane.writeAllowlist.includes(".agileagentcanvas-context/vision.json"));
-assert.equal(canvasEpics.metadata.customFields.activeGovernedLane.linkedStory, "S-1.4");
+assert.equal(canvasEpics.metadata.customFields.activeGovernedLane.linkedStory, "S-5.7");
+assert.equal(canvasEpics.metadata.customFields.taskOperations.mode, "EXECUTED_LOCAL_VALIDATED");
+assert.ok(canvasPrd.metadata.customFields.activeGovernedLane.validators.includes("python scripts/validators/agile_canvas_task_ops_validator.py"));
 assert.equal(canvasEpics.metadata.customFields.activeGovernedLane.externalSync, false);
 assert.equal(Object.hasOwn(workspaceSettings, "agileagentcanvas.skillRepos"), false);
 if (fs.existsSync(workspaceSettingsPath)) {

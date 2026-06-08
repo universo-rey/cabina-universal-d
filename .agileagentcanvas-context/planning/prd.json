@@ -6,9 +6,9 @@
     "projectName": "Cabina Universal Agent Control",
     "timestamps": {
       "created": "2026-06-06T00:00:00Z",
-      "lastModified": "2026-06-07T00:00:00Z"
+      "lastModified": "2026-06-08T00:00:00Z"
     },
-    "status": "in-progress",
+    "status": "approved",
     "tags": [
       "prd",
       "agentes",
@@ -20,7 +20,9 @@
       "relevar-requisitos",
       "inventario-superficies",
       "analisis-gates",
-      "semilla-artefactos-locales"
+      "semilla-artefactos-locales",
+      "taskops-ejecutado",
+      "taskops-validado"
     ],
     "inputDocuments": [
       {
@@ -54,7 +56,10 @@
           "local-agent-bridge/tests/mock_bridge_flow.mjs",
           "scripts/validators/local_agent_bridge_validator.py",
           ".agents/codex/orders/ORDER_VSI_POWER_PLATFORM_DRY_RUN_20260607.md",
-          ".agents/codex/matrices/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv"
+          ".agents/codex/matrices/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv",
+          ".agileagentcanvas-context/bmm/sprint-status.json",
+          "scripts/validators/agile_canvas_identity_drift_validator.py",
+          "scripts/validators/agile_canvas_task_ops_validator.py"
         ],
         "validators": [
           "npm test --prefix local-agent-bridge",
@@ -63,10 +68,103 @@
           ".agents/codex/tools/local_validate_parallel_order_governance.ps1",
           ".agents/codex/tools/local_validate_agent_layer.ps1",
           ".agents/codex/tools/local_validate_capability_use_hardening.ps1",
-          "git diff --check"
+          "git diff --check",
+          "python scripts/validators/agile_canvas_identity_drift_validator.py",
+          "python scripts/validators/agile_canvas_task_ops_validator.py"
         ],
         "liveExecuted": false,
-        "externalSync": false
+        "externalSync": false,
+        "linkedStory": "S-5.7",
+        "taskOperations": {
+          "mode": "EXECUTED_LOCAL_VALIDATED",
+          "sourceOfTruth": ".agileagentcanvas-context/planning/epics.json",
+          "sprintStatus": ".agileagentcanvas-context/bmm/sprint-status.json",
+          "activeSprint": "sprint_2026_06_08_canvas_reconciliation",
+          "laneId": "agile_canvas_programming_lane",
+          "ownerAgent": "codex.workspace_guardian",
+          "reviewerAgent": "court.seshat_evidence",
+          "lockKey": "lock.vsi.aac_programming_lane",
+          "storyIdRange": "S-5.1..S-5.7",
+          "readMode": {
+            "status": "EXECUTED_LOCAL_VALIDATED",
+            "sourceFiles": [
+              ".agileagentcanvas-context/planning/epics.json",
+              ".agileagentcanvas-context/bmm/sprint-status.json"
+            ],
+            "noQueueMutation": true,
+            "liveExecuted": false,
+            "evidence": "all cards read from Agile Canvas and sprint status cross-check"
+          },
+          "creationMode": {
+            "status": "EXECUTED_LOCAL_VALIDATED",
+            "requiredFields": [
+              "id",
+              "title",
+              "description",
+              "acceptanceCriteria",
+              "governance"
+            ],
+            "nextIdPolicy": "next stable S-5.x story under EPIC-5 unless a new epic is required",
+            "liveWriteRequiresGate": true
+          },
+          "organizationMode": {
+            "status": "EXECUTED_LOCAL_VALIDATED",
+            "lanes": [
+              "lectura",
+              "creacion",
+              "organizacion",
+              "priorizacion",
+              "sincronizacion",
+              "validacion",
+              "paso-ejecucion"
+            ],
+            "liveLaneSeparated": true
+          },
+          "priorityMode": {
+            "status": "EXECUTED_LOCAL_VALIDATED",
+            "safeNextStory": "none",
+            "localBeforeLive": true,
+            "exactPendingGates": [
+              "GATE_OPENAI_LIVE",
+              "GATE_MICROSOFT_LIVE_WRITE",
+              "GATE_LIVE_WRITE"
+            ]
+          },
+          "dashboardSync": {
+            "status": "EXECUTED_LOCAL_VALIDATED",
+            "source": "Agile Canvas stories",
+            "matrixRole": "evidence_after_canvas_creation",
+            "duplicateAuthority": false
+          },
+          "validationMode": {
+            "status": "EXECUTED_LOCAL_VALIDATED",
+            "validators": [
+              "python scripts/validators/agile_canvas_identity_drift_validator.py",
+              "python scripts/validators/agile_canvas_task_ops_validator.py",
+              "python scripts/validators/local_agent_bridge_validator.py",
+              "npm test --prefix local-agent-bridge",
+              ".agents/codex/tools/local_validate_agent_layer.ps1",
+              ".agents/codex/tools/local_validate_capability_use_hardening.ps1",
+              "git diff --check"
+            ],
+            "uniqueStoryIdsRequired": true,
+            "acceptanceCriteriaRequired": true,
+            "governanceRequired": true
+          },
+          "executionDecision": {
+            "status": "EXECUTED_LOCAL_VALIDATED",
+            "decisions": [
+              "read_only",
+              "repo_write",
+              "github_pr",
+              "live_gate_packet"
+            ],
+            "repoWriteRequiresAllowlist": true,
+            "liveWriteRequiresGate": true,
+            "liveExecuted": false,
+            "externalSync": false
+          }
+        }
       }
     }
   },
@@ -223,6 +321,96 @@
         "target": "PASS",
         "timeframe": "carril actual"
       }
-    ]
+    ],
+    "taskOperations": {
+      "mode": "EXECUTED_LOCAL_VALIDATED",
+      "sourceOfTruth": ".agileagentcanvas-context/planning/epics.json",
+      "sprintStatus": ".agileagentcanvas-context/bmm/sprint-status.json",
+      "activeSprint": "sprint_2026_06_08_canvas_reconciliation",
+      "laneId": "agile_canvas_programming_lane",
+      "ownerAgent": "codex.workspace_guardian",
+      "reviewerAgent": "court.seshat_evidence",
+      "lockKey": "lock.vsi.aac_programming_lane",
+      "storyIdRange": "S-5.1..S-5.7",
+      "readMode": {
+        "status": "EXECUTED_LOCAL_VALIDATED",
+        "sourceFiles": [
+          ".agileagentcanvas-context/planning/epics.json",
+          ".agileagentcanvas-context/bmm/sprint-status.json"
+        ],
+        "noQueueMutation": true,
+        "liveExecuted": false,
+        "evidence": "all cards read from Agile Canvas and sprint status cross-check"
+      },
+      "creationMode": {
+        "status": "EXECUTED_LOCAL_VALIDATED",
+        "requiredFields": [
+          "id",
+          "title",
+          "description",
+          "acceptanceCriteria",
+          "governance"
+        ],
+        "nextIdPolicy": "next stable S-5.x story under EPIC-5 unless a new epic is required",
+        "liveWriteRequiresGate": true
+      },
+      "organizationMode": {
+        "status": "EXECUTED_LOCAL_VALIDATED",
+        "lanes": [
+          "lectura",
+          "creacion",
+          "organizacion",
+          "priorizacion",
+          "sincronizacion",
+          "validacion",
+          "paso-ejecucion"
+        ],
+        "liveLaneSeparated": true
+      },
+      "priorityMode": {
+        "status": "EXECUTED_LOCAL_VALIDATED",
+        "safeNextStory": "none",
+        "localBeforeLive": true,
+        "exactPendingGates": [
+          "GATE_OPENAI_LIVE",
+          "GATE_MICROSOFT_LIVE_WRITE",
+          "GATE_LIVE_WRITE"
+        ]
+      },
+      "dashboardSync": {
+        "status": "EXECUTED_LOCAL_VALIDATED",
+        "source": "Agile Canvas stories",
+        "matrixRole": "evidence_after_canvas_creation",
+        "duplicateAuthority": false
+      },
+      "validationMode": {
+        "status": "EXECUTED_LOCAL_VALIDATED",
+        "validators": [
+          "python scripts/validators/agile_canvas_identity_drift_validator.py",
+          "python scripts/validators/agile_canvas_task_ops_validator.py",
+          "python scripts/validators/local_agent_bridge_validator.py",
+          "npm test --prefix local-agent-bridge",
+          ".agents/codex/tools/local_validate_agent_layer.ps1",
+          ".agents/codex/tools/local_validate_capability_use_hardening.ps1",
+          "git diff --check"
+        ],
+        "uniqueStoryIdsRequired": true,
+        "acceptanceCriteriaRequired": true,
+        "governanceRequired": true
+      },
+      "executionDecision": {
+        "status": "EXECUTED_LOCAL_VALIDATED",
+        "decisions": [
+          "read_only",
+          "repo_write",
+          "github_pr",
+          "live_gate_packet"
+        ],
+        "repoWriteRequiresAllowlist": true,
+        "liveWriteRequiresGate": true,
+        "liveExecuted": false,
+        "externalSync": false
+      }
+    }
   }
 }
