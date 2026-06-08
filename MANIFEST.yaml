@@ -3,6 +3,19 @@ map_id: CABINA_UNIVERSAL_REY_C_LOCAL
 status: C_ROOT_WRAPPER_REPO_LOCAL_ACTIVE
 root_path: C:/Users/enzo1/Documents/GitHub/cabina-universal-d
 owner: operador
+operating_memory_state:
+  as_of: 2026-06-08
+  status: FASE_2_ACTIVE_MEMORY_SLIMMED_IN_PR145
+  active_instruction: AGENTS.md
+  current_snapshot: 02_AUTHORITY_CANON/CURRENT_STATE.md
+  operating_memory_index: docs/operations/OPERATING_MEMORY_INDEX.md
+  canon_changelog: docs/operations/CANON_CHANGELOG.md
+  archive_root: docs/operations/archive
+  agents_history_archive: docs/operations/archive/AGENTS_HISTORY_20260608.md
+  current_state_history_archive: docs/operations/archive/CURRENT_STATE_HISTORY_20260608.md
+  pull_request: https://github.com/universo-rey/cabina-universal-d/pull/145
+  pull_request_status: DRAFT_IN_REVIEW
+  rule: active_documents_stay_short_history_lives_in_changelog_or_archive
 cabina_canon_state:
   status: CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON
   repo_only: false
