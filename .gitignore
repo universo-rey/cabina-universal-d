@@ -555,6 +555,9 @@
 !/.agents/codex/orders/ORDER_VSI_EXTERNAL_QUEUE_GATE_20260608.md
 !/.agents/codex/orders/ORDER_AGENTS_SDK_NEXT_TASK_LIVE_AUTH_20260608.md
 !/.agents/codex/orders/ORDER_SDU_AGENTS_NEXT_TASK_ACTIVATION_20260608.md
+!/.agents/codex/orders/ORDER_TENANT_CONTROLLED_GATE_STATE_PATCH_20260608.md
+!/.agents/codex/orders/ORDER_TENANT_APPLY_LOG_PUBLISH_20260608.md
+!/.agents/codex/orders/ORDER_TENANT_EVIDENCE_PUBLISH_20260608.md
 
 !/.agents/codex/readbacks/
 /.agents/codex/readbacks/*
