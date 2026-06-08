@@ -30,10 +30,13 @@ function Add-Gate {
 
 function Redact-Line {
   param([string]$Line)
-  return ($Line `
+  $redacted = ($Line `
     -replace '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}', '[redacted-email]' `
     -replace 'https://[^\s]+', '[redacted-url]' `
     -replace '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}', '[redacted-guid]')
+  return ($redacted `
+    -replace '(?i)(PUID:\s*)\S+', '${1}[redacted-puid]' `
+    -replace '(?i)(Token Expires:\s*).+', '${1}[redacted-token-expiry]')
 }
 
 $pac = Get-Command pac -ErrorAction SilentlyContinue
