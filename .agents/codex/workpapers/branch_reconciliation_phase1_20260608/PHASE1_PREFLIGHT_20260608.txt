@@ -1,0 +1,7 @@
+repo=C:/Users/enzo1/Documents/GitHub/cabina-universal-d
+base_branch=main
+initial_head=3ce2129
+initial_head_full=3ce212938faa36388ccc43363cf9479e1dea8807
+status_before=
+## main...origin/main
+?? .agents/codex/workpapers/branch_inventory_20260608/

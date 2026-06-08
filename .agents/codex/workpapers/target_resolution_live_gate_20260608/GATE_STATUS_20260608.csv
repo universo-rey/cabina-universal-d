@@ -1,0 +1,5 @@
+"gate","status","evidence"
+"GATE_MICROSOFT_LIVE_WRITE","BLOCKED","No SharePoint List metadata read, no list GUID, no internal field names, no required fields, no exact evidence path, no confirmed write permissions."
+"GATE_POWER_PLATFORM_APPLY","BLOCKED","Current pac environment is HUBDesarrollo, not production; target production environment and flow agente-alta-agentes were not resolved and authorized."
+"GATE_TARGET_IDENTITY","BLOCKED","Exact SharePoint target and exact Power Automate target identity are missing."
+"GATE_ROLLBACK_POSTCHECK","BLOCKED","Rollback and postcheck cannot be bound to a concrete list, library path, or flow because targets are unresolved."

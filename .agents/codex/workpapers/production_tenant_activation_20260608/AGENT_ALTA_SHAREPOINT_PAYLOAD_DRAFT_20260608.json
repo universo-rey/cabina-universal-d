@@ -1,0 +1,136 @@
+{
+  "status": "PENDING_TARGET_ONLY",
+  "source": {
+    "site": "https://escribaniabitsch.sharepoint.com/sites/soporte",
+    "agent_document": "Agente de Automatizacion de Altas de Agentes.docx",
+    "master_model_document": "MODELO MAESTRO DE AGENTES - DOCUMENTACION FINAL.docx",
+    "dataverse_reference": "1 matriz final de tablas Dataverse-combinado-combinado.pdf"
+  },
+  "candidate_operation": {
+    "operation_type": "alta_gobernada_agente_sharepoint",
+    "environment": "PROD_PENDING_EXACT_TARGET",
+    "confirmacion_humana": false,
+    "id_operacion": "PENDING"
+  },
+  "payload": {
+    "Agentes": {
+      "Titulo": "Agente de Automatizacion de Altas de Agentes",
+      "Codigo": "AA-0001",
+      "Tipo_de_agente": "Por proceso",
+      "Ambito_de_actuacion": "Registro Maestro de Agentes y listas asociadas de gobernanza",
+      "Usuarios_destinatarios": "Equipo de Cumplimiento Digital; Equipo de Soporte Operativo",
+      "Madurez": "M3",
+      "Estado_documental": "En prueba controlada",
+      "Estado_operativo_solicitado": "ACTIVO_PENDIENTE_GATE",
+      "Responsable_funcional": "Enzo Figueroa",
+      "Responsable_tecnico": "Enzo Figueroa",
+      "Aprobador_cambios_clave": "Santiago BITSCH",
+      "Sensibilidad": "Publico interno",
+      "Modo_de_operacion": "Asistido con confirmacion humana previa a create"
+    },
+    "Versiones_del_agente": [
+      {
+        "Version": "v2.0",
+        "Estado": "Propuesta para construccion asistida",
+        "Fecha_ultima_revision": "2026-03-20"
+      }
+    ],
+    "Temas": [
+      {
+        "Titulo": "Alta controlada de agentes",
+        "Estado": "PENDIENTE_LOOKUP"
+      }
+    ],
+    "Fuentes_de_conocimiento": [
+      {
+        "Titulo": "Agente de Automatizacion de Altas de Agentes.docx",
+        "Rol": "Principal",
+        "Estado": "Vigente segun lectura 2026-06-08"
+      },
+      {
+        "Titulo": "MODELO MAESTRO DE AGENTES - DOCUMENTACION FINAL.docx",
+        "Rol": "Principal",
+        "Estado": "Vigente segun lectura 2026-06-08"
+      }
+    ],
+    "Herramientas": [
+      {
+        "Titulo": "Crear registros de agente en SharePoint",
+        "Tipo": "Power Automate",
+        "Estado": "PENDIENTE_FLOW_EXACTO"
+      },
+      {
+        "Titulo": "Resolver lookup por Titulo/Codigo",
+        "Tipo": "Child flow",
+        "Estado": "PENDIENTE_FLOW_EXACTO"
+      }
+    ],
+    "RACI_del_agente": [
+      {
+        "Rol": "Responsable funcional",
+        "Persona": "Enzo Figueroa",
+        "Area": "Cumplimiento Digital"
+      },
+      {
+        "Rol": "Responsable tecnico",
+        "Persona": "Enzo Figueroa",
+        "Area": "Cumplimiento Digital"
+      },
+      {
+        "Rol": "Aprobador",
+        "Persona": "Santiago BITSCH",
+        "Area": "Direccion Notarial"
+      }
+    ],
+    "KPIs_del_agente": [
+      {
+        "KPI": "% altas completas sin retrabajo",
+        "Umbral": ">= 80%",
+        "Frecuencia": "Mensual"
+      },
+      {
+        "KPI": "% pruebas de humo aprobadas",
+        "Objetivo": "medir calidad minima de salida"
+      }
+    ],
+    "Riesgos_del_agente": [
+      {
+        "Riesgo": "Alta incorrecta de agente",
+        "Tipo": "Operativo",
+        "Mitigacion": "Validacion reforzada + aprobacion humana"
+      },
+      {
+        "Riesgo": "Lookup equivocado",
+        "Tipo": "Integridad referencial",
+        "Mitigacion": "Child flow + confirmacion de coincidencia"
+      },
+      {
+        "Riesgo": "Uso fuera de ambiente permitido",
+        "Tipo": "Gobernanza",
+        "Mitigacion": "Separacion staging/produccion"
+      }
+    ],
+    "Bitacora_editorial": [
+      {
+        "Evento": "Payload preparado, no ejecutado",
+        "Fecha": "2026-06-08",
+        "Motivo": "Faltan target exacto, flow exacto, rollback y postcheck ejecutable"
+      }
+    ],
+    "Pruebas_del_agente": [
+      {
+        "Prueba": "Confirmacion humana ausente",
+        "Resultado": "PENDIENTE",
+        "Evidencia": "No se ejecuto create"
+      }
+    ],
+    "Meta": {
+      "ConfirmacionHumana": false,
+      "Ambiente": "PROD_PENDING_EXACT_TARGET",
+      "SharePointSite": "https://escribaniabitsch.sharepoint.com/sites/soporte",
+      "FlowId": "PENDING",
+      "Rollback": "PENDING_ITEM_IDS",
+      "Postcheck": "PENDING_LIST_INTERNAL_NAMES"
+    }
+  }
+}
