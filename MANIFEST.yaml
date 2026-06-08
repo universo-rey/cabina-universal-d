@@ -5,9 +5,9 @@ root_path: C:/Users/enzo1/Documents/GitHub/cabina-universal-d
 owner: operador
 operating_memory_state:
   as_of: 2026-06-08
-  version: v2.1.0
+  version: v2.1.1
   status: active
-  state: FASE_2_ACTIVE_MEMORY_SLIMMED_IN_PR145
+  state: PR145_MERGED_POST_MERGE_CANON_SYNC
   active_instruction: AGENTS.md
   current_snapshot: 02_AUTHORITY_CANON/CURRENT_STATE.md
   operating_memory_index: docs/operations/OPERATING_MEMORY_INDEX.md
@@ -16,8 +16,9 @@ operating_memory_state:
   agents_history_archive: docs/operations/archive/AGENTS_HISTORY_20260608.md
   current_state_history_archive: docs/operations/archive/CURRENT_STATE_HISTORY_20260608.md
   pull_request: https://github.com/universo-rey/cabina-universal-d/pull/145
-  pull_request_status: DRAFT_IN_REVIEW
-  latest_verified_head_before_metadata_postcheck: c7a8bfbedfd5c84299e86770103d7b4509d6efde
+  pull_request_status: MERGED
+  final_pr_head: a1b3d6ef4389c65913fede54546a0793b3cee6b4
+  merge_commit: 29bb1804a31089170cdd782a463f496fe90353fe
   rule: active_documents_stay_short_history_lives_in_changelog_or_archive
 cabina_canon_state:
   status: CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON
@@ -247,15 +248,15 @@ root_wrapper_repo:
   scope: allowlist_governance_metadata
   absorbs_nested_repos: false
   remote_url: https://github.com/universo-rey/cabina-universal-d.git
-  pull_request: https://github.com/universo-rey/cabina-universal-d/pull/144
+  pull_request: https://github.com/universo-rey/cabina-universal-d/pull/145
   pull_request_status: MERGED
-  last_merged_branch: codex/retrospective/dataverse-atomic-segment-skill-20260608
-  last_merge_commit: 59e3b6fa99c3019bc16b26807fe79db35aa46f34
+  last_merged_branch: codex/gov/tool-selection-policy-20260608
+  last_merge_commit: 29bb1804a31089170cdd782a463f496fe90353fe
   open_pull_request: null
   open_pull_request_status: NONE_DETECTED
   open_pull_request_head: null
   visibility: private
-  status: PRIVATE_REMOTE_MAIN_ACTIVE_PR144_MERGED_CABINA_OPERATING_SYSTEM_RECONCILED
+  status: PRIVATE_REMOTE_MAIN_ACTIVE_PR145_MERGED_OPERATING_MEMORY_RECONCILED
   historical_markers:
     - marker: PR53_CHANGE_AWARE_FULL_COVERAGE
       pull_request: https://github.com/universo-rey/cabina-universal-d/pull/53
@@ -294,11 +295,11 @@ github_base_work_state:
   status: GITHUB_BASE_WORK_DECLARED_ACTIVE
   github_actions_surface_state: APPROVED_GITHUB_ACTIONS_SURFACE
   root_remote_base: https://github.com/universo-rey/cabina-universal-d.git
-  root_pull_request: https://github.com/universo-rey/cabina-universal-d/pull/144
+  root_pull_request: https://github.com/universo-rey/cabina-universal-d/pull/145
   root_pull_request_status: MERGED
   root_base_branch: main
-  root_last_merge_commit: 59e3b6fa99c3019bc16b26807fe79db35aa46f34
-  root_state: CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR144
+  root_last_merge_commit: 29bb1804a31089170cdd782a463f496fe90353fe
+  root_state: CABINA_OPERATING_MEMORY_RECONCILED_TO_PR145
   root_open_prs_not_canonized: []
   root_closed_unmerged_prs_excluded: 81
   automated_merge_policy_state: APPROVED_WITH_PRECHECKS

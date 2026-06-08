@@ -3,8 +3,8 @@
 ## Metadata
 
 - Created on: 2026-06-08
-- Version: v1.1.0
-- Current: v1.1.0
+- Version: v1.1.1
+- Current: v1.1.1
 - Last updated: 2026-06-08
 - Scope: `universo-rey/cabina-universal-d`
 - Status: active
@@ -33,7 +33,7 @@ Use it for navigation and context. Use Git/GitHub, `MANIFEST.yaml` and
 | 2026-06-08 | Canon textual post PR #138 | Agent dispatch skill adapters integrated; repo-local C path normalized as structural alignment. | archive |
 | 2026-06-08 | Dataverse tenant-controlled segments PR #140-#143 | Tenant segments and SharePoint/readback workpapers versioned; Dataverse resolver precedence codified in PR #143. | active |
 | 2026-06-08 | Retrospective/tooling/current state PR #144 | Retrospective skills, tool-selection policy, and current-state snapshot merged to `main` at `59e3b6f`. | active |
-| 2026-06-08 | Operating memory cleanup PR #145 | Fase 1 created operating memory index and archive. Fase 2 slims `AGENTS.md` and `CURRENT_STATE.md`, creates changelog, and preserves full history in archive. | needs verification |
+| 2026-06-08 | Operating memory cleanup PR #145 | Fase 1 created operating memory index and archive. Fase 2 slims `AGENTS.md` and `CURRENT_STATE.md`, creates changelog, preserves full history in archive, and merged to `main` at `29bb180`. | active |
 
 ## PR Ranges
 
@@ -41,9 +41,9 @@ Use it for navigation and context. Use Git/GitHub, `MANIFEST.yaml` and
   `#27`.
 - Gate and full-live milestones: `#53`, `#56`, `#57`, `#58`, `#60`, `#61`,
   `#62`.
-- Extended reconciliation ranges preserved in archive: `#63` through `#144`,
+- Extended reconciliation ranges preserved in archive: `#63` through `#145`,
   excluding closed-unmerged PRs recorded in historical current state.
-- Current review lane: `#145`.
+- Current review lane: none at post-merge sync preflight.
 
 ## Active Historical Rules
 

@@ -3,16 +3,16 @@
 ## Metadata
 
 - Last updated: 2026-06-08
-- Version: v2.1.0
-- Current: v2.1.0
+- Version: v2.1.1
+- Current: v2.1.1
 - Status: `snapshot`
 - Repo: `universo-rey/cabina-universal-d`
 - Workspace: repo-local root `.`
-- Branch: `codex/gov/tool-selection-policy-20260608`
-- Base head before Fase 2 cleanup: `816c907`
-- Latest verified PR head before validator implementation: `9caffff`
-- Active PR: `#145`
-- PR state at pointer post-check preflight: `draft`, `CLEAN`, checks green
+- Branch: `codex/post-pr145-canon-sync-20260608`
+- Main after PR #145 merge: `29bb1804a31089170cdd782a463f496fe90353fe`
+- PR #145 final head: `a1b3d6ef4389c65913fede54546a0793b3cee6b4`
+- Active PR: none in merged main snapshot before this post-merge canon sync
+- PR #145 state: `MERGED`
 
 ## Operating State
 
@@ -30,14 +30,15 @@
 - `docs/operations/CANON_CHANGELOG.md` summarizes historical milestones.
 - `docs/operations/archive/` preserves long historical source text.
 
-## Current PR And Checks
+## Latest Merged PR And Checks
 
 - PR `#145`: `[GOV] Codify governed tool selection policy`.
-- PR head at metadata post-check preflight:
-  `c7a8bfbedfd5c84299e86770103d7b4509d6efde`.
-- Merge state at preflight: `CLEAN`.
-- Draft state at preflight: `true`.
-- Remote checks at preflight:
+- PR #145 merged at `2026-06-08T18:29:20Z`.
+- Merge commit:
+  `29bb1804a31089170cdd782a463f496fe90353fe`.
+- Final PR head:
+  `a1b3d6ef4389c65913fede54546a0793b3cee6b4`.
+- Remote checks before merge:
   - `Active governed execution validators`: `PASS`.
   - `Local governance validators`: `PASS`.
 
@@ -62,24 +63,24 @@ Confirmed absent in Fase 2/post-check audit:
   exist and are versioned in PR #145.
 - Resolved by Fase 2 target: active memory is being split into active contract,
   current snapshot, changelog and archive.
-- Active drift to validate after validator implementation: PR head pointers
-  must agree after the commit exists.
+- Resolved by PR #145 merge: operating memory pointer validator and active
+  memory slimming are on `main`.
+- Active drift in this lane: post-merge canon text must stop treating PR #145
+  as active or draft.
 
 ## Known Risks
 
 - `docs/*` is ignored by `.gitignore`; docs under `docs/operations/` require
   explicit forced staging when intentionally versioned.
-- PR #145 remains draft until a separate approval converts it.
+- PR #145 is merged; it is no longer active or draft.
 - This cleanup is documentary/governance only. It does not authorize live
   Microsoft, SharePoint, Dataverse, Power Platform, OpenAI, production,
   permissions, secrets, deploys or workflow changes.
-- The metadata post-check commit hash cannot be self-embedded in this snapshot
-  before the commit exists; use the final PR head/readback as the post-commit
-  source.
+- Post-merge canon sync should stay documentary-only and avoid live/runtime
+  surfaces.
 
 ## Needs Verification
 
-- PR #145 checks after the validator implementation commit.
 - Whether `docs/operations/CANON_CHANGELOG.md` should become the only compact
   historical source after merge.
 - Whether `MANIFEST.yaml` should later point directly to the new operating
@@ -91,9 +92,8 @@ Confirmed absent in Fase 2/post-check audit:
 
 ## Next Lanes
 
-1. Validate the Fase 2 cleanup locally.
-2. Stage explicit paths only; do not use `git add .`.
-3. Commit and push to PR #145.
-4. Keep PR #145 draft until separate approval.
-5. After merge of #145, reconcile `CURRENT_STATE.md` to the final merge commit
-   in a separate canon update if required.
+1. Validate this post-merge canon sync locally.
+2. Stage explicit canon paths only; do not use `git add .`.
+3. Commit and push the post-merge canon sync branch.
+4. Open a minimal PR against `main`.
+5. Keep merge gated by normal HEAD, checks and human approval rules.
