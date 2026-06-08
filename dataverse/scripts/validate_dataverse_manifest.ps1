@@ -89,6 +89,32 @@ foreach ($csv in @(
   }
 }
 
+$sourceOfTruthRows = @()
+try {
+  $sourceOfTruthRows = Import-Csv -LiteralPath (Join-Path $Root 'matrices/dataverse/SOURCE_OF_TRUTH_MATRIX.csv')
+} catch {
+  $errors.Add("matrices/dataverse/SOURCE_OF_TRUTH_MATRIX.csv cannot be parsed for resolver policy: $($_.Exception.Message)")
+}
+$resolverRow = $sourceOfTruthRows | Where-Object {
+  $_.domain -eq 'atomic_segment_target_resolution' -and
+  $_.primary_source -match 'Dataverse mon_sdu_\* metadata rows' -and
+  $_.rule -match 'precedes repo-local inference' -and
+  $_.rule -match 'exact candidate count one'
+} | Select-Object -First 1
+if (-not $resolverRow) {
+  $errors.Add('SOURCE_OF_TRUTH_MATRIX missing atomic_segment_target_resolution Dataverse resolver rule')
+}
+
+$targetArchitecture = Join-Path $Root 'docs/dataverse/DATAVERSE_TARGET_ARCHITECTURE.md'
+if (Test-Path -LiteralPath $targetArchitecture) {
+  $targetArchitectureText = Get-Content -LiteralPath $targetArchitecture -Raw
+  foreach ($needle in @('Resolution Precedence', 'Dataverse', 'target_identity_ambiguous', 'No repo-local inference')) {
+    if ($targetArchitectureText -notmatch [regex]::Escape($needle)) {
+      $errors.Add("docs/dataverse/DATAVERSE_TARGET_ARCHITECTURE.md missing resolver policy text: $needle")
+    }
+  }
+}
+
 $result = [pscustomobject]@{
   manifest_valid = $errors.Count -eq 0
   checked_at = '2026-06-03'

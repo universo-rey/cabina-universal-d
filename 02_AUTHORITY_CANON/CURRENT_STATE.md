@@ -29,6 +29,19 @@ Estado rector vigente 2026-06-08:
 - Propagacion: `ENABLED_GOVERNED_GATED_NOT_EXECUTED`.
 - Secretos: `NEVER_PRINT_NEVER_PERSIST`.
 
+Actualizacion Dataverse resolver obligatorio 2026-06-08: por orden expresa del
+operador, Dataverse pasa a ser el resolver obligatorio de metadata antes de
+cada segmento atomico live o tenant-controlled. Cuando exista fila metadata en
+`mon_sdu_*`, esa fila precede cualquier inferencia repo-local para resolver
+target, owner, gate, rollback, postcheck, evidencia y stop condition. GitHub
+sigue siendo canon tecnico versionable; Dataverse resuelve el estado operativo
+consultable. Si Dataverse no devuelve exactamente un candidato para el segmento,
+el write queda detenido con `PENDING_TARGET_ONLY` o `target_identity_ambiguous`;
+no se permite completar el target desde nombres similares, memoria historica ni
+archivos repo-locales sin fila metadata exacta. Esta regla queda aplicada tras
+el write SharePoint saneado a `LIB_SGSD_Readbacks` y su back-reference
+Dataverse `readback.sharepoint_non_default_library_write.20260608`.
+
 Actualizacion SDU-CN canonical agents 2026-06-04: por orden expresa del
 operador, el carril #88 adopta el estado
 `SDU_CN_CANONICAL_AGENTS_MULTI_REPO_MULTI_UNIVERSE_READY_FOR_REVIEW`. Los

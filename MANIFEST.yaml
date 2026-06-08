@@ -21,6 +21,8 @@ cabina_canon_state:
   propagation: enabled_governed_gated
   secrets_policy: never_print_never_persist
   write_policy: exact_target_owner_rollback_postcheck_evidence_required
+  dataverse_metadata_resolver: mandatory_before_atomic_segment_when_row_exists
+  target_resolution_policy: dataverse_row_precedes_repo_local_inference
   stop_condition: stop_if_target_or_rollback_or_postcheck_missing
 standard_agent_chain:
   status: STANDARD_AGENT_CHAIN_ACTIVE
