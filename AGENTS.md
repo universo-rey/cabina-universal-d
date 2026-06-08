@@ -608,6 +608,13 @@ Si falta un archivo rector, registrar hallazgo y detener la ejecucion destructiv
 - Buscar siempre la maxima frontera segura: si no se puede ejecutar live,
   avanzar por staging, dry run, rama, PR, manifest, matriz, paquete, readback
   o validador local sin cruzar gates.
+- Para tareas repo-wide o multiarchivo, iniciar con carriles read-only
+  independientes: estructura, historial, workflows, convenciones, riesgos y
+  validacion; hacer fan-in antes de editar archivos compartidos.
+- Para auditorias de `AGENTS.md` o skills, usar la cadena `Repo Mapper ->
+  Execution Historian -> Workflow Extractor -> Standards Auditor ->
+  Instruction Architect -> Validation Planner`, con hallazgo, evidencia y
+  recomendacion por agente.
 - Antes de crear cualquier agente, perfil, skill, receta, matriz, ruta,
   contrato o validador nuevo, ejecutar preflight de no duplicacion. Buscar
   equivalentes por nombre exacto, alias, funcion, universo, superficie, skill,
