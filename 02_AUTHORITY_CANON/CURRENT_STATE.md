@@ -4,12 +4,13 @@
 
 - Last updated: 2026-06-08
 - Version: v2.1.0
+- Current: v2.1.0
 - Status: `snapshot`
 - Repo: `universo-rey/cabina-universal-d`
 - Workspace: `C:\Users\enzo1\Documents\GitHub\cabina-universal-d`
 - Branch: `codex/gov/tool-selection-policy-20260608`
 - Base head before Fase 2 cleanup: `816c907`
-- Latest verified PR head before this metadata post-check: `c7a8bfb`
+- Latest verified PR head before validator implementation: `9caffff`
 - Active PR: `#145`
 - PR state at pointer post-check preflight: `draft`, `CLEAN`, checks green
 
@@ -20,7 +21,7 @@
 - Active execution capability matrix:
   `governance/canon/ACTIVE_EXECUTION_CAPABILITY_MATRIX_20260603.csv`.
 - Standard chain: `STANDARD_AGENT_CHAIN_ACTIVE`.
-- Memory cleanup state: `FASE_2_POINTER_METADATA_POSTCHECK_CORRECTIONS_APPLIED`.
+- Memory cleanup state: `OPERATING_MEMORY_POINTER_VALIDATOR_IMPLEMENTED`.
 - GitHub is the versionable technical canon.
 - `AGENTS.md` is the active instruction contract.
 - `MANIFEST.yaml` is the structured canon/pointer surface.
@@ -49,6 +50,7 @@ Confirmed available local validators for this cleanup lane:
 - `.agents/codex/tools/local_validate_capability_use_hardening.ps1`
 - `.agents/codex/tools/local_validate_agent_layer.ps1`
 - `.agents/codex/tools/local_validate_powershell_runtime_friction.ps1`
+- `.agents/codex/tools/local_validate_operating_memory_pointers.ps1`
 
 Confirmed absent in Fase 2/post-check audit:
 
@@ -60,8 +62,8 @@ Confirmed absent in Fase 2/post-check audit:
   exist and are versioned in PR #145.
 - Resolved by Fase 2 target: active memory is being split into active contract,
   current snapshot, changelog and archive.
-- Active drift to validate after metadata post-check: Version metadata, status
-  vocabulary and PR head pointers must agree.
+- Active drift to validate after validator implementation: PR head pointers
+  must agree after the commit exists.
 
 ## Known Risks
 
@@ -77,7 +79,7 @@ Confirmed absent in Fase 2/post-check audit:
 
 ## Needs Verification
 
-- PR #145 checks after the metadata post-check commit.
+- PR #145 checks after the validator implementation commit.
 - Whether `docs/operations/CANON_CHANGELOG.md` should become the only compact
   historical source after merge.
 - Whether `MANIFEST.yaml` should later point directly to the new operating

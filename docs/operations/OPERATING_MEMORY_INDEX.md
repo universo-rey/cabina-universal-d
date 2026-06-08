@@ -4,6 +4,8 @@
 
 - Updated on: 2026-06-08
 - Version: v2.1.0
+- Current: v2.1.0
+- Last updated: 2026-06-08
 - Scope: `universo-rey/cabina-universal-d`
 - Phase: Fase 2 limpieza integral de memoria operativa
 - Status: active
@@ -27,6 +29,7 @@ current sources of truth after Fase 2 active-memory slimming.
 | `docs/operations/archive/CURRENT_STATE_HISTORY_20260608.md` | Full pre-Fase-2 CURRENT_STATE source archive. | archive | Use for historical evidence, not active snapshot. |
 | `.agents/codex/tools/TOOL_INDEX.csv` | Tool index and tool capability references. | active | Existing tool inventory source. |
 | `.agents/codex/matrices/TOOL_GOVERNANCE_MATRIX.csv` | Tool governance, side effects, gates and selection policy matrix. | active | Actual repo path; the earlier tools-directory variant was not found. |
+| `.agents/codex/tools/local_validate_operating_memory_pointers.ps1` | Local validator for active memory pointers, metadata and anti-history-regression. | active | Added in PR #145; read-only. |
 | `.agents/skills/` | Repo-local reusable skills and activation rules. | active | No pruning in Fase 2/post-check. |
 | `.agents/codex/recipes/` | Step-by-step recipes and recipe indexes. | active | No pruning in Fase 2/post-check. |
 | `.agents/codex/skills/` | Skill catalogs, usage matrices and quality matrices. | active | Catalog/index layer for skills. |

@@ -3,6 +3,8 @@
 ## Archive metadata
 - Archived on: 2026-06-08
 - Version: v1.1.0
+- Current: v1.1.0
+- Last updated: 2026-06-08
 - Original source: AGENTS.md and current operating memory
 - Reason: preserve historical context while reducing active instruction drift
 - Superseded by:

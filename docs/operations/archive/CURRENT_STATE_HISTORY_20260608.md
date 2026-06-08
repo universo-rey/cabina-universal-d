@@ -4,6 +4,8 @@
 
 - Archived on: 2026-06-08
 - Version: v1.1.0
+- Current: v1.1.0
+- Last updated: 2026-06-08
 - Original source: `02_AUTHORITY_CANON/CURRENT_STATE.md`
 - Reason: preserve long embedded current-state/changelog history before Fase 2 active-memory slimming
 - Superseded by:

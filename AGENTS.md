@@ -104,6 +104,7 @@ Fuentes de verdad:
 - Indice de memoria operativa: `docs/operations/OPERATING_MEMORY_INDEX.md`.
 - Changelog resumido: `docs/operations/CANON_CHANGELOG.md`.
 - Historia preservada: `docs/operations/archive/`.
+- Historia de AGENTS preservada: `docs/operations/archive/AGENTS_HISTORY_20260608.md`.
 - Tools: `.agents/codex/tools/TOOL_INDEX.csv`.
 - Gobierno de tools: `.agents/codex/matrices/TOOL_GOVERNANCE_MATRIX.csv`.
 - Skills repo-locales: `.agents/skills/`.
@@ -228,6 +229,8 @@ Tambien ejecutar validadores existentes relevantes: tests, lint, typecheck,
 build, secret scan, manifest/schema validation, governance validators, GitHub
 workflow validation, Dataverse/Power Platform checks, MCP registry checks,
 dry-run postcheck y evals.
+Para memoria operativa, ejecutar
+`.agents/codex/tools/local_validate_operating_memory_pointers.ps1`.
 
 Si un validator no existe, marcar `NO_ENCONTRADO`. Si no se ejecuta, marcar
 `NO_EJECUTADO` con razon. Nunca inventar `PASS`. Si falla, iterar dentro del

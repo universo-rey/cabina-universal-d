@@ -4,6 +4,8 @@
 
 - Created on: 2026-06-08
 - Version: v1.1.0
+- Current: v1.1.0
+- Last updated: 2026-06-08
 - Scope: `universo-rey/cabina-universal-d`
 - Status: active
 - Source archives:
