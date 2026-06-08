@@ -71,6 +71,17 @@
             ],
             "group": "none",
             "problemMatcher": []
+        },
+        {
+            "label": "noop",
+            "type": "process",
+            "command": "python",
+            "args": [
+                "-c",
+                "print('noop')"
+            ],
+            "isBackground": false,
+            "problemMatcher": []
         }
     ]
 }
