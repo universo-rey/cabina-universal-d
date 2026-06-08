@@ -54,7 +54,10 @@ assert.ok(dashboard.summary.visible_gate_records > dashboard.summary.gated_recor
 assert.equal(dashboard.summary.agile_agent_canvas_controls, dashboard.agile_agent_canvas.length);
 assert.equal(dashboard.summary.canvas_artifacts_ready, 4);
 assert.equal(dashboard.canvas_workbench.status, "ACTIVE_LOCAL_WORKBENCH");
-assert.equal(dashboard.canvas_workbench.project_name, "Cabina Universal Agent Control");
+assert.equal(dashboard.canvas_workbench.project_name, "VSI / Agile Agent Canvas - Cabina Universal Agent Control");
+assert.equal(dashboard.canvas_workbench.base_project_name, "Cabina Universal Agent Control");
+assert.ok(dashboard.canvas_workbench.accepted_project_names.includes("Cabina Universal Agent Control"));
+assert.ok(dashboard.canvas_workbench.accepted_project_names.includes("VSI / Agile Agent Canvas - Cabina Universal Agent Control"));
 assert.equal(dashboard.canvas_workbench.active_governed_lane.lane_id, "agile_canvas_programming_lane");
 assert.equal(dashboard.canvas_workbench.active_governed_lane.status, "ACTIVE_LOCAL_GOVERNED_USE");
 assert.equal(dashboard.canvas_workbench.active_governed_lane.live_executed, false);

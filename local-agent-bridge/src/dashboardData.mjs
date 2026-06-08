@@ -125,9 +125,11 @@ function summarizeCanvasWorkbench(repoRoot, agileAgentCanvas) {
       status: row.status
     }));
 
-  const expectedProject = "Cabina Universal Agent Control";
+  const baseProject = "Cabina Universal Agent Control";
+  const motherBoardProject = "VSI / Agile Agent Canvas - Cabina Universal Agent Control";
+  const acceptedProjectNames = new Set([baseProject, motherBoardProject]);
   const parsedCount = artifacts.filter((artifact) => artifact.parses).length;
-  const cabinaArtifactCount = artifacts.filter((artifact) => artifact.project_name === expectedProject).length;
+  const cabinaArtifactCount = artifacts.filter((artifact) => acceptedProjectNames.has(artifact.project_name)).length;
   const prd = readJson(repoRoot, ".agileagentcanvas-context/planning/prd.json");
   const activeLane = getActiveGovernedLane(prd);
   const status = seedControl && parsedCount === artifacts.length && cabinaArtifactCount === artifacts.length
@@ -136,7 +138,9 @@ function summarizeCanvasWorkbench(repoRoot, agileAgentCanvas) {
 
   return {
     status,
-    project_name: expectedProject,
+    project_name: motherBoardProject,
+    base_project_name: baseProject,
+    accepted_project_names: Array.from(acceptedProjectNames),
     artifact_count: artifacts.length,
     parsed_artifacts: parsedCount,
     cabina_artifacts: cabinaArtifactCount,

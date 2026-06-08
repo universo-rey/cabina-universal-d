@@ -257,6 +257,9 @@ def validate() -> None:
     if "board_boundary" not in dashboard_data_text or "BOARD_BOUNDARY_DECLARED" not in dashboard_data_text:
         raise AssertionError("dashboard data must declare the VSI mother-board vs auxiliary-board boundary")
     for token in (
+        "VSI / Agile Agent Canvas - Cabina Universal Agent Control",
+        "accepted_project_names",
+        "base_project_name",
         "AAC_NATIVE_AGENTS_20260608",
         "CABINA_GOVERNANCE_AGENTS_FOR_VSI_20260608",
         "aacNativeAgents",
