@@ -17,7 +17,7 @@ pr_final: universo-rey/cabina-universal-d#138
 - Drift PR #132/de7f873 vs HEAD real post PR #138/9651568.
 - Conteo de PRs mergeados de 111 a 117.
 - Referencias de ultimo PR, ultima rama mergeada y ultimo merge commit en manifesto y estado actual.
-- `open_prs_detected` en `MANIFEST.yaml` pasa a 0 segun lectura GitHub read-only.
+- `open_prs_detected` multi-repo se conserva en 5; la lectura GitHub read-only de PR root queda separada como 0 abiertos.
 
 ## Impacto en agentes
 

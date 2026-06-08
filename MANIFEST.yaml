@@ -419,7 +419,7 @@ runtime_alignment_state:
   cabina_repo_alignment_rows: 12
   repos_local_git_verified: 12
   repos_github_access_verified: 12
-  open_prs_detected: 0
+  open_prs_detected: 5
   nested_dirty_repos_detected: 1
   blocked:
     - ungoverned_openai_api_live
