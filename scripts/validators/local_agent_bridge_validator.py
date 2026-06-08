@@ -20,6 +20,7 @@ def validate() -> None:
             "local-agent-bridge/tests/mock_bridge_flow.mjs",
             ".agents/codex/orders/ORDER_VSI_POWER_PLATFORM_DRY_RUN_20260607.md",
             "scripts/validators/agile_canvas_identity_drift_validator.py",
+            "scripts/validators/agile_canvas_task_ops_validator.py",
         ]
     )
     package = read_json("local-agent-bridge/package.json")
@@ -109,6 +110,8 @@ def validate() -> None:
         raise AssertionError("local actions must block arbitrary shell execution")
     if "purpose_built_postcheck_allowlist" not in local_actions_text:
         raise AssertionError("local actions must use purpose-built postcheck allowlist")
+    if "scripts/validators/agile_canvas_task_ops_validator.py" not in local_actions_text:
+        raise AssertionError("local postcheck must run Agile Canvas task ops validator")
     if "structured_local_review_no_shell" not in local_actions_text:
         raise AssertionError("local actions must support structured no-shell review")
     for result_key in (
@@ -142,6 +145,11 @@ def validate() -> None:
         raise AssertionError("Agile Canvas identity drift validator must be declared")
     if "Cabina Universal Agent Control" not in identity_validator:
         raise AssertionError("Agile Canvas identity drift validator must require Cabina identity")
+    task_ops_validator = read_text("scripts/validators/agile_canvas_task_ops_validator.py")
+    if "AGILE_CANVAS_TASK_OPS_VALIDATOR" not in task_ops_validator:
+        raise AssertionError("Agile Canvas task ops validator must be declared")
+    if "EXECUTED_LOCAL_VALIDATED" not in task_ops_validator:
+        raise AssertionError("Agile Canvas task ops validator must require executed local validation")
 
 
 if __name__ == "__main__":

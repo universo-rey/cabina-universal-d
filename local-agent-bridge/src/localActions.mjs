@@ -124,6 +124,7 @@ function resolveSpawnSpec(spec) {
 function getPostcheckCommands() {
   return [
     commandSpec("npm test", "npm", ["test", "--prefix", "local-agent-bridge"]),
+    commandSpec("agile canvas task ops validator", "python", ["scripts/validators/agile_canvas_task_ops_validator.py"]),
     commandSpec("bridge validator", "python", ["scripts/validators/local_agent_bridge_validator.py"]),
     commandSpec("parallel governance", "powershell", [
       "-NoProfile",
@@ -1106,6 +1107,7 @@ function reviewPostcheckAllowlist() {
   const commands = getPostcheckCommands();
   const expectedLabels = [
     "npm test",
+    "agile canvas task ops validator",
     "bridge validator",
     "parallel governance",
     "capability hardening",

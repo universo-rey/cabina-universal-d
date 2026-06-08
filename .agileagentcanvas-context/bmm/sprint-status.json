@@ -17,14 +17,14 @@
     "EPIC-2": "done",
     "EPIC-3": "done",
     "EPIC-4": "planned_with_live_gates",
-    "EPIC-5": "active",
-    "S-5.1": "pending",
-    "S-5.2": "pending",
-    "S-5.3": "pending",
-    "S-5.4": "pending",
-    "S-5.5": "pending",
-    "S-5.6": "pending",
-    "S-5.7": "pending"
+    "EPIC-5": "done",
+    "S-5.1": "done",
+    "S-5.2": "done",
+    "S-5.3": "done",
+    "S-5.4": "done",
+    "S-5.5": "done",
+    "S-5.6": "done",
+    "S-5.7": "done"
   },
   "sprints": {
     "sprint_2026_06_08_canvas_reconciliation": {
@@ -40,13 +40,39 @@
         "S-5.6",
         "S-5.7"
       ],
-      "safe_next_story": "S-5.1",
+      "safe_next_story": "none",
       "blocked_live_stories": [
         "S-4.1",
         "S-4.2",
         "S-4.3"
-      ]
+      ],
+      "status": "EXECUTED_LOCAL_VALIDATED",
+      "completed_stories": [
+        "S-5.1",
+        "S-5.2",
+        "S-5.3",
+        "S-5.4",
+        "S-5.5",
+        "S-5.6",
+        "S-5.7"
+      ],
+      "execution_evidence": {
+        "executed_at": "2026-06-08T00:00:00Z",
+        "owner_agent": "codex.workspace_guardian",
+        "reviewer_agent": "court.seshat_evidence",
+        "validators": [
+          "python scripts/validators/agile_canvas_identity_drift_validator.py",
+          "python scripts/validators/agile_canvas_task_ops_validator.py",
+          "python scripts/validators/local_agent_bridge_validator.py",
+          "npm test --prefix local-agent-bridge",
+          ".agents/codex/tools/local_validate_agent_layer.ps1",
+          ".agents/codex/tools/local_validate_capability_use_hardening.ps1",
+          "git diff --check"
+        ],
+        "live_executed": false,
+        "external_sync": false
+      }
     }
   },
-  "stop_condition": "programming_lane_exits_allowlist"
+  "stop_condition": "taskops_completed_no_safe_local_story_pending"
 }

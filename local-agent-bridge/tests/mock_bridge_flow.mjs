@@ -140,7 +140,9 @@ assert.equal(canvasVisionActiveLane.liveExecuted, false);
 assert.equal(canvasPrd.metadata.customFields.activeGovernedLane.lockKey, "lock.vsi.aac_programming_lane");
 assert.equal(canvasPrd.metadata.customFields.activeGovernedLane.liveExecuted, false);
 assert.ok(canvasPrd.metadata.customFields.activeGovernedLane.writeAllowlist.includes(".agileagentcanvas-context/vision.json"));
-assert.equal(canvasEpics.metadata.customFields.activeGovernedLane.linkedStory, "S-1.4");
+assert.equal(canvasEpics.metadata.customFields.activeGovernedLane.linkedStory, "S-5.7");
+assert.equal(canvasEpics.metadata.customFields.taskOperations.mode, "EXECUTED_LOCAL_VALIDATED");
+assert.ok(canvasPrd.metadata.customFields.activeGovernedLane.validators.includes("python scripts/validators/agile_canvas_task_ops_validator.py"));
 assert.equal(canvasEpics.metadata.customFields.activeGovernedLane.externalSync, false);
 assert.equal(Object.hasOwn(workspaceSettings, "agileagentcanvas.skillRepos"), false);
 if (fs.existsSync(workspaceSettingsPath)) {
@@ -165,6 +167,7 @@ assert.equal(actionPlan.execute_now, true);
 assert.equal(actionPlan.command_execution_exposed, false);
 assert.equal(actionPlan.live_executed, false);
 assert.ok(actionPlan.postcheck_commands.includes("npm test"));
+assert.ok(actionPlan.postcheck_commands.includes("agile canvas task ops validator"));
 
 const canvasLaneReviewPlan = getLocalActionExecutionPlan("local.action.inspect_canvas_lane");
 assert.equal(canvasLaneReviewPlan.execute_now, true);
@@ -375,7 +378,7 @@ const postcheckAllowlistReview = await runLocalAction("local.action.review_postc
 assert.equal(postcheckAllowlistReview.status, "PASS");
 assert.equal(postcheckAllowlistReview.command_execution_exposed, false);
 assert.equal(postcheckAllowlistReview.live_executed, false);
-assert.equal(postcheckAllowlistReview.postcheck_allowlist_review.command_count, 5);
+assert.equal(postcheckAllowlistReview.postcheck_allowlist_review.command_count, 6);
 assert.equal(postcheckAllowlistReview.postcheck_allowlist_review.unsafe_commands.length, 0);
 assert.equal(postcheckAllowlistReview.postcheck_allowlist_review.unsafe_args.length, 0);
 
