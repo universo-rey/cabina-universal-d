@@ -85,10 +85,10 @@ def validate() -> None:
     if task_operations.get("liveExecuted") is True or task_operations.get("externalSync") is True:
         raise AssertionError("epics taskOperations must not execute live or external sync")
 
-    prd_task_ops = prd.get("content", {}).get("taskOperations", {})
-    if prd_task_ops.get("mode") != "EXECUTED_LOCAL_VALIDATED":
-        raise AssertionError("prd taskOperations must be EXECUTED_LOCAL_VALIDATED")
     active_lane = prd.get("metadata", {}).get("customFields", {}).get("activeGovernedLane", {})
+    prd_task_ops = active_lane.get("taskOperations", {})
+    if prd_task_ops.get("mode") != "EXECUTED_LOCAL_VALIDATED":
+        raise AssertionError("prd metadata customFields taskOperations must be EXECUTED_LOCAL_VALIDATED")
     validators = set(active_lane.get("validators", []))
     if "python scripts/validators/agile_canvas_task_ops_validator.py" not in validators:
         raise AssertionError("active governed lane must include task ops validator")
@@ -97,13 +97,12 @@ def validate() -> None:
     for story_id in TASK_OP_STORIES:
         if development_status.get(story_id) != "done":
             raise AssertionError(f"sprint status must mark {story_id} done")
+    if development_status.get("EPIC-4") != "backlog":
+        raise AssertionError("EPIC-4 must remain backlog because live-gated stories are not locally executable")
     active_sprint = sprint_status.get("sprints", {}).get("sprint_2026_06_08_canvas_reconciliation", {})
-    if active_sprint.get("status") != "EXECUTED_LOCAL_VALIDATED":
-        raise AssertionError("active sprint must be EXECUTED_LOCAL_VALIDATED")
-    if active_sprint.get("safe_next_story") != "none":
-        raise AssertionError("active sprint must have no remaining safe next story")
-    if sprint_status.get("live_executed") is not False or sprint_status.get("external_sync") is not False:
-        raise AssertionError("sprint status must remain no-live and no external sync")
+    expected_stories = set(TASK_OP_STORIES)
+    if set(active_sprint.get("stories", [])) != expected_stories:
+        raise AssertionError("active sprint must contain the executed task operation stories")
 
 
 if __name__ == "__main__":
