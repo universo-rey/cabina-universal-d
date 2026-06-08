@@ -14,9 +14,9 @@ history, workflow, standards, risk or validation evidence.
 ## Trigger Boundary
 
 Use for repo-wide or multi-file audits of `AGENTS.md`, skills, workflows,
-validators, conventions, risk posture and repeated repo procedures. Do not use
-for Microsoft live, OpenAI API live, production, secrets, tenant writes or
-destructive cleanup.
+tools, connectors, validators, conventions, risk posture and repeated repo
+procedures. Do not use for Microsoft live, OpenAI API live, production,
+secrets, tenant writes or destructive cleanup.
 
 ## Allowed Actions
 
@@ -27,6 +27,8 @@ destructive cleanup.
 - Propose short `AGENTS.md` rules and separate skills for repeatable workflows.
 - Use `.agents\codex\recipes\recipe.parallel_tooling_validation_chain.md` when
   the audit must choose tools, commands, validators or rollback.
+- Prefer specialized connectors, repo scripts and specific CLIs before shell or
+  PowerShell, and mark unavailable connectors as `NO_DISPONIBLE`.
 - Fan-in findings before editing shared files or matrices.
 
 ## Blocked Actions
