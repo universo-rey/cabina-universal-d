@@ -7,6 +7,7 @@
     "agileagentcanvas.graphify.autoUpdateOnSave": false,
     "agileagentcanvas.graphify.showCodebaseLane": false,
     "agileagentcanvas.codeburn.enabled": false,
+    "robotcode.disableExtension": true,
     "agentMemory.storageBackend": "disk",
     "agentMemory.autoSyncToFile": ".vscode/memory/AGENT_MEMORY_SYNC.md",
     "agentMemory.tldr.enabled": false

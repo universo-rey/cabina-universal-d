@@ -1,0 +1,151 @@
+{
+  "metadata": {
+    "schemaVersion": "1.0.0",
+    "artifactType": "source-tree",
+    "projectName": "Cabina Universal Agent Control",
+    "timestamps": {
+      "created": "2026-06-06T00:00:00Z",
+      "lastModified": "2026-06-08T00:00:00Z"
+    },
+    "status": "reconciled",
+    "tags": [
+      "source-tree",
+      "cabina",
+      "vscode-insiders",
+      "agile-agent-canvas",
+      "repo-local"
+    ],
+    "author": "Codex governed executor"
+  },
+  "content": {
+    "overview": {
+      "projectName": "Cabina Universal Agent Control",
+      "summary": "Repo raiz envoltorio gobernado para operar Agile Agent Canvas, bridge local, agentes, matrices, validadores, readbacks y evidencia de Cabina sin absorber repos anidados ni ejecutar live sin gate.",
+      "primaryLanguage": "PowerShell, JavaScript, Python, JSON"
+    },
+    "repositoryType": "governed-wrapper-repo",
+    "packageManager": "npm for local-agent-bridge only",
+    "rootStructure": {
+      "description": "Estructura repo-local de Cabina Universal Agent Control para gobierno, superficie VSI y validacion local.",
+      "entries": [
+        {
+          "path": ".agileagentcanvas-context/",
+          "type": "directory",
+          "description": "Artefactos Agile Agent Canvas usados como superficie visual de lectura, creacion y organizacion de tareas."
+        },
+        {
+          "path": ".agents/",
+          "type": "directory",
+          "description": "Skills repo-locales, matrices, recetas, tools, workpapers, orders y readbacks de agentes."
+        },
+        {
+          "path": "local-agent-bridge/",
+          "type": "directory",
+          "description": "Bridge loopback local para tablero, acciones estructuradas, contrato y tests sin shell arbitrario ni live writes."
+        },
+        {
+          "path": "scripts/validators/",
+          "type": "directory",
+          "description": "Validadores locales de gobierno, canvas, bridge y canon."
+        },
+        {
+          "path": ".github/workflows/",
+          "type": "directory",
+          "description": "GitHub Actions de validacion repo-scoped con permisos read-only."
+        },
+        {
+          "path": "AGENTS.md",
+          "type": "file",
+          "description": "Instruccion rectora local de mayor precedencia para ejecucion gobernada."
+        },
+        {
+          "path": "MANIFEST.yaml",
+          "type": "file",
+          "description": "Manifiesto rector del estado Cabina y fronteras gobernadas."
+        }
+      ]
+    },
+    "packages": [
+      {
+        "name": "local-agent-bridge",
+        "description": "Aplicacion local loopback para revisar tablero VSI, acciones locales, readiness, schema health y paquetes gateados.",
+        "structure": [
+          {
+            "path": "src/",
+            "description": "Server, dashboard data y acciones locales estructuradas."
+          },
+          {
+            "path": "public/",
+            "description": "UI local del tablero y comandos VSI."
+          },
+          {
+            "path": "tests/",
+            "description": "Smoke tests mock del bridge y acciones locales."
+          },
+          {
+            "path": "contracts/",
+            "description": "Contrato del bridge local y rutas permitidas."
+          }
+        ]
+      },
+      {
+        "name": "agileagentcanvas-context",
+        "description": "Paquete visual y documental de Agile Agent Canvas para tareas Cabina.",
+        "structure": [
+          {
+            "path": "vision.json",
+            "description": "Vision de Cabina Universal Agent Control."
+          },
+          {
+            "path": "planning/prd.json",
+            "description": "PRD local/gobernado de Cabina."
+          },
+          {
+            "path": "planning/epics.json",
+            "description": "Epicas e historias de Cabina, incluyendo EPIC-5 para operar tareas desde Agile Canvas."
+          },
+          {
+            "path": "bmm/",
+            "description": "Artefactos BMM reconciliados o pendientes de reconciliacion semantica."
+          }
+        ]
+      }
+    ],
+    "keyFiles": [
+      {
+        "path": ".agileagentcanvas-context/planning/epics.json",
+        "description": "Backlog visual de epicas e historias de Cabina.",
+        "importance": "critical"
+      },
+      {
+        "path": ".agileagentcanvas-context/bmm/sprint-status.json",
+        "description": "Estado operativo del sprint Agile Canvas actual.",
+        "importance": "high"
+      },
+      {
+        "path": "local-agent-bridge/src/localActions.mjs",
+        "description": "Acciones locales estructuradas y sin shell arbitrario.",
+        "importance": "critical"
+      },
+      {
+        "path": "scripts/validators/local_agent_bridge_validator.py",
+        "description": "Validador del contrato y superficie del bridge local.",
+        "importance": "critical"
+      },
+      {
+        "path": ".agents/codex/tools/local_validate_capability_use_hardening.ps1",
+        "description": "Validador de cadena agente/skill/receta/tool/evidencia/stop condition.",
+        "importance": "high"
+      }
+    ],
+    "blockedSurfaces": [
+      "Microsoft live write",
+      "OpenAI API live with cost or sensitive payload",
+      "production",
+      "secrets",
+      "tenant identity changes",
+      "force push",
+      "core.worktree mutation"
+    ]
+  }
+}

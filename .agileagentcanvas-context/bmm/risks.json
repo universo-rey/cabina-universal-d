@@ -1,0 +1,117 @@
+{
+  "metadata": {
+    "schemaVersion": "1.0.0",
+    "artifactType": "risks",
+    "projectName": "Cabina Universal Agent Control",
+    "timestamps": {
+      "created": "2026-06-06T00:00:00Z",
+      "lastModified": "2026-06-08T00:00:00Z"
+    },
+    "status": "reconciled",
+    "tags": [
+      "risks",
+      "cabina",
+      "agile-agent-canvas",
+      "governed-execution"
+    ],
+    "author": "Codex governed executor"
+  },
+  "risks": [
+    {
+      "id": "RISK-CABINA-001",
+      "risk": "Demo artifact drift contaminates Cabina decisions",
+      "category": "canon",
+      "probability": "high",
+      "impact": "high",
+      "riskScore": "high",
+      "status": "mitigating",
+      "owner": "codex.workspace_guardian",
+      "description": "Some Agile Agent Canvas artifacts still contain demo project names, owners, stacks, dates or assumptions that can mislead task planning.",
+      "mitigation": "Reconcile selected artifacts to Cabina identity, then add an anti-drift validator for forbidden demo identities.",
+      "contingency": "Quarantine unreconciled artifacts and exclude them from operational closeout until reviewed.",
+      "triggers": [
+        "demo_identity appears in active canvas outputs",
+        "demo_project_key appears in sprint status",
+        "Demo owners appear in risks, readiness, retrospective or source tree"
+      ],
+      "identifiedDate": "2026-06-08",
+      "lastReviewDate": "2026-06-08"
+    },
+    {
+      "id": "RISK-CABINA-002",
+      "risk": "Canvas validator passes schema while semantic drift remains",
+      "category": "validation",
+      "probability": "medium",
+      "impact": "high",
+      "riskScore": "high",
+      "status": "mitigating",
+      "owner": "court.thot_schema",
+      "description": "Current local canvas health checks parse JSON and basic artifact shape but do not block stale project identity or forbidden demo content.",
+      "mitigation": "Add a semantic identity validator for Agile Agent Canvas artifacts and include it in local readiness checks.",
+      "contingency": "Use manual rg checks before closeout until the validator is versioned.",
+      "triggers": [
+        "Canvas schema health is PASS while demo terms remain",
+        "A reconciled artifact reintroduces demo_identity or demo_project_key"
+      ],
+      "identifiedDate": "2026-06-08",
+      "lastReviewDate": "2026-06-08"
+    },
+    {
+      "id": "RISK-CABINA-003",
+      "risk": "Live-gated stories are confused with local executable stories",
+      "category": "frontier",
+      "probability": "medium",
+      "impact": "critical",
+      "riskScore": "high",
+      "status": "mitigating",
+      "owner": "rey.frontier_guardian",
+      "description": "EPIC-4 contains Jira, OpenAI/Agents SDK live and Microsoft live gates. They must not be treated as executable local tasks.",
+      "mitigation": "Keep live stories in planned/gated state and require exact target, owner, rollback, postcheck, evidence and human gate before execution.",
+      "contingency": "Stop the affected substep with the exact gate state and continue local evidence work.",
+      "triggers": [
+        "S-4.1, S-4.2 or S-4.3 is requested as execute_now without gate",
+        "A live action lacks target, owner, rollback or postcheck"
+      ],
+      "identifiedDate": "2026-06-08",
+      "lastReviewDate": "2026-06-08"
+    },
+    {
+      "id": "RISK-CABINA-004",
+      "risk": "Repo dirty state mixes unrelated local changes with canvas reconciliation",
+      "category": "git",
+      "probability": "medium",
+      "impact": "medium",
+      "riskScore": "medium",
+      "status": "monitoring",
+      "owner": "court.seshat_evidence",
+      "description": "The worktree already contains local changes in planning, VS Code settings and bridge files. Reconciliation must not revert or overwrite unrelated user/Codex changes.",
+      "mitigation": "Stage and rollback only explicit files for each carril. Report dirty state before closeout.",
+      "contingency": "Split into a dedicated codex branch/PR with explicit file set when the operator opens versioning.",
+      "triggers": [
+        "git status shows unrelated files changed",
+        "a command attempts git add . or broad restore"
+      ],
+      "identifiedDate": "2026-06-08",
+      "lastReviewDate": "2026-06-08"
+    },
+    {
+      "id": "RISK-CABINA-005",
+      "risk": "Visual canvas focus differs from artifact truth",
+      "category": "ui",
+      "probability": "medium",
+      "impact": "medium",
+      "riskScore": "medium",
+      "status": "monitoring",
+      "owner": "codex.workspace_guardian",
+      "description": "VS Code Insiders can show JSON tabs or side panels while the canvas artifacts are valid. Visual state must be verified separately from file state.",
+      "mitigation": "Use command URIs and screenshots for visual activation, and local structured actions for artifact truth.",
+      "contingency": "Close with exact distinction between visual focus and validated artifact state.",
+      "triggers": [
+        "Agile Canvas command opens an artifact JSON instead of the visual canvas",
+        "Screenshot does not show the expected lane although JSON validators pass"
+      ],
+      "identifiedDate": "2026-06-08",
+      "lastReviewDate": "2026-06-08"
+    }
+  ]
+}

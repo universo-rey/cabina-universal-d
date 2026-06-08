@@ -19,6 +19,7 @@ def validate() -> None:
             "local-agent-bridge/src/localActions.mjs",
             "local-agent-bridge/tests/mock_bridge_flow.mjs",
             ".agents/codex/orders/ORDER_VSI_POWER_PLATFORM_DRY_RUN_20260607.md",
+            "scripts/validators/agile_canvas_identity_drift_validator.py",
         ]
     )
     package = read_json("local-agent-bridge/package.json")
@@ -136,6 +137,11 @@ def validate() -> None:
             raise AssertionError(f"local actions must expose structured {result_key}")
     if "ORDER_VSI_POWER_PLATFORM_DRY_RUN_20260607.md" not in local_actions_text:
         raise AssertionError("local actions must review Power Platform dry-run packet")
+    identity_validator = read_text("scripts/validators/agile_canvas_identity_drift_validator.py")
+    if "AGILE_CANVAS_IDENTITY_DRIFT_VALIDATOR" not in identity_validator:
+        raise AssertionError("Agile Canvas identity drift validator must be declared")
+    if "Cabina Universal Agent Control" not in identity_validator:
+        raise AssertionError("Agile Canvas identity drift validator must require Cabina identity")
 
 
 if __name__ == "__main__":
