@@ -3,12 +3,13 @@
 ## Metadata
 
 - Last updated: 2026-06-08
+- Version: v2.1.0
 - Status: `snapshot`
 - Repo: `universo-rey/cabina-universal-d`
 - Workspace: `C:\Users\enzo1\Documents\GitHub\cabina-universal-d`
 - Branch: `codex/gov/tool-selection-policy-20260608`
 - Base head before Fase 2 cleanup: `816c907`
-- Latest pushed PR head before pointer post-check: `a4e58f3`
+- Latest verified PR head before this metadata post-check: `c7a8bfb`
 - Active PR: `#145`
 - PR state at pointer post-check preflight: `draft`, `CLEAN`, checks green
 
@@ -19,7 +20,7 @@
 - Active execution capability matrix:
   `governance/canon/ACTIVE_EXECUTION_CAPABILITY_MATRIX_20260603.csv`.
 - Standard chain: `STANDARD_AGENT_CHAIN_ACTIVE`.
-- Memory cleanup state: `FASE_2_POINTER_POSTCHECK_CORRECTIONS_APPLIED`.
+- Memory cleanup state: `FASE_2_POINTER_METADATA_POSTCHECK_CORRECTIONS_APPLIED`.
 - GitHub is the versionable technical canon.
 - `AGENTS.md` is the active instruction contract.
 - `MANIFEST.yaml` is the structured canon/pointer surface.
@@ -31,8 +32,8 @@
 ## Current PR And Checks
 
 - PR `#145`: `[GOV] Codify governed tool selection policy`.
-- PR head at pointer post-check preflight:
-  `a4e58f3305849b31c740c424439e160990bed005`.
+- PR head at metadata post-check preflight:
+  `c7a8bfbedfd5c84299e86770103d7b4509d6efde`.
 - Merge state at preflight: `CLEAN`.
 - Draft state at preflight: `true`.
 - Remote checks at preflight:
@@ -49,9 +50,9 @@ Confirmed available local validators for this cleanup lane:
 - `.agents/codex/tools/local_validate_agent_layer.ps1`
 - `.agents/codex/tools/local_validate_powershell_runtime_friction.ps1`
 
-Confirmed absent in Fase 2 audit:
+Confirmed absent in Fase 2/post-check audit:
 
-- `.agents/codex/tools/local_validate_tool_governance.ps1`
+- Tool-governance validator script: `NO_ENCONTRADO`.
 
 ## Drift State
 
@@ -59,8 +60,8 @@ Confirmed absent in Fase 2 audit:
   exist and are versioned in PR #145.
 - Resolved by Fase 2 target: active memory is being split into active contract,
   current snapshot, changelog and archive.
-- Active drift to validate after pointer post-check: archive relative links,
-  status vocabulary and PR head pointers must agree.
+- Active drift to validate after metadata post-check: Version metadata, status
+  vocabulary and PR head pointers must agree.
 
 ## Known Risks
 
@@ -70,17 +71,21 @@ Confirmed absent in Fase 2 audit:
 - This cleanup is documentary/governance only. It does not authorize live
   Microsoft, SharePoint, Dataverse, Power Platform, OpenAI, production,
   permissions, secrets, deploys or workflow changes.
-- The pointer post-check commit hash cannot be self-embedded in this snapshot
+- The metadata post-check commit hash cannot be self-embedded in this snapshot
   before the commit exists; use the final PR head/readback as the post-commit
   source.
 
 ## Needs Verification
 
-- PR #145 checks after the pointer post-check commit.
+- PR #145 checks after the metadata post-check commit.
 - Whether `docs/operations/CANON_CHANGELOG.md` should become the only compact
   historical source after merge.
 - Whether `MANIFEST.yaml` should later point directly to the new operating
   memory index and changelog.
+- Ignored local skill `.agents/skills/threat-modeling/SKILL.md` references
+  `NO_ENCONTRADO: docs/SKILL-ARCHITECTURE-DESIGN.md`; it is excluded from this
+  PR because `.gitignore` excludes `/.agents/skills/threat-modeling/`.
+  Candidate for Fase 3 skills/recipes pointer review.
 
 ## Next Lanes
 

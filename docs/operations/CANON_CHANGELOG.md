@@ -3,6 +3,7 @@
 ## Metadata
 
 - Created on: 2026-06-08
+- Version: v1.1.0
 - Scope: `universo-rey/cabina-universal-d`
 - Status: active
 - Source archives:
@@ -19,7 +20,7 @@ Use it for navigation and context. Use Git/GitHub, `MANIFEST.yaml` and
 
 | Date | Milestone | Summary | Status |
 | --- | --- | --- | --- |
-| 2026-06-01 | Root wrapper and GitHub lifecycle | Cabina root operates from `C:\Users\enzo1\Documents\GitHub\cabina-universal-d`, preserves nested repos, uses `codex/*`, explicit staging, commit, push and PR. | archive |
+| 2026-06-01 | Root wrapper and GitHub lifecycle | Cabina root operates from the repo workspace, preserves nested repos, uses `codex/*`, explicit staging, commit, push and PR. | archive |
 | 2026-06-01 | GitHub Actions and merge governance | GitHub Actions validation and fixed-HEAD merge policy introduced for repo-scoped work. | archive |
 | 2026-06-02 | Skills, recipes, tools and Codex Cloud lanes | Repo-local skills, operational chain, capability hardening, document lanes, Codex app/Cloud lanes and validation matrices established. | archive |
 | 2026-06-03 | Change-Aware Full-Coverage Orchestrator | Change-aware orchestrator becomes productive main gate without reducing full validator coverage. | active |

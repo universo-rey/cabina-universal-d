@@ -5,6 +5,7 @@ root_path: C:/Users/enzo1/Documents/GitHub/cabina-universal-d
 owner: operador
 operating_memory_state:
   as_of: 2026-06-08
+  version: v2.1.0
   status: active
   state: FASE_2_ACTIVE_MEMORY_SLIMMED_IN_PR145
   active_instruction: AGENTS.md
@@ -16,6 +17,7 @@ operating_memory_state:
   current_state_history_archive: docs/operations/archive/CURRENT_STATE_HISTORY_20260608.md
   pull_request: https://github.com/universo-rey/cabina-universal-d/pull/145
   pull_request_status: DRAFT_IN_REVIEW
+  latest_verified_head_before_metadata_postcheck: c7a8bfbedfd5c84299e86770103d7b4509d6efde
   rule: active_documents_stay_short_history_lives_in_changelog_or_archive
 cabina_canon_state:
   status: CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON
@@ -483,7 +485,9 @@ versioning_state:
   root_repo_remote_url: https://github.com/universo-rey/cabina-universal-d.git
   governing_repo: universo-rey/organizacion
   governing_repo_local_path: C:/Users/enzo1/Documents/GitHub/organizacion
-  registered_file_registry: 01_GOVERNANCE_REGISTRY/D_DRIVE_FILE_REGISTRY.csv
+  registered_file_registry: null
+  registered_file_registry_status: needs verification
+  registered_file_registry_missing_path: 01_GOVERNANCE_REGISTRY/D_DRIVE_FILE_REGISTRY.csv
   git_status_matrix: 01_GOVERNANCE_REGISTRY/D_DRIVE_GIT_STATUS_MATRIX.csv
   agent_layer_snapshot: C:/Users/enzo1/Documents/GitHub/organizacion/05_AGENTES/D_DRIVE_CODEX_AGENT_LAYER
   pull_request: https://github.com/universo-rey/organizacion/pull/40

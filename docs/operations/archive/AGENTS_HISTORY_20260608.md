@@ -2,6 +2,7 @@
 
 ## Archive metadata
 - Archived on: 2026-06-08
+- Version: v1.1.0
 - Original source: AGENTS.md and current operating memory
 - Reason: preserve historical context while reducing active instruction drift
 - Superseded by:
