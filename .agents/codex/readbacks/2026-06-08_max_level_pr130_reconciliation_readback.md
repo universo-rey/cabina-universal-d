@@ -21,6 +21,8 @@ estado: DRIFT_DETECTED_RECONCILIATION_READY
 - Verificado que no hay PRs abiertos.
 - Reconciliados `AGENTS.md`, `MANIFEST.yaml` y
   `02_AUTHORITY_CANON/CURRENT_STATE.md` desde #96 hacia #130.
+- Reconciliado `governance/canon/CABINA_OPERATING_SYSTEM_CONSTITUTION.md`
+  desde #96 hacia #130 tras comentario P2 de revision.
 - Conservado #96 como hito historico y registrado #130 como maximo nivel
   alcanzado observado.
 
@@ -38,6 +40,8 @@ estado: DRIFT_DETECTED_RECONCILIATION_READY
 - `gh run list --branch main --limit 10`: latest #130 workflow runs
   `Cabina Validation`, `Active Governed Execution Validation` and
   `SDU Agent Runtime Connections Validation` completed with `success`.
+- Comentario PR #131 `PRRT_kwDOSt953M6HtWrc`: solicito mantener sincronizada
+  la constitucion operativa registrada en la matriz de evidencia.
 - Agile Canvas local task operations:
   `safe_next_story=none`, `blocked_live_stories=S-4.1,S-4.2,S-4.3`,
   `live_executed=false`, `external_sync=false`.
