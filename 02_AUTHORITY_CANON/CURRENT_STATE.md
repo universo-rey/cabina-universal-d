@@ -1,18 +1,18 @@
 # Current State
 
-Estado: `CABINA_OPERATING_SYSTEM_CONSOLIDATED_TO_PR96`
+Estado: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR130`
 
-Estado rector vigente 2026-06-05:
+Estado rector vigente 2026-06-08:
 
-- Canonizacion extendida: `CABINA_OPERATING_SYSTEM_CONSOLIDATED_TO_PR96`.
+- Canonizacion extendida: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR130`.
 - Canon operativo: `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`.
 - Canon activo de ejecucion: `ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT`.
 - Cadena activa: `STANDARD_AGENT_CHAIN_ACTIVE`.
-- PRs mergeados reales detectados: 75.
-- PRs incluidos: 75.
+- PRs mergeados reales detectados: 109.
+- PRs incluidos: 109.
 - PRs inventados: 0.
-- PR final incluido: `universo-rey/cabina-universal-d#96`.
-- Main final: `e9e7af7f7e403697878039db27a6e72e0104fa24`.
+- PR final incluido: `universo-rey/cabina-universal-d#130`.
+- Main final: `b86d7d157f344f8ee2018ae2cf70dcc858bea274`.
 - GitHub lifecycle repo-scoped: `EXECUTED`.
 - OpenAI API live gobernado: `EXECUTED_GOVERNED`.
 - Responses API live gobernado: `EXECUTED_GOVERNED`.
@@ -70,6 +70,18 @@ actualizacion consolida el sistema operativo existente: canon, agentes,
 skills, recetas, tools, GitHub, Codex Cloud, validadores, evidencia,
 observabilidad y readbacks; no ejecuta live, produccion, permisos, secretos ni
 propagacion.
+
+Actualizacion maximo nivel alcanzado a #130 2026-06-08: por revision
+repo-scoped gobernada, la cabina parte de `origin/main`
+`b86d7d157f344f8ee2018ae2cf70dcc858bea274`, con PR final incluido
+`universo-rey/cabina-universal-d#130`. Se incorporan como mergeados reales
+post #96 los PRs #97, #98, #99, #100, #101, #102, #103, #104, #105, #106,
+#107, #108, #109, #110, #111, #112, #113, #114, #115, #116, #117, #118,
+#119, #120, #121, #122, #123, #124, #125, #126, #127, #128, #129 y #130.
+No hay PRs abiertos al preflight GitHub. Esta reconciliacion eleva el texto
+rector al maximo nivel real observado en `main`, incluyendo el carril Agile
+Agent Canvas local validado; no ejecuta Microsoft live, OpenAI API live,
+produccion, permisos, secretos ni propagacion.
 
 Actualizacion canon activo 2026-06-03: por orden del operador, la cabina adopta
 `ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT`. La regla madre queda: ejecutar por
@@ -570,14 +582,18 @@ PR raiz setup Codex Cloud cross-platform: `universo-rey/cabina-universal-d#58` e
 PR raiz GitHub lifecycle repo-scoped: `universo-rey/cabina-universal-d#60` estado `MERGED`.
 PR raiz SDK + Codex Cloud lifecycle: `universo-rey/cabina-universal-d#61` estado `MERGED`.
 PR raiz standard agent chain: `universo-rey/cabina-universal-d#62` estado `MERGED`.
-PRs raiz post #62 incluidos a #96: `#63`, `#64`, `#65`, `#66`, `#67`, `#68`,
+PRs raiz post #62 incluidos a #130: `#63`, `#64`, `#65`, `#66`, `#67`, `#68`,
 `#69`, `#70`, `#71`, `#72`, `#73`, `#74`, `#75`, `#76`, `#77`, `#78`, `#79`,
 `#80`, `#82`, `#84`, `#85`, `#86`, `#89`, `#90`, `#91`, `#92`, `#93`, `#94`,
-`#95`, `#96` estado `MERGED`.
+`#95`, `#96`, `#97`, `#98`, `#99`, `#100`, `#101`, `#102`, `#103`, `#104`,
+`#105`, `#106`, `#107`, `#108`, `#109`, `#110`, `#111`, `#112`, `#113`,
+`#114`, `#115`, `#116`, `#117`, `#118`, `#119`, `#120`, `#121`, `#122`,
+`#123`, `#124`, `#125`, `#126`, `#127`, `#128`, `#129`, `#130` estado
+`MERGED`.
 PRs raiz abiertos no canonizados por este texto: ninguno detectado.
 PRs raiz cerrados sin merge excluidos: `#81`, `#83`, `#87`, `#88`.
 Rama raiz base: `main`.
 Ultima rama raiz mergeada:
-`codex/ui-action-names-intuitive-20260605`.
-Ultimo merge commit raiz: `e9e7af7f7e403697878039db27a6e72e0104fa24`.
-Estado raiz vigente: `CABINA_OPERATING_SYSTEM_CONSOLIDATED_TO_PR96`.
+`codex/agile-canvas-taskops-execution-20260608`.
+Ultimo merge commit raiz: `b86d7d157f344f8ee2018ae2cf70dcc858bea274`.
+Estado raiz vigente: `CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR130`.
