@@ -541,7 +541,11 @@ function Add-WorkQueueItem {
 
   $filter = [uri]::EscapeDataString("_workqueueid_value eq $($queue.workqueueid) and uniqueidbyqueue eq '$($queueInput.idempotency_key)'")
   $existingUri = "$EnvironmentUrl/api/data/v9.2/workqueueitems?`$select=$(Get-QueueItemSelect)&`$filter=$filter&`$top=2"
-  $existingRows = if ($Apply) { @((Invoke-DataverseGet -Uri $existingUri -Headers $Headers).value) } else { @() }
+  $existingResponse = if ($Apply) { Invoke-DataverseGet -Uri $existingUri -Headers $Headers } else { $null }
+  $existingRows = @()
+  if ($existingResponse -and $existingResponse.PSObject.Properties.Name -contains 'value' -and $null -ne $existingResponse.value) {
+    $existingRows = @($existingResponse.value)
+  }
   if ($existingRows.Count -gt 1) { throw "workqueueitem_idempotency_candidate_count_not_one:$($existingRows.Count)" }
 
   if ($Apply) {
