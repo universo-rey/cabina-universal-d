@@ -652,6 +652,13 @@
 /.agents/skills/*
 !/.agents/skills/README.md
 !/.agents/skills/*/
+/.agents/skills/_repos/
+/.agents/skills/*/.repo-source
+/.agents/skills/*/.git/
+/.agents/skills/*/*
 !/.agents/skills/*/SKILL.md
+# External full-skill installs remain local/runtime unless a governed adoption
+# lane registers and allowlists them as repo-local cabina skills.
+/.agents/skills/threat-modeling/
 .opencode
 .bookmarks/local/

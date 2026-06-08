@@ -93,6 +93,38 @@ function Check-PathTokens {
   }
 }
 
+function Get-RepoLocalSkillRecords {
+  param(
+    [string]$SkillRoot,
+    [string]$RepoRoot
+  )
+
+  $records = @()
+  $gitOutput = @(& git -C $RepoRoot ls-files -- ".agents/skills/*/SKILL.md" 2>$null)
+  if ($LASTEXITCODE -eq 0 -and $gitOutput.Count -gt 0) {
+    foreach ($path in $gitOutput) {
+      $parts = @($path -split "/")
+      if ($parts.Count -eq 4 -and $parts[0] -eq ".agents" -and $parts[1] -eq "skills" -and $parts[3] -eq "SKILL.md") {
+        $records += [pscustomobject]@{
+          SkillId = $parts[2]
+          SkillPath = Join-Path $RepoRoot ($path -replace "/", "\")
+        }
+      }
+    }
+    return @($records)
+  }
+
+  if (Test-Path -LiteralPath $SkillRoot) {
+    foreach ($dir in @(Get-ChildItem -LiteralPath $SkillRoot -Directory)) {
+      $records += [pscustomobject]@{
+        SkillId = $dir.Name
+        SkillPath = Join-Path $dir.FullName "SKILL.md"
+      }
+    }
+  }
+  @($records)
+}
+
 $skillRoot = Join-Path $RepoRoot ".agents\skills"
 $qualityPath = Join-Path $Root "skills\SKILL_METADATA_QUALITY_MATRIX.csv"
 $catalogPath = Join-Path $Root "matrices\LOCAL_SKILL_CATALOG.csv"
@@ -156,12 +188,11 @@ foreach ($row in $qualityRows) {
 
 $catalogIds = @($catalogRows | Where-Object { $_.source -eq "d_drive_repo_local" } | ForEach-Object { $_.skill_id })
 $usageIds = @($usageRows | Where-Object { $_.source -eq "d_drive_repo_local" } | ForEach-Object { $_.skill_id })
+$repoLocalSkills = @(Get-RepoLocalSkillRecords -SkillRoot $skillRoot -RepoRoot $RepoRoot)
 
-if (Test-Path -LiteralPath $skillRoot) {
-  $skillDirs = @(Get-ChildItem -LiteralPath $skillRoot -Directory)
-  foreach ($dir in $skillDirs) {
-    $skillId = $dir.Name
-    $skillPath = Join-Path $dir.FullName "SKILL.md"
+foreach ($skillRecord in $repoLocalSkills) {
+    $skillId = $skillRecord.SkillId
+    $skillPath = $skillRecord.SkillPath
     if (-not (Test-Path -LiteralPath $skillPath)) {
       $errors.Add("Repo-local skill missing SKILL.md: $skillId")
       continue
@@ -218,7 +249,6 @@ if (Test-Path -LiteralPath $skillRoot) {
       }
     }
   }
-}
 
 foreach ($skillId in $catalogIds) {
   if ($skillId -notin $usageIds) {
@@ -236,7 +266,7 @@ $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }
   status = $status
   root = $Root
   repo_root = $RepoRoot
-  repo_local_skill_count = if (Test-Path -LiteralPath $skillRoot) { @(Get-ChildItem -LiteralPath $skillRoot -Directory).Count } else { 0 }
+  repo_local_skill_count = $repoLocalSkills.Count
   metadata_quality_rows = $qualityRows.Count
   warning_count = $warnings.Count
   warnings = $warnings
