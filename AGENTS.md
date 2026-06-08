@@ -21,6 +21,20 @@ validator corrido, diff observado, check consultado o limitacion explicita.
 No inventar capacidades, archivos, permisos, integraciones, resultados,
 checks, validadores ni estados.
 
+## Canon activo de ejecucion gobernada
+
+Estado activo: `ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT`.
+
+Ejecutar primero lo seguro y gatear solo fronteras reales. No cerrar con
+`blocked`, `prepared` o `pending` generico si existe accion local, mock, DEV,
+read-only, preflight, dry-run, validator, branch, PR o readback posible.
+
+Cuando falte un dato real, declarar el estado exacto: `PENDING_*_ONLY`,
+`PENDING_TARGET_ONLY`, `PENDING_OWNER_ONLY`, `PENDING_SECRET_ONLY`,
+`PENDING_COST_BOUNDARY_ONLY` o `PENDING_APPROVAL_ONLY`. Bloquear solo el
+subpaso afectado cuando cruza seguridad, secretos, produccion, tenant ambiguo,
+datos regulados, permisos, costo, live write o accion destructiva.
+
 ## Instruction Precedence And Repository Boundaries
 
 Precedencia operativa:

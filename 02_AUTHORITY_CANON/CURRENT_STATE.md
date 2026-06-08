@@ -15,6 +15,8 @@
 
 - Canon operativo: `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`.
 - Execution mode: `ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT`.
+- Active execution capability matrix:
+  `governance/canon/ACTIVE_EXECUTION_CAPABILITY_MATRIX_20260603.csv`.
 - Standard chain: `STANDARD_AGENT_CHAIN_ACTIVE`.
 - Memory cleanup state: `FASE_2A_2B_2C_AGGRESSIVE_CONTROLLED_CLEANUP_IN_PROGRESS`.
 - GitHub is the versionable technical canon.
