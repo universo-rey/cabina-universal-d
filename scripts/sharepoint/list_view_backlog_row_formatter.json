@@ -1,0 +1,73 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/sp/v2/view-formatting.schema.json",
+  "hideSelection": true,
+  "hideColumnHeaders": false,
+  "rowFormatter": {
+    "elmType": "div",
+    "style": {
+      "display": "flex",
+      "flex-direction": "row",
+      "align-items": "center",
+      "padding": "6px",
+      "border-bottom": "1px solid #eee",
+      "font-size": "14px"
+    },
+    "children": [
+      {
+        "elmType": "div",
+        "style": {
+          "flex": "2",
+          "font-weight": "bold",
+          "padding-right": "10px"
+        },
+        "txtContent": "[$Title]"
+      },
+      {
+        "elmType": "div",
+        "style": {
+          "flex": "1",
+          "text-align": "center",
+          "padding": "4px",
+          "border-radius": "4px",
+          "background-color": "=if([$Estado]=='BLOQUEADO','#c50f1f', if([$Estado]=='EN_EJECUCION','#ff8c00', if([$Estado]=='VALIDADO','#107c10','#666')))",
+          "color": "white",
+          "font-weight": "bold"
+        },
+        "txtContent": "[$Estado]"
+      },
+      {
+        "elmType": "div",
+        "style": {
+          "flex": "1",
+          "text-align": "center",
+          "padding": "4px",
+          "border-radius": "4px",
+          "background-color": "=if([$Prioridad]=='CRITICA','#ff0000', if([$Prioridad]=='ALTA','#ff9900', if([$Prioridad]=='MEDIA','#0078d4','#70ad47')))",
+          "color": "white",
+          "font-weight": "bold",
+          "margin-left": "6px"
+        },
+        "txtContent": "[$Prioridad]"
+      },
+      {
+        "elmType": "div",
+        "style": {
+          "flex": "2",
+          "padding-left": "10px",
+          "color": "#333"
+        },
+        "txtContent": "=if([$ResponsableOperativo] != '', concat('Resp: ', [$ResponsableOperativo]), 'Sin responsable')"
+      },
+      {
+        "elmType": "div",
+        "style": {
+          "flex": "3",
+          "padding-left": "10px",
+          "font-style": "italic",
+          "color": "#555"
+        },
+        "txtContent": "[$ProximoPaso]"
+      }
+    ]
+  }
+}

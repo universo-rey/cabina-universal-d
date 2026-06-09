@@ -204,6 +204,7 @@
 /teams-app/sdu-agent-chat/*
 !/teams-app/sdu-agent-chat/README.md
 !/teams-app/sdu-agent-chat/*.json
+!/teams-app/sdu-agent-chat/agent-embed.html
 !/teams-app/sdu-agent-chat/dev-package/
 /teams-app/sdu-agent-chat/dev-package/*
 !/teams-app/sdu-agent-chat/dev-package/README.md
@@ -666,4 +667,3 @@
 # lane registers and allowlists them as repo-local cabina skills.
 /.agents/skills/threat-modeling/
 .opencode
-.bookmarks/local/
