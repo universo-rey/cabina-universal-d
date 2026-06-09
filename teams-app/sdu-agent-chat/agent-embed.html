@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SDU Agent Embed</title>
+    <style>
+      html,
+      body,
+      #agent-root {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+
+      #agent-root {
+        display: flex;
+      }
+
+      iframe {
+        flex: 1;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="agent-root">
+      <iframe
+        src="https://copilotstudio.preview.microsoft.com/environments/Default-858a0852-44a1-413e-a0fe-f053949797d6/bots/Default_SESHATKERMEL_0iM5b0/canvas?__version__=2&enableFileAttachment=false&cliAgent=true"
+        title="SDU Agent"
+        allow="clipboard-write"
+        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
+      ></iframe>
+    </div>
+  </body>
+</html>
