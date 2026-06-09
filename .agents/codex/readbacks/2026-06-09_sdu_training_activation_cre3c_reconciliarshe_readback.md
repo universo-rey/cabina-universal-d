@@ -47,7 +47,7 @@ evidencia:
 - seed/source: `.agents/codex/orders/ORDER_SDU_AGENTS_NEXT_TASK_ACTIVATION_20260608.md`
 - execution: `dataverse/scripts/invoke_readback_publish_dev.ps1`
 - readback de precheck previo: `.agents/codex/readbacks/2026-06-09_sdu_training_preparation_cre3c_reconciliarshe_readback.md`
-- snapshots: 
+- snapshots:
   - `dataverse/validation/readback_publish_20260608/before_20260609_171138.json`
   - `dataverse/validation/readback_publish_20260608/after_20260609_171138.json`
   - `dataverse/validation/readback_publish_20260608/before_20260609_171213.json`
