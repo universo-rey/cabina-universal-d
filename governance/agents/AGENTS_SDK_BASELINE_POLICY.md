@@ -5,14 +5,14 @@
 This policy defines the root cabina baseline for OpenAI Agents SDK design work.
 It is now `FULL_LIVE_GOVERNED_READY` for PR #56.
 
-The default package path remains deterministic and local-first. The governed
-live gate has separately validated OpenAI API live, Responses API live and
-Agents SDK `Runner` live with synthetic payloads, no body dump, no secrets and
-no external writes.
+The default package path is governed live-ready. The governed live gate has
+separately validated OpenAI API live, Responses API live and Agents SDK
+`Runner` live with synthetic payloads, no body dump, no secrets and no
+external writes.
 
 Precision markers:
 
-- `SDU_TRIAGE_AGENT_IMPLEMENTATION=local_no_live`
+- `SDU_TRIAGE_AGENT_IMPLEMENTATION=full_live_governed`
 - `LIVE_RUNTIME_VALIDATION=external_governed_smoke`
 - `SETUP_SCRIPT_VERSIONED=yes`
 - `MAINTENANCE_SCRIPT_VERSIONED=yes`
@@ -59,8 +59,8 @@ Current states:
 
 - `agent_id`: `sdu-triage-agent`
 - `mode`: `full_live_governed`
-- `default_path`: `local_no_live`
-- `implementation`: `local_no_live`
+- `default_path`: `full_live_governed`
+- `implementation`: `full_live_governed`
 - `live_runtime_validation`: `external_governed_smoke`
 - `output`: `structured_json`
 - `external_writes`: `forbidden`

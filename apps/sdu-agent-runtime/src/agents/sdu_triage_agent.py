@@ -7,7 +7,7 @@ from tracing.local_trace import trace_event
 
 
 AGENT_ID = "sdu-triage-agent"
-MODE = "local_no_live"
+MODE = "full_live_governed"
 
 
 def triage_request(request: dict) -> dict:

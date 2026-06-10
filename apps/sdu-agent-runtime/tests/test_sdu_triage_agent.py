@@ -18,7 +18,7 @@ class SduTriageAgentTests(unittest.TestCase):
     def test_local_request_returns_structured_json(self) -> None:
         result = triage_request({"text": "Review cabina matrices locally"})
         self.assertEqual(result["agent_id"], "sdu-triage-agent")
-        self.assertEqual(result["mode"], "local_no_live")
+        self.assertEqual(result["mode"], "full_live_governed")
         self.assertEqual(result["decision"], "local_governance_review")
         self.assertEqual(result["evidence"]["external_writes"], "forbidden")
         self.assertEqual(validate_triage_output(result), [])

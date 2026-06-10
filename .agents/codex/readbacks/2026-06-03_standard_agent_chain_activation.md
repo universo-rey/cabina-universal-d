@@ -4,6 +4,12 @@
 
 `STANDARD_AGENT_CHAIN_ACTIVE`
 
+## Nota de Supersedencia
+Este readback queda superado por
+[`2026-06-10_full_live_governed_runtime_default_closeout.md`](C:/Users/enzo1/Documents/GitHub/cabina-universal-d/.agents/codex/readbacks/2026-06-10_full_live_governed_runtime_default_closeout.md),
+que formaliza `full_live_governed` como default runtime. La evidencia de esta
+cadena queda intacta.
+
 La Cabina Universal del Rey declara activa la cadena operativa estándar bajo
 `CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`, sin crear agentes duplicados y sin
 propagar a otros repos.

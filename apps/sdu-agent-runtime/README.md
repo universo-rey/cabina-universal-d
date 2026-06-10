@@ -2,13 +2,14 @@
 
 Full-live governed baseline for the cabina Agents SDK gate.
 
-This package is intentionally deterministic. It does not call OpenAI, Microsoft,
-SharePoint, Teams, Planner, Graph, Power Platform or production systems.
+This package is intentionally governed. Its default runtime path is
+`full_live_governed`, while Microsoft, production and broad writes remain
+gated.
 
 ## Full Live Governed Boundary
 
-The default package path remains `local_no_live` and deterministic. PR #56 also
-has a governed live smoke gate:
+The default package path is `full_live_governed`. PR #56 also has a governed
+live smoke gate:
 
 - `OPENAI_API_LIVE_GOVERNED_READY`
 - `RESPONSES_API_LIVE_GOVERNED_READY`
@@ -28,7 +29,7 @@ with exact scope, owner, rollback, postcheck and evidence.
 
 Precision markers:
 
-- `SDU_TRIAGE_AGENT_IMPLEMENTATION=local_no_live`
+- `SDU_TRIAGE_AGENT_IMPLEMENTATION=full_live_governed`
 - `LIVE_RUNTIME_VALIDATION=external_governed_smoke`
 - `SETUP_SCRIPT_VERSIONED=yes`
 - `MAINTENANCE_SCRIPT_VERSIONED=yes`
@@ -55,8 +56,8 @@ python -m unittest discover -s apps/sdu-agent-runtime/tests
 
 - `agent_id`: `sdu-triage-agent`
 - `mode`: `full_live_governed`
-- `default_path`: `local_no_live`
-- `implementation`: `local_no_live`
+- `default_path`: `full_live_governed`
+- `implementation`: `full_live_governed`
 - `live_runtime_validation`: external governed smoke gate
 - `output`: structured JSON
 - `external_writes`: forbidden

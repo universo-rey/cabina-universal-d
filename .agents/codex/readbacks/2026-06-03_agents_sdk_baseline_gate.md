@@ -8,6 +8,12 @@ OpenAI SDK gobernadas. No tenia skeleton root `apps/sdu-agent-runtime` ni
 Agents SDK `Runner` live fueron validados con payload sintetico, sin imprimir
 body ni secretos.
 
+## Nota de Supersedencia
+Este readback queda superado por
+[`2026-06-10_full_live_governed_runtime_default_closeout.md`](C:/Users/enzo1/Documents/GitHub/cabina-universal-d/.agents/codex/readbacks/2026-06-10_full_live_governed_runtime_default_closeout.md),
+que fija el default runtime `full_live_governed`. La evidencia historica de
+este carril se preserva sin cambios.
+
 ## Sistemas Tocados
 - `governance/agents/AGENTS_SDK_BASELINE_POLICY.md`
 - `governance/agents/AGENTS_SDK_AGENT_REGISTRY.md`
