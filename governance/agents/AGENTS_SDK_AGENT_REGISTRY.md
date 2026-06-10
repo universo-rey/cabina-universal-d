@@ -7,8 +7,8 @@
 - `owner_agent`: `court.openai_dispatcher`
 - `reviewer_agent`: `rey.frontier_guardian`
 - `mode`: `full_live_governed`
-- `default_path`: `local_no_live`
-- `implementation`: `local_no_live`
+- `default_path`: `full_live_governed`
+- `implementation`: `full_live_governed`
 - `live_runtime_validation`: `external_governed_smoke`
 - `chain_status`: `STANDARD_AGENT_CHAIN_ACTIVE`
 - `lead_agent`: `rey.control_plane_orchestrator`
@@ -53,7 +53,7 @@ writes require separate object-specific governed orders.
 
 Precision markers:
 
-- `SDU_TRIAGE_AGENT_IMPLEMENTATION=local_no_live`
+- `SDU_TRIAGE_AGENT_IMPLEMENTATION=full_live_governed`
 - `LIVE_RUNTIME_VALIDATION=external_governed_smoke`
 - `SETUP_SCRIPT_VERSIONED=yes`
 - `MAINTENANCE_SCRIPT_VERSIONED=yes`

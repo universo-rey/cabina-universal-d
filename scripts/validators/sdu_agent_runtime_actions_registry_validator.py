@@ -18,6 +18,7 @@ EXPECTED_AGENTS = {
     "horus-riesgo",
     "cre3c-reconciliar-shell",
     "narrador-normativo",
+    "cre3c-reconciliar-shell",
 }
 
 REQUIRED_COLUMNS = {

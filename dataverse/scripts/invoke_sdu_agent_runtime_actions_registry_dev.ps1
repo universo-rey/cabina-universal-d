@@ -91,7 +91,7 @@ function Get-SourceHash {
 
 function Assert-Identity {
   if (-not $Apply) { return }
-  $pacWho = Invoke-TextCommand -Command @('pac', 'org', 'who')
+  $pacWho = Invoke-TextCommand -Command @('pac', 'org', 'who', '--environment', $EnvironmentUrl)
   $pacUserLine = $pacWho | Where-Object { $_ -match '^Connected as\s+' } | Select-Object -First 1
   $pacEnvLine = $pacWho | Where-Object { $_ -match 'Environment ID:\s+' } | Select-Object -First 1
   if (-not $pacUserLine -or -not $pacEnvLine) { throw 'PAC_CONTEXT_UNRESOLVED' }

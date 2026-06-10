@@ -10,6 +10,8 @@ REQUIRED_TOP_LEVEL_FIELDS = {
     "evidence": dict,
 }
 
+EXPECTED_TRIAGE_MODE = "full_live_governed"
+
 
 def validate_triage_output(payload: dict) -> list[str]:
     errors: list[str] = []
@@ -19,8 +21,8 @@ def validate_triage_output(payload: dict) -> list[str]:
             continue
         if not isinstance(payload[field], expected_type):
             errors.append(f"type:{field}")
-    if payload.get("mode") != "local_no_live":
-        errors.append("mode:not_local_no_live")
+    if payload.get("mode") != EXPECTED_TRIAGE_MODE:
+        errors.append("mode:not_full_live_governed")
     evidence = payload.get("evidence")
     if isinstance(evidence, dict) and evidence.get("external_writes") != "forbidden":
         errors.append("external_writes:not_forbidden")
