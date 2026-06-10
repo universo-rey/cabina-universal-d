@@ -11,16 +11,16 @@ DATAVERSE_DEV_PROVISIONING_READY
 - Branch: codex/dataverse-dev-provisioning-20260603
 
 ## Fuentes leidas
-- D:/AGENTS.md
-- D:/MANIFEST.yaml
-- D:/MAPA_HUMANO.md
-- D:/00_CONTROL_PLANE_INGRESS/ROUTING.json
-- D:/01_GOVERNANCE_REGISTRY/README.md
-- D:/02_AUTHORITY_CANON/CURRENT_STATE.md
-- D:/.agents/codex/README.md
-- D:/.agents/codex/agents.json
-- D:/.agents/codex/routing.json
-- D:/.agents/codex/matrices/*.csv
+- AGENTS.md
+- MANIFEST.yaml
+- MAPA_HUMANO.md
+- 00_CONTROL_PLANE_INGRESS/ROUTING.json
+- 01_GOVERNANCE_REGISTRY/README.md
+- 02_AUTHORITY_CANON/CURRENT_STATE.md
+- .agents/codex/README.md
+- .agents/codex/agents.json
+- .agents/codex/routing.json
+- .agents/codex/matrices/*.csv
 - Microsoft Learn: Power Platform CLI, Dataverse change tracking, solutions, deployment settings and GitHub Actions.
 
 ## Matrices
@@ -50,11 +50,7 @@ DATAVERSE_DEV_PROVISIONING_READY
 ## Validaciones
 - manifest_valid: True
 - drift_clear: True
-- precheck_status: DATAVERSE_DEV_PRECHECK_BLOCKED
-- sdu-agent-runtime unittest: PASS, 5 tests
-- YAML parse: PASS, 23 files
-- Governance validation suite: PASS, 19/19
-- Dry-run scripts: PASS, no Dataverse write
+- precheck_status: DATAVERSE_DEV_PRECHECK_PASS
 
 ## Gates
 - GATE_DEV_01_LICENSE_CONFIRMED: PASS
