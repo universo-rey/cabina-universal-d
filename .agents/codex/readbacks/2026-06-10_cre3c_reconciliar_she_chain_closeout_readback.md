@@ -21,6 +21,7 @@ HECHO_VERIFICADO: el frente quedó enlazado en repo con seed, validador y readba
 
 - Se agregó `cre3c-reconciliar-shell` al seed de `dataverse/data/seed_sdu_agent_runtime_actions.csv`
 - Se actualizó `scripts/validators/sdu_agent_runtime_actions_registry_validator.py`
+- Se alineó `dataverse/scripts/invoke_sdu_agent_runtime_actions_registry_dev.ps1` para aceptar 7 agentes e incluir `cre3c-reconciliar-shell`
 - Se registró evidencia de sincronización en `.agents/codex/readbacks/2026-06-10_cre3c_reconciliar_she_registry_sync_readback.md`
 - Se dejó la cadena explícita en el registro local: `dataverse` -> `queue_modes` -> `mon_sdu_readback` -> `mon_sdu_evidence` -> `mon_sdu_apply_log` -> `workqueueitems`
 
@@ -28,7 +29,7 @@ HECHO_VERIFICADO: el frente quedó enlazado en repo con seed, validador y readba
 
 - `python scripts/validators/sdu_agent_runtime_actions_registry_validator.py` -> `PASS`
 - `git diff --check` -> limpio con warning CRLF no bloqueante en el validador
-- `git diff --name-only` -> `dataverse/data/seed_sdu_agent_runtime_actions.csv`, `scripts/validators/sdu_agent_runtime_actions_registry_validator.py`
+- `git diff --name-only` -> `dataverse/data/seed_sdu_agent_runtime_actions.csv`, `scripts/validators/sdu_agent_runtime_actions_registry_validator.py`, `dataverse/scripts/invoke_sdu_agent_runtime_actions_registry_dev.ps1`
 - `git status -sb` -> rama `codex/sdu-reconciliar-she-training-sync-20260610` limpia y publicada
 
 ## Riesgos
@@ -61,4 +62,3 @@ Medio. La cadena live Dataverse completa todavía no se aplicó; si se desea ava
 - rollback: `git revert de1ba9e`
 - stop_condition: `PENDING_APPROVAL_ONLY|GATE_DATAVERSE_APPLY`
 - proximos_carriles: `review PR 154`, `advance live apply only with exact gate`, `optionally add workpaper/matrix for queue chain`
-

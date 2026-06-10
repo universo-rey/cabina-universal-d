@@ -115,8 +115,8 @@ if (-not (Test-Path -LiteralPath $resolvedCsv)) {
 }
 
 $rows = @(Import-Csv -LiteralPath $resolvedCsv)
-if ($rows.Count -ne 6) {
-  throw "EXPECTED_SIX_SDU_AGENTS_FOUND:$($rows.Count)"
+if ($rows.Count -ne 7) {
+  throw "EXPECTED_SEVEN_SDU_AGENTS_FOUND:$($rows.Count)"
 }
 
 $requiredColumns = @(
@@ -148,6 +148,7 @@ $expectedAgents = @(
   'anubis-gate',
   'maat-cumplimiento',
   'horus-riesgo',
+  'cre3c-reconciliar-shell',
   'narrador-normativo'
 )
 $observedAgents = @($rows | ForEach-Object { $_.agent_id } | Sort-Object)
