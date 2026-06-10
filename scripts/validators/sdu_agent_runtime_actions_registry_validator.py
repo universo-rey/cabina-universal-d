@@ -17,6 +17,7 @@ EXPECTED_AGENTS = {
     "maat-cumplimiento",
     "horus-riesgo",
     "narrador-normativo",
+    "cre3c-reconciliar-shell",
 }
 
 REQUIRED_COLUMNS = {
@@ -52,8 +53,8 @@ def validate() -> None:
         ]
     )
     rows = list(csv.DictReader(CSV_PATH.read_text(encoding="utf-8-sig").splitlines()))
-    if len(rows) != 6:
-        raise AssertionError(f"expected 6 SDU canonical agents, found {len(rows)}")
+    if len(rows) != 7:
+        raise AssertionError(f"expected 7 SDU canonical agents, found {len(rows)}")
     columns = set(rows[0])
     missing_columns = sorted(REQUIRED_COLUMNS - columns)
     if missing_columns:

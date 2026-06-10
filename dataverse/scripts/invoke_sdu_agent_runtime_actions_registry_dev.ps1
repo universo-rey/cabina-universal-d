@@ -91,7 +91,7 @@ function Get-SourceHash {
 
 function Assert-Identity {
   if (-not $Apply) { return }
-  $pacWho = Invoke-TextCommand -Command @('pac', 'org', 'who')
+  $pacWho = Invoke-TextCommand -Command @('pac', 'org', 'who', '--environment', $EnvironmentUrl)
   $pacUserLine = $pacWho | Where-Object { $_ -match '^Connected as\s+' } | Select-Object -First 1
   $pacEnvLine = $pacWho | Where-Object { $_ -match 'Environment ID:\s+' } | Select-Object -First 1
   if (-not $pacUserLine -or -not $pacEnvLine) { throw 'PAC_CONTEXT_UNRESOLVED' }
@@ -115,8 +115,8 @@ if (-not (Test-Path -LiteralPath $resolvedCsv)) {
 }
 
 $rows = @(Import-Csv -LiteralPath $resolvedCsv)
-if ($rows.Count -ne 6) {
-  throw "EXPECTED_SIX_SDU_AGENTS_FOUND:$($rows.Count)"
+if ($rows.Count -ne 7) {
+  throw "EXPECTED_SEVEN_SDU_AGENTS_FOUND:$($rows.Count)"
 }
 
 $requiredColumns = @(
@@ -148,6 +148,7 @@ $expectedAgents = @(
   'anubis-gate',
   'maat-cumplimiento',
   'horus-riesgo',
+  'cre3c-reconciliar-shell',
   'narrador-normativo'
 )
 $observedAgents = @($rows | ForEach-Object { $_.agent_id } | Sort-Object)
