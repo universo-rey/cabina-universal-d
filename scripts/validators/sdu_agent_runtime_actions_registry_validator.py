@@ -16,6 +16,7 @@ EXPECTED_AGENTS = {
     "anubis-gate",
     "maat-cumplimiento",
     "horus-riesgo",
+    "cre3c-reconciliar-shell",
     "narrador-normativo",
     "cre3c-reconciliar-shell",
 }
