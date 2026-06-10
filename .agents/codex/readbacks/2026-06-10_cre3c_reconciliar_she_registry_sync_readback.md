@@ -29,4 +29,3 @@ Metadata-only sync for the SDU training front of the agent currently known in th
 ## Stop condition
 
 `AGENT_CRE3C_RUNTIME_REGISTERED`
-
