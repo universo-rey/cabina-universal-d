@@ -204,6 +204,7 @@
 /teams-app/sdu-agent-chat/*
 !/teams-app/sdu-agent-chat/README.md
 !/teams-app/sdu-agent-chat/*.json
+!/teams-app/sdu-agent-chat/agent-embed.html
 !/teams-app/sdu-agent-chat/dev-package/
 /teams-app/sdu-agent-chat/dev-package/*
 !/teams-app/sdu-agent-chat/dev-package/README.md
@@ -558,6 +559,8 @@
 !/.agents/codex/orders/ORDER_TENANT_CONTROLLED_GATE_STATE_PATCH_20260608.md
 !/.agents/codex/orders/ORDER_TENANT_APPLY_LOG_PUBLISH_20260608.md
 !/.agents/codex/orders/ORDER_TENANT_EVIDENCE_PUBLISH_20260608.md
+!/.agents/codex/orders/ORDER_TENANT_PR140_MERGE_EVIDENCE_PUBLISH_20260608.md
+!/.agents/codex/orders/ORDER_TENANT_READBACK_PUBLISH_20260608.md
 
 !/.agents/codex/readbacks/
 /.agents/codex/readbacks/*
@@ -664,4 +667,3 @@
 # lane registers and allowlists them as repo-local cabina skills.
 /.agents/skills/threat-modeling/
 .opencode
-.bookmarks/local/

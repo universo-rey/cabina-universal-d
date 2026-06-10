@@ -30,3 +30,4 @@ recipe.backreference-target-mapping-before-write,01_AUTORIDAD_Y_GATES,rey.fronti
 recipe.mapping-record-before-target-write,03_CORTE_EJECUTORA,court.seshat_evidence,.agents\codex\recipes\recipe.mapping-record-before-target-write.md,mapping_record_evidence
 recipe.vsi_prepared_agent_task_execution,05_SOPORTE_TECNICO,codex.workspace_guardian,.agents\codex\recipes\recipe.vsi_prepared_agent_task_execution.md,vsi_task_execution_readback
 recipe.vsi_live_surface_gate_packet,01_AUTORIDAD_Y_GATES,rey.frontier_guardian,.agents\codex\recipes\recipe.vsi_live_surface_gate_packet.md,vsi_live_gate_packet
+recipe.parallel_tooling_validation_chain,03_CORTE_EJECUTORA,court.thot_schema,.agents\codex\recipes\recipe.parallel_tooling_validation_chain.md,tooling_validation_plan

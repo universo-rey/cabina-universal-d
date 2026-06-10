@@ -1,0 +1,14 @@
+gate_item,required_for_write,status,evidence,stop_condition
+site_exact_identity,yes,PASS,"/sites/soporte resolved to Innovacion y Desarrollo; webUrl confirmed",none
+sharepoint_document_sources,yes,PASS,"fetched agent docx, model master docx, Dataverse PDF",none
+sharepoint_list_internal_names,yes,PENDING,"connector did not enumerate SharePoint lists; m365 spo list list timed out",target_identity_ambiguous
+sharepoint_create_item_tool,yes,PENDING,"available SharePoint MCP tools expose file read/update/delete, not list item create",tool_unavailable_for_write
+power_automate_flow_exact_id,yes,PENDING,"no flow id/name/environment confirmed for alta gobernada",target_identity_ambiguous
+power_platform_environment_exact,yes,PENDING,"pac active environment is HUBDesarrollo; production target not selected",environment_target_ambiguous
+payload_agent_identity,yes,PARTIAL,"candidate agent from source doc: Agente de Automatizacion de Altas de Agentes / AA-0001",requires_human_confirmation
+payload_required_fields,yes,PARTIAL,"source doc contains many fields; live create still needs approved payload and lookup resolution",payload_not_approved
+raci_owner,yes,PARTIAL,"source doc names Enzo Figueroa as functional/technical owner and Santiago BITSCH as approver",owner_confirmation_required
+rollback_plan,yes,PENDING,"delete/revert created list items by item IDs after create; item IDs unavailable before write",rollback_missing
+postcheck_plan,yes,PENDING,"read created items by IDs across all target lists and verify bitacora/prueba de humo",postcheck_missing_until_target_exact
+staging_tests,yes,PENDING,"agent doc requires staging lookup tests and 20 functional tests before production",staging_validation_missing
+production_write,yes,NOT_EXECUTED,"live create/flow not executed",PENDING_TARGET_ONLY

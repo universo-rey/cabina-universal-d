@@ -4,3 +4,4 @@
 "capability_mapping",".agents/codex/matrices","queryable normalized capability map","optional published evidence","Matrix hashes preserve lineage"
 "runtime_gates","GitHub workflows and local validators","gate state and apply log registry","operator readback","No live action without target rollback postcheck"
 "production","human governed order","blocked until explicit target","approval evidence","PROD never inferred from DEV"
+"atomic_segment_target_resolution","Dataverse mon_sdu_* metadata rows","primary live resolver for target owner gate rollback postcheck evidence and stop condition","published readback/evidence only","If Dataverse has a row it precedes repo-local inference; write requires exact candidate count one"

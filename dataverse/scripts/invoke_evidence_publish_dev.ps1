@@ -5,6 +5,13 @@ param(
   [string]$ExpectedUser = 'efigueroa@registronotarial8tdf.com.ar',
   [string]$CanonicalId = 'evidence.tenant_apply_log_publish.20260608',
   [string]$SourcePath = '.agents/codex/readbacks/2026-06-08_tenant_apply_log_publish_readback.md',
+  [string]$DisplayName = 'Tenant apply log evidence publish 20260608',
+  [string]$Status = 'EVIDENCE_PUBLISHED',
+  [string]$SeedBatchId = '20260608_tenant_evidence_publish_v1',
+  [string]$EvidenceType = 'metadata_pointer_only',
+  [string]$RiskLevel = 'low',
+  [string]$StopCondition = 'TENANT_APPLY_LOG_PUBLISH_APPLIED_AND_POSTCHECKED',
+  [string]$Notes = 'Sanitized metadata evidence row for the tenant apply-log publish segment. No flow activation, no SharePoint write, no production.',
   [string]$OutputDir = 'dataverse/validation/evidence_publish_20260608',
   [switch]$Apply,
   [switch]$Rollback
@@ -126,22 +133,22 @@ $beforeRows | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $beforePath -En
 
 $payload = @{
   mon_canonical_id = $CanonicalId
-  mon_display_name = 'Tenant apply log evidence publish 20260608'
-  mon_status = 'EVIDENCE_PUBLISHED'
-  mon_seed_batch_id = '20260608_tenant_evidence_publish_v1'
+  mon_display_name = $DisplayName
+  mon_status = $Status
+  mon_seed_batch_id = $SeedBatchId
   mon_source_system = 'cabina-universal-d'
   mon_source_path = $SourcePath
   mon_source_hash = $sourceHash
   mon_evidence_hash = $sourceHash
-  mon_evidence_type = 'metadata_pointer_only'
+  mon_evidence_type = $EvidenceType
   mon_environment_scope = 'HUBDesarrollo|7f65fc04-c27a-ea0d-bd2d-266aa9203c1e'
   mon_gate_required = $true
   mon_owner = 'SDUCapabilityControlPlane'
-  mon_risk_level = 'low'
+  mon_risk_level = $RiskLevel
   mon_tenant_scope = 'escribaniabitsch.sharepoint.com'
-  mon_stop_condition = 'TENANT_APPLY_LOG_PUBLISH_APPLIED_AND_POSTCHECKED'
+  mon_stop_condition = $StopCondition
   mon_last_reconciled_at = (Get-Date).ToString('yyyy-MM-ddTHH:mm:sszzz')
-  mon_notes = 'Sanitized metadata evidence row for the tenant apply-log publish segment. No flow activation, no SharePoint write, no production.'
+  mon_notes = $Notes
 }
 
 $rollbackPayload = @{
