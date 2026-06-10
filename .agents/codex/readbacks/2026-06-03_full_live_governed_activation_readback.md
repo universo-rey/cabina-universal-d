@@ -31,6 +31,12 @@ Precision markers:
 - `WINDOWS_GIT_BASH_COMPATIBLE=yes`
 - `POSIX_COMPATIBLE=yes`
 
+## Nota de Supersedencia
+Este readback queda superado por
+[`2026-06-10_full_live_governed_runtime_default_closeout.md`](C:/Users/enzo1/Documents/GitHub/cabina-universal-d/.agents/codex/readbacks/2026-06-10_full_live_governed_runtime_default_closeout.md),
+que deja el runtime base en `full_live_governed`. La evidencia live historica
+se preserva sin cambios.
+
 ## Sistemas Tocados
 - Repo raiz `D:/` en branch `codex/cabina-cloud-agents-sdk-baseline-20260603`.
 - OpenAI API live para smokes sinteticos y sanitizados.

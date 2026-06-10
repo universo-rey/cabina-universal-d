@@ -25,14 +25,23 @@ def validate() -> None:
     profile = read_text(".codex/cloud/sdu-agents/profile.yml")
     required_profile_tokens = [
         "repo: universo-rey/cabina-universal-d",
-        "live_writes: false",
-        "production: false",
+        "mode: repo_scoped_governed",
+        "live_writes: governed_gated",
+        "production: governed_gated",
         "remote_persistent_agent: false",
+        "codex_cloud_status",
+        "codex_cloud_diff",
+        "codex_cloud_exec",
         "codex_cloud_apply",
     ]
     for token in required_profile_tokens:
         if token not in profile:
             raise AssertionError(f"profile missing {token}")
+    for token in [
+        "repo_scoped_review_first",
+    ]:
+        if token in profile:
+            raise AssertionError(f"profile still contains legacy or unreviewed token {token}")
 
     matrix_path = "governance/codex-cloud/SDU_AGENT_CODEX_CLOUD_ASSIGNMENT_MATRIX_20260603.csv"
     rows = read_csv(matrix_path)
