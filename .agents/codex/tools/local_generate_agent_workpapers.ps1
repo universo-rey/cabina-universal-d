@@ -1,5 +1,5 @@
 param(
-  [string]$Root = ".agents\codex",
+  [string]$Root = "C:\Users\enzo1\.codex",
   [string]$Today = "2026-06-01"
 )
 
@@ -98,7 +98,7 @@ $data.default_policy.required_closeout_fields = @(
   "agente", "orden", "superficie", "estado", "evidencia",
   "validador", "riesgo", "rollback", "stop_condition", "proximos_carriles"
 )
-$data.artifact_roots | Add-Member -NotePropertyName workpapers -NotePropertyValue ".agents\codex\workpapers" -Force
+$data.artifact_roots | Add-Member -NotePropertyName workpapers -NotePropertyValue (Join-Path $Root "workpapers") -Force
 $data.artifact_roots | Add-Member -NotePropertyName plugins -NotePropertyValue ".agents\codex\plugins" -Force
 
 $existing = Import-Csv -LiteralPath (Join-Path $Root "matrices\AGENT_TOOL_RECIPE_SKILL_MATRIX.csv")
@@ -362,7 +362,7 @@ $matrixRows = @(Import-Csv -LiteralPath $matrixPath)
 $matrixRows = Add-MatrixIndexRow $matrixRows "agent_workpapers_matrix" ".agents\codex\matrices\AGENT_WORKPAPERS_MATRIX.csv" "agent_workpapers" "03_CORTE_EJECUTORA" "update when any agent workpaper path or validator changes"
 $matrixRows = Add-MatrixIndexRow $matrixRows "plugin_usage_matrix" ".agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv" "plugins" "05_SOPORTE_TECNICO" "update when plugin availability or live boundary changes"
 $matrixRows = Add-MatrixIndexRow $matrixRows "purpose_surface_capability_matrix" ".agents\codex\matrices\PURPOSE_SURFACE_CAPABILITY_MATRIX.csv" "agent_surface_capabilities" "00_ROUTER" "update when purpose surface capability or repo reading route changes"
-$matrixRows = Add-MatrixIndexRow $matrixRows "workpaper_index" ".agents\codex\workpapers\WORKPAPER_INDEX.csv" "agent_workpapers" "03_CORTE_EJECUTORA" "update when workpaper folder ownership changes"
+$matrixRows = Add-MatrixIndexRow $matrixRows "workpaper_index" (Join-Path $workRoot "WORKPAPER_INDEX.csv") "agent_workpapers" "03_CORTE_EJECUTORA" "update when workpaper folder ownership changes"
 Export-Rows -Path $matrixPath -Rows $matrixRows
 
 $capPath = Join-Path $Root "matrices\CAPABILITY_MATRIX.csv"
@@ -378,7 +378,7 @@ Export-Rows -Path $capPath -Rows $capRows
 $validationPath = Join-Path $Root "matrices\VALIDATION_COVERAGE_MATRIX.csv"
 $validationRows = @(Import-Csv -LiteralPath $validationPath)
 $validationRows = Add-UniqueRows $validationRows @(
-  [pscustomobject]@{ artifact_class="workpapers"; required_index=".agents\codex\workpapers\WORKPAPER_INDEX.csv"; required_validator=".agents\codex\tools\local_validate_agent_workpapers.ps1"; owner_agent="court.seshat_evidence"; coverage_status="covered"; stop_condition="workpaper_missing_for_agent" },
+  [pscustomobject]@{ artifact_class="workpapers"; required_index=(Join-Path $workRoot "WORKPAPER_INDEX.csv"); required_validator=".agents\codex\tools\local_validate_agent_workpapers.ps1"; owner_agent="court.seshat_evidence"; coverage_status="covered"; stop_condition="workpaper_missing_for_agent" },
   [pscustomobject]@{ artifact_class="plugins"; required_index=".agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv"; required_validator=".agents\codex\tools\local_validate_agent_layer.ps1"; owner_agent="codex.workspace_guardian"; coverage_status="covered"; stop_condition="plugin_without_surface_boundary" }
 ) @("artifact_class", "required_index")
 Export-Rows -Path $validationPath -Rows $validationRows
@@ -386,7 +386,7 @@ Export-Rows -Path $validationPath -Rows $validationRows
 $evidencePath = Join-Path $Root "matrices\EVIDENCE_AND_VALIDATION_MATRIX.csv"
 $evidenceRows = @(Import-Csv -LiteralPath $evidencePath)
 $evidenceRows = Add-UniqueRows $evidenceRows @(
-  [pscustomobject]@{ event_type="agent_workpaper_change"; required_agent="court.seshat_evidence"; required_artifact=".agents\codex\workpapers"; validator_or_check="tools\local_validate_agent_workpapers.ps1|tools\local_validate_agent_layer.ps1"; stop_condition="workpaper_missing_for_agent" },
+  [pscustomobject]@{ event_type="agent_workpaper_change"; required_agent="court.seshat_evidence"; required_artifact=(Join-Path $Root "workpapers"); validator_or_check="tools\local_validate_agent_workpapers.ps1|tools\local_validate_agent_layer.ps1"; stop_condition="workpaper_missing_for_agent" },
   [pscustomobject]@{ event_type="plugin_boundary_change"; required_agent="codex.workspace_guardian"; required_artifact=".agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv"; validator_or_check="tools\local_validate_agent_layer.ps1"; stop_condition="plugin_without_surface_boundary" }
 ) @("event_type", "required_artifact")
 Export-Rows -Path $evidencePath -Rows $evidenceRows
@@ -396,7 +396,7 @@ $toolIndexRows = @(Import-Csv -LiteralPath $toolIndexPath)
 $toolIndexRows = Add-UniqueRows $toolIndexRows @(
   [pscustomobject]@{ tool_id="tool.local_validate_agent_workpapers"; level_id="03_CORTE_EJECUTORA"; tool_type="run"; path_or_command=".agents\codex\tools\local_validate_agent_workpapers.ps1"; allowed_surface="local_filesystem"; blocked_surface="external_runtime" },
   [pscustomobject]@{ tool_id="tool.local_generate_agent_workpapers"; level_id="03_CORTE_EJECUTORA"; tool_type="run"; path_or_command=".agents\codex\tools\local_generate_agent_workpapers.ps1"; allowed_surface="local_filesystem"; blocked_surface="external_runtime|live_connector_execution" },
-  [pscustomobject]@{ tool_id="tool.workpaper_index_check"; level_id="03_CORTE_EJECUTORA"; tool_type="read"; path_or_command=".agents\codex\workpapers\WORKPAPER_INDEX.csv"; allowed_surface="local_filesystem"; blocked_surface="remote_write" },
+  [pscustomobject]@{ tool_id="tool.workpaper_index_check"; level_id="03_CORTE_EJECUTORA"; tool_type="read"; path_or_command=(Join-Path $workRoot "WORKPAPER_INDEX.csv"); allowed_surface="local_filesystem"; blocked_surface="remote_write" },
   [pscustomobject]@{ tool_id="tool.plugin_registry_check"; level_id="05_SOPORTE_TECNICO"; tool_type="read"; path_or_command=".agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv"; allowed_surface="local_filesystem"; blocked_surface="live_connector_execution" },
   [pscustomobject]@{ tool_id="tool.sharepoint_complete_read_order_builder"; level_id="01_AUTORIDAD_Y_GATES"; tool_type="write"; path_or_command=".agents\codex\orders"; allowed_surface="local_order_packet"; blocked_surface="microsoft_live_read_without_order" }
 ) @("tool_id")

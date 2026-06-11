@@ -38,7 +38,7 @@ gate:
 - Ninguno.
 
 rollback:
-- `git restore -- .agents/codex/matrices/VSI_FUNCTION_UTILIZATION_MATRIX_20260607.csv scripts/validators/vsi_function_utilization_validator.py .vscode/tasks.json scripts/validators/vsi_usage_expansion_validator.py scripts/validators/no_ps_validator_prep_validator.py .agents/codex/matrices/VSI_USAGE_EXPANSION_MATRIX_20260607.csv .agents/codex/matrices/NO_PS_VALIDATOR_PREP_MATRIX_20260607.csv .agents/codex/matrices/VALIDATION_COVERAGE_MATRIX.csv .agents/codex/matrices/MATRIX_INDEX.csv .agents/codex/matrices/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv .agents/codex/workpapers/codex.workspace_guardian/EVIDENCE_LOG.csv .agents/codex/workpapers/court.seshat_evidence/EVIDENCE_LOG.csv .agents/codex/readbacks/2026-06-07_vsi_function_utilization_no_ps_readback.md`
+- `git restore -- .agents/codex/matrices/VSI_FUNCTION_UTILIZATION_MATRIX_20260607.csv scripts/validators/vsi_function_utilization_validator.py .vscode/tasks.json scripts/validators/vsi_usage_expansion_validator.py scripts/validators/no_ps_validator_prep_validator.py .agents/codex/matrices/VSI_USAGE_EXPANSION_MATRIX_20260607.csv .agents/codex/matrices/NO_PS_VALIDATOR_PREP_MATRIX_20260607.csv .agents/codex/matrices/VALIDATION_COVERAGE_MATRIX.csv .agents/codex/matrices/MATRIX_INDEX.csv .agents/codex/matrices/VSCODE_INSIDERS_AGENT_TASK_QUEUE_20260606.csv C:\Users\enzo1\.codex\workpapers/codex.workspace_guardian/EVIDENCE_LOG.csv C:\Users\enzo1\.codex\workpapers/court.seshat_evidence/EVIDENCE_LOG.csv .agents/codex/readbacks/2026-06-07_vsi_function_utilization_no_ps_readback.md`
 
 stop_condition:
 - `vsi_function_utilization_invalid`

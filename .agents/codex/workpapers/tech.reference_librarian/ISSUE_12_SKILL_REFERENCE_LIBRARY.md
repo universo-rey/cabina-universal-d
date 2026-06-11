@@ -32,7 +32,7 @@ externas en canon rector.
 - `D:\.agents\codex\skills\SKILL_REFERENCE_LIBRARY_POLICY.md`
 - `D:\.agents\codex\matrices\SKILL_REFERENCE_SOURCE_MATRIX.csv`
 - `D:\.agents\codex\tools\local_validate_skill_reference_sources.ps1`
-- `D:\.agents\codex\workpapers\tech.reference_librarian\ISSUE_12_SKILL_REFERENCE_LIBRARY.md`
+- `C:\Users\enzo1\.codex\workpapers\tech.reference_librarian\ISSUE_12_SKILL_REFERENCE_LIBRARY.md`
 
 ## Decisiones
 

@@ -56,7 +56,7 @@ SDU_MASTER_ENVIRONMENT_SOLUTION_LIST_V1_READY
 - [SDU_MASTER_ENVIRONMENT_SOLUTION_MATRIX.csv](/C:/Users/enzo1/Documents/GitHub/cabina-universal-d/matrices/sdu/SDU_MASTER_ENVIRONMENT_SOLUTION_MATRIX.csv)
 - [CODEX_CLOUD_ENVIRONMENT_INVENTORY_20260602.csv](/C:/Users/enzo1/Documents/GitHub/cabina-universal-d/.agents/codex/matrices/CODEX_CLOUD_ENVIRONMENT_INVENTORY_20260602.csv)
 - [DATAVERSE_DEV_ENVIRONMENT_BINDING_MATRIX.csv](/C:/Users/enzo1/Documents/GitHub/cabina-universal-d/matrices/dataverse/DATAVERSE_DEV_ENVIRONMENT_BINDING_MATRIX.csv)
-- [CONNECTION_STATUS_MATRIX_20260608.csv](/C:/Users/enzo1/Documents/GitHub/cabina-universal-d/.agents/codex/workpapers/target_resolution_live_gate_20260608/CONNECTION_STATUS_MATRIX_20260608.csv)
+- [CONNECTION_STATUS_MATRIX_20260608.csv](/C:/Users/enzo1/Documents/GitHub/cabina-universal-d/C:\Users\enzo1\.codex\workpapers/target_resolution_live_gate_20260608/CONNECTION_STATUS_MATRIX_20260608.csv)
 - [READBACK_SDU_COMPLETE_ENVIRONMENT_MAP.md](/C:/Users/enzo1/Documents/GitHub/cabina-universal-d/readbacks/sdu/READBACK_SDU_COMPLETE_ENVIRONMENT_MAP.md)
 
 ## Next Gate

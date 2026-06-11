@@ -1,2 +1,2 @@
 "date","evidence_id","source","artifact","validator","result","notes"
-"2026-06-01","EVD-rey.authority_canonist-WORKPAPERS-20260601","D agent layer","D:\.agents\codex\workpapers\rey.authority_canonist","tool.local_validate_agent_workpapers","prepared_pending_fan_in_validation","no live execution"
+"2026-06-01","EVD-rey.authority_canonist-WORKPAPERS-20260601","D agent layer","C:\Users\enzo1\.codex\workpapers\rey.authority_canonist","tool.local_validate_agent_workpapers","prepared_pending_fan_in_validation","no live execution"

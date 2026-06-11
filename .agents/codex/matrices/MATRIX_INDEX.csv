@@ -70,7 +70,7 @@ aac_native_agent_use_for_vsi,.agents/codex/matrices/AAC_NATIVE_AGENT_USE_FOR_VSI
 cabina_governance_agents_for_vsi,.agents/codex/matrices/CABINA_GOVERNANCE_AGENTS_FOR_VSI_20260608.csv,cabina_governance_agents_for_vsi,00_ROUTER,update when Cabina governed work agents that work on and govern VSI board cards change
 powershell_runtime_friction_matrix,.agents/codex/matrices/POWERSHELL_RUNTIME_FRICTION_MATRIX.csv,powershell_runtime_friction,03_CORTE_EJECUTORA,update when Windows PowerShell friction rules validators or command patterns change
 d_skill_availability_issue_pr_friction_matrix,.agents/codex/matrices/D_SKILL_AVAILABILITY_AND_ISSUE_PR_FRICTION_MATRIX.csv,d_skill_availability_issue_pr_friction,03_CORTE_EJECUTORA,update when D-local skill availability rules or issue PR friction rules change
-workpaper_index,.agents\codex\workpapers\WORKPAPER_INDEX.csv,agent_workpapers,03_CORTE_EJECUTORA,update when workpaper folder ownership changes
+workpaper_index,C:\Users\enzo1\.codex\workpapers\WORKPAPER_INDEX.csv,agent_workpapers,03_CORTE_EJECUTORA,update when workpaper folder ownership changes
 skill_reference_source_matrix,.agents/codex/matrices/SKILL_REFERENCE_SOURCE_MATRIX.csv,skill_reference_sources,05_SOPORTE_TECNICO,update when skill API reference sources freshness license canon boundary or validator changes
 frontend_design_lane_matrix,.agents/codex/matrices/FRONTEND_DESIGN_LANE_MATRIX.csv,frontend_design_lanes,05_SOPORTE_TECNICO,update when UI design standards assets screenshot verification or production boundary changes
 frontend_design_lane_map,.agents/codex/maps/FRONTEND_DESIGN_LANE.md,frontend_design_map,05_SOPORTE_TECNICO,update when frontend design policy map changes

@@ -17,7 +17,7 @@ HECHO_VERIFICADO: carril repo-local separado para versionar workpapers historico
 - Borrado de ramas.
 
 ## Cambios
-- Se clasificaron 8 paquetes historicos bajo `.agents/codex/workpapers/`.
+- Se clasificaron 8 paquetes historicos bajo `C:\Users\enzo1\.codex\workpapers/`.
 - Se preparo versionado de 53 archivos existentes, sin modificar su contenido.
 - Los paquetes cubren activacion post PR #139, inventario de ramas, reconciliacion de ramas fase 1 y fase 2, reconciliacion global, gate de activacion tenant, cierre remoto de ramas y resolucion de target live-gate.
 

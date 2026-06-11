@@ -43,7 +43,7 @@ Indicar origen, destino, owner, riesgo, rollback y postcheck.
 
 ## Papeles de trabajo operativos
 
-- Ruta local: .agents\codex\workpapers\rey.migration_planner
+- Ruta local: C:\Users\enzo1\.codex\workpapers\rey.migration_planner
 - Snapshot repo-visible: 05_AGENTES/D_DRIVE_CODEX_AGENT_LAYER/workpapers/rey.migration_planner
 - Matrices: AGENT_WORKPAPERS_MATRIX, PURPOSE_SURFACE_CAPABILITY_MATRIX, AGENT_TOOL_RECIPE_SKILL_MATRIX.
 - Regla: registrar evidencia, decision, items abiertos y validacion antes de cierre.

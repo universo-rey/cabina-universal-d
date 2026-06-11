@@ -41,7 +41,7 @@ Indicar schema, campos, contrato, validador y fuente canonica.
 
 ## Papeles de trabajo operativos
 
-- Ruta local: .agents\codex\workpapers\court.thot_schema
+- Ruta local: C:\Users\enzo1\.codex\workpapers\court.thot_schema
 - Snapshot repo-visible: 05_AGENTES/D_DRIVE_CODEX_AGENT_LAYER/workpapers/court.thot_schema
 - Matrices: AGENT_WORKPAPERS_MATRIX, PURPOSE_SURFACE_CAPABILITY_MATRIX, AGENT_TOOL_RECIPE_SKILL_MATRIX.
 - Regla: registrar evidencia, decision, items abiertos y validacion antes de cierre.

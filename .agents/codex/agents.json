@@ -80,7 +80,7 @@
       ],
       "level_id": "00_ROUTER",
       "read_weight": "light_profile_only",
-      "workpapers_path": ".agents\\codex\\workpapers\\rey.control_plane_orchestrator",
+      "workpapers_path": "C:\\Users\\enzo1\\.codex\\workpapers\\rey.control_plane_orchestrator",
       "default_skills": [
         "rey-modo-gobernador-capacidades",
         "tcu-descubridor-capacidades",
@@ -156,7 +156,7 @@
       ],
       "level_id": "01_AUTORIDAD_Y_GATES",
       "read_weight": "light_profile_only",
-      "workpapers_path": ".agents\\codex\\workpapers\\rey.frontier_guardian",
+      "workpapers_path": "C:\\Users\\enzo1\\.codex\\workpapers\\rey.frontier_guardian",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "rey-modo-gobernador-capacidades",
@@ -230,7 +230,7 @@
       ],
       "level_id": "02_REGISTRO_Y_CARTOGRAFIA",
       "read_weight": "light_profile_only",
-      "workpapers_path": ".agents\\codex\\workpapers\\rey.governance_registrar",
+      "workpapers_path": "C:\\Users\\enzo1\\.codex\\workpapers\\rey.governance_registrar",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "rey-modo-gobernador-capacidades",
@@ -302,7 +302,7 @@
       ],
       "level_id": "01_AUTORIDAD_Y_GATES",
       "read_weight": "light_profile_only",
-      "workpapers_path": ".agents\\codex\\workpapers\\rey.authority_canonist",
+      "workpapers_path": "C:\\Users\\enzo1\\.codex\\workpapers\\rey.authority_canonist",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "rey-modo-gobernador-capacidades",
@@ -373,7 +373,7 @@
       ],
       "level_id": "02_REGISTRO_Y_CARTOGRAFIA",
       "read_weight": "light_profile_only",
-      "workpapers_path": ".agents\\codex\\workpapers\\rey.repo_cartographer",
+      "workpapers_path": "C:\\Users\\enzo1\\.codex\\workpapers\\rey.repo_cartographer",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "github:github",
@@ -453,7 +453,7 @@
       ],
       "level_id": "03_CORTE_EJECUTORA",
       "read_weight": "light_profile_only",
-      "workpapers_path": ".agents\\codex\\workpapers\\court.openai_dispatcher",
+      "workpapers_path": "C:\\Users\\enzo1\\.codex\\workpapers\\court.openai_dispatcher",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "github:github",
@@ -531,7 +531,7 @@
       ],
       "level_id": "04_TORRES_DE_UNIVERSO",
       "read_weight": "light_profile_only",
-      "workpapers_path": ".agents\\codex\\workpapers\\universe.escribania_tower",
+      "workpapers_path": "C:\\Users\\enzo1\\.codex\\workpapers\\universe.escribania_tower",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "sharepoint:sharepoint-site-discovery",
@@ -602,7 +602,7 @@
       ],
       "level_id": "04_TORRES_DE_UNIVERSO",
       "read_weight": "light_profile_only",
-      "workpapers_path": ".agents\\codex\\workpapers\\universe.modo_on_tower",
+      "workpapers_path": "C:\\Users\\enzo1\\.codex\\workpapers\\universe.modo_on_tower",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "tcu-normalizador-sistema-modo-on",
@@ -676,7 +676,7 @@
       ],
       "level_id": "03_CORTE_EJECUTORA",
       "read_weight": "light_profile_only",
-      "workpapers_path": ".agents\\codex\\workpapers\\court.seshat_evidence",
+      "workpapers_path": "C:\\Users\\enzo1\\.codex\\workpapers\\court.seshat_evidence",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "rey-modo-evidencia-riesgo-handoff",
@@ -753,7 +753,7 @@
       ],
       "level_id": "01_AUTORIDAD_Y_GATES",
       "read_weight": "light_profile_only",
-      "workpapers_path": ".agents\\codex\\workpapers\\court.sdu_gate",
+      "workpapers_path": "C:\\Users\\enzo1\\.codex\\workpapers\\court.sdu_gate",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "tcu-harness-evals-agentes",
@@ -824,7 +824,7 @@
       ],
       "level_id": "03_CORTE_EJECUTORA",
       "read_weight": "light_profile_only",
-      "workpapers_path": ".agents\\codex\\workpapers\\court.thot_schema",
+      "workpapers_path": "C:\\Users\\enzo1\\.codex\\workpapers\\court.thot_schema",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "tcu-harness-evals-agentes",
@@ -909,7 +909,7 @@
       ],
       "level_id": "02_REGISTRO_Y_CARTOGRAFIA",
       "read_weight": "light_profile_only",
-      "workpapers_path": ".agents\\codex\\workpapers\\rey.migration_planner",
+      "workpapers_path": "C:\\Users\\enzo1\\.codex\\workpapers\\rey.migration_planner",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "tcu-planificador-con-archivos",
@@ -980,7 +980,7 @@
       ],
       "level_id": "05_SOPORTE_TECNICO",
       "read_weight": "light_profile_only",
-      "workpapers_path": ".agents\\codex\\workpapers\\tech.reference_librarian",
+      "workpapers_path": "C:\\Users\\enzo1\\.codex\\workpapers\\tech.reference_librarian",
       "default_skills": [
         "rey-modo-gobernador-capacidades",
         "tcu-descubridor-capacidades",
@@ -1060,7 +1060,7 @@
       ],
       "level_id": "05_SOPORTE_TECNICO",
       "read_weight": "light_profile_only",
-      "workpapers_path": ".agents\\codex\\workpapers\\codex.workspace_guardian",
+      "workpapers_path": "C:\\Users\\enzo1\\.codex\\workpapers\\codex.workspace_guardian",
       "default_skills": [
         "tcu-descubridor-capacidades",
         "rey-modo-auditor-vscode-insiders",
@@ -1216,7 +1216,7 @@
     "evals": ".agents\\codex\\evals",
     "orders": ".agents\\codex\\orders",
     "readbacks": ".agents\\codex\\readbacks",
-    "workpapers": ".agents\\codex\\workpapers",
+    "workpapers": "C:\\Users\\enzo1\\.codex\\workpapers",
     "plugins": ".agents\\codex\\plugins"
   },
   "operating_contract": {

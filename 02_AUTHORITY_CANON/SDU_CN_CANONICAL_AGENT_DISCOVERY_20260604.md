@@ -22,7 +22,7 @@ estaban elevados como capa canonica suprarrepo en `02_AUTHORITY_CANON`.
 | --- | --- | --- |
 | `.agents/codex/agents/SOURCE_TGE_SDU_CN_AGENT_REGISTRY.csv` | contiene `seshat-normativa`, `horus-riesgo`, `maat-cumplimiento`, `anubis-gate`, `thot-tecnico`, `narrador-normativo` | registro fuente TGE/Escribania |
 | `.agents/codex/agents/SOURCE_SESHAT_BOOTSTRAP_SDU_CN_AGENT_REGISTRY.csv` | contiene los mismos seis agentes con gates Microsoft live | registro fuente Seshat bootstrap |
-| `.agents/codex/workpapers/WORKPAPER_INDEX.csv` | contiene `court.seshat_evidence`, `court.sdu_gate`, `court.thot_schema`, `universe.escribania_tower`, `universe.modo_on_tower` | capa operativa de Cabina |
+| `C:\Users\enzo1\.codex\workpapers/WORKPAPER_INDEX.csv` | contiene `court.seshat_evidence`, `court.sdu_gate`, `court.thot_schema`, `universe.escribania_tower`, `universe.modo_on_tower` | capa operativa de Cabina |
 | `AGENTS.md` y `MANIFEST.yaml` | declaran cadena estandar con `rey.control_plane_orchestrator`, `court.openai_dispatcher`, `sdu-triage-agent`, `court.sdu_gate`, `court.seshat_evidence` | cadena operativa, no panteon SDU-CN |
 | Issues #87/#88 y espejos | declaran los seis agentes como canonicos multirepo | contrato GitHub ya preparado |
 

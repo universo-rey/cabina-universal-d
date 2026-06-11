@@ -41,7 +41,7 @@ Indicar activo, owner, frontera proveedor y readback.
 
 ## Papeles de trabajo operativos
 
-- Ruta local: .agents\codex\workpapers\universe.modo_on_tower
+- Ruta local: C:\Users\enzo1\.codex\workpapers\universe.modo_on_tower
 - Snapshot repo-visible: 05_AGENTES/D_DRIVE_CODEX_AGENT_LAYER/workpapers/universe.modo_on_tower
 - Matrices: AGENT_WORKPAPERS_MATRIX, PURPOSE_SURFACE_CAPABILITY_MATRIX, AGENT_TOOL_RECIPE_SKILL_MATRIX.
 - Regla: registrar evidencia, decision, items abiertos y validacion antes de cierre.

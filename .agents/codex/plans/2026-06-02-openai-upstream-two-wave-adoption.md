@@ -61,9 +61,9 @@ Rows must cover `tcu-agentic-runtime-control`, `sdu-canon`, `seshat-bootstrap-sd
 - Modify: `.agents\codex\matrices\VALIDATION_COVERAGE_MATRIX.csv`
 - Modify: `.agents\codex\matrices\EVIDENCE_AND_VALIDATION_MATRIX.csv`
 - Create: `.agents\codex\readbacks\2026-06-02_openai_two_wave_adoption_readback.md`
-- Create: `.agents\codex\workpapers\tech.reference_librarian\2026-06-02_openai_upstream_reference.md`
-- Create: `.agents\codex\workpapers\court.openai_dispatcher\2026-06-02_openai_repair_loop_and_repo_lanes.md`
-- Create: `.agents\codex\workpapers\court.sdu_gate\2026-06-02_openai_adoption_gate_review.md`
+- Create: `C:\Users\enzo1\.codex\workpapers\tech.reference_librarian\2026-06-02_openai_upstream_reference.md`
+- Create: `C:\Users\enzo1\.codex\workpapers\court.openai_dispatcher\2026-06-02_openai_repair_loop_and_repo_lanes.md`
+- Create: `C:\Users\enzo1\.codex\workpapers\court.sdu_gate\2026-06-02_openai_adoption_gate_review.md`
 
 - [x] **Step 1: Validate required artifacts**
 

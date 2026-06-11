@@ -427,7 +427,7 @@ permisos, secrets, produccion, Microsoft live, OpenAI API live o datos
 regulados.
 
 Actualizacion workpapers GitHub 2026-06-01: los workpapers saneados bajo
-`.agents/codex/workpapers` quedan incluidos en la allowlist del repo raiz para
+`C:\Users\enzo1\.codex\workpapers` quedan incluidos en la allowlist del repo raiz para
 que GitHub Actions pueda validar la capa de agentes sin leer repos externos ni
 sistemas live.
 

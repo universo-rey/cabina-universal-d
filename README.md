@@ -51,7 +51,7 @@ Agentes en GitHub: `.github/copilot-instructions.md`,
 publican la forma GitHub aprobada para operar agentes en issues, ramas, commits
 y PRs sin activar produccion. `.github/workflows/cabina-validation.yml` ejecuta
 validaciones locales en GitHub Actions con permisos `contents: read`; usa los
-workpapers saneados bajo `.agents/codex/workpapers` como evidencia declarativa.
+workpapers saneados bajo `C:\Users\enzo1\.codex\workpapers` como evidencia declarativa.
 
 Operacion paralela: `.agents/codex/matrices/PARALLEL_OPERATION_CRITERIA_MATRIX.csv`
 define carriles, owners, alcance, evidencia, validador y stop condition.

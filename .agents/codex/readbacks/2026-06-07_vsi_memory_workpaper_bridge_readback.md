@@ -45,7 +45,7 @@ riesgo:
   production, no tenant mutation.
 
 rollback:
-- `git restore -- .gitignore .vscode/settings.json .agents/codex/workpapers/codex.workspace_guardian/AGENT_MEMORY_SYNC.md .agents/codex/readbacks/2026-06-07_vsi_memory_workpaper_bridge_readback.md scripts/validators/vsi_function_utilization_validator.py .agents/codex/matrices/VSI_FUNCTION_UTILIZATION_MATRIX_20260607.csv`
+- `git restore -- .gitignore .vscode/settings.json C:\Users\enzo1\.codex\workpapers/codex.workspace_guardian/AGENT_MEMORY_SYNC.md .agents/codex/readbacks/2026-06-07_vsi_memory_workpaper_bridge_readback.md scripts/validators/vsi_function_utilization_validator.py .agents/codex/matrices/VSI_FUNCTION_UTILIZATION_MATRIX_20260607.csv`
 
 stop_condition:
 - `vsi_memory_tool_not_callable_from_codex_runtime`

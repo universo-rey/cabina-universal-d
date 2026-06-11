@@ -1,2 +1,3 @@
 "item_id","status","owner_agent","next_action","gate","stop_condition"
 "OPEN-court.sdu_gate-20260601","tracked","court.sdu_gate","keep repo native matrices synchronized","governed_order_for_live_or_remote_write","microsoft_live_requested_without_governed_order"
+"OPEN-court.sdu_gate-20260611-workpaper-path-repoint","tracked","court.sdu_gate","normalize remaining old workpaper-path refs in logs","governed_order_for_live_or_remote_write","no_remaining_old_workpaper_path_refs"

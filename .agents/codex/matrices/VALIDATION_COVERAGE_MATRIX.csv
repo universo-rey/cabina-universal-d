@@ -44,7 +44,7 @@ subrecipes,.agents\codex\recipes\SUBRECIPE_INDEX.csv,.agents\codex\tools\local_v
 subskills,.agents\codex\skills\SUBSKILL_USAGE_MATRIX.csv,.agents\codex\tools\local_validate_agent_layer.ps1,court.thot_schema,covered,skill_without_catalog_or_assignment
 sublevel_artifacts,.agents\codex\agents\LEVELS.yaml,.agents\codex\tools\local_validate_agent_levels.ps1,court.thot_schema,covered,missing_sublevel_artifact
 tools,.agents\codex\tools\TOOL_INDEX.csv,.agents\codex\tools\local_validate_agent_layer.ps1,codex.workspace_guardian,covered,tool_index_missing_surface
-workpapers,.agents\codex\workpapers\WORKPAPER_INDEX.csv,.agents\codex\tools\local_validate_agent_workpapers.ps1,court.seshat_evidence,covered,workpaper_missing_for_agent
+workpapers,C:\Users\enzo1\.codex\workpapers\WORKPAPER_INDEX.csv,.agents\codex\tools\local_validate_agent_workpapers.ps1,court.seshat_evidence,covered,workpaper_missing_for_agent
 skill_reference_sources,.agents/codex/matrices/SKILL_REFERENCE_SOURCE_MATRIX.csv,.agents/codex/tools/local_validate_skill_reference_sources.ps1,tech.reference_librarian,covered,source_uncertain
 frontend_design_lanes,.agents/codex/matrices/FRONTEND_DESIGN_LANE_MATRIX.csv,.agents/codex/tools/local_validate_frontend_design_lane.ps1,codex.workspace_guardian,covered,production_requested_without_explicit_authorization
 all_repo_github_alignment,.agents/codex/evals/results/all_repo_github_alignment_latest.json,.agents/codex/tools/local_validate_all_repo_github_alignment.ps1,rey.repo_cartographer,covered,repo_remote_or_git_alignment_missing

@@ -32,7 +32,7 @@ cerrar.
 - `D:\.agents\codex\maps\FRONTEND_DESIGN_LANE.md`
 - `D:\.agents\codex\matrices\FRONTEND_DESIGN_LANE_MATRIX.csv`
 - `D:\.agents\codex\tools\local_validate_frontend_design_lane.ps1`
-- `D:\.agents\codex\workpapers\codex.workspace_guardian\ISSUE_15_FRONTEND_DESIGN_LANE.md`
+- `C:\Users\enzo1\.codex\workpapers\codex.workspace_guardian\ISSUE_15_FRONTEND_DESIGN_LANE.md`
 
 ## Decisiones
 

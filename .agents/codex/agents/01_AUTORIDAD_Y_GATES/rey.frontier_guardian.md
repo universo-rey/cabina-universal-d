@@ -40,7 +40,7 @@ Declarar si el carril queda permitido local, requiere orden gobernada o queda bl
 
 ## Papeles de trabajo operativos
 
-- Ruta local: .agents\codex\workpapers\rey.frontier_guardian
+- Ruta local: C:\Users\enzo1\.codex\workpapers\rey.frontier_guardian
 - Snapshot repo-visible: 05_AGENTES/D_DRIVE_CODEX_AGENT_LAYER/workpapers/rey.frontier_guardian
 - Matrices: AGENT_WORKPAPERS_MATRIX, PURPOSE_SURFACE_CAPABILITY_MATRIX, AGENT_TOOL_RECIPE_SKILL_MATRIX.
 - Regla: registrar evidencia, decision, items abiertos y validacion antes de cierre.

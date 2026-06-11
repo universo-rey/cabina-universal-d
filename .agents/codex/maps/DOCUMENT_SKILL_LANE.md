@@ -22,7 +22,7 @@ It maps:
 
 - Templates and template references: `.agents\codex\templates`.
 - Evidence, redlines, previews and sanitized output references:
-  `.agents\codex\workpapers\document_skills`.
+  `C:\Users\enzo1\.codex\workpapers\document_skills`.
 - Final regulated or secret-bearing documents must not be persisted in the repo.
   Store only sanitized metadata, checklists and readbacks unless a separate
   governed order selects the exact document, destination and retention rule.
