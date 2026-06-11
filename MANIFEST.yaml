@@ -71,14 +71,14 @@ sdu_cn_canonical_agents_state:
     - scripts/validators/cabina_startup_contract_validator.py
   stop_condition: secret_detected|seventh_agent_created|canonical_agent_missing|openai_treated_as_authority_source|microsoft_live_without_target
 extended_reconciliation_state:
-  status: CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR143
-  as_of: 2026-06-08
+  status: CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR154
+  as_of: 2026-06-11
   source_state: CABINA_OPERATING_SYSTEM_CONSOLIDATED_TO_PR96
-  prs_detected: 122
-  prs_included: 122
+  prs_detected: 133
+  prs_included: 133
   invented_prs: 0
-  final_pr: 143
-  final_main: ddbf58da0647bc599255f7ef9cec83a8fb730dd0
+  final_pr: 154
+  final_main: 2d66d035a41e1673b6c03936c34c074255e0c77d
   post_pr62_merged_prs:
     - 63
     - 64
@@ -157,8 +157,19 @@ extended_reconciliation_state:
     - 141
     - 142
     - 143
-  open_prs_not_canonized:
     - 144
+    - 145
+    - 146
+    - 147
+    - 148
+    - 149
+    - 150
+    - 151
+    - 152
+    - 153
+    - 154
+  open_prs_not_canonized:
+    - 155
   historical_pr78_exclusions_now_superseded_by_pr96:
     - 75
     - 79
@@ -231,15 +242,15 @@ root_wrapper_repo:
   scope: allowlist_governance_metadata
   absorbs_nested_repos: false
   remote_url: https://github.com/universo-rey/cabina-universal-d.git
-  pull_request: https://github.com/universo-rey/cabina-universal-d/pull/143
+  pull_request: https://github.com/universo-rey/cabina-universal-d/pull/154
   pull_request_status: MERGED
-  last_merged_branch: codex/gov/dataverse-resolver-priority-20260608
-  last_merge_commit: ddbf58da0647bc599255f7ef9cec83a8fb730dd0
-  open_pull_request: https://github.com/universo-rey/cabina-universal-d/pull/144
-  open_pull_request_status: OPEN_DRAFT_NOT_CANONIZED
-  open_pull_request_head: 269894804e2800727b2c35a8377f99e0054a37cd
+  last_merged_branch: codex/sdu-reconciliar-she-training-sync-20260610
+  last_merge_commit: 2d66d035a41e1673b6c03936c34c074255e0c77d
+  open_pull_request: https://github.com/universo-rey/cabina-universal-d/pull/155
+  open_pull_request_status: OPEN_UNSTABLE_NOT_CANONIZED
+  open_pull_request_head: b8e770a5f676f5c1952400a12e14bb396e7f25af
   visibility: private
-  status: PRIVATE_REMOTE_MAIN_ACTIVE_PR143_MERGED_CABINA_OPERATING_SYSTEM_RECONCILED
+  status: PRIVATE_REMOTE_MAIN_ACTIVE_PR154_MERGED_CABINA_OPERATING_SYSTEM_RECONCILED
   historical_markers:
     - marker: PR53_CHANGE_AWARE_FULL_COVERAGE
       pull_request: https://github.com/universo-rey/cabina-universal-d/pull/53
@@ -274,17 +285,17 @@ capability_import_state:
     - ungoverned_production
     - secrets
 github_base_work_state:
-  as_of: 2026-06-08
+  as_of: 2026-06-11
   status: GITHUB_BASE_WORK_DECLARED_ACTIVE
   github_actions_surface_state: APPROVED_GITHUB_ACTIONS_SURFACE
   root_remote_base: https://github.com/universo-rey/cabina-universal-d.git
-  root_pull_request: https://github.com/universo-rey/cabina-universal-d/pull/143
+  root_pull_request: https://github.com/universo-rey/cabina-universal-d/pull/154
   root_pull_request_status: MERGED
   root_base_branch: main
-  root_last_merge_commit: ddbf58da0647bc599255f7ef9cec83a8fb730dd0
-  root_state: CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR143
+  root_last_merge_commit: 2d66d035a41e1673b6c03936c34c074255e0c77d
+  root_state: CABINA_OPERATING_SYSTEM_RECONCILED_TO_PR154
   root_open_prs_not_canonized:
-    - 144
+    - 155
   root_closed_unmerged_prs_excluded: 81
   automated_merge_policy_state: APPROVED_WITH_PRECHECKS
   automated_merge_required_prechecks: base_main|codex_branch|non_draft|clean_merge_state|green_checks|match_head_commit|no_blocked_surfaces|post_merge_sync

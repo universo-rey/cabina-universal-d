@@ -11,6 +11,17 @@ WORK_QUEUE_FLOW_DESIGN_READY_NOT_ACTIVE
 - No flow is created or activated by this lane.
 - OpenAI usage is metadata-only and AI_ASSISTED_NOT_CANON_UNTIL_VALIDATED.
 
+## Binding Contract
+- canonical_binding_rule: RULE_AGENT_CONNECTION_MAPPING
+- canonical_binding_matrix: matrices/powerautomate/MATRIX_TO_WORK_QUEUE_MAPPING.csv
+- supporting_rule_matrix: matrices/powerautomate/WORK_QUEUE_DISPATCH_RULE_MATRIX.csv
+- queue_identity_matrix: sdu/SDU_QUEUE_IDENTITY_RECONCILIATION.csv
+- binding_mode: metadata-only queue binding
+- binding_gate: GATE_METADATA_ONLY_QUEUE_BINDING
+- live_state: LOCAL_SCHEMA_ONLY_NOT_BOUND_LIVE
+- activation_state: DESIGNED_NOT_CREATED_NOT_ACTIVE
+- no_new_layer: SDU_Work_Queue_Agent_Dispatcher reuses the existing binding contract instead of introducing a separate dispatcher layer
+
 ## Flows
 ### SDU_Dispatch_Matrix_Items_To_Work_Queues
 - trigger: manual_or_scheduled_dev_only_disabled_by_default
@@ -121,8 +132,10 @@ WORK_QUEUE_FLOW_DESIGN_READY_NOT_ACTIVE
 - trigger: manual_or_scheduled_dev_only_disabled_by_default
 - queue/source: SDU.Agent.Dispatch.Queue
 - Dataverse source: mon_sdu_agent_connection_mapping
+- binding_reference=RULE_AGENT_CONNECTION_MAPPING -> SDU.Agent.Dispatch.Queue
+- binding evidence: matrices/powerautomate/MATRIX_TO_WORK_QUEUE_MAPPING.csv
 - target: agent dispatch readback
-- connection references: Dataverse current environment; OpenAI only for classifier if key present
+- connection references: Dataverse current environment; binding_reference=RULE_AGENT_CONNECTION_MAPPING -> SDU.Agent.Dispatch.Queue; OpenAI only for classifier if key present
 - retry policy: bounded_retry_3_then_exception_queue
 - error handling: write processing result and evidence pointer; no automatic destructive retry
 - rollback: disable flow and cancel pilot batch items

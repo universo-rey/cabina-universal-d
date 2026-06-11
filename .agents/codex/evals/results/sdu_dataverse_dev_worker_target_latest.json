@@ -1,0 +1,42 @@
+{
+  "generated_at": "2026-06-11",
+  "source": "live_read_current_session_sanitized",
+  "conceptual_base": "origin/codex/dev-runtime-controlled-activation-20260603",
+  "environment": {
+    "name": "HUBDesarrollo",
+    "url": "https://org084965d9.crm.dynamics.com",
+    "environment_id": "7f65fc04-c27a-ea0d-bd2d-266aa9203c1e",
+    "organization_id": "f982db28-49e3-f011-aa23-000d3a5ca83f",
+    "safe_active_profile": "SDU-HUB",
+    "expected_profile_name": "SDU-DATAVERSE-DEV"
+  },
+  "profile_drift": {
+    "SDU-DATAVERSE-DEV": "observed_pointing_to_default_environment",
+    "SDU-HUB": "observed_pointing_to_hubdesarrollo_dev",
+    "decision": "use_SDU-HUB_until_SDU-DATAVERSE-DEV_is_rebound"
+  },
+  "flow": {
+    "name": "SDU_Process_Dataverse_Apply_Work_Items",
+    "workflowid": "65468687-515f-f111-a826-00224805fc91",
+    "candidate_count": 1,
+    "live_state": "Activado",
+    "live_status": "Activado"
+  },
+  "workqueue": {
+    "name": "SDU.Dataverse.Apply.Queue",
+    "workqueueid": "513da9e9-3f5f-f111-a826-00224805fc91",
+    "workqueuekey": "sdu_dataverse_apply_queue",
+    "candidate_count": 1,
+    "live_state": "Activo",
+    "live_status": "Activo"
+  },
+  "decision": "NO_OP_LISTO_ALREADY_ACTIVE",
+  "do_not_repeat": [
+    "pac_profile_discovery",
+    "exact_flow_fetch_when_same_target_requested",
+    "exact_workqueue_fetch_when_same_target_requested",
+    "flow_activation_when_live_state_is_Activado",
+    "full_agent_layer_validation_for_unchanged_target_packet"
+  ],
+  "stop_condition": "candidate_count_not_one"
+}
