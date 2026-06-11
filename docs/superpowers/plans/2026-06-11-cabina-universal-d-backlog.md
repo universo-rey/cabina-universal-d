@@ -7,17 +7,18 @@ BACKLOG_LOCAL_COORDINATION_DRAFT
 - Repo: `cabina-universal-d`
 - Surface: local repo + repo-visible canon docs + workpaper routing + coordination branch
 - Non-scope: live write, production, secrets, tenant admin, remote git mutation
-- Current focus: local coordination backlog on the branch, with SharePoint pilot closeout still open on `SYS-GobiernoOperativo-PILOTO`
+- Current focus: local coordination backlog on the branch, with SharePoint pilot closeout still open on `SYS-GobiernoOperativo-PILOTO` and the local Agents SDK runtime activation backlog in `apps/sdu-agent-runtime`
 
 ## Coordination Branch Snapshot
 - Branch: `codex/cabina-universal-d-coordination-20260611`
-- HEAD: `f7ec21d`
-- Upstream: not set yet
+- HEAD: `b3b4c60`
+- Upstream: `origin/codex/cabina-universal-d-coordination-20260611`
 - Published sibling lanes:
   - `codex/sharepoint-pnp-live-map` -> `origin/codex/sharepoint-pnp-live-map`
   - `codex/sdu-dataverse-readback-main-merge` -> `origin/codex/sdu-dataverse-readback-main-merge`
   - `codex/tenant-controlled-dataverse-segments-20260608` -> `origin/codex/tenant-controlled-dataverse-segments-20260608`
 - Current local payload: SDU reconciliation artifacts, SharePoint governance artifacts, repo hygiene/indexing updates, and SDU-CN queue-state evidence captured in `court.sdu_gate`
+- Current local payload also includes the Agents SDK local runtime baseline in `apps/sdu-agent-runtime`, with deterministic tests already passing and packaging still to be formalized.
 - Next read-only lane: reconcile current-front splits for SDU/MW versus historical SGIN in the backlog-by-list section
 
 ## Snapshot Notes
@@ -39,6 +40,7 @@ BACKLOG_LOCAL_COORDINATION_DRAFT
   - SDU reconciliation artifacts
   - SharePoint governance artifacts
   - repo hygiene/indexing updates
+- `apps/sdu-agent-runtime` already passes the local synthetic unit tests, but no app-owned `pyproject.toml` is visible in the tree yet, so packaging is the first activation gap for the Agents SDK lane.
 
 ## SDU-CN Next Task
 - Concrete task: split `WB_Decisiones` and `SYS_EstadoOperativo` into current-front (`MW-*`, `SDU-*`) versus historical `SGIN` rows, starting with `WB_Decisiones` as the first visible split.
@@ -49,6 +51,9 @@ BACKLOG_LOCAL_COORDINATION_DRAFT
 
 | Pri | Bucket | Item | Next safe step | Gate | Stop condition | Evidence |
 |---|---|---|---|---|---|---|
+| P0 | Agents SDK runtime | Package the local `apps/sdu-agent-runtime` baseline | Add app-owned packaging metadata and a single documented smoke entrypoint around `triage_request` and synthetic cases | none for local packaging; `GATE_OPENAI_LIVE` if live smoke is later opened | Do not call OpenAI live or materialize secrets without the exact gate | `apps/sdu-agent-runtime/README.md`, `apps/sdu-agent-runtime/src/agents/sdu_triage_agent.py`, `apps/sdu-agent-runtime/tests/test_sdu_triage_agent.py`, `governance/agents/AGENTS_SDK_*` |
+| P1 | Agents SDK evals | Add a local eval harness over the synthetic cases | Wrap `apps/sdu-agent-runtime/src/evals/synthetic_cases.json` in a repeatable local runner and keep results local | none | Do not replace unit tests with live smoke or hide failures | `apps/sdu-agent-runtime/src/evals/synthetic_cases.json`, `apps/sdu-agent-runtime/tests/test_sdu_triage_agent.py` |
+| P1 | Agents SDK live gate | Preserve the governed live smoke lane for later activation | Keep `codex_cloud_full_live_governed_setup.sh` and `codex_cloud_full_live_governed_maintenance.sh` as the only live path, and bind the exact `OPENAI_API_KEY` gate only when a concrete target is selected | `GATE_OPENAI_LIVE` + `GATE_COST_BOUNDARY` + `GATE_SECRET_USE` | Do not run live smokes until the gate target is exact and approved | `.agents/codex/scripts/codex_cloud_full_live_governed_setup.sh`, `.agents/codex/scripts/codex_cloud_full_live_governed_maintenance.sh`, `.agents/codex/readbacks/2026-06-03_full_live_governed_activation_readback.md` |
 | P0 | SDU-CN next task | Normalize the backlog-by-list view into current-front vs historical SGIN | Re-read `WB_Decisiones` and `SYS_EstadoOperativo`, split `MW-*` and `SDU-*` rows apart from historical `SGIN`, and keep the work local and read-only | none | Do not widen into live writes, API key use, or SharePoint/Dataverse changes until a concrete target is selected | `docs/superpowers/plans/2026-06-11-cabina-universal-d-backlog.md`, `C:\Users\enzo1\.codex\workpapers/court.sdu_gate/*` |
 | P0 | Power Automate surface | Confirm the live preview monitor is bound to `HUBDesarrollo` and `SDU Capability Control Plane` | Open the Preview `monitor/work-queues` page, verify the environment id, confirm `SDU.Agent.Dispatch.Queue`, and keep `SP Governance Model` separate | none for read-only; `GATE_DATAVERSE_APPLY` only if a live read is needed to fill an unknown | Do not drift into the `Default` environment or merge the `SP Governance Model` solution into the SDU queue canon | `powerplatform/solution/solution.manifest.yml`, `readbacks/sdu/READBACK_SDU_COMPLETE_ENVIRONMENT_MAP.md`, `readbacks/powerautomate/READBACK_WORK_QUEUE_OPERATIONAL_BINDING_FROM_SEEDED_DATAVERSE.md` |
 | P0 | SDU canon | Close the SDU environment / solution reconciliation pack | Re-read and reconcile `SDU_ENVIRONMENT_CAPABILITY_MAP.csv`, `SDU_ENVIRONMENT_SURFACE_CROSSWALK.csv`, `SDU_QUEUE_IDENTITY_RECONCILIATION.csv`, `READBACK_SDU_COMPLETE_ENVIRONMENT_MAP.md`, and `READBACK_SDU_MASTER_ENVIRONMENT_SOLUTION_LIST.md` | none for local reconciliation; `GATE_DATAVERSE_APPLY` only if a live read is needed to fill an unknown | Do not guess missing inventory for `ESCRIBANIA BITSCH default` | `matrices/sdu/*`, `readbacks/sdu/*`, `.agents/codex/readbacks/2026-06-10_project_historian_capability_reconciliation_readback.md` |
@@ -58,10 +63,11 @@ BACKLOG_LOCAL_COORDINATION_DRAFT
 | P2 | Workpaper routing | Decide whether the backlog should also be mirrored into a workpaper `OPEN_ITEMS.csv` | If needed, update the nearest owner workpaper after the repo plan is accepted | none | Do not create duplicate backlog sources unless there is a clear owner split | `C:\Users\enzo1\.codex\workpapers/*/OPEN_ITEMS.csv`, `CURRENT_WORKPAPER.md` |
 
 ## Recommended Order
-1. SDU-CN backlog split by list and front.
-2. SharePoint surface closeout.
-3. Dirty-tree split into small reversible commits.
-4. Repo hygiene / index alignment.
+1. Agents SDK runtime activation and packaging.
+2. SDU-CN backlog split by list and front.
+3. SharePoint surface closeout.
+4. Dirty-tree split into small reversible commits.
+5. Repo hygiene / index alignment.
 
 ## Validation
 - `git diff --check`
@@ -111,6 +117,13 @@ BACKLOG_LOCAL_COORDINATION_DRAFT
 - Use: archive, reference, and preserve, but do not let them drive the active backlog.
 - Next safe step: keep these rows readable, tagged, and separated from the current MW/SDU front.
 - Stop condition: no SGIN historical row should be used as an active backlog driver unless it is explicitly revalidated against the current site.
+
+### `apps/sdu-agent-runtime`
+- Priority: `P0`
+- Active split: the deterministic `local_no_live` runtime is already present and its synthetic unit tests pass; the governed live smoke lane stays separate.
+- Backlog signal: the app lacks a visible app-owned `pyproject.toml`, so runnable packaging and a single smoke entrypoint are the first activation gaps.
+- Next safe step: package the runtime, add a local smoke command around `triage_request`, and keep the synthetic cases as the default validation path.
+- Stop condition: do not move into `OPENAI_API_KEY` use, live API calls, or Microsoft/production surfaces until the exact gate and target are opened.
 
 ## Ciclo Operativo Integrado
 - Read: confirm the exact live list, its current rows, and whether each row is current SDU/MW or historical SGIN.
