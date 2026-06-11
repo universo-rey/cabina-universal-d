@@ -1,0 +1,8 @@
+"list_name","live_presence","browser_surface","evidence","notes"
+"OPS_Tickets","absent","Edge clone via playwright-core","404 NOT FOUND","retired model alias; no live list at this name"
+"WB_RevisionSemanal","present","Edge clone via playwright-core","modern list page","live weekly review list; the underscore alias is retired"
+"WB_Decisiones","present","Edge clone via playwright-core","modern list page","page title resolves; columns include TituloDecision, FechaDecision, Frente, TipoDecision, EstadoDecision, Responsable, Motivo, Alcance, RiesgoCerrado, RiesgoPendiente, DocumentoRelacionado, Observaciones"
+"CMP_Controles","absent","Edge clone via playwright-core","404 NOT FOUND","retired model alias; no live list at this name"
+"SYS_EstadoOperativo","present","Edge clone via playwright-core","modern list page","page title resolves; visible grid with 31 rows detected"
+"WB_AprendizajesOperativos","present","Edge clone via playwright-core","modern list page","page title resolves; visible grid with 28 rows detected"
+"WB_CapacidadesOperativas","present","Edge clone via playwright-core","modern list page","page title resolves; visible grid with 22 rows detected"

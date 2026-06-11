@@ -269,6 +269,10 @@
 # rollback, postcheck and evidence.
 !/matrices/
 /matrices/*
+!/matrices/sdu/
+!/matrices/sdu/*.csv
+!/matrices/sharepoint/
+!/matrices/sharepoint/*.csv
 !/matrices/dataverse/
 /matrices/dataverse/*
 !/matrices/dataverse/*.csv
@@ -343,6 +347,10 @@
 
 !/docs/
 /docs/*
+!/docs/superpowers/
+/docs/superpowers/*
+!/docs/superpowers/plans/
+!/docs/superpowers/plans/*.md
 !/docs/dataverse/
 /docs/dataverse/*
 !/docs/dataverse/*.md
@@ -383,6 +391,10 @@
 
 !/readbacks/
 /readbacks/*
+!/readbacks/sdu/
+!/readbacks/sdu/*.md
+!/readbacks/sharepoint/
+!/readbacks/sharepoint/*.md
 !/readbacks/*.md
 !/readbacks/20260603_SDU_AGENTS_RUNTIME_CONNECTIONS_PREFLIGHT.md
 !/readbacks/20260603_SDU_AGENT_RUNTIME_CONNECTIONS_TEAMS_CODEX_CLOUD_READBACK.md

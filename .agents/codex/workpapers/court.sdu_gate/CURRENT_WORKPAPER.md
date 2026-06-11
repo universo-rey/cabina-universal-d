@@ -1,6 +1,6 @@
 # Current Workpaper - court.sdu_gate
 
-- orden: actualizar capa local agentica con papeles de trabajo versionables y dejar trazado el estado Inventory SDU-CN queue state.
+- orden: actualizar capa local agentica con papeles de trabajo versionables y fijar el next task SDU-CN: split `WB_Decisiones` y `SYS_EstadoOperativo` por current-front versus histórico SGIN.
 - estado: LOCAL_GOVERNED_WORKPAPERS_ACTIVE
 - superficie: D:\03_CORTE_EJECUTORA_DEL_REY|SDU Seshat Corte surfaces
 - skill: Superpowers:using-superpowers; Superpowers:dispatching-parallel-agents; repo-agent-tool-governance; governed-readback-closeout.
@@ -13,4 +13,4 @@
 - riesgo: live write accidental, stale workpaper index, or queue inventory/backlog mixup.
 - rollback: revertir cambios de carpeta workpapers, matrices y snapshot repo-visible antes de merge.
 - stop_condition: microsoft_live_requested_without_governed_order.
-- proximos_carriles: keep Inventory SDU-CN queue state as local evidence, then continue backlog split or live gate only if explicit.
+- proximos_carriles: split `WB_Decisiones` and `SYS_EstadoOperativo`; keep API key use reserved for a concrete target only; live gate only if explicit.
