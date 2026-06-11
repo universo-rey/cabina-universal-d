@@ -1,0 +1,38 @@
+record_kind,asset_path,canonical_source,classification,live_boundary,decision,notes
+support_evidence,governance/agents/SDU_AGENTS_RUNTIME_CAPABILITY_DISCOVERY_20260603.md,governance/agents/*|02_AUTHORITY_CANON/SDU_CN_CANONICAL_AGENT_PANTHEON_20260604.md,bridge_support,local_only,keep_as_bridge,dev-only capability discovery; no 7th agent
+support_evidence,governance/canon/CABINA_FULL_AUTOMATION_BY_PLANES.md,AGENTS.md|MANIFEST.yaml|governance/canon/*,bridge_support,local_only,keep_as_bridge,operational plane bridge over existing canon
+support_evidence,governance/canon/CABINA_PROCESS_RESCUE_MULTI_REPO_FRAMEWORK_20260605.md,AGENTS.md|governance/canon/*|docs/operations/*,bridge_support,local_only,keep_as_bridge,reusable rescue bridge; no live side effects
+support_evidence,governance/canon/CANON_CONSERVATIVE_LANGUAGE_AUDIT_20260603.md,AGENTS.md|governance/canon/*,evidence_support,local_only,keep_as_evidence,audit evidence for wording normalization
+support_evidence,governance/canon/REY_GUIA_BROWNFIELD_LOCAL_PACKAGE_POINTER_20260604.csv,governance/canon/*|docs/operations/*,pointer_support,local_only,keep_as_pointer,pointer inventory for brownfield package
+support_evidence,governance/codex-cloud/SDU_CODEX_CLOUD_DEV_ACTIVATION_PLAN_20260603.md,governance/codex-cloud/*|MANIFEST.yaml,bridge_support,governed_before_live,keep_as_bridge,dev-only activation plan; no apply
+support_evidence,governance/connections/MCP_TEAMS_CANON_POINTER_20260603.md,governance/connections/*|governance/teams/*,bridge_support,governed_before_live,keep_as_bridge,teams canonical pointer; exact target still required
+support_evidence,governance/connections/MCP_TEAMS_CANON_RECONCILIATION_REPORT_20260603.md,governance/connections/*|governance/teams/*,evidence_support,governed_before_live,keep_as_evidence,reconciliation evidence; no duplicate canon
+support_evidence,governance/connections/SDU_DEV_ACTIVATION_SECRETS_CHECKLIST_20260603.md,governance/connections/*|GATE_SECRET_USE,evidence_support,governed_before_live,keep_as_evidence,checklist stays outside repo secret material
+support_evidence,governance/observability/gate-decision.schema.json,governance/observability/*|AGENTS.md,evidence_support,local_only,keep_as_evidence,gate decision schema
+support_evidence,governance/observability/readback-evidence.schema.json,governance/observability/*|AGENTS.md,evidence_support,local_only,keep_as_evidence,readback evidence schema
+support_evidence,governance/observability/runtime-event.schema.json,governance/observability/*|AGENTS.md,evidence_support,local_only,keep_as_evidence,runtime event schema
+support_evidence,governance/observability/SDU_AGENT_RUNTIME_EVIDENCE_MODEL_20260603.md,governance/observability/*|AGENTS.md,evidence_support,local_only,keep_as_evidence,sanitized evidence model
+support_evidence,governance/observability/tool-call.schema.json,governance/observability/*|AGENTS.md,evidence_support,local_only,keep_as_evidence,tool call schema
+support_evidence,governance/power-platform/DISCOVERY_POWER_PLATFORM_TEAMS.md,governance/power-platform/*|governance/connections/*,bridge_support,governed_before_live,keep_as_bridge,brownfield discovery only
+support_evidence,governance/power-platform/POWER_AUTOMATE_GITHUB_SCOUTING.md,governance/power-platform/*,bridge_support,local_only,keep_as_bridge,external scouting reference only
+support_evidence,governance/teams/SDU_TEAMS_FIRST_INTERNAL_MESSAGE_TEST_PLAN_20260603.md,governance/teams/*|GATE_MICROSOFT_LIVE_WRITE,bridge_support,governed_before_live,keep_as_bridge,dry run only for first message
+support_evidence,governance/teams/SDU_TEAMS_IDENTITY_DEV_ACTIVATION_PLAN_20260603.md,governance/teams/*|GATE_TENANT_IDENTITY,bridge_support,governed_before_live,keep_as_bridge,dev identity activation plan; no live
+external_surface,.agents/codex/agents,governance/agents/*|02_AUTHORITY_CANON/*,surface_bridge,local_only,keep_as_bridge,agent registry mirror should point to canon
+external_surface,.agents/codex/matrices,governance/canon/*|governance/connections/*|governance/observability/*|governance/teams/*|governance/power-platform/*|02_AUTHORITY_CANON/*,surface_bridge,local_only,keep_as_bridge,matrix rows derive from governed canon families
+external_surface,.agents/codex/maps,AGENTS.md|governance/canon/*|governance/connections/*,surface_bridge,local_only,keep_as_bridge,maps are routing aids not canon
+external_surface,.agents/codex/recipes,AGENTS.md|governance/canon/*|governance/power-platform/*,surface_bridge,local_only,keep_as_bridge,recipes encode procedure not source truth
+external_surface,.agents/codex/readbacks,governance/observability/readback-evidence.schema.json|02_AUTHORITY_CANON/CURRENT_STATE.md,surface_evidence,local_only,keep_as_evidence,readbacks are evidence ledgers
+external_surface,.agents/codex/scripts,governance/connections/*|governance/teams/*|governance/power-platform/*|governance/observability/*,surface_bridge,local_only,keep_as_bridge,scripts execute governed actions and should defer to canon
+external_surface,.agents/codex/tools,governance/connections/*|governance/power-platform/*|governance/observability/*|governance/canon/*,surface_bridge,local_only,keep_as_bridge,tool metadata follows governed capability sources
+external_surface,.agents/codex/workpapers,governance/canon/*|governance/connections/*|governance/teams/*|governance/power-platform/*|02_AUTHORITY_CANON/*,surface_bridge,local_only,keep_as_bridge,workpapers are local working evidence not canon
+external_surface,.agents/codex/skills,governance/agents/*|governance/canon/*|governance/teams/*|governance/power-platform/*,surface_bridge,local_only,keep_as_bridge,skills should point back to governing canon
+external_surface,.agents/codex/orders,governance/canon/*|governance/connections/*|02_AUTHORITY_CANON/*,surface_bridge,governed_before_live,keep_as_bridge,orders are governed action packets not canon
+external_surface,.agents/codex/evals,governance/observability/*|governance/agents/*|02_AUTHORITY_CANON/*,surface_evidence,local_only,keep_as_evidence,evals are evidence outputs
+external_surface,readbacks,governance/observability/readback-evidence.schema.json|02_AUTHORITY_CANON/CURRENT_STATE.md,surface_evidence,local_only,keep_as_evidence,readback surface should stay evidence first
+external_surface,scripts/validators,governance/canon/*|governance/observability/*|02_AUTHORITY_CANON/*,surface_bridge,local_only,keep_as_bridge,validators should anchor to canon and evidence schema
+external_surface,scripts/connections,governance/connections/*|governance/observability/*,surface_bridge,governed_before_live,keep_as_bridge,connection helpers are governed bridges
+external_surface,scripts/power-platform,governance/power-platform/*|governance/connections/*,surface_bridge,governed_before_live,keep_as_bridge,power platform scripts require gated targets
+external_surface,scripts/sharepoint,governance/teams/*|governance/connections/*,surface_bridge,governed_before_live,keep_as_bridge,sharepoint helpers should mirror governed teams policy
+external_surface,validation,governance/*|matrices/*|02_AUTHORITY_CANON/*,surface_bridge,local_only,keep_as_bridge,validation artifacts are derived from canon and matrices
+external_surface,teams-app/sdu-agent-chat,governance/teams/*|02_AUTHORITY_CANON/POLICIES/TEAMS_GOVERNANCE_POLICY_20260602.md,surface_bridge,governed_before_live,keep_as_bridge,Teams app surface must follow live write gates
+external_surface,dataverse,governance/connections/*|matrices/dataverse/*|validation/dataverse/*|docs/dataverse/*|governance/canon/CABINA_OPERATING_SYSTEM_CONSTITUTION.md,surface_bridge,governed_before_live,keep_as_bridge,Dataverse surface stays governed and target specific

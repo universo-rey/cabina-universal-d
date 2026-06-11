@@ -15,6 +15,7 @@ d_drive_enrichment_matrix,.agents\codex\matrices\D_DRIVE_ENRICHMENT_MATRIX.csv,e
 document_skill_lane_matrix,.agents\codex\matrices\DOCUMENT_SKILL_LANE_MATRIX.csv,document_skill_lanes,05_SOPORTE_TECNICO,update when document type routing skill owner reviewer storage or validator changes
 evidence_validation_matrix,.agents\codex\matrices\EVIDENCE_AND_VALIDATION_MATRIX.csv,closeout,03_CORTE_EJECUTORA,update when validators or readbacks change
 governed_asset_canonical_inventory,.agents\codex\matrices\GOVERNED_ASSET_CANONICAL_INVENTORY.csv,canonical_inventory,00_ROUTER,regenerate when repo agent or tool governance changes
+governance_surface_reconciliation,.agents/codex/matrices/GOVERNANCE_SURFACE_RECONCILIATION_20260611.csv,governance_surface_reconciliation,02_REGISTRO_Y_CARTOGRAFIA,update when governance support evidence or external surface canonical mappings change
 github_agent_operating_matrix,.agents\codex\matrices\GITHUB_AGENT_OPERATING_MATRIX.csv,github_agent_surfaces,02_REGISTRO_Y_CARTOGRAFIA,update when GitHub issue PR or Copilot agent surfaces change
 github_actions_workflow_matrix,.agents\codex\matrices\GITHUB_ACTIONS_WORKFLOW_MATRIX.csv,github_actions_surfaces,05_SOPORTE_TECNICO,update when GitHub Actions workflow triggers permissions or validators change
 github_automation_preflight_matrix,.agents\codex\matrices\GITHUB_AUTOMATION_PREFLIGHT_MATRIX.csv,github_pre_repo_bootstrap,03_CORTE_EJECUTORA,update when GitHub automation Agents SDK or pre-repo readiness changes
