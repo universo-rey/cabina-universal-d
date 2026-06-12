@@ -11,4 +11,3 @@
 "mirror","manifests","confirmed","manifest_subfolder","file bodies not extracted","sharepoint:/sites/SYS-GobiernoOperativo-PILOTO|list_folder_items:TGE_SDU_CN_MICROSOFT_EXECUTION_20260531","read bodies","contains gate/risk/canon manifests"
 "mirror","orders","confirmed","order_subfolder","file bodies not extracted","sharepoint:/sites/SYS-GobiernoOperativo-PILOTO|list_folder_items:TGE_SDU_CN_MICROSOFT_EXECUTION_20260531","read bodies","contains activation order docs"
 "mirror","readbacks","confirmed","readback_subfolder","file bodies not extracted","sharepoint:/sites/SYS-GobiernoOperativo-PILOTO|list_folder_items:TGE_SDU_CN_MICROSOFT_EXECUTION_20260531","read bodies","contains execution readbacks"
-

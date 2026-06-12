@@ -155,4 +155,3 @@ The closeout should summarize:
 - which surfaces are complete
 - which surfaces are still missing local inventory
 - what the next live-read gate would be if the user wants the missing environment filled in
-

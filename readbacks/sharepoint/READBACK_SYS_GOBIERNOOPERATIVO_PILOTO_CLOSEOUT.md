@@ -26,4 +26,3 @@ EXECUTED_LOCAL_VALIDATED
 1. Read the exact markdown bodies for the control bundle.
 2. Read the execution matrices/readbacks as file content, not metadata.
 3. If needed, build a site-level canon matrix from the extracted bodies.
-

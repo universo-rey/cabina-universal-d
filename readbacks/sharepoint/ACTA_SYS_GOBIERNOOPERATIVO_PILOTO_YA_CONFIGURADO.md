@@ -26,4 +26,3 @@ El sitio `SYS-GobiernoOperativo-PILOTO` ya estaba configurado por el equipo. La 
 - [READBACK_SYS_GOBIERNOOPERATIVO_PILOTO_SURFACE.md](C:/Users/enzo1/Documents/GitHub/cabina-universal-d/readbacks/sharepoint/READBACK_SYS_GOBIERNOOPERATIVO_PILOTO_SURFACE.md)
 - [READBACK_SYS_GOBIERNOOPERATIVO_PILOTO_GOVERNANCE_PACKAGE.md](C:/Users/enzo1/Documents/GitHub/cabina-universal-d/readbacks/sharepoint/READBACK_SYS_GOBIERNOOPERATIVO_PILOTO_GOVERNANCE_PACKAGE.md)
 - [READBACK_SYS_GOBIERNOOPERATIVO_PILOTO_DELTA_REPORT.md](C:/Users/enzo1/Documents/GitHub/cabina-universal-d/readbacks/sharepoint/READBACK_SYS_GOBIERNOOPERATIVO_PILOTO_DELTA_REPORT.md)
-

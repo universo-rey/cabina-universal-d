@@ -87,4 +87,3 @@ SYS_GOBIERNOOPERATIVO_PILOTO_GOVERNANCE_PACKAGE_REVIEWED
 - [TGE_Control_20260514](https://escribaniabitsch.sharepoint.com/sites/SYS-GobiernoOperativo-PILOTO/Shared%20Documents/LIB_GobiernoSistemas/TGE_Control_20260514)
 - [MW-MAQUINA-CABINA-OPERATIVA-SHAREPOINT-V1](https://escribaniabitsch.sharepoint.com/sites/SYS-GobiernoOperativo-PILOTO/Shared%20Documents/LIB_GobiernoSistemas/MW-MAQUINA-CABINA-OPERATIVA-SHAREPOINT-V1)
 - [TGE_SDU_CN_MICROSOFT_EXECUTION_20260531](https://escribaniabitsch.sharepoint.com/sites/SYS-GobiernoOperativo-PILOTO/Shared%20Documents/LIB_GobiernoSistemas/TGE_SDU_CN_MICROSOFT_EXECUTION_20260531)
-

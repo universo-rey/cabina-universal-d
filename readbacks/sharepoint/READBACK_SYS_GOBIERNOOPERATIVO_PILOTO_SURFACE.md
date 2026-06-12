@@ -47,4 +47,3 @@ SYS_GOBIERNOOPERATIVO_PILOTO_SURFACE_REVIEWED
 ## Evidence
 - [SharePoint site](https://escribaniabitsch.sharepoint.com/sites/SYS-GobiernoOperativo-PILOTO)
 - [Readback matrix](/C:/Users/enzo1/Documents/GitHub/cabina-universal-d/matrices/sharepoint/SHAREPOINT_AGENT_REGISTRY_SURFACE_MATRIX.csv)
-
