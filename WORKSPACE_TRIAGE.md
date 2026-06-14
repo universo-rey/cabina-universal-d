@@ -26,7 +26,7 @@ No detecté untracked de tipo `cache`, `secret` o `runtime` en esta ronda.
 | `.agents/codex/matrices/DATAVERSE_ESCRIBANIA_QUEUE_BACKLOG_20260613.csv` | source | Backlog estructurado de cola | Conservar |
 | `.agents/codex/readbacks/2026-06-12_codex_evolutionary_attachments_worktable_plan.md` | output/evidence | Plan y readback de estabilización | Conservar |
 | `.agents/codex/readbacks/2026-06-13_acta_del_dia_con_todos_los_agentes.md` | output/evidence | Acta de coordinación | Conservar |
-| `.agents/codex/readbacks/2026-06-13_acta_mesa_corte_ejecutora_sdu_cn_borrador.md` | output/evidence | Borrador de acta | Conservar |
+| `.agents/codex/readbacks/2026-06-13_acta_mesa_corte_ejecutora_sdu_cn_borrador.md` | output/evidence post-gate | Acta reconciliada post-gate | Versionado |
 | `.agents/codex/readbacks/2026-06-13_control_plane_objective_window_readback.md` | output/evidence | Readback de ventana de objetivo | Conservar |
 | `.agents/codex/readbacks/2026-06-13_dataverse_escribania_queue_backlog.md` | output/evidence | Readback de backlog Dataverse | Conservar |
 | `.agents/codex/readbacks/2026-06-13_escribania_concrete_surface_packet.md` | output/evidence | Paquete de superficie | Conservar |
@@ -51,4 +51,5 @@ No hace falta tocar `.gitignore` por `runtime`, `cache` o `secret` en esta ronda
 - no refactorizar carpetas;
 - tratar los `readbacks` como evidencia generada;
 - tratar las `matrices` y definiciones como source operativo;
+- tratar el acta de mesa de corte como evidencia post-gate reconciliada;
 - revisar más adelante si algún `readback` pasa a archivo histórico.
