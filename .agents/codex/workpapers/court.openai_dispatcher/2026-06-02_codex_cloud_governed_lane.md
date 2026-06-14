@@ -24,7 +24,8 @@ Codex Cloud CLI y repos GitHub.
   produccion sin gate superior.
 - `README.md` declara `CONSOLIDADO_DOCUMENTAL`, produccion bloqueada,
   runtime local sandbox, skill pack pre-productivo y live-write controlado
-  sobre SharePoint como superficie completa gobernada.
+  sobre SharePoint como superficie completa gobernada, alineado con el readback
+  pareado de este carril.
 - `.github/workflows/validate-runtime-local.yml` ejecuta pytest, skill pack,
   runtime-local, readonly evidence, handoff, promotion-gate y live-write con
   engine `mock`.
