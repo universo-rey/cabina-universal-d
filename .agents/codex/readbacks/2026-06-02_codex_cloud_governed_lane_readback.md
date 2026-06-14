@@ -28,7 +28,7 @@ El snapshot UI del operador confirma environments visibles para
   produccion sin gate superior.
 - `sgin-cloud/README.md` declara runtime local sandbox, skill pack
   pre-productivo, promotion gate y live-write controlado sobre SharePoint
-  piloto.
+  como superficie completa gobernada.
 - `sgin-cloud/.github/workflows/validate-runtime-local.yml` usa engine `mock`
   para el carril live-write de CI.
 - `codex cloud exec --env SeshatSgin/sgin-cloud --branch main` con prompt
