@@ -23,4 +23,4 @@ medible, para el runtime que debemos resolver para Escribania.
 ## Stop Condition
 
 `PENDING_TARGET_ONLY`
-
+Conteo vigente actual de la vista comparativa: `1493` artefactos indexados para agentes.

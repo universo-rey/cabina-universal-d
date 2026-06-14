@@ -42,6 +42,7 @@ hasta que el registro local sea medible de punta a punta.
 ## Stop Condition
 
 `PENDING_TARGET_ONLY`
+Conteo vigente actual de la vista comparativa: `1493` artefactos indexados para agentes.
 
 ## Evidence
 
@@ -52,4 +53,3 @@ hasta que el registro local sea medible de punta a punta.
 - `01_GOVERNANCE_REGISTRY/RELATIONSHIP_GRAPH.json`
 - `AGENT_WORKPAPERS_MATRIX.csv`
 - `WORKPAPER_INDEX.csv`
-
