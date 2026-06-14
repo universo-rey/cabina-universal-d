@@ -25,6 +25,9 @@ STARTUP_FILES = [
     "02_AUTHORITY_CANON/CURRENT_STATE.md",
 ]
 
+SDU_REVIEW_STATUS = "SDU_CN_CANONICAL_AGENTS_MULTI_REPO_MULTI_UNIVERSE_READY_FOR_REVIEW"
+SDU_ACTIVE_STATUS = "SDU_AGENTS_NEXT_TASK_ACTIVE_NO_MORE_SMOKE"
+
 REQUIRED_AGENTS = [
     "seshat-normativa",
     "thot-tecnico",
@@ -38,8 +41,8 @@ REQUIRED_AGENTS = [
 def validate_startup_text(path: str) -> None:
     text = read_text(path)
     lowered = " ".join(text.lower().split())
-    for token in [
-        "SDU_CN_CANONICAL_AGENTS_MULTI_REPO_MULTI_UNIVERSE_READY_FOR_REVIEW",
+
+    common_tokens = [
         "SDU_CN_CANONICAL_AGENT_PANTHEON_20260604.md",
         "SDU_CN_MULTI_UNIVERSE_OPERATING_MODEL_20260604.md",
         "SDU_CN_CANONICAL_AGENT_UNIVERSE_REPO_MATRIX_20260604.csv",
@@ -51,12 +54,30 @@ def validate_startup_text(path: str) -> None:
         "no son adaptadores",
         "OpenAI",
         "no fuente de autoridad",
-    ]:
+    ]
+
+    path_tokens = {
+        "AGENTS.md": [
+            "ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT",
+            "MANIFEST.yaml",
+            "CURRENT_STATE.md",
+            "operational_chain_missing",
+        ],
+        "MANIFEST.yaml": common_tokens + [SDU_ACTIVE_STATUS, SDU_REVIEW_STATUS],
+        "02_AUTHORITY_CANON/CURRENT_STATE.md": [
+            SDU_ACTIVE_STATUS,
+            "ORDER_SDU_AGENTS_NEXT_TASK_ACTIVATION_20260608.md",
+            "PENDING_TARGET_ONLY",
+        ],
+    }
+
+    for token in path_tokens[path]:
         if token.lower() not in lowered:
             raise AssertionError(f"{path} missing startup token {token}")
-    for agent in REQUIRED_AGENTS:
-        if agent.lower() not in lowered:
-            raise AssertionError(f"{path} missing canonical agent {agent}")
+    if path != "AGENTS.md":
+        for agent in REQUIRED_AGENTS:
+            if agent.lower() not in lowered:
+                raise AssertionError(f"{path} missing canonical agent {agent}")
 
 
 def validate() -> None:

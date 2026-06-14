@@ -58,8 +58,18 @@ standard_agent_chain:
   secrets_policy: never_print_never_persist
   status_final: STANDARD_AGENT_CHAIN_ACTIVE
 sdu_cn_canonical_agents_state:
-  status: SDU_CN_CANONICAL_AGENTS_MULTI_REPO_MULTI_UNIVERSE_READY_FOR_REVIEW
-  authority: human_order_required
+  status: SDU_AGENTS_NEXT_TASK_ACTIVE_NO_MORE_SMOKE
+  previous_status: SDU_CN_CANONICAL_AGENTS_MULTI_REPO_MULTI_UNIVERSE_READY_FOR_REVIEW
+  execution_mode: CORTE_EJECUTORA_GOVERNED
+  execution_plane: 03_CORTE_EJECUTORA
+  front_agent: seshat-normativa
+  gate_agent: anubis-gate
+  operational_lead: court.openai_dispatcher
+  authority: human_order_received_for_next_task
+  activation_order: .agents/codex/orders/ORDER_SDU_AGENTS_NEXT_TASK_ACTIVATION_20260608.md
+  activation_readback: .agents/codex/readbacks/2026-06-08_sdu_agents_next_task_activation_readback.md
+  activation_sync_readback: .agents/codex/readbacks/2026-06-13_sdu_agents_activation_sync_readback.md
+  target_state: PENDING_TARGET_ONLY
   universes:
     - ESCRIBANIA
     - MODO_ON

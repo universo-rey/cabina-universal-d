@@ -21,3 +21,5 @@ Metadata rule:
   `.agents\codex\skills\SKILL_METADATA_QUALITY_MATRIX.csv`.
 - validate with
   `.agents\codex\tools\local_validate_skill_metadata.ps1`.
+
+See [MATRIZ_OPERATIVA.md](MATRIZ_OPERATIVA.md) for the 3-step mirror.

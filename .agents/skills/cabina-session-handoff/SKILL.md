@@ -42,6 +42,7 @@ Include:
 - agente
 - orden
 - superficie
+- runtime or traceability header when the surface is live or governed
 - branch or PR when relevant
 - files changed or read
 - validators run

@@ -2,13 +2,14 @@
 
 ## Metadata
 
-- Last updated: 2026-06-08
-- Version: v2.1.1
-- Current: v2.1.1
+- Last updated: 2026-06-13
+- Version: v2.1.2
+- Current: v2.1.2
 - Status: `snapshot`
 - Repo: `universo-rey/cabina-universal-d`
 - Workspace: repo-local root `.`
-- Branch: `codex/post-pr145-canon-sync-20260608`
+- Branch: `codex/workpapers-power-automate-queue-20260612`
+- Current HEAD: `a9a813e`
 - Main after PR #145 merge: `29bb1804a31089170cdd782a463f496fe90353fe`
 - PR #145 final head: `a1b3d6ef4389c65913fede54546a0793b3cee6b4`
 - Active PR: none in merged main snapshot before this post-merge canon sync
@@ -21,6 +22,17 @@
 - Active execution capability matrix:
   `governance/canon/ACTIVE_EXECUTION_CAPABILITY_MATRIX_20260603.csv`.
 - Standard chain: `STANDARD_AGENT_CHAIN_ACTIVE`.
+- SDU-CN canonical agents status:
+  `SDU_AGENTS_NEXT_TASK_ACTIVE_NO_MORE_SMOKE`.
+- SDU-CN execution mode: `CORTE_EJECUTORA_GOVERNED`.
+- SDU-CN front agent: `seshat-normativa`; gate: `anubis-gate`; operational
+  lead: `court.openai_dispatcher`.
+- Active SDU-CN roster: `seshat-normativa`, `thot-tecnico`, `anubis-gate`,
+  `maat-cumplimiento`, `horus-riesgo`, `narrador-normativo`.
+- Active SDU-CN order:
+  `.agents/codex/orders/ORDER_SDU_AGENTS_NEXT_TASK_ACTIVATION_20260608.md`.
+- SDU-CN live side effects remain `PENDING_TARGET_ONLY` until a concrete target,
+  owner, rollback, postcheck and validator are declared.
 - Memory cleanup state: `OPERATING_MEMORY_POINTER_VALIDATOR_IMPLEMENTED`.
 - GitHub is the versionable technical canon.
 - `AGENTS.md` is the active instruction contract.
@@ -76,8 +88,9 @@ Confirmed absent in Fase 2/post-check audit:
 - This cleanup is documentary/governance only. It does not authorize live
   Microsoft, SharePoint, Dataverse, Power Platform, OpenAI, production,
   permissions, secrets, deploys or workflow changes.
-- Post-merge canon sync should stay documentary-only and avoid live/runtime
-  surfaces.
+- This activation sync is repo-local and declarative. It does not execute
+  OpenAI live, Microsoft live, production, permissions, secrets, deploys or
+  persistent remote agents.
 
 ## Needs Verification
 
@@ -92,8 +105,9 @@ Confirmed absent in Fase 2/post-check audit:
 
 ## Next Lanes
 
-1. Validate this post-merge canon sync locally.
-2. Stage explicit canon paths only; do not use `git add .`.
-3. Commit and push the post-merge canon sync branch.
-4. Open a minimal PR against `main`.
-5. Keep merge gated by normal HEAD, checks and human approval rules.
+1. Select the next concrete SDU-governed task target.
+2. Keep SDU-CN readbacks naming the six canonical agents used, mappings,
+   target, owner, rollback, postcheck, evidence, validator and stop condition.
+3. Do not run more smoke tests unless a concrete SDU task requires it under the
+   active cost, data and secret boundaries.
+4. Keep Microsoft live and production parked until exact target gates are met.

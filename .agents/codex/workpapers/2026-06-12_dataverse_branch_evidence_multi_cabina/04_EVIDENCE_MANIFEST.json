@@ -1,0 +1,73 @@
+{
+  "package_id": "2026-06-12_dataverse_branch_evidence_multi_cabina",
+  "created_at_local": "2026-06-12",
+  "workspace": "C:/Users/enzo1/Documents/GitHub/cabina-universal-d",
+  "user_codex_folder": "C:/Users/enzo1/.codex",
+  "status": "READY_WITH_BRANCH_EVIDENCE_CURRENT_BRANCH_GAP",
+  "stop_condition": "no_cross_cabina_write_without_target_matrix",
+  "source_zip_inputs": [
+    {
+      "path": "C:/Users/enzo1/Downloads/codex_evolutionary_runtime_activation_v2.zip",
+      "sha256": "556A97298B9B3EFD3D8A02F3B9E58086EA7224BEB88C58FA9FDAAFB3E7748AD2"
+    },
+    {
+      "path": "C:/Users/enzo1/Downloads/codex_evolutionary_blueprint_package.zip",
+      "sha256": "8E7E7F0B218E5A8E6E052C3CE159BDAA4B3406A106C3D9E22AACB6B8C3114739"
+    }
+  ],
+  "branch_evidence": {
+    "current_branch": "codex/feature/agents/global-operability-next-lane__ISSUE-RECON-008",
+    "current_branch_issue": "tracking_remote_gone_and_seed_absent_from_worktree",
+    "seed_path": "dataverse/data/seed_sdu_agent_runtime_actions.csv",
+    "seed_present_in": [
+      "main",
+      "origin/main",
+      "codex/sdu-dataverse-readback-main-merge",
+      "codex/tenant-controlled-dataverse-segments-20260608",
+      "codex/sdu-reconciliar-she-training-sync-20260610",
+      "codex/cabina-universal-d-coordination-20260611"
+    ],
+    "commits": [
+      "09e9e2c7640e0ac106664240c6ebd832bf524503",
+      "3b58208a8bec8ec222e24bea6ed8201d6b6b3aa2",
+      "a605f80efe7caf073af15bad798a817aa72e9d42"
+    ],
+    "pull_requests": [
+      "#147",
+      "#152",
+      "#153",
+      "#154"
+    ]
+  },
+  "dataverse_evidence": {
+    "summary": "dataverse/validation/sdu_agent_runtime_actions_registry_20260608/summary_20260610_040322.json",
+    "row_count": 7,
+    "status": "POSTCHECKED",
+    "queue": "SDU.Agent.Dispatch.Queue",
+    "cre3c_record_id": "96d651ad-4f64-f111-ab0d-00224805f8f9"
+  },
+  "agents": {
+    "closed": [
+      "Euler",
+      "Poincare",
+      "Erdos"
+    ],
+    "pending_at_save_time": [
+      "Mendel",
+      "Avicenna"
+    ]
+  },
+  "distribution": {
+    "initial_targets": [
+      "universo-rey/cabina-universal-d",
+      "SeshatSgin/torre-gemela-escribania",
+      "SeshatSgin/seshat-bootstrap-sdu-cn",
+      "SeshatSgin/cdf-soluciones",
+      "SeshatSgin/tge-agentic-runtime-control-escribania",
+      "SeshatSgin/tcu-agentic-runtime-control",
+      "universo-rey/organizacion",
+      "SeshatSgin/tcu-control-plane"
+    ],
+    "execution_state": "PENDING_TARGET_ONLY"
+  }
+}

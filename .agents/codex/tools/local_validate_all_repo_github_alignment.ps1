@@ -99,7 +99,12 @@ foreach ($row in $rows) {
   $openPrs = @()
 
   if (-not $exists) {
-    $errors.Add("Registered repo path missing: $($row.repo_id) -> $path")
+    $message = "Registered repo path missing: $($row.repo_id) -> $path"
+    if ($isGitHubActions -and $row.status -eq "ACTIVE_SIBLING_REPO") {
+      $warnings.Add("$message (expected absent in GitHub Actions checkout for sibling repo reference)")
+    } else {
+      $errors.Add($message)
+    }
   } else {
     $insideGitRaw = Invoke-GitLines -Path $path -GitArgs @("rev-parse", "--is-inside-work-tree")
     $insideGit = ($insideGitRaw -and @($insideGitRaw)[0] -eq "true")
