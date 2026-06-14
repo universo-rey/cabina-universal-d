@@ -62,3 +62,4 @@
 "MCP_REMOTE_WRITE_ATTEMPTED","mcp_boundary","MCP remote write was attempted without exact governed target and rollback","stop write and run read-only or mock probe only","mcp|runtime"
 "TEAMS_TARGET_MISSING","teams_boundary","Teams install or message lacks exact team chat channel app or owner","stop Teams live write and keep DEV validation only","teams|microsoft"
 "BLOCKED_PRODUCTION_UNAPPROVED","production_gate","production action lacks explicit production gate","stop production and keep DEV read-only evidence only","production|runtime|tenant"
+"agent_chain_missing_contract","agentic_execution","a multi-agent wave stage lacks input output evidence validator risk rollback or handoff contract","complete the agent contract before executing the wave","agent|wave|engine|multi_canon"
