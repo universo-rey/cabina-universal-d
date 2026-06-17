@@ -68,6 +68,7 @@ role_rules:
   - no absorber repos anidados
   - no crear septimo agente
   - OpenAI Codex Agents SDK MCP y Microsoft son medios de ejecucion no fuente de autoridad
+  - OpenAI autorizado como medio de ejecucion; no es fuente de autoridad
   - Microsoft live no se ejecuta en este PR
   - OpenAI live no se ejecuta en este PR
   - Responses API live no se ejecuta en este PR

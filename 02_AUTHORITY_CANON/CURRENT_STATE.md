@@ -111,3 +111,9 @@ Confirmed absent in Fase 2/post-check audit:
 3. Do not run more smoke tests unless a concrete SDU task requires it under the
    active cost, data and secret boundaries.
 4. Keep Microsoft live and production parked until exact target gates are met.
+5. Lane A of the atomic repo wave is now the active repo-axis readback lane:
+   `cabina-universal-d`, `sdu-canon` and `seshat-bootstrap-sdu-cn` keep their
+   own repo-local canon, and the shared packet lives in
+   `C:\Users\enzo1\PROJEC CDX\operativa\WAVE_ATOMICA_REPOS_20260616.md`.
+6. Lane A fan-in is now closed for this repo anchor; no extra repo-local
+   change is required unless a new atomic lane reopens the target.
