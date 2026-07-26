@@ -204,6 +204,7 @@ foreach ($row in $localRows) {
 $queueIds = New-Object System.Collections.Generic.HashSet[string]
 $allowedAppStatus = @(
   "CODEX_APP_LOCAL_ENV_CREATED",
+  "REPO_NATIVE_CODEX_APP_ENV_CREATED",
   "REPO_NATIVE_CODEX_APP_ENV_REQUIRED",
   "CODEX_APP_ENV_NOT_APPLICABLE_CLOUD_REFERENCE"
 )
@@ -255,6 +256,22 @@ foreach ($row in $queueRows) {
       $warnings.Add("$message (expected in wrapper-repo CI or auxiliary worktree without nested clones)")
     } else {
       $errors.Add($message)
+    }
+  }
+  if ($row.codex_app_scope -eq "repo_native" -and $row.local_path -notmatch "NO_APLICA") {
+    $repoPath = Resolve-CabinaPath $row.local_path
+    $repoEnvironmentPath = Join-Path $repoPath ".codex\environments\environment.toml"
+    $repoEnvironmentExists = Test-Path -LiteralPath $repoEnvironmentPath -PathType Leaf
+    if ($row.codex_app_status -eq "REPO_NATIVE_CODEX_APP_ENV_CREATED" -and -not $repoEnvironmentExists) {
+      $message = "Codex environment queue row '$($row.environment_queue_id)' marks repo-native environment created but file is missing: $repoEnvironmentPath"
+      if ($isGitHubActions -or $isAuxiliaryWrapperCheckout) {
+        $warnings.Add("$message (expected in wrapper-repo CI or auxiliary worktree without nested clones)")
+      } else {
+        $errors.Add($message)
+      }
+    }
+    if ($row.codex_app_status -eq "REPO_NATIVE_CODEX_APP_ENV_REQUIRED" -and $repoEnvironmentExists) {
+      $errors.Add("Codex environment queue row '$($row.environment_queue_id)' still marks repo-native environment required but file already exists: $repoEnvironmentPath")
     }
   }
   Check-PathTokens -Value $row.validator -Errors $errors -Context "Codex environment queue '$($row.environment_queue_id)' validator"
