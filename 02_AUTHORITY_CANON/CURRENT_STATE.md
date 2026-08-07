@@ -111,3 +111,15 @@ Confirmed absent in Fase 2/post-check audit:
 3. Do not run more smoke tests unless a concrete SDU task requires it under the
    active cost, data and secret boundaries.
 4. Keep Microsoft live and production parked until exact target gates are met.
+
+## Estado Git operativo vigente
+
+Actualizado 2026-08-07 por orden expresa del operador:
+`GIT_FROZEN=false`.
+
+Git queda habilitado como capacidad gobernada repo-scoped. Cada ejecucion debe
+resolver el repo exacto, preservar los repos anidados, usar pathspec explicito,
+validar rama y diff, y producir postcheck. Permanecen fuera de esta habilitacion
+el force push, las reescrituras destructivas, `git add .` en `D:\`, secretos,
+cambios de permisos, borrado remoto y merge sin preflight. Este cambio de
+politica no crea por si mismo commits, pushes, PRs ni merges.
