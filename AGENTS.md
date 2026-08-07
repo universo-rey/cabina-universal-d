@@ -25,6 +25,15 @@ checks, validadores ni estados.
 
 Estado activo: `ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT`.
 
+Estado Git operativo actualizado 2026-08-07 por orden expresa del operador:
+`GIT_FROZEN=false`. Git deja de estar congelado como politica general. Las
+operaciones repo-scoped pueden ejecutarse autonomamente cuando el target y el
+alcance estan resueltos, usando rama `codex/*`, pathspec explicito, preflight,
+postcheck y evidencia. Esta habilitacion no autoriza `git add .`, force push,
+reescritura destructiva, borrado remoto, cambio de permisos, secretos ni merge
+sin los prechecks vigentes. Desactivar el freeze no ejecuta por si solo commit,
+push, PR o merge.
+
 Ejecutar primero lo seguro y gatear solo fronteras reales. No cerrar con
 `blocked`, `prepared` o `pending` generico si existe accion local, mock, DEV,
 read-only, preflight, dry-run, validator, branch, PR o readback posible.
