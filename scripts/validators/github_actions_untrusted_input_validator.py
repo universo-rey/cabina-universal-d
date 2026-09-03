@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Reject untrusted workflow inputs interpolated directly into shell scripts."""
 
+import re
 from pathlib import Path
 
 
@@ -16,19 +17,56 @@ WORKFLOWS = (
 
 
 def run_blocks(lines: list[str]):
-    in_run = False
-    run_indent = 0
-    for number, line in enumerate(lines, 1):
-        stripped = line.lstrip()
-        indent = len(line) - len(stripped)
-        if stripped in {"run: |", "run: >"}:
-            in_run = True
-            run_indent = indent
+    """Yield every YAML run scalar, including inline and chomped forms."""
+    number = 0
+    while number < len(lines):
+        line = lines[number]
+        match = re.match(r"^(\s*)-?\s*run:\s*(.*?)\s*$", line)
+        if not match:
+            number += 1
             continue
-        if in_run and stripped and indent <= run_indent:
-            in_run = False
-        if in_run:
-            yield number, line
+        indent = len(match.group(1))
+        value = match.group(2)
+        if re.fullmatch(r"[|>][+-]?", value):
+            number += 1
+            while number < len(lines):
+                nested = lines[number]
+                stripped = nested.lstrip()
+                nested_indent = len(nested) - len(stripped)
+                if stripped and nested_indent <= indent:
+                    break
+                yield number + 1, nested
+                number += 1
+            continue
+        yield number + 1, value
+        number += 1
+
+
+def checkout_errors(lines: list[str]) -> list[int]:
+    """Return line numbers for checkout steps that persist credentials."""
+    errors: list[int] = []
+    for index, line in enumerate(lines):
+        match = re.match(r"^(\s*)-?\s*uses:\s*actions/checkout@", line)
+        if not match:
+            continue
+        uses_indent = len(match.group(1))
+        step_indent = uses_indent
+        if not line.lstrip().startswith("-"):
+            for prior in range(index - 1, -1, -1):
+                step_match = re.match(r"^(\s*)-\s+", lines[prior])
+                if step_match and len(step_match.group(1)) < uses_indent:
+                    step_indent = len(step_match.group(1))
+                    break
+        end = index + 1
+        while end < len(lines):
+            candidate = lines[end]
+            if re.match(rf"^\s{{{step_indent}}}-\s+", candidate):
+                break
+            end += 1
+        step = lines[index:end]
+        if not any(re.match(r"^\s*persist-credentials:\s*false\s*(?:#.*)?$", item) for item in step):
+            errors.append(index + 1)
+    return errors
 
 
 def main() -> int:
@@ -40,9 +78,10 @@ def main() -> int:
         for number, line in run_blocks(lines):
             if "${{ inputs." in line:
                 errors.append(f"{path.relative_to(ROOT)}:{number}: direct inputs interpolation in run block")
-        text = "\n".join(lines)
-        if "uses: actions/checkout" in text and "persist-credentials: false" not in text:
-            errors.append(f"{path.relative_to(ROOT)}: checkout must disable persisted credentials")
+        for number in checkout_errors(lines):
+            errors.append(
+                f"{path.relative_to(ROOT)}:{number}: checkout must disable persisted credentials"
+            )
 
     if errors:
         print("GITHUB_ACTIONS_UNTRUSTED_INPUTS: FAIL")
