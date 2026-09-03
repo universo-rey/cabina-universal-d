@@ -44,11 +44,12 @@ def main() -> None:
     if "DIRECT" not in reads or "EXACT_BINDING" not in reads or "ORDER_REQUIRED" in reads:
         fail("direct read contract drifted")
     low = contract.get("low_writes", "")
-    for marker in ("RECTOR_ALLOWLIST", "CEILINGS", "PRECHECK", "POSTCHECK", "EVIDENCE"):
-        if marker not in low:
-            fail(f"LOW contract missing {marker}")
-    if "ROLLBACK" not in low and "IDEMPOTENCY" not in low:
-        fail("LOW contract must require rollback or idempotency")
+    expected_low = (
+        "RECTOR_ALLOWLIST_AND_CEILINGS_PLUS_PRECHECK_"
+        "ROLLBACK_OR_IDEMPOTENCY_POSTCHECK_EVIDENCE"
+    )
+    if low != expected_low:
+        fail("LOW contract must match rector allowlist, ceilings and recovery guarantees")
     if contract.get("high_actions") != "EXPLICIT_GOVERNED_ORDER_REQUIRED":
         fail("HIGH contract must require explicit governed order")
     print("risk_tier_policy_consumer_validator: PASS")
