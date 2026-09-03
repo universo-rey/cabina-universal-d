@@ -10,6 +10,7 @@
 - Workspace: repo-local root `.`
 - Snapshot branch: `codex/validator-workflow-current-state-20260903`
 - Main baseline HEAD: `a4a92165fcd709ab6cdb0247c3dae4e24ce74e7c`
+- Snapshot input HEAD: `9f083ff4d48e21f5d117bd33fb378ca8cfeb1ce7c` (captured before this metadata-only closure commit)
 - Latest merged PR: `#160`
 - PR #160 state: `MERGED`
 - Active PR for this snapshot: `#165`
