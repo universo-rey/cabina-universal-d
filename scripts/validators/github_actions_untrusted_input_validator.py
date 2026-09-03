@@ -86,7 +86,7 @@ def checkout_errors(lines: list[str]) -> list[int]:
         if not any(
             len(item) - len(item.lstrip()) == direct_indent
             and re.match(
-                r"""^\\s*(?:persist-credentials|["']persist-credentials["'])\\s*:\\s*false\\s*(?:#.*)?$""",
+                r"""^\s*(?:persist-credentials|["']persist-credentials["'])\s*:\s*false\s*(?:#.*)?$""",
                 item,
             )
             for item in with_block
