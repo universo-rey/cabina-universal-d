@@ -10,7 +10,7 @@
 - Workspace: repo-local root `.`
 - Snapshot branch: `codex/validator-workflow-current-state-20260903`
 - Main baseline HEAD: `a4a92165fcd709ab6cdb0247c3dae4e24ce74e7c`
-- Snapshot input HEAD: `9f083ff4d48e21f5d117bd33fb378ca8cfeb1ce7c` (captured before this metadata-only closure commit)
+- Validated branch HEAD: `a7a825219c1b7521ebfb447b8a9e9e1833641515` (immutable CI evidence before this metadata-only closure commit)
 - Latest merged PR: `#160`
 - PR #160 state: `MERGED`
 - Active PR for this snapshot: `#165`
@@ -59,7 +59,9 @@
 - `.agents/codex/matrices/GITHUB_ACTIONS_WORKFLOW_MATRIX.csv` is the existing
   workflow-to-validator registry. Its correspondence with both workflows is
   enforced by `local_validate_github_automation_preflight.ps1` in this lane.
-- Latest remote check result for this branch: `PENDING_PR_CHECKS`.
+- Remote checks at validated branch HEAD `a7a825219c1b7521ebfb447b8a9e9e1833641515`:
+  - `Cabina Validation` run `33787322508`: `PASS`.
+  - `Active Governed Execution Validation` run `33787322509`: `PASS`.
 
 ## Confirmed Workflows And Validators
 
@@ -105,7 +107,7 @@ contract. `REPO_AGENT_TOOL_GOVERNANCE_MATRIX.csv` assigns tool governance to
 
 ## Needs Verification
 
-- Remote CI for the active PR must pass on the fixed branch HEAD.
+- Remote CI passed on validated branch HEAD `a7a825219c1b7521ebfb447b8a9e9e1833641515`; this metadata-only closure commit requires fresh CI before merge.
 - Standalone validators outside the two governed workflow contracts require a
   separate disposition review before they can be classified as required CI,
   nested, manual or historical. Their mere presence does not prove merge-gate
