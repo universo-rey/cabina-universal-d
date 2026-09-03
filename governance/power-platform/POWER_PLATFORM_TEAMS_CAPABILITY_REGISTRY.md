@@ -4,6 +4,27 @@ Estado: `POWER_PLATFORM_TEAMS_CAPABILITY_REGISTRY_READY`
 Fecha: 2026-06-03
 Frontera: DEV/STAGING preparado; Microsoft live y produccion no ejecutados.
 
+## Clasificacion efectiva de ejecucion
+
+Este registry consume el canon rector de TCU; no define una politica paralela.
+La columna historica `risk_level` describe la sensibilidad/madurez inventariada
+y no autoriza ni eleva el tier de una ejecucion concreta.
+
+- READ: directo con capability autenticada, binding vigente, target exacto,
+  minimizacion y evidencia.
+- Todo write conocido sin trigger HIGH objetivo: `LOW_BY_DEFAULT`, sin orden,
+  allowlist ni receipt. Requiere capability, binding, target acotado, precheck,
+  rollback o idempotencia, postcheck y evidencia.
+- HIGH: sólo ante trigger positivo destructivo/irreversible, produccion,
+  tenant/identidad/permisos/admin, secretos, datos regulados, comunicacion
+  externa material, volumen/costo abierto o fuera del binding.
+- Un dato faltante no convierte LOW en HIGH: devuelve `RESOLUTION_REQUIRED` y
+  `BLOCKED_NOT_EXECUTABLE`, preservando el tier.
+
+Por lo tanto, etiquetas legacy `medium`, `gated` u `order_required` de esta
+tabla no prevalecen sobre la clasificacion efectiva. Deben leerse como metadata
+historica hasta su normalizacion, nunca como un gate general.
+
 | capability_id | capability_name | source | source_type | maturity | runtime | orchestration_type | compatible_with | dependencies | recipes | skills | agents | risk_level | provisioning_scope | apply_globally | validation_required | traceability_level | current_status | target_status | implementation_file | evidence_required |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | pp_alm_github_actions | Power Platform ALM GitHub Actions | Microsoft Learn; microsoft/powerplatform-actions | canon_tecnico | production_supported_tooling | GitHub Actions | manual_dispatch | Dataverse solutions; PAC CLI | Dataverse database; service principal | POWER_PLATFORM_ALM_DEV_STAGING_RECIPE | tcu-descubridor-capacidades | court.openai_dispatcher | medium | DEV/STAGING | false | who-am-i; workflow gate | high | gap_detected | ready | .github/workflows/power-platform-alm-full-dev.yml | run summary; artifact |

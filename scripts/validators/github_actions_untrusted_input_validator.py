@@ -22,7 +22,7 @@ def run_blocks(lines: list[str]):
     while number < len(lines):
         line = lines[number]
         flow = re.match(
-            r"""^\\s*-\\s*\\{.*?(?:run|["']run["'])\\s*:\\s*(["'])(.*?)\\1\\s*(?:,|\\})""",
+            r"""^\s*-\s*\{.*?(?:run|["']run["'])\s*:\s*(["'])(.*?)\1\s*(?:,|\})""",
             line,
         )
         if flow:
@@ -55,12 +55,12 @@ def checkout_errors(lines: list[str]) -> list[int]:
     errors: list[int] = []
     for index, line in enumerate(lines):
         flow_checkout = re.search(
-            r"""(?:uses|["']uses["'])\\s*:\\s*["']?actions/checkout@""",
+            r"""(?:uses|["']uses["'])\s*:\s*["']?actions/checkout@""",
             line,
         )
-        if flow_checkout and re.match(r"^\\s*-\\s*\\{", line):
+        if flow_checkout and re.match(r"^\s*-\s*\{", line):
             if not re.search(
-                r"""(?:persist-credentials|["']persist-credentials["'])\\s*:\\s*false""",
+                r"""(?:persist-credentials|["']persist-credentials["'])\s*:\s*false""",
                 line,
             ):
                 errors.append(index + 1)
