@@ -21,7 +21,7 @@ def run_blocks(lines: list[str]):
     number = 0
     while number < len(lines):
         line = lines[number]
-        match = re.match(r"^(\s*)-?\s*run:\s*(.*?)\s*$", line)
+        match = re.match(r"""^(\s*)-?\s*(?:run|["']run["'])\s*:\s*(.*?)\s*$""", line)
         if not match:
             number += 1
             continue
@@ -46,7 +46,7 @@ def checkout_errors(lines: list[str]) -> list[int]:
     """Return line numbers for checkout steps that persist credentials."""
     errors: list[int] = []
     for index, line in enumerate(lines):
-        match = re.match(r"^(\s*)-?\s*uses:\s*[\'\"]?actions/checkout@", line)
+        match = re.match(r"""^(\s*)-?\s*(?:uses|["']uses["'])\s*:\s*["']?actions/checkout@""", line)
         if not match:
             continue
         uses_indent = len(match.group(1))
@@ -66,7 +66,7 @@ def checkout_errors(lines: list[str]) -> list[int]:
         step = lines[index:end]
         with_block: list[str] = []
         for offset, item in enumerate(step):
-            with_match = re.match(r"^(\s*)with:\s*(?:#.*)?$", item)
+            with_match = re.match(r"""^(\s*)(?:with|["']with["'])\s*:\s*(?:#.*)?$""", item)
             if not with_match:
                 continue
             with_indent = len(with_match.group(1))
