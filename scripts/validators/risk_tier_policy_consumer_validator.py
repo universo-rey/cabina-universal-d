@@ -41,7 +41,8 @@ def main() -> None:
     if contract.get("default_unclassified") != "HIGH":
         fail("unclassified actions must fail closed to HIGH")
     reads = contract.get("reads", "")
-    if "DIRECT" not in reads or "EXACT_BINDING" not in reads or "ORDER_REQUIRED" in reads:
+    expected_reads = "DIRECT_WITH_AUTHENTICATED_CAPABILITY_EXACT_BINDING_TARGET_MINIMIZATION_EVIDENCE"
+    if reads != expected_reads:
         fail("direct read contract drifted")
     low = contract.get("low_writes", "")
     expected_low = (
