@@ -27,7 +27,7 @@ def run_blocks(lines: list[str]):
             continue
         indent = len(match.group(1))
         value = match.group(2)
-        if re.fullmatch(r"[|>][+-]?", value):
+        if re.fullmatch(r"[|>](?:(?:[1-9][+-]?)|(?:[+-][1-9]?))?", value):
             number += 1
             while number < len(lines):
                 nested = lines[number]
@@ -64,7 +64,23 @@ def checkout_errors(lines: list[str]) -> list[int]:
                 break
             end += 1
         step = lines[index:end]
-        if not any(re.match(r"^\s*persist-credentials:\s*false\s*(?:#.*)?$", item) for item in step):
+        with_block: list[str] = []
+        for offset, item in enumerate(step):
+            with_match = re.match(r"^(\s*)with:\s*(?:#.*)?$", item)
+            if not with_match:
+                continue
+            with_indent = len(with_match.group(1))
+            for nested in step[offset + 1 :]:
+                stripped = nested.lstrip()
+                nested_indent = len(nested) - len(stripped)
+                if stripped and nested_indent <= with_indent:
+                    break
+                with_block.append(nested)
+            break
+        if not any(
+            re.match(r"^\s*persist-credentials:\s*false\s*(?:#.*)?$", item)
+            for item in with_block
+        ):
             errors.append(index + 1)
     return errors
 
@@ -76,7 +92,11 @@ def main() -> int:
         path = workflow_root / name
         lines = path.read_text(encoding="utf-8").splitlines()
         for number, line in run_blocks(lines):
-            if "${{ inputs." in line:
+            if re.search(
+                r"\$\{\{[^}]*\b(?:inputs\s*(?:\.|\[)|github\s*\.\s*event\s*\.\s*inputs\s*(?:\.|\[))",
+                line,
+                re.IGNORECASE,
+            ):
                 errors.append(f"{path.relative_to(ROOT)}:{number}: direct inputs interpolation in run block")
         for number in checkout_errors(lines):
             errors.append(
