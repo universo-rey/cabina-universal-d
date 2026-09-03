@@ -123,6 +123,7 @@ $toolIndexPath = Join-Path $Root "tools\TOOL_INDEX.csv"
 $stopPath = Join-Path $Root "matrices\STOP_CONDITION_GLOSSARY.csv"
 $agentsPath = Join-Path $Root "agents.json"
 $githubActionsPath = Join-Path $Root "matrices\GITHUB_ACTIONS_WORKFLOW_MATRIX.csv"
+$changeAwareManifestPath = Join-Path $Root "matrices\CHANGE_AWARE_TEST_MANIFEST.csv"
 $orderClassPath = Join-Path $Root "matrices\ORDER_CLASS_CAPABILITY_MATRIX.csv"
 $pluginBoundaryPath = Join-Path $Root "matrices\PLUGIN_SKILL_BOUNDARY_MATRIX.csv"
 
@@ -204,6 +205,12 @@ if ($sdkRow) {
 }
 
 $actionsRows = Read-CsvRequired -Path $githubActionsPath
+foreach ($workflow in $actionsRows) {
+  $workflowPath = Resolve-CabinaPath -Path $workflow.path
+  if (-not (Test-Path -LiteralPath $workflowPath)) {
+    $errors.Add("GitHub Actions matrix references missing workflow: $($workflow.path)")
+  }
+}
 $cabinaWorkflow = @($actionsRows | Where-Object { $_.workflow_id -eq "cabina_validation" }) | Select-Object -First 1
 if (-not $cabinaWorkflow) {
   $errors.Add("GitHub Actions matrix missing cabina_validation row")
@@ -213,6 +220,20 @@ if (-not $cabinaWorkflow) {
   }
   Check-TokenList -Value $cabinaWorkflow.allowed_actions -Required @("local_github_automation_preflight_validation") -Errors $errors -Context "cabina_validation allowed_actions"
   Check-TokenList -Value $cabinaWorkflow.blocked_actions -Required @("secrets","production","microsoft_live","openai_api_live","permission_write","force_push","merge") -Errors $errors -Context "cabina_validation blocked_actions"
+  $requiredManifestTests = @((Read-CsvRequired -Path $changeAwareManifestPath) | Where-Object { $_.required -eq "true" } | ForEach-Object { $_.test_id })
+  Check-TokenList -Value $cabinaWorkflow.validator -Required $requiredManifestTests -Errors $errors -Context "cabina_validation validator coverage"
+}
+
+$activeWorkflow = @($actionsRows | Where-Object { $_.workflow_id -eq "active_governed_execution_validation" }) | Select-Object -First 1
+if (-not $activeWorkflow) {
+  $errors.Add("GitHub Actions matrix missing active_governed_execution_validation row")
+} else {
+  $activeWorkflowPath = Resolve-CabinaPath -Path $activeWorkflow.path
+  if (Test-Path -LiteralPath $activeWorkflowPath) {
+    $activeWorkflowText = Get-Content -Raw -LiteralPath $activeWorkflowPath
+    $directPythonValidators = @([regex]::Matches($activeWorkflowText, 'python\s+scripts/validators/([A-Za-z0-9_]+)\.py') | ForEach-Object { $_.Groups[1].Value } | Sort-Object -Unique)
+    Check-TokenList -Value $activeWorkflow.validator -Required $directPythonValidators -Errors $errors -Context "active_governed_execution_validation validator coverage"
+  }
 }
 
 $orderClasses = @((Read-CsvRequired -Path $orderClassPath) | ForEach-Object { $_.order_class })

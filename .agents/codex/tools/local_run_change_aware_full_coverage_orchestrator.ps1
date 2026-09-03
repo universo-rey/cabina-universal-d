@@ -446,8 +446,8 @@ function Invoke-GitHubActionsPolicyCheck {
       if ($row.permissions -ne "contents:read") {
         $errors.Add("Workflow matrix permissions must be contents:read")
       }
-      if ($row.validator -notmatch "tool.local_run_change_aware_full_coverage_orchestrator") {
-        $errors.Add("Workflow matrix must name the orchestrator validator")
+      if ($row.workflow_id -eq "cabina_validation" -and $row.validator -notmatch "tool.local_run_change_aware_full_coverage_orchestrator") {
+        $errors.Add("cabina_validation workflow matrix row must name the orchestrator validator")
       }
       foreach ($blocked in @("secrets", "production", "microsoft_live", "openai_api_live", "permission_write")) {
         if ($row.blocked_actions -notmatch $blocked) {
