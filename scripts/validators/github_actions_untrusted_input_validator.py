@@ -77,8 +77,18 @@ def checkout_errors(lines: list[str]) -> list[int]:
                     break
                 with_block.append(nested)
             break
+        child_indents = [
+            len(item) - len(item.lstrip())
+            for item in with_block
+            if item.strip() and not item.lstrip().startswith("#")
+        ]
+        direct_indent = min(child_indents, default=-1)
         if not any(
-            re.match(r"^\s*persist-credentials:\s*false\s*(?:#.*)?$", item)
+            len(item) - len(item.lstrip()) == direct_indent
+            and re.match(
+                r"""^\\s*(?:persist-credentials|["']persist-credentials["'])\\s*:\\s*false\\s*(?:#.*)?$""",
+                item,
+            )
             for item in with_block
         ):
             errors.append(index + 1)
