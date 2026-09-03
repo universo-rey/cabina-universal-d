@@ -224,7 +224,7 @@ frontier:
 stop_conditions:
   - secret_detected
   - unclassified_repo_move
-  - microsoft_live_requested_without_governed_order
+  - microsoft_live_read_without_current_binding
   - production_requested_without_explicit_authorization
   - universe_or_authority_ambiguity
 hierarchy_model:
