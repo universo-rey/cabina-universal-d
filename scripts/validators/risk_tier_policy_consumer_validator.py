@@ -12,6 +12,14 @@ EXPECTED_INVARIANTS = [
     "EXPLICIT_AUTH_HIGH_RISK",
     "EVIDENCE_POSTCHECK_ALWAYS_FOR_WRITES",
 ]
+CONCRETE_CONSUMERS = (
+    ROOT / ".agents" / "skills" / "cabina-sharepoint-plugin-adapter" / "SKILL.md",
+    ROOT / ".agents" / "codex" / "tools" / "TOOL_INDEX.csv",
+    ROOT / ".agents" / "codex" / "matrices" / "TEAMS_AGENT_CAPABILITY_MATRIX.csv",
+    ROOT / ".agents" / "codex" / "plugins" / "PLUGIN_USAGE_MATRIX.csv",
+    ROOT / ".agents" / "codex" / "tools" / "local_generate_agent_workpapers.ps1",
+    ROOT / ".agents" / "codex" / "recipes" / "recipe.sharepoint_complete_read_order.md",
+)
 
 
 def fail(message: str) -> None:
@@ -76,6 +84,17 @@ def main() -> None:
     }
     if set(data.get("high_positive_triggers", [])) != expected_triggers:
         fail("HIGH positive triggers drifted")
+    forbidden = (
+        "microsoft_live_read_without_order",
+        "microsoft_live_requested_without_governed_order",
+        "read_or_write_requires_governed_order",
+        "microsoft_live_requires_order",
+    )
+    for path in CONCRETE_CONSUMERS:
+        text = path.read_text(encoding="utf-8-sig")
+        for token in forbidden:
+            if token in text:
+                fail(f"obsolete order-first token in {path.relative_to(ROOT)}: {token}")
     print("risk_tier_policy_consumer_validator: PASS")
 
 
