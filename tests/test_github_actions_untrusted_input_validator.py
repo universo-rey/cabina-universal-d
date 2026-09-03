@@ -26,5 +26,13 @@ class WorkflowInputValidatorTests(unittest.TestCase):
         self.assertEqual(checkout_errors(lines), [])
 
 
+    def test_flow_style_run_is_parsed(self):
+        lines = ["      - { run: 'echo ${{ inputs.name }}' }"]
+        self.assertEqual(list(run_blocks(lines)), [(1, "echo ${{ inputs.name }}")])
+
+    def test_flow_style_checkout_requires_credentials_control(self):
+        self.assertEqual(checkout_errors(["      - { uses: actions/checkout@v4 }"]), [1])
+
+
 if __name__ == "__main__":
     unittest.main()
