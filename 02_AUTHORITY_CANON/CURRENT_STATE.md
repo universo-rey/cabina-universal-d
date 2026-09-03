@@ -12,7 +12,7 @@
 - Main baseline HEAD: `a4a92165fcd709ab6cdb0247c3dae4e24ce74e7c`
 - Latest merged PR: `#160`
 - PR #160 state: `MERGED`
-- Active PR for this snapshot: pending creation
+- Active PR for this snapshot: `#165`
 
 ## Operating State
 
