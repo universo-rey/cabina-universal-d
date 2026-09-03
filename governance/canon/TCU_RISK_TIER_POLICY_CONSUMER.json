@@ -1,0 +1,35 @@
+{
+  "version": "1.0.0",
+  "consumer_id": "CABINA_FEDERAL_RISK_TIER_CONSUMER",
+  "ownership": "CONSUMER_NOT_POLICY_OWNER",
+  "rector_registry": {
+    "repository": "SeshatSgin/tcu-control-plane",
+    "path": "00_CONTEXT/RISK_TIER_POLICY.json",
+    "policy_id": "TCU_PROPORTIONAL_EXECUTION_RISK_TIERS",
+    "source_blob_sha": "6263f38f5f760b6b283276d14880e9f6630a43f6"
+  },
+  "invariants": [
+    "NO_ORDER_FOR_READS",
+    "ACTIVE_GOVERNED_MICROSOFT_LIVE",
+    "DIRECT_PREAUTHORIZED_LOW_RISK",
+    "EXPLICIT_AUTH_HIGH_RISK",
+    "EVIDENCE_POSTCHECK_ALWAYS_FOR_WRITES"
+  ],
+  "local_contract": {
+    "reads": "DIRECT_WITH_AUTHENTICATED_CAPABILITY_EXACT_BINDING_TARGET_MINIMIZATION_EVIDENCE",
+    "low_writes": "RECTOR_ALLOWLIST_AND_CEILINGS_PLUS_PRECHECK_ROLLBACK_OR_IDEMPOTENCY_POSTCHECK_EVIDENCE",
+    "high_actions": "EXPLICIT_GOVERNED_ORDER_REQUIRED",
+    "caller_tier_authoritative": false,
+    "default_unclassified": "HIGH"
+  },
+  "evidence_fanin": [
+    "risk_classification",
+    "capability",
+    "binding",
+    "execution",
+    "postcheck",
+    "evidence",
+    "github_canon",
+    "documentary_fallback"
+  ]
+}
