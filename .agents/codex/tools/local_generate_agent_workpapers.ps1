@@ -158,7 +158,7 @@ foreach ($agent in @($data.agents)) {
   $tools = if ($agentRefs) { Join-Unique ($agentRefs.tools + @("tool.workpaper_index_check", "tool.local_validate_agent_workpapers")) } else { "tool.workpaper_index_check|tool.local_validate_agent_workpapers" }
   $mode = if ($agentRefs) { Join-Unique $agentRefs.mode } else { "local_only" }
   $plugins = Agent-Plugins $id $skills
-  $stop = if ($id -match "escribania|sdu|seshat|modo_on") { "microsoft_live_requested_without_governed_order" } else { "workpaper_missing_for_agent" }
+  $stop = if ($id -match "escribania|sdu|seshat|modo_on") { "binding_or_target_resolution_required|high_without_explicit_authorization" } else { "workpaper_missing_for_agent" }
 
   New-Item -ItemType Directory -Path $workPath -Force | Out-Null
   $agent | Add-Member -NotePropertyName workpapers_path -NotePropertyValue $workPath -Force
@@ -349,10 +349,10 @@ Export-Rows -Path (Join-Path $Root "matrices\AGENT_TOOL_RECIPE_SKILL_MATRIX.csv"
 $pluginRows = @(
   [pscustomobject]@{ plugin_id="Superpowers"; availability="AVAILABLE"; assigned_agents="all_agents"; purpose="parallel dispatch TDD verification branch finish"; surface="local_codex_methodology"; live_boundary="local_only"; tool_refs="multi_agent_v1|local_validators"; validator="tool.local_validate_agent_layer"; stop_condition="agent_task_without_scope" },
   [pscustomobject]@{ plugin_id="GitHub"; availability="AVAILABLE_GOVERNED_WRITE"; assigned_agents="rey.repo_cartographer|court.seshat_evidence"; purpose="repo status PR update issue preparation draft PR publication"; surface="github_remote"; live_boundary="writes_allowed_only_by_governed_order"; tool_refs="gh|git"; validator="git_diff_check|gh_pr_view"; stop_condition="github_write_without_order" },
-  [pscustomobject]@{ plugin_id="SharePoint"; availability="AVAILABLE_GOVERNED_LIVE"; assigned_agents="universe.escribania_tower|court.sdu_gate|court.seshat_evidence|universe.modo_on_tower"; purpose="site discovery and complete-read preparation"; surface="microsoft_sharepoint"; live_boundary="read_or_write_requires_governed_order"; tool_refs="sharepoint_connector"; validator="postcheck_readback_required"; stop_condition="microsoft_live_requested_without_governed_order" },
+  [pscustomobject]@{ plugin_id="SharePoint"; availability="AVAILABLE_GOVERNED_LIVE"; assigned_agents="universe.escribania_tower|court.sdu_gate|court.seshat_evidence|universe.modo_on_tower"; purpose="site discovery and complete-read execution"; surface="microsoft_sharepoint"; live_boundary="read_direct_low_write_default_high_positive_trigger_only"; tool_refs="sharepoint_connector"; validator="postcheck_readback_required"; stop_condition="binding_or_target_resolution_required|high_without_explicit_authorization" },
   [pscustomobject]@{ plugin_id="OpenAI Developers"; availability="AVAILABLE_GOVERNED_API"; assigned_agents="court.openai_dispatcher|court.thot_schema"; purpose="agents sdk design and local evals"; surface="openai_api_or_agents_sdk"; live_boundary="api_live_requires_order_and_cost_boundary"; tool_refs="openai_docs|local_evals"; validator="synthetic_eval_manifest"; stop_condition="openai_api_live_requested_without_order" },
   [pscustomobject]@{ plugin_id="Microsoft Graph direct tenant admin"; availability="NO_DISPONIBLE_DIRECT_PLUGIN"; assigned_agents="rey.frontier_guardian|universe.escribania_tower|court.sdu_gate"; purpose="tenant-wide admin read/write is not directly available from this local layer"; surface="entra_graph_tenant"; live_boundary="requires_separate_governed_order_and_approved_connector_tool"; tool_refs="NO_DISPONIBLE"; validator="frontier_guardian_readback"; stop_condition="tenant_permission_or_production_requested" },
-  [pscustomobject]@{ plugin_id="Teams"; availability="AVAILABLE_GOVERNED_LIVE"; assigned_agents="universe.escribania_tower|universe.modo_on_tower"; purpose="Teams Planner context and drafted actions"; surface="microsoft_teams_planner"; live_boundary="writes_require_governed_order"; tool_refs="teams_connector"; validator="postcheck_readback_required"; stop_condition="microsoft_live_requested_without_governed_order" }
+  [pscustomobject]@{ plugin_id="Teams"; availability="AVAILABLE_GOVERNED_LIVE"; assigned_agents="universe.escribania_tower|universe.modo_on_tower"; purpose="Teams Planner bounded reads and classified writes"; surface="microsoft_teams_planner"; live_boundary="read_direct_low_write_default_high_positive_trigger_only"; tool_refs="teams_connector"; validator="postcheck_readback_required"; stop_condition="binding_or_target_resolution_required|high_without_explicit_authorization" }
 )
 Export-Rows -Path (Join-Path $Root "matrices\PLUGIN_USAGE_MATRIX.csv") -Rows $pluginRows
 Copy-Item -LiteralPath (Join-Path $Root "matrices\PLUGIN_USAGE_MATRIX.csv") -Destination (Join-Path $pluginRoot "PLUGIN_USAGE_MATRIX.csv") -Force
@@ -369,7 +369,7 @@ $capPath = Join-Path $Root "matrices\CAPABILITY_MATRIX.csv"
 $capRows = @(Import-Csv -LiteralPath $capPath)
 $capRows = Add-UniqueRows $capRows @(
   [pscustomobject]@{ capability_id="cap.agent.workpapers"; level_id="03_CORTE_EJECUTORA"; primary_agent="court.thot_schema"; capability_type="workpaper_governance"; local_allowed="yes"; governed_order_required="no"; blocked_without_order="remote_persistent_agent|live_execution"; evidence_required="agent_workpaper_readback" },
-  [pscustomobject]@{ capability_id="cap.sdu.sharepoint.complete_read.prepare"; level_id="01_AUTORIDAD_Y_GATES"; primary_agent="court.sdu_gate"; capability_type="microsoft_live_read_preparation"; local_allowed="yes"; governed_order_required="sharepoint_complete_read_live"; blocked_without_order="microsoft_live_requested_without_governed_order|broad_regulated_read"; evidence_required="complete_read_order_packet" },
+  [pscustomobject]@{ capability_id="cap.sdu.sharepoint.complete_read.prepare"; level_id="01_AUTORIDAD_Y_GATES"; primary_agent="court.sdu_gate"; capability_type="microsoft_live_read"; local_allowed="yes"; governed_order_required="no"; blocked_without_order="none"; evidence_required="bounded_readback" },
   [pscustomobject]@{ capability_id="cap.tge.tenant.surface.assignment"; level_id="04_TORRES_DE_UNIVERSO"; primary_agent="universe.escribania_tower"; capability_type="tenant_surface_assignment"; local_allowed="yes"; governed_order_required="tenant_live_read_or_write"; blocked_without_order="tenant_identity_missing|regulated_data_broad_read"; evidence_required="tge_surface_assignment_matrix" },
   [pscustomobject]@{ capability_id="cap.cdf.agent.versioning"; level_id="04_TORRES_DE_UNIVERSO"; primary_agent="universe.modo_on_tower"; capability_type="provider_agent_versioning"; local_allowed="yes"; governed_order_required="microsoft_live_or_production"; blocked_without_order="provider_control_without_trace|tenant_write"; evidence_required="cdf_agent_versioning_readback" }
 ) @("capability_id")
@@ -398,7 +398,7 @@ $toolIndexRows = Add-UniqueRows $toolIndexRows @(
   [pscustomobject]@{ tool_id="tool.local_generate_agent_workpapers"; level_id="03_CORTE_EJECUTORA"; tool_type="run"; path_or_command=".agents\codex\tools\local_generate_agent_workpapers.ps1"; allowed_surface="local_filesystem"; blocked_surface="external_runtime|live_connector_execution" },
   [pscustomobject]@{ tool_id="tool.workpaper_index_check"; level_id="03_CORTE_EJECUTORA"; tool_type="read"; path_or_command=".agents\codex\workpapers\WORKPAPER_INDEX.csv"; allowed_surface="local_filesystem"; blocked_surface="remote_write" },
   [pscustomobject]@{ tool_id="tool.plugin_registry_check"; level_id="05_SOPORTE_TECNICO"; tool_type="read"; path_or_command=".agents\codex\matrices\PLUGIN_USAGE_MATRIX.csv"; allowed_surface="local_filesystem"; blocked_surface="live_connector_execution" },
-  [pscustomobject]@{ tool_id="tool.sharepoint_complete_read_order_builder"; level_id="01_AUTORIDAD_Y_GATES"; tool_type="write"; path_or_command=".agents\codex\orders"; allowed_surface="local_order_packet"; blocked_surface="microsoft_live_read_without_order" }
+  [pscustomobject]@{ tool_id="tool.sharepoint_complete_read_order_builder"; level_id="01_AUTORIDAD_Y_GATES"; tool_type="read"; path_or_command="sharepoint_connector"; allowed_surface="microsoft_live_exact_target"; blocked_surface="microsoft_live_read_without_current_binding|target_ambiguous|write_requested" }
 ) @("tool_id")
 Export-Rows -Path $toolIndexPath -Rows $toolIndexRows
 
@@ -423,7 +423,7 @@ $recipeRows = Add-UniqueRows $recipeRows @(
 Export-Rows -Path $recipePath -Rows $recipeRows
 
 Set-Content -LiteralPath (Join-Path $Root "recipes\recipe.agent_workpaper_operation.md") -Encoding UTF8 -Value "# recipe.agent_workpaper_operation`n`n1. Read the agent profile and workpaper index.`n2. Update only the agent-owned workpaper files.`n3. Link evidence, decision, open items and validators.`n4. Stop on live, secret, production or missing owner boundaries.`n"
-Set-Content -LiteralPath (Join-Path $Root "recipes\recipe.sharepoint_complete_read_order.md") -Encoding UTF8 -Value "# recipe.sharepoint_complete_read_order`n`nPrepare a governed Microsoft SharePoint complete-read order packet without executing live reads. Required fields: surface, identity, owner, scope, exclusions, rollback, postcheck, evidence and stop_condition.`n"
+Set-Content -LiteralPath (Join-Path $Root "recipes\recipe.sharepoint_complete_read_order.md") -Encoding UTF8 -Value "# recipe.sharepoint_complete_read_order`n`nExecute a bounded SharePoint READ directly with authenticated capability, current binding, exact target, minimization and evidence. A known write without a positive HIGH trigger is LOW by default and needs precheck, rollback or compensation, postcheck and evidence; no order, allowlist or receipt. Missing prerequisites yield RESOLUTION_REQUIRED and BLOCKED_NOT_EXECUTABLE while preserving the tier.`n"
 Set-Content -LiteralPath (Join-Path $Root "recipes\recipe.agent_surface_capability_assignment.md") -Encoding UTF8 -Value "# recipe.agent_surface_capability_assignment`n`nAssign each agent to its repo sources, tenant or provider surface, responsibility, process, validator and workpaper. Local documentation can advance; live action requires governed order.`n"
 
 $skillPath = Join-Path $Root "skills\SKILL_USAGE_MATRIX.csv"
@@ -431,8 +431,8 @@ $skillRows = @(Import-Csv -LiteralPath $skillPath)
 $skillRows = Add-UniqueRows $skillRows @(
   [pscustomobject]@{ skill_id="superpowers:dispatching-parallel-agents"; source="plugin"; assigned_level="all"; assigned_agents="all_agents"; use_when="independent lanes need fan-out and fan-in"; live_boundary="local_methodology_only" },
   [pscustomobject]@{ skill_id="github:yeet"; source="plugin"; assigned_level="02_REGISTRO_Y_CARTOGRAFIA"; assigned_agents="rey.repo_cartographer|court.seshat_evidence"; use_when="commit push and draft PR update under explicit GitHub order"; live_boundary="github_write_requires_order" },
-  [pscustomobject]@{ skill_id="sharepoint:sharepoint"; source="plugin"; assigned_level="04_TORRES_DE_UNIVERSO"; assigned_agents="universe.escribania_tower|court.sdu_gate|universe.modo_on_tower"; use_when="SharePoint live context or complete-read preparation"; live_boundary="microsoft_live_requires_order" },
-  [pscustomobject]@{ skill_id="sdu-auditor-sharepoint-vivo"; source="local"; assigned_level="03_CORTE_EJECUTORA"; assigned_agents="court.sdu_gate|court.seshat_evidence"; use_when="SDU SharePoint live audit only after governed order"; live_boundary="microsoft_live_requires_order" }
+  [pscustomobject]@{ skill_id="sharepoint:sharepoint"; source="plugin"; assigned_level="04_TORRES_DE_UNIVERSO"; assigned_agents="universe.escribania_tower|court.sdu_gate|universe.modo_on_tower"; use_when="SharePoint live context or bounded complete read"; live_boundary="read_direct_low_default_high_trigger_only" },
+  [pscustomobject]@{ skill_id="sdu-auditor-sharepoint-vivo"; source="local"; assigned_level="03_CORTE_EJECUTORA"; assigned_agents="court.sdu_gate|court.seshat_evidence"; use_when="SDU SharePoint bounded live audit with current binding"; live_boundary="read_direct_low_default_high_trigger_only" }
 ) @("skill_id", "assigned_agents")
 Export-Rows -Path $skillPath -Rows $skillRows
 
@@ -449,7 +449,7 @@ $stopRows = @(Import-Csv -LiteralPath $stopPath)
 $stopRows = Add-UniqueRows $stopRows @(
   [pscustomobject]@{ stop_condition="workpaper_missing_for_agent"; normalized_family="agent_workpapers"; meaning="an agent lacks folder index row or required workpaper file"; required_action="create or restore workpaper artifacts before closeout"; applies_to="agent|workpaper" },
   [pscustomobject]@{ stop_condition="plugin_without_surface_boundary"; normalized_family="plugin_governance"; meaning="plugin is referenced without availability live boundary or validator"; required_action="declare plugin boundary or mark NO_DISPONIBLE"; applies_to="plugin|tool|agent" },
-  [pscustomobject]@{ stop_condition="microsoft_live_requested_without_governed_order"; normalized_family="microsoft_live"; meaning="live Microsoft read/write requested without full governed order"; required_action="prepare order with surface identity owner rollback postcheck evidence"; applies_to="sharepoint|teams|outlook|graph|tenant" }
+  [pscustomobject]@{ stop_condition="binding_or_target_resolution_required"; normalized_family="microsoft_live"; meaning="Microsoft execution lacks current binding or bounded exact target"; required_action="resolve capability binding target and execution prerequisites while preserving tier"; applies_to="sharepoint|teams|outlook|graph|tenant" }
 ) @("stop_condition")
 Export-Rows -Path $stopPath -Rows $stopRows
 
