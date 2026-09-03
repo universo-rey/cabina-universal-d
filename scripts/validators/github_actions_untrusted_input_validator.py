@@ -21,6 +21,14 @@ def run_blocks(lines: list[str]):
     number = 0
     while number < len(lines):
         line = lines[number]
+        flow = re.match(
+            r"""^\\s*-\\s*\\{.*?(?:run|["']run["'])\\s*:\\s*(["'])(.*?)\\1\\s*(?:,|\\})""",
+            line,
+        )
+        if flow:
+            yield number + 1, flow.group(2)
+            number += 1
+            continue
         match = re.match(r"""^(\s*)-?\s*(?:run|["']run["'])\s*:\s*(.*?)\s*$""", line)
         if not match:
             number += 1
@@ -46,6 +54,17 @@ def checkout_errors(lines: list[str]) -> list[int]:
     """Return line numbers for checkout steps that persist credentials."""
     errors: list[int] = []
     for index, line in enumerate(lines):
+        flow_checkout = re.search(
+            r"""(?:uses|["']uses["'])\\s*:\\s*["']?actions/checkout@""",
+            line,
+        )
+        if flow_checkout and re.match(r"^\\s*-\\s*\\{", line):
+            if not re.search(
+                r"""(?:persist-credentials|["']persist-credentials["'])\\s*:\\s*false""",
+                line,
+            ):
+                errors.append(index + 1)
+            continue
         match = re.match(r"""^(\s*)-?\s*(?:uses|["']uses["'])\s*:\s*["']?actions/checkout@""", line)
         if not match:
             continue
