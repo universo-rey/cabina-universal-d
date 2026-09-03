@@ -47,6 +47,8 @@ def main() -> None:
     for marker in ("RECTOR_ALLOWLIST", "CEILINGS", "PRECHECK", "POSTCHECK", "EVIDENCE"):
         if marker not in low:
             fail(f"LOW contract missing {marker}")
+    if "ROLLBACK" not in low and "IDEMPOTENCY" not in low:
+        fail("LOW contract must require rollback or idempotency")
     if contract.get("high_actions") != "EXPLICIT_GOVERNED_ORDER_REQUIRED":
         fail("HIGH contract must require explicit governed order")
     print("risk_tier_policy_consumer_validator: PASS")
