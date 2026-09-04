@@ -256,6 +256,7 @@
 
 !/tests/
 /tests/*
+!/tests/test_risk_tier_policy_consumer_validator.py
 !/tests/sdu-agent-runtime/
 /tests/sdu-agent-runtime/*
 !/tests/sdu-agent-runtime/*.py

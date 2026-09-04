@@ -24,6 +24,7 @@ on:
       - "local-agent-bridge/**"
       - "teams-app/sdu-agent-chat/**"
       - "tests/sdu-agent-runtime/**"
+      - "tests/test_risk_tier_policy_consumer_validator.py"
       - ".github/workflows/active-governed-execution-validation.yml"
   push:
     branches:
@@ -49,6 +50,7 @@ on:
       - "local-agent-bridge/**"
       - "teams-app/sdu-agent-chat/**"
       - "tests/sdu-agent-runtime/**"
+      - "tests/test_risk_tier_policy_consumer_validator.py"
       - ".github/workflows/active-governed-execution-validation.yml"
   workflow_dispatch: {}
 
@@ -85,6 +87,7 @@ jobs:
           python scripts/validators/dev_execution_attempt_validator.py
           python scripts/validators/github_actions_untrusted_input_validator.py
           python -m unittest -q tests.test_github_actions_untrusted_input_validator
+          python -m unittest -q tests.test_risk_tier_policy_consumer_validator
           python scripts/validators/risk_tier_policy_consumer_validator.py
 
       - name: Existing DEV and mock validators

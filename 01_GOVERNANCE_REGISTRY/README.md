@@ -10,4 +10,4 @@ Este nivel clasifica y asigna pertenencia. No ejecuta cambios.
 
 `GITHUB_BASE_WORK_MATRIX.csv` declara la ruta GitHub obligatoria para cada repo
 activo. La matriz no absorbe clones ni ejecuta writes: define remoto, rama, PR
-esperado y bloqueo de merge sin orden separada.
+esperado y merge exclusivamente `MANUAL_OWNER_GATED`.
