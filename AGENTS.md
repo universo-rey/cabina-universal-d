@@ -29,17 +29,17 @@ Ejecutar primero lo seguro y gatear solo fronteras reales. No cerrar con
 `blocked`, `prepared` o `pending` generico si existe accion local, mock, DEV,
 read-only, preflight, dry-run, validator, branch, PR o readback posible.
 
-Cuando falte un dato real, declarar el estado exacto: `PENDING_*_ONLY`,
-`PENDING_TARGET_ONLY`, `PENDING_OWNER_ONLY`, `PENDING_SECRET_ONLY`,
-`PENDING_COST_BOUNDARY_ONLY` o `PENDING_APPROVAL_ONLY`. Bloquear solo el
-subpaso afectado cuando cruza seguridad, secretos, produccion, tenant ambiguo,
-datos regulados, permisos, costo, live write o accion destructiva.
+Cuando falte un dato real, declarar `RESOLUTION_REQUIRED` con el prerequisito
+exacto y conservar el tier. Bloquear solo el subpaso no ejecutable. Seguridad,
+secretos, produccion, mutacion de tenant/identidad/permisos, costo abierto,
+decision regulada o profesional y efectos destructivos son HIGH por trigger
+positivo; la mera condicion live o la ausencia de metadata no lo son.
 
 ## Instruction Precedence And Repository Boundaries
 
 Precedencia operativa:
 
-1. Gate humano explicito.
+1. Pedido actual del usuario dentro de la autoridad disponible.
 2. Seguridad, secretos, produccion y datos regulados.
 3. `AGENTS.md` mas especifico.
 4. `MANIFEST.yaml`.
@@ -47,7 +47,11 @@ Precedencia operativa:
 6. Validators, workflows, recipes, skills, tools y matrices.
 7. README/docs.
 8. Readbacks historicos.
-9. Pedido actual del usuario, dentro de las fronteras anteriores.
+
+La existencia de una orden no cambia el riesgo del efecto. READ se ejecuta
+directamente y todo write conocido sin trigger HIGH objetivo se clasifica LOW.
+Solo HIGH requiere autorizacion explicita; un prerequisito ausente produce
+`RESOLUTION_REQUIRED` y conserva el tier, no crea un gate ni eleva a HIGH.
 
 Este repo raiz gobierna la cabina desde la raiz repo-local `.`. La ruta local
 fisica del workspace es contexto no portable y vive como dato estructurado en
@@ -141,12 +145,16 @@ Antes de crear agente, perfil, skill, recipe, matriz, ruta, contrato o
 validator, buscar equivalentes por nombre, alias, funcion, universo, superficie,
 skill, recipe, validator y stop condition. Reconciliar antes de crear.
 
-Toda accion operativa debe declarar cadena:
+Las acciones materiales, ambiguas o con efecto externo deben declarar la
+cadena aplicable:
 
 `agente / skill / receta / plugin / tool / superficie / evidencia / validador / stop_condition`
 
-Si falta un componente sin `NO_APLICA` justificado, detener con
-`capability_use_preflight_missing` u `operational_chain_missing`.
+READ y LOW simples pueden usar una cadena minima proporcional y no deben
+bloquearse por componentes no aplicables. Si falta un componente material
+requerido para ejecutar, clasificar `RESOLUTION_REQUIRED` y detener solo ese
+subpaso. Los estados legacy `capability_use_preflight_missing` y
+`operational_chain_missing` no son gates generales para READ/LOW.
 
 ## Tool And Connector Policy
 
@@ -176,44 +184,54 @@ marcar `NO_DISPONIBLE` y avanzar por ruta segura alternativa.
 - Commits chicos, claros y revertibles.
 - Push solo a ramas `codex/*` dentro de scope autorizado.
 - Abrir o actualizar PR contra `main` cuando haya cambios validados.
-- No mergear sin gate humano, HEAD fijo, checks verdes y postcheck.
+- No mergear sin decision manual del owner, HEAD fijo, checks verdes y
+  postcheck. Auto-merge permanece deshabilitado.
 - No force push, no borrar ramas, no cambiar remotos, no cambiar `core.worktree`
   ni tocar metadata Git critica sin gate explicito.
 - Si el repo esta dirty por cambios ajenos, clasificarlos y no sobrescribirlos.
 
-Commit, push y PR no requieren nueva confirmacion solo dentro de un
-objetivo/scope explicitamente autorizado. Merge siempre requiere orden o ciclo
-aprobado, HEAD fijo, checks verdes y evidencia.
+Commit, push y PR no requieren nueva confirmacion dentro de un objetivo/scope
+explicitamente autorizado y se clasifican por su efecto. Merge siempre es
+`MANUAL_OWNER_GATED`, con HEAD fijo, checks verdes y evidencia.
 
-## Safety Gates
+## Risk Tiers And Safety Gates
 
-Requieren gate humano explicito:
+READ no requiere orden. Un write conocido, exacto y acotado es LOW por defecto
+si no presenta un trigger HIGH positivo; requiere capability/binding, precheck,
+reversibilidad o compensacion, postcheck y evidencia, pero no orden, allowlist o
+receipt previo. Falta de target, binding, owner o capability es
+`RESOLUTION_REQUIRED_AND_BLOCKED_NOT_EXECUTABLE_TIER_PRESERVED`.
+
+Requieren autorizacion humana explicita solo cuando el efecto presenta uno de
+estos triggers HIGH positivos:
 
 - `GATE_SECRET_USE`
 - `GATE_COST_BOUNDARY`
-- `GATE_LIVE_WRITE`
 - `GATE_PRODUCTION_DEPLOY`
 - `GATE_TENANT_IDENTITY`
 - `GATE_ADMIN_PERMISSION`
-- `GATE_REMOTE_GIT_MUTATION`
 - `GATE_WORKTREE_METADATA`
-- `GATE_DATA_REGULATED`
+- `GATE_REGULATED_OR_PROFESSIONAL_DECISION`
 - `GATE_DESTRUCTIVE_ACTION`
 - `GATE_MERGE_MAIN`
-- `GATE_OPENAI_LIVE`
-- `GATE_AGENTS_SDK_LIVE`
-- `GATE_MICROSOFT_LIVE_WRITE`
-- `GATE_POWER_PLATFORM_APPLY`
-- `GATE_DATAVERSE_APPLY`
+- `GATE_UNBOUNDED_OR_OVER_CEILING_BULK`
+- `GATE_OPEN_ENDED_COST`
+- `GATE_EXTERNAL_MATERIAL_COMMUNICATION`
+- `GATE_SCOPE_ESCALATION`
 
 Nunca imprimir, persistir ni copiar secretos. No incluir tokens, connection
 strings, refresh tokens, cookies, private keys ni PII innecesaria en logs,
 commits, readbacks o PRs.
 
-Microsoft/Power Platform/Dataverse live es gobernado: SharePoint, Teams,
-Outlook, Entra, Graph, Planner, Dataverse, flows, connectors o tenant requieren
-target exacto, identidad, owner, rollback, postcheck, evidencia y readback.
-Produccion requiere autorizacion separada. Para segmentos Dataverse o
+Microsoft/Power Platform/Dataverse live es una capacidad gobernada activa.
+READ usa identidad/capability autenticada, binding exacto, minimizacion y
+evidencia. Los writes LOW usan target exacto, owner, precheck, rollback o
+compensacion, postcheck y evidencia sin orden previa. Produccion, permisos,
+identidad/tenant/binding, secretos, efectos irreversibles, alcance masivo o
+decision profesional requieren autorizacion HIGH separada. La clasificacion
+final de riesgo KYC/UIF, la debida diligencia reforzada, la determinacion o
+presentacion de operacion sospechosa, la calificacion juridica, firma y fe
+publica permanecen `HUMAN_RESERVED`. Para segmentos Dataverse o
 tenant-controlled, usar `.agents/skills/dataverse-atomic-segment-runner/SKILL.md`
 y resolver `mon_sdu_*` por `mon_canonical_id` exacto antes de repo-local.
 

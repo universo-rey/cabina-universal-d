@@ -6,8 +6,8 @@
   "default_policy": {
     "mode": "local_first_governed_versioning",
     "no_remote_persistent_agents": true,
-    "no_live_writes_without_governed_order": true,
-    "microsoft_live_policy": "governed_requires_order",
+    "risk_tier_policy": "LOW_BY_DEFAULT_UNLESS_HIGH_TRIGGER",
+    "microsoft_live_policy": "READ_DIRECT_LOW_WITHOUT_ORDER_HIGH_EXPLICIT_AUTH",
     "production_policy": "requires_explicit_authorization",
     "no_secrets": true,
     "required_closeout_fields": [
@@ -27,14 +27,14 @@
     ],
     "runtime_alignment_mode": "LOCAL_SYNTHETIC_ALIGNMENT_ONLY",
     "default_skills_required": true,
-    "mandatory_capability_discovery_skill": "tcu-descubridor-capacidades",
+    "conditional_capability_discovery_skill": "tcu-descubridor-capacidades",
     "autonomous_task_agents_policy": "GOVERNED_TASK_SCOPED_ACTIVE",
     "codex_cloud_policy": "EXECUTE_CODEX_CLOUD_SMOKE_NOW_NO_APPLY_WITHOUT_REVIEW",
     "active_execution_canon": "ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT",
     "execute_safe_reversible_traceable_validable_by_default": true,
     "passive_final_states_policy": "cause_and_next_exact_command_required",
     "live_write_gated_policy": "execute_only_when_target_identity_owner_rollback_postcheck_evidence_are_present",
-    "no_remote_persistent_agents_without_governed_order": true
+    "no_remote_persistent_agents_without_explicit_high_authorization": true
   },
   "agents": [
     {
@@ -61,10 +61,10 @@
         "draft_governed_order"
       ],
       "blocked": [
-        "remote_write",
-        "live_tenant_action",
+        "unscoped_remote_write",
+        "high_live_tenant_action_without_explicit_authorization",
         "secret_handling",
-        "repo_versioning_without_order"
+        "repo_versioning_outside_authorized_scope"
       ],
       "outputs": [
         "routing_decision",
@@ -75,7 +75,7 @@
       "stop_conditions": [
         "surface_not_identified",
         "missing_authority",
-        "live_write_requested_without_order",
+        "high_positive_trigger_without_explicit_authorization",
         "regulated_data_boundary_unclear"
       ],
       "level_id": "00_ROUTER",
@@ -359,7 +359,7 @@
         "git_add",
         "git_commit",
         "git_push",
-        "moving_clone_without_order"
+        "moving_clone_without_exact_target_and_rollback"
       ],
       "outputs": [
         "repo_inventory",
@@ -435,10 +435,10 @@
         "synthetic_eval_plan"
       ],
       "blocked": [
-        "openai_api_live_without_order",
+        "openai_api_high_action_without_explicit_authorization",
         "remote_agent_persistence",
         "external_vector_store",
-        "cost_incurred_without_order"
+        "open_ended_cost_without_explicit_authorization"
       ],
       "outputs": [
         "prompt_pack",
@@ -490,14 +490,14 @@
         "OpenAI Developers",
         "GitHub"
       ],
-      "runtime_alignment_mode": "local_only_until_order"
+      "runtime_alignment_mode": "governed_by_risk_tier"
     },
     {
       "id": "universe.escribania_tower",
       "name": "Torre Universo Escribania",
       "layer": "universe_tower",
       "home_path": ".agents\\codex\\agents\\04_TORRES_DE_UNIVERSO\\universe.escribania_tower.md",
-      "mission": "Gobernar el universo Escribania, incluyendo TGE, cumplimiento, evidencia y SharePoint aprobado cuando exista orden.",
+      "mission": "Gobernar el universo Escribania, incluyendo TGE, cumplimiento, evidencia y SharePoint con READ directo, LOW por defecto y decisiones profesionales reservadas.",
       "reads": [
         "10_UNIVERSOS\\ESCRIBANIA\\MANIFEST.yaml",
         "10_UNIVERSOS\\ESCRIBANIA\\ROUTING.md",
@@ -514,8 +514,8 @@
         "sharepoint_order_draft"
       ],
       "blocked": [
-        "sharepoint_write_without_order",
-        "tenant_write_without_order",
+        "sharepoint_high_action_without_explicit_authorization",
+        "tenant_high_action_without_explicit_authorization",
         "regulated_data_broad_read",
         "legal_criterion_finalization"
       ],
@@ -562,7 +562,7 @@
         "SharePoint",
         "GitHub"
       ],
-      "runtime_alignment_mode": "local_only_until_order"
+      "runtime_alignment_mode": "governed_by_risk_tier"
     },
     {
       "id": "universe.modo_on_tower",
@@ -586,8 +586,8 @@
         "provider_boundary_draft"
       ],
       "blocked": [
-        "using_modo_on_as_escribania_runtime_without_order",
-        "tenant_write_without_order",
+        "using_modo_on_as_escribania_runtime_without_exact_binding",
+        "tenant_high_action_without_explicit_authorization",
         "provider_control_without_trace"
       ],
       "outputs": [
@@ -598,7 +598,7 @@
       "stop_conditions": [
         "provider_boundary_unclear",
         "owner_conflict",
-        "surface_crosses_universe_without_order"
+        "surface_crosses_universe_without_exact_binding"
       ],
       "level_id": "04_TORRES_DE_UNIVERSO",
       "read_weight": "light_profile_only",
@@ -634,7 +634,7 @@
         "SharePoint",
         "GitHub"
       ],
-      "runtime_alignment_mode": "local_only_until_order"
+      "runtime_alignment_mode": "governed_by_risk_tier"
     },
     {
       "id": "court.seshat_evidence",
@@ -661,7 +661,7 @@
       ],
       "blocked": [
         "fabricating_evidence",
-        "writing_external_records_without_order",
+        "external_material_record_without_explicit_authorization",
         "storing_secrets"
       ],
       "outputs": [
@@ -711,7 +711,7 @@
         "GitHub",
         "SharePoint"
       ],
-      "runtime_alignment_mode": "local_only_until_order"
+      "runtime_alignment_mode": "governed_by_risk_tier"
     },
     {
       "id": "court.sdu_gate",
@@ -746,7 +746,7 @@
         "stop_condition"
       ],
       "stop_conditions": [
-        "missing_governed_order",
+        "missing_risk_classification",
         "rollback_missing",
         "postcheck_missing",
         "human_authority_needed"
@@ -783,7 +783,7 @@
         "Superpowers",
         "SharePoint"
       ],
-      "runtime_alignment_mode": "local_only_until_order"
+      "runtime_alignment_mode": "governed_by_risk_tier"
     },
     {
       "id": "court.thot_schema",
@@ -808,7 +808,7 @@
         "validator_spec_draft"
       ],
       "blocked": [
-        "tool_live_execution_without_order",
+        "tool_high_execution_without_explicit_authorization",
         "schema_overwriting_without_readback",
         "secret_materialization"
       ],
@@ -893,7 +893,7 @@
         "moving_files",
         "deleting_files",
         "changing_repo_remotes",
-        "updating_ide_paths_without_order"
+        "updating_ide_paths_without_exact_target_and_rollback"
       ],
       "outputs": [
         "migration_plan",
@@ -965,7 +965,7 @@
       ],
       "blocked": [
         "treating_reference_as_canon",
-        "vendor_live_execution_without_order",
+        "vendor_high_execution_without_explicit_authorization",
         "license_change"
       ],
       "outputs": [
@@ -1043,7 +1043,7 @@
         "codex_project_opening_checklist"
       ],
       "blocked": [
-        "editing_codex_global_config_without_order",
+        "editing_codex_global_config_without_exact_target_and_rollback",
         "reading_secret_files",
         "changing_default_workspace",
         "deleting_worktrees"
@@ -1237,7 +1237,7 @@
     "validator": ".agents\\codex\\tools\\local_validate_agent_levels.ps1",
     "no_default_bulk_read": true,
     "no_remote_persistent_agents": true,
-    "no_live_writes_without_governed_order": true
+    "risk_tier_policy": "LOW_BY_DEFAULT_UNLESS_HIGH_TRIGGER"
   },
   "source_policy": {
     "status": "COPY_ADAPT_REQUIRED",

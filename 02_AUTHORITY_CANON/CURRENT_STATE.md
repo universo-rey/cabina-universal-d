@@ -31,8 +31,8 @@
   `maat-cumplimiento`, `horus-riesgo`, `narrador-normativo`.
 - Active SDU-CN order:
   `.agents/codex/orders/ORDER_SDU_AGENTS_NEXT_TASK_ACTIVATION_20260608.md`.
-- SDU-CN live side effects remain `PENDING_TARGET_ONLY` until a concrete target,
-  owner, rollback, postcheck and validator are declared.
+- Un subpaso sin target, owner, rollback, postcheck o validador material queda
+  `RESOLUTION_REQUIRED`; conserva su tier y no bloquea READ ni LOW independientes.
 - Memory cleanup state: `OPERATING_MEMORY_POINTER_VALIDATOR_IMPLEMENTED`.
 - GitHub is the versionable technical canon.
 - `AGENTS.md` is the active instruction contract.
@@ -110,4 +110,5 @@ Confirmed absent in Fase 2/post-check audit:
    target, owner, rollback, postcheck, evidence, validator and stop condition.
 3. Do not run more smoke tests unless a concrete SDU task requires it under the
    active cost, data and secret boundaries.
-4. Keep Microsoft live and production parked until exact target gates are met.
+4. Mantener Microsoft live clasificado por efecto: READ directo, LOW sin orden
+   y HIGH con autorizacion explicita. Produccion permanece HIGH.

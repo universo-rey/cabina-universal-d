@@ -4,6 +4,27 @@ Estado: `POWER_PLATFORM_TEAMS_CAPABILITY_REGISTRY_READY`
 Fecha: 2026-06-03
 Frontera: DEV/STAGING preparado; Microsoft live y produccion no ejecutados.
 
+## Clasificacion efectiva de ejecucion
+
+Este registry consume el canon rector de TCU; no define una politica paralela.
+La columna historica `risk_level` describe la sensibilidad/madurez inventariada
+y no autoriza ni eleva el tier de una ejecucion concreta.
+
+- READ: directo con capability autenticada, binding vigente, target exacto,
+  minimizacion y evidencia.
+- Todo write conocido sin trigger HIGH objetivo: `LOW_BY_DEFAULT`, sin orden,
+  allowlist ni receipt. Requiere capability, binding, target acotado, precheck,
+  rollback o idempotencia, postcheck y evidencia.
+- HIGH: sólo ante trigger positivo destructivo/irreversible, produccion,
+  tenant/identidad/permisos/admin, secretos, datos regulados, comunicacion
+  externa material, volumen/costo abierto o fuera del binding.
+- Un dato faltante no convierte LOW en HIGH: devuelve `RESOLUTION_REQUIRED` y
+  `BLOCKED_NOT_EXECUTABLE`, preservando el tier.
+
+Por lo tanto, etiquetas legacy `medium`, `gated` u `order_required` de esta
+tabla no prevalecen sobre la clasificacion efectiva. Deben leerse como metadata
+historica hasta su normalizacion, nunca como un gate general.
+
 | capability_id | capability_name | source | source_type | maturity | runtime | orchestration_type | compatible_with | dependencies | recipes | skills | agents | risk_level | provisioning_scope | apply_globally | validation_required | traceability_level | current_status | target_status | implementation_file | evidence_required |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | pp_alm_github_actions | Power Platform ALM GitHub Actions | Microsoft Learn; microsoft/powerplatform-actions | canon_tecnico | production_supported_tooling | GitHub Actions | manual_dispatch | Dataverse solutions; PAC CLI | Dataverse database; service principal | POWER_PLATFORM_ALM_DEV_STAGING_RECIPE | tcu-descubridor-capacidades | court.openai_dispatcher | medium | DEV/STAGING | false | who-am-i; workflow gate | high | gap_detected | ready | .github/workflows/power-platform-alm-full-dev.yml | run summary; artifact |
@@ -23,8 +44,8 @@ Frontera: DEV/STAGING preparado; Microsoft live y produccion no ejecutados.
 | teams_planner_sync | Teams Planner sync | Planner; Power Automate | architecture | prepared | Power Automate | integration_flow | Teams; Planner | plan id; bucket id; owner | POWER_PLATFORM_TEAMS_GOVERNANCE_POLICY | tcu-descubridor-capacidades | operador Microsoft | medium | governed tenant | false | task audit | high | partial_existing | prepared | governance/power-platform/POWER_PLATFORM_TEAMS_GOVERNANCE_POLICY.md | task evidence |
 | teams_sharepoint_evidence | SharePoint/SYS evidence | SharePoint; SYS | architecture | prepared | SharePoint; Dataverse | evidence_write | Teams; Planner; Power Automate | exact site/list; rollback | TEAMS_MESSAGE_ORCHESTRATION_RECIPE | tcu-descubridor-capacidades | court.seshat_evidence | high | exact target only | false | read-after-write | high | partial_existing | prepared | governance/power-platform/POWER_PLATFORM_TEAMS_GOVERNANCE_POLICY.md | evidence item |
 | powerautomate_solution_governance | Flow solution governance | Microsoft Learn | canon_tecnico | ready | Power Platform | solution_alm | cloud flows; connection refs | solution-aware flows | POWER_PLATFORM_SOLUTION_GOVERNANCE_RECIPE | tcu-descubridor-capacidades | court.sdu_gate | medium | DEV/STAGING | false | solution checker | high | partial_existing | ready | recipes/power-platform/POWER_PLATFORM_SOLUTION_GOVERNANCE_RECIPE.md | checker log |
-| powerautomate_flow_inventory | Flow inventory | Power Automate | architecture | prepared | PAC CLI; PowerShell | read_inventory | cloud flows; solutions | exact environment | POWER_AUTOMATE_FLOW_INVENTORY_RECIPE | tcu-descubridor-capacidades | sdu-triage-agent | medium | read-only first | false | no secrets; no writes | high | partial_existing | prepared | recipes/power-platform/POWER_AUTOMATE_FLOW_INVENTORY_RECIPE.md | inventory report |
-| dataverse_environment_validation | Dataverse environment validation | Microsoft Learn; PAC CLI | canon_tecnico | ready | PAC CLI; GitHub Actions | precheck | Dataverse database | environment_url; tenant id | POWER_PLATFORM_ALM_DEV_STAGING_RECIPE | tcu-descubridor-capacidades | court.sdu_gate | medium | DEV/STAGING | false | who-am-i; explicit allowlist gate for mutable steps | high | partial_existing | ready | scripts/power-platform/pp-validate-env.ps1 | validation output |
+| powerautomate_flow_inventory | Flow inventory | Power Automate | architecture | active_governed | PAC CLI; PowerShell | read_inventory | cloud flows; solutions | current binding; exact environment; minimization limit | POWER_AUTOMATE_FLOW_INVENTORY_RECIPE | tcu-descubridor-capacidades | sdu-triage-agent | read | ACTIVE_GOVERNED exact target | false | authenticated capability; no secrets; NO_WRITE; bounded evidence | high | partial_existing | ready | recipes/power-platform/POWER_AUTOMATE_FLOW_INVENTORY_RECIPE.md | inventory report |
+| dataverse_environment_validation | Dataverse environment validation | Microsoft Learn; PAC CLI | canon_tecnico | active_governed | PAC CLI; GitHub Actions | read_precheck | Dataverse database | current binding; exact environment_url; tenant id; minimization limit | POWER_PLATFORM_ALM_DEV_STAGING_RECIPE | tcu-descubridor-capacidades | court.sdu_gate | read | ACTIVE_GOVERNED exact target | false | who-am-i; NO_WRITE; explicit allowlist gate only for mutable steps | high | partial_existing | ready | scripts/power-platform/pp-validate-env.ps1 | validation output |
 | alm_readback_generation | ALM readback generation | D:\ AGENTS.md | cabina_canon | ready | local repo | evidence_closeout | GitHub PR; validation | git status; validators | POWER_PLATFORM_ALM_DEV_STAGING_RECIPE | governed-readback-closeout | court.seshat_evidence | low | repo local | false | readback exists | high | gap_detected | ready | readbacks/20260603_POWER_PLATFORM_TEAMS_ALM_PROVISIONING_READBACK.md | readback |
 
 ## Stop condition

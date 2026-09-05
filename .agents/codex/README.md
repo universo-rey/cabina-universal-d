@@ -5,7 +5,8 @@ Esta carpeta define los agentes locales que Codex debe usar cuando
 proyecto.
 
 Los archivos son declarativos y operativos locales: cada agente tiene papeles de trabajo versionables. No crean agentes remotos persistentes, no ejecutan llamadas externas y no autorizan writes live por si mismos.
-Microsoft live queda gobernado por orden; produccion solo puede avanzar con autorizacion explicita separada.
+Microsoft live queda gobernado por riesgo: READ es directo y LOW no requiere
+orden; solo HIGH requiere autorizacion explicita. Produccion sigue siendo HIGH.
 
 ## Regla de reutilizacion
 
@@ -47,12 +48,12 @@ La carpeta debe preferir `copiar/adaptar` antes que inventar. Los archivos `SOUR
 3. Leer `agents\LEVELS.yaml`.
 4. Seleccionar subnivel y agente desde `routing.json`.
 5. Confirmar perfil en `agents.json`.
-6. Ejecutar primero la skill obligatoria
-   `.agents\skills\tcu-descubridor-capacidades\SKILL.md` para descubrir,
-   asignar o marcar `NO_DISPONIBLE` en skills, recetas, plugins y tools.
-7. Declarar cadena de capacidad desde
-   `matrices\CAPABILITY_USE_HARDENING_MATRIX.csv`: agente, skill, receta,
-   plugin, tool, superficie, evidencia, validador y stop condition.
+6. Usar `.agents\skills\tcu-descubridor-capacidades\SKILL.md` sólo si una
+   capacidad es desconocida, ambigua o se propone crear/asignar una nueva.
+7. Para efectos materiales o externos, declarar la cadena aplicable desde
+   `matrices\CAPABILITY_USE_HARDENING_MATRIX.csv`. READ y LOW simples usan
+   únicamente los componentes pertinentes y no se bloquean por piezas
+   `NO_APLICA`.
 8. Abrir solo el README del subnivel y el perfil asignado.
 9. Elegir receta desde `recipes\RECIPE_INDEX.csv`.
 10. Elegir plugin desde `matrices\PLUGIN_SKILL_BOUNDARY_MATRIX.csv`.
@@ -73,18 +74,18 @@ La carpeta debe preferir `copiar/adaptar` antes que inventar. Los archivos `SOUR
 16.b. Para carriles paralelos por issue, declarar primero la fila en
     `matrices\\PARALLEL_ISSUE_LANE_QUEUE.csv` y validar con
     `tools\\local_validate_parallel_issue_queue.ps1`.
-17. Cerrar con agente, skill, receta, plugin, tool, superficie, evidencia,
-    validador y condicion de detencion. Si falta algun componente y no existe
-    `NO_APLICA` justificado, detener con `capability_use_preflight_missing` u
-    `operational_chain_missing` segun corresponda.
+17. Cerrar con evidencia, validacion y condicion de detencion proporcionales al
+    efecto. Un componente material ausente produce `RESOLUTION_REQUIRED` sobre
+    el subpaso afectado; no eleva el riesgo ni bloquea capacidades independientes.
 
 ## Estado
 
 Estado actual: `LOCAL_GOVERNED_WORKPAPERS_ACTIVE`.
 
-Versionado GitHub repo-visible reversible habilitado bajo orden gobernada.
-Microsoft live requiere orden gobernada con rollback, postcheck y evidencia.
-Produccion requiere autorizacion explicita separada.
+Versionado GitHub repo-visible reversible habilitado dentro del scope
+autorizado. Microsoft live READ es directo y los writes LOW exactos requieren
+precheck, rollback o compensacion, postcheck y evidencia, sin orden previa.
+Produccion y los restantes triggers HIGH requieren autorizacion explicita.
 
 Actualizacion 2026-06-01: la cabina raiz adopta como capacidades versionables
 los perfiles de subnivel, skills, recipes, tools, evals, plugins y templates
@@ -130,7 +131,7 @@ carpeta `.agents\codex\skills` no instala por si misma: registra uso,
 subskills y source refs.
 
 Actualizacion autonomia gobernada 2026-06-02: `tcu-descubridor-capacidades`
-queda como skill obligatoria antes de toda asignacion o derivacion. La matriz
+se usa ante capacidad desconocida, ambigua o nueva. La matriz
 `matrices\AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv` y el validador
 `tools\local_validate_autonomous_agent_execution.ps1` preparan agentes locales
 task-scoped y Codex Cloud repo-scoped con owner, reviewer, evidencia,

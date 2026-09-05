@@ -28,14 +28,14 @@ cabina_canon_state:
   agents_sdk_runtime_live: enabled_governed
   codex_cloud_live: enabled_governed
   github_live: enabled_governed
-  microsoft_live: enabled_governed_gated
-  sharepoint_live: enabled_governed_gated
-  teams_live: enabled_governed_gated
-  planner_live: enabled_governed_gated
-  graph_live: enabled_governed_gated
-  power_platform_live: enabled_governed_gated
-  production: enabled_governed_gated
-  propagation: enabled_governed_gated
+  microsoft_live: active_governed_risk_tiered
+  sharepoint_live: active_governed_risk_tiered
+  teams_live: active_governed_risk_tiered
+  planner_live: active_governed_risk_tiered
+  graph_live: active_governed_risk_tiered
+  power_platform_live: active_governed_risk_tiered
+  production: high_requires_explicit_authorization
+  propagation: governed_by_effect
   secrets_policy: never_print_never_persist
   write_policy: exact_target_owner_rollback_postcheck_evidence_required
   dataverse_metadata_resolver: mandatory_before_atomic_segment_when_row_exists
@@ -52,9 +52,9 @@ standard_agent_chain:
   runtime: agents_sdk_live_governed
   cloud: codex_cloud_task_scoped
   github: enabled_governed
-  microsoft: enabled_governed_gated_not_executed
-  production: enabled_governed_gated_not_executed
-  propagation: enabled_governed_gated_not_executed
+  microsoft: active_governed_risk_tiered_not_executed
+  production: high_requires_explicit_authorization_not_executed
+  propagation: governed_by_effect_not_executed
   secrets_policy: never_print_never_persist
   status_final: STANDARD_AGENT_CHAIN_ACTIVE
 sdu_cn_canonical_agents_state:
@@ -199,9 +199,9 @@ extended_reconciliation_state:
   responses_api_live: EXECUTED_GOVERNED
   agents_sdk_runtime_live: EXECUTED_GOVERNED
   codex_cloud_lifecycle: EXECUTED_GOVERNED
-  microsoft_live_write: ENABLED_GOVERNED_GATED_NOT_EXECUTED
-  production: ENABLED_GOVERNED_GATED_NOT_EXECUTED
-  propagation: ENABLED_GOVERNED_GATED_NOT_EXECUTED
+  microsoft_live_write: ACTIVE_GOVERNED_RISK_TIERED_NOT_EXECUTED
+  production: HIGH_REQUIRES_EXPLICIT_AUTHORIZATION_NOT_EXECUTED
+  propagation: GOVERNED_BY_EFFECT_NOT_EXECUTED
   secrets_policy: NEVER_PRINT_NEVER_PERSIST
 authority_model:
   root: CABINA_UNIVERSAL_DEL_REY
@@ -214,17 +214,17 @@ frontier:
   git_versioning: local_root_wrapper_active
   github_base_work: required_for_all_repos
   remote_write: governed_github_only
-  microsoft_live: enabled_governed_gated
+  microsoft_live: active_governed_risk_tiered
   openai_api_live: enabled_governed
   responses_api_live: enabled_governed
   agents_sdk_runtime_live: enabled_governed
   codex_cloud_live: enabled_governed
-  production: enabled_governed_gated
-  propagation: enabled_governed_gated
+  production: high_requires_explicit_authorization
+  propagation: governed_by_effect
 stop_conditions:
   - secret_detected
   - unclassified_repo_move
-  - microsoft_live_requested_without_governed_order
+  - microsoft_live_read_without_current_binding
   - production_requested_without_explicit_authorization
   - universe_or_authority_ambiguity
 hierarchy_model:
@@ -312,44 +312,47 @@ github_base_work_state:
   root_state: CABINA_OPERATING_MEMORY_RECONCILED_TO_PR145
   root_open_prs_not_canonized: []
   root_closed_unmerged_prs_excluded: 81
-  automated_merge_policy_state: APPROVED_WITH_PRECHECKS
-  automated_merge_required_prechecks: base_main|codex_branch|non_draft|clean_merge_state|green_checks|match_head_commit|no_blocked_surfaces|post_merge_sync
+  merge_policy_state: MANUAL_OWNER_GATED
+  manual_merge_required_prechecks: base_main|codex_branch|non_draft|clean_merge_state|green_checks|match_head_commit|no_blocked_surfaces|post_merge_sync|explicit_owner_decision
   policy: 02_AUTHORITY_CANON/GITHUB_BASE_WORK_POLICY.md
   repo_matrix: 01_GOVERNANCE_REGISTRY/GITHUB_BASE_WORK_MATRIX.csv
   rule: all_durable_repo_work_must_route_through_github_branch_commit_push_pr
   root_repo_absorbs_nested_repos: false
   nested_repos_keep_own_remotes: true
-  blocked_without_separate_order:
+  high_actions_with_explicit_approval:
     - force_push
-    - merge_without_approved_precheck
+    - merge_main
     - remote_branch_delete
-    - permission_change
-    - visibility_change
-    - production_without_exact_target
-    - microsoft_live_without_exact_target
-    - openai_api_live_without_governed_gate
-    - secrets
+    - permission_or_admin_mutation
+    - public_visibility_change
+    - production_activation_or_deploy
+    - tenant_identity_or_binding_mutation
+    - openai_api_high_action
+    - secret_exposure_materialization_or_rotation
+    - open_ended_cost
+    - external_material_communication
+    - scope_escalation
 runtime_alignment_state:
   as_of: 2026-06-02
   status: LOCAL_SYNTHETIC_ALIGNMENT_ACTIVE
   runtime_mode: LOCAL_SYNTHETIC_ALIGNMENT_ONLY
   cabina_base_repository: universo-rey/cabina-universal-d
   cabina_repo_alignment_matrix: .agents/codex/matrices/CABINA_UNIVERSAL_REPO_ALIGNMENT_MATRIX.csv
-  productive_runtime_gate_state: REQUIRES_GOVERNED_ORDER
+  productive_runtime_gate_state: HIGH_REQUIRES_EXPLICIT_AUTHORIZATION
   github_agent_surface_state: APPROVED_GITHUB_AGENT_SURFACE
   github_actions_surface_state: APPROVED_GITHUB_ACTIONS_SURFACE
-  non_github_external_agent_gate_state: REQUIRES_GOVERNED_ORDER
+  non_github_external_agent_gate_state: CLASSIFY_BY_EFFECT
   default_skill_matrix: .agents/codex/matrices/AGENT_DEFAULT_SKILL_ASSIGNMENT_MATRIX.csv
   github_actions_matrix: .agents/codex/matrices/GITHUB_ACTIONS_WORKFLOW_MATRIX.csv
   github_automation_preflight_matrix: .agents/codex/matrices/GITHUB_AUTOMATION_PREFLIGHT_MATRIX.csv
   github_automation_preflight_tool: .agents/codex/tools/local_validate_github_automation_preflight.ps1
-  operational_chain_state: ACTIVE_GLOBAL_REQUIRED
+  operational_chain_state: PROPORTIONAL_WHEN_MATERIAL
   operational_chain_matrix: .agents/codex/matrices/OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv
   operational_chain_tool: .agents/codex/tools/local_validate_operational_chain.ps1
-  capability_use_hardening_state: ACTIVE_REQUIRED_FROM_INTAKE
+  capability_use_hardening_state: PROPORTIONAL_TO_EFFECT
   capability_use_hardening_matrix: .agents/codex/matrices/CAPABILITY_USE_HARDENING_MATRIX.csv
   capability_use_hardening_tool: .agents/codex/tools/local_validate_capability_use_hardening.ps1
-  mandatory_capability_discovery_skill: .agents/skills/tcu-descubridor-capacidades/SKILL.md
+  conditional_capability_discovery_skill: .agents/skills/tcu-descubridor-capacidades/SKILL.md
   autonomous_task_agents_state: GOVERNED_TASK_SCOPED_ACTIVE
   autonomous_agent_execution_matrix: .agents/codex/matrices/AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv
   autonomous_agent_execution_tool: .agents/codex/tools/local_validate_autonomous_agent_execution.ps1
@@ -390,7 +393,7 @@ runtime_alignment_state:
   governed_ci_tcu_control_plane_merge: 0fbc9cf0ab13bbabdf3fa3a0912952c47f0b3d0b
   governed_ci_sgin_canonico_puro_pr: SeshatSgin/SGIN_Canonico_Puro#6
   governed_ci_sgin_canonico_puro_merge: 5a1756206230d2d123f297bf4c43c50acce0f47d
-  codex_cloud_boundary: global_full_live_governed_no_secrets_no_blind_write_no_ungated_microsoft_no_ungated_production_no_auto_propagation
+  codex_cloud_boundary: global_full_live_governed_risk_tiered_no_secrets_no_blind_write_no_unapproved_high_no_auto_propagation
   cabina_full_live_global_canon_matrix: .agents/codex/matrices/CABINA_FULL_LIVE_GLOBAL_CANON_MATRIX_20260603.csv
   cabina_full_live_global_canon_readback: .agents/codex/readbacks/2026-06-03_cabina_full_live_global_canon_update_readback.md
   codex_app_environment_state: ACTIVE_ROOT_LOCAL_WORKTREE_ENV_CREATED
@@ -443,7 +446,7 @@ runtime_alignment_state:
   skill_usage_matrix_available_count: 49
   skill_availability_readback: .agents/codex/readbacks/2026-06-02_skill_availability_drift_readback.md
   subrecipe_index: .agents/codex/recipes/SUBRECIPE_INDEX.csv
-  openai_local_design_state: LOCAL_DESIGN_ONLY_API_LIVE_REQUIRES_ORDER
+  openai_local_design_state: LOCAL_DESIGN_ACTIVE_API_LIVE_CLASSIFIED_BY_EFFECT
   agents_sdk_local_preflight_state: LOCAL_IMPORT_APPROVED_NO_API_CALL
   repo_runtime_matrix: .agents/codex/matrices/REPO_RUNTIME_ALIGNMENT_MATRIX.csv
   runtime_status_matrix: .agents/codex/matrices/RUNTIME_ALIGNMENT_STATUS_MATRIX.csv

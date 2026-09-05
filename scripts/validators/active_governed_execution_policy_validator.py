@@ -91,7 +91,9 @@ def validate() -> None:
         [
             "Canon activo de ejecucion gobernada",
             "ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT",
-            "PENDING_*_ONLY",
+            "RESOLUTION_REQUIRED",
+            "LOW por defecto",
+            "la ausencia de metadata no lo son",
         ],
     )
     require_contains(

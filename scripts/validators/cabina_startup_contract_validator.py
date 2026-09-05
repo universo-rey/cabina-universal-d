@@ -67,7 +67,7 @@ def validate_startup_text(path: str) -> None:
         "02_AUTHORITY_CANON/CURRENT_STATE.md": [
             SDU_ACTIVE_STATUS,
             "ORDER_SDU_AGENTS_NEXT_TASK_ACTIVATION_20260608.md",
-            "PENDING_TARGET_ONLY",
+            "RESOLUTION_REQUIRED",
         ],
     }
 
