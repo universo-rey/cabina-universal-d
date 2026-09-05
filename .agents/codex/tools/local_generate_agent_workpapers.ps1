@@ -1,10 +1,17 @@
 param(
-  [string]$Root = ".agents\codex",
+  [string]$Root = "",
   [string]$Today = "2026-06-01"
 )
 
 $ErrorActionPreference = "Stop"
 $Status = "LOCAL_GOVERNED_WORKPAPERS_ACTIVE"
+
+if ([string]::IsNullOrWhiteSpace($Root)) {
+  $Root = Split-Path -Parent $PSScriptRoot
+} elseif (-not [System.IO.Path]::IsPathRooted($Root)) {
+  $Root = Join-Path (Get-Location) $Root
+}
+$Root = [System.IO.Path]::GetFullPath($Root)
 
 function Export-Rows {
   param([string]$Path, [object[]]$Rows)
@@ -20,23 +27,64 @@ function Join-Unique {
   @($Values | Where-Object { -not [string]::IsNullOrWhiteSpace([string]$_) } | Select-Object -Unique) -join "|"
 }
 
+function Get-RowKey {
+  param(
+    [object]$Row,
+    [string[]]$Keys
+  )
+  Join-Unique (@($Keys | ForEach-Object { [string]$Row.$_ }))
+}
+
 function Add-UniqueRows {
   param(
     [object[]]$Rows,
     [object[]]$NewRows,
     [string[]]$Keys
   )
-  $allRows = @($Rows) + @($NewRows)
-  $seen = @{}
+
+  $newByKey = [ordered]@{}
+  foreach ($row in @($NewRows)) {
+    $newByKey[(Get-RowKey -Row $row -Keys $Keys)] = $row
+  }
+
+  $emitted = @{}
   $result = @()
-  foreach ($row in $allRows) {
-    $key = Join-Unique (@($Keys | ForEach-Object { [string]$row.$_ }))
-    if (-not $seen.ContainsKey($key)) {
-      $seen[$key] = $true
+  foreach ($row in @($Rows)) {
+    $key = Get-RowKey -Row $row -Keys $Keys
+    if ($newByKey.Contains($key)) {
+      if (-not $emitted.ContainsKey($key)) {
+        $result += $newByKey[$key]
+        $emitted[$key] = $true
+      }
+    } elseif (-not $emitted.ContainsKey($key)) {
       $result += $row
+      $emitted[$key] = $true
     }
   }
+
+  foreach ($entry in $newByKey.GetEnumerator()) {
+    if (-not $emitted.ContainsKey([string]$entry.Key)) {
+      $result += $entry.Value
+      $emitted[[string]$entry.Key] = $true
+    }
+  }
+
   $result
+}
+
+function Ensure-ObjectProperty {
+  param(
+    [object]$Object,
+    [string]$Name
+  )
+
+  if ($null -eq $Object) {
+    throw "Cannot ensure property '$Name' on a null object."
+  }
+  if ($null -eq $Object.PSObject.Properties[$Name] -or $null -eq $Object.$Name) {
+    $Object | Add-Member -NotePropertyName $Name -NotePropertyValue ([pscustomobject]@{}) -Force
+  }
+  $Object.$Name
 }
 
 function Agent-Surface {
@@ -92,14 +140,18 @@ function Add-MatrixIndexRow {
 
 $dataPath = Join-Path $Root "agents.json"
 $data = Get-Content -LiteralPath $dataPath -Raw | ConvertFrom-Json
-$data.status = $Status
-$data.purpose = "Local governed agent layer for the Universal Rey control cabin, with versioned workpapers per agent."
-$data.default_policy.required_closeout_fields = @(
+$data | Add-Member -NotePropertyName status -NotePropertyValue $Status -Force
+$data | Add-Member -NotePropertyName purpose -NotePropertyValue "Local governed agent layer for the Universal Rey control cabin, with versioned workpapers per agent." -Force
+
+$defaultPolicy = Ensure-ObjectProperty -Object $data -Name "default_policy"
+$defaultPolicy | Add-Member -NotePropertyName required_closeout_fields -NotePropertyValue @(
   "agente", "orden", "superficie", "estado", "evidencia",
   "validador", "riesgo", "rollback", "stop_condition", "proximos_carriles"
-)
-$data.artifact_roots | Add-Member -NotePropertyName workpapers -NotePropertyValue ".agents\codex\workpapers" -Force
-$data.artifact_roots | Add-Member -NotePropertyName plugins -NotePropertyValue ".agents\codex\plugins" -Force
+) -Force
+
+$artifactRoots = Ensure-ObjectProperty -Object $data -Name "artifact_roots"
+$artifactRoots | Add-Member -NotePropertyName workpapers -NotePropertyValue ".agents\codex\workpapers" -Force
+$artifactRoots | Add-Member -NotePropertyName plugins -NotePropertyValue ".agents\codex\plugins" -Force
 
 $existing = Import-Csv -LiteralPath (Join-Path $Root "matrices\AGENT_TOOL_RECIPE_SKILL_MATRIX.csv")
 $refs = @{}
