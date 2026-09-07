@@ -2,7 +2,14 @@
 
 Estado: `CABINA_EXTENDED_RECONCILIATION_CANONIZED`
 
-## Estado canonico actual
+## Estado operativo actual
+
+Reglas activas: `AGENTS.md`. Punteros estructurados: `MANIFEST.yaml`.
+Snapshot documental fechado: `02_AUTHORITY_CANON/CURRENT_STATE.md`.
+Para HEAD, PRs abiertos y checks actuales prevalece GitHub; los snapshots
+historicos no son un inventario vivo ni acreditan una sesion Microsoft.
+
+## Hito historico de consolidacion
 
 La Cabina Universal del Rey queda canonizada como
 `CABINA_OPERATING_SYSTEM_CONSOLIDATED_TO_PR96` despues de reconciliar 75 PRs
@@ -12,7 +19,8 @@ reales mergeados hasta el PR #96. El canon operativo subyacente sigue siendo
 
 Ya no queda limitada a repo-only. GitHub sigue siendo canon tecnico, pero la
 cabina queda habilitada para gobernar runtime live, OpenAI, Codex Cloud,
-Agents SDK, Microsoft 365, produccion y propagacion bajo gates explicitos.
+Agents SDK, Microsoft 365 y propagacion con control proporcional por efecto.
+Solo HIGH requiere orden y autorizacion humana explicita; produccion conserva HIGH.
 Todo write live requiere target exacto, owner, identidad, rollback, postcheck,
 evidencia, stop condition y readback.
 
@@ -23,13 +31,13 @@ opera como repo local envoltorio para visibilidad nativa de Codex/Git. Este
 repo no absorbe clones anidados:
 `organizacion` y los demas repos conservan sus propios `.git`.
 
-Remoto privado del repo raiz: `https://github.com/universo-rey/cabina-universal-d`.
+Remoto del repo raiz: `https://github.com/universo-rey/cabina-universal-d`.
 
 Base rectora/remota visible para Codex/Git: `main`. La rama activa debe
 verificarse en cada sesion. El PR raiz #1 esta mergeado; nuevos cambios
 versionables deben usar rama `codex/*` desde `main` y PR gobernado.
 
-Ultimo main efectivo consolidado: `e9e7af7f7e403697878039db27a6e72e0104fa24`
+Commit historico de consolidacion: `e9e7af7f7e403697878039db27a6e72e0104fa24`
 por `universo-rey/cabina-universal-d#96`. El hito textual #78 queda como
 antecedente historico, no como ultimo estado raiz.
 
@@ -38,12 +46,13 @@ Alineacion universal local: los repos registrados se alinean a
 su remoto nativo. Los agentes GitHub/Copilot y GitHub Actions de validacion
 estan aprobados para issues, ramas, commits, push, PR y checks repo-scoped;
 runtime productivo y live externo quedan habilitados solo bajo el canon
-`CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`, con gates explicitos y sin writes
-ciegos. La regla semantica vigente es "no live sin gate": OpenAI API,
-Responses API, Agents SDK runtime, Codex Cloud y GitHub operan gobernados;
-Microsoft write, produccion y propagacion permanecen
-`ENABLED_GOVERNED_GATED_NOT_EXECUTED` hasta target exacto, owner, rollback,
-postcheck y evidencia.
+`CABINA_FULL_LIVE_GOVERNED_GLOBAL_CANON`, con controles proporcionales y sin writes
+ciegos. READ exact-bound no requiere orden. Todo write conocido sin trigger
+HIGH positivo es LOW por defecto con capability autenticada, binding, target
+acotado, precheck, reversa o compensacion, postcheck y evidencia tecnica.
+La falta de readiness produce `RESOLUTION_REQUIRED`, conserva el tier y
+bloquea solo el subpaso afectado. `ENABLED_GOVERNED_GATED_NOT_EXECUTED`
+se conserva como marcador historico; no impone un gate universal a READ/LOW.
 
 Agentes en GitHub: `.github/copilot-instructions.md`,
 `.github/ISSUE_TEMPLATE/agent-task.yml`,
@@ -56,12 +65,12 @@ workpapers saneados bajo `.agents/codex/workpapers` como evidencia declarativa.
 Operacion paralela: `.agents/codex/matrices/PARALLEL_OPERATION_CRITERIA_MATRIX.csv`
 define carriles, owners, alcance, evidencia, validador y stop condition.
 `.agents/codex/matrices/ORDER_PREPARATION_ASSIGNMENT_MATRIX.csv` asigna que
-agente prepara cada orden gobernada antes de cualquier live, API, produccion,
-permiso, secreto, costo o dato regulado.
+agente prepara la orden cuando un trigger HIGH la requiere. La mera lectura
+live o un write LOW no abren una orden por superficie.
 
 Los carriles paralelos requieren scopes y locks declarados. Las ordenes
-gobernadas se preparan como paquetes locales antes de ejecutar cualquier
-superficie live, costo, permiso o produccion.
+gobernadas se preparan cuando corresponde HIGH. No condicionan operaciones
+READ/LOW independientes; cada operador debe resolver su capability y efectos reales.
 
 Regla de lectura:
 
@@ -71,5 +80,9 @@ Regla de lectura:
 4. `03_CORTE_EJECUTORA_DEL_REY` ejecuta con agentes OpenAI, Seshat y SDU.
 5. `10_UNIVERSOS` contiene universos operativos como Escribania y Modo ON.
 
-No copiar repos, mover carpetas, ejecutar cambios live ni publicar remoto desde
-este mapa sin orden gobernada, target exacto, rollback, postcheck y evidencia.
+Este mapa no concede autoridad para absorber repos, mover clones ni cruzar
+tenants. El ciclo GitHub repo-visible y reversible opera en la rama autorizada;
+Microsoft usa READ/LOW/HIGH. Permisos/admin, secretos, efectos destructivos,
+activacion productiva y demas triggers HIGH conservan autorizacion expresa.
+Merge sigue siendo `MANUAL_OWNER_GATED`. No se ejecuta Microsoft live por
+actualizar este README.
