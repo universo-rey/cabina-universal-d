@@ -16,8 +16,14 @@ export function resolveConnection(connectionId, repoRoot = process.cwd()) {
   if (!connection) {
     throw new Error(`missing MCP connection ${connectionId}`);
   }
-  if (connection.write_scope !== "none" && connection.requires_approval !== "no") {
-    return { ...connection, gated: true };
-  }
-  return { ...connection, gated: false };
+  // This lookup describes a connection, not an operation admission. high_only
+  // must not be coerced into a universal gate merely because it is not "no".
+  // The dispatch layer still resolves actual effects, capability and binding.
+  return {
+    ...connection,
+    gated: connection.requires_approval === "yes",
+    approval_mode: connection.requires_approval,
+    execution_admitted: false,
+    admission_status: "OPERATION_NOT_RESOLVED"
+  };
 }

@@ -243,9 +243,19 @@ foreach ($skillRecord in $repoLocalSkills) {
         $errors.Add("Skill '$skillId' missing section: $heading")
       }
     }
-    foreach ($blocked in @("microsoft_live","openai_api_live","production","secrets")) {
-      if ($row.blocked_actions -notmatch [regex]::Escape($blocked)) {
-        $errors.Add("Skill metadata '$skillId' blocked_actions missing $blocked")
+    if ($skillId -eq "tcu-descubridor-capacidades") {
+      # Consume its conditional operation policy instead of restoring old
+      # provider-wide blocks through the metadata quality catalog.
+      $contractCheck = Join-Path $RepoRoot "scripts/validators/capability_chain_contract_validator.py"
+      $contractOutput = & python $contractCheck --root $Root --kind capability
+      if ($LASTEXITCODE -ne 0) {
+        $errors.Add("Conditional discovery contract failed: $($contractOutput -join [Environment]::NewLine)")
+      }
+    } else {
+      foreach ($blocked in @("microsoft_live","openai_api_live","production","secrets")) {
+        if ($row.blocked_actions -notmatch [regex]::Escape($blocked)) {
+          $errors.Add("Skill metadata '$skillId' blocked_actions missing $blocked")
+        }
       }
     }
   }

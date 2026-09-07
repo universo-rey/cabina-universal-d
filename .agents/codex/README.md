@@ -133,6 +133,8 @@ La autenticacion normal con una credencial ya resuelta mediante el binding no
 activa HIGH. El trigger de secretos es `secret_exposure_materialization_or_rotation`;
 `secret_detected` detiene la exposicion o persistencia en artefactos o salidas,
 no la autenticacion legitima que mantiene el secreto fuera de esas superficies.
+El trigger productivo es `production_activation_deploy_or_public_exposure`;
+una lectura no se convierte en HIGH por consultar un entorno de produccion.
 
 READ/LOW no requieren orden, discovery repetido ni expediente de evidencia
 global. READ devuelve resultado o fuente; LOW agrega precheck, reversibilidad

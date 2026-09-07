@@ -1,6 +1,6 @@
 ---
 name: tcu-descubridor-capacidades
-description: Resolve an unknown or ambiguous Cabina capability, or reconcile equivalents before creating or assigning a new skill, recipe, plugin, or tool. Reuse known current bindings without repeating discovery.
+description: Use when an unknown, ambiguous, materially changed or newly proposed Cabina capability needs skill discovery or capability assignment. Reuse current known bindings without repeating discovery for routine tasks.
 ---
 
 # TCU Descubridor Capacidades

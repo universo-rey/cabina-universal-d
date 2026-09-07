@@ -27,10 +27,20 @@ assert.equal(route.route_id, "teams.route.codex_cloud");
 const connection = resolveConnection(route.connection_id, repoRoot);
 assert.equal(connection.status, "TEMPLATE_ONLY");
 assert.equal(connection.gated, false);
+assert.equal(connection.approval_mode, "high_only");
+assert.equal(connection.execution_admitted, false);
+assert.equal(connection.admission_status, "OPERATION_NOT_RESOLVED");
+// An ungated registry lookup is not authorization, even for an active row.
+const githubConnection = resolveConnection("mcp.github.repo_scoped", repoRoot);
+assert.equal(githubConnection.gated, false);
+assert.equal(githubConnection.execution_admitted, false);
 
 const evidence = buildEvidence(route, payload);
 assert.equal(evidence.live_executed, false);
 assert.equal(evidence.sanitized, true);
+assert.equal(evidence.execution_admitted, false);
+assert.equal(evidence.blocked_surfaces_scope, "THIS_MOCK_BRIDGE_ONLY");
+assert.equal(evidence.next_gate, "not_required_for_advisory_routing");
 assert.ok(evidence.blocked_surfaces.includes("codex_cloud_apply"));
 
 const dashboard = collectDashboardData(repoRoot);

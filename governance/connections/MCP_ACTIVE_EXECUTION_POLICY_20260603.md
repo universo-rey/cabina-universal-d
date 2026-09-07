@@ -1,5 +1,7 @@
 # MCP active execution policy
 
+Estado: `ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT`.
+
 MCP read-only and mock execute directly when the required connection is available.
 Known bounded writes are LOW by default. Consume AGENTS.md and
 governance/canon/TCU_RISK_TIER_POLICY_CONSUMER.json; only positive HIGH effects
@@ -19,3 +21,7 @@ Mock and contract-only status do not prove a remote connection. No live adapter
 or credential is created by validating these files. Secret values remain outside
 the repository and logs. Stop only the affected operation for unresolved target,
 untrusted writable server, credential exposure or HIGH effect without authority.
+
+La evidencia registra el resultado de la operacion aplicable, no una auditoria
+global previa. stop_condition: `RESOLUTION_REQUIRED` para el prerequisito exacto,
+o `HIGH_AUTHORITY_REQUIRED` ante un efecto HIGH sin autoridad resuelta.

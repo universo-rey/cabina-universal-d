@@ -26,7 +26,7 @@ FILES = {
     "autonomous": "AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv",
 }
 HIGH_EFFECTS = {
-    "production", "permission_change", "tenant_identity_change",
+    "production_activation_deploy_or_public_exposure", "permission_change", "tenant_identity_change",
     "secret_exposure_materialization_or_rotation",
     "destructive_effect", "open_ended_cost", "unbounded_bulk",
     "regulated_professional_decision", "external_material_communication",
@@ -101,7 +101,25 @@ def validate_rows(kind: str, rows: list[dict]) -> list[str]:
     return errors
 
 
-def self_test(matrices: dict[str, list[dict]]) -> list[str]:
+def validate_discovery_metadata(rows: list[dict]) -> list[str]:
+    selected = [row for row in rows if row.get("skill_id") == "tcu-descubridor-capacidades"]
+    if len(selected) != 1:
+        return ["Discovery metadata must contain exactly one skill row"]
+    row = selected[0]
+    errors = []
+    if row.get("trigger_boundary") != "unknown_ambiguous_materially_changed_or_new_capability_only":
+        errors.append("Discovery metadata cannot mandate discovery for known tasks")
+    blocked = set(row.get("blocked_actions", "").split("|"))
+    required = {"invented_skill", "execution_without_required_capability_or_binding",
+                "high_effect_without_explicit_authorization", "secret_exposure_or_materialization"}
+    if blocked != required:
+        errors.append("Discovery metadata must stop only unavailable capabilities, HIGH without authority or secret exposure")
+    if row.get("stop_condition") != "operation_requirement_unresolved":
+        errors.append("Discovery metadata stop must affect only the unresolved operation")
+    return errors
+
+
+def self_test(matrices: dict[str, list[dict]], metadata: list[dict]) -> list[str]:
     """Reject recurrent policy regressions against actual repository rows."""
     failures = []
     cases = [
@@ -119,6 +137,7 @@ def self_test(matrices: dict[str, list[dict]]) -> list[str]:
         ("autonomous HIGH authority removed", "autonomous", 0, "requires_order_for", "", False),
         ("autonomous known binding rediscovery", "autonomous", 0, "discovery_policy", "ALWAYS", False),
         ("ordinary credential reuse made HIGH", "autonomous", 0, "requires_order_for", "secret_use", True),
+        ("production label made HIGH", "autonomous", 0, "requires_order_for", "production", True),
     ]
     for label, kind, index, field, value, append in cases:
         rows = copy.deepcopy(matrices[kind])
@@ -131,6 +150,13 @@ def self_test(matrices: dict[str, list[dict]]) -> list[str]:
     live["allowed_actions"] = "prepare_HIGH_order_when_required"
     if not validate_rows("capability", rows):
         failures.append("regression not rejected: READ/LOW forced back into order preparation")
+    for field, value in [("trigger_boundary", "mandatory_discovery_before_every_task"),
+                         ("blocked_actions", "microsoft_live|openai_api_live|production|secrets")]:
+        rows = copy.deepcopy(metadata)
+        discovery = next(row for row in rows if row.get("skill_id") == "tcu-descubridor-capacidades")
+        discovery[field] = value
+        if not validate_discovery_metadata(rows):
+            failures.append(f"regression not rejected: discovery metadata {field}")
     return failures
 
 
@@ -142,6 +168,7 @@ def main() -> int:
     args = parser.parse_args()
     kinds = list(FILES) if args.kind == "all" or args.self_test else [args.kind]
     matrices = {}
+    metadata = []
     errors = []
     for kind in kinds:
         try:
@@ -150,12 +177,19 @@ def main() -> int:
             errors.extend(validate_rows(kind, matrices[kind]))
         except (OSError, csv.Error) as exc:
             errors.append(f"{kind}: {exc}")
+    if "capability" in kinds:
+        try:
+            with (args.root / "skills/SKILL_METADATA_QUALITY_MATRIX.csv").open(encoding="utf-8-sig", newline="") as stream:
+                metadata = list(csv.DictReader(stream))
+            errors.extend(validate_discovery_metadata(metadata))
+        except (OSError, csv.Error) as exc:
+            errors.append(f"discovery metadata: {exc}")
     # Baseline validity is a prerequisite for meaningful mutation tests.
     if args.self_test and not errors:
-        errors.extend(self_test(matrices))
+        errors.extend(self_test(matrices, metadata))
     print(json.dumps({"status": "FAIL" if errors else "PASS", "errors": errors,
                       "rows": sum(map(len, matrices.values())),
-                      "negative_cases": 15 if args.self_test and not errors else 0}))
+                      "negative_cases": 18 if args.self_test and not errors else 0}))
     return int(bool(errors))
 
 
