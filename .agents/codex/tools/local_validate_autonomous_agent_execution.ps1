@@ -112,8 +112,8 @@ $repoRuntimePath = Join-Path $Root "matrices\REPO_RUNTIME_ALIGNMENT_MATRIX.csv"
 $capabilityMatrixPath = Join-Path $Root "matrices\CAPABILITY_USE_HARDENING_MATRIX.csv"
 $capabilityValidatorPath = Join-Path $Root "tools\local_validate_capability_use_hardening.ps1"
 $githubBasePath = Join-Path $RepoRoot "01_GOVERNANCE_REGISTRY\GITHUB_BASE_WORK_MATRIX.csv"
-$mandatorySkill = "tcu-descubridor-capacidades"
-$mandatorySkillPath = Join-Path $RepoRoot ".agents\skills\tcu-descubridor-capacidades\SKILL.md"
+$discoverySkill = "tcu-descubridor-capacidades"
+$discoverySkillPath = Join-Path $RepoRoot ".agents\skills\tcu-descubridor-capacidades\SKILL.md"
 
 $errors = New-Object System.Collections.Generic.List[string]
 $warnings = New-Object System.Collections.Generic.List[string]
@@ -129,7 +129,7 @@ Require-Columns -Path $matrixPath -Columns @(
   "execution_mode",
   "codex_cloud_environment_label",
   "codex_cloud_status",
-  "mandatory_discovery_skill",
+  "discovery_skill_when_needed",
   "capability_preflight",
   "allowed_autonomous_actions",
   "requires_order_for",
@@ -156,13 +156,13 @@ $defaultRows = Read-CsvRequired -Path $defaultSkillPath
 $contractRows = Read-CsvRequired -Path $agentContractPath
 $repoRuntimeRows = Read-CsvRequired -Path $repoRuntimePath
 
-foreach ($path in @($mandatorySkillPath, $capabilityMatrixPath, $capabilityValidatorPath)) {
+foreach ($path in @($discoverySkillPath, $capabilityMatrixPath, $capabilityValidatorPath)) {
   if (-not (Test-Path -LiteralPath $path)) {
     $errors.Add("Missing required autonomous preflight artifact: $path")
   }
 }
-if ($mandatorySkill -notin $skillIds) {
-  $errors.Add("Mandatory skill missing from SKILL_USAGE_MATRIX: $mandatorySkill")
+if ($discoverySkill -notin $skillIds) {
+  $errors.Add("Discovery skill missing from SKILL_USAGE_MATRIX: $discoverySkill")
 }
 if ("tool.local_validate_autonomous_agent_execution" -notin $toolIds) {
   $errors.Add("TOOL_INDEX missing tool.local_validate_autonomous_agent_execution")
@@ -190,30 +190,12 @@ $allowedStatuses = @(
   "ACTIVE_REMOTE_REFERENCE_ENV_PENDING"
 )
 
-foreach ($agent in $agents) {
-  if ($mandatorySkill -notin @($agent.default_skills)) {
-    $errors.Add("agents.json $($agent.id) missing mandatory default skill: $mandatorySkill")
-  }
-}
-foreach ($row in $defaultRows) {
-  if ($mandatorySkill -notin (Split-Tokens -Value $row.default_skill_refs)) {
-    $errors.Add("Default assignment '$($row.agent_id)' missing mandatory skill: $mandatorySkill")
-  }
-}
-foreach ($row in $contractRows) {
-  if ($mandatorySkill -notin (Split-Tokens -Value $row.skill_refs)) {
-    $errors.Add("Agent contract '$($row.agent_id)' missing mandatory skill: $mandatorySkill")
-  }
-}
-foreach ($row in $repoRuntimeRows) {
-  if ($mandatorySkill -notin (Split-Tokens -Value $row.default_skill_refs)) {
-    $errors.Add("Repo runtime '$($row.repo_id)' missing mandatory skill: $mandatorySkill")
-  }
-}
+# Default assignments are reusable catalog entries, not mandatory invocations.
+# Unknown references remain checked by capability_use_hardening.
 
 $seen = @{}
 foreach ($row in $rows) {
-  foreach ($field in @("execution_id","scope_type","target_id","owner_agent","reviewer_agent","execution_mode","mandatory_discovery_skill","capability_preflight","allowed_autonomous_actions","requires_order_for","blocked_actions","required_recipe","required_tool","evidence","validator","status","stop_condition")) {
+  foreach ($field in @("execution_id","scope_type","target_id","owner_agent","reviewer_agent","execution_mode","discovery_skill_when_needed","capability_preflight","allowed_autonomous_actions","requires_order_for","blocked_actions","required_recipe","required_tool","evidence","validator","status","stop_condition")) {
     if ([string]::IsNullOrWhiteSpace($row.$field)) {
       $errors.Add("Autonomous execution row '$($row.execution_id)' missing $field")
     }
@@ -238,35 +220,15 @@ foreach ($row in $rows) {
   if ($row.owner_agent -eq $row.reviewer_agent) {
     $errors.Add("Autonomous execution row '$($row.execution_id)' owner_agent and reviewer_agent must differ")
   }
-  if ($row.mandatory_discovery_skill -ne $mandatorySkill) {
-    $errors.Add("Autonomous execution row '$($row.execution_id)' must use mandatory skill: $mandatorySkill")
+  if ($row.discovery_skill_when_needed -ne $discoverySkill) {
+    $errors.Add("Autonomous execution row '$($row.execution_id)' must reference the conditional discovery skill: $discoverySkill")
   }
   Check-RequiredTokens -Value $row.capability_preflight -Required @(
     ".agents/codex/matrices/CAPABILITY_USE_HARDENING_MATRIX.csv",
     ".agents/codex/tools/local_validate_capability_use_hardening.ps1"
   ) -Errors $errors -Context "Autonomous execution row '$($row.execution_id)' capability_preflight"
-  Check-RequiredTokens -Value $row.requires_order_for -Required @(
-    "codex_cloud_exec",
-    "codex_cloud_apply",
-    "github_pr_open",
-    "microsoft_live",
-    "openai_api_live",
-    "production",
-    "permission_change",
-    "tenant_write",
-    "remote_agent_persistence"
-  ) -Errors $errors -Context "Autonomous execution row '$($row.execution_id)' requires_order_for"
-  Check-RequiredTokens -Value $row.blocked_actions -Required @(
-    "secret_materialization",
-    "microsoft_live",
-    "production",
-    "permission_change",
-    "openai_api_live",
-    "regulated_data_dump",
-    "tenant_write",
-    "remote_agent_persistence_without_order",
-    "codex_cloud_apply_without_review"
-  ) -Errors $errors -Context "Autonomous execution row '$($row.execution_id)' blocked_actions"
+  # Proportional order/block boundaries are validated by the shared contract
+  # checker below; provider or execution environment alone is not HIGH.
   Check-Refs -Value $row.required_recipe -Known $recipeIds -Errors $errors -Context "Autonomous execution row '$($row.execution_id)' recipes"
   Check-Refs -Value $row.required_tool -Known $toolIds -Errors $errors -Context "Autonomous execution row '$($row.execution_id)' tools"
   Check-PathTokens -Value $row.capability_preflight -Errors $errors -Context "Autonomous execution row '$($row.execution_id)' capability_preflight"
@@ -291,6 +253,12 @@ foreach ($row in $rows) {
   }
 }
 
+$contractCheck = Join-Path $RepoRoot "scripts/validators/capability_chain_contract_validator.py"
+$contractOutput = & python $contractCheck --root $Root --kind autonomous
+if ($LASTEXITCODE -ne 0) {
+  $errors.Add("Proportional autonomous contract failed: $($contractOutput -join [Environment]::NewLine)")
+}
+
 $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }
 [pscustomobject]@{
   status = $status
@@ -300,7 +268,7 @@ $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }
   agent_rows = $expectedAgentRows.Count
   repo_rows = $expectedRepoRows.Count
   repo_candidate_rows = @($rows | Where-Object { $_.scope_type -eq "repo_candidate" }).Count
-  mandatory_skill = $mandatorySkill
+  discovery_skill_when_needed = $discoverySkill
   warning_count = $warnings.Count
   warnings = $warnings
   error_count = $errors.Count

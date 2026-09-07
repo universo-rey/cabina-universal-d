@@ -1,22 +1,23 @@
 ---
 name: tcu-descubridor-capacidades
-description: Use when starting, assigning, deriving, dispatching, executing, or closing any Cabina Universal task to run skill discovery, capability assignment, NO_DISPONIBLE marking, and preflight for the real available skill, recipe, plugin, and tool set.
+description: Resolve an unknown or ambiguous Cabina capability, or reconcile equivalents before creating or assigning a new skill, recipe, plugin, or tool. Reuse known current bindings without repeating discovery.
 ---
 
 # TCU Descubridor Capacidades
 
 ## Core Rule
 
-Every task starts by discovering and assigning real capabilities. A skill,
+Consume known capabilities and current bindings directly. A skill,
 recipe, plugin, or tool is not available just because its name appears in text.
 It must exist in the active runtime, repo-local catalog, plugin list, or
 governed matrix. If it does not resolve, mark it `NO_DISPONIBLE`.
 
 ## Trigger Boundary
 
-Use this skill before intake classification, agent assignment, handoff,
-parallel dispatch, Codex Cloud delegation, local execution, GitHub automation,
-or closeout.
+Use this skill when the required capability is unknown, ambiguous, materially
+changed, or a new capability is proposed. Intake, handoff, execution and closeout
+do not trigger discovery by themselves. Existing assignments are references;
+having this skill in a default catalog does not require invoking it every time.
 
 ## Allowed Actions
 
@@ -25,40 +26,53 @@ or closeout.
 - map capability gaps as `NO_DISPONIBLE`
 - update local governance matrices and readbacks when capability assignments
   change
-- route to Codex Cloud only when the repo, branch, data boundary, owner,
-  rollback, validator, and stop condition are declared
+- route to the available execution environment with the exact target and binding;
+  apply write controls only to writes and explicit authorization only to HIGH
 
 ## Blocked Actions
 
 - inventing unavailable skills, recipes, plugins, tools, or validators
-- using Codex Cloud for secrets, broad regulated data, Microsoft live,
-  production, OpenAI API live, permission changes, or tenant writes
-- activating persistent remote agents without a governed order
+- exposing secrets or transferring unnecessary regulated data
+- executing without the capability, identity or exact binding actually needed
+- executing HIGH effects without scoped explicit authorization, including
+  production, permission/identity changes, destructive effects and open-ended cost
 - replacing human or institutional authority
+
+Normal authentication through an existing binding does not constitute secret
+exposure or trigger HIGH. `secret_detected` concerns material in artifacts or
+outputs, not legitimate credential use that keeps it out of those surfaces.
 
 ## Workflow
 
-1. Read the current capability-use matrix and assigned agent contract.
-2. Verify the requested skill, recipe, plugin, and tool against local catalogs.
-3. Assign the capability chain to the owner agent and reviewer agent.
+1. Consume the known current assignment and binding. Read the capability-use
+   matrix only when resolution is needed; do not rebuild a global inventory.
+2. Resolve the missing or ambiguous component against its existing catalog or
+   advertised runtime. A catalog declaration alone does not establish live access.
+3. Select only the components applicable to the requested effect. READ/LOW can
+   use a minimal chain; optional skills, recipes, plugins or validators may be
+   omitted or marked NO_APLICA. Keep ownership when the operation needs it.
 4. If the task can run autonomously, classify it as local task-scoped,
    GitHub task-scoped, or Codex Cloud task-scoped.
-5. If any capability cannot be proven, record `NO_DISPONIBLE` and stop or
-   prepare a governed order.
-6. Close with evidence, validator, rollback, and stop condition.
+5. A missing material capability produces `RESOLUTION_REQUIRED` only for the
+   affected operation, retaining READ/LOW/HIGH. Continue independent work. Missing
+   capability is not a reason to prepare an order; only a positive HIGH effect is.
+6. Close with the operation result or exact limitation and relevant validation.
+   READ does not require rollback. LOW writes need precheck, reversibility or
+   compensation and postcheck. Do not require a global evidence package or audit
+   for ordinary technical work. Microsoft/OpenAI live is classified by effect,
+   with no blanket prohibition based on provider or Cloud environment.
 
 ## Validator
 
-Primary:
+When changing the capability catalog or contract, primary:
 `.agents\codex\tools\local_validate_capability_use_hardening.ps1`.
 
-Companion:
+When changing autonomous execution configuration, companion:
 `.agents\codex\tools\local_validate_autonomous_agent_execution.ps1`.
 
 ## Stop Conditions
 
-- `capability_use_preflight_missing`
-- `default_skill_missing`
+- `operation_requirement_unresolved` for the affected operation only
 - `codex_cloud_environment_missing`
-- `autonomous_agent_order_missing`
+- HIGH effect without scoped explicit authorization
 - `secret_detected`

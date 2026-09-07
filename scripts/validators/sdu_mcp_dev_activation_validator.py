@@ -51,13 +51,13 @@ def validate() -> None:
         raise AssertionError(f"unexpected MCP DEV connection ids: {sorted(actual)}")
     for row in rows:
         require_files([row["evidence"], row["validator"]])
-        if row["requires_approval"] != "yes":
-            raise AssertionError(f"{row['connection_id']} must require approval")
+        if row["requires_approval"] != "high_only":
+            raise AssertionError(f"{row['connection_id']} must reserve approval for positive HIGH effects")
         blocked = row["blocked_actions"]
         if row["connection_id"] == "mcp.teams.dev" and ("teams_message" not in blocked or "graph_write" not in blocked):
             raise AssertionError("Teams MCP DEV row must block message and Graph write")
-        if row["connection_id"] == "mcp.codex.cloud.dev" and "codex_cloud_apply" not in blocked:
-            raise AssertionError("Codex Cloud MCP DEV row must block apply")
+        if row["connection_id"] == "mcp.codex.cloud.dev" and "codex_cloud_apply" not in row["allowed_actions"]:
+            raise AssertionError("Cloud repo-scoped patch application must be available")
         if row["connection_id"] == "mcp.openai.responses.gate" and "openai_live" not in blocked:
             raise AssertionError("OpenAI gate row must block live")
         if "external_governed_store" not in row["auth_reference"] and row["connection_id"] != "mcp.github.dev":

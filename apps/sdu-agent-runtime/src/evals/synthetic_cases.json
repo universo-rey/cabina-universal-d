@@ -5,8 +5,8 @@
     "expected_decision": "local_governance_review"
   },
   {
-    "case_id": "live_blocked",
+    "case_id": "text_is_not_execution_authority",
     "text": "Run OpenAI API live and write to SharePoint",
-    "expected_decision": "blocked_governed_order_required"
+    "expected_decision": "local_governance_review"
   }
 ]

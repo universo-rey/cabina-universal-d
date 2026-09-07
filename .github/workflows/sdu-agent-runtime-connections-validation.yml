@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - "governance/agents/**"
+      - "apps/sdu-agent-runtime/**"
+      - "governance/canon/TCU_RISK_TIER_POLICY_CONSUMER.json"
       - "governance/connections/**"
       - "governance/teams/**"
       - "governance/codex-cloud/**"
@@ -24,6 +26,8 @@ on:
       - "codex/**"
     paths:
       - "governance/agents/**"
+      - "apps/sdu-agent-runtime/**"
+      - "governance/canon/TCU_RISK_TIER_POLICY_CONSUMER.json"
       - "governance/connections/**"
       - "governance/teams/**"
       - "governance/codex-cloud/**"
@@ -85,6 +89,8 @@ jobs:
 
       - name: Run mock runtime checks
         run: |
+          python -m unittest discover -s apps/sdu-agent-runtime/tests
+          python tests/sdu-agent-runtime/test_proportional_connection_contracts.py
           npm test --prefix local-agent-bridge
           npm test --prefix teams-app/sdu-agent-chat/bot
           python tests/sdu-agent-runtime/simulate_sdu_agent_chat_to_tool_to_readback.py

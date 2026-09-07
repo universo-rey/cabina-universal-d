@@ -153,9 +153,6 @@ foreach ($row in $rows) {
   if ($row.owner_agent -eq $row.reviewer_agent) {
     $errors.Add("Operational chain '$($row.chain_id)' owner_agent and reviewer_agent must differ")
   }
-  if ($row.status -ne "ACTIVE_GLOBAL") {
-    $errors.Add("Operational chain '$($row.chain_id)' must be ACTIVE_GLOBAL")
-  }
   foreach ($sourceField in @("required_agent_source","required_skill_source","required_recipe_source","required_tool_source","required_validator_source","required_stop_condition_source","validator")) {
     Check-PathList -Value $row.$sourceField -Errors $errors -Context "Operational chain '$($row.chain_id)' $sourceField"
   }
@@ -253,6 +250,14 @@ foreach ($template in @(
       $errors.Add("Template missing operational chain field '$requiredText': $template")
     }
   }
+}
+
+# Catalog integrity above is distinct from per-operation requirements.
+# This shared validator prevents provider-wide blocks and universal discovery.
+$contractCheck = Join-Path $RepoRoot "scripts/validators/capability_chain_contract_validator.py"
+$contractOutput = & python $contractCheck --root $Root --kind chain
+if ($LASTEXITCODE -ne 0) {
+  $errors.Add("Proportional operational chain contract failed: $($contractOutput -join [Environment]::NewLine)")
 }
 
 $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }

@@ -1,24 +1,21 @@
-# MCP_ACTIVE_EXECUTION_POLICY_20260603
+# MCP active execution policy
 
-Estado: `MCP_ACTIVE_EXECUTION_POLICY_READY`
+MCP read-only and mock execute directly when the required connection is available.
+Known bounded writes are LOW by default. Consume AGENTS.md and
+governance/canon/TCU_RISK_TIER_POLICY_CONSUMER.json; only positive HIGH effects
+require separate explicit authority.
 
-## Regla
+Resolve the tool, capability, identity, exact binding and target. LOW writes
+also need precheck, rollback or compensation and postcheck. Keep result evidence
+proportional to the operation. Missing prerequisites produce RESOLUTION_REQUIRED
+for that substep, without downgrading the rest of the system.
 
-MCP read-only y mock se ejecutan por defecto cuando el registry y el contrato existen. MCP write queda `EXECUTE_LIVE_WRITE_GATED_NOW` solo cuando el tool, objeto, identidad, rollback, postcheck y evidencia estan completos.
+Offline contract checks:
+- python scripts/validators/sdu_mcp_dev_activation_validator.py
+- node local-agent-bridge/tests/mock_bridge_flow.mjs
+- python scripts/validators/sdu_dev_activation_secret_contract_validator.py
 
-## Ejecutar ahora
-
-- Probe MCP DEV: `python scripts/validators/sdu_mcp_dev_activation_validator.py`.
-- Bridge local mock: `node local-agent-bridge/tests/mock_bridge_flow.mjs`.
-- Secret contract: `python scripts/validators/sdu_dev_activation_secret_contract_validator.py`.
-
-## Pendientes exactos
-
-- MCP write DEV: `PENDING_TARGET_ONLY` hasta seleccionar servidor/tool/objeto.
-- MCP remoto con secreto: `PENDING_SECRET_ONLY` hasta que el secreto exista en store gobernado externo y no se materialice en repo.
-
-## Stop conditions
-
-stop_condition:
-
-`MCP_REMOTE_WRITE_ATTEMPTED`, `MCP_WRITE_TARGET_MISSING`, `SECRET_DETECTED`, `BLOCKED_TENANT_AMBIGUOUS`.
+Mock and contract-only status do not prove a remote connection. No live adapter
+or credential is created by validating these files. Secret values remain outside
+the repository and logs. Stop only the affected operation for unresolved target,
+untrusted writable server, credential exposure or HIGH effect without authority.

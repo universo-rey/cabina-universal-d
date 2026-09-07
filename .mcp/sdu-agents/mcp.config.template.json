@@ -3,10 +3,10 @@
   "profile": "sdu-agents-dev",
   "purpose": "Governed MCP connection template for SDU agent runtime DEV plane.",
   "defaults": {
-    "liveWrites": false,
-    "production": false,
     "materialInRepo": false,
-    "loopbackOnly": true
+    "loopbackOnly": true,
+    "executionPolicy": "READ_DIRECT_LOW_WITHOUT_ORDER_HIGH_EXPLICIT_AUTH",
+    "unresolvedBindingsExecutable": false
   },
   "servers": {
     "localAgentBridge": {
@@ -55,13 +55,15 @@
     },
     "codexCloudTemplate": {
       "enabledByDefault": false,
-      "mode": "task_template_no_apply",
+      "mode": "repo_scoped_template",
       "allowedActions": [
         "prepareTask",
-        "validateProfile"
+        "validateProfile",
+        "codex_cloud_apply"
       ],
       "blockedActions": [
-        "applyRemoteChange",
+        "unresolvedTargetExecution",
+        "highEffectWithoutAuthority",
         "persistentRemoteAgent"
       ]
     }

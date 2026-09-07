@@ -55,20 +55,28 @@ La carpeta debe preferir `copiar/adaptar` antes que inventar. Los archivos `SOUR
    únicamente los componentes pertinentes y no se bloquean por piezas
    `NO_APLICA`.
 8. Abrir solo el README del subnivel y el perfil asignado.
-9. Elegir receta desde `recipes\RECIPE_INDEX.csv`.
-10. Elegir plugin desde `matrices\PLUGIN_SKILL_BOUNDARY_MATRIX.csv`.
-11. Elegir tool desde `tools\TOOL_INDEX.csv`.
+9. Consumir la receta conocida si aplica; resolverla en el indice de recetas
+   cuando falte. No crear una receta para una lectura o cambio simple.
+10. Usar plugin si la operacion lo requiere; resolverlo en la matriz de plugins
+    cuando sea necesario.
+11. Usar la tool disponible y pertinente; consultar el indice de tools si hay
+    una duda material sobre su contrato.
 12. Revisar primero si existe un `SOURCE_*` aplicable.
-13. Ejecutar solo trabajo local permitido o preparar orden gobernada.
-14. Si el carril usa agentes autonomos, Codex Cloud o task agents, declarar
+13. Ejecutar READ o LOW con la capability, identidad y binding requeridos,
+    tambien en Microsoft live y Cloud. Aplicar controles de write cuando haya
+    write; preparar orden solo ante un trigger HIGH positivo.
+14. Si se configura o cambia un carril de agentes autonomos, Codex Cloud o task agents, declarar
     fila en `matrices\AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv` y
     validar con `tools\\local_validate_autonomous_agent_execution.ps1`.
-14.b. Si el carril usa entornos Codex app/worktree o Cloud environments,
+14.b. Si se configura o cambia un entorno Codex app/worktree o Cloud environment,
     validar `matrices\CODEX_APP_LOCAL_ENVIRONMENT_MATRIX_20260602.csv` y
     `matrices\CODEX_ENVIRONMENT_CREATION_QUEUE_20260602.csv` con
     `tools\\local_validate_codex_app_environments.ps1`.
-15. Validar con `tools\\local_validate_agent_levels.ps1`, `tools\\local_validate_agent_workpapers.ps1`, `tools\\local_validate_capability_use_hardening.ps1`, `tools\\local_validate_operational_chain.ps1` y `tools\\local_validate_agent_layer.ps1`.
-16. Para carriles paralelos u ordenes, validar tambien con
+15. Si se modifican catalogos, contratos o matrices, ejecutar los validadores
+    afectados: `tools\\local_validate_agent_levels.ps1`, `tools\\local_validate_agent_workpapers.ps1`, `tools\\local_validate_capability_use_hardening.ps1`, `tools\\local_validate_operational_chain.ps1` y `tools\\local_validate_agent_layer.ps1`.
+    La CI conserva su cobertura de integridad; no se exige ejecutar toda la suite
+    antes de cada operacion.
+16. Para cambios de contratos paralelos u ordenes HIGH, validar tambien con
     `tools\\local_validate_parallel_order_governance.ps1` y
     `tools\\local_validate_order_packets.ps1`.
 16.b. Para carriles paralelos por issue, declarar primero la fila en
@@ -107,18 +115,39 @@ La activacion local Agents SDK se prueba con
 `tools\local_validate_github_automation_preflight.ps1 -CheckLocalSdk` y debe
 cerrar sin API call.
 
-Actualizacion cadena operativa global 2026-06-01: la cabina exige cadena
-agente/skill/receta/tool/validador/evidencia/stop_condition para cierres,
-cambios repo, automatizacion GitHub, runtime y carriles paralelos. La matriz
-rectora es `matrices\OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv` y el validador
-local es `tools\local_validate_operational_chain.ps1`.
+Contrato vigente de cadena y capacidades: consumir asignaciones y bindings
+conocidos; discovery solo para capacidades desconocidas, ambiguas o nuevas.
+Las matrices `matrices/OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv` y
+`matrices/CAPABILITY_USE_HARDENING_MATRIX.csv` usan `ACTIVE_PROPORTIONAL`.
+Sus IDs historicos con sufijo `global` y sus columnas `required_*_source`
+identifican catalogos de referencia; no obligan a invocar cada componente.
+`chain_policy=APPLICABLE_COMPONENTS_ONLY` permite omitir o marcar `NO_APLICA`
+una skill, recipe, plugin o validator que no intervenga en la operacion.
 
-Actualizacion uso endurecido de capacidades 2026-06-02: antes de cada entrada,
-lectura, escritura, derivacion, dispatch paralelo, gate live/costo/produccion o
-cierre, la cabina exige agente, skill, receta, plugin, tool, superficie,
-evidencia, validador y stop condition. La matriz rectora es
-`matrices\CAPABILITY_USE_HARDENING_MATRIX.csv` y el validador local es
-`tools\local_validate_capability_use_hardening.ps1`.
+La matriz `matrices/AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv` usa
+`discovery_skill_when_needed` y las mismas politicas proporcionales. Sus estados
+de entorno conservan el significado de disponibilidad registrada; no acreditan
+acceso live actual. Un agente ejecuta solo sus capacidades asignadas y disponibles.
+READ/LOW no requieren orden por usar Cloud, abrir un PR o ser Microsoft/OpenAI.
+La autenticacion normal con una credencial ya resuelta mediante el binding no
+activa HIGH. El trigger de secretos es `secret_exposure_materialization_or_rotation`;
+`secret_detected` detiene la exposicion o persistencia en artefactos o salidas,
+no la autenticacion legitima que mantiene el secreto fuera de esas superficies.
+
+READ/LOW no requieren orden, discovery repetido ni expediente de evidencia
+global. READ devuelve resultado o fuente; LOW agrega precheck, reversibilidad
+o compensacion y postcheck. La evidencia es el resultado tecnico pertinente,
+no una auditoria o proceso probatorio salvo que ese sea el objeto solicitado.
+Solo un trigger HIGH requiere autoridad explicita. Una carencia material
+detiene la operacion afectada con `RESOLUTION_REQUIRED`, preserva su tier y
+permite continuar trabajo independiente. Los alias legacy de stop conditions
+se interpretan con esta semantica en `matrices/STOP_CONDITION_GLOSSARY.csv`.
+
+Los validadores `tools/local_validate_operational_chain.ps1` y
+`tools/local_validate_capability_use_hardening.ps1` conservan integridad de
+referencias y ejecutan `scripts/validators/capability_chain_contract_validator.py`
+para detectar regresiones de gateo global. El segundo ejecuta tambien sus casos
+negativos offline. Su PASS no acredita permisos ni ejecucion Microsoft live.
 
 Actualizacion cola paralela 2026-06-01: los work units por issue viven en
 `matrices\PARALLEL_ISSUE_LANE_QUEUE.csv`. La cola exige `base_sha`, rama

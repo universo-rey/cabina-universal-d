@@ -1,6 +1,7 @@
 # Task 04 MCP Registry Review
 
-Review MCP registry entries for trust, write-scope and approval gates. Block
-any untrusted write surface.
+Review MCP entries for trust, exact scope, unresolved connections and
+proportional approval. READ and LOW do not require separate approval; positive
+HIGH effects do. An untrusted writable server cannot execute.
 
-Required evidence: registry validator output.
+Return the relevant registry validation result.
