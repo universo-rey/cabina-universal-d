@@ -18,6 +18,20 @@ current sources of truth after Fase 2 active-memory slimming.
 
 ## Sources Of Truth
 
+### Cierre del hilo de ajustes — 2026-09-16
+
+- [Cierre gobernado y continuidad](../../operativa/READBACK_CIERRE_HILO_20260916.md): resultados recuperados de IDE, skills, Cloud, lanes, watchdog y NOC; pendientes por orden y alcance de las comprobaciones. Consultar este balance antes de reabrir pendientes de informes intermedios. Cierre documental con pendientes explicitos, sin cierre global ni entrega Git.
+
+### EATOMIC and Cloud continuity recovered — 2026-09-16
+
+- Existing local entry: [CAPABILITY_FRONTDOOR.md](C:/CEO/project-cdx/.cabina/SDU_RUNTIME_ROOT/00_START_HERE/CAPABILITY_FRONTDOOR.md). Git excludes `.cabina/` via project-cdx `.git/info/exclude:8`; exclusion does not remove its operational role.
+- Existing host launcher: [codex-cloud-live.ps1](C:/CEO/project-cdx/tools/codex-cloud-live.ps1). Its default EATOMIC branch invokes `codex exec --cd <projectRoot>` and supplies the user's order, EATOMIC recipe, dispatcher assignment and wave recipe. The CodexCloudAtomic branch is the separate SDK surface.
+- Dispatcher assignment: [court.openai_dispatcher.md](C:/CEO/project-cdx/.agents/codex/agents/03_CORTE_EJECUTORA/court.openai_dispatcher.md). The authenticated host conducts the order; Cloud delivery uses Start-SDUCodex, WP007 and WP006.
+- Preserved continuation: [BONTEMPS_OPERATIVA.md](C:/CEO/.metadata/reports/inicio-codex-cloud-2026-09-09/BONTEMPS_OPERATIVA.md), with sibling READBACK.json and CONSUMO_RESPUESTA_CLOUD.json. It preserves task `task_e_6aa13811876c832e9e53937e073f1434` and continuation through `LANE-SDU-CLOUD-READY-001`; do not turn the partial task observation into a new smoke requirement.
+- Launch Desk `history.jsonl` contains six launch-planning records in the inspected file; it is not the recovered Cloud continuation package. Its endpoint is not the sole dispatch entry.
+- This recovery read the existing artifacts; it did not invoke a new agent run or Cloud task. Resume the matching order and correlation; do not create a replacement bridge because the UI lacks an automatic call.
+
+
 | Path | Role | Status | Notes |
 | --- | --- | --- | --- |
 | `AGENTS.md` | Persistent active rules for Codex execution, gates, Git/GitHub, Microsoft/Power Platform, validation and readback. | active | Slimmed in Fase 2; history lives in archive/changelog. |
