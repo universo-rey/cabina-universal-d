@@ -124,8 +124,8 @@ $defaultSkillPath = Join-Path $Root "matrices\AGENT_DEFAULT_SKILL_ASSIGNMENT_MAT
 $agentContractPath = Join-Path $Root "matrices\AGENT_TOOL_RECIPE_SKILL_MATRIX.csv"
 $repoRuntimePath = Join-Path $Root "matrices\REPO_RUNTIME_ALIGNMENT_MATRIX.csv"
 $stopPath = Join-Path $Root "matrices\STOP_CONDITION_GLOSSARY.csv"
-$mandatorySkill = "tcu-descubridor-capacidades"
-$mandatorySkillPath = Join-Path $RepoRoot ".agents\skills\tcu-descubridor-capacidades\SKILL.md"
+$discoverySkill = "tcu-descubridor-capacidades"
+$discoverySkillPath = Join-Path $RepoRoot ".agents\skills\tcu-descubridor-capacidades\SKILL.md"
 
 $errors = New-Object System.Collections.Generic.List[string]
 $warnings = New-Object System.Collections.Generic.List[string]
@@ -158,6 +158,13 @@ Require-Columns -Path $repoRuntimePath -Columns @("repo_id","repository_full_nam
 
 $agentsPayload = Get-Content -Raw -LiteralPath $agentsPath | ConvertFrom-Json
 $agents = @($agentsPayload.agents)
+if ($agentsPayload.default_policy.conditional_capability_discovery_skill -ne $discoverySkill -or
+    $agentsPayload.default_policy.capability_discovery_trigger -ne "missing_or_invalidated_capability_assignment") {
+  $errors.Add("Capability discovery must be conditional on a missing or invalidated assignment")
+}
+if ($agentsPayload.default_policy.PSObject.Properties.Name -contains "mandatory_capability_discovery_skill") {
+  $errors.Add("Universal capability discovery policy must not be reintroduced")
+}
 $agentIds = @($agents | ForEach-Object { $_.id })
 $skillIds = @((Read-CsvRequired -Path $skillUsagePath) | ForEach-Object { $_.skill_id })
 $recipeRows = Read-CsvRequired -Path $recipeIndexPath
@@ -174,11 +181,11 @@ $toolIdSet = New-StringSet -Values $toolIds
 $pluginIdSet = New-StringSet -Values $pluginIds
 $knownStopSet = New-StringSet -Values @((Read-CsvRequired -Path $stopPath) | ForEach-Object { $_.stop_condition })
 
-if (-not $skillIdSet.Contains($mandatorySkill)) {
-  $errors.Add("Mandatory capability discovery skill missing from SKILL_USAGE_MATRIX: $mandatorySkill")
+if (-not $skillIdSet.Contains($discoverySkill)) {
+  $errors.Add("Conditional capability discovery skill missing from SKILL_USAGE_MATRIX: $discoverySkill")
 }
-if (-not (Test-Path -LiteralPath $mandatorySkillPath)) {
-  $errors.Add("Mandatory repo-local skill file missing: $mandatorySkillPath")
+if (-not (Test-Path -LiteralPath $discoverySkillPath)) {
+  $errors.Add("Conditional repo-local skill file missing: $discoverySkillPath")
 }
 
 $rows = Read-CsvRequired -Path $matrixPath
@@ -237,9 +244,6 @@ foreach ($agent in $agents) {
   }
   $agentDefaultSkillSet = New-StringSet -Values @($agent.default_skills)
   Check-Refs -Value (@($agent.default_skills) -join "|") -Known $skillIdSet -Errors $errors -Context "agents.json $($agent.id) default_skills"
-  if (-not $agentDefaultSkillSet.Contains($mandatorySkill)) {
-    $errors.Add("agents.json $($agent.id) missing mandatory default skill: $mandatorySkill")
-  }
   Check-Refs -Value (@($agent.default_recipes) -join "|") -Known $recipeIdSet -Errors $errors -Context "agents.json $($agent.id) default_recipes"
   Check-Refs -Value (@($agent.default_tools) -join "|") -Known $toolIdSet -Errors $errors -Context "agents.json $($agent.id) default_tools"
   Check-Refs -Value (@($agent.default_plugins) -join "|") -Known $pluginIdSet -Errors $errors -Context "agents.json $($agent.id) default_plugins"
@@ -250,9 +254,6 @@ foreach ($row in (Read-CsvRequired -Path $defaultSkillPath)) {
     $errors.Add("Default assignment references unknown agent: $($row.agent_id)")
   }
   $defaultSkillRefSet = New-StringSet -Values (Split-Tokens -Value $row.default_skill_refs)
-  if (-not $defaultSkillRefSet.Contains($mandatorySkill)) {
-    $errors.Add("Default assignment '$($row.agent_id)' missing mandatory skill: $mandatorySkill")
-  }
   Check-Refs -Value $row.default_skill_refs -Known $skillIdSet -Errors $errors -Context "Default assignment '$($row.agent_id)' skills"
   Check-Refs -Value $row.default_recipe_refs -Known $recipeIdSet -Errors $errors -Context "Default assignment '$($row.agent_id)' recipes"
   Check-Refs -Value $row.default_tool_refs -Known $toolIdSet -Errors $errors -Context "Default assignment '$($row.agent_id)' tools"
@@ -272,9 +273,6 @@ foreach ($row in (Read-CsvRequired -Path $agentContractPath)) {
   }
   Check-Refs -Value $row.skill_refs -Known $skillIdSet -Errors $errors -Context "Agent execution contract '$($row.agent_id)' skills"
   $contractSkillRefSet = New-StringSet -Values (Split-Tokens -Value $row.skill_refs)
-  if (-not $contractSkillRefSet.Contains($mandatorySkill)) {
-    $errors.Add("Agent execution contract '$($row.agent_id)' missing mandatory skill: $mandatorySkill")
-  }
   Check-Refs -Value $row.recipe_refs -Known $recipeIdSet -Errors $errors -Context "Agent execution contract '$($row.agent_id)' recipes"
   Check-Refs -Value $row.tool_refs -Known $toolIdSet -Errors $errors -Context "Agent execution contract '$($row.agent_id)' tools"
   Check-Refs -Value $row.plugin_refs -Known $pluginIdSet -Errors $errors -Context "Agent execution contract '$($row.agent_id)' plugins"
@@ -289,9 +287,6 @@ foreach ($row in $repoRuntimeRows) {
     }
   }
   $repoDefaultSkillSet = New-StringSet -Values (Split-Tokens -Value $row.default_skill_refs)
-  if (-not $repoDefaultSkillSet.Contains($mandatorySkill)) {
-    $errors.Add("Repo runtime alignment '$($row.repo_id)' missing mandatory skill: $mandatorySkill")
-  }
   Check-Refs -Value $row.default_skill_refs -Known $skillIdSet -Errors $errors -Context "Repo runtime alignment '$($row.repo_id)' skills"
   Check-Refs -Value $row.default_recipe_refs -Known $recipeIdSet -Errors $errors -Context "Repo runtime alignment '$($row.repo_id)' recipes"
   Check-Refs -Value $row.default_tool_refs -Known $toolIdSet -Errors $errors -Context "Repo runtime alignment '$($row.repo_id)' tools"
@@ -354,7 +349,7 @@ $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }
   tools = $toolIds.Count
   plugins = $pluginIds.Count
   repo_runtime_rows = $repoRuntimeRows.Count
-  mandatory_skill = $mandatorySkill
+  conditional_skill = $discoverySkill
   warning_count = $warnings.Count
   warnings = $warnings
   error_count = $errors.Count

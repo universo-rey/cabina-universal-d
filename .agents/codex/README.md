@@ -42,41 +42,17 @@ La carpeta debe preferir `copiar/adaptar` antes que inventar. Los archivos `SOUR
 
 ## Regla de uso
 
-1. Leer `AGENTS.md`.
-2. Leer este README.
-3. Leer `agents\LEVELS.yaml`.
-4. Seleccionar subnivel y agente desde `routing.json`.
-5. Confirmar perfil en `agents.json`.
-6. Ejecutar primero la skill obligatoria
-   `.agents\skills\tcu-descubridor-capacidades\SKILL.md` para descubrir,
-   asignar o marcar `NO_DISPONIBLE` en skills, recetas, plugins y tools.
-7. Declarar cadena de capacidad desde
-   `matrices\CAPABILITY_USE_HARDENING_MATRIX.csv`: agente, skill, receta,
-   plugin, tool, superficie, evidencia, validador y stop condition.
-8. Abrir solo el README del subnivel y el perfil asignado.
-9. Elegir receta desde `recipes\RECIPE_INDEX.csv`.
-10. Elegir plugin desde `matrices\PLUGIN_SKILL_BOUNDARY_MATRIX.csv`.
-11. Elegir tool desde `tools\TOOL_INDEX.csv`.
-12. Revisar primero si existe un `SOURCE_*` aplicable.
-13. Ejecutar solo trabajo local permitido o preparar orden gobernada.
-14. Si el carril usa agentes autonomos, Codex Cloud o task agents, declarar
-    fila en `matrices\AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv` y
-    validar con `tools\\local_validate_autonomous_agent_execution.ps1`.
-14.b. Si el carril usa entornos Codex app/worktree o Cloud environments,
-    validar `matrices\CODEX_APP_LOCAL_ENVIRONMENT_MATRIX_20260602.csv` y
-    `matrices\CODEX_ENVIRONMENT_CREATION_QUEUE_20260602.csv` con
-    `tools\\local_validate_codex_app_environments.ps1`.
-15. Validar con `tools\\local_validate_agent_levels.ps1`, `tools\\local_validate_agent_workpapers.ps1`, `tools\\local_validate_capability_use_hardening.ps1`, `tools\\local_validate_operational_chain.ps1` y `tools\\local_validate_agent_layer.ps1`.
-16. Para carriles paralelos u ordenes, validar tambien con
-    `tools\\local_validate_parallel_order_governance.ps1` y
-    `tools\\local_validate_order_packets.ps1`.
-16.b. Para carriles paralelos por issue, declarar primero la fila en
-    `matrices\\PARALLEL_ISSUE_LANE_QUEUE.csv` y validar con
-    `tools\\local_validate_parallel_issue_queue.ps1`.
-17. Cerrar con agente, skill, receta, plugin, tool, superficie, evidencia,
-    validador y condicion de detencion. Si falta algun componente y no existe
-    `NO_APLICA` justificado, detener con `capability_use_preflight_missing` u
-    `operational_chain_missing` segun corresponda.
+1. Retomar la orden y la asignacion existente de agente, receta y herramienta.
+2. Si falta una asignacion o cambio su alcance, resolver solo ese dato con
+   routing.json, agents.json y las matrices correspondientes. La skill
+   tcu-descubridor-capacidades se usa cuando la capacidad no esta resuelta.
+3. Ejecutar o delegar mediante el protocolo de la operacion y sus autorizaciones.
+   Los contratos de identidad, permisos y produccion siguen en ese protocolo.
+4. Reutilizar las comprobaciones vigentes; comprobar los resultados afectados
+   por el cambio. Los validadores de matrices se ejecutan al modificar sus
+   contratos, no antes de cada lectura o respuesta.
+5. Comunicar el resultado. La cadena formal y su readback corresponden a los
+   cierres que los requieren por su protocolo.
 
 ## Estado
 
@@ -106,18 +82,10 @@ La activacion local Agents SDK se prueba con
 `tools\local_validate_github_automation_preflight.ps1 -CheckLocalSdk` y debe
 cerrar sin API call.
 
-Actualizacion cadena operativa global 2026-06-01: la cabina exige cadena
-agente/skill/receta/tool/validador/evidencia/stop_condition para cierres,
-cambios repo, automatizacion GitHub, runtime y carriles paralelos. La matriz
-rectora es `matrices\OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv` y el validador
-local es `tools\local_validate_operational_chain.ps1`.
-
-Actualizacion uso endurecido de capacidades 2026-06-02: antes de cada entrada,
-lectura, escritura, derivacion, dispatch paralelo, gate live/costo/produccion o
-cierre, la cabina exige agente, skill, receta, plugin, tool, superficie,
-evidencia, validador y stop condition. La matriz rectora es
-`matrices\CAPABILITY_USE_HARDENING_MATRIX.csv` y el validador local es
-`tools\local_validate_capability_use_hardening.ps1`.
+Las matrices OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv y
+CAPABILITY_USE_HARDENING_MATRIX.csv aplican segun el campo applies_to.
+Las asignaciones resueltas se reutilizan; los requisitos de cierre formal
+dependen del protocolo de la operacion.
 
 Actualizacion cola paralela 2026-06-01: los work units por issue viven en
 `matrices\PARALLEL_ISSUE_LANE_QUEUE.csv`. La cola exige `base_sha`, rama
@@ -130,7 +98,9 @@ carpeta `.agents\codex\skills` no instala por si misma: registra uso,
 subskills y source refs.
 
 Actualizacion autonomia gobernada 2026-06-02: `tcu-descubridor-capacidades`
-queda como skill obligatoria antes de toda asignacion o derivacion. La matriz
+se usa solo ante una capacidad faltante o una asignacion invalidada. Las
+asignaciones resueltas se reutilizan; las skills listadas son capacidades
+disponibles, no una secuencia obligatoria. La matriz
 `matrices\AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv` y el validador
 `tools\local_validate_autonomous_agent_execution.ps1` preparan agentes locales
 task-scoped y Codex Cloud repo-scoped con owner, reviewer, evidencia,

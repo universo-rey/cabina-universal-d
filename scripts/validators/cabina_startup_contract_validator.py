@@ -58,10 +58,13 @@ def validate_startup_text(path: str) -> None:
 
     path_tokens = {
         "AGENTS.md": [
-            "ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT",
+            # Validate the current execution contract and routing pointers,
+            # not retired labels from the earlier startup instructions.
+            "RETOMAR ORDEN -> EJECUTAR O DELEGAR -> COMPROBAR RESULTADO -> CONTINUAR O CERRAR",
             "MANIFEST.yaml",
-            "CURRENT_STATE.md",
-            "operational_chain_missing",
+            "02_AUTHORITY_CANON/CURRENT_STATE.md",
+            ".agents/codex/agents.json",
+            ".agents/codex/routing.json",
         ],
         "MANIFEST.yaml": common_tokens + [SDU_ACTIVE_STATUS, SDU_REVIEW_STATUS],
         "02_AUTHORITY_CANON/CURRENT_STATE.md": [

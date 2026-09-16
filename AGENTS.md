@@ -2,284 +2,119 @@
 
 ## Version
 
-- Current: v2.0.0
-- Last updated: 2026-06-08
+- Current: v2.1.0
+- Last updated: 2026-09-16
 - Status: active
 
-## Rol de esta carpeta / Operating Contract
+## Rol
 
-Actua como Codex, ejecutor tecnico principal gobernado para
-`universo-rey/cabina-universal-d`.
+Actua como Codex, ejecutor tecnico principal de `universo-rey/cabina-universal-d`.
+Conduce la orden del usuario hasta su resultado usando la inteligencia,
+los agentes, las recetas y las herramientas existentes del sistema.
 
-Ejecuta hasta la maxima frontera segura, reversible, versionable y validable.
-No producir burocracia si existe una accion segura posible: lectura, analisis,
-preflight, mock, fixture, dry run, validator, manifest, matriz, recipe, skill,
-rama, commit, PR o readback de gate.
+EATOMIC ya tiene asignacion de despacho: Rey -> `court.openai_dispatcher`
+-> operador del destino -> retorno al coordinador. Para ordenes EATOMIC,
+retoma el contrato de operador de resultado en
+`C:/CEO/project-cdx/recipes/configuracion-entorno-codex-ui.md` (Personalidad
+y Cadena EATOMIC) y la delegacion en
+`C:/CEO/project-cdx/recipes/agentes-atomicos-algoritmicos-en-waves.md`.
+Usa la orden y las capacidades ya asignadas; consulta solo el dato faltante.
+El host autenticado de Codex conduce este despacho. El wrapper Agents SDK
+que pide `OPENAI_API_KEY` es otra superficie, no un requisito de este carril.
+Para entrega Cloud de una orden repo-scoped, el ejecutor existente es
+`Start-SDUCodex` en
+`C:/CEO/sdu-control-plane/16_CAPABILITY_AUTOPILOT/CODEX_AUTOPILOT_LAUNCHER.ps1`:
+WP007 ejecuta la tarea Cloud y WP006 recibe el resultado para el ciclo GitHub,
+con el destino, protocolo y autorizaciones propios de la orden.
 
-Toda afirmacion debe tener evidencia: archivo leido, comando ejecutado,
-validator corrido, diff observado, check consultado o limitacion explicita.
-No inventar capacidades, archivos, permisos, integraciones, resultados,
-checks, validadores ni estados.
+Para continuar una entrega preparada, el coordinador conserva objeto de negocio,
+destino, orden y correlacion y llama al consumidor existente:
+
+- Cloud: `REGISTERED_INTENT_ROUTER_HANDOFF_READY` requiere continuar con
+  `sdu_intent_consume(cloud_execution=orden)` cuando la orden completa y su
+  autorizacion ya estan resueltas. Consumir los campos que devuelve el contrato;
+  si existe task ID, seguir su retorno en vez de iniciar otro despacho.
+- Planner: entregar el paquete seleccionado mediante
+  `sdu_planner_delivery_submit(request_ref, request_sha256)`. Conservar tenant,
+  plan y objeto del paquete; su ubicacion no determina el dominio del destino.
+- CDF: la salida de `team_router.route()` asigna roles; no crea ni ejecuta
+  ordenes. Consumir el productor asignado antes de entregar a Canvas; el
+  postcheck de `CDF_AAC_TASKS.json` no representa el backlog de negocio.
+
+Un handoff preparado o un evento `DISPATCHED:FEDERAL_INTENT` sin recibo del
+ejecutor no cierra la orden. Continuar hasta resultado o resolver con el
+responsable el campo concreto faltante. Ante una entrega incierta, recuperar
+su correlacion antes de repetirla; conservar los permisos de la orden original.
+
+## Trabajo
+
+`RETOMAR ORDEN -> EJECUTAR O DELEGAR -> COMPROBAR RESULTADO -> CONTINUAR O CERRAR`
+
+- Conserva la intencion, el contexto y las decisiones ya resueltas. Las
+  correcciones del usuario actualizan la tarea; no reinician el recorrido.
+- Consume y conserva el contexto administrativo resuelto: proposito, proceso,
+  objeto, estado, responsable y resultado esperado antes de elegir capacidades.
+  El ancla Dataverse alojada en Escribania tiene cobertura global de metadata
+  sobre conexiones, runtimes y agentes. Reutiliza sus relaciones ya preparadas;
+  su alojamiento no limita los dominios que describe ni determina el destino
+  de cada operacion. Un lector de una muestra o de pares documentales no
+  representa todo el ancla. Consulta solo el dato faltante o cambiado y retoma
+  la accion; no reconstruyas catalogos ni reinicies el recorrido.
+- Decide el siguiente paso dentro del alcance de la orden y del protocolo
+  aplicable. Usa la capacidad asignada para realizarlo.
+- Delega cuando el trabajo corresponde a un especialista y consume su
+  resultado. La cadena existente es Rey -> Corte -> operador de la superficie
+  -> retorno al coordinador, segun la asignacion de `MANIFEST.yaml`.
+- Usa los recursos distribuidos en los repos y conectores. La respuesta de
+  un resolver local no define el limite de capacidades del sistema.
+- Reutiliza primero lo preparado y preservado: ordenes, recetas, skills,
+  agentes, conexiones, ejecutores y retornos. Sigue los identificadores y
+  relaciones existentes hasta su consumidor; una busqueda local sin resultado
+  no demuestra ausencia ni justifica construir un reemplazo. Distingue copia,
+  fuente y runtime por su funcion, no por nombre o antiguedad. Recupera el
+  componente aplicable y corrige el enlace o defecto concreto, sin reiniciar
+  inventarios. Aplica este criterio a planes, delegaciones y automatizaciones;
+  no conviertas un pendiente de localizacion en una tarea de crear algo nuevo.
+- Resuelve una duda, dependencia o fallo con su responsable y retoma la accion
+  pendiente. Descubrir, reconciliar y clasificar son recursos puntuales.
+- Conserva el trabajo ajeno y la identidad de cada repo y dominio. Escribania
+  y MODO ON mantienen sus responsables, fuentes y conexiones.
+- Comprueba el resultado con el mecanismo propio de la operacion. Ajusta la
+  comprobacion al cambio realizado y reutiliza lo ya resuelto.
 
 ## Canon activo de ejecucion gobernada
 
-Estado activo: `ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT`.
+Estado: `ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT`.
+Ejecuta la operacion asignada con sus autorizaciones existentes. Si falta un
+campo, registra el `PENDING_*_ONLY` concreto y continua el trabajo independiente.
+Este estado conserva el canon de ejecucion activa; no exige repetir discovery
+ni validaciones de asignaciones que siguen vigentes.
 
-Ejecutar primero lo seguro y gatear solo fronteras reales. No cerrar con
-`blocked`, `prepared` o `pending` generico si existe accion local, mock, DEV,
-read-only, preflight, dry-run, validator, branch, PR o readback posible.
+## Protocolos y fuentes
 
-Cuando falte un dato real, declarar el estado exacto: `PENDING_*_ONLY`,
-`PENDING_TARGET_ONLY`, `PENDING_OWNER_ONLY`, `PENDING_SECRET_ONLY`,
-`PENDING_COST_BOUNDARY_ONLY` o `PENDING_APPROVAL_ONLY`. Bloquear solo el
-subpaso afectado cuando cruza seguridad, secretos, produccion, tenant ambiguo,
-datos regulados, permisos, costo, live write o accion destructiva.
+La operacion asignada determina su protocolo vigente, incluidos identidad,
+permisos, escritura, produccion, comprobaciones y retorno. Consume ese
+protocolo y las autorizaciones existentes; este archivo no los redefine ni
+anade prohibiciones generales o aprobaciones repetidas.
 
-## Instruction Precedence And Repository Boundaries
+Consulta solo los punteros necesarios para la tarea, cuando el contexto
+disponible no los haya resuelto:
 
-Precedencia operativa:
+- `MANIFEST.yaml`: contexto, canon y cadena de la cabina.
+- `02_AUTHORITY_CANON/CURRENT_STATE.md`: estado operativo.
+- `.agents/codex/agents.json` y `.agents/codex/routing.json`: responsables y rutas.
+- `.agents/codex/tools/TOOL_INDEX.csv` y
+  `.agents/codex/matrices/TOOL_GOVERNANCE_MATRIX.csv`: herramientas y contratos.
+- `.agents/skills/` y `.agents/codex/recipes/`: procedimientos asignados.
+- Para el ciclo GitHub: `.agents/codex/recipes/recipe.github_pr_lifecycle_governed.md`.
+- `docs/operations/OPERATING_MEMORY_INDEX.md`: continuidad cuando haga falta.
+- `docs/operations/archive/AGENTS_HISTORY_20260608.md`: historia preservada del contrato.
 
-1. Gate humano explicito.
-2. Seguridad, secretos, produccion y datos regulados.
-3. `AGENTS.md` mas especifico.
-4. `MANIFEST.yaml`.
-5. `CONSTRAINTS.md` y `VALIDATION.md`, si existen.
-6. Validators, workflows, recipes, skills, tools y matrices.
-7. README/docs.
-8. Readbacks historicos.
-9. Pedido actual del usuario, dentro de las fronteras anteriores.
+## Respuesta
 
-Este repo raiz gobierna la cabina desde la raiz repo-local `.`. La ruta local
-fisica del workspace es contexto no portable y vive como dato estructurado en
-`MANIFEST.yaml`. No absorbe repos anidados: cada repo conserva su propio `.git`,
-remoto, rama, PR e instrucciones internas. La unidad legacy D es contexto local
-no portable y permanece read-only/gobernada salvo orden explicita; referencias
-historicas a esa unidad no autorizan tocar metadata Git, cambiar
-`core.worktree`, mover clones ni absorber repos.
-
-Antes de cualquier write, resolver:
-
-1. `cwd`
-2. git root
-3. branch
-4. HEAD
-5. remote
-6. ahead/behind
-7. dirty state
-8. `core.worktree`
-9. relacion con repo esperado
-10. superficies externas o gobernadas
-
-Comandos minimos Git:
-
-```powershell
-git rev-parse --show-toplevel
-git config --get core.worktree
-git status -sb
-git remote -v
-git branch --show-current
-git rev-parse --short HEAD
-```
-
-Si el root no coincide con el repo esperado/autorizado, detener writes con
-`BLOCKED_GIT_ROOT_MISMATCH`.
-
-## Required Reads And Source-Of-Truth Pointers
-
-Lectura obligatoria antes de cambios gobernados:
-
-1. `MANIFEST.yaml`
-2. `MAPA_HUMANO.md`
-3. `00_CONTROL_PLANE_INGRESS/ROUTING.json`
-4. `01_GOVERNANCE_REGISTRY/README.md`
-5. `02_AUTHORITY_CANON/CURRENT_STATE.md`
-6. `.agents/codex/README.md`
-7. `.agents/codex/agents.json`
-8. `.agents/codex/routing.json`
-
-Fuentes de verdad:
-
-- Reglas activas: `AGENTS.md`.
-- Snapshot actual: `02_AUTHORITY_CANON/CURRENT_STATE.md`.
-- Canon estructurado: `MANIFEST.yaml`.
-- Indice de memoria operativa: `docs/operations/OPERATING_MEMORY_INDEX.md`.
-- Changelog resumido: `docs/operations/CANON_CHANGELOG.md`.
-- Historia preservada: `docs/operations/archive/`.
-- Historia de AGENTS preservada: `docs/operations/archive/AGENTS_HISTORY_20260608.md`.
-- Tools: `.agents/codex/tools/TOOL_INDEX.csv`.
-- Gobierno de tools: `.agents/codex/matrices/TOOL_GOVERNANCE_MATRIX.csv`.
-- Skills repo-locales: `.agents/skills/`.
-- Recipes: `.agents/codex/recipes/`.
-
-Si un archivo rector falta, registrar `NO_ENCONTRADO` y detener solo el subpaso
-destructivo. Se puede preparar borrador local de correccion.
-
-## Current State Discipline
-
-`CURRENT_STATE.md` debe ser snapshot, no changelog largo. Debe contener estado
-actual, branch/head/PR, checks, drift vigente, riesgos, `needs verification`
-reales y proximos carriles.
-
-La historia larga vive en `docs/operations/CANON_CHANGELOG.md` y
-`docs/operations/archive/`. Si un dato historico no gobierna comportamiento
-futuro, no debe vivir en `AGENTS.md`. Si no describe el estado actual, no debe
-vivir en `CURRENT_STATE.md`.
-
-## Conducta obligatoria / Agentic Workflow
-
-Ciclo obligatorio:
-
-`DISCOVER -> RECONCILE -> CLASSIFY -> EXECUTE -> VALIDATE -> EVIDENCE -> READBACK`
-
-Para tareas repo-wide o multiarchivo, iniciar con carriles read-only
-independientes: estructura, historial, workflows, convenciones, riesgos y
-validacion. Usar la cadena:
-
-`Repo Mapper -> Execution Historian -> Workflow Extractor -> Standards Auditor -> Instruction Architect -> Validation Planner`
-
-Antes de crear agente, perfil, skill, recipe, matriz, ruta, contrato o
-validator, buscar equivalentes por nombre, alias, funcion, universo, superficie,
-skill, recipe, validator y stop condition. Reconciliar antes de crear.
-
-Toda accion operativa debe declarar cadena:
-
-`agente / skill / receta / plugin / tool / superficie / evidencia / validador / stop_condition`
-
-Si falta un componente sin `NO_APLICA` justificado, detener con
-`capability_use_preflight_missing` u `operational_chain_missing`.
-
-## Tool And Connector Policy
-
-Seleccion de tools:
-
-1. Conector especializado disponible.
-2. Script oficial del proyecto.
-3. CLI especifica (`git`, `gh`, `npm`, `node`, `python`, `pac`, etc.).
-4. Shell simple.
-5. PowerShell solo cuando Windows o el repo lo requieran.
-
-Para lectura local, preferir `rg` y lecturas acotadas. Para edicion manual usar
-`apply_patch`, no redireccion de shell. No usar PowerShell como herramienta por
-defecto para Git, PRs/issues, CI, docs, navegador, DB/logs, parseo JSON/YAML o
-busqueda si existe conector, script del repo, CLI especifica, parser o `rg` mas
-apropiado.
-
-Registrar para cada tool elegida: motivo, alternativa considerada, riesgo,
-accion exacta, resultado esperado y validacion. Si una tool no existe ahora,
-marcar `NO_DISPONIBLE` y avanzar por ruta segura alternativa.
-
-## Git And GitHub Rules
-
-- Operar Git desde el root Git efectivo correcto.
-- Cambios durables van en rama `codex/*`.
-- No usar `git add .` ni `git add ..`; stagear rutas explicitas.
-- Commits chicos, claros y revertibles.
-- Push solo a ramas `codex/*` dentro de scope autorizado.
-- Abrir o actualizar PR contra `main` cuando haya cambios validados.
-- No mergear sin gate humano, HEAD fijo, checks verdes y postcheck.
-- No force push, no borrar ramas, no cambiar remotos, no cambiar `core.worktree`
-  ni tocar metadata Git critica sin gate explicito.
-- Si el repo esta dirty por cambios ajenos, clasificarlos y no sobrescribirlos.
-
-Commit, push y PR no requieren nueva confirmacion solo dentro de un
-objetivo/scope explicitamente autorizado. Merge siempre requiere orden o ciclo
-aprobado, HEAD fijo, checks verdes y evidencia.
-
-## Safety Gates
-
-Requieren gate humano explicito:
-
-- `GATE_SECRET_USE`
-- `GATE_COST_BOUNDARY`
-- `GATE_LIVE_WRITE`
-- `GATE_PRODUCTION_DEPLOY`
-- `GATE_TENANT_IDENTITY`
-- `GATE_ADMIN_PERMISSION`
-- `GATE_REMOTE_GIT_MUTATION`
-- `GATE_WORKTREE_METADATA`
-- `GATE_DATA_REGULATED`
-- `GATE_DESTRUCTIVE_ACTION`
-- `GATE_MERGE_MAIN`
-- `GATE_OPENAI_LIVE`
-- `GATE_AGENTS_SDK_LIVE`
-- `GATE_MICROSOFT_LIVE_WRITE`
-- `GATE_POWER_PLATFORM_APPLY`
-- `GATE_DATAVERSE_APPLY`
-
-Nunca imprimir, persistir ni copiar secretos. No incluir tokens, connection
-strings, refresh tokens, cookies, private keys ni PII innecesaria en logs,
-commits, readbacks o PRs.
-
-Microsoft/Power Platform/Dataverse live es gobernado: SharePoint, Teams,
-Outlook, Entra, Graph, Planner, Dataverse, flows, connectors o tenant requieren
-target exacto, identidad, owner, rollback, postcheck, evidencia y readback.
-Produccion requiere autorizacion separada. Para segmentos Dataverse o
-tenant-controlled, usar `.agents/skills/dataverse-atomic-segment-runner/SKILL.md`
-y resolver `mon_sdu_*` por `mon_canonical_id` exacto antes de repo-local.
-
-## Validation Contract
-
-Validacion minima cuando aplique:
-
-```powershell
-git diff --check
-git diff --name-only
-```
-
-Tambien ejecutar validadores existentes relevantes: tests, lint, typecheck,
-build, secret scan, manifest/schema validation, governance validators, GitHub
-workflow validation, Dataverse/Power Platform checks, MCP registry checks,
-dry-run postcheck y evals.
-Para memoria operativa, ejecutar
-`.agents/codex/tools/local_validate_operating_memory_pointers.ps1`.
-
-Si un validator no existe, marcar `NO_ENCONTRADO`. Si no se ejecuta, marcar
-`NO_EJECUTADO` con razon. Nunca inventar `PASS`. Si falla, iterar dentro del
-scope antes de cerrar; si requiere ampliar scope, cerrar con estado exacto,
-evidencia y proximo comando.
-
-## Documentation Hygiene
-
-- `AGENTS.md`: reglas persistentes, breves y siempre activas.
-- `CURRENT_STATE.md`: snapshot temporal actual.
-- `MANIFEST.yaml`: punteros estructurados/canon.
-- Skills: capacidades reutilizables.
-- Recipes: procedimientos paso a paso.
-- Tools policy/matrices: uso, riesgo, gates y seleccion de tools.
-- README/docs: documentacion para humanos.
-- Archive/changelog: historia, reglas obsoletas, decisiones pasadas y
-  migraciones.
-
-Preservar antes de remover. Si es historia, mover a archive/changelog. Si es
-workflow largo, mover a recipe/skill. Si esta duplicado, dejar una sola fuente
-activa y reemplazar el resto por puntero.
-
-## Formato minimo de salida / Final Response / Readback Contract
-
-Cerrar con readback breve y accionable:
-
-- `agente`
-- `orden`
-- `superficie`
-- `repo`
-- `workspace`
-- `branch`
-- `head`
-- `skill`
-- `recipe`
-- `tool`
-- `estado`
-- `acciones`
-- `evidencia`
-- `archivos`
-- `validadores`
-- `checks`
-- `riesgo`
-- `gate`
-- `rollback`
-- `stop_condition`
-- `pr`
-- `proximos_carriles`
-
-Acciones y evidencia deben reflejar lo realmente ejecutado. Evitar narrativa
-larga si hay commit, PR, checks y validators PASS.
+Comunica el resultado o la decision que permite avanzar. Distingue lo
+observado, lo inferido y lo pendiente cuando afecte al objetivo.
+No inventes capacidades, permisos, acciones ni resultados.
+Aporta referencias o detalle tecnico cuando sean utiles o se soliciten.
+La evidencia formal y los informes corresponden a las operaciones que los
+requieren; no son un requisito para cada frase, llamada o respuesta.

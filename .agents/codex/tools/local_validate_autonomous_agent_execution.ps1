@@ -112,8 +112,8 @@ $repoRuntimePath = Join-Path $Root "matrices\REPO_RUNTIME_ALIGNMENT_MATRIX.csv"
 $capabilityMatrixPath = Join-Path $Root "matrices\CAPABILITY_USE_HARDENING_MATRIX.csv"
 $capabilityValidatorPath = Join-Path $Root "tools\local_validate_capability_use_hardening.ps1"
 $githubBasePath = Join-Path $RepoRoot "01_GOVERNANCE_REGISTRY\GITHUB_BASE_WORK_MATRIX.csv"
-$mandatorySkill = "tcu-descubridor-capacidades"
-$mandatorySkillPath = Join-Path $RepoRoot ".agents\skills\tcu-descubridor-capacidades\SKILL.md"
+$discoverySkill = "tcu-descubridor-capacidades"
+$discoverySkillPath = Join-Path $RepoRoot ".agents\skills\tcu-descubridor-capacidades\SKILL.md"
 
 $errors = New-Object System.Collections.Generic.List[string]
 $warnings = New-Object System.Collections.Generic.List[string]
@@ -129,7 +129,8 @@ Require-Columns -Path $matrixPath -Columns @(
   "execution_mode",
   "codex_cloud_environment_label",
   "codex_cloud_status",
-  "mandatory_discovery_skill",
+  "conditional_discovery_skill",
+  "discovery_trigger",
   "capability_preflight",
   "allowed_autonomous_actions",
   "requires_order_for",
@@ -145,6 +146,13 @@ Require-Columns -Path $matrixPath -Columns @(
 $rows = Read-CsvRequired -Path $matrixPath
 $agentsPayload = Get-Content -Raw -LiteralPath $agentsPath | ConvertFrom-Json
 $agents = @($agentsPayload.agents)
+if ($agentsPayload.default_policy.conditional_capability_discovery_skill -ne $discoverySkill -or
+    $agentsPayload.default_policy.capability_discovery_trigger -ne "missing_or_invalidated_capability_assignment") {
+  $errors.Add("Capability discovery must be conditional on a missing or invalidated assignment")
+}
+if ($agentsPayload.default_policy.PSObject.Properties.Name -contains "mandatory_capability_discovery_skill") {
+  $errors.Add("Universal capability discovery policy must not be reintroduced")
+}
 $agentIds = @($agents | ForEach-Object { $_.id })
 $skillIds = @((Read-CsvRequired -Path $skillUsagePath) | ForEach-Object { $_.skill_id })
 $recipeIds = @((Read-CsvRequired -Path $recipeIndexPath) | ForEach-Object { $_.recipe_id })
@@ -156,13 +164,13 @@ $defaultRows = Read-CsvRequired -Path $defaultSkillPath
 $contractRows = Read-CsvRequired -Path $agentContractPath
 $repoRuntimeRows = Read-CsvRequired -Path $repoRuntimePath
 
-foreach ($path in @($mandatorySkillPath, $capabilityMatrixPath, $capabilityValidatorPath)) {
+foreach ($path in @($discoverySkillPath, $capabilityMatrixPath, $capabilityValidatorPath)) {
   if (-not (Test-Path -LiteralPath $path)) {
     $errors.Add("Missing required autonomous preflight artifact: $path")
   }
 }
-if ($mandatorySkill -notin $skillIds) {
-  $errors.Add("Mandatory skill missing from SKILL_USAGE_MATRIX: $mandatorySkill")
+if ($discoverySkill -notin $skillIds) {
+  $errors.Add("Conditional skill missing from SKILL_USAGE_MATRIX: $discoverySkill")
 }
 if ("tool.local_validate_autonomous_agent_execution" -notin $toolIds) {
   $errors.Add("TOOL_INDEX missing tool.local_validate_autonomous_agent_execution")
@@ -191,29 +199,17 @@ $allowedStatuses = @(
 )
 
 foreach ($agent in $agents) {
-  if ($mandatorySkill -notin @($agent.default_skills)) {
-    $errors.Add("agents.json $($agent.id) missing mandatory default skill: $mandatorySkill")
-  }
 }
 foreach ($row in $defaultRows) {
-  if ($mandatorySkill -notin (Split-Tokens -Value $row.default_skill_refs)) {
-    $errors.Add("Default assignment '$($row.agent_id)' missing mandatory skill: $mandatorySkill")
-  }
 }
 foreach ($row in $contractRows) {
-  if ($mandatorySkill -notin (Split-Tokens -Value $row.skill_refs)) {
-    $errors.Add("Agent contract '$($row.agent_id)' missing mandatory skill: $mandatorySkill")
-  }
 }
 foreach ($row in $repoRuntimeRows) {
-  if ($mandatorySkill -notin (Split-Tokens -Value $row.default_skill_refs)) {
-    $errors.Add("Repo runtime '$($row.repo_id)' missing mandatory skill: $mandatorySkill")
-  }
 }
 
 $seen = @{}
 foreach ($row in $rows) {
-  foreach ($field in @("execution_id","scope_type","target_id","owner_agent","reviewer_agent","execution_mode","mandatory_discovery_skill","capability_preflight","allowed_autonomous_actions","requires_order_for","blocked_actions","required_recipe","required_tool","evidence","validator","status","stop_condition")) {
+  foreach ($field in @("execution_id","scope_type","target_id","owner_agent","reviewer_agent","execution_mode","conditional_discovery_skill","discovery_trigger","capability_preflight","allowed_autonomous_actions","requires_order_for","blocked_actions","required_recipe","required_tool","evidence","validator","status","stop_condition")) {
     if ([string]::IsNullOrWhiteSpace($row.$field)) {
       $errors.Add("Autonomous execution row '$($row.execution_id)' missing $field")
     }
@@ -238,8 +234,11 @@ foreach ($row in $rows) {
   if ($row.owner_agent -eq $row.reviewer_agent) {
     $errors.Add("Autonomous execution row '$($row.execution_id)' owner_agent and reviewer_agent must differ")
   }
-  if ($row.mandatory_discovery_skill -ne $mandatorySkill) {
-    $errors.Add("Autonomous execution row '$($row.execution_id)' must use mandatory skill: $mandatorySkill")
+  if ($row.discovery_trigger -ne "missing_or_invalidated_capability_assignment") {
+    $errors.Add("Autonomous execution row '$($row.execution_id)' must preserve conditional discovery")
+  }
+  if ($row.conditional_discovery_skill -ne $discoverySkill) {
+    $errors.Add("Autonomous execution row '$($row.execution_id)' must register conditional discovery skill: $discoverySkill")
   }
   Check-RequiredTokens -Value $row.capability_preflight -Required @(
     ".agents/codex/matrices/CAPABILITY_USE_HARDENING_MATRIX.csv",
@@ -300,7 +299,7 @@ $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }
   agent_rows = $expectedAgentRows.Count
   repo_rows = $expectedRepoRows.Count
   repo_candidate_rows = @($rows | Where-Object { $_.scope_type -eq "repo_candidate" }).Count
-  mandatory_skill = $mandatorySkill
+  conditional_skill = $discoverySkill
   warning_count = $warnings.Count
   warnings = $warnings
   error_count = $errors.Count
