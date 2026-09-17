@@ -27,47 +27,47 @@ La automatizacion reutiliza:
 
 ## Regla De Ejecucion
 
-Cada orden debe avanzar por la matriz:
+La matriz publicada es un registro de planos disponibles y rutas de handoff:
 
 `.agents/codex/matrices/CABINA_FULL_AUTOMATION_PLANE_MATRIX_20260605.csv`
 
-Cada plano declara proposito, input, output, owner, skill, recipe, tool,
-validador, evidencia, stop condition y plano siguiente.
+Cada orden entra directamente en el plano que corresponde a su objeto e
+intencion. Consume outputs promovidos de planos anteriores y omite los no
+aplicables. No debe recorrer los quince planos, releer todos sus artefactos ni
+producir una auditoria completa para habilitar una operacion ya autorizada.
+
+Cada plano conserva proposito, input, output, owner, skill, recipe, tool,
+validador, evidencia y stop condition para ser consumido cuando resulte
+material.
 
 La automatizacion puede ejecutar planos locales, repo-scoped, GitHub PR,
 checks, fixes, readbacks y Codex Cloud read-only/no-apply cuando el plano lo
 declara `auto_executable=true`.
 
-La automatizacion debe detenerse o preparar gate cuando el plano declara
-`human_gate_required` distinto de `none` o cuando aparecen superficies criticas:
-produccion, secretos, permisos, tenants, Microsoft live write, OpenAI API live
-con costo/secreto/dato sensible, force push, branch deletion, cambio de remotos,
-`core.worktree`, `codex_cloud_apply` o merge sin precheck.
+La automatizacion se detiene solamente cuando la operacion exacta excede la
+autoridad presente o aparece una frontera material: produccion no autorizada,
+secreto, permiso administrativo, identidad o tenant ambiguos, costo no acotado,
+dato regulado, accion irreversible, force push, branch deletion, cambio de
+remotos o `core.worktree`.
+
+GitHub live repo-scoped y los live bindings exactos no constituyen por si
+mismos un gate futuro.
 
 ## Ciclo Estandar
 
 ```text
-orden
--> intake
--> clasificacion
--> agente
--> skill
--> receta
--> Codex Cloud o local
--> rama
--> cambios
--> validacion
--> commit
--> push
--> PR
--> checks
--> fixes
--> ready
--> merge precheck
--> merge con HEAD fijo si hay autorizacion
--> postcheck
--> readback
+objeto exacto
+-> autoridad presente
+-> plano competente
+-> ejecucion live o local
+-> postcheck proporcional
+-> retorno
 ```
+
+Para GitHub, la receta publicada conserva el lifecycle completo
+`branch -> commit -> push -> PR -> checks -> fixes -> merge/precheck -> postcheck`
+sin reingresar por intake, discovery o auditoria cuando repo, scope y autoridad
+ya estan resueltos.
 
 ## Planos Operativos
 
@@ -124,9 +124,9 @@ orden
 
 El ciclo completo queda listo cuando:
 
-1. La matriz tiene los 15 planos.
-2. Cada plano resuelve agente, skill, recipe, tool, validator, evidencia y stop
-   condition reales.
-3. El validador `local_validate_cabina_full_automation_planes.ps1` cierra PASS.
-4. El gate change-aware ejecuta ese validador en PR.
-5. No hay superficies criticas ejecutadas sin gate.
+1. El objeto entra al plano competente sin recorrido global obligatorio.
+2. Los planos no aplicables quedan omitidos sin bloquear.
+3. El contrato, recipe, tool y validator directamente consumidores permanecen
+   resolubles.
+4. El postcheck proporcional al cambio cierra PASS.
+5. Ninguna operacion excede la autoridad presente ni deja efectos sin retorno.
