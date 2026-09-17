@@ -65,19 +65,22 @@ No incluye:
 - Si un repo no tiene remoto confirmado, queda `NO_CONSTA_REMOTE` y no avanza a
   trabajo durable hasta registrar remoto o decision de archivo.
 
-## GitHub Permitido Bajo Orden Gobernada
+## GitHub Live Activo
+
+La orden humana presente cubre el lifecycle repo-scoped dentro de su alcance
+exacto. No se solicita una orden futura para cada subpaso:
 
 - lectura de remoto;
 - branch;
 - commit;
 - push;
-- PR draft o actualizacion de PR;
-- issues, labels, comentarios y readbacks cuando el frente lo requiera.
+- PR o actualizacion de PR;
+- checks, issues, labels, comentarios y correcciones;
+- merge cuando la orden presente lo incluye y el precheck de HEAD fijo cierra.
 
-## GitHub Bloqueado Sin Orden Separada
+## Acciones Reservadas Fuera Del Lifecycle
 
 - force push;
-- merge;
 - delete branch remoto;
 - cambio de permisos;
 - cambio de visibilidad;
@@ -95,4 +98,4 @@ Detener si aparece cualquiera de estas condiciones:
 - dato regulado o secreto en archivos a versionar;
 - branch fuera de politica sin decision humana;
 - validador fallido;
-- accion live, productiva o de permisos sin orden separada.
+- accion productiva, administrativa o irreversible fuera de la autoridad presente.
