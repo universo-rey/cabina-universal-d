@@ -1,6 +1,6 @@
 # REPO OPERATING CONTRACT - CABINA UNIVERSAL D - 2026-06-04
 
-status: REPO_NATIVE_OPERATING_CONTRACT_READY_FOR_REVIEW
+status: REPO_NATIVE_OPERATING_CONTRACT_ACTIVE
 
 ```yaml
 repo: universo-rey/cabina-universal-d
@@ -11,8 +11,9 @@ master_issue: https://github.com/universo-rey/cabina-universal-d/issues/87
 
 human_authority:
   operator: Enzo ON
-  order_required: true
-  rule: agents_assist_human_authority
+  current_request_is_present_authority: true
+  new_order_required: false_when_current_request_covers_exact_scope
+  rule: consume_present_authority_without_future_gate
 
 sdu_cn_canonical_agents:
   seshat-normativa: aplica
@@ -42,25 +43,25 @@ operational_agents:
   owner_agent: rey.repo_cartographer
   reviewer_agent: court.seshat_evidence
   github_operator: rey.repo_cartographer
-  microsoft_operator: NO_APLICA salvo target exacto
+  microsoft_operator: resolved_by_exact_live_binding
   codex_cloud_operator: court.openai_dispatcher
   agents_sdk_operator: court.openai_dispatcher
 
 scopes:
   read_scope: repo raiz, issues, PRs, matrices, canon
   write_scope: repo-scoped bajo PR
-  live_scope: GATED_BY_TASK
-  production_scope: HUMAN_GATE_ONLY
+  live_scope: ACTIVE_BY_EXACT_INTENT_AND_BINDING
+  production_scope: HUMAN_DECISION_WHEN_NOT_ALREADY_COVERED
 
 capabilities:
   github: enabled
-  codex_cloud: enabled_gated
-  agents_sdk: enabled_gated
-  mcp: enabled_gated
-  microsoft_live: enabled_gated_when_target_exact
-  teams: enabled_gated_when_target_exact
-  sharepoint: enabled_gated_when_target_exact
-  power_platform: enabled_gated_when_target_exact
+  codex_cloud: active_when_repo_and_task_exact
+  agents_sdk: active_when_runtime_task_exact
+  mcp: active_when_binding_exact
+  microsoft_live: active_when_target_identity_environment_and_operation_exact
+  teams: active_when_target_identity_environment_and_operation_exact
+  sharepoint: active_when_target_identity_environment_and_operation_exact
+  power_platform: active_when_target_identity_environment_and_operation_exact
 
 role_rules:
   - Cabina mantiene matriz central y fan-in
@@ -68,11 +69,10 @@ role_rules:
   - no absorber repos anidados
   - no crear septimo agente
   - OpenAI Codex Agents SDK MCP y Microsoft son medios de ejecucion no fuente de autoridad
-  - Microsoft live no se ejecuta en este PR
-  - OpenAI live no se ejecuta en este PR
-  - Responses API live no se ejecuta en este PR
-  - Agents SDK live no se ejecuta en este PR
-  - produccion no se ejecuta en este PR
+  - este contrato no produce por si mismo efectos de negocio
+  - los ejecutores consumen live cuando la orden presente y el binding exacto lo cubren
+  - una brecha localizada detiene solo el objeto afectado
+  - auditoria ampliada se activa solo ante contradiccion o riesgo material
 
 rollback:
   method: revertir commit o PR repo-scoped
@@ -99,9 +99,11 @@ stop_conditions:
 
 ## Boundary
 
-This contract is repo-scoped and reviewable by pull request. It does not execute
-Microsoft live, OpenAI live, Responses API live, Agents SDK live, production,
-permission changes, tenant writes, propagation, or secret handling.
+This contract is repo-scoped and active. It routes GitHub and registered live
+surfaces through the exact current intent and binding. The contract itself does
+not create a business side effect; it also does not impose a future generic
+gate on an executor that already has exact authority, target, identity,
+environment, operation and postcheck.
 
 ## Evidence
 
