@@ -66,9 +66,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Validate inputs and gates
         shell: pwsh
+        env:
+          INPUT_ENVIRONMENT_URL: ${{ inputs.environment_url }}
+          INPUT_ENVIRONMENT_STAGE: ${{ inputs.environment_stage }}
+          INPUT_SOLUTION_NAME: ${{ inputs.solution_name }}
+          INPUT_TARGET_FOLDER: ${{ inputs.target_folder }}
+          INPUT_IMPORT_TO_DEV: ${{ inputs.import_to_dev }}
+          INPUT_PUBLISH_AFTER_IMPORT: ${{ inputs.publish_after_import }}
+          INPUT_CONFIRM_NON_PRODUCTION: ${{ inputs.confirm_non_production }}
         run: |
           function Normalize-EnvironmentUrl {
             param([Parameter(Mandatory=$true)][string]$Value)
@@ -83,16 +93,16 @@ jobs:
             return $uri.GetLeftPart([System.UriPartial]::Authority).TrimEnd('/').ToLowerInvariant()
           }
 
-          $url = '${{ inputs.environment_url }}'
-          $stage = '${{ inputs.environment_stage }}'
-          $name = '${{ inputs.solution_name }}'
-          $target = '${{ inputs.target_folder }}'
-          $import = [System.Convert]::ToBoolean('${{ inputs.import_to_dev }}')
-          $publish = [System.Convert]::ToBoolean('${{ inputs.publish_after_import }}')
-          $confirm = [System.Convert]::ToBoolean('${{ inputs.confirm_non_production }}')
+          $url = $env:INPUT_ENVIRONMENT_URL
+          $stage = $env:INPUT_ENVIRONMENT_STAGE
+          $name = $env:INPUT_SOLUTION_NAME
+          $target = $env:INPUT_TARGET_FOLDER
+          $import = [System.Convert]::ToBoolean($env:INPUT_IMPORT_TO_DEV)
+          $publish = [System.Convert]::ToBoolean($env:INPUT_PUBLISH_AFTER_IMPORT)
+          $confirm = [System.Convert]::ToBoolean($env:INPUT_CONFIRM_NON_PRODUCTION)
           $allowedRaw = $env:POWERPLATFORM_DEV_STAGING_ENVIRONMENT_URLS
           if ([string]::IsNullOrWhiteSpace($url)) { throw "environment_url is required" }
-          if ([string]::IsNullOrWhiteSpace($name)) { throw "solution_name is required" }
+          if ($name -notmatch '^[A-Za-z][A-Za-z0-9_]{0,99}$') { throw "solution_name must be a safe Dataverse unique name" }
           if ([string]::IsNullOrWhiteSpace($target)) { throw "target_folder is required" }
           if ($stage -notin @('DEV', 'STAGING')) { throw "environment_stage must be DEV or STAGING" }
           if ($publish -and -not $import) { throw "publish_after_import requires import_to_dev" }
@@ -100,6 +110,9 @@ jobs:
           if ($url -match "(?i)(prod|production|live)") {
             Write-Warning "Target URL contains a production-like word; explicit DEV/STAGING allowlist still controls mutable steps."
           }
+          $workspace = [System.IO.Path]::GetFullPath($env:GITHUB_WORKSPACE)
+          $target = [System.IO.Path]::GetFullPath((Join-Path $workspace $target))
+          if (-not $target.StartsWith($workspace + [System.IO.Path]::DirectorySeparatorChar, [System.StringComparison]::OrdinalIgnoreCase)) { throw "target_folder must resolve inside GITHUB_WORKSPACE" }
           if ($import -or $publish) {
             if (-not $confirm) { throw "confirm_non_production must be true before mutable Power Platform ALM steps" }
             if ([string]::IsNullOrWhiteSpace($allowedRaw)) {
@@ -200,11 +213,16 @@ jobs:
 
       - name: Generate summary
         shell: pwsh
+        env:
+          INPUT_SOLUTION_NAME: ${{ inputs.solution_name }}
+          INPUT_ENVIRONMENT_STAGE: ${{ inputs.environment_stage }}
+          INPUT_IMPORT_TO_DEV: ${{ inputs.import_to_dev }}
+          INPUT_PUBLISH_AFTER_IMPORT: ${{ inputs.publish_after_import }}
         run: |
-          "ALM full DEV/STAGING completed for ${{ inputs.solution_name }}" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "ALM full DEV/STAGING completed for $env:INPUT_SOLUTION_NAME" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
           "Export zip: $env:EXPORT_ZIP" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
           "Packed zip: $env:PACKED_ZIP" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
-          "Environment stage: ${{ inputs.environment_stage }}" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
-          "Import to DEV/STAGING: ${{ inputs.import_to_dev }}" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
-          "Publish after import: ${{ inputs.publish_after_import }}" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "Environment stage: $env:INPUT_ENVIRONMENT_STAGE" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "Import to DEV/STAGING: $env:INPUT_IMPORT_TO_DEV" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "Publish after import: $env:INPUT_PUBLISH_AFTER_IMPORT" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
           "Production requires a separate protected workflow and human approval." | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append

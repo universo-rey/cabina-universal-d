@@ -39,19 +39,31 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Validate inputs
         shell: pwsh
+        env:
+          INPUT_ENVIRONMENT_URL: ${{ inputs.environment_url }}
+          INPUT_SOLUTION_FILE: ${{ inputs.solution_file }}
+          INPUT_SOLUTION_NAME: ${{ inputs.solution_name }}
+          INPUT_ALLOW_OVERRIDE: ${{ inputs.allow_high_critical_override }}
+          INPUT_OVERRIDE_REASON: ${{ inputs.override_reason }}
         run: |
-          $url = '${{ inputs.environment_url }}'
-          $solutionFile = '${{ inputs.solution_file }}'
-          $override = [System.Convert]::ToBoolean('${{ inputs.allow_high_critical_override }}')
-          $reason = '${{ inputs.override_reason }}'
+          $url = $env:INPUT_ENVIRONMENT_URL
+          $solutionFile = $env:INPUT_SOLUTION_FILE
+          $override = [System.Convert]::ToBoolean($env:INPUT_ALLOW_OVERRIDE)
+          $reason = $env:INPUT_OVERRIDE_REASON
           if ([string]::IsNullOrWhiteSpace($url)) { throw "environment_url is required" }
-          if ([string]::IsNullOrWhiteSpace('${{ inputs.solution_name }}')) { throw "solution_name is required" }
+          if ($env:INPUT_SOLUTION_NAME -notmatch '^[A-Za-z][A-Za-z0-9_]{0,99}$') { throw "solution_name must be a safe Dataverse unique name" }
           if ([string]::IsNullOrWhiteSpace($solutionFile)) { throw "solution_file is required" }
           if ($url -match "(?i)(prod|production|live)") { throw "Target looks like production/live. Provide DEV/STAGING only." }
-          if (-not (Test-Path -LiteralPath $solutionFile)) { throw "solution_file not found: $solutionFile" }
+          $workspace = [System.IO.Path]::GetFullPath($env:GITHUB_WORKSPACE)
+          $solutionFile = [System.IO.Path]::GetFullPath((Join-Path $workspace $solutionFile))
+          if (-not $solutionFile.StartsWith($workspace + [System.IO.Path]::DirectorySeparatorChar, [System.StringComparison]::OrdinalIgnoreCase)) { throw "solution_file must resolve inside GITHUB_WORKSPACE" }
+          if ([System.IO.Path]::GetExtension($solutionFile) -ne '.zip') { throw "solution_file must be a .zip file" }
+          if (-not (Test-Path -LiteralPath $solutionFile -PathType Leaf)) { throw "solution_file not found: $solutionFile" }
           if ($override -and [string]::IsNullOrWhiteSpace($reason)) { throw "override_reason is required when override is true" }
 
       - name: Install Power Platform Tools
@@ -79,10 +91,15 @@ jobs:
 
       - name: Document checker gate
         shell: pwsh
+        env:
+          INPUT_SOLUTION_NAME: ${{ inputs.solution_name }}
+          INPUT_CHECKER_GEO: ${{ inputs.checker_geo }}
+          INPUT_ALLOW_OVERRIDE: ${{ inputs.allow_high_critical_override }}
+          INPUT_OVERRIDE_REASON: ${{ inputs.override_reason }}
         run: |
-          "Solution: ${{ inputs.solution_name }}" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
-          "Checker geo: ${{ inputs.checker_geo }}" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
-          "High/Critical override: ${{ inputs.allow_high_critical_override }}" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
-          if ('${{ inputs.allow_high_critical_override }}' -eq 'true') {
-            "Override reason: ${{ inputs.override_reason }}" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "Solution: $env:INPUT_SOLUTION_NAME" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "Checker geo: $env:INPUT_CHECKER_GEO" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "High/Critical override: $env:INPUT_ALLOW_OVERRIDE" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          if ($env:INPUT_ALLOW_OVERRIDE -eq 'true') {
+            "Override reason: $env:INPUT_OVERRIDE_REASON" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
           }

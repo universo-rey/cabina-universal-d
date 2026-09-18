@@ -29,6 +29,8 @@ jobs:
       DATAVERSE_SOLUTION_UNIQUE_NAME: ${{ vars.DATAVERSE_SOLUTION_UNIQUE_NAME }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Validate manifest
         shell: pwsh
         run: ./dataverse/scripts/validate_dataverse_manifest.ps1
@@ -38,7 +40,16 @@ jobs:
       - name: Import solution to DEV
         if: ${{ inputs.apply == true }}
         shell: pwsh
-        run: ./dataverse/scripts/import_solution_dev.ps1 -Apply -SolutionZip '${{ inputs.solution_zip }}'
+        env:
+          INPUT_SOLUTION_ZIP: ${{ inputs.solution_zip }}
+        run: |
+          $workspace = [System.IO.Path]::GetFullPath($env:GITHUB_WORKSPACE)
+          $candidate = [System.IO.Path]::GetFullPath((Join-Path $workspace $env:INPUT_SOLUTION_ZIP))
+          if (-not $candidate.StartsWith($workspace + [System.IO.Path]::DirectorySeparatorChar, [System.StringComparison]::OrdinalIgnoreCase)) {
+            throw "solution_zip must resolve inside GITHUB_WORKSPACE"
+          }
+          if ([System.IO.Path]::GetExtension($candidate) -ne '.zip') { throw "solution_zip must be a .zip file" }
+          ./dataverse/scripts/import_solution_dev.ps1 -Apply -SolutionZip $candidate
       - name: Dry-run import when apply is false
         if: ${{ inputs.apply != true }}
         shell: pwsh

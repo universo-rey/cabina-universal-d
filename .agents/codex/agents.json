@@ -6,8 +6,8 @@
   "default_policy": {
     "mode": "local_first_governed_versioning",
     "no_remote_persistent_agents": true,
-    "no_live_writes_without_governed_order": true,
-    "microsoft_live_policy": "governed_requires_order",
+    "no_live_writes_without_governed_order": false,
+    "microsoft_live_policy": "READ_DIRECT_LOW_WITHOUT_ORDER_HIGH_EXPLICIT_AUTH",
     "production_policy": "requires_explicit_authorization",
     "no_secrets": true,
     "required_closeout_fields": [
@@ -54,7 +54,10 @@
       "LANE_STATE"
     ],
     "rediscovery_policy": "only_when_continuation_or_capability_pointer_is_missing_invalidated_or_materially_contradicted",
-    "duplicate_dispatch_policy": "forbid_when_existing_task_or_correlation_has_unconsumed_next_consumer"
+    "duplicate_dispatch_policy": "forbid_when_existing_task_or_correlation_has_unconsumed_next_consumer",
+    "risk_tier_policy": "LOW_BY_DEFAULT_UNLESS_HIGH_TRIGGER",
+    "low_write_policy": "EXECUTE_WITH_EXACT_BINDING_TARGET_PRECHECK_REVERSIBILITY_POSTCHECK_EVIDENCE",
+    "high_action_policy": "EXPLICIT_AUTHORIZATION_REQUIRED_BY_POSITIVE_TRIGGER"
   },
   "agents": [
     {

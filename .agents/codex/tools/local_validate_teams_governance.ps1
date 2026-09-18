@@ -125,8 +125,8 @@ if ("tool.local_validate_teams_governance" -notin $toolIds) {
 }
 if ($teamsPlugin.Count -eq 0) {
   $errors.Add("PLUGIN_USAGE_MATRIX missing Teams plugin row")
-} elseif ($teamsPlugin[0].live_boundary -notmatch "governed_order") {
-  $errors.Add("Teams plugin row must keep governed_order live boundary")
+} elseif ($teamsPlugin[0].live_boundary -notmatch "read_direct") {
+  $errors.Add("Teams plugin row must preserve direct READ semantics")
 }
 
 $surfaces = Read-CsvSafe -Path $surfacePath
@@ -157,20 +157,23 @@ foreach ($row in $surfaces) {
       $errors.Add("Teams surface '$($row.surface_id)' missing $field")
     }
   }
-  if ($row.status -ne "ACTIVE_LOCAL_PREP") {
-    $errors.Add("Teams surface '$($row.surface_id)' must remain ACTIVE_LOCAL_PREP")
+  if ($row.status -notin @("ACTIVE_LOCAL_PREP", "ACTIVE_GOVERNED")) {
+    $errors.Add("Teams surface '$($row.surface_id)' has unsupported status: $($row.status)")
   }
-  if ($row.live_read_gate -notmatch "governed_order_required") {
-    $errors.Add("Teams surface '$($row.surface_id)' missing governed live read gate")
+  if ($row.live_read_gate -match "governed_order_required") {
+    $errors.Add("Teams surface '$($row.surface_id)' reintroduces order-first READ")
   }
-  if ($row.live_write_gate -notmatch "separate_explicit") {
-    $errors.Add("Teams surface '$($row.surface_id)' missing separate explicit write gate")
+  if ($row.live_read_gate -notmatch "read_direct|resolution_required") {
+    $errors.Add("Teams surface '$($row.surface_id)' must declare direct READ or exact resolution requirement")
   }
-  if ($row.write_scope -notmatch "none without separate order") {
-    $errors.Add("Teams surface '$($row.surface_id)' write_scope must block writes")
+  if ($row.live_write_gate -notmatch "low_by_default|high_positive_trigger|permission_or_admin_mutation") {
+    $errors.Add("Teams surface '$($row.surface_id)' must classify writes proportionally")
   }
-  if ($row.stop_condition -notmatch "microsoft_live_requested_without_governed_order") {
-    $errors.Add("Teams surface '$($row.surface_id)' must include microsoft live stop condition")
+  if ($row.write_scope -notmatch "bounded_write|exact_binding") {
+    $errors.Add("Teams surface '$($row.surface_id)' write_scope must remain bounded by exact binding")
+  }
+  if ($row.stop_condition -match "microsoft_live_requested_without_governed_order") {
+    $errors.Add("Teams surface '$($row.surface_id)' reintroduces obsolete Microsoft order stop condition")
   }
   Check-StopCondition -Value $row.stop_condition -KnownStops $knownStops -Errors $errors -Context "Teams surface '$($row.surface_id)'"
 }
@@ -197,42 +200,14 @@ foreach ($row in $capabilities) {
       $errors.Add("Teams capability '$($row.agent_id)' missing $field")
     }
   }
-  if ($row.status -ne "ACTIVE_LOCAL_PREP") {
-    $errors.Add("Teams capability '$($row.agent_id)' must remain ACTIVE_LOCAL_PREP")
+  if ($row.status -notin @("ACTIVE_LOCAL_PREP", "ACTIVE_GOVERNED")) {
+    $errors.Add("Teams capability '$($row.agent_id)' has unsupported status: $($row.status)")
   }
   if ($row.blocked_actions -notmatch "live|message|permission|production|secret|raw|tenant") {
     $warnings.Add("Teams capability '$($row.agent_id)' blocked_actions may be too weak")
   }
   Check-StopCondition -Value $row.stop_condition -KnownStops $knownStops -Errors $errors -Context "Teams capability '$($row.agent_id)'"
 }
-
-Require-Text -Path $policyPath -Tokens @(
-  "Teams queda gobernado como superficie Microsoft live",
-  "No autoriza lectura live",
-  "Produccion queda cerrada"
-) -Errors $errors
-
-Require-Text -Path $orderPath -Tokens @(
-  "- order_class:",
-  "- surface:",
-  "- owner:",
-  "- identity:",
-  "- data_boundary:",
-  "- allowed_actions:",
-  "- blocked_actions:",
-  "- rollback:",
-  "- postcheck:",
-  "- evidence:",
-  "- validator:",
-  "- stop_condition:",
-  "STOP_BEFORE_TEAMS_LIVE_READ"
-) -Errors $errors
-
-Require-Text -Path $readbackPath -Tokens @(
-  "TEAMS_GOVERNANCE_LOCAL_PREPARED_NO_LIVE_EXECUTION",
-  "No se leyo Teams live",
-  "microsoft_live_requested_without_governed_order"
-) -Errors $errors
 
 $secretPatterns = @("client_secret", "password", "authorization:", "bearer ", "api_key", ("tok" + "en="))
 foreach ($path in @($policyPath, $orderPath, $readbackPath, $surfacePath, $capabilityPath)) {

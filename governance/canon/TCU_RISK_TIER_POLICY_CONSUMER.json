@@ -1,0 +1,50 @@
+{
+  "version": "1.1.0",
+  "consumer_id": "CABINA_FEDERAL_RISK_TIER_CONSUMER",
+  "ownership": "CONSUMER_NOT_POLICY_OWNER",
+  "rector_registry": {
+    "repository": "SeshatSgin/tcu-control-plane",
+    "path": "00_CONTEXT/RISK_TIER_POLICY.json",
+    "policy_id": "TCU_PROPORTIONAL_EXECUTION_RISK_TIERS",
+    "source_blob_sha": "0be6a492a4412783abc1235b4669f2191f743896"
+  },
+  "invariants": [
+    "NO_ORDER_FOR_READS",
+    "ACTIVE_GOVERNED_MICROSOFT_LIVE",
+    "LOW_BY_DEFAULT_UNLESS_HIGH_TRIGGER",
+    "EXPLICIT_AUTH_HIGH_RISK",
+    "EVIDENCE_POSTCHECK_ALWAYS_FOR_WRITES"
+  ],
+  "local_contract": {
+    "reads": "DIRECT_WITH_AUTHENTICATED_CAPABILITY_EXACT_BINDING_TARGET_MINIMIZATION_EVIDENCE",
+    "classification": "KNOWN_WRITE_WITHOUT_OBJECTIVE_HIGH_TRIGGER_IS_LOW_BY_DEFAULT",
+    "low_writes": "DIRECT_WITH_CAPABILITY_BINDING_BOUNDED_TARGET_WITHIN_CAPABILITY_CEILING_PRECHECK_REVERSIBILITY_OR_COMPENSATING_ACTION_POSTCHECK_EVIDENCE_NO_ORDER_ALLOWLIST_OR_RECEIPT",
+    "high_actions": "EXPLICIT_GOVERNED_ORDER_REQUIRED",
+    "high_classification": "OBJECTIVE_POSITIVE_TRIGGER_REQUIRED",
+    "missing_prerequisite": "RESOLUTION_REQUIRED_AND_BLOCKED_NOT_EXECUTABLE_TIER_PRESERVED",
+    "caller_tier_authoritative": false,
+    "default_known_write_without_high_trigger": "LOW"
+  },
+  "high_positive_triggers": [
+    "destructive_or_irreversible",
+    "permission_or_admin_mutation",
+    "tenant_identity_or_binding_mutation",
+    "secret_exposure_materialization_or_rotation",
+    "production_activation_deploy_or_public_exposure",
+    "unbounded_or_over_ceiling_bulk",
+    "regulated_or_professional_decision",
+    "open_ended_cost",
+    "external_material_communication",
+    "scope_escalation"
+  ],
+  "evidence_fanin": [
+    "risk_classification",
+    "capability",
+    "binding",
+    "execution",
+    "postcheck",
+    "evidence",
+    "github_canon",
+    "documentary_fallback"
+  ]
+}

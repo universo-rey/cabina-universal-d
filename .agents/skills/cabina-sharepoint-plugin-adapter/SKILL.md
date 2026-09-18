@@ -7,9 +7,11 @@ description: Use when SharePoint plugin work in D:\ needs site, library, list, d
 
 ## Core Rule
 
-SharePoint is governed live infrastructure. Every live read or write needs
-exact site, library/list/item, identity, data limit, rollback, postcheck,
-evidence, validator, and stop condition.
+SharePoint is governed live infrastructure. READ executes directly with an
+authenticated capability, current binding, exact site/library/list/item,
+data minimization and evidence; it needs no new order. Known bounded writes
+without a positive HIGH trigger are LOW by default and need target, precheck,
+rollback or compensation, postcheck and evidence.
 
 ## Trigger Boundary
 
@@ -18,20 +20,21 @@ evidence publication, site discovery, or Microsoft 365 document surfaces.
 
 ## Allowed Actions
 
-- prepare SharePoint read or write order packets
 - classify site/library/list targets before connector use
 - draft local evidence or metadata plans
-- execute connector reads or writes only when the governed order is complete
+- execute bounded connector reads directly with current binding and target
+- execute LOW writes without order, allowlist or receipt when all execution
+  prerequisites are resolved
 
 ## Blocked Actions
 
-- tenant-wide sweeps without order
+- tenant-wide or unbounded sweeps
 - permission changes
 - content type or InternalName changes without exact gate
 - secrets
 - OpenAI API live
 - production
-- Microsoft live writes without exact order
+- HIGH writes without explicit authorization
 
 ## Validator
 
@@ -46,7 +49,7 @@ output, and readback.
 
 ## Stop Conditions
 
-- `microsoft_live_requested_without_governed_order`
-- `order_packet_missing_required_fields`
+- `binding_or_target_resolution_required`
+- `low_write_prerequisite_missing`
 - `regulated_data_boundary_unclear`
 - `secret_detected`

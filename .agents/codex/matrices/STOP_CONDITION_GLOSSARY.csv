@@ -63,3 +63,5 @@
 "TEAMS_TARGET_MISSING","teams_boundary","Teams install or message lacks exact team chat channel app or owner","stop Teams live write and keep DEV validation only","teams|microsoft"
 "BLOCKED_PRODUCTION_UNAPPROVED","production_gate","production action lacks explicit production gate","stop production and keep DEV read-only evidence only","production|runtime|tenant"
 "agent_chain_missing_contract","agentic_execution","a multi-agent wave stage lacks input output evidence validator risk rollback or handoff contract","complete the agent contract before executing the wave","agent|wave|engine|multi_canon"
+"binding_or_target_resolution_required","proportional_resolution","an authenticated capability exact binding or target required by the requested operation is unresolved","resolve only the affected prerequisite; preserve tier and continue independent work","READ|LOW|HIGH"
+"high_without_explicit_authorization","high_risk_authorization","an objective HIGH trigger is present without explicit authorization","stop only the HIGH effect and request explicit authorization; do not escalate READ or LOW","HIGH"

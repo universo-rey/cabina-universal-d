@@ -36,17 +36,26 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Validate inputs
         shell: pwsh
+        env:
+          INPUT_ENVIRONMENT_URL: ${{ inputs.environment_url }}
+          INPUT_SOLUTION_NAME: ${{ inputs.solution_name }}
+          INPUT_TARGET_FOLDER: ${{ inputs.target_folder }}
         run: |
-          $url = '${{ inputs.environment_url }}'
-          $name = '${{ inputs.solution_name }}'
-          $target = '${{ inputs.target_folder }}'
+          $url = $env:INPUT_ENVIRONMENT_URL
+          $name = $env:INPUT_SOLUTION_NAME
+          $target = $env:INPUT_TARGET_FOLDER
           if ([string]::IsNullOrWhiteSpace($url)) { throw "environment_url is required" }
-          if ([string]::IsNullOrWhiteSpace($name)) { throw "solution_name is required" }
+          if ($name -notmatch '^[A-Za-z][A-Za-z0-9_]{0,99}$') { throw "solution_name must be a safe Dataverse unique name" }
           if ([string]::IsNullOrWhiteSpace($target)) { throw "target_folder is required" }
           if ($url -match "(?i)(prod|production|live)") { throw "Target looks like production/live. Provide DEV/STAGING only." }
+          $workspace = [System.IO.Path]::GetFullPath($env:GITHUB_WORKSPACE)
+          $target = [System.IO.Path]::GetFullPath((Join-Path $workspace $target))
+          if (-not $target.StartsWith($workspace + [System.IO.Path]::DirectorySeparatorChar, [System.StringComparison]::OrdinalIgnoreCase)) { throw "target_folder must resolve inside GITHUB_WORKSPACE" }
           New-Item -ItemType Directory -Force -Path "out" | Out-Null
 
       - name: Install Power Platform Tools
@@ -82,9 +91,11 @@ jobs:
 
       - name: Prepare branch evidence summary
         shell: pwsh
+        env:
+          INPUT_TARGET_FOLDER: ${{ inputs.target_folder }}
         run: |
           "Exported zip: $env:SOLUTION_ZIP" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
-          "Unpacked folder: ${{ inputs.target_folder }}" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "Unpacked folder: $env:INPUT_TARGET_FOLDER" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
           "Repo write is intentionally not performed by this workflow; commit/PR is prepared by Codex or a separate governed GitHub lifecycle." | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
 
       - name: Upload solution artifact
