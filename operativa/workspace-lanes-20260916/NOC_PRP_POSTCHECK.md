@@ -1,5 +1,11 @@
 # SDU-NOC-PRP postcheck — 2026-09-16
 
+> Classification: `HISTORICAL_EVIDENCE_ONLY`.
+> This document preserves observations, changes, paths, hashes and pending items as of 2026-09-16.
+> It is not current authority, a live binding, or proof of present runtime health.
+> Absolute local paths are provenance only; current execution must consume the active repo/object contract and exact binding.
+
+
 ## Estado
 HECHO_VERIFICADO: the installed telemetry snapshot consumer ran in COMMIT mode on the real bus. Latest result as_of_utc=2026-09-16T06:56:28.4653254+00:00; file updated 03:57:36 Argentina time. Window 227709–227722: 14 lines, one fresh telemetry candidate, zero invalid contracts, source_hash_scope=BOUNDED_BYTE_SNAPSHOT and source_hash_unchanged=true.
 
