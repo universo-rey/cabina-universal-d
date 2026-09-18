@@ -1,5 +1,11 @@
 # Relaciones recuperadas y contraste de contratos
 
+> Classification: `HISTORICAL_EVIDENCE_ONLY`.
+> This document preserves observations, changes, paths, hashes and pending items as of 2026-09-16.
+> It is not current authority, a live binding, or proof of present runtime health.
+> Absolute local paths are provenance only; current execution must consume the active repo/object contract and exact binding.
+
+
 Fecha: 2026-09-16. Estado: relaciones recuperadas; recuperación de owner aplicada al resolver y comprobada.
 
 ## Aplicación posterior
