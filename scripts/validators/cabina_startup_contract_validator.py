@@ -58,10 +58,9 @@ def validate_startup_text(path: str) -> None:
 
     path_tokens = {
         "AGENTS.md": [
-            # Validate the current execution contract and routing pointers,
-            # not retired labels from the earlier startup instructions.
-            "RETOMAR ORDEN -> EJECUTAR O DELEGAR -> COMPROBAR RESULTADO -> CONTINUAR O CERRAR",
-            "MANIFEST.yaml",
+            "ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT",
+            "RESOLVE_EXACT_OBJECT -> CONSUME_CURRENT_AUTHORITY -> EXECUTE -> POSTCHECK -> RETURN",
+            "Lectura obligatoria selectiva",
             "02_AUTHORITY_CANON/CURRENT_STATE.md",
             ".agents/codex/agents.json",
             ".agents/codex/routing.json",
@@ -70,7 +69,7 @@ def validate_startup_text(path: str) -> None:
         "02_AUTHORITY_CANON/CURRENT_STATE.md": [
             SDU_ACTIVE_STATUS,
             "ORDER_SDU_AGENTS_NEXT_TASK_ACTIVATION_20260608.md",
-            "PENDING_TARGET_ONLY",
+            "Registered live lanes are active by exact current intent and binding.",
         ],
     }
 
