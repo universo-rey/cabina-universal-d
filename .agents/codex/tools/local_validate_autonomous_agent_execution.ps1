@@ -153,6 +153,12 @@ if ($agentsPayload.default_policy.conditional_capability_discovery_skill -ne $di
 if ($agentsPayload.default_policy.PSObject.Properties.Name -contains "mandatory_capability_discovery_skill") {
   $errors.Add("Universal capability discovery policy must not be reintroduced")
 }
+if ($agentsPayload.default_policy.continuity_policy -ne "CONTINUITY_FIRST") {
+  $errors.Add("Autonomous execution must preserve CONTINUITY_FIRST")
+}
+if ($agentsPayload.default_policy.duplicate_dispatch_policy -ne "forbid_when_existing_task_or_correlation_has_unconsumed_next_consumer") {
+  $errors.Add("Autonomous execution must forbid duplicate dispatch while a next consumer is pending")
+}
 $agentIds = @($agents | ForEach-Object { $_.id })
 $skillIds = @((Read-CsvRequired -Path $skillUsagePath) | ForEach-Object { $_.skill_id })
 $recipeIds = @((Read-CsvRequired -Path $recipeIndexPath) | ForEach-Object { $_.recipe_id })
