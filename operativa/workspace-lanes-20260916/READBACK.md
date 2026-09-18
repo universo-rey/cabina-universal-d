@@ -1,5 +1,11 @@
 # Reconciliación de lanes — 2026-09-16
 
+> Classification: `HISTORICAL_EVIDENCE_ONLY`.
+> This document preserves observations, changes, paths, hashes and pending items as of 2026-09-16.
+> It is not current authority, a live binding, or proof of present runtime health.
+> Absolute local paths are provenance only; current execution must consume the active repo/object contract and exact binding.
+
+
 Estado: catálogo derivado aplicado y verificado; reconciliación semántica completa pendiente.
 
 - Agente: Codex coordinador; responsable registrado rey.control_plane_orchestrator.
