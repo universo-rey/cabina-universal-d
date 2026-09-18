@@ -59,9 +59,17 @@ def checkout_errors(lines: list[str]) -> list[int]:
             line,
         )
         if flow_checkout and re.match(r"^\s*-\s*\{", line):
-            if not re.search(
-                r"""(?:persist-credentials|["']persist-credentials["'])\s*:\s*false""",
+            # Flow-style steps must set persist-credentials directly under the
+            # with mapping. A matching substring nested in sparse-checkout or
+            # another value does not disable checkout credentials.
+            with_match = re.search(
+                r"""(?:with|["']with["'])\s*:\s*\{([^{}]*)\}""",
                 line,
+            )
+            direct_with = with_match.group(1) if with_match else ""
+            if not re.search(
+                r"""(?:^|,)\s*(?:persist-credentials|["']persist-credentials["'])\s*:\s*false\s*(?:,|$)""",
+                direct_with,
             ):
                 errors.append(index + 1)
             continue
