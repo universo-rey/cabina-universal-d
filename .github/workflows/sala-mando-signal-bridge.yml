@@ -1,0 +1,165 @@
+name: Sala de Mando Signal Bridge
+
+on:
+  workflow_dispatch:
+    inputs:
+      event_payload_json:
+        description: "Bounded SharePoint event JSON consumed by the existing bridge"
+        required: true
+        type: string
+      correlation_id:
+        description: "Stable correlation id: letters, numbers, dot, underscore or hyphen"
+        required: true
+        type: string
+      apply:
+        description: "Create the Dataverse source artifact and Work Queue item"
+        required: true
+        default: false
+        type: boolean
+      gate_confirmation:
+        description: "Required literal only when apply=true"
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sala-mando-signal-${{ inputs.correlation_id }}
+  cancel-in-progress: false
+
+jobs:
+  signal:
+    name: Emit governed signal and preserve Drive readback
+    runs-on: [self-hosted, Windows, X64, sala-de-mando-ceo]
+    timeout-minutes: 15
+    env:
+      SDU_ENVIRONMENT_URL: https://org084965d9.crm.dynamics.com
+      SDU_ENVIRONMENT_ID: 7f65fc04-c27a-ea0d-bd2d-266aa9203c1e
+      SDU_EXPECTED_USER: efigueroa@registronotarial8tdf.com.ar
+      DRIVE_READBACK_ROOT: 'G:\Mi unidad\TCU_TGE_CHATGPT_CONTROL\04_READBACKS_Y_EVIDENCIA'
+      INPUT_EVENT_PAYLOAD_JSON: ${{ inputs.event_payload_json }}
+      INPUT_CORRELATION_ID: ${{ inputs.correlation_id }}
+      INPUT_GATE_CONFIRMATION: ${{ inputs.gate_confirmation }}
+      INPUT_APPLY: ${{ inputs.apply }}
+
+    steps:
+      - name: Checkout exact revision
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Resolve governed surfaces
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if ($env:INPUT_CORRELATION_ID -notmatch '^[A-Za-z0-9._-]{3,80}$') {
+            throw 'CORRELATION_ID_INVALID'
+          }
+          if (-not (Test-Path -LiteralPath 'C:\CEO' -PathType Container)) {
+            throw 'SALA_DE_MANDO_ROOT_NOT_PRESENT'
+          }
+          if (-not (Test-Path -LiteralPath $env:DRIVE_READBACK_ROOT -PathType Container)) {
+            throw 'DRIVE_READBACK_ROOT_NOT_PRESENT'
+          }
+          $bridge = Join-Path $env:GITHUB_WORKSPACE 'scripts\sharepoint\Invoke-SduSharePointDataverseLiveBridge.ps1'
+          if (-not (Test-Path -LiteralPath $bridge -PathType Leaf)) {
+            throw 'LIVE_BRIDGE_SCRIPT_NOT_PRESENT'
+          }
+          if ($env:INPUT_APPLY -eq 'true' -and
+              $env:INPUT_GATE_CONFIRMATION -ne 'GATE_MICROSOFT_LIVE_WRITE+GATE_DATAVERSE_APPLY+GATE_POWER_PLATFORM_APPLY') {
+            throw 'LIVE_APPLY_GATE_CONFIRMATION_REQUIRED'
+          }
+          "bridge_path=$bridge" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+        id: surfaces
+
+      - name: Emit signal through existing bridge
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $bridgeArgs = @{
+            Mode = 'IngestSharePointEvent'
+            Root = $env:GITHUB_WORKSPACE
+            EnvironmentUrl = $env:SDU_ENVIRONMENT_URL
+            EnvironmentId = $env:SDU_ENVIRONMENT_ID
+            ExpectedUser = $env:SDU_EXPECTED_USER
+            EventPayloadJson = $env:INPUT_EVENT_PAYLOAD_JSON
+            GateConfirmation = $env:INPUT_GATE_CONFIRMATION
+            MaxItems = 1
+          }
+          if ($env:INPUT_APPLY -eq 'true') {
+            $bridgeArgs.Apply = $true
+          }
+          $raw = & '${{ steps.surfaces.outputs.bridge_path }}' @bridgeArgs
+          $raw | Set-Content -LiteralPath (Join-Path $env:RUNNER_TEMP 'sala-mando-signal-result.json') -Encoding utf8
+          $result = $raw | ConvertFrom-Json
+          $expected = if ($env:INPUT_APPLY -eq 'true') {
+            'LIVE_BRIDGE_READY_APPLY_MODE'
+          } else {
+            'LIVE_BRIDGE_DRY_RUN_READY'
+          }
+          if ([string]$result.status -ne $expected) {
+            throw "BRIDGE_STATUS_MISMATCH:$($result.status)"
+          }
+          if (@($result.results).Count -ne 1) {
+            throw "BRIDGE_RESULT_COUNT_NOT_ONE:$(@($result.results).Count)"
+          }
+
+      - name: Preserve governed Drive readback
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $resultPath = Join-Path $env:RUNNER_TEMP 'sala-mando-signal-result.json'
+          $raw = Get-Content -LiteralPath $resultPath -Raw
+          $result = $raw | ConvertFrom-Json
+          $date = (Get-Date).ToUniversalTime().ToString('yyyy-MM-dd')
+          $mode = if ($env:INPUT_APPLY -eq 'true') { 'GOVERNED_LIVE' } else { 'DRY_RUN' }
+          $fileName = "${date}_DRIVE_READBACK_SALA_MANDO_SIGNAL_$($env:INPUT_CORRELATION_ID)_v01.md"
+          $destination = Join-Path $env:DRIVE_READBACK_ROOT $fileName
+          if (Test-Path -LiteralPath $destination) {
+            throw "DRIVE_READBACK_ALREADY_EXISTS:$destination"
+          }
+          $lines = @(
+            '---'
+            'tipo: readback'
+            'dominio: DRIVE / GITHUB / DATAVERSE'
+            'duenio: Enzo Figueroa'
+            "estado: $mode"
+            'sensibilidad: interna'
+            "canon_leido: universo-rey/cabina-universal-d@${{ github.sha }}"
+            'repo_vinculado: universo-rey/cabina-universal-d'
+            'requiere_issue_github: no'
+            "requiere_aprobacion_humana: $($env:INPUT_APPLY -eq 'true')"
+            "correlation_id: $($env:INPUT_CORRELATION_ID)"
+            "github_run_id: ${{ github.run_id }}"
+            '---'
+            ''
+            '# Readback — Señal Sala de Mando'
+            ''
+            "- Modo: \`$mode\`"
+            "- Commit: \`${{ github.sha }}\`"
+            "- Run: \`${{ github.run_id }}\`"
+            "- Correlación: \`$($env:INPUT_CORRELATION_ID)\`"
+            "- Estado del bridge: \`$($result.status)\`"
+            ''
+            '## Resultado estructurado'
+            ''
+            '\`\`\`json'
+            $raw.Trim()
+            '\`\`\`'
+          )
+          $lines | Set-Content -LiteralPath $destination -Encoding utf8
+          if (-not (Test-Path -LiteralPath $destination -PathType Leaf)) {
+            throw 'DRIVE_READBACK_POSTCHECK_FAILED'
+          }
+          "DRIVE_READBACK=$destination" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "BRIDGE_STATUS=$($result.status)" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+
+      - name: Upload immutable run artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sala-mando-signal-${{ inputs.correlation_id }}-${{ github.run_id }}
+          path: ${{ runner.temp }}\sala-mando-signal-result.json
+          if-no-files-found: error
+          retention-days: 30
