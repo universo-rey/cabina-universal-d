@@ -6,7 +6,7 @@
   "default_policy": {
     "mode": "local_first_governed_versioning",
     "no_remote_persistent_agents": true,
-    "risk_tier_policy": "LOW_BY_DEFAULT_UNLESS_HIGH_TRIGGER",
+    "no_live_writes_without_governed_order": false,
     "microsoft_live_policy": "READ_DIRECT_LOW_WITHOUT_ORDER_HIGH_EXPLICIT_AUTH",
     "production_policy": "requires_explicit_authorization",
     "no_secrets": true,
@@ -28,13 +28,36 @@
     "runtime_alignment_mode": "LOCAL_SYNTHETIC_ALIGNMENT_ONLY",
     "default_skills_required": true,
     "conditional_capability_discovery_skill": "tcu-descubridor-capacidades",
+    "capability_discovery_trigger": "missing_or_invalidated_capability_assignment",
+    "default_skills_semantics": "available_capabilities_not_mandatory_execution_sequence",
     "autonomous_task_agents_policy": "GOVERNED_TASK_SCOPED_ACTIVE",
     "codex_cloud_policy": "EXECUTE_CODEX_CLOUD_SMOKE_NOW_NO_APPLY_WITHOUT_REVIEW",
     "active_execution_canon": "ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT",
     "execute_safe_reversible_traceable_validable_by_default": true,
     "passive_final_states_policy": "cause_and_next_exact_command_required",
     "live_write_gated_policy": "execute_only_when_target_identity_owner_rollback_postcheck_evidence_are_present",
-    "no_remote_persistent_agents_without_explicit_high_authorization": true
+    "no_remote_persistent_agents_without_governed_order": true,
+    "continuity_policy": "CONTINUITY_FIRST",
+    "continuity_resolution_order": [
+      "exact_object",
+      "current_authority",
+      "existing_receipt_or_workpacket_or_correlation",
+      "current_binding",
+      "next_consumer",
+      "postcheck",
+      "return"
+    ],
+    "continuation_pointer_types": [
+      "CURRENT_WORKPAPER",
+      "EXECUTION_RECEIPT",
+      "CONTINUATION_READBACK",
+      "LANE_STATE"
+    ],
+    "rediscovery_policy": "only_when_continuation_or_capability_pointer_is_missing_invalidated_or_materially_contradicted",
+    "duplicate_dispatch_policy": "forbid_when_existing_task_or_correlation_has_unconsumed_next_consumer",
+    "risk_tier_policy": "LOW_BY_DEFAULT_UNLESS_HIGH_TRIGGER",
+    "low_write_policy": "EXECUTE_WITH_EXACT_BINDING_TARGET_PRECHECK_REVERSIBILITY_POSTCHECK_EVIDENCE",
+    "high_action_policy": "EXPLICIT_AUTHORIZATION_REQUIRED_BY_POSITIVE_TRIGGER"
   },
   "agents": [
     {
@@ -61,10 +84,10 @@
         "draft_governed_order"
       ],
       "blocked": [
-        "unscoped_remote_write",
-        "high_live_tenant_action_without_explicit_authorization",
+        "remote_write",
+        "live_tenant_action",
         "secret_handling",
-        "repo_versioning_outside_authorized_scope"
+        "repo_versioning_without_order"
       ],
       "outputs": [
         "routing_decision",
@@ -75,7 +98,7 @@
       "stop_conditions": [
         "surface_not_identified",
         "missing_authority",
-        "high_positive_trigger_without_explicit_authorization",
+        "live_write_requested_without_order",
         "regulated_data_boundary_unclear"
       ],
       "level_id": "00_ROUTER",
@@ -359,7 +382,7 @@
         "git_add",
         "git_commit",
         "git_push",
-        "moving_clone_without_exact_target_and_rollback"
+        "moving_clone_without_order"
       ],
       "outputs": [
         "repo_inventory",
@@ -435,10 +458,10 @@
         "synthetic_eval_plan"
       ],
       "blocked": [
-        "openai_api_high_action_without_explicit_authorization",
+        "openai_api_live_without_order",
         "remote_agent_persistence",
         "external_vector_store",
-        "open_ended_cost_without_explicit_authorization"
+        "cost_incurred_without_order"
       ],
       "outputs": [
         "prompt_pack",
@@ -490,14 +513,14 @@
         "OpenAI Developers",
         "GitHub"
       ],
-      "runtime_alignment_mode": "governed_by_risk_tier"
+      "runtime_alignment_mode": "local_only_until_order"
     },
     {
       "id": "universe.escribania_tower",
       "name": "Torre Universo Escribania",
       "layer": "universe_tower",
       "home_path": ".agents\\codex\\agents\\04_TORRES_DE_UNIVERSO\\universe.escribania_tower.md",
-      "mission": "Gobernar el universo Escribania, incluyendo TGE, cumplimiento, evidencia y SharePoint con READ directo, LOW por defecto y decisiones profesionales reservadas.",
+      "mission": "Gobernar el universo Escribania, incluyendo TGE, cumplimiento, evidencia y SharePoint aprobado cuando exista orden.",
       "reads": [
         "10_UNIVERSOS\\ESCRIBANIA\\MANIFEST.yaml",
         "10_UNIVERSOS\\ESCRIBANIA\\ROUTING.md",
@@ -514,8 +537,8 @@
         "sharepoint_order_draft"
       ],
       "blocked": [
-        "sharepoint_high_action_without_explicit_authorization",
-        "tenant_high_action_without_explicit_authorization",
+        "sharepoint_write_without_order",
+        "tenant_write_without_order",
         "regulated_data_broad_read",
         "legal_criterion_finalization"
       ],
@@ -562,7 +585,7 @@
         "SharePoint",
         "GitHub"
       ],
-      "runtime_alignment_mode": "governed_by_risk_tier"
+      "runtime_alignment_mode": "local_only_until_order"
     },
     {
       "id": "universe.modo_on_tower",
@@ -586,8 +609,8 @@
         "provider_boundary_draft"
       ],
       "blocked": [
-        "using_modo_on_as_escribania_runtime_without_exact_binding",
-        "tenant_high_action_without_explicit_authorization",
+        "using_modo_on_as_escribania_runtime_without_order",
+        "tenant_write_without_order",
         "provider_control_without_trace"
       ],
       "outputs": [
@@ -598,7 +621,7 @@
       "stop_conditions": [
         "provider_boundary_unclear",
         "owner_conflict",
-        "surface_crosses_universe_without_exact_binding"
+        "surface_crosses_universe_without_order"
       ],
       "level_id": "04_TORRES_DE_UNIVERSO",
       "read_weight": "light_profile_only",
@@ -634,7 +657,7 @@
         "SharePoint",
         "GitHub"
       ],
-      "runtime_alignment_mode": "governed_by_risk_tier"
+      "runtime_alignment_mode": "local_only_until_order"
     },
     {
       "id": "court.seshat_evidence",
@@ -661,7 +684,7 @@
       ],
       "blocked": [
         "fabricating_evidence",
-        "external_material_record_without_explicit_authorization",
+        "writing_external_records_without_order",
         "storing_secrets"
       ],
       "outputs": [
@@ -711,7 +734,7 @@
         "GitHub",
         "SharePoint"
       ],
-      "runtime_alignment_mode": "governed_by_risk_tier"
+      "runtime_alignment_mode": "local_only_until_order"
     },
     {
       "id": "court.sdu_gate",
@@ -746,7 +769,7 @@
         "stop_condition"
       ],
       "stop_conditions": [
-        "missing_risk_classification",
+        "missing_governed_order",
         "rollback_missing",
         "postcheck_missing",
         "human_authority_needed"
@@ -783,7 +806,7 @@
         "Superpowers",
         "SharePoint"
       ],
-      "runtime_alignment_mode": "governed_by_risk_tier"
+      "runtime_alignment_mode": "local_only_until_order"
     },
     {
       "id": "court.thot_schema",
@@ -808,7 +831,7 @@
         "validator_spec_draft"
       ],
       "blocked": [
-        "tool_high_execution_without_explicit_authorization",
+        "tool_live_execution_without_order",
         "schema_overwriting_without_readback",
         "secret_materialization"
       ],
@@ -893,7 +916,7 @@
         "moving_files",
         "deleting_files",
         "changing_repo_remotes",
-        "updating_ide_paths_without_exact_target_and_rollback"
+        "updating_ide_paths_without_order"
       ],
       "outputs": [
         "migration_plan",
@@ -965,7 +988,7 @@
       ],
       "blocked": [
         "treating_reference_as_canon",
-        "vendor_high_execution_without_explicit_authorization",
+        "vendor_live_execution_without_order",
         "license_change"
       ],
       "outputs": [
@@ -1043,7 +1066,7 @@
         "codex_project_opening_checklist"
       ],
       "blocked": [
-        "editing_codex_global_config_without_exact_target_and_rollback",
+        "editing_codex_global_config_without_order",
         "reading_secret_files",
         "changing_default_workspace",
         "deleting_worktrees"
@@ -1237,7 +1260,7 @@
     "validator": ".agents\\codex\\tools\\local_validate_agent_levels.ps1",
     "no_default_bulk_read": true,
     "no_remote_persistent_agents": true,
-    "risk_tier_policy": "LOW_BY_DEFAULT_UNLESS_HIGH_TRIGGER"
+    "no_live_writes_without_governed_order": true
   },
   "source_policy": {
     "status": "COPY_ADAPT_REQUIRED",
