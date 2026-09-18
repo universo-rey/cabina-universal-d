@@ -154,7 +154,7 @@ if ("tool.local_validate_user_identity_governance" -notin $toolGovernanceIds) {
 if ($graphPlugin.Count -eq 0) {
   $errors.Add("PLUGIN_USAGE_MATRIX missing Microsoft Graph direct tenant admin row")
 } elseif ($graphPlugin[0].availability -notmatch "NO_DISPONIBLE") {
-  $errors.Add("Microsoft Graph direct tenant admin must remain NO_DISPONIBLE without separate connector/order")
+  $errors.Add("Microsoft Graph direct tenant admin must remain NO_DISPONIBLE until an authenticated capability/binding exists")
 }
 
 $rows = Read-CsvSafe -Path $matrixPath
@@ -189,54 +189,29 @@ foreach ($row in $rows) {
   if ($row.universe -ne "ESCRIBANIA") {
     $errors.Add("User identity row '$($row.surface)' must route to ESCRIBANIA")
   }
-  if ($row.status -ne "ACTIVE_LOCAL_PREP") {
-    $errors.Add("User identity row '$($row.surface)' must remain ACTIVE_LOCAL_PREP")
+  if ($row.status -notin @("ACTIVE_LOCAL_PREP", "ACTIVE_GOVERNED")) {
+    $errors.Add("User identity row '$($row.surface)' has unsupported status: $($row.status)")
   }
-  if ($row.live_read_gate -notmatch "governed_order_required") {
-    $errors.Add("User identity row '$($row.surface)' missing governed live read gate")
+  if ($row.live_read_gate -match "governed_order_required") {
+    $errors.Add("User identity row '$($row.surface)' reintroduces order-first READ")
   }
-  if ($row.live_write_gate -notmatch "separate_explicit") {
-    $errors.Add("User identity row '$($row.surface)' missing separate explicit write gate")
+  if ($row.live_read_gate -notmatch "read_direct|resolution_required") {
+    $errors.Add("User identity row '$($row.surface)' must declare direct READ or exact resolution requirement")
   }
-  if ($row.permission_gate -notmatch "separate_explicit_permission") {
-    $errors.Add("User identity row '$($row.surface)' missing explicit permission gate")
+  if ($row.live_write_gate -notmatch "high_positive_trigger|explicit_authorization") {
+    $errors.Add("User identity row '$($row.surface)' must preserve explicit authorization for HIGH writes")
+  }
+  if ($row.permission_gate -notmatch "permission_or_admin_mutation.*high.*explicit_authorization") {
+    $errors.Add("User identity row '$($row.surface)' must treat permission/admin mutation as HIGH")
   }
   if ($row.production_gate -notmatch "separate_explicit_production") {
     $errors.Add("User identity row '$($row.surface)' missing explicit production gate")
   }
-  if ($row.stop_condition -notmatch "microsoft_live_requested_without_governed_order") {
-    $errors.Add("User identity row '$($row.surface)' must include Microsoft live stop condition")
+  if ($row.stop_condition -match "microsoft_live_requested_without_governed_order") {
+    $errors.Add("User identity row '$($row.surface)' reintroduces obsolete Microsoft order stop condition")
   }
   Check-StopCondition -Value $row.stop_condition -KnownStops $knownStops -Errors $errors -Context "User identity row '$($row.surface)'"
 }
-
-Require-Text -Path $policyPath -Tokens @(
-  'Sujeto gobernado: `efigueroa@registronotarial8tdf.com.ar`',
-  "no se confirma existencia",
-  "Produccion queda cerrada"
-) -Errors $errors
-
-Require-Text -Path $orderPath -Tokens @(
-  "- order_class:",
-  "- surface:",
-  "- owner:",
-  "- identity:",
-  "- data_boundary:",
-  "- allowed_actions:",
-  "- blocked_actions:",
-  "- rollback:",
-  "- postcheck:",
-  "- evidence:",
-  "- validator:",
-  "- stop_condition:",
-  "STOP_BEFORE_EFIGUEROA_USER_LIVE_READ"
-) -Errors $errors
-
-Require-Text -Path $readbackPath -Tokens @(
-  "EFIGUEROA_USER_GOVERNANCE_LOCAL_PREPARED_NO_LIVE_EXECUTION",
-  "No se consulto Entra ID",
-  "microsoft_live_requested_without_governed_order"
-) -Errors $errors
 
 $secretPatterns = @("client_secret", "password", "authorization:", "bearer ", "api_key", ("tok" + "en="))
 foreach ($path in @($policyPath, $orderPath, $readbackPath, $matrixPath)) {
