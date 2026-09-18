@@ -25,15 +25,6 @@ checks, validadores ni estados.
 
 Estado activo: `ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT`.
 
-Estado Git operativo actualizado 2026-08-07 por orden expresa del operador:
-`GIT_FROZEN=false`. Git deja de estar congelado como politica general. Las
-operaciones repo-scoped pueden ejecutarse autonomamente cuando el target y el
-alcance estan resueltos, usando rama `codex/*`, pathspec explicito, preflight,
-postcheck y evidencia. Esta habilitacion no autoriza `git add .`, force push,
-reescritura destructiva, borrado remoto, cambio de permisos, secretos ni merge
-sin los prechecks vigentes. Desactivar el freeze no ejecuta por si solo commit,
-push, PR o merge.
-
 Ejecutar primero lo seguro y gatear solo fronteras reales. No cerrar con
 `blocked`, `prepared` o `pending` generico si existe accion local, mock, DEV,
 read-only, preflight, dry-run, validator, branch, PR o readback posible.
@@ -48,15 +39,17 @@ datos regulados, permisos, costo, live write o accion destructiva.
 
 Precedencia operativa:
 
-1. Gate humano explicito.
-2. Seguridad, secretos, produccion y datos regulados.
+1. Pedido humano actual y autoridad presente dentro de su alcance exacto.
+2. Seguridad, secretos, irreversibilidad, produccion y datos regulados.
 3. `AGENTS.md` mas especifico.
 4. `MANIFEST.yaml`.
-5. `CONSTRAINTS.md` y `VALIDATION.md`, si existen.
-6. Validators, workflows, recipes, skills, tools y matrices.
-7. README/docs.
-8. Readbacks historicos.
-9. Pedido actual del usuario, dentro de las fronteras anteriores.
+5. `CONSTRAINTS.md` y `VALIDATION.md`, si aplican al objeto exacto.
+6. Contrato, recipe, validator o workflow directamente consumidor.
+7. README/docs vigentes.
+8. Readbacks historicos como evidencia, nunca como gate futuro.
+
+Una orden ya consumida no se vuelve a solicitar. Una contradiccion detiene solo
+el objeto afectado; no degrada la autonomia de otros ciclos.
 
 Este repo raiz gobierna la cabina desde la raiz repo-local `.`. La ruta local
 fisica del workspace es contexto no portable y vive como dato estructurado en
@@ -95,16 +88,17 @@ Si el root no coincide con el repo esperado/autorizado, detener writes con
 
 ## Required Reads And Source-Of-Truth Pointers
 
-Lectura obligatoria antes de cambios gobernados:
+Lectura obligatoria selectiva antes de cambios gobernados:
 
-1. `MANIFEST.yaml`
-2. `MAPA_HUMANO.md`
-3. `00_CONTROL_PLANE_INGRESS/ROUTING.json`
-4. `01_GOVERNANCE_REGISTRY/README.md`
-5. `02_AUTHORITY_CANON/CURRENT_STATE.md`
-6. `.agents/codex/README.md`
-7. `.agents/codex/agents.json`
-8. `.agents/codex/routing.json`
+1. `AGENTS.md` y `02_AUTHORITY_CANON/CURRENT_STATE.md`.
+2. El objeto exacto que se opera.
+3. Su contrato, recipe, validator o binding directamente aplicable.
+4. Una dependencia adicional solo cuando cambie autoridad, target o resultado.
+
+`MANIFEST.yaml`, `MAPA_HUMANO.md`, routing, registros, agentes y matrices son
+punteros disponibles. No se releen todos por defecto ni se convierten en una
+auditoria previa. Consumir estado promovido y abrir historia solo ante una
+contradiccion material.
 
 Fuentes de verdad:
 
@@ -136,26 +130,28 @@ vivir en `CURRENT_STATE.md`.
 
 ## Conducta obligatoria / Agentic Workflow
 
-Ciclo obligatorio:
+Ciclo operativo publicado:
 
-`DISCOVER -> RECONCILE -> CLASSIFY -> EXECUTE -> VALIDATE -> EVIDENCE -> READBACK`
+`RESOLVE_EXACT_OBJECT -> CONSUME_CURRENT_AUTHORITY -> EXECUTE -> POSTCHECK -> RETURN`
 
-Para tareas repo-wide o multiarchivo, iniciar con carriles read-only
-independientes: estructura, historial, workflows, convenciones, riesgos y
-validacion. Usar la cadena:
+Entrar directamente en el plano competente. Discovery, reconciliacion,
+auditoria, evidencia ampliada y fan-in se ejecutan solo cuando el objeto
+presenta una brecha real o el cambio los afecta. Los planos no aplicables se
+omiten sin reconstruir la historia.
 
-`Repo Mapper -> Execution Historian -> Workflow Extractor -> Standards Auditor -> Instruction Architect -> Validation Planner`
+Para tareas repo-wide o multiarchivo, usar solo los carriles especializados que
+sean materialmente independientes. No activar por defecto cadenas globales de
+mapeo, auditoria o validacion.
 
 Antes de crear agente, perfil, skill, recipe, matriz, ruta, contrato o
 validator, buscar equivalentes por nombre, alias, funcion, universo, superficie,
 skill, recipe, validator y stop condition. Reconciliar antes de crear.
 
-Toda accion operativa debe declarar cadena:
+Toda accion consume la cadena ya registrada para su objeto. Declararla de
+nuevo solo cuando cambie agente, autoridad, recipe, tool, superficie o riesgo.
 
-`agente / skill / receta / plugin / tool / superficie / evidencia / validador / stop_condition`
-
-Si falta un componente sin `NO_APLICA` justificado, detener con
-`capability_use_preflight_missing` u `operational_chain_missing`.
+La ausencia de un componente no aplicable no bloquea. Detener con causa exacta
+solo cuando falte un componente material para ejecutar el objeto concreto.
 
 ## Tool And Connector Policy
 
@@ -173,9 +169,9 @@ defecto para Git, PRs/issues, CI, docs, navegador, DB/logs, parseo JSON/YAML o
 busqueda si existe conector, script del repo, CLI especifica, parser o `rg` mas
 apropiado.
 
-Registrar para cada tool elegida: motivo, alternativa considerada, riesgo,
-accion exacta, resultado esperado y validacion. Si una tool no existe ahora,
-marcar `NO_DISPONIBLE` y avanzar por ruta segura alternativa.
+Registrar la tool y su resultado cuando produzca un efecto o postcheck
+material. No documentar alternativas descartadas ni repetir prueba de
+capacidad ya promovida. Si la tool exacta no existe, detener solo ese carril.
 
 ## Git And GitHub Rules
 
@@ -196,24 +192,25 @@ aprobado, HEAD fijo, checks verdes y evidencia.
 
 ## Safety Gates
 
-Requieren gate humano explicito:
+GitHub live repo-scoped esta activo. Branch, commit, push, PR, checks,
+comentarios y correcciones dentro del alcance actual no requieren un nuevo
+gate. Microsoft y otros live se ejecutan cuando la orden presente y el binding
+resuelven target, identidad, ambiente y operacion exactos.
+
+Requieren decision humana nueva solo si la autoridad presente no los cubre:
 
 - `GATE_SECRET_USE`
 - `GATE_COST_BOUNDARY`
-- `GATE_LIVE_WRITE`
 - `GATE_PRODUCTION_DEPLOY`
-- `GATE_TENANT_IDENTITY`
-- `GATE_ADMIN_PERMISSION`
-- `GATE_REMOTE_GIT_MUTATION`
+- `GATE_TENANT_IDENTITY_UNRESOLVED`
+- `GATE_ADMIN_PERMISSION_CHANGE`
 - `GATE_WORKTREE_METADATA`
 - `GATE_DATA_REGULATED`
 - `GATE_DESTRUCTIVE_ACTION`
-- `GATE_MERGE_MAIN`
-- `GATE_OPENAI_LIVE`
-- `GATE_AGENTS_SDK_LIVE`
-- `GATE_MICROSOFT_LIVE_WRITE`
-- `GATE_POWER_PLATFORM_APPLY`
-- `GATE_DATAVERSE_APPLY`
+- `GATE_MERGE_MAIN_WHEN_NOT_COVERED_BY_CURRENT_ORDER`
+- `GATE_EXTERNAL_COST_UNBOUNDED`
+- `GATE_LIVE_TARGET_OR_IDENTITY_UNRESOLVED`
+- `GATE_IRREVERSIBLE_EFFECT`
 
 Nunca imprimir, persistir ni copiar secretos. No incluir tokens, connection
 strings, refresh tokens, cookies, private keys ni PII innecesaria en logs,
