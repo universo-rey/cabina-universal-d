@@ -112,7 +112,17 @@ $warnings = New-Object System.Collections.Generic.List[string]
 
 Require-Columns -Path $matrixPath -Columns @("chain_id","applies_to","owner_agent","reviewer_agent","required_agent_source","required_skill_source","required_recipe_source","required_tool_source","required_validator_source","required_evidence_source","required_stop_condition_source","blocked_without_chain","status","validator","stop_condition") -Errors $errors
 
-$agents = @((Get-Content -Raw -LiteralPath $agentsPath | ConvertFrom-Json).agents)
+$agentsPayload = Get-Content -Raw -LiteralPath $agentsPath | ConvertFrom-Json
+$agents = @($agentsPayload.agents)
+if ($agentsPayload.default_policy.continuity_policy -ne "CONTINUITY_FIRST") {
+  $errors.Add("Operational chain must preserve CONTINUITY_FIRST")
+}
+$pointerTypes = @($agentsPayload.default_policy.continuation_pointer_types)
+foreach ($requiredPointer in @("CURRENT_WORKPAPER","EXECUTION_RECEIPT","CONTINUATION_READBACK","LANE_STATE")) {
+  if ($requiredPointer -notin $pointerTypes) {
+    $errors.Add("Operational continuity pointer type missing: $requiredPointer")
+  }
+}
 $agentIds = @($agents | ForEach-Object { $_.id })
 $routingAgents = @((Get-Content -Raw -LiteralPath $routingPath | ConvertFrom-Json).routes.agents | ForEach-Object { $_ } | Select-Object -Unique)
 $skillIds = @((Read-CsvRequired -Path $skillUsagePath) | ForEach-Object { $_.skill_id })
@@ -135,6 +145,16 @@ foreach ($expected in @(
 )) {
   if (-not $chainIdSet.Contains($expected)) {
     $errors.Add("Missing operational chain row: $expected")
+  }
+}
+
+$chatCloseout = @($rows | Where-Object { $_.chain_id -eq "chain.chat_closeout_global" }) | Select-Object -First 1
+if ($chatCloseout -and $chatCloseout.applies_to -ne "formal_readback_required_by_assigned_operation_protocol") {
+  $errors.Add("Chat closeout chain must apply only when the assigned operation protocol requires a formal readback")
+}
+foreach ($retiredAppliesTo in @("chat_or_readback_output", "every_task", "every_closeout")) {
+  if (@($rows | Where-Object { $_.applies_to -eq $retiredAppliesTo }).Count -gt 0) {
+    $errors.Add("Operational chain reintroduces retired global applies_to: $retiredAppliesTo")
   }
 }
 

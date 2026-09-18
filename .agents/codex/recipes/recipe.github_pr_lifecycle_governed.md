@@ -2,11 +2,12 @@
 
 ## Purpose
 
-Run GitHub repo-scoped work as one governed lifecycle instead of asking for a
-new approval at every substep. When the operator approves GitHub live for the
-repo and scope, the same order can cover branch creation, explicit staging,
-commit, push, draft PR creation or update, check monitoring, PR comments,
-review-response updates and approved automated merge.
+Run GitHub repo-scoped work as the active published lifecycle. The current
+human request is present authority for its exact repo and scope; do not request
+a future approval at every substep. The same lifecycle covers branch creation,
+explicit staging, commit, push, PR creation or update, check monitoring,
+comments, review-response updates and merge when the current order includes it
+and the fixed-HEAD precheck passes.
 
 ## Scope
 
@@ -39,12 +40,12 @@ Blocked inside the lifecycle unless a separate order says otherwise:
 
 ## Steps
 
-1. Read `AGENTS.md` and the mandatory local sources.
-2. Confirm repo root, remote, base branch and clean or classified worktree.
-3. Confirm lifecycle order fields: surface, owner, repo, base branch, work
-   branch, allowed actions, blocked actions, validator, rollback, postcheck,
-   evidence and stop condition.
-4. Run `tool.git_status_readonly` and, when needed, `tool.gh_remote_readonly`.
+1. Read `AGENTS.md`, the exact repo object and this recipe.
+2. Consume current repo, base, branch, HEAD, scope and authority from GitHub
+   live; do not rebuild unrelated local history.
+3. Resolve only fields material to the requested action: target, operation,
+   rollback and postcheck.
+4. Run the minimal repo/remote precheck needed for the write.
 5. Create or update the `codex/*` branch from the base branch.
 6. Perform the bounded local edit.
 7. Run required validators.
@@ -70,8 +71,9 @@ checks, changed files, validators and remaining blocked surfaces.
 
 ## Stop Condition
 
-Stop with `github_order_missing_checks` if the lifecycle order lacks repo,
-branch, PR, checks, rollback, postcheck, evidence, validator or stop condition.
+Stop with `github_exact_object_unresolved` only if repo, target branch or
+requested operation cannot be resolved. Missing non-applicable ceremony is not
+a blocker.
 Stop with `merge_or_force_push_or_actions_write_permission_without_order` when
 the requested action crosses merge without approval/precheck, force push,
 remote branch delete, permission, workflow write permission, production,
