@@ -40,18 +40,35 @@ La carpeta debe preferir `copiar/adaptar` antes que inventar. Los archivos `SOUR
   raiz. Cloud environments se gobiernan por matriz/orden y no se inventan si
   no existe tool real de creacion.
 
+## Continuidad primero
+
+Cuando exista un receipt, workpacket, correlation, lane state o CURRENT_WORKPAPER
+que identifique el objeto y el siguiente consumidor, continuar esa cadena antes
+de hacer discovery. El artefacto puede ser fechado y seguir siendo operativo
+mientras su siguiente transicion no haya sido consumida o superseded.
+
+Orden normal:
+
+`EXACT_OBJECT -> CURRENT_AUTHORITY -> EXISTING_CONTINUITY -> CURRENT_BINDING -> NEXT_CONSUMER -> POSTCHECK -> RETURN`
+
+No crear un nuevo dispatch, asignacion, receta o catalogo si un task_id,
+correlation_id, next_agent o next_workpacket vigente ya permite continuar.
+Discovery repara un puntero faltante, invalidado o materialmente contradictorio;
+no es el inicio normal de cada consulta.
+
 ## Regla de uso
 
-1. Retomar la orden y la asignacion existente de agente, receta y herramienta.
-2. Si falta una asignacion o cambio su alcance, resolver solo ese dato con
+1. Retomar el objeto y consumir primero receipt, workpacket, correlation, lane state o workpaper existente.
+2. Continuar con el next_agent/next_workpacket ya resuelto y conservar task_id/correlation_id.
+3. Si falta una asignacion, continuidad o cambio su alcance, resolver solo ese dato con
    routing.json, agents.json y las matrices correspondientes. La skill
    tcu-descubridor-capacidades se usa cuando la capacidad no esta resuelta.
-3. Ejecutar o delegar mediante el protocolo de la operacion y sus autorizaciones.
+4. Ejecutar o delegar mediante el protocolo de la operacion y sus autorizaciones.
    Los contratos de identidad, permisos y produccion siguen en ese protocolo.
-4. Reutilizar las comprobaciones vigentes; comprobar los resultados afectados
+5. Reutilizar las comprobaciones vigentes; comprobar los resultados afectados
    por el cambio. Los validadores de matrices se ejecutan al modificar sus
    contratos, no antes de cada lectura o respuesta.
-5. Comunicar el resultado. La cadena formal y su readback corresponden a los
+6. Comunicar el resultado. La cadena formal y su readback corresponden a los
    cierres que los requieren por su protocolo.
 
 ## Estado
