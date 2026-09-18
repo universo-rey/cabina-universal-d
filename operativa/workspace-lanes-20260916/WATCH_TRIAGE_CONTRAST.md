@@ -1,9 +1,9 @@
 # Watch snapshot and SDU triage contrast — 2026-09-16
 
-> Classification: `HISTORICAL_EVIDENCE_ONLY`.
-> This document preserves observations, changes, paths, hashes and pending items as of 2026-09-16.
-> It is not current authority, a live binding, or proof of present runtime health.
-> Absolute local paths are provenance only; current execution must consume the active repo/object contract and exact binding.
+> Classification: `OPERATIONAL_CONTINUITY_EVIDENCE`.
+> Consume this artifact when its object, lane, owner, binding, correlation, pending action or rollback matches the current task.
+> It is not global authority by itself, but it may carry the active workpaper context needed to continue without rediscovery.
+> Re-resolve only fields that are missing, contradicted, or materially changed.
 
 
 Read-only comparison against C:/CEO/snapshots/20260808-062828-watch-present-atemporal-reconciled.
