@@ -112,7 +112,17 @@ $warnings = New-Object System.Collections.Generic.List[string]
 
 Require-Columns -Path $matrixPath -Columns @("chain_id","applies_to","owner_agent","reviewer_agent","required_agent_source","required_skill_source","required_recipe_source","required_tool_source","required_validator_source","required_evidence_source","required_stop_condition_source","blocked_without_chain","status","validator","stop_condition") -Errors $errors
 
-$agents = @((Get-Content -Raw -LiteralPath $agentsPath | ConvertFrom-Json).agents)
+$agentsPayload = Get-Content -Raw -LiteralPath $agentsPath | ConvertFrom-Json
+$agents = @($agentsPayload.agents)
+if ($agentsPayload.default_policy.continuity_policy -ne "CONTINUITY_FIRST") {
+  $errors.Add("Operational chain must preserve CONTINUITY_FIRST")
+}
+$pointerTypes = @($agentsPayload.default_policy.continuation_pointer_types)
+foreach ($requiredPointer in @("CURRENT_WORKPAPER","EXECUTION_RECEIPT","CONTINUATION_READBACK","LANE_STATE")) {
+  if ($requiredPointer -notin $pointerTypes) {
+    $errors.Add("Operational continuity pointer type missing: $requiredPointer")
+  }
+}
 $agentIds = @($agents | ForEach-Object { $_.id })
 $routingAgents = @((Get-Content -Raw -LiteralPath $routingPath | ConvertFrom-Json).routes.agents | ForEach-Object { $_ } | Select-Object -Unique)
 $skillIds = @((Read-CsvRequired -Path $skillUsagePath) | ForEach-Object { $_.skill_id })
