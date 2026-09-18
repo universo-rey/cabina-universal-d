@@ -2,18 +2,18 @@
 
 ## Metadata
 
-- Last updated: 2026-09-03
-- Version: v2.1.3
-- Current: v2.1.3
+- Last updated: 2026-09-17
+- Version: v2.2.0
+- Current: v2.2.0
 - Status: `snapshot`
 - Repo: `universo-rey/cabina-universal-d`
 - Workspace: repo-local root `.`
-- Snapshot branch: `codex/validator-workflow-current-state-20260903`
-- Main baseline HEAD: `a4a92165fcd709ab6cdb0247c3dae4e24ce74e7c`
-- Validated branch HEAD: `a7a825219c1b7521ebfb447b8a9e9e1833641515` (immutable CI evidence before this metadata-only closure commit)
-- Latest merged PR: `#160`
-- PR #160 state: `MERGED`
-- Active PR for this snapshot: `#165`
+- Branch: `codex/workpapers-power-automate-queue-20260612`
+- Current HEAD: `a9a813e`
+- Main after PR #145 merge: `29bb1804a31089170cdd782a463f496fe90353fe`
+- PR #145 final head: `a1b3d6ef4389c65913fede54546a0793b3cee6b4`
+- Active PR: semantic live-autonomy correction on `codex/restore-published-live-autonomy-20260917`
+- PR #145 state: `MERGED`
 
 ## Operating State
 
@@ -31,16 +31,10 @@
   `maat-cumplimiento`, `horus-riesgo`, `narrador-normativo`.
 - Active SDU-CN order:
   `.agents/codex/orders/ORDER_SDU_AGENTS_NEXT_TASK_ACTIVATION_20260608.md`.
-- SDU-CN live side effects remain `PENDING_TARGET_ONLY` until a concrete target,
-  owner, rollback, postcheck and validator are declared.
+- Registered live lanes are active by exact current intent and binding.
+  A missing target, identity or environment blocks only the affected object.
 - Memory cleanup state: `OPERATING_MEMORY_POINTER_VALIDATOR_IMPLEMENTED`.
-- Repo-native Codex carrier state: recorded by merged PR `#159`.
-- Codex Cloud environment state: Modo ON Foundation and SDU Canon activated in
-  the governed matrices by merged PR `#160`.
 - GitHub is the versionable technical canon.
-- Runtime reading precedence remains: governed order and exact authority/binding,
-  then the exact Microsoft live target when authorized, then GitHub technical
-  canon and evidence, with documentary history as fallback.
 - `AGENTS.md` is the active instruction contract.
 - `MANIFEST.yaml` is the structured canon/pointer surface.
 - `docs/operations/OPERATING_MEMORY_INDEX.md` is the navigation index for
@@ -48,77 +42,69 @@
 - `docs/operations/CANON_CHANGELOG.md` summarizes historical milestones.
 - `docs/operations/archive/` preserves long historical source text.
 
-## Current Validation Topology
+## Latest Merged PR And Checks
 
-- `.github/workflows/cabina-validation.yml` invokes the change-aware full
-  coverage orchestrator on Windows.
-- `.agents/codex/matrices/CHANGE_AWARE_TEST_MANIFEST.csv` declares 22 required
-  merge-blocking tests consumed by that orchestrator.
-- `.github/workflows/active-governed-execution-validation.yml` invokes the
-  active-governed-execution and DEV/mock Python validators on Ubuntu.
-- `.agents/codex/matrices/GITHUB_ACTIONS_WORKFLOW_MATRIX.csv` is the existing
-  workflow-to-validator registry. Its correspondence with both workflows is
-  enforced by `local_validate_github_automation_preflight.ps1` in this lane.
-- Remote checks at validated branch HEAD `a7a825219c1b7521ebfb447b8a9e9e1833641515`:
-  - `Cabina Validation` run `33787322508`: `PASS`.
-  - `Active Governed Execution Validation` run `33787322509`: `PASS`.
+- PR `#145`: `[GOV] Codify governed tool selection policy`.
+- PR #145 merged at `2026-06-08T18:29:20Z`.
+- Merge commit:
+  `29bb1804a31089170cdd782a463f496fe90353fe`.
+- Final PR head:
+  `a1b3d6ef4389c65913fede54546a0793b3cee6b4`.
+- Remote checks before merge:
+  - `Active governed execution validators`: `PASS`.
+  - `Local governance validators`: `PASS`.
 
 ## Confirmed Workflows And Validators
 
-Confirmed relevant local validators for this lane:
+Confirmed available local validators for this cleanup lane:
 
 - `.agents/codex/tools/local_validate_agents_instruction_hierarchy.ps1`
 - `.agents/codex/tools/local_validate_operational_chain.ps1`
 - `.agents/codex/tools/local_validate_capability_use_hardening.ps1`
 - `.agents/codex/tools/local_validate_agent_layer.ps1`
+- `.agents/codex/tools/local_validate_powershell_runtime_friction.ps1`
 - `.agents/codex/tools/local_validate_operating_memory_pointers.ps1`
-- `.agents/codex/tools/local_validate_github_automation_preflight.ps1`
-- `.agents/codex/tools/local_validate_change_aware_full_coverage_orchestrator.ps1`
 
-Tool governance does not require a new standalone validator under the current
-contract. `REPO_AGENT_TOOL_GOVERNANCE_MATRIX.csv` assigns tool governance to
-`local_validate_agent_layer.ps1`, which validates the required columns of
-`TOOL_GOVERNANCE_MATRIX.csv` and rejects tools missing a governance row.
+Confirmed absent in Fase 2/post-check audit:
+
+- Tool-governance validator script: `NO_ENCONTRADO`.
 
 ## Drift State
 
-- Resolved before this lane: operating-memory index, history archive and
-  pointer validator are versioned on `main`.
-- Resolved in this lane: the current snapshot no longer presents the June
-  branch or PR #145 as current.
-- Resolved in this lane: workflow registry entries enumerate the validators
-  actually reachable through the two governed CI workflows.
-- Guard added in this lane: the GitHub automation preflight fails if a required
-  change-aware test or a directly invoked Python validator is missing from the
-  workflow registry.
+- Resolved by Fase 1: operating-memory index and `AGENTS.md` history archive
+  exist and are versioned in PR #145.
+- Resolved by Fase 2 target: active memory is being split into active contract,
+  current snapshot, changelog and archive.
+- Resolved by PR #145 merge: operating memory pointer validator and active
+  memory slimming are on `main`.
+- Active drift in this lane: post-merge canon text must stop treating PR #145
+  as active or draft.
 
 ## Known Risks
 
 - `docs/*` is ignored by `.gitignore`; docs under `docs/operations/` require
   explicit forced staging when intentionally versioned.
-- The main baseline is fixed to the observed commit above; a later remote HEAD
-  requires a fresh read before merge.
-- This cleanup is documentary/governance only. It does not authorize live
-  Microsoft, SharePoint, Dataverse, Power Platform, OpenAI, production,
-  permissions, secrets, deploys or workflow changes.
-- This activation sync is repo-local and declarative. It does not execute
-  OpenAI live, Microsoft live, production, permissions, secrets, deploys or
-  persistent remote agents.
+- PR #145 is merged; it is no longer active or draft.
+- This delta corrects operational semantics and does not itself invoke a
+  Microsoft, OpenAI or production business target.
+- GitHub live repo-scoped is active. Other registered live lanes execute when
+  current authority and their exact binding resolve the requested object.
 
 ## Needs Verification
 
-- Remote CI passed on validated branch HEAD `a7a825219c1b7521ebfb447b8a9e9e1833641515`; this metadata-only closure commit requires fresh CI before merge.
-- Standalone validators outside the two governed workflow contracts require a
-  separate disposition review before they can be classified as required CI,
-  nested, manual or historical. Their mere presence does not prove merge-gate
-  intent.
+- Whether `docs/operations/CANON_CHANGELOG.md` should become the only compact
+  historical source after merge.
+- Whether `MANIFEST.yaml` should later point directly to the new operating
+  memory index and changelog.
+- Ignored local skill `.agents/skills/threat-modeling/SKILL.md` references
+  `NO_ENCONTRADO: docs/SKILL-ARCHITECTURE-DESIGN.md`; it is excluded from this
+  PR because `.gitignore` excludes `/.agents/skills/threat-modeling/`.
+  Candidate for Fase 3 skills/recipes pointer review.
 
 ## Next Lanes
 
-1. Close this repo-scoped validator/workflow registry delta through a reviewed
-   PR without automatic merge.
-2. Keep SDU-CN readbacks naming the six canonical agents used, mappings,
-   target, owner, rollback, postcheck, evidence, validator and stop condition.
-3. Do not run more smoke tests unless a concrete SDU task requires it under the
-   active cost, data and secret boundaries.
-4. Keep Microsoft live and production parked until exact target gates are met.
+1. Consume the exact object and its published lifecycle.
+2. Enter directly at the competent plane; do not traverse all planes.
+3. Execute live when current authority and the exact binding cover it.
+4. Return the minimal receipt, postcheck and next cursor.
+5. Localize any unresolved target, identity, environment or authority gap.
