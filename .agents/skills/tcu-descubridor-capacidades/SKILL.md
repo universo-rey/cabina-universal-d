@@ -14,9 +14,19 @@ do not rebuild catalogs or repeat discovery for an unchanged assignment.
 A named capability must resolve to an available runtime, connector or registered
 implementation. If it cannot resolve, report the exact missing capability.
 
+## Continuity First
+
+Before discovery, consume any matching CURRENT_WORKPAPER, execution receipt,
+continuation readback, lane state, task_id, correlation_id, next_agent or
+next_workpacket. If that pointer resolves the next consumer, return it and resume
+execution. Do not redispatch an existing task or rebuild its capability chain.
+
+Discovery is a repair path only when the continuation/capability pointer is
+missing, invalidated or materially contradicted.
+
 ## Trigger Boundary
 
-Use this skill only for `missing_or_invalidated_capability_assignment`.
+Use this skill only for `missing_or_invalidated_capability_assignment` after existing continuity pointers have been consumed.
 Intake, handoff, dispatch, execution and closeout do not themselves trigger it.
 An existing assignment remains usable until a relevant change or failure
 invalidates it. Permissions and live boundaries follow the assigned operation.
