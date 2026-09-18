@@ -138,6 +138,16 @@ foreach ($expected in @(
   }
 }
 
+$chatCloseout = @($rows | Where-Object { $_.chain_id -eq "chain.chat_closeout_global" }) | Select-Object -First 1
+if ($chatCloseout -and $chatCloseout.applies_to -ne "formal_readback_required_by_assigned_operation_protocol") {
+  $errors.Add("Chat closeout chain must apply only when the assigned operation protocol requires a formal readback")
+}
+foreach ($retiredAppliesTo in @("chat_or_readback_output", "every_task", "every_closeout")) {
+  if (@($rows | Where-Object { $_.applies_to -eq $retiredAppliesTo }).Count -gt 0) {
+    $errors.Add("Operational chain reintroduces retired global applies_to: $retiredAppliesTo")
+  }
+}
+
 foreach ($row in $rows) {
   foreach ($field in @("chain_id","applies_to","owner_agent","reviewer_agent","required_agent_source","required_skill_source","required_recipe_source","required_tool_source","required_validator_source","required_evidence_source","required_stop_condition_source","blocked_without_chain","status","validator","stop_condition")) {
     if ([string]::IsNullOrWhiteSpace($row.$field)) {
