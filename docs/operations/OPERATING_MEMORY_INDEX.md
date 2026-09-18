@@ -16,13 +16,22 @@
 Start here when cleaning or navigating operational memory. This index maps the
 current sources of truth after Fase 2 active-memory slimming.
 
-## Sources Of Truth
+## Historical Continuity Evidence
+
+The artifacts listed in this section are dated evidence and continuity records.
+They are not active authority, current runtime bindings, or proof of present health.
+For current behavior use `AGENTS.md`, `02_AUTHORITY_CANON/CURRENT_STATE.md`,
+`MANIFEST.yaml`, and the exact object contract/binding being operated.
 
 ### Cierre del hilo de ajustes — 2026-09-16
 
 - [Cierre gobernado y continuidad](../../operativa/READBACK_CIERRE_HILO_20260916.md): resultados recuperados de IDE, skills, Cloud, lanes, watchdog y NOC; pendientes por orden y alcance de las comprobaciones. Consultar este balance antes de reabrir pendientes de informes intermedios. Cierre documental con pendientes explicitos, sin cierre global ni entrega Git.
 
 ### EATOMIC and Cloud continuity recovered — 2026-09-16
+
+Classification: `HISTORICAL_EVIDENCE_ONLY`. Local absolute paths below preserve
+provenance observed on that date; they do not override current repo-native or
+GitHub bindings.
 
 - Existing local entry: [CAPABILITY_FRONTDOOR.md](C:/CEO/project-cdx/.cabina/SDU_RUNTIME_ROOT/00_START_HERE/CAPABILITY_FRONTDOOR.md). Git excludes `.cabina/` via project-cdx `.git/info/exclude:8`; exclusion does not remove its operational role.
 - Existing host launcher: [codex-cloud-live.ps1](C:/CEO/project-cdx/tools/codex-cloud-live.ps1). Its default EATOMIC branch invokes `codex exec --cd <projectRoot>` and supplies the user's order, EATOMIC recipe, dispatcher assignment and wave recipe. The CodexCloudAtomic branch is the separate SDK surface.
