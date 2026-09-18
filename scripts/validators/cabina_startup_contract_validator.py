@@ -9,6 +9,7 @@ from sdu_runtime_common import (
 
 
 NAME = "CABINA_STARTUP_CONTRACT_VALIDATOR"
+# Contract tokens below track the current repo-native startup semantics.
 
 CANONICAL_FILES = [
     "02_AUTHORITY_CANON/SDU_CN_CANONICAL_AGENT_DISCOVERY_20260604.md",
