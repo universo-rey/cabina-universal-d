@@ -34,8 +34,10 @@ $bontempsResolverPath =
   "D:\.agents\codex\tools\local_resolve_bontemps_workspace.ps1"
 $githubAtlasRoot = "C:\Users\enzo1\Documents\GitHub"
 $githubAtlasIndexPath = Join-Path $githubAtlasRoot "GITHUB_INDEX.csv"
-$federalAgentsPath = "D:\AGENTS.md"
-$federalManifestPath = "D:\MANIFEST.yaml"
+$repoRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $PSScriptRoot))
+$currentAgentsPath = Join-Path $repoRoot "AGENTS.md"
+$currentStatePath = Join-Path $repoRoot "02_AUTHORITY_CANON\CURRENT_STATE.md"
+$currentManifestPath = Join-Path $repoRoot "MANIFEST.yaml"
 $dataverseAnchorPath =
   "C:\CEO\sdu-control-plane\00_STATE\DATAVERSE_ANCHOR_STATE_V50.json"
 $registeredRepos = Import-Csv -LiteralPath $matrixPath
@@ -173,7 +175,7 @@ $localSurfaceMatch = if ($selectedLocalSurface.Count -eq 1) {
 $instructionFiles = New-Object System.Collections.Generic.List[string]
 foreach ($fixedInstruction in @(
   "C:\Users\enzo1\.codex\AGENTS.md",
-  "D:\AGENTS.md"
+  $currentAgentsPath
 )) {
   if (Test-Path -LiteralPath $fixedInstruction) {
     $instructionFiles.Add($fixedInstruction)
@@ -241,52 +243,41 @@ $effectiveStopCondition = $physicalStopCondition
 $atlasEntry = $null
 $atlasValidationStatus = "NOT_APPLICABLE"
 
-$federalAgentsText = if (Test-Path -LiteralPath $federalAgentsPath) {
-  Get-Content -LiteralPath $federalAgentsPath -Raw
+$currentAgentsText = if (Test-Path -LiteralPath $currentAgentsPath) {
+  Get-Content -LiteralPath $currentAgentsPath -Raw
 } else {
   ""
 }
-$federalManifestText = if (Test-Path -LiteralPath $federalManifestPath) {
-  Get-Content -LiteralPath $federalManifestPath -Raw
+$currentStateText = if (Test-Path -LiteralPath $currentStatePath) {
+  Get-Content -LiteralPath $currentStatePath -Raw
 } else {
   ""
 }
-$gitFrozen = -not ($federalAgentsText -match '(?m)`GIT_FROZEN=false`')
+$githubLifecycleActive = (
+  $currentAgentsText -match 'GitHub live repo-scoped esta activo' -or
+  $currentStateText -match 'GitHub is the versionable technical canon'
+)
 $githubWriteStatus = if ($repoMatch) {
   [string]$repoMatch.github_write_status
-} elseif ($bontempsIdentity) {
-  "REQUIRES_EXPLICIT_GIT_ORDER"
 } else {
-  "UNMAPPED"
+  "RESOLVE_FROM_CURRENT_AUTHORITY_AND_EXACT_BINDING"
 }
 $githubAgentStatus = if ($repoMatch) {
   [string]$repoMatch.github_agent_status
 } else {
-  "UNMAPPED"
+  "RESOLVE_FROM_CURRENT_AUTHORITY_AND_EXACT_BINDING"
 }
-$githubWriteGoverned = @(
-  "APPROVED_BRANCH_COMMIT_PUSH_PR",
-  "REQUIRES_EXPLICIT_GIT_ORDER"
-) -contains $githubWriteStatus
-$lifecycleWriteEnabled = (
-  -not $gitFrozen -and
-  $githubWriteGoverned -and
+$githubWriteGoverned = (
+  $githubLifecycleActive -and
   -not [string]::IsNullOrWhiteSpace([string]$gitRoot) -and
-  ($repoMatch -or $bontempsIdentity)
+  [bool]$repoMatch
 )
+$lifecycleWriteEnabled = $githubWriteGoverned
 $dataverseAnchorResolved = Test-Path -LiteralPath $dataverseAnchorPath -PathType Leaf
-$codexCloudStatus = if (
-  $federalManifestText -match '(?m)^\s*codex_cloud_live:\s*enabled_governed\s*$'
-) { "ENABLED_GOVERNED" } else { "NOT_RESOLVED_FROM_FEDERAL_MANIFEST" }
-$microsoftLiveStatus = if (
-  $federalManifestText -match '(?m)^\s*microsoft_live:\s*enabled_governed_gated\s*$'
-) { "ENABLED_GOVERNED_GATED" } else { "NOT_RESOLVED_FROM_FEDERAL_MANIFEST" }
-$powerPlatformStatus = if (
-  $federalManifestText -match '(?m)^\s*power_platform_live:\s*enabled_governed_gated\s*$'
-) { "ENABLED_GOVERNED_GATED" } else { "NOT_RESOLVED_FROM_FEDERAL_MANIFEST" }
-$productionStatus = if (
-  $federalManifestText -match '(?m)^\s*production:\s*enabled_governed_gated\s*$'
-) { "ENABLED_GOVERNED_GATED" } else { "NOT_RESOLVED_FROM_FEDERAL_MANIFEST" }
+$codexCloudStatus = "DELEGATED_TO_CURRENT_AUTHORITY_CONTINUITY_AND_EXACT_BINDING"
+$microsoftLiveStatus = "DELEGATED_TO_CURRENT_AUTHORITY_CONTINUITY_AND_EXACT_BINDING"
+$powerPlatformStatus = "DELEGATED_TO_CURRENT_AUTHORITY_CONTINUITY_AND_EXACT_BINDING"
+$productionStatus = "HUMAN_RESERVED_BOUNDARY"
 
 if (-not [string]::IsNullOrWhiteSpace([string]$gitRoot) -and
     (Test-PathWithin -Candidate (Normalize-ComparablePath $gitRoot) `
@@ -392,13 +383,13 @@ if (-not $repoMatch -and
 # Recompose after BONTEMPS has had the opportunity to resolve an unregistered
 # physical checkout into a governed repo/worktree identity.
 if (-not $repoMatch -and $bontempsIdentity) {
-  $githubWriteStatus = "REQUIRES_EXPLICIT_GIT_ORDER"
+  $githubWriteStatus = "ACTIVE_BY_CURRENT_AUTHORITY_AND_EXACT_BINDING"
   $githubAgentStatus = "APPROVED_GITHUB_AGENT_SURFACE"
-  $githubWriteGoverned = $true
-  $lifecycleWriteEnabled = (
-    -not $gitFrozen -and
+  $githubWriteGoverned = (
+    $githubLifecycleActive -and
     -not [string]::IsNullOrWhiteSpace([string]$gitRoot)
   )
+  $lifecycleWriteEnabled = $githubWriteGoverned
 }
 
 $result = [ordered]@{
@@ -456,8 +447,11 @@ $result = [ordered]@{
   lifecycle_write_ready = $false
   lifecycle = [ordered]@{
     policy = [ordered]@{
-      git_frozen = $gitFrozen
-      source = $federalAgentsPath
+      continuity_policy = "CONTINUITY_FIRST"
+      current_authority = $currentAgentsPath
+      current_state = $currentStatePath
+      structured_canon = $currentManifestPath
+      resolver_authority_granted = $false
     }
     repository = [ordered]@{
       registered = [bool]($repoMatch -or $bontempsIdentity)
@@ -494,13 +488,16 @@ $result = [ordered]@{
     }
     readiness = [ordered]@{
       capability_enabled = $lifecycleWriteEnabled
-      exact_order_required = $true
+      current_authority_required = $true
+      continuity_resolution_required = $true
+      exact_binding_required = $true
       clean_or_classified_worktree_required = $true
       branch_scope_required = $true
-      validators_required = $true
+      validators_when_applicable = $true
       postcheck_required = $true
+      exact_order_required = $false
       execution_ready = $false
-      reason = "CAPABILITY_ENABLED__ACTION_REQUIRES_EXACT_ORDER_AND_WORKTREE_CLASSIFICATION"
+      reason = "CONTEXT_RESOLVED__EXECUTION_DECIDED_BY_CURRENT_AUTHORITY_CONTINUITY_AND_EXACT_BINDING"
     }
   }
   authority_transfer = $false
