@@ -33,6 +33,18 @@ class WorkflowInputValidatorTests(unittest.TestCase):
     def test_flow_style_checkout_requires_credentials_control(self):
         self.assertEqual(checkout_errors(["      - { uses: actions/checkout@v4 }"]), [1])
 
+    def test_flow_style_checkout_rejects_nested_substring(self):
+        lines = [
+            "      - { uses: actions/checkout@v4, with: { sparse-checkout: 'persist-credentials: false' } }"
+        ]
+        self.assertEqual(checkout_errors(lines), [1])
+
+    def test_flow_style_checkout_accepts_direct_with_child(self):
+        lines = [
+            "      - { uses: actions/checkout@v4, with: { persist-credentials: false, fetch-depth: 0 } }"
+        ]
+        self.assertEqual(checkout_errors(lines), [])
+
 
 if __name__ == "__main__":
     unittest.main()
