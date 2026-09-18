@@ -16,12 +16,17 @@
 Start here when cleaning or navigating operational memory. This index maps the
 current sources of truth after Fase 2 active-memory slimming.
 
-## Historical Continuity Evidence
+## Operational Continuity Evidence
 
-The artifacts listed in this section are dated evidence and continuity records.
-They are not active authority, current runtime bindings, or proof of present health.
-For current behavior use `AGENTS.md`, `02_AUTHORITY_CANON/CURRENT_STATE.md`,
-`MANIFEST.yaml`, and the exact object contract/binding being operated.
+The artifacts listed here are operational continuity records. Consume them when
+their object, lane, owner, binding, correlation or pending action matches the
+current task. They are not automatically historical and must not be discarded
+because of age alone.
+
+They do not override a more specific current authority/binding, but they may
+carry the active workpaper context, unresolved owner/route, correlation ID,
+postcheck, rollback or next cursor needed to continue an operation without
+rediscovery.
 
 ### Cierre del hilo de ajustes — 2026-09-16
 
@@ -29,9 +34,10 @@ For current behavior use `AGENTS.md`, `02_AUTHORITY_CANON/CURRENT_STATE.md`,
 
 ### EATOMIC and Cloud continuity recovered — 2026-09-16
 
-Classification: `HISTORICAL_EVIDENCE_ONLY`. Local absolute paths below preserve
-provenance observed on that date; they do not override current repo-native or
-GitHub bindings.
+Classification: `OPERATIONAL_CONTINUITY_EVIDENCE`.
+Consume matching order/correlation/owner/binding before creating a replacement
+path. Local absolute paths preserve provenance and may identify an active
+consumer or workpaper surface; resolve their current target before mutation.
 
 - Existing local entry: [CAPABILITY_FRONTDOOR.md](C:/CEO/project-cdx/.cabina/SDU_RUNTIME_ROOT/00_START_HERE/CAPABILITY_FRONTDOOR.md). Git excludes `.cabina/` via project-cdx `.git/info/exclude:8`; exclusion does not remove its operational role.
 - Existing host launcher: [codex-cloud-live.ps1](C:/CEO/project-cdx/tools/codex-cloud-live.ps1). Its default EATOMIC branch invokes `codex exec --cd <projectRoot>` and supplies the user's order, EATOMIC recipe, dispatcher assignment and wave recipe. The CodexCloudAtomic branch is the separate SDK surface.
