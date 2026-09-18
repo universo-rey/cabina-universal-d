@@ -36,7 +36,25 @@
     "execute_safe_reversible_traceable_validable_by_default": true,
     "passive_final_states_policy": "cause_and_next_exact_command_required",
     "live_write_gated_policy": "execute_only_when_target_identity_owner_rollback_postcheck_evidence_are_present",
-    "no_remote_persistent_agents_without_governed_order": true
+    "no_remote_persistent_agents_without_governed_order": true,
+    "continuity_policy": "CONTINUITY_FIRST",
+    "continuity_resolution_order": [
+      "exact_object",
+      "current_authority",
+      "existing_receipt_or_workpacket_or_correlation",
+      "current_binding",
+      "next_consumer",
+      "postcheck",
+      "return"
+    ],
+    "continuation_pointer_types": [
+      "CURRENT_WORKPAPER",
+      "EXECUTION_RECEIPT",
+      "CONTINUATION_READBACK",
+      "LANE_STATE"
+    ],
+    "rediscovery_policy": "only_when_continuation_or_capability_pointer_is_missing_invalidated_or_materially_contradicted",
+    "duplicate_dispatch_policy": "forbid_when_existing_task_or_correlation_has_unconsumed_next_consumer"
   },
   "agents": [
     {
