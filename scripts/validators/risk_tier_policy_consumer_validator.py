@@ -23,9 +23,12 @@ ACTIVE_CONSUMERS = (
     ROOT / ".agents" / "codex" / "matrices" / "TEAMS_AGENT_CAPABILITY_MATRIX.csv",
     ROOT / ".agents" / "codex" / "matrices" / "TEAMS_GOVERNANCE_SURFACE_MATRIX.csv",
     ROOT / ".agents" / "codex" / "matrices" / "USER_IDENTITY_GOVERNANCE_MATRIX.csv",
+    ROOT / ".agents" / "codex" / "tools" / "local_generate_agent_workpapers.ps1",
+)
+
+VALIDATOR_CONSUMERS = (
     ROOT / ".agents" / "codex" / "tools" / "local_validate_teams_governance.ps1",
     ROOT / ".agents" / "codex" / "tools" / "local_validate_user_identity_governance.ps1",
-    ROOT / ".agents" / "codex" / "tools" / "local_generate_agent_workpapers.ps1",
 )
 
 FORBIDDEN_ACTIVE_SEMANTICS = {
@@ -171,6 +174,17 @@ def validate_all_active_consumers() -> None:
         )
     if violations:
         fail("active consumer semantic drift:\n- " + "\n- ".join(violations))
+
+    for path in VALIDATOR_CONSUMERS:
+        if not path.is_file():
+            fail(f"missing active validator consumer: {path.relative_to(ROOT)}")
+        text = path.read_text(encoding="utf-8-sig")
+        if "reintroduces order-first READ" not in text:
+            fail(f"{path.relative_to(ROOT)} does not reject order-first READ")
+        if "must declare direct READ or exact resolution requirement" not in text:
+            fail(f"{path.relative_to(ROOT)} does not enforce direct-or-resolution READ")
+        if "missing governed live read gate" in text:
+            fail(f"{path.relative_to(ROOT)} still positively enforces governed-order READ")
 
 
 def main() -> None:
