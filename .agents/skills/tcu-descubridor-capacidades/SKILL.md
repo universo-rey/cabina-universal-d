@@ -1,23 +1,35 @@
 ---
 name: tcu-descubridor-capacidades
-description: Use when an unknown, ambiguous, materially changed or newly proposed Cabina capability needs skill discovery or capability assignment. Reuse current known bindings without repeating discovery for routine tasks.
+description: Use when skill discovery is needed only because a required capability is missing or an existing capability assignment has been invalidated. Reuse unchanged assignments and query only missing or changed information.
 ---
 
 # TCU Descubridor Capacidades
 
 ## Core Rule
 
-Consume known capabilities and current bindings directly. A skill,
-recipe, plugin, or tool is not available just because its name appears in text.
-It must exist in the active runtime, repo-local catalog, plugin list, or
-governed matrix. If it does not resolve, mark it `NO_DISPONIBLE`.
+Resume the order with its resolved administrative context and assigned capability.
+Discovery applies only to a missing capability or an invalidated assignment.
+Use the prepared global metadata and the assigned source to resolve that delta;
+do not rebuild catalogs or repeat discovery for an unchanged assignment.
+A named capability must resolve to an available runtime, connector or registered
+implementation. If it cannot resolve, report the exact missing capability.
+
+## Continuity First
+
+Before discovery, consume any matching CURRENT_WORKPAPER, execution receipt,
+continuation readback, lane state, task_id, correlation_id, next_agent or
+next_workpacket. If that pointer resolves the next consumer, return it and resume
+execution. Do not redispatch an existing task or rebuild its capability chain.
+
+Discovery is a repair path only when the continuation/capability pointer is
+missing, invalidated or materially contradicted.
 
 ## Trigger Boundary
 
-Use this skill when the required capability is unknown, ambiguous, materially
-changed, or a new capability is proposed. Intake, handoff, execution and closeout
-do not trigger discovery by themselves. Existing assignments are references;
-having this skill in a default catalog does not require invoking it every time.
+Use this skill only for `missing_or_invalidated_capability_assignment` after existing continuity pointers have been consumed.
+Intake, handoff, dispatch, execution and closeout do not themselves trigger it.
+An existing assignment remains usable until a relevant change or failure
+invalidates it. Permissions and live boundaries follow the assigned operation.
 
 ## Allowed Actions
 
@@ -26,53 +38,41 @@ having this skill in a default catalog does not require invoking it every time.
 - map capability gaps as `NO_DISPONIBLE`
 - update local governance matrices and readbacks when capability assignments
   change
-- route to the available execution environment with the exact target and binding;
-  apply write controls only to writes and explicit authorization only to HIGH
+- route to Codex Cloud only when the repo, branch, data boundary, owner,
+  rollback, validator, and stop condition are declared
 
 ## Blocked Actions
 
 - inventing unavailable skills, recipes, plugins, tools, or validators
-- exposing secrets or transferring unnecessary regulated data
-- executing without the capability, identity or exact binding actually needed
-- executing HIGH effects without scoped explicit authorization, including
-  production, permission/identity changes, destructive effects and open-ended cost
+- using Codex Cloud for secrets, broad regulated data, Microsoft live,
+  production, OpenAI API live, permission changes, or tenant writes
+- activating persistent remote agents without a governed order
 - replacing human or institutional authority
-
-Normal authentication through an existing binding does not constitute secret
-exposure or trigger HIGH. `secret_detected` concerns material in artifacts or
-outputs, not legitimate credential use that keeps it out of those surfaces.
 
 ## Workflow
 
-1. Consume the known current assignment and binding. Read the capability-use
-   matrix only when resolution is needed; do not rebuild a global inventory.
-2. Resolve the missing or ambiguous component against its existing catalog or
-   advertised runtime. A catalog declaration alone does not establish live access.
-3. Select only the components applicable to the requested effect. READ/LOW can
-   use a minimal chain; optional skills, recipes, plugins or validators may be
-   omitted or marked NO_APLICA. Keep ownership when the operation needs it.
-4. If the task can run autonomously, classify it as local task-scoped,
-   GitHub task-scoped, or Codex Cloud task-scoped.
-5. A missing material capability produces `RESOLUTION_REQUIRED` only for the
-   affected operation, retaining READ/LOW/HIGH. Continue independent work. Missing
-   capability is not a reason to prepare an order; only a positive HIGH effect is.
-6. Close with the operation result or exact limitation and relevant validation.
-   READ does not require rollback. LOW writes need precheck, reversibility or
-   compensation and postcheck. Do not require a global evidence package or audit
-   for ordinary technical work. Microsoft/OpenAI live is classified by effect,
-   with no blanket prohibition based on provider or Cloud environment.
+1. Reuse the order, purpose, process, object, state, owner and expected result.
+2. If the assignment is resolved and unchanged, return it and resume execution.
+3. Otherwise query only the missing or changed capability in the prepared
+   global metadata, assigned connector or exact registry.
+4. Resolve that dependency with its owner and return the updated assignment.
+5. If unavailable, mark `NO_DISPONIBLE` for that substep and continue independent
+   work. Apply the operation's own permissions and authorization protocol.
+6. Check the result with the operation's mechanism; formal readback is required
+   only when that operation requires it.
 
 ## Validator
 
-When changing the capability catalog or contract, primary:
+Primary:
 `.agents\codex\tools\local_validate_capability_use_hardening.ps1`.
 
-When changing autonomous execution configuration, companion:
+Companion:
 `.agents\codex\tools\local_validate_autonomous_agent_execution.ps1`.
 
 ## Stop Conditions
 
-- `operation_requirement_unresolved` for the affected operation only
+- `capability_use_preflight_missing`
+- `default_skill_missing`
 - `codex_cloud_environment_missing`
-- HIGH effect without scoped explicit authorization
+- `autonomous_agent_order_missing`
 - `secret_detected`

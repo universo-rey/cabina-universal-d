@@ -1,23 +1,37 @@
-# SDU Agent MCP Connection Policy
+# SDU Agent MCP Connection Policy 20260603
 
-Consume AGENTS.md and governance/canon/TCU_RISK_TIER_POLICY_CONSUMER.json.
-Approval is high_only: mock, READ and bounded LOW work do not require a new
-approval. HIGH positive effects retain explicit authority for the exact object.
+## Alcance
 
-MCP_CONNECTION_REGISTRY_20260603.csv and MCP_DEV_ACTIVATION_MATRIX_20260603.csv
-describe the available scope of each connection. Template, contract-only and
-mock rows do not assert a live connected adapter. Their out-of-scope actions
-remain unavailable in those specific implementations, not globally forbidden
-on Microsoft, OpenAI or Cloud.
+Esta politica gobierna conexiones MCP y equivalentes tool-surface para el plano
+DEV de agentes SDU en `universo-rey/cabina-universal-d`.
 
-READ requires available authenticated capability, exact binding/target and
-minimization. LOW writes additionally require owner, precheck, reversibility or
-compensation and postcheck. The result supplies operation-scoped evidence;
-neither an approval receipt nor global audit evidence is a prerequisite.
-A missing target, tool or credential returns RESOLUTION_REQUIRED for that
-operation, preserving its tier and other executable work.
+## Reglas
 
-Codex Cloud may apply an authorized repo-scoped patch when the task allows it.
-Review-only tasks retain their requested read scope. Merge, permission changes,
-secret exposure and production effects keep their HIGH boundaries.
-The local bridge remains loopback/mock. Never version credential material.
+- Cada conexion debe existir en
+  `governance/connections/MCP_CONNECTION_REGISTRY_20260603.csv`.
+- Las herramientas con escritura quedan bloqueadas hasta gate humano explicito.
+- Las superficies Microsoft son `ENABLED_GOVERNED_GATED_NOT_EXECUTED`.
+- Codex Cloud solo queda preparado como plantilla repo-scoped; no hay apply.
+- OpenAI API y Responses API solo quedan como contrato; no hay llamada live.
+- El puente local usa loopback y payload sintetico saneado.
+- Ninguna conexion puede requerir material sensible versionado.
+
+## Criterio de confianza
+
+`trusted_repo_scope` permite GitHub repo-scoped bajo orden aprobada. Las
+superficies Microsoft, OpenAI y Codex Cloud con potencial live quedan
+`governed_gated` y requieren identidad, objeto, rollback, postcheck y
+evidencia antes de ejecutar.
+
+## Stop conditions
+
+- `MCP_WRITE_WITHOUT_APPROVAL`
+- `MCP_SERVER_UNTRUSTED_WITH_WRITE`
+- `TEAMS_MESSAGE_SENT_WITHOUT_GATE`
+- `CODEX_CLOUD_LIVE_WRITE_ATTEMPTED`
+- `OPENAI_LIVE_EXECUTED_WITHOUT_GATE`
+- `SECRET_DETECTED`
+
+## Estado
+
+`SDU_AGENT_MCP_CONNECTION_POLICY_ACTIVE_DEV`

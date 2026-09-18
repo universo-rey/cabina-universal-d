@@ -26,7 +26,7 @@ def validate() -> None:
     required_profile_tokens = [
         "repo: universo-rey/cabina-universal-d",
         "mode: repo_scoped_governed",
-        "live_writes: risk_tiered",
+        "live_writes: governed_gated",
         "production: governed_gated",
         "remote_persistent_agent: false",
         "codex_cloud_status",
@@ -55,14 +55,10 @@ def validate() -> None:
             raise AssertionError("Codex Cloud assignment must stay repo scoped")
         if row["status"] != "TEMPLATE_READY":
             raise AssertionError(f"{row['assignment_id']} must be TEMPLATE_READY")
-        allowed = set(row["allowed_actions"].split("|"))
-        blocked = set(row["blocked_actions"].split("|"))
-        if allowed & blocked:
-            raise AssertionError(f"{row['assignment_id']} has contradictory actions")
-        if row["assignment_id"] == "cloud.task.validator_repair" and "codex_cloud_apply" not in allowed:
-            raise AssertionError("validator repair must allow a repo-scoped patch")
-        if not {"secret_materialization", "high_effect_without_authority"} <= blocked:
-            raise AssertionError(f"{row['assignment_id']} missing effect-based boundaries")
+        if "apply" in row["allowed_actions"]:
+            raise AssertionError(f"{row['assignment_id']} allows apply")
+        if "codex_cloud_apply" not in row["blocked_actions"] and "remote_live_write" not in row["blocked_actions"]:
+            raise AssertionError(f"{row['assignment_id']} missing cloud live block")
 
 
 if __name__ == "__main__":

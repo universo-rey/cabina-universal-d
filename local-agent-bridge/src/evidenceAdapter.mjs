@@ -9,12 +9,8 @@ export function buildEvidence(route, payload) {
     action: route.action,
     requested_by: payload.requestedBy,
     live_executed: false,
-    execution_admitted: false,
-    admission_status: "OPERATION_NOT_RESOLVED",
     sanitized: true,
     blocked_surfaces: blockedSurfaces,
-    blocked_surfaces_scope: "THIS_MOCK_BRIDGE_ONLY",
-    next_gate: "not_required_for_advisory_routing",
-    next_action: "resolve_operation_before_dispatch"
+    next_gate: "human_review_before_live"
   };
 }

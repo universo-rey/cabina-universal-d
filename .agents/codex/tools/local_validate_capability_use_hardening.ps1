@@ -158,6 +158,28 @@ Require-Columns -Path $repoRuntimePath -Columns @("repo_id","repository_full_nam
 
 $agentsPayload = Get-Content -Raw -LiteralPath $agentsPath | ConvertFrom-Json
 $agents = @($agentsPayload.agents)
+if ($agentsPayload.default_policy.conditional_capability_discovery_skill -ne $discoverySkill -or
+    $agentsPayload.default_policy.capability_discovery_trigger -ne "missing_or_invalidated_capability_assignment") {
+  $errors.Add("Capability discovery must be conditional on a missing or invalidated assignment")
+}
+if ($agentsPayload.default_policy.PSObject.Properties.Name -contains "mandatory_capability_discovery_skill") {
+  $errors.Add("Universal capability discovery policy must not be reintroduced")
+}
+if ($agentsPayload.default_policy.continuity_policy -ne "CONTINUITY_FIRST") {
+  $errors.Add("Agent policy must preserve CONTINUITY_FIRST")
+}
+$continuityOrder = @($agentsPayload.default_policy.continuity_resolution_order)
+foreach ($required in @("exact_object","current_authority","existing_receipt_or_workpacket_or_correlation","current_binding","next_consumer","postcheck","return")) {
+  if ($required -notin $continuityOrder) {
+    $errors.Add("Continuity policy missing resolution step: $required")
+  }
+}
+if ($agentsPayload.default_policy.rediscovery_policy -ne "only_when_continuation_or_capability_pointer_is_missing_invalidated_or_materially_contradicted") {
+  $errors.Add("Rediscovery must remain a repair path after continuity resolution")
+}
+if ($agentsPayload.default_policy.duplicate_dispatch_policy -ne "forbid_when_existing_task_or_correlation_has_unconsumed_next_consumer") {
+  $errors.Add("Duplicate dispatch guard is missing")
+}
 $agentIds = @($agents | ForEach-Object { $_.id })
 $skillIds = @((Read-CsvRequired -Path $skillUsagePath) | ForEach-Object { $_.skill_id })
 $recipeRows = Read-CsvRequired -Path $recipeIndexPath
@@ -175,10 +197,10 @@ $pluginIdSet = New-StringSet -Values $pluginIds
 $knownStopSet = New-StringSet -Values @((Read-CsvRequired -Path $stopPath) | ForEach-Object { $_.stop_condition })
 
 if (-not $skillIdSet.Contains($discoverySkill)) {
-  $errors.Add("Capability discovery skill missing from SKILL_USAGE_MATRIX: $discoverySkill")
+  $errors.Add("Conditional capability discovery skill missing from SKILL_USAGE_MATRIX: $discoverySkill")
 }
 if (-not (Test-Path -LiteralPath $discoverySkillPath)) {
-  $errors.Add("Repo-local discovery skill file missing: $discoverySkillPath")
+  $errors.Add("Conditional repo-local skill file missing: $discoverySkillPath")
 }
 
 $rows = Read-CsvRequired -Path $matrixPath
@@ -201,6 +223,32 @@ foreach ($expected in $expectedStages) {
   }
 }
 
+$expectedApplicability = @{
+  "capability_use.session_intake" = "new_order_with_unresolved_capability_assignment"
+  "capability_use.before_local_read" = "local_read_with_unresolved_target_or_capability"
+  "capability_use.before_local_write" = "local_write_with_unresolved_scope_or_capability"
+  "capability_use.skill_discovery_assignment" = "missing_or_invalidated_capability_assignment"
+  "capability_use.every_closeout" = "formal_closeout_required_by_assigned_operation_protocol"
+}
+foreach ($stageId in $expectedApplicability.Keys) {
+  $row = @($rows | Where-Object { $_.stage_id -eq $stageId }) | Select-Object -First 1
+  if ($row -and $row.applies_to -ne $expectedApplicability[$stageId]) {
+    $errors.Add("Capability-use row '$stageId' reintroduces global applicability: $($row.applies_to)")
+  }
+}
+$legacyGlobalApplicability = @(
+  "every_user_order_or_thread_resume",
+  "local_file_repo_or_matrix_read",
+  "local_repo_or_governance_file_write",
+  "every_task_before_agent_or_repo_selection",
+  "final_response_readback_pr_or_issue_closeout"
+)
+foreach ($row in $rows) {
+  if ($row.applies_to -in $legacyGlobalApplicability) {
+    $errors.Add("Capability-use row '$($row.stage_id)' uses retired global applies_to: $($row.applies_to)")
+  }
+}
+
 foreach ($row in $rows) {
   foreach ($field in @("stage_id","applies_to","lead_agent","owner_agent","reviewer_agent","assignment_source","derivation_source","required_skill_source","required_recipe_source","required_plugin_source","required_tool_source","required_surface_source","required_validator","evidence","allowed_actions","blocked_actions","stop_condition","status")) {
     if ([string]::IsNullOrWhiteSpace($row.$field)) {
@@ -215,8 +263,16 @@ foreach ($row in $rows) {
   if ($row.owner_agent -eq $row.reviewer_agent) {
     $errors.Add("Capability-use row '$($row.stage_id)' owner_agent and reviewer_agent must differ")
   }
+  if ($row.status -ne "ACTIVE_REQUIRED") {
+    $errors.Add("Capability-use row '$($row.stage_id)' must be ACTIVE_REQUIRED")
+  }
   foreach ($sourceField in @("assignment_source","derivation_source","required_skill_source","required_recipe_source","required_plugin_source","required_tool_source","required_surface_source","required_validator")) {
     Check-PathTokens -Value $row.$sourceField -Errors $errors -Context "Capability-use row '$($row.stage_id)' $sourceField"
+  }
+  foreach ($blocked in @("execution_without_capability_preflight","microsoft_live","openai_api_live","production","secrets")) {
+    if ($row.blocked_actions -notmatch [regex]::Escape($blocked)) {
+      $errors.Add("Capability-use row '$($row.stage_id)' missing blocked action '$blocked'")
+    }
   }
   Check-StopCondition -Value $row.stop_condition -KnownStops $knownStopSet -Errors $errors -Context "Capability-use row '$($row.stage_id)'"
 }
@@ -227,6 +283,7 @@ foreach ($agent in $agents) {
       $errors.Add("agents.json $($agent.id) missing $field")
     }
   }
+  $agentDefaultSkillSet = New-StringSet -Values @($agent.default_skills)
   Check-Refs -Value (@($agent.default_skills) -join "|") -Known $skillIdSet -Errors $errors -Context "agents.json $($agent.id) default_skills"
   Check-Refs -Value (@($agent.default_recipes) -join "|") -Known $recipeIdSet -Errors $errors -Context "agents.json $($agent.id) default_recipes"
   Check-Refs -Value (@($agent.default_tools) -join "|") -Known $toolIdSet -Errors $errors -Context "agents.json $($agent.id) default_tools"
@@ -237,6 +294,7 @@ foreach ($row in (Read-CsvRequired -Path $defaultSkillPath)) {
   if (-not $agentIdSet.Contains($row.agent_id)) {
     $errors.Add("Default assignment references unknown agent: $($row.agent_id)")
   }
+  $defaultSkillRefSet = New-StringSet -Values (Split-Tokens -Value $row.default_skill_refs)
   Check-Refs -Value $row.default_skill_refs -Known $skillIdSet -Errors $errors -Context "Default assignment '$($row.agent_id)' skills"
   Check-Refs -Value $row.default_recipe_refs -Known $recipeIdSet -Errors $errors -Context "Default assignment '$($row.agent_id)' recipes"
   Check-Refs -Value $row.default_tool_refs -Known $toolIdSet -Errors $errors -Context "Default assignment '$($row.agent_id)' tools"
@@ -255,6 +313,7 @@ foreach ($row in (Read-CsvRequired -Path $agentContractPath)) {
     }
   }
   Check-Refs -Value $row.skill_refs -Known $skillIdSet -Errors $errors -Context "Agent execution contract '$($row.agent_id)' skills"
+  $contractSkillRefSet = New-StringSet -Values (Split-Tokens -Value $row.skill_refs)
   Check-Refs -Value $row.recipe_refs -Known $recipeIdSet -Errors $errors -Context "Agent execution contract '$($row.agent_id)' recipes"
   Check-Refs -Value $row.tool_refs -Known $toolIdSet -Errors $errors -Context "Agent execution contract '$($row.agent_id)' tools"
   Check-Refs -Value $row.plugin_refs -Known $pluginIdSet -Errors $errors -Context "Agent execution contract '$($row.agent_id)' plugins"
@@ -268,6 +327,7 @@ foreach ($row in $repoRuntimeRows) {
       $errors.Add("Repo runtime alignment '$($row.repo_id)' missing $field")
     }
   }
+  $repoDefaultSkillSet = New-StringSet -Values (Split-Tokens -Value $row.default_skill_refs)
   Check-Refs -Value $row.default_skill_refs -Known $skillIdSet -Errors $errors -Context "Repo runtime alignment '$($row.repo_id)' skills"
   Check-Refs -Value $row.default_recipe_refs -Known $recipeIdSet -Errors $errors -Context "Repo runtime alignment '$($row.repo_id)' recipes"
   Check-Refs -Value $row.default_tool_refs -Known $toolIdSet -Errors $errors -Context "Repo runtime alignment '$($row.repo_id)' tools"
@@ -318,14 +378,6 @@ foreach ($handoff in @($routing.handoff_rules)) {
   }
 }
 
-# Catalog integrity above is distinct from per-operation requirements.
-# This shared validator prevents provider-wide blocks and universal discovery.
-$contractCheck = Join-Path $RepoRoot "scripts/validators/capability_chain_contract_validator.py"
-$contractOutput = & python $contractCheck --root $Root --kind capability --self-test
-if ($LASTEXITCODE -ne 0) {
-  $errors.Add("Proportional capability contract failed: $($contractOutput -join [Environment]::NewLine)")
-}
-
 $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }
 [pscustomobject]@{
   status = $status
@@ -338,7 +390,7 @@ $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }
   tools = $toolIds.Count
   plugins = $pluginIds.Count
   repo_runtime_rows = $repoRuntimeRows.Count
-  discovery_skill_when_needed = $discoverySkill
+  conditional_skill = $discoverySkill
   warning_count = $warnings.Count
   warnings = $warnings
   error_count = $errors.Count

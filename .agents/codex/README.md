@@ -5,8 +5,7 @@ Esta carpeta define los agentes locales que Codex debe usar cuando
 proyecto.
 
 Los archivos son declarativos y operativos locales: cada agente tiene papeles de trabajo versionables. No crean agentes remotos persistentes, no ejecutan llamadas externas y no autorizan writes live por si mismos.
-Microsoft live queda gobernado por riesgo: READ es directo y LOW no requiere
-orden; solo HIGH requiere autorizacion explicita. Produccion sigue siendo HIGH.
+Microsoft live queda gobernado por orden; produccion solo puede avanzar con autorizacion explicita separada.
 
 ## Regla de reutilizacion
 
@@ -41,59 +40,44 @@ La carpeta debe preferir `copiar/adaptar` antes que inventar. Los archivos `SOUR
   raiz. Cloud environments se gobiernan por matriz/orden y no se inventan si
   no existe tool real de creacion.
 
+## Continuidad primero
+
+Cuando exista un receipt, workpacket, correlation, lane state o CURRENT_WORKPAPER
+que identifique el objeto y el siguiente consumidor, continuar esa cadena antes
+de hacer discovery. El artefacto puede ser fechado y seguir siendo operativo
+mientras su siguiente transicion no haya sido consumida o superseded.
+
+Orden normal:
+
+`EXACT_OBJECT -> CURRENT_AUTHORITY -> EXISTING_CONTINUITY -> CURRENT_BINDING -> NEXT_CONSUMER -> POSTCHECK -> RETURN`
+
+No crear un nuevo dispatch, asignacion, receta o catalogo si un task_id,
+correlation_id, next_agent o next_workpacket vigente ya permite continuar.
+Discovery repara un puntero faltante, invalidado o materialmente contradictorio;
+no es el inicio normal de cada consulta.
+
 ## Regla de uso
 
-1. Leer `AGENTS.md`.
-2. Leer este README.
-3. Leer `agents\LEVELS.yaml`.
-4. Seleccionar subnivel y agente desde `routing.json`.
-5. Confirmar perfil en `agents.json`.
-6. Usar `.agents\skills\tcu-descubridor-capacidades\SKILL.md` sólo si una
-   capacidad es desconocida, ambigua o se propone crear/asignar una nueva.
-7. Para efectos materiales o externos, declarar la cadena aplicable desde
-   `matrices\CAPABILITY_USE_HARDENING_MATRIX.csv`. READ y LOW simples usan
-   únicamente los componentes pertinentes y no se bloquean por piezas
-   `NO_APLICA`.
-8. Abrir solo el README del subnivel y el perfil asignado.
-9. Consumir la receta conocida si aplica; resolverla en el indice de recetas
-   cuando falte. No crear una receta para una lectura o cambio simple.
-10. Usar plugin si la operacion lo requiere; resolverlo en la matriz de plugins
-    cuando sea necesario.
-11. Usar la tool disponible y pertinente; consultar el indice de tools si hay
-    una duda material sobre su contrato.
-12. Revisar primero si existe un `SOURCE_*` aplicable.
-13. Ejecutar READ o LOW con la capability, identidad y binding requeridos,
-    tambien en Microsoft live y Cloud. Aplicar controles de write cuando haya
-    write; preparar orden solo ante un trigger HIGH positivo.
-14. Si se configura o cambia un carril de agentes autonomos, Codex Cloud o task agents, declarar
-    fila en `matrices\AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv` y
-    validar con `tools\\local_validate_autonomous_agent_execution.ps1`.
-14.b. Si se configura o cambia un entorno Codex app/worktree o Cloud environment,
-    validar `matrices\CODEX_APP_LOCAL_ENVIRONMENT_MATRIX_20260602.csv` y
-    `matrices\CODEX_ENVIRONMENT_CREATION_QUEUE_20260602.csv` con
-    `tools\\local_validate_codex_app_environments.ps1`.
-15. Si se modifican catalogos, contratos o matrices, ejecutar los validadores
-    afectados: `tools\\local_validate_agent_levels.ps1`, `tools\\local_validate_agent_workpapers.ps1`, `tools\\local_validate_capability_use_hardening.ps1`, `tools\\local_validate_operational_chain.ps1` y `tools\\local_validate_agent_layer.ps1`.
-    La CI conserva su cobertura de integridad; no se exige ejecutar toda la suite
-    antes de cada operacion.
-16. Para cambios de contratos paralelos u ordenes HIGH, validar tambien con
-    `tools\\local_validate_parallel_order_governance.ps1` y
-    `tools\\local_validate_order_packets.ps1`.
-16.b. Para carriles paralelos por issue, declarar primero la fila en
-    `matrices\\PARALLEL_ISSUE_LANE_QUEUE.csv` y validar con
-    `tools\\local_validate_parallel_issue_queue.ps1`.
-17. Cerrar con evidencia, validacion y condicion de detencion proporcionales al
-    efecto. Un componente material ausente produce `RESOLUTION_REQUIRED` sobre
-    el subpaso afectado; no eleva el riesgo ni bloquea capacidades independientes.
+1. Retomar el objeto y consumir primero receipt, workpacket, correlation, lane state o workpaper existente.
+2. Continuar con el next_agent/next_workpacket ya resuelto y conservar task_id/correlation_id.
+3. Si falta una asignacion, continuidad o cambio su alcance, resolver solo ese dato con
+   routing.json, agents.json y las matrices correspondientes. La skill
+   tcu-descubridor-capacidades se usa cuando la capacidad no esta resuelta.
+4. Ejecutar o delegar mediante el protocolo de la operacion y sus autorizaciones.
+   Los contratos de identidad, permisos y produccion siguen en ese protocolo.
+5. Reutilizar las comprobaciones vigentes; comprobar los resultados afectados
+   por el cambio. Los validadores de matrices se ejecutan al modificar sus
+   contratos, no antes de cada lectura o respuesta.
+6. Comunicar el resultado. La cadena formal y su readback corresponden a los
+   cierres que los requieren por su protocolo.
 
 ## Estado
 
 Estado actual: `LOCAL_GOVERNED_WORKPAPERS_ACTIVE`.
 
-Versionado GitHub repo-visible reversible habilitado dentro del scope
-autorizado. Microsoft live READ es directo y los writes LOW exactos requieren
-precheck, rollback o compensacion, postcheck y evidencia, sin orden previa.
-Produccion y los restantes triggers HIGH requieren autorizacion explicita.
+Versionado GitHub repo-visible reversible habilitado bajo orden gobernada.
+Microsoft live requiere orden gobernada con rollback, postcheck y evidencia.
+Produccion requiere autorizacion explicita separada.
 
 Actualizacion 2026-06-01: la cabina raiz adopta como capacidades versionables
 los perfiles de subnivel, skills, recipes, tools, evals, plugins y templates
@@ -115,41 +99,10 @@ La activacion local Agents SDK se prueba con
 `tools\local_validate_github_automation_preflight.ps1 -CheckLocalSdk` y debe
 cerrar sin API call.
 
-Contrato vigente de cadena y capacidades: consumir asignaciones y bindings
-conocidos; discovery solo para capacidades desconocidas, ambiguas o nuevas.
-Las matrices `matrices/OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv` y
-`matrices/CAPABILITY_USE_HARDENING_MATRIX.csv` usan `ACTIVE_PROPORTIONAL`.
-Sus IDs historicos con sufijo `global` y sus columnas `required_*_source`
-identifican catalogos de referencia; no obligan a invocar cada componente.
-`chain_policy=APPLICABLE_COMPONENTS_ONLY` permite omitir o marcar `NO_APLICA`
-una skill, recipe, plugin o validator que no intervenga en la operacion.
-
-La matriz `matrices/AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv` usa
-`discovery_skill_when_needed` y las mismas politicas proporcionales. Sus estados
-de entorno conservan el significado de disponibilidad registrada; no acreditan
-acceso live actual. Un agente ejecuta solo sus capacidades asignadas y disponibles.
-READ/LOW no requieren orden por usar Cloud, abrir un PR o ser Microsoft/OpenAI.
-La autenticacion normal con una credencial ya resuelta mediante el binding no
-activa HIGH. El trigger de secretos es `secret_exposure_materialization_or_rotation`;
-`secret_detected` detiene la exposicion o persistencia en artefactos o salidas,
-no la autenticacion legitima que mantiene el secreto fuera de esas superficies.
-El trigger productivo es `production_activation_deploy_or_public_exposure`;
-una lectura no se convierte en HIGH por consultar un entorno de produccion.
-
-READ/LOW no requieren orden, discovery repetido ni expediente de evidencia
-global. READ devuelve resultado o fuente; LOW agrega precheck, reversibilidad
-o compensacion y postcheck. La evidencia es el resultado tecnico pertinente,
-no una auditoria o proceso probatorio salvo que ese sea el objeto solicitado.
-Solo un trigger HIGH requiere autoridad explicita. Una carencia material
-detiene la operacion afectada con `RESOLUTION_REQUIRED`, preserva su tier y
-permite continuar trabajo independiente. Los alias legacy de stop conditions
-se interpretan con esta semantica en `matrices/STOP_CONDITION_GLOSSARY.csv`.
-
-Los validadores `tools/local_validate_operational_chain.ps1` y
-`tools/local_validate_capability_use_hardening.ps1` conservan integridad de
-referencias y ejecutan `scripts/validators/capability_chain_contract_validator.py`
-para detectar regresiones de gateo global. El segundo ejecuta tambien sus casos
-negativos offline. Su PASS no acredita permisos ni ejecucion Microsoft live.
+Las matrices OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv y
+CAPABILITY_USE_HARDENING_MATRIX.csv aplican segun el campo applies_to.
+Las asignaciones resueltas se reutilizan; los requisitos de cierre formal
+dependen del protocolo de la operacion.
 
 Actualizacion cola paralela 2026-06-01: los work units por issue viven en
 `matrices\PARALLEL_ISSUE_LANE_QUEUE.csv`. La cola exige `base_sha`, rama
@@ -162,7 +115,9 @@ carpeta `.agents\codex\skills` no instala por si misma: registra uso,
 subskills y source refs.
 
 Actualizacion autonomia gobernada 2026-06-02: `tcu-descubridor-capacidades`
-se usa ante capacidad desconocida, ambigua o nueva. La matriz
+se usa solo ante una capacidad faltante o una asignacion invalidada. Las
+asignaciones resueltas se reutilizan; las skills listadas son capacidades
+disponibles, no una secuencia obligatoria. La matriz
 `matrices\AUTONOMOUS_AGENT_EXECUTION_MATRIX_20260602.csv` y el validador
 `tools\local_validate_autonomous_agent_execution.ps1` preparan agentes locales
 task-scoped y Codex Cloud repo-scoped con owner, reviewer, evidencia,

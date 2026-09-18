@@ -47,8 +47,6 @@ def main() -> None:
         "mcp_connection": connection["connection_id"],
         "codex_cloud_assignment": lane["codex_cloud_assignment"],
         "live_executed": False,
-        "execution_admitted": False,
-        "admission_status": "OPERATION_NOT_RESOLVED",
         "sanitized": True,
         "blocked_surfaces": [
             "teams_send",
@@ -57,17 +55,11 @@ def main() -> None:
             "codex_cloud_apply",
             "production"
         ],
-        "blocked_surfaces_scope": "THIS_MOCK_BRIDGE_ONLY",
-        "next_gate": "not_required_for_advisory_routing",
-        "next_action": "resolve_operation_before_dispatch"
+        "next_gate": "human_review_before_live"
     }
 
     if evidence["live_executed"] is not False:
         raise SystemExit("live execution flag must stay false")
-    if evidence["execution_admitted"] is not False:
-        raise SystemExit("a suggested route is not execution authority")
-    if connection["requires_approval"] != "high_only":
-        raise SystemExit("connection policy must reserve approval for HIGH")
     if connection["status"] not in {"TEMPLATE_ONLY", "CONTRACT_ONLY", "ACTIVE_MOCK", "ACTIVE_GOVERNED"}:
         raise SystemExit("unexpected MCP connection status")
 

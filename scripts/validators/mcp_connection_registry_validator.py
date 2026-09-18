@@ -42,31 +42,18 @@ def validate() -> None:
 
     for row in rows:
         require_files([row["evidence"], row["validator"]])
-        if row["requires_approval"] != "high_only":
-            raise AssertionError(f"{row['connection_id']} must reserve approval for HIGH")
-        if row["connection_type"] in {"microsoft_teams", "codex_cloud", "openai"}:
-            if row["status"] not in {"TEMPLATE_ONLY", "CONTRACT_ONLY", "ACTIVE_GOVERNED"}:
-                raise AssertionError(f"{row['connection_id']} has unknown connection status")
-            if row["status"] == "ACTIVE_GOVERNED" and any(
-                not row.get(field, "").strip() or row[field].lower() in {"pending", "unknown", "none"}
-                for field in ("binding_ref", "exact_target")
-            ):
-                raise AssertionError("active connection requires a resolved binding and exact target")
+        if row["write_scope"] != "none" and row["requires_approval"] != "yes":
+            raise AssertionError(f"{row['connection_id']} has write scope without approval")
+        if row["connection_type"] in {"microsoft_teams", "codex_cloud", "openai"} and row["status"] not in {"TEMPLATE_ONLY", "CONTRACT_ONLY"}:
+            raise AssertionError(f"{row['connection_id']} must remain template or contract only")
 
     config = read_json(".mcp/sdu-agents/mcp.config.template.json")
-    if config["defaults"].get("executionPolicy") != "READ_DIRECT_LOW_WITHOUT_ORDER_HIGH_EXPLICIT_AUTH":
-        raise AssertionError("MCP template must consume proportional execution policy")
-    if config["defaults"].get("unresolvedBindingsExecutable") is not False:
-        raise AssertionError("MCP template must not invent resolved connections")
+    if config["defaults"]["liveWrites"] is not False or config["defaults"]["production"] is not False:
+        raise AssertionError("MCP template defaults must block live writes and production")
     for name, server in config["servers"].items():
         blocked = set(server.get("blockedActions", []))
         if name != "localAgentBridge" and server.get("enabledByDefault") is not False:
-            if server.get("mode") != "active_governed" or not all(
-                isinstance(server.get(field), str) and server[field].strip()
-                and server[field].lower() not in {"pending", "unknown", "none"}
-                for field in ("binding_ref", "exact_target")
-            ):
-                raise AssertionError(f"{name} requires resolved configuration before enabling")
+            raise AssertionError(f"{name} must not be enabled by default")
         if not blocked:
             raise AssertionError(f"{name} missing blocked actions")
 

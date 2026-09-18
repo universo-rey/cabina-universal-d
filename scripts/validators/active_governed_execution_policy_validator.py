@@ -27,7 +27,7 @@ REQUIRED_STATES = [
     "EXECUTE_MOCK_NOW",
     "EXECUTE_DEV_NOW",
     "EXECUTE_LIVE_READ_NOW",
-    "EXECUTE_LIVE_WRITE_GATED_NOW",
+    "EXECUTE_LIVE_WRITE_NOW",
     "EXECUTE_CODEX_CLOUD_SMOKE_NOW",
     "EXECUTE_MCP_READ_PROBE_NOW",
     "EXECUTE_TEAMS_DEV_TEST_NOW",
@@ -91,9 +91,7 @@ def validate() -> None:
         [
             "Canon activo de ejecucion gobernada",
             "ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT",
-            "RESOLUTION_REQUIRED",
-            "LOW por defecto",
-            "la ausencia de metadata no lo son",
+            "PENDING_*_ONLY",
         ],
     )
     require_contains(

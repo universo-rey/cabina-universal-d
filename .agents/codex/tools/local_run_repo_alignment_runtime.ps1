@@ -247,22 +247,14 @@ foreach ($expected in @(
 }
 
 foreach ($row in $operationalChain) {
-  if ($row.status -ne "ACTIVE_PROPORTIONAL") {
-    $errors.Add("Operational chain row must use ACTIVE_PROPORTIONAL: $($row.chain_id)")
+  if ($row.status -ne "ACTIVE_GLOBAL") {
+    $errors.Add("Operational chain row is not ACTIVE_GLOBAL: $($row.chain_id)")
   }
   foreach ($field in @("owner_agent","reviewer_agent","required_skill_source","required_recipe_source","required_tool_source","required_validator_source","required_evidence_source","stop_condition")) {
     if ([string]::IsNullOrWhiteSpace($row.$field)) {
       $errors.Add("Operational chain row '$($row.chain_id)' missing $field")
     }
   }
-}
-
-# Catalog alignment cannot restore a global admission gate. Consume the same
-# operation-scoped contract checker used by the chain and capability validators.
-$contractCheck = Join-Path $RepoRoot "scripts/validators/capability_chain_contract_validator.py"
-$contractOutput = & python $contractCheck --root $Root --kind chain
-if ($LASTEXITCODE -ne 0) {
-  $errors.Add("Proportional operational chain contract failed: $($contractOutput -join [Environment]::NewLine)")
 }
 
 $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }

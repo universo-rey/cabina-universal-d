@@ -46,8 +46,8 @@ def main() -> None:
         raise SystemExit("DEV activation matrices must not be empty")
     if any(row["live_write_allowed"] != "false" for row in teams_rows):
         raise SystemExit("Teams DEV matrix must keep live writes disabled")
-    if any(row["requires_approval"] != "high_only" for row in mcp_rows):
-        raise SystemExit("MCP approval must be reserved for HIGH effects")
+    if any(row["write_scope"] != "none" and row["requires_approval"] != "yes" for row in mcp_rows):
+        raise SystemExit("MCP write scope must require approval")
 
     combined = "\n".join(
         [

@@ -144,7 +144,7 @@ $knownStops = @((Read-CsvRequired -Path $stopGlossaryPath) | ForEach-Object { $_
 
 foreach ($expected in @(
   "root_agents_md",
-  "mandatory_local_read",
+  "contextual_local_sources",
   "codex_agent_layer",
   "agent_levels",
   "selected_agent_profiles",

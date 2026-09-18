@@ -12,7 +12,7 @@ La cabina ejecuta por defecto todo lo que sea seguro, reversible, trazable y val
 - `EXECUTE_MOCK_NOW`: ejecutar mock/simulacion con evidencia reproducible.
 - `EXECUTE_DEV_NOW`: ejecutar DEV sin produccion ni datos regulados amplios.
 - `EXECUTE_LIVE_READ_NOW`: ejecutar lectura live permitida con limite de datos.
-- `EXECUTE_LIVE_WRITE_GATED_NOW`: ejecutar escritura live solo con target, identidad, owner, rollback, postcheck y evidencia.
+- `EXECUTE_LIVE_WRITE_NOW`: ejecutar escritura live cuando la autoridad presente y el binding resuelven target, identidad, ambiente, operacion, rollback y postcheck.
 - `EXECUTE_CODEX_CLOUD_SMOKE_NOW`: ejecutar smoke Codex Cloud no-diff/no-apply cuando el environment exista.
 - `EXECUTE_MCP_READ_PROBE_NOW`: ejecutar probe MCP read-only o mock con evidencia.
 - `EXECUTE_TEAMS_DEV_TEST_NOW`: ejecutar prueba Teams DEV si hay app/chat/canal/owner/rollback.
@@ -58,13 +58,13 @@ puede convertirse automaticamente en:
 - cambio de identidad operativa;
 - ampliacion de write scope.
 
-Cualquier escalamiento requiere un nuevo estado, target exacto, owner,
-identidad, rollback, postcheck, evidencia, limite de costo cuando aplique y
-aprobacion explicita.
+Cualquier escalamiento requiere target, identidad, rollback, postcheck y limite
+de costo cuando aplique. Requiere nueva decision humana solo si la autoridad
+presente no cubre ese escalamiento.
 
 La regla practica es:
 
-- `EXECUTE_LOCAL_NOW` nunca incluye `git push`, `gh pr create`, `gh pr merge`, live API, apply remoto ni produccion.
+- `EXECUTE_LOCAL_NOW` no concede por si mismo writes externos; el lifecycle GitHub publicado y los bindings live exactos sí pueden cubrirlos bajo la misma orden presente.
 - `EXECUTE_CODEX_CLOUD_SMOKE_NOW` nunca incluye apply, diff oculto, push ni PR.
 - `EXECUTE_LIVE_READ_NOW` nunca incluye escritura.
 - `EXECUTE_DEV_NOW` nunca implica produccion.

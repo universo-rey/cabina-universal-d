@@ -112,7 +112,17 @@ $warnings = New-Object System.Collections.Generic.List[string]
 
 Require-Columns -Path $matrixPath -Columns @("chain_id","applies_to","owner_agent","reviewer_agent","required_agent_source","required_skill_source","required_recipe_source","required_tool_source","required_validator_source","required_evidence_source","required_stop_condition_source","blocked_without_chain","status","validator","stop_condition") -Errors $errors
 
-$agents = @((Get-Content -Raw -LiteralPath $agentsPath | ConvertFrom-Json).agents)
+$agentsPayload = Get-Content -Raw -LiteralPath $agentsPath | ConvertFrom-Json
+$agents = @($agentsPayload.agents)
+if ($agentsPayload.default_policy.continuity_policy -ne "CONTINUITY_FIRST") {
+  $errors.Add("Operational chain must preserve CONTINUITY_FIRST")
+}
+$pointerTypes = @($agentsPayload.default_policy.continuation_pointer_types)
+foreach ($requiredPointer in @("CURRENT_WORKPAPER","EXECUTION_RECEIPT","CONTINUATION_READBACK","LANE_STATE")) {
+  if ($requiredPointer -notin $pointerTypes) {
+    $errors.Add("Operational continuity pointer type missing: $requiredPointer")
+  }
+}
 $agentIds = @($agents | ForEach-Object { $_.id })
 $routingAgents = @((Get-Content -Raw -LiteralPath $routingPath | ConvertFrom-Json).routes.agents | ForEach-Object { $_ } | Select-Object -Unique)
 $skillIds = @((Read-CsvRequired -Path $skillUsagePath) | ForEach-Object { $_.skill_id })
@@ -138,6 +148,16 @@ foreach ($expected in @(
   }
 }
 
+$chatCloseout = @($rows | Where-Object { $_.chain_id -eq "chain.chat_closeout_global" }) | Select-Object -First 1
+if ($chatCloseout -and $chatCloseout.applies_to -ne "formal_readback_required_by_assigned_operation_protocol") {
+  $errors.Add("Chat closeout chain must apply only when the assigned operation protocol requires a formal readback")
+}
+foreach ($retiredAppliesTo in @("chat_or_readback_output", "every_task", "every_closeout")) {
+  if (@($rows | Where-Object { $_.applies_to -eq $retiredAppliesTo }).Count -gt 0) {
+    $errors.Add("Operational chain reintroduces retired global applies_to: $retiredAppliesTo")
+  }
+}
+
 foreach ($row in $rows) {
   foreach ($field in @("chain_id","applies_to","owner_agent","reviewer_agent","required_agent_source","required_skill_source","required_recipe_source","required_tool_source","required_validator_source","required_evidence_source","required_stop_condition_source","blocked_without_chain","status","validator","stop_condition")) {
     if ([string]::IsNullOrWhiteSpace($row.$field)) {
@@ -152,6 +172,9 @@ foreach ($row in $rows) {
   }
   if ($row.owner_agent -eq $row.reviewer_agent) {
     $errors.Add("Operational chain '$($row.chain_id)' owner_agent and reviewer_agent must differ")
+  }
+  if ($row.status -ne "ACTIVE_GLOBAL") {
+    $errors.Add("Operational chain '$($row.chain_id)' must be ACTIVE_GLOBAL")
   }
   foreach ($sourceField in @("required_agent_source","required_skill_source","required_recipe_source","required_tool_source","required_validator_source","required_stop_condition_source","validator")) {
     Check-PathList -Value $row.$sourceField -Errors $errors -Context "Operational chain '$($row.chain_id)' $sourceField"
@@ -250,14 +273,6 @@ foreach ($template in @(
       $errors.Add("Template missing operational chain field '$requiredText': $template")
     }
   }
-}
-
-# Catalog integrity above is distinct from per-operation requirements.
-# This shared validator prevents provider-wide blocks and universal discovery.
-$contractCheck = Join-Path $RepoRoot "scripts/validators/capability_chain_contract_validator.py"
-$contractOutput = & python $contractCheck --root $Root --kind chain
-if ($LASTEXITCODE -ne 0) {
-  $errors.Add("Proportional operational chain contract failed: $($contractOutput -join [Environment]::NewLine)")
 }
 
 $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }

@@ -2,9 +2,9 @@
 
 ## Metadata
 
-- Last updated: 2026-06-13
-- Version: v2.1.2
-- Current: v2.1.2
+- Last updated: 2026-09-17
+- Version: v2.2.0
+- Current: v2.2.0
 - Status: `snapshot`
 - Repo: `universo-rey/cabina-universal-d`
 - Workspace: repo-local root `.`
@@ -12,7 +12,7 @@
 - Current HEAD: `a9a813e`
 - Main after PR #145 merge: `29bb1804a31089170cdd782a463f496fe90353fe`
 - PR #145 final head: `a1b3d6ef4389c65913fede54546a0793b3cee6b4`
-- Active PR: none in merged main snapshot before this post-merge canon sync
+- Active PR: semantic live-autonomy correction on `codex/restore-published-live-autonomy-20260917`
 - PR #145 state: `MERGED`
 
 ## Operating State
@@ -31,8 +31,8 @@
   `maat-cumplimiento`, `horus-riesgo`, `narrador-normativo`.
 - Active SDU-CN order:
   `.agents/codex/orders/ORDER_SDU_AGENTS_NEXT_TASK_ACTIVATION_20260608.md`.
-- Un subpaso sin target, owner, rollback, postcheck o validador material queda
-  `RESOLUTION_REQUIRED`; conserva su tier y no bloquea READ ni LOW independientes.
+- Registered live lanes are active by exact current intent and binding.
+  A missing target, identity or environment blocks only the affected object.
 - Memory cleanup state: `OPERATING_MEMORY_POINTER_VALIDATOR_IMPLEMENTED`.
 - GitHub is the versionable technical canon.
 - `AGENTS.md` is the active instruction contract.
@@ -85,12 +85,10 @@ Confirmed absent in Fase 2/post-check audit:
 - `docs/*` is ignored by `.gitignore`; docs under `docs/operations/` require
   explicit forced staging when intentionally versioned.
 - PR #145 is merged; it is no longer active or draft.
-- This cleanup is documentary/governance only. It does not authorize live
-  Microsoft, SharePoint, Dataverse, Power Platform, OpenAI, production,
-  permissions, secrets, deploys or workflow changes.
-- This activation sync is repo-local and declarative. It does not execute
-  OpenAI live, Microsoft live, production, permissions, secrets, deploys or
-  persistent remote agents.
+- This delta corrects operational semantics and does not itself invoke a
+  Microsoft, OpenAI or production business target.
+- GitHub live repo-scoped is active. Other registered live lanes execute when
+  current authority and their exact binding resolve the requested object.
 
 ## Needs Verification
 
@@ -105,10 +103,8 @@ Confirmed absent in Fase 2/post-check audit:
 
 ## Next Lanes
 
-1. Select the next concrete SDU-governed task target.
-2. Keep SDU-CN readbacks naming the six canonical agents used, mappings,
-   target, owner, rollback, postcheck, evidence, validator and stop condition.
-3. Do not run more smoke tests unless a concrete SDU task requires it under the
-   active cost, data and secret boundaries.
-4. Mantener Microsoft live clasificado por efecto: READ directo, LOW sin orden
-   y HIGH con autorizacion explicita. Produccion permanece HIGH.
+1. Consume the exact object and its published lifecycle.
+2. Enter directly at the competent plane; do not traverse all planes.
+3. Execute live when current authority and the exact binding cover it.
+4. Return the minimal receipt, postcheck and next cursor.
+5. Localize any unresolved target, identity, environment or authority gap.

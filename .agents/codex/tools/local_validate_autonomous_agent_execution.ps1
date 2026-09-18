@@ -129,7 +129,8 @@ Require-Columns -Path $matrixPath -Columns @(
   "execution_mode",
   "codex_cloud_environment_label",
   "codex_cloud_status",
-  "discovery_skill_when_needed",
+  "conditional_discovery_skill",
+  "discovery_trigger",
   "capability_preflight",
   "allowed_autonomous_actions",
   "requires_order_for",
@@ -145,6 +146,19 @@ Require-Columns -Path $matrixPath -Columns @(
 $rows = Read-CsvRequired -Path $matrixPath
 $agentsPayload = Get-Content -Raw -LiteralPath $agentsPath | ConvertFrom-Json
 $agents = @($agentsPayload.agents)
+if ($agentsPayload.default_policy.conditional_capability_discovery_skill -ne $discoverySkill -or
+    $agentsPayload.default_policy.capability_discovery_trigger -ne "missing_or_invalidated_capability_assignment") {
+  $errors.Add("Capability discovery must be conditional on a missing or invalidated assignment")
+}
+if ($agentsPayload.default_policy.PSObject.Properties.Name -contains "mandatory_capability_discovery_skill") {
+  $errors.Add("Universal capability discovery policy must not be reintroduced")
+}
+if ($agentsPayload.default_policy.continuity_policy -ne "CONTINUITY_FIRST") {
+  $errors.Add("Autonomous execution must preserve CONTINUITY_FIRST")
+}
+if ($agentsPayload.default_policy.duplicate_dispatch_policy -ne "forbid_when_existing_task_or_correlation_has_unconsumed_next_consumer") {
+  $errors.Add("Autonomous execution must forbid duplicate dispatch while a next consumer is pending")
+}
 $agentIds = @($agents | ForEach-Object { $_.id })
 $skillIds = @((Read-CsvRequired -Path $skillUsagePath) | ForEach-Object { $_.skill_id })
 $recipeIds = @((Read-CsvRequired -Path $recipeIndexPath) | ForEach-Object { $_.recipe_id })
@@ -162,7 +176,7 @@ foreach ($path in @($discoverySkillPath, $capabilityMatrixPath, $capabilityValid
   }
 }
 if ($discoverySkill -notin $skillIds) {
-  $errors.Add("Discovery skill missing from SKILL_USAGE_MATRIX: $discoverySkill")
+  $errors.Add("Conditional skill missing from SKILL_USAGE_MATRIX: $discoverySkill")
 }
 if ("tool.local_validate_autonomous_agent_execution" -notin $toolIds) {
   $errors.Add("TOOL_INDEX missing tool.local_validate_autonomous_agent_execution")
@@ -190,12 +204,18 @@ $allowedStatuses = @(
   "ACTIVE_REMOTE_REFERENCE_ENV_PENDING"
 )
 
-# Default assignments are reusable catalog entries, not mandatory invocations.
-# Unknown references remain checked by capability_use_hardening.
+foreach ($agent in $agents) {
+}
+foreach ($row in $defaultRows) {
+}
+foreach ($row in $contractRows) {
+}
+foreach ($row in $repoRuntimeRows) {
+}
 
 $seen = @{}
 foreach ($row in $rows) {
-  foreach ($field in @("execution_id","scope_type","target_id","owner_agent","reviewer_agent","execution_mode","discovery_skill_when_needed","capability_preflight","allowed_autonomous_actions","requires_order_for","blocked_actions","required_recipe","required_tool","evidence","validator","status","stop_condition")) {
+  foreach ($field in @("execution_id","scope_type","target_id","owner_agent","reviewer_agent","execution_mode","conditional_discovery_skill","discovery_trigger","capability_preflight","allowed_autonomous_actions","requires_order_for","blocked_actions","required_recipe","required_tool","evidence","validator","status","stop_condition")) {
     if ([string]::IsNullOrWhiteSpace($row.$field)) {
       $errors.Add("Autonomous execution row '$($row.execution_id)' missing $field")
     }
@@ -220,15 +240,38 @@ foreach ($row in $rows) {
   if ($row.owner_agent -eq $row.reviewer_agent) {
     $errors.Add("Autonomous execution row '$($row.execution_id)' owner_agent and reviewer_agent must differ")
   }
-  if ($row.discovery_skill_when_needed -ne $discoverySkill) {
-    $errors.Add("Autonomous execution row '$($row.execution_id)' must reference the conditional discovery skill: $discoverySkill")
+  if ($row.discovery_trigger -ne "missing_or_invalidated_capability_assignment") {
+    $errors.Add("Autonomous execution row '$($row.execution_id)' must preserve conditional discovery")
+  }
+  if ($row.conditional_discovery_skill -ne $discoverySkill) {
+    $errors.Add("Autonomous execution row '$($row.execution_id)' must register conditional discovery skill: $discoverySkill")
   }
   Check-RequiredTokens -Value $row.capability_preflight -Required @(
     ".agents/codex/matrices/CAPABILITY_USE_HARDENING_MATRIX.csv",
     ".agents/codex/tools/local_validate_capability_use_hardening.ps1"
   ) -Errors $errors -Context "Autonomous execution row '$($row.execution_id)' capability_preflight"
-  # Proportional order/block boundaries are validated by the shared contract
-  # checker below; provider or execution environment alone is not HIGH.
+  Check-RequiredTokens -Value $row.requires_order_for -Required @(
+    "codex_cloud_exec",
+    "codex_cloud_apply",
+    "github_pr_open",
+    "microsoft_live",
+    "openai_api_live",
+    "production",
+    "permission_change",
+    "tenant_write",
+    "remote_agent_persistence"
+  ) -Errors $errors -Context "Autonomous execution row '$($row.execution_id)' requires_order_for"
+  Check-RequiredTokens -Value $row.blocked_actions -Required @(
+    "secret_materialization",
+    "microsoft_live",
+    "production",
+    "permission_change",
+    "openai_api_live",
+    "regulated_data_dump",
+    "tenant_write",
+    "remote_agent_persistence_without_order",
+    "codex_cloud_apply_without_review"
+  ) -Errors $errors -Context "Autonomous execution row '$($row.execution_id)' blocked_actions"
   Check-Refs -Value $row.required_recipe -Known $recipeIds -Errors $errors -Context "Autonomous execution row '$($row.execution_id)' recipes"
   Check-Refs -Value $row.required_tool -Known $toolIds -Errors $errors -Context "Autonomous execution row '$($row.execution_id)' tools"
   Check-PathTokens -Value $row.capability_preflight -Errors $errors -Context "Autonomous execution row '$($row.execution_id)' capability_preflight"
@@ -253,12 +296,6 @@ foreach ($row in $rows) {
   }
 }
 
-$contractCheck = Join-Path $RepoRoot "scripts/validators/capability_chain_contract_validator.py"
-$contractOutput = & python $contractCheck --root $Root --kind autonomous
-if ($LASTEXITCODE -ne 0) {
-  $errors.Add("Proportional autonomous contract failed: $($contractOutput -join [Environment]::NewLine)")
-}
-
 $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }
 [pscustomobject]@{
   status = $status
@@ -268,7 +305,7 @@ $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }
   agent_rows = $expectedAgentRows.Count
   repo_rows = $expectedRepoRows.Count
   repo_candidate_rows = @($rows | Where-Object { $_.scope_type -eq "repo_candidate" }).Count
-  discovery_skill_when_needed = $discoverySkill
+  conditional_skill = $discoverySkill
   warning_count = $warnings.Count
   warnings = $warnings
   error_count = $errors.Count
