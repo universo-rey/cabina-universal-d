@@ -165,6 +165,21 @@ if ($agentsPayload.default_policy.conditional_capability_discovery_skill -ne $di
 if ($agentsPayload.default_policy.PSObject.Properties.Name -contains "mandatory_capability_discovery_skill") {
   $errors.Add("Universal capability discovery policy must not be reintroduced")
 }
+if ($agentsPayload.default_policy.continuity_policy -ne "CONTINUITY_FIRST") {
+  $errors.Add("Agent policy must preserve CONTINUITY_FIRST")
+}
+$continuityOrder = @($agentsPayload.default_policy.continuity_resolution_order)
+foreach ($required in @("exact_object","current_authority","existing_receipt_or_workpacket_or_correlation","current_binding","next_consumer","postcheck","return")) {
+  if ($required -notin $continuityOrder) {
+    $errors.Add("Continuity policy missing resolution step: $required")
+  }
+}
+if ($agentsPayload.default_policy.rediscovery_policy -ne "only_when_continuation_or_capability_pointer_is_missing_invalidated_or_materially_contradicted") {
+  $errors.Add("Rediscovery must remain a repair path after continuity resolution")
+}
+if ($agentsPayload.default_policy.duplicate_dispatch_policy -ne "forbid_when_existing_task_or_correlation_has_unconsumed_next_consumer") {
+  $errors.Add("Duplicate dispatch guard is missing")
+}
 $agentIds = @($agents | ForEach-Object { $_.id })
 $skillIds = @((Read-CsvRequired -Path $skillUsagePath) | ForEach-Object { $_.skill_id })
 $recipeRows = Read-CsvRequired -Path $recipeIndexPath
