@@ -208,6 +208,32 @@ foreach ($expected in $expectedStages) {
   }
 }
 
+$expectedApplicability = @{
+  "capability_use.session_intake" = "new_order_with_unresolved_capability_assignment"
+  "capability_use.before_local_read" = "local_read_with_unresolved_target_or_capability"
+  "capability_use.before_local_write" = "local_write_with_unresolved_scope_or_capability"
+  "capability_use.skill_discovery_assignment" = "missing_or_invalidated_capability_assignment"
+  "capability_use.every_closeout" = "formal_closeout_required_by_assigned_operation_protocol"
+}
+foreach ($stageId in $expectedApplicability.Keys) {
+  $row = @($rows | Where-Object { $_.stage_id -eq $stageId }) | Select-Object -First 1
+  if ($row -and $row.applies_to -ne $expectedApplicability[$stageId]) {
+    $errors.Add("Capability-use row '$stageId' reintroduces global applicability: $($row.applies_to)")
+  }
+}
+$legacyGlobalApplicability = @(
+  "every_user_order_or_thread_resume",
+  "local_file_repo_or_matrix_read",
+  "local_repo_or_governance_file_write",
+  "every_task_before_agent_or_repo_selection",
+  "final_response_readback_pr_or_issue_closeout"
+)
+foreach ($row in $rows) {
+  if ($row.applies_to -in $legacyGlobalApplicability) {
+    $errors.Add("Capability-use row '$($row.stage_id)' uses retired global applies_to: $($row.applies_to)")
+  }
+}
+
 foreach ($row in $rows) {
   foreach ($field in @("stage_id","applies_to","lead_agent","owner_agent","reviewer_agent","assignment_source","derivation_source","required_skill_source","required_recipe_source","required_plugin_source","required_tool_source","required_surface_source","required_validator","evidence","allowed_actions","blocked_actions","stop_condition","status")) {
     if ([string]::IsNullOrWhiteSpace($row.$field)) {
