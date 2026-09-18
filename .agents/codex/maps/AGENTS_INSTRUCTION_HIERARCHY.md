@@ -2,7 +2,8 @@
 
 ## Purpose
 
-This map defines how Cabina Universal reads local instructions before acting.
+This map routes unresolved instruction questions to the applicable source.
+Reuse resolved context and existing authorizations.
 
 ## Effective Canonical Root
 
@@ -19,7 +20,8 @@ decision.
 ## Precedence
 
 1. `AGENTS.md` under the effective repo root is the root local authority.
-2. Mandatory local readback files refine the root order without weakening it.
+2. Consult local sources when information is missing or has changed.
+   The source list does not require rereading resolved context on every task.
 3. `.agents\codex` README, routing, levels, matrices, recipes, tools and
    selected agent profiles provide scoped execution instructions.
 4. `.agents\skills\<skill>\SKILL.md` contains portable repo-local skills.

@@ -1,22 +1,35 @@
 ---
 name: tcu-descubridor-capacidades
-description: Use when starting, assigning, deriving, dispatching, executing, or closing any Cabina Universal task to run skill discovery, capability assignment, NO_DISPONIBLE marking, and preflight for the real available skill, recipe, plugin, and tool set.
+description: Use when skill discovery is needed only because a required capability is missing or an existing capability assignment has been invalidated. Reuse unchanged assignments and query only missing or changed information.
 ---
 
 # TCU Descubridor Capacidades
 
 ## Core Rule
 
-Every task starts by discovering and assigning real capabilities. A skill,
-recipe, plugin, or tool is not available just because its name appears in text.
-It must exist in the active runtime, repo-local catalog, plugin list, or
-governed matrix. If it does not resolve, mark it `NO_DISPONIBLE`.
+Resume the order with its resolved administrative context and assigned capability.
+Discovery applies only to a missing capability or an invalidated assignment.
+Use the prepared global metadata and the assigned source to resolve that delta;
+do not rebuild catalogs or repeat discovery for an unchanged assignment.
+A named capability must resolve to an available runtime, connector or registered
+implementation. If it cannot resolve, report the exact missing capability.
+
+## Continuity First
+
+Before discovery, consume any matching CURRENT_WORKPAPER, execution receipt,
+continuation readback, lane state, task_id, correlation_id, next_agent or
+next_workpacket. If that pointer resolves the next consumer, return it and resume
+execution. Do not redispatch an existing task or rebuild its capability chain.
+
+Discovery is a repair path only when the continuation/capability pointer is
+missing, invalidated or materially contradicted.
 
 ## Trigger Boundary
 
-Use this skill before intake classification, agent assignment, handoff,
-parallel dispatch, Codex Cloud delegation, local execution, GitHub automation,
-or closeout.
+Use this skill only for `missing_or_invalidated_capability_assignment` after existing continuity pointers have been consumed.
+Intake, handoff, dispatch, execution and closeout do not themselves trigger it.
+An existing assignment remains usable until a relevant change or failure
+invalidates it. Permissions and live boundaries follow the assigned operation.
 
 ## Allowed Actions
 
@@ -38,14 +51,15 @@ or closeout.
 
 ## Workflow
 
-1. Read the current capability-use matrix and assigned agent contract.
-2. Verify the requested skill, recipe, plugin, and tool against local catalogs.
-3. Assign the capability chain to the owner agent and reviewer agent.
-4. If the task can run autonomously, classify it as local task-scoped,
-   GitHub task-scoped, or Codex Cloud task-scoped.
-5. If any capability cannot be proven, record `NO_DISPONIBLE` and stop or
-   prepare a governed order.
-6. Close with evidence, validator, rollback, and stop condition.
+1. Reuse the order, purpose, process, object, state, owner and expected result.
+2. If the assignment is resolved and unchanged, return it and resume execution.
+3. Otherwise query only the missing or changed capability in the prepared
+   global metadata, assigned connector or exact registry.
+4. Resolve that dependency with its owner and return the updated assignment.
+5. If unavailable, mark `NO_DISPONIBLE` for that substep and continue independent
+   work. Apply the operation's own permissions and authorization protocol.
+6. Check the result with the operation's mechanism; formal readback is required
+   only when that operation requires it.
 
 ## Validator
 

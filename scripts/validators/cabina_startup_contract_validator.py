@@ -9,6 +9,7 @@ from sdu_runtime_common import (
 
 
 NAME = "CABINA_STARTUP_CONTRACT_VALIDATOR"
+# Contract tokens below track the current repo-native startup semantics.
 
 CANONICAL_FILES = [
     "02_AUTHORITY_CANON/SDU_CN_CANONICAL_AGENT_DISCOVERY_20260604.md",
@@ -59,15 +60,17 @@ def validate_startup_text(path: str) -> None:
     path_tokens = {
         "AGENTS.md": [
             "ACTIVE_GOVERNED_EXECUTION_BY_DEFAULT",
-            "MANIFEST.yaml",
-            "CURRENT_STATE.md",
-            "operational_chain_missing",
+            "RESOLVE_EXACT_OBJECT -> CONSUME_CURRENT_AUTHORITY -> EXECUTE -> POSTCHECK -> RETURN",
+            "Lectura obligatoria selectiva",
+            "02_AUTHORITY_CANON/CURRENT_STATE.md",
+            ".agents/codex/agents.json",
+            ".agents/codex/routing.json",
         ],
         "MANIFEST.yaml": common_tokens + [SDU_ACTIVE_STATUS, SDU_REVIEW_STATUS],
         "02_AUTHORITY_CANON/CURRENT_STATE.md": [
             SDU_ACTIVE_STATUS,
             "ORDER_SDU_AGENTS_NEXT_TASK_ACTIVATION_20260608.md",
-            "PENDING_TARGET_ONLY",
+            "Registered live lanes are active by exact current intent and binding.",
         ],
     }
 

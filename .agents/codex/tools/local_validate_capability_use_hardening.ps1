@@ -124,8 +124,8 @@ $defaultSkillPath = Join-Path $Root "matrices\AGENT_DEFAULT_SKILL_ASSIGNMENT_MAT
 $agentContractPath = Join-Path $Root "matrices\AGENT_TOOL_RECIPE_SKILL_MATRIX.csv"
 $repoRuntimePath = Join-Path $Root "matrices\REPO_RUNTIME_ALIGNMENT_MATRIX.csv"
 $stopPath = Join-Path $Root "matrices\STOP_CONDITION_GLOSSARY.csv"
-$mandatorySkill = "tcu-descubridor-capacidades"
-$mandatorySkillPath = Join-Path $RepoRoot ".agents\skills\tcu-descubridor-capacidades\SKILL.md"
+$discoverySkill = "tcu-descubridor-capacidades"
+$discoverySkillPath = Join-Path $RepoRoot ".agents\skills\tcu-descubridor-capacidades\SKILL.md"
 
 $errors = New-Object System.Collections.Generic.List[string]
 $warnings = New-Object System.Collections.Generic.List[string]
@@ -158,6 +158,28 @@ Require-Columns -Path $repoRuntimePath -Columns @("repo_id","repository_full_nam
 
 $agentsPayload = Get-Content -Raw -LiteralPath $agentsPath | ConvertFrom-Json
 $agents = @($agentsPayload.agents)
+if ($agentsPayload.default_policy.conditional_capability_discovery_skill -ne $discoverySkill -or
+    $agentsPayload.default_policy.capability_discovery_trigger -ne "missing_or_invalidated_capability_assignment") {
+  $errors.Add("Capability discovery must be conditional on a missing or invalidated assignment")
+}
+if ($agentsPayload.default_policy.PSObject.Properties.Name -contains "mandatory_capability_discovery_skill") {
+  $errors.Add("Universal capability discovery policy must not be reintroduced")
+}
+if ($agentsPayload.default_policy.continuity_policy -ne "CONTINUITY_FIRST") {
+  $errors.Add("Agent policy must preserve CONTINUITY_FIRST")
+}
+$continuityOrder = @($agentsPayload.default_policy.continuity_resolution_order)
+foreach ($required in @("exact_object","current_authority","existing_receipt_or_workpacket_or_correlation","current_binding","next_consumer","postcheck","return")) {
+  if ($required -notin $continuityOrder) {
+    $errors.Add("Continuity policy missing resolution step: $required")
+  }
+}
+if ($agentsPayload.default_policy.rediscovery_policy -ne "only_when_continuation_or_capability_pointer_is_missing_invalidated_or_materially_contradicted") {
+  $errors.Add("Rediscovery must remain a repair path after continuity resolution")
+}
+if ($agentsPayload.default_policy.duplicate_dispatch_policy -ne "forbid_when_existing_task_or_correlation_has_unconsumed_next_consumer") {
+  $errors.Add("Duplicate dispatch guard is missing")
+}
 $agentIds = @($agents | ForEach-Object { $_.id })
 $skillIds = @((Read-CsvRequired -Path $skillUsagePath) | ForEach-Object { $_.skill_id })
 $recipeRows = Read-CsvRequired -Path $recipeIndexPath
@@ -174,11 +196,11 @@ $toolIdSet = New-StringSet -Values $toolIds
 $pluginIdSet = New-StringSet -Values $pluginIds
 $knownStopSet = New-StringSet -Values @((Read-CsvRequired -Path $stopPath) | ForEach-Object { $_.stop_condition })
 
-if (-not $skillIdSet.Contains($mandatorySkill)) {
-  $errors.Add("Mandatory capability discovery skill missing from SKILL_USAGE_MATRIX: $mandatorySkill")
+if (-not $skillIdSet.Contains($discoverySkill)) {
+  $errors.Add("Conditional capability discovery skill missing from SKILL_USAGE_MATRIX: $discoverySkill")
 }
-if (-not (Test-Path -LiteralPath $mandatorySkillPath)) {
-  $errors.Add("Mandatory repo-local skill file missing: $mandatorySkillPath")
+if (-not (Test-Path -LiteralPath $discoverySkillPath)) {
+  $errors.Add("Conditional repo-local skill file missing: $discoverySkillPath")
 }
 
 $rows = Read-CsvRequired -Path $matrixPath
@@ -198,6 +220,32 @@ $expectedStages = @(
 foreach ($expected in $expectedStages) {
   if (-not $stageIdSet.Contains($expected)) {
     $errors.Add("Missing capability-use hardening row: $expected")
+  }
+}
+
+$expectedApplicability = @{
+  "capability_use.session_intake" = "new_order_with_unresolved_capability_assignment"
+  "capability_use.before_local_read" = "local_read_with_unresolved_target_or_capability"
+  "capability_use.before_local_write" = "local_write_with_unresolved_scope_or_capability"
+  "capability_use.skill_discovery_assignment" = "missing_or_invalidated_capability_assignment"
+  "capability_use.every_closeout" = "formal_closeout_required_by_assigned_operation_protocol"
+}
+foreach ($stageId in $expectedApplicability.Keys) {
+  $row = @($rows | Where-Object { $_.stage_id -eq $stageId }) | Select-Object -First 1
+  if ($row -and $row.applies_to -ne $expectedApplicability[$stageId]) {
+    $errors.Add("Capability-use row '$stageId' reintroduces global applicability: $($row.applies_to)")
+  }
+}
+$legacyGlobalApplicability = @(
+  "every_user_order_or_thread_resume",
+  "local_file_repo_or_matrix_read",
+  "local_repo_or_governance_file_write",
+  "every_task_before_agent_or_repo_selection",
+  "final_response_readback_pr_or_issue_closeout"
+)
+foreach ($row in $rows) {
+  if ($row.applies_to -in $legacyGlobalApplicability) {
+    $errors.Add("Capability-use row '$($row.stage_id)' uses retired global applies_to: $($row.applies_to)")
   }
 }
 
@@ -237,9 +285,6 @@ foreach ($agent in $agents) {
   }
   $agentDefaultSkillSet = New-StringSet -Values @($agent.default_skills)
   Check-Refs -Value (@($agent.default_skills) -join "|") -Known $skillIdSet -Errors $errors -Context "agents.json $($agent.id) default_skills"
-  if (-not $agentDefaultSkillSet.Contains($mandatorySkill)) {
-    $errors.Add("agents.json $($agent.id) missing mandatory default skill: $mandatorySkill")
-  }
   Check-Refs -Value (@($agent.default_recipes) -join "|") -Known $recipeIdSet -Errors $errors -Context "agents.json $($agent.id) default_recipes"
   Check-Refs -Value (@($agent.default_tools) -join "|") -Known $toolIdSet -Errors $errors -Context "agents.json $($agent.id) default_tools"
   Check-Refs -Value (@($agent.default_plugins) -join "|") -Known $pluginIdSet -Errors $errors -Context "agents.json $($agent.id) default_plugins"
@@ -250,9 +295,6 @@ foreach ($row in (Read-CsvRequired -Path $defaultSkillPath)) {
     $errors.Add("Default assignment references unknown agent: $($row.agent_id)")
   }
   $defaultSkillRefSet = New-StringSet -Values (Split-Tokens -Value $row.default_skill_refs)
-  if (-not $defaultSkillRefSet.Contains($mandatorySkill)) {
-    $errors.Add("Default assignment '$($row.agent_id)' missing mandatory skill: $mandatorySkill")
-  }
   Check-Refs -Value $row.default_skill_refs -Known $skillIdSet -Errors $errors -Context "Default assignment '$($row.agent_id)' skills"
   Check-Refs -Value $row.default_recipe_refs -Known $recipeIdSet -Errors $errors -Context "Default assignment '$($row.agent_id)' recipes"
   Check-Refs -Value $row.default_tool_refs -Known $toolIdSet -Errors $errors -Context "Default assignment '$($row.agent_id)' tools"
@@ -272,9 +314,6 @@ foreach ($row in (Read-CsvRequired -Path $agentContractPath)) {
   }
   Check-Refs -Value $row.skill_refs -Known $skillIdSet -Errors $errors -Context "Agent execution contract '$($row.agent_id)' skills"
   $contractSkillRefSet = New-StringSet -Values (Split-Tokens -Value $row.skill_refs)
-  if (-not $contractSkillRefSet.Contains($mandatorySkill)) {
-    $errors.Add("Agent execution contract '$($row.agent_id)' missing mandatory skill: $mandatorySkill")
-  }
   Check-Refs -Value $row.recipe_refs -Known $recipeIdSet -Errors $errors -Context "Agent execution contract '$($row.agent_id)' recipes"
   Check-Refs -Value $row.tool_refs -Known $toolIdSet -Errors $errors -Context "Agent execution contract '$($row.agent_id)' tools"
   Check-Refs -Value $row.plugin_refs -Known $pluginIdSet -Errors $errors -Context "Agent execution contract '$($row.agent_id)' plugins"
@@ -289,9 +328,6 @@ foreach ($row in $repoRuntimeRows) {
     }
   }
   $repoDefaultSkillSet = New-StringSet -Values (Split-Tokens -Value $row.default_skill_refs)
-  if (-not $repoDefaultSkillSet.Contains($mandatorySkill)) {
-    $errors.Add("Repo runtime alignment '$($row.repo_id)' missing mandatory skill: $mandatorySkill")
-  }
   Check-Refs -Value $row.default_skill_refs -Known $skillIdSet -Errors $errors -Context "Repo runtime alignment '$($row.repo_id)' skills"
   Check-Refs -Value $row.default_recipe_refs -Known $recipeIdSet -Errors $errors -Context "Repo runtime alignment '$($row.repo_id)' recipes"
   Check-Refs -Value $row.default_tool_refs -Known $toolIdSet -Errors $errors -Context "Repo runtime alignment '$($row.repo_id)' tools"
@@ -354,7 +390,7 @@ $status = if ($errors.Count -eq 0) { "PASS" } else { "FAIL" }
   tools = $toolIds.Count
   plugins = $pluginIds.Count
   repo_runtime_rows = $repoRuntimeRows.Count
-  mandatory_skill = $mandatorySkill
+  conditional_skill = $discoverySkill
   warning_count = $warnings.Count
   warnings = $warnings
   error_count = $errors.Count
