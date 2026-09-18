@@ -1,5 +1,11 @@
 # Watch snapshot and SDU triage contrast — 2026-09-16
 
+> Classification: `HISTORICAL_EVIDENCE_ONLY`.
+> This document preserves observations, changes, paths, hashes and pending items as of 2026-09-16.
+> It is not current authority, a live binding, or proof of present runtime health.
+> Absolute local paths are provenance only; current execution must consume the active repo/object contract and exact binding.
+
+
 Read-only comparison against C:/CEO/snapshots/20260808-062828-watch-present-atemporal-reconciled.
 
 ## Observed
