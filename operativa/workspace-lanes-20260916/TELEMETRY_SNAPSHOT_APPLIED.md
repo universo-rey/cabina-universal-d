@@ -1,5 +1,11 @@
 # Telemetry snapshot correction applied
 
+> Classification: `HISTORICAL_EVIDENCE_ONLY`.
+> This document preserves observations, changes, paths, hashes and pending items as of 2026-09-16.
+> It is not current authority, a live binding, or proof of present runtime health.
+> Absolute local paths are provenance only; current execution must consume the active repo/object contract and exact binding.
+
+
 Target: C:/CEO/watchdog/runtime/sdu-telemetry-consumer.ps1
 
 SHA256: 7315E6DF918075FF2233D086F2497D75766267501E740DEA781656E756BEAB3D
