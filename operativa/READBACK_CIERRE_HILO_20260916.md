@@ -1,5 +1,11 @@
 # Cierre gobernado del hilo — 2026-09-16
 
+> Classification: `HISTORICAL_EVIDENCE_ONLY`.
+> This document preserves observations, changes, paths, hashes and pending items as of 2026-09-16.
+> It is not current authority, a live binding, or proof of present runtime health.
+> Absolute local paths are provenance only; current execution must consume the active repo/object contract and exact binding.
+
+
 ## Estado
 
 Continuacion posterior: [recuperacion adicional y paquetes de promocion](READBACK_LANES_RECOVERY_PROMOTION_20260916.md). Conserva los cierres parciales Canvas/TCU y las dependencias Git detectadas sin reabrir ajustes completados.
