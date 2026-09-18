@@ -1,5 +1,11 @@
 # NOC intelligence reconciliation applied — 2026-09-16
 
+> Classification: `HISTORICAL_EVIDENCE_ONLY`.
+> This document preserves observations, changes, paths, hashes and pending items as of 2026-09-16.
+> It is not current authority, a live binding, or proof of present runtime health.
+> Absolute local paths are provenance only; current execution must consume the active repo/object contract and exact binding.
+
+
 ## Resultado
 Installed and published through the existing NOC producer. Direct readback PASS: operacion-en-vivo.json, noc-state.operation_live and noc-state.noc.operacion_en_vivo agree. Embedded intelligence generated_at=2026-09-16T07:39:25.061631Z matches the source at verification; CRITICAL=0, WARNING=0, INFO=13. The exact obsolete SNS warning is absent. This is not a claim that all ecosystem issues are resolved.
 
