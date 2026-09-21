@@ -202,8 +202,12 @@ if ($errors.Count -eq 0) {
   $teamsPlugin = @($pluginRows | Where-Object { $_.plugin_id -eq "Teams" })
   if ($teamsPlugin.Count -eq 0) {
     $errors.Add("PLUGIN_USAGE_MATRIX missing Teams plugin")
-  } elseif ($teamsPlugin[0].live_boundary -notmatch "governed_order") {
-    $errors.Add("Teams plugin live boundary does not require governed order")
+  } elseif ($teamsPlugin[0].live_boundary -match "read_requires_governed_order|governed_order.*read") {
+    $errors.Add("Teams plugin reintroduces order-first READ")
+  } elseif ($teamsPlugin[0].live_boundary -notmatch "read_direct") {
+    $errors.Add("Teams plugin must preserve direct READ semantics")
+  } elseif ($teamsPlugin[0].live_boundary -notmatch "low_write_default|high_positive_trigger") {
+    $errors.Add("Teams plugin must preserve proportional write classification")
   }
 
   $pluginBoundaryRows = Read-CsvSafe -Path $pluginBoundaryPath
