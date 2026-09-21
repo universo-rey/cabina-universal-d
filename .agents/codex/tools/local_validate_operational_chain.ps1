@@ -202,7 +202,7 @@ if (-not $crossUniverseHandoff) {
   if ($crossUniverseHandoff.target_agent -ne "rey.control_plane_orchestrator") {
     $errors.Add("cross_universe_detected must route through rey.control_plane_orchestrator")
   }
-  $crossUniversePayload = New-StringSet -Values @($crossUniverseHandoff.required_payload -split "\\|" | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+  $crossUniversePayload = New-StringSet -Values @($crossUniverseHandoff.required_payload -split "\|" | ForEach-Object { $_.Trim() } | Where-Object { $_ })
   foreach ($requiredField in @("source_universe","target_universe","reason")) {
     if (-not $crossUniversePayload.Contains($requiredField)) {
       $errors.Add("cross_universe_detected missing required payload field: $requiredField")
