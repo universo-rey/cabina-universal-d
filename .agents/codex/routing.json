@@ -324,7 +324,7 @@
       ],
       "agents": [
         "rey.frontier_guardian",
-        "universe.escribania_tower",
+        "rey.control_plane_orchestrator",
         "court.seshat_evidence"
       ]
     },
