@@ -97,6 +97,7 @@ function Check-StopCondition {
 $matrixPath = Join-Path $Root "matrices\OPERATIONAL_CHAIN_GOVERNANCE_MATRIX.csv"
 $agentsPath = Join-Path $Root "agents.json"
 $routingPath = Join-Path $Root "routing.json"
+$handoffsPath = Join-Path $Root "agents\\02_REGISTRO_Y_CARTOGRAFIA\\HANDOFFS.csv"
 $skillUsagePath = Join-Path $Root "skills\SKILL_USAGE_MATRIX.csv"
 $recipeIndexPath = Join-Path $Root "recipes\RECIPE_INDEX.csv"
 $toolIndexPath = Join-Path $Root "tools\TOOL_INDEX.csv"
@@ -111,6 +112,7 @@ $errors = New-Object System.Collections.Generic.List[string]
 $warnings = New-Object System.Collections.Generic.List[string]
 
 Require-Columns -Path $matrixPath -Columns @("chain_id","applies_to","owner_agent","reviewer_agent","required_agent_source","required_skill_source","required_recipe_source","required_tool_source","required_validator_source","required_evidence_source","required_stop_condition_source","blocked_without_chain","status","validator","stop_condition") -Errors $errors
+Require-Columns -Path $handoffsPath -Columns @("condition","target_level","target_agent","required_payload") -Errors $errors
 
 $agentsPayload = Get-Content -Raw -LiteralPath $agentsPath | ConvertFrom-Json
 $agents = @($agentsPayload.agents)
@@ -124,7 +126,8 @@ foreach ($requiredPointer in @("CURRENT_WORKPAPER","EXECUTION_RECEIPT","CONTINUA
   }
 }
 $agentIds = @($agents | ForEach-Object { $_.id })
-$routingAgents = @((Get-Content -Raw -LiteralPath $routingPath | ConvertFrom-Json).routes.agents | ForEach-Object { $_ } | Select-Object -Unique)
+$routingPayload = Get-Content -Raw -LiteralPath $routingPath | ConvertFrom-Json
+$routingAgents = @($routingPayload.routes.agents | ForEach-Object { $_ } | Select-Object -Unique)
 $skillIds = @((Read-CsvRequired -Path $skillUsagePath) | ForEach-Object { $_.skill_id })
 $recipeIds = @((Read-CsvRequired -Path $recipeIndexPath) | ForEach-Object { $_.recipe_id })
 $toolIds = @((Read-CsvRequired -Path $toolIndexPath) | ForEach-Object { $_.tool_id })
@@ -185,6 +188,40 @@ foreach ($row in $rows) {
 foreach ($routeAgent in $routingAgents) {
   if (-not $agentIdSet.Contains($routeAgent)) {
     $errors.Add("routing.json references unknown agent: $routeAgent")
+  }
+}
+
+$handoffRows = Read-CsvRequired -Path $handoffsPath
+$crossUniverseHandoff = @($handoffRows | Where-Object { $_.condition -eq "cross_universe_detected" }) | Select-Object -First 1
+if (-not $crossUniverseHandoff) {
+  $errors.Add("HANDOFFS.csv missing cross_universe_detected")
+} else {
+  if ($crossUniverseHandoff.target_level -ne "00_ROUTER") {
+    $errors.Add("cross_universe_detected must return to 00_ROUTER before selecting a universe tower")
+  }
+  if ($crossUniverseHandoff.target_agent -ne "rey.control_plane_orchestrator") {
+    $errors.Add("cross_universe_detected must route through rey.control_plane_orchestrator")
+  }
+  $crossUniversePayload = New-StringSet -Values @($crossUniverseHandoff.required_payload -split "\\|" | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+  foreach ($requiredField in @("source_universe","target_universe","reason")) {
+    if (-not $crossUniversePayload.Contains($requiredField)) {
+      $errors.Add("cross_universe_detected missing required payload field: $requiredField")
+    }
+  }
+}
+
+$liveReadRoute = @($routingPayload.routes | Where-Object { $_.order_class -eq "execute_live_read_now" }) | Select-Object -First 1
+if (-not $liveReadRoute) {
+  $errors.Add("routing.json missing execute_live_read_now route")
+} else {
+  $liveReadAgents = New-StringSet -Values @($liveReadRoute.agents)
+  if (-not $liveReadAgents.Contains("rey.control_plane_orchestrator")) {
+    $errors.Add("execute_live_read_now must include rey.control_plane_orchestrator for metadata-routed universe selection")
+  }
+  foreach ($pinnedTower in @("universe.escribania_tower","universe.modo_on_tower")) {
+    if ($liveReadAgents.Contains($pinnedTower)) {
+      $errors.Add("execute_live_read_now must not pin a generic live-read lane to universe tower: $pinnedTower")
+    }
   }
 }
 
